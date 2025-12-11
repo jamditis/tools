@@ -68,9 +68,12 @@
             
             <!-- Guides Section -->
             <section>
-                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
-                    <h3 class="font-display text-2xl text-ice">01 // GUIDES</h3>
-                    <span class="text-xs text-gray-600 font-mono">PRIMARY_MODULES</span>
+                <div class="border-b border-white/10 pb-4 mb-8">
+                    <div class="flex items-end justify-between">
+                        <h3 class="font-display text-2xl text-ice">01 // GUIDES</h3>
+                        <span class="text-xs text-gray-600 font-mono">PRIMARY_MODULES</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Interactive tutorials and reference materials for working with AI coding assistants. Start with the Vibe Coding Guide to understand the mindset, then use the LLM Advisor to pick the right tool.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -190,9 +193,12 @@
             <section class="bg-panel border border-white/10 p-8 md:p-12 relative overflow-hidden">
                 <div class="absolute -right-10 -top-10 text-[150px] font-display font-bold text-white/5 select-none pointer-events-none">DL</div>
 
-                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8 relative z-10">
-                    <h3 class="font-display text-2xl text-acid">02 // ASSETS</h3>
-                    <span class="text-xs text-gray-600 font-mono">TEMPLATES & CHECKLISTS</span>
+                <div class="border-b border-white/10 pb-4 mb-8 relative z-10">
+                    <div class="flex items-end justify-between">
+                        <h3 class="font-display text-2xl text-acid">02 // ASSETS</h3>
+                        <span class="text-xs text-gray-600 font-mono">TEMPLATES & CHECKLISTS</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Downloadable markdown files to copy into your projects. Use checklists during coding sessions, changelogs to track progress, and LESSONS templates for retrospectives.</p>
                 </div>
 
                 <div class="space-y-4 relative z-10">
@@ -700,15 +706,16 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
                 <!-- Specialized LESSONS Templates Subsection -->
                 <div class="mt-8 border-t border-white/10 pt-8">
-                    <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center justify-between mb-4">
                         <div>
-                            <h4 class="font-display text-lg text-chrome">SPECIALIZED LESSONS TEMPLATES</h4>
-                            <p class="text-xs text-gray-500 mt-1 font-mono">Domain-specific templates for different project types</p>
+                            <h4 class="font-display text-lg text-chrome">LESSONS TEMPLATES</h4>
+                            <p class="text-xs text-gray-500 mt-1 font-mono">Project retrospective documents</p>
                         </div>
                         <button onclick="toggleAllSpecialized()" class="text-xs font-mono text-gray-500 hover:text-acid transition-colors px-3 py-1 border border-white/10 hover:border-acid">
                             EXPAND_ALL
                         </button>
                     </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-3xl">Fill these in when you finish, abandon, or pause a project. They capture what worked, what didn't, and "the real problem" — insights that help future you (or your team) avoid repeating mistakes. <strong class="text-gray-400">Deploy:</strong> Copy to your project root as <code class="text-chrome bg-surface px-1">LESSONS.md</code></p>
 
                     <!-- Software Development Category -->
                     <div class="mb-6">
@@ -2124,6 +2131,343 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                     </div>
                 </div>
 
+                <!-- CLAUDE-RULES Templates Subsection -->
+                <div class="mt-8 border-t border-white/10 pt-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h4 class="font-display text-lg text-signal">CLAUDE-RULES TEMPLATES</h4>
+                            <p class="text-xs text-gray-500 mt-1 font-mono">Project memory files for Claude Code — <a href="https://code.claude.com/docs/en/memory" class="text-signal hover:text-white transition-colors underline">official docs</a></p>
+                        </div>
+                        <button onclick="toggleAllClaudeRules()" class="text-xs font-mono text-gray-500 hover:text-signal transition-colors px-3 py-1 border border-white/10 hover:border-signal">
+                            EXPAND_ALL
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-3xl">These give Claude Code persistent context about your project. Claude reads them at the start of every conversation, so it understands your codebase, conventions, and preferences without you re-explaining. <strong class="text-gray-400">Deploy:</strong> Copy to your project root as <code class="text-signal bg-surface px-1">CLAUDE.md</code> at the <em>start</em> of a project.</p>
+
+                    <!-- Software Development Category -->
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="code-2" class="w-4 h-4 text-ice"></i>
+                            <span class="text-xs font-mono text-ice tracking-wider">SOFTWARE_DEVELOPMENT</span>
+                        </div>
+                        <div class="space-y-2 pl-6 border-l border-ice/20">
+
+                            <!-- General -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-general')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-general.md</span>
+                                        <span class="text-xs text-gray-600">General projects</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-general.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('general')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-general"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-general">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for setting up Claude Code project memory</p>
+                                        <p>Includes: Project overview, common commands, code style, architecture notes, file structure, testing approach, things to avoid.</p>
+                                        <p class="mt-2 text-gray-600">Copy to your project root as CLAUDE.md</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Web App -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-webapp')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-web-app.md</span>
+                                        <span class="text-xs text-gray-600">React, Vue, Next.js</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-web-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('web-app')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-webapp"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-webapp">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for web applications</p>
+                                        <p>Includes: Component patterns, styling rules, state management, API integration, performance considerations, accessibility requirements.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Desktop App -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-desktop')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-desktop-app.md</span>
+                                        <span class="text-xs text-gray-600">Electron, Tauri</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-desktop-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('desktop-app')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-desktop"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-desktop">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for desktop applications</p>
+                                        <p>Includes: Main/renderer architecture, IPC patterns, platform-specific notes, data storage, security considerations, build and release.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Browser Extension -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-extension')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-browser-extension.md</span>
+                                        <span class="text-xs text-gray-600">Chrome, Firefox</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-browser-extension.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('browser-extension')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-extension"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-extension">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for browser extensions</p>
+                                        <p>Includes: Manifest permissions, background/content scripts, message passing, storage, store submission, security considerations.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Pipeline -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-pipeline')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-data-pipeline.md</span>
+                                        <span class="text-xs text-gray-600">ETL, scraping</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-data-pipeline.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('data-pipeline')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-pipeline"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-pipeline">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for data pipelines</p>
+                                        <p>Includes: Data flow, schema overview, error handling, rate limits, idempotency, monitoring, secrets management.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mobile App -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-mobile')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-mobile-app.md</span>
+                                        <span class="text-xs text-gray-600">React Native, Flutter</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-mobile-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('mobile-app')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-mobile"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-mobile">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-signal mb-2">Template for mobile applications</p>
+                                        <p>Includes: Platform-specific code, navigation structure, build and release, environment configuration, deep linking, push notifications.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Journalism/Publishing Category -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="newspaper" class="w-4 h-4 text-acid"></i>
+                            <span class="text-xs font-mono text-acid tracking-wider">JOURNALISM_&_PUBLISHING</span>
+                        </div>
+                        <div class="space-y-2 pl-6 border-l border-acid/20">
+
+                            <!-- Digital Archive -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-archive')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-digital-archive.md</span>
+                                        <span class="text-xs text-gray-600">Preservation projects</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-digital-archive.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('digital-archive')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-archive"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-archive">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for digital archives</p>
+                                        <p>Includes: Data model, metadata schema, rights and permissions, preservation standards, AI enrichment, search and discovery.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event Website -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-event')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-event-website.md</span>
+                                        <span class="text-xs text-gray-600">Conferences, summits</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-event-website.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('event-website')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-event"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-event">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for event websites</p>
+                                        <p>Includes: Site structure, content management, design system, key dates, integrations, post-event updates.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content Pipeline -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-content')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-content-pipeline.md</span>
+                                        <span class="text-xs text-gray-600">Publishing workflows</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-content-pipeline.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('content-pipeline')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-content"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-content">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for content pipelines</p>
+                                        <p>Includes: Content flow, content schema, platform integrations, AI enrichment, quality gates, scheduling.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Editorial Tool -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-editorial')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-editorial-tool.md</span>
+                                        <span class="text-xs text-gray-600">Newsroom tools</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-editorial-tool.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('editorial-tool')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-editorial"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-editorial">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for editorial tools</p>
+                                        <p>Includes: Core functionality, data sources, AI/ML components, output format, accuracy and reliability, ethical considerations.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Research Project -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-research')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-research-project.md</span>
+                                        <span class="text-xs text-gray-600">Investigations, analysis</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-research-project.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('research-project')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-research"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-research">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for research projects</p>
+                                        <p>Includes: Research question, data sources, methodology, source log, key findings, ethical considerations, version control.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Publication -->
+                            <div class="template-card border border-white/10 bg-surface/50">
+                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-publication')">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-publication.md</span>
+                                        <span class="text-xs text-gray-600">Newsletters, blogs</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="../../CLAUDE-RULES-publication.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('publication')" title="Copy">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-publication"></i>
+                                    </div>
+                                </div>
+                                <div class="template-content hidden border-t border-white/10" id="content-claude-publication">
+                                    <div class="p-4 text-xs text-gray-400 font-mono">
+                                        <p class="text-acid mb-2">Template for publications</p>
+                                        <p>Includes: Content structure, editorial standards, workflow, SEO and distribution, subscriber management, analytics.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </section>
 
         </main>
@@ -2164,7 +2508,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
             }
         }
 
-        // Toggle all specialized templates
+        // Toggle all specialized LESSONS templates
         let allSpecializedExpanded = false;
         function toggleAllSpecialized() {
             const specializedIds = [
@@ -2193,6 +2537,65 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
             // Update button text
             event.target.textContent = allSpecializedExpanded ? 'COLLAPSE_ALL' : 'EXPAND_ALL';
+        }
+
+        // Toggle all CLAUDE-RULES templates
+        let allClaudeRulesExpanded = false;
+        function toggleAllClaudeRules() {
+            const claudeIds = [
+                'claude-general', 'claude-webapp', 'claude-desktop',
+                'claude-extension', 'claude-pipeline', 'claude-mobile',
+                'claude-archive', 'claude-event', 'claude-content',
+                'claude-editorial', 'claude-research', 'claude-publication'
+            ];
+
+            allClaudeRulesExpanded = !allClaudeRulesExpanded;
+
+            claudeIds.forEach(id => {
+                const content = document.getElementById('content-' + id);
+                const chevron = document.getElementById('chevron-' + id);
+
+                if (content && chevron) {
+                    if (allClaudeRulesExpanded) {
+                        content.classList.remove('hidden');
+                        chevron.style.transform = 'rotate(180deg)';
+                    } else {
+                        content.classList.add('hidden');
+                        chevron.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+
+            // Update button text
+            event.target.textContent = allClaudeRulesExpanded ? 'COLLAPSE_ALL' : 'EXPAND_ALL';
+        }
+
+        // Copy CLAUDE-RULES template (fetch from file)
+        async function copyClaudeTemplate(name) {
+            try {
+                const response = await fetch(`../../CLAUDE-RULES-${name}.md`);
+                const text = await response.text();
+
+                await navigator.clipboard.writeText(text);
+
+                // Show toast notification
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-6 right-6 bg-signal text-black px-4 py-2 font-mono text-sm z-50';
+                toast.textContent = 'COPIED TO CLIPBOARD';
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Fallback: show error toast
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-6 right-6 bg-signal text-black px-4 py-2 font-mono text-sm z-50';
+                toast.textContent = 'USE DOWNLOAD BUTTON';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+            }
         }
 
         // Copy template to clipboard
