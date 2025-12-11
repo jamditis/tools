@@ -14,9 +14,9 @@ A resource kit for journalists learning to build tools with AI assistance. Creat
 |----------|-------------|
 | [Vibe coding guide](https://jamditis.github.io/tools/llm-advisor/vibe-coding.html) | Practical intro to building software with AI. Learn to manage projects, not memorize syntax. |
 | [LLM advisor tool](https://jamditis.github.io/tools/llm-advisor/) | Interactive decision tree for choosing the right AI model for your project. |
-| [Quick reference card](https://jamditis.github.io/tools/html/quick-reference-card.html) | Printable one-page cheat sheet with essential info and common pitfalls. |
-| [Language guide](https://jamditis.github.io/tools/html/language-guide.html) | When to use Python vs JavaScript vs R for common journalism tasks. |
-| [Technical glossary](https://jamditis.github.io/tools/html/glossary.html) | Plain-language definitions of 40+ technical terms. |
+| [Quick reference card](https://jamditis.github.io/tools/docs/quick-reference-card.html) | Printable one-page cheat sheet with essential info and common pitfalls. |
+| [Language guide](https://jamditis.github.io/tools/docs/language-guide.html) | When to use Python vs JavaScript vs R for common journalism tasks. |
+| [Technical glossary](https://jamditis.github.io/tools/docs/glossary.html) | Plain-language definitions of 40+ technical terms. |
 
 ### Downloadable templates
 
@@ -68,7 +68,7 @@ Journalism & publishing:
 
 ```
 resource-kit/
-├── html/               # Main pages (index, about, glossary, etc.)
+├── docs/               # Main pages (index, about, glossary, etc.)
 ├── llm-advisor/        # Interactive LLM selection tool
 ├── downloads/          # Markdown templates for download
 ├── assets/             # CSS and config files
