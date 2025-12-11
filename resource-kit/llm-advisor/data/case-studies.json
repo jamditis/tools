@@ -1,0 +1,120 @@
+[
+  {
+    "title": "Improving infographic accessibility with AI alt text",
+    "tool": "Gemini 3.0 Pro",
+    "journalist": "Clare Spencer, Generative AI in the Newsroom",
+    "challenge": "The Austrian Press Agency (APA) needed to provide descriptive alt text for thousands of infographics to comply with new EU accessibility laws, but doing so manually was too time-consuming and expensive.",
+    "solution": "The team used Gemini 3.0 Pro's vision capabilities to build a tool that automatically generates alt text. The prompt instructs the AI to describe the infographic's theme, highlight the most important data points, and cite the source, turning a confusing jumble of numbers into a clear narrative.",
+    "quote": "\"We realised quite early in the project that accessibility improvements benefit not only people with special needs but basically everyone... whenever the alt text generator was not able to explain correctly what happens in the infographics, it was mostly not the problem of the alt text generator but the problem of the infographic.\"",
+    "tips": "AI can be a powerful tool for accessibility. By automating tedious but crucial tasks like writing alt text, newsrooms can make their content accessible to a wider audience without overburdening their staff.",
+    "sourceUrl": "https://generative-ai-newsroom.com/improving-the-accessibility-of-infographics-with-ai-generated-alt-text-f56aa3aef661"
+  },
+  {
+    "title": "Administrative boon, editorial question: Generative AI’s role in small newsrooms",
+    "tool": "Custom AI",
+    "journalist": "Stuart Duncan, Generative AI in the Newsroom",
+    "challenge": "Audience-facing AI and LLM use cases aren't guaranteed to be accurate, useful, or trusted, and the effort required to address those concerns and maintain the tools themselves if often too much for small newsrooms.",
+    "solution": "Focus on internal, back-office support, and operations use cases for LLMs and AI tools, such as transcription, translation, copyediting, and SEO-friendly headline brainstorming.",
+    "quote": "My interviews revealed that small news organizations are most often using generative AI as an administrative support tool, rather than a journalism creation tool.",
+    "tips": "AI tool development efforts may be more impactful if they focus on enhancing back-end administrative workflows rather than content generation.",
+    "sourceUrl": "https://generative-ai-newsroom.com/administrative-boon-editorial-question-generative-ais-role-in-small-newsrooms-62e376764685"
+  },
+  {
+    "title": "How CT Mirror uses custom AI to cover 169 towns",
+    "tool": "ChatGPT o3",
+    "journalist": "Angela Eichhorst & Stephen Busemeyer, The CT Mirror",
+    "challenge": "With a small team, The CT Mirror couldn't effectively cover all 169 towns in Connecticut, leaving important local stories and legislative developments unreported.",
+    "solution": "The newsroom developed a 'little army' of four internal AI tools using ChatGPT o3, each trained on specific Connecticut government datasets, to automate the tedious work of parsing documents, tracking legislation, and analyzing voting records to generate story leads for reporters.",
+    "quote": "We just wanted to do better journalism. If an AI tool can help readers better understand important topics, the Mirror will explore it. If it's just something sparkly and even puts the readers at risk of having bad information, no, we won't go there.",
+    "tips": "Don't replace reporters, augment them. Build or train specialized AI tools on your specific coverage area's datasets (like local laws or government reports) to help your newsroom 'punch way above its weight' and uncover unique stories.",
+    "sourceUrl": "https://www.poynter.org/tech-tools/artificial-intelligence/2025/ai-local-journalism-ct-mirror-coverage/"
+  },
+  {
+    "title": "Generative AI can customize your home page",
+    "tool": "Custom AI",
+    "journalist": "Janis Kitzhofer, Senior Manager, Editorial Insights & Development at Axel Springer",
+    "challenge": "The newsroom has very high direct traffic, with 80 percent of referrers being direct. Publishing 400 articles daily with only 75 promoted on the home page, producers need to consider multiple variables including desk origin, content format, visual elements, paywall status, article length, and sentiment to maximize clicks.",
+    "solution": "The team created bots to monitor and analyze performance metrics across all published content and benchmark it continuously. Once the data is gathered, the bot identifies patterns and predicts which articles have high engagement potential and broad relevance, then shares real-time alerts to team channels via Slack with actionable links to dashboards and CMS.",
+    "outcome": "More engagement, value, and monetization while freeing editors from constant data monitoring. The system enables data-driven decisions instead of relying on gut feelings, while empowering the team rather than completely automating the process.",
+    "quote": "As a result, we have more engagement, more value, and are driving monetization while freeing the editors from having to watch the data closely themselves, so it adds efficiency. It allows us to make data-driven decisions instead of relying on gut feelings. At the same time, we're empowering our team to do this work instead of completely automating it.",
+    "tips": "Implement AI bots for monitoring and analysis rather than direct content decisions. Focus on using AI to identify patterns and potential rather than making final placement choices. Keep human editors in control while automating the data monitoring aspects.",
+    "sourceUrl": "https://drive.google.com/file/d/1C6IEY_NhaJCJGZUXmEim-I5j3F5OCu7x/view?usp=sharing"
+  },
+  {
+    "title": "How the Jersey Bee Uses AI for Local News Newsletters",
+    "tool": "ChatGPT",
+    "journalist": "Simon Galperin, The Jersey Bee",
+    "challenge": "Producing daily curated newsletters for 12 different communities with only a small team of part-time staff members.",
+    "solution": "Implemented a comprehensive workflow combining Airtable, Zapier, ChatGPT Assistants via the OpenAI API, WordPress, and Mailchimp to curate thousands of news items annually across multiple platforms.",
+    "outcome": "Successfully scaled operations to serve 12 communities with consistent, high-quality local news content distributed across email newsletters, website updates, and social media.",
+    "quote": "AI tools are most effective when integrated into existing, well-defined processes. Automation works best for repetitive tasks, freeing up human resources for higher-level editorial work.",
+    "tips": "Maintain a balance of AI assistance and human oversight. Carefully integrate technologies into existing workflows to create a scalable model for producing localized news content.",
+    "sourceUrl": "https://youtu.be/b6xZiMTphD0"
+  },
+  {
+    "title": "How The Economist Uses LLMs with Structured Data",
+    "tool": "ChatGPT",
+    "journalist": "James Fransham, Data Journalist at The Economist",
+    "challenge": "Extract and structure 15 years of financial disclosures from Britain's parliamentary website, focusing specifically on MPs' second jobs.",
+    "solution": "Using R, an open-source programming language, scraped financial disclosures and used OpenAI's API to convert unstructured text into structured tabular data.",
+    "outcome": "Successfully extracted specific employment data from complex documents, ignoring irrelevant information like donations, shareholdings, and foreign travel.",
+    "quote": "You are an expert at structured data extraction. You will be given unstructured text about British parliamentarians who have been paid money to write newspaper articles, appear on television or carry out other similar media work.",
+    "tips": "Use specific system prompts that clearly define the extraction parameters. Specify exactly what information to include and exclude, along with the desired output format.",
+    "sourceUrl": "https://view.e.economist.com/?qs=c7cea31b919860dd7a83890cc0d05bdb7f340d78be7fe166b642101a21b1abb20168e94c2d9682b1ea27d42ccb020993b0a33b9b0f1ddc17cd860b3407d33ea8b7d8bfb21b21ed8d5d09c0f6a05e798f"
+  },
+  {
+    "title": "How the Baltimore Times Uses AI",
+    "tool": "ChatGPT",
+    "journalist": "Paris Brown, Associate Editor of the Baltimore Times",
+    "challenge": "As a small local publication with limited resources, the Baltimore Times needed to enhance operations and better serve its audience.",
+    "solution": "Integrated AI into five key areas: editorial assistance, image generation, audience engagement experiences, audience development, and diversity and inclusion.",
+    "outcome": "Created more interactive and immersive audience experiences, including audio versions of stories and personalized AR experiences for readers.",
+    "quote": "AI is the assistant I prayed for. We train it on The Baltimore Times' mission and values to ensure alignment.",
+    "tips": "Use AI as a starting point and always with human oversight. It's a tool to augment human capabilities, not replace them.",
+    "sourceUrl": "https://localmedia.org/2024/02/how-the-baltimore-times-uses-ai-to-serve-audiences-better/"
+  },
+  {
+    "title": "How The Marshall Project Uses ChatGPT",
+    "tool": "ChatGPT",
+    "journalist": "The Marshall Project team",
+    "challenge": "Managing the tedious and under-resourced work of writing policy summaries while maintaining editorial integrity.",
+    "solution": "Used ChatGPT to simplify complex bureaucratic text into accessible summaries, perform textual analysis to identify themes, and classify content using data dictionaries.",
+    "outcome": "Allowed journalists to focus more time on fact-checking, editing, and deeper reporting while making complex information more accessible to the public.",
+    "quote": "The best and most obvious use cases for AI tools are the ones where the bots are helping with the boring and tedious stuff so the journalists can spend more time actually serving their communities.",
+    "tips": "A human-in-the-loop approach encourages accurate, reliable outputs. Involve historically marginalized groups in the design process to ensure tools are responsive to real needs.",
+    "sourceUrl": "https://generative-ai-newsroom.com/decoding-bureaucracy-5b0c1411171"
+  },
+  {
+    "title": "Science Dejargonizer for Reporters",
+    "tool": "RAG-enabled LLMs",
+    "journalist": "Sachita Mishal's team",
+    "challenge": "Reporters struggling to understand and explain complex, jargon-heavy documents, especially in scientific and technical fields.",
+    "solution": "Built a 'Science Dejargonizer' web app using LLMs with Retrieval Augmented Generation (RAG) to identify and define jargon terms within scientific abstracts.",
+    "outcome": "Created a tool that highlights scientific terms in papers, allowing users to hover over terms to view simpler definitions and search for specific jargon.",
+    "quote": "The retrieved snippets will actually be informative for creating a definition of the jargon term, and a human will verify the supplied definition if it elicits their interest.",
+    "tips": "Use RAG to provide context-specific definitions, and always include a human verification step for any AI-generated explanations of complex terms.",
+    "sourceUrl": "https://www.niemanlab.org/2024/07/making-sense-of-science-using-llms-to-help-reporters-understand-complex-research/"
+  },
+  {
+    "title": "How Colorado Newsrooms Use AI",
+    "tool": "ChatGPT and other AI tools",
+    "journalist": "Various Colorado newsrooms",
+    "challenge": "Finding appropriate ways to integrate AI tools while maintaining journalistic integrity and human oversight across diverse newsroom operations.",
+    "solution": "Different newsrooms adopted varied approaches: Denver Post for headlines and information distillation, Colorado Community Media for policy drafting, Colorado Public Radio for research, Colorado Newsline for administrative tasks, Axios Denver for reporting assistance, and Boulder Reporting Lab for various editorial tasks.",
+    "outcome": "Streamlined workflows while maintaining human oversight, with each newsroom finding specific applications that fit their editorial needs and ethical standards.",
+    "quote": "Our work is for humans by humans. Published journalism is produced entirely by the exertion of human synapses.",
+    "tips": "Establish clear policies about AI use with emphasis on human oversight and transparency. Start with administrative or background tasks rather than direct content creation.",
+    "sourceUrl": "https://coloradomedia.substack.com/p/how-some-colorado-newsrooms-are-using"
+  },
+  {
+    "title": "Personalizing newsletters with iterative prompting",
+    "tool": "ChatGPT and other AI tools",
+    "journalist": "Ashlyn Wang, Generative AI in the Newsroom",
+    "challenge": "Generating AI-powered newsletter headlines at scale that are accurate, on-brand, and relevant—while avoiding hallucinations, style inconsistencies, and off-topic outputs—requires managing large volumes of iterations and diverse user preferences with limited editorial resources.",
+    "solution": "Build a repeatable prompt-engineering pipeline that—1) breaks headline creation into discrete steps, 2) embeds clear style and formatting rules, 3) layers in self-validation checks and targeted “if-then” failsafes, and 4) routes outputs through lightweight human review. This hybrid system automates the grunt work while preserving final editorial control.",
+    "outcome": "Streamlined workflows while maintaining human oversight, with each newsroom finding specific applications that fit their editorial needs and ethical standards.",
+    "quote": "Maintaining human oversight not only over the outputs — the content generated — but also over the inputs — the cues that influence model responses — can help build a more reliable and systematic AI-assisted operation.",
+    "tips": "Language models can be highly sensitive to the phrasing of prompts, and even slight modifications may lead to inconsistent or unpredictable results.",
+    "sourceUrl": "https://generative-ai-newsroom.com/personalizing-newsletters-a-case-study-on-iterative-prompt-evaluation-and-improvement-a9f1141900fd"
+  }
+]

@@ -1,0 +1,228 @@
+{
+  "Claude 4.5 Opus": {
+    "strengths": [
+      "Best for coding and writing by far",
+      "Most 'human-like' and nuanced outputs",
+      "Does not train on user data by default",
+      "Unmatched code generation quality"
+    ],
+    "weaknesses": [
+      "Slower than 'chat' models",
+      "Cannot create images or video"
+    ],
+    "bestFor": [
+      "All coding tasks",
+      "Long-form writing",
+      "Developmental editing"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "Claude 4.5 Sonnet": {
+    "strengths": [
+      "Very fast and conversational",
+      "Best for expressive writing and brainstorming"
+    ],
+    "weaknesses": [
+      "Not as powerful or accurate as Opus",
+      "Cannot create images or video"
+    ],
+    "bestFor": [
+      "Quick brainstorming",
+      "Summarizing text",
+      "Creative writing"
+    ],
+    "pricing": "Free tier available; included in paid plan"
+  },
+  "Gemini 3.0 Pro": {
+    "strengths": [
+      "Excellent for serious work & data analysis",
+      "Industry-leading context window for large documents",
+      "Improved reasoning and directness over 2.5",
+      "Better multimodal synthesis",
+      "Can create video (Veo 3)"
+    ],
+    "weaknesses": [
+      "Slower than 'chat' models",
+      "May train on data unless opted out"
+    ],
+    "bestFor": [
+      "Investigative research",
+      "Analyzing large datasets",
+      "Summarizing document collections",
+      "Complex multimodal tasks"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "Gemini 3.0 Flash": {
+    "strengths": [
+      "Very fast 'chat' model",
+      "Improved directness and efficiency over 2.5",
+      "Excellent voice mode with multimodal input (camera)",
+      "Better at following structured prompts"
+    ],
+    "weaknesses": [
+      "Not as powerful as Pro",
+      "More likely to hallucinate than Pro"
+    ],
+    "bestFor": [
+      "Voice conversations",
+      "Quick questions",
+      "Using camera input",
+      "Structured prompt workflows"
+    ],
+    "pricing": "Free tier available; included in paid plan"
+  },
+  "Gemini 2.5 Pro (legacy)": {
+    "strengths": [
+      "Excellent for serious work & data analysis",
+      "Industry-leading context window for large documents",
+      "Can create video (Veo 3)"
+    ],
+    "weaknesses": [
+      "Slower than 'chat' models",
+      "May train on data unless opted out",
+      "Superseded by Gemini 3.0 Pro"
+    ],
+    "bestFor": [
+      "Investigative research",
+      "Analyzing large datasets",
+      "Summarizing document collections"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "Gemini 2.5 Flash (legacy)": {
+    "strengths": [
+      "Very fast 'chat' model",
+      "Excellent voice mode with multimodal input (camera)"
+    ],
+    "weaknesses": [
+      "Not as powerful as Pro",
+      "More likely to hallucinate than Pro",
+      "Superseded by Gemini 3.0 Flash"
+    ],
+    "bestFor": [
+      "Voice conversations",
+      "Quick questions",
+      "Using camera input"
+    ],
+    "pricing": "Free tier available; included in paid plan"
+  },
+  "GPT 5.1": {
+    "strengths": [
+      "Top-tier reasoning for complex problems",
+      "Highly steerable for specific tasks",
+      "Excellent for multi-step projects and deep research"
+    ],
+    "weaknesses": [
+      "Higher cost model",
+      "Can be overly thorough on simple tasks without careful prompting"
+    ],
+    "bestFor": [
+      "Advanced data analysis",
+      "Investigative deep research",
+      "Complex reasoning tasks"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "Codex (GPT 5.1)": {
+    "strengths": [
+      "Specialized for coding tasks",
+      "Excellent at multi-file projects",
+      "Strong debugging and refactoring"
+    ],
+    "weaknesses": [
+      "Less versatile for non-coding tasks",
+      "Requires OpenAI subscription"
+    ],
+    "bestFor": [
+      "All OpenAI coding tasks",
+      "Multi-file projects",
+      "Code debugging"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "Gemini (Nano Banana)": {
+    "strengths": [
+      "Fast and efficient image generation",
+      "Conversational editing and refinement",
+      "Excellent at rendering text in images"
+    ],
+    "weaknesses": [
+      "Newer model, style may be less consistent than established rivals",
+      "Requires descriptive prompts for best results"
+    ],
+    "bestFor": [
+      "Conceptual illustrations",
+      "Logos with text",
+      "Iterative image editing"
+    ],
+    "pricing": "Included with Gemini Advanced"
+  },
+  "Grok 3": {
+    "strengths": [
+      "Direct, real-time X/Twitter integration",
+      "Excellent for breaking news and social media trends"
+    ],
+    "weaknesses": [
+      "Less polished for general writing tasks",
+      "Less transparent about its operations"
+    ],
+    "bestFor": [
+      "Real-time news monitoring",
+      "Social media analysis",
+      "Finding sources during breaking news"
+    ],
+    "pricing": "Included with X Premium subscription"
+  },
+  "NotebookLM": {
+    "strengths": [
+      "Answers are grounded in your sources",
+      "Helps avoid hallucination",
+      "Excellent for analyzing multiple documents"
+    ],
+    "weaknesses": [
+      "Cannot access the live web",
+      "Limited to the documents you upload"
+    ],
+    "bestFor": [
+      "Document analysis",
+      "Source-based Q&A",
+      "Summarizing interviews"
+    ],
+    "pricing": "Free"
+  },
+  "Perplexity": {
+    "strengths": [
+      "Excellent real-time search integration",
+      "Good citation of sources",
+      "Clean interface focused on research"
+    ],
+    "weaknesses": [
+      "Less versatile for content creation",
+      "Fewer advanced features"
+    ],
+    "bestFor": [
+      "Fact-checking",
+      "Current events research",
+      "Finding sources"
+    ],
+    "pricing": "Free tier, with paid Pro plan"
+  },
+  "Open Source Models": {
+    "strengths": [
+      "Extremely fast and lightweight",
+      "Can run on local hardware for privacy",
+      "Fully open-source and free"
+    ],
+    "weaknesses": [
+      "Less powerful than larger models for deep analysis",
+      "Requires technical setup to run locally"
+    ],
+    "bestFor": [
+      "Quick code checks",
+      "Real-time applications",
+      "Privacy-focused workflows"
+    ],
+    "pricing": "Open-source (free)"
+  }
+}

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yap - Voice-to-CLI for Developers</title>
+  <meta name="description" content="Transform your voice into CLI commands. Yap is a desktop voice assistant that converts natural speech into precise terminal commands using AI.">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/LfkBIQb.png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/LfkBIQb.png">
+  <meta property="og:image" content="https://i.imgur.com/LfkBIQb.png">
+  <meta property="og:title" content="Yap - Voice-to-CLI for Developers">
+  <meta property="og:description" content="Transform your voice into CLI commands. The voice assistant built for developers who move fast.">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-void: #050505;
+      --bg-panel: #0a0a0a;
+      --bg-elevated: #111111;
+      --green-glow: #00ff41;
+      --green-dim: #00aa2a;
+      --green-bright: #33ff66;
+      --text-primary: #e0e0e0;
+      --text-muted: #666666;
+      --text-dim: #333333;
+      --accent-cyan: #00d4ff;
+      --accent-magenta: #ff00aa;
+      --grain-opacity: 0.03;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-void);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: var(--grain-opacity);
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      background: linear-gradient(to bottom, var(--bg-void) 0%, transparent 100%);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green-glow);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 20px var(--green-glow), 0 0 40px var(--green-dim);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 20px var(--green-glow), 0 0 40px var(--green-dim); }
+      50% { text-shadow: 0 0 30px var(--green-glow), 0 0 60px var(--green-dim), 0 0 80px var(--green-dim); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--green-glow);
+      text-shadow: 0 0 10px var(--green-dim);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 255, 65, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 60%, rgba(255, 0, 170, 0.03) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--bg-panel);
+      border: 1px solid var(--text-dim);
+      border-radius: 100px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+      animation: fade-slide-up 0.8s ease-out;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green-glow);
+      border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      animation: fade-slide-up 0.8s ease-out 0.1s backwards;
+    }
+
+    .hero h1 .highlight {
+      color: var(--green-glow);
+      text-shadow: 0 0 40px var(--green-dim);
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      animation: fade-slide-up 0.8s ease-out 0.2s backwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fade-slide-up 0.8s ease-out 0.3s backwards;
+    }
+
+    @keyframes fade-slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-subtext {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+      animation: fade-slide-up 0.8s ease-out 0.4s backwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--green-glow);
+      color: var(--bg-void);
+      box-shadow: 0 0 30px var(--green-dim), inset 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-bright);
+      box-shadow: 0 0 50px var(--green-glow), inset 0 0 20px rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--text-dim);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--green-glow);
+      color: var(--green-glow);
+      box-shadow: 0 0 20px var(--green-dim);
+    }
+
+    /* Terminal Demo */
+    .demo-section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .terminal {
+      background: var(--bg-panel);
+      border: 1px solid var(--text-dim);
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow:
+        0 0 0 1px rgba(0,255,65,0.1),
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 100px rgba(0,255,65,0.05);
+      animation: terminal-appear 1s ease-out;
+    }
+
+    @keyframes terminal-appear {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--text-dim);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27ca40; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .prompt {
+      color: var(--green-glow);
+    }
+
+    .command {
+      color: var(--text-primary);
+    }
+
+    .voice-input {
+      color: var(--accent-cyan);
+      font-style: italic;
+    }
+
+    .output {
+      color: var(--text-muted);
+      padding-left: 20px;
+      border-left: 2px solid var(--text-dim);
+      margin: 8px 0 16px 0;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: var(--green-glow);
+      margin-left: 4px;
+      animation: cursor-blink 1s step-end infinite;
+    }
+
+    @keyframes cursor-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Audio Visualizer */
+    .audio-visualizer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 60px;
+      margin: 32px 0 48px;
+    }
+
+    .audio-bar {
+      width: 4px;
+      background: var(--green-glow);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--green-dim);
+      animation: audio-pulse 1.2s ease-in-out infinite;
+    }
+
+    .audio-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+    .audio-bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+    .audio-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+    .audio-bar:nth-child(4) { height: 45px; animation-delay: 0.3s; }
+    .audio-bar:nth-child(5) { height: 55px; animation-delay: 0.15s; }
+    .audio-bar:nth-child(6) { height: 40px; animation-delay: 0.25s; }
+    .audio-bar:nth-child(7) { height: 50px; animation-delay: 0.05s; }
+    .audio-bar:nth-child(8) { height: 30px; animation-delay: 0.35s; }
+    .audio-bar:nth-child(9) { height: 45px; animation-delay: 0.2s; }
+    .audio-bar:nth-child(10) { height: 35px; animation-delay: 0.1s; }
+    .audio-bar:nth-child(11) { height: 55px; animation-delay: 0.25s; }
+    .audio-bar:nth-child(12) { height: 40px; animation-delay: 0.15s; }
+    .audio-bar:nth-child(13) { height: 25px; animation-delay: 0.3s; }
+    .audio-bar:nth-child(14) { height: 50px; animation-delay: 0.05s; }
+    .audio-bar:nth-child(15) { height: 20px; animation-delay: 0.2s; }
+
+    @keyframes audio-pulse {
+      0%, 100% {
+        transform: scaleY(0.3);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    .visualizer-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .visualizer-label::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--green-glow);
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    /* Interactive Terminal */
+    .demo-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .demo-btn {
+      padding: 10px 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--text-dim);
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .demo-btn:hover {
+      border-color: var(--green-dim);
+      color: var(--text-primary);
+    }
+
+    .demo-btn.active {
+      border-color: var(--green-glow);
+      color: var(--green-glow);
+      box-shadow: 0 0 15px var(--green-dim);
+    }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      min-height: 280px;
+    }
+
+    .terminal-line {
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .terminal-line.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .terminal-line.typing .command,
+    .terminal-line.typing .voice-input {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--green-glow);
+      animation: typing-cursor 0.7s step-end infinite;
+    }
+
+    @keyframes typing-cursor {
+      0%, 50% { border-color: var(--green-glow); }
+      51%, 100% { border-color: transparent; }
+    }
+
+    .replay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px auto 0;
+      padding: 8px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--text-dim);
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .replay-btn:hover {
+      border-color: var(--green-glow);
+      color: var(--green-glow);
+    }
+
+    .replay-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Features */
+    .features-section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--green-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--text-dim);
+      border-radius: 8px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--green-dim);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0,255,65,0.1);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-elevated);
+      border: 1px solid var(--text-dim);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* How It Works */
+    .how-section {
+      padding: 100px 0;
+      background: var(--bg-panel);
+      position: relative;
+    }
+
+    .how-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--text-dim), transparent);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green-glow);
+      border: 2px solid var(--green-dim);
+      border-radius: 50%;
+    }
+
+    .step-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Download */
+    .download-section {
+      padding: 120px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .download-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,255,65,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .download-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .download-content h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .download-content .highlight {
+      color: var(--green-glow);
+      text-shadow: 0 0 20px var(--green-dim);
+    }
+
+    .download-desc {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .download-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green-glow);
+      text-shadow: 0 0 15px var(--green-dim);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .download-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .platform-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 28px;
+      background: var(--bg-panel);
+      border: 1px solid var(--text-dim);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    .platform-btn:hover {
+      border-color: var(--green-glow);
+      box-shadow: 0 0 30px rgba(0,255,65,0.2);
+      transform: translateY(-2px);
+    }
+
+    .platform-btn.primary {
+      background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-panel) 100%);
+      border-color: var(--green-glow);
+      box-shadow: 0 0 20px rgba(0,255,65,0.15);
+    }
+
+    .platform-btn.primary:hover {
+      box-shadow: 0 0 40px rgba(0,255,65,0.3);
+    }
+
+    .platform-btn.primary .platform-name {
+      color: var(--green-glow);
+    }
+
+    .platform-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .platform-info {
+      text-align: left;
+    }
+
+    .platform-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .platform-version {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .download-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 32px;
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--text-dim);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 700;
+      color: var(--green-glow);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green-glow);
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .step {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="#" class="logo">YAP_</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="https://github.com/jamditis/yap">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Voice-Powered Development</div>
+        <h1>Speak. <span class="highlight">Execute.</span></h1>
+        <p class="hero-tagline">
+          Transform natural speech into precise CLI commands.
+          Yap is the voice assistant built for developers who move fast.
+        </p>
+        <div class="audio-visualizer">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="visualizer-label">Listening...</div>
+        <div class="hero-cta">
+          <a href="https://github.com/jamditis/yap/releases/latest" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Free
+          </a>
+          <a href="#demo" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            See It In Action
+          </a>
+        </div>
+        <p class="hero-subtext">Free & open source. No account required.</p>
+      </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+      <div class="container">
+        <div class="demo-controls">
+          <button class="demo-btn active" data-demo="git">Git</button>
+          <button class="demo-btn" data-demo="docker">Docker</button>
+          <button class="demo-btn" data-demo="npm">NPM</button>
+          <button class="demo-btn" data-demo="files">Files</button>
+        </div>
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">yap ~ voice-to-cli</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <!-- Content populated by JavaScript -->
+          </div>
+        </div>
+        <button class="replay-btn" id="replay-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+          Replay Demo
+        </button>
+      </div>
+    </section>
+
+    <section id="features" class="features-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Capabilities</p>
+          <h2 class="section-title">Built for the Command Line</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🎙️</div>
+            <h3 class="feature-title">Voice-to-CLI</h3>
+            <p class="feature-desc">Speak naturally and get precise terminal commands. AI understands context and intent, not just keywords.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Instant Paste</h3>
+            <p class="feature-desc">Commands auto-paste directly into your active terminal with a single hotkey. No copy-paste friction.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3 class="feature-title">Agent Mode</h3>
+            <p class="feature-desc">AI converts natural speech into executable commands. Say "deploy to production" and get the right incantation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Local Processing</h3>
+            <p class="feature-desc">Run NVIDIA Parakeet locally for offline, private transcription. Your voice data never leaves your machine.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⌨️</div>
+            <h3 class="feature-title">Global Hotkeys</h3>
+            <p class="feature-desc">Alt+S to start/stop recording, Alt+H to show/hide. Works from anywhere on your system.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3 class="feature-title">Cost Tracking</h3>
+            <p class="feature-desc">Real-time cost estimation for API usage. Know exactly what each transcription costs you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="how-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Workflow</p>
+          <h2 class="section-title">How It Works</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Speak Your Intent</h3>
+              <p>Press Alt+S and speak naturally. "Show me all running docker containers" or "commit these changes with a message about fixing the auth bug."</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>AI Translates</h3>
+              <p>Gemini Flash or local Parakeet model transcribes your voice and converts it into the appropriate CLI command with correct syntax and flags.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Execute Instantly</h3>
+              <p>The command is automatically pasted into your active terminal and executed. Your hands never leave the keyboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="download-section">
+      <div class="container">
+        <div class="download-content">
+          <p class="section-label">Get Started</p>
+          <h2>Start Yapping in <span class="highlight">30 Seconds</span></h2>
+          <p class="download-desc">No complex setup. No account creation. Just download, install, and start speaking commands.</p>
+
+          <div class="download-stats">
+            <div class="stat">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">Free & Open Source</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">~50MB</span>
+              <span class="stat-label">Lightweight Install</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">Alt+S</span>
+              <span class="stat-label">To Start Recording</span>
+            </div>
+          </div>
+
+          <div class="download-buttons">
+            <a href="https://github.com/jamditis/yap/releases/latest" class="platform-btn primary">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+              </svg>
+              <div class="platform-info">
+                <div class="platform-name">Download for Windows</div>
+                <div class="platform-version">v1.0.0 • 64-bit • Free</div>
+              </div>
+            </a>
+            <a href="https://github.com/jamditis/yap" class="platform-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <div class="platform-info">
+                <div class="platform-name">View on GitHub</div>
+                <div class="platform-version">Star the repo • Contribute</div>
+              </div>
+            </a>
+          </div>
+          <p class="download-note">Works with Google Gemini API or local NVIDIA Parakeet model for offline use.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">YAP_</div>
+        <div class="footer-links">
+          <a href="https://github.com/jamditis/yap">GitHub</a>
+          <a href="https://github.com/jamditis/yap/issues">Issues</a>
+          <a href="https://github.com/jamditis/yap/releases">Releases</a>
+        </div>
+        <div class="footer-copy">MIT License</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Demo scenarios
+    const demos = {
+      git: [
+        { type: 'voice', text: '"show me the git status"' },
+        { type: 'command', text: 'git status' },
+        { type: 'output', text: 'On branch main\nYour branch is up to date with \'origin/main\'.' },
+        { type: 'voice', text: '"commit everything with message fixing auth bug"' },
+        { type: 'command', text: 'git add -A && git commit -m "fix: resolve authentication bug"' },
+      ],
+      docker: [
+        { type: 'voice', text: '"show all running containers"' },
+        { type: 'command', text: 'docker ps' },
+        { type: 'output', text: 'CONTAINER ID   IMAGE          STATUS\na1b2c3d4e5f6   nginx:latest   Up 2 hours' },
+        { type: 'voice', text: '"stop the nginx container"' },
+        { type: 'command', text: 'docker stop a1b2c3d4e5f6' },
+      ],
+      npm: [
+        { type: 'voice', text: '"install react and typescript"' },
+        { type: 'command', text: 'npm install react typescript @types/react' },
+        { type: 'output', text: 'added 5 packages in 2.3s' },
+        { type: 'voice', text: '"run the dev server"' },
+        { type: 'command', text: 'npm run dev' },
+      ],
+      files: [
+        { type: 'voice', text: '"find all typescript files in source"' },
+        { type: 'command', text: 'find src -name "*.ts" -type f' },
+        { type: 'output', text: 'src/index.ts\nsrc/utils/helpers.ts\nsrc/components/App.ts' },
+        { type: 'voice', text: '"create a new components folder"' },
+        { type: 'command', text: 'mkdir -p src/components' },
+      ]
+    };
+
+    let currentDemo = 'git';
+    let animationTimeout = null;
+
+    function createLine(item) {
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+
+      if (item.type === 'voice') {
+        line.innerHTML = `<span class="prompt">🎤</span> <span class="voice-input">${item.text}</span>`;
+      } else if (item.type === 'command') {
+        line.innerHTML = `<span class="prompt">$</span> <span class="command">${item.text}</span>`;
+      } else if (item.type === 'output') {
+        line.className = 'terminal-line output';
+        line.innerHTML = item.text.replace(/\n/g, '<br>');
+      }
+
+      return line;
+    }
+
+    function runDemo(demoName) {
+      // Clear any existing animation
+      if (animationTimeout) {
+        clearTimeout(animationTimeout);
+      }
+
+      const terminal = document.getElementById('terminal-body');
+      terminal.innerHTML = '';
+
+      const demo = demos[demoName];
+      let delay = 300;
+
+      demo.forEach((item, index) => {
+        const line = createLine(item);
+        terminal.appendChild(line);
+
+        animationTimeout = setTimeout(() => {
+          line.classList.add('visible');
+          if (item.type === 'voice' || item.type === 'command') {
+            line.classList.add('typing');
+            setTimeout(() => line.classList.remove('typing'), 800);
+          }
+        }, delay);
+
+        delay += item.type === 'output' ? 600 : 1000;
+      });
+
+      // Add cursor at the end
+      animationTimeout = setTimeout(() => {
+        const cursorLine = document.createElement('div');
+        cursorLine.className = 'terminal-line visible';
+        cursorLine.innerHTML = '<span class="prompt">$</span> <span class="cursor"></span>';
+        terminal.appendChild(cursorLine);
+      }, delay);
+    }
+
+    // Demo button handlers
+    document.querySelectorAll('.demo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.demo-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentDemo = btn.dataset.demo;
+        runDemo(currentDemo);
+      });
+    });
+
+    // Replay button
+    document.getElementById('replay-btn').addEventListener('click', () => {
+      runDemo(currentDemo);
+    });
+
+    // Run initial demo when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      runDemo('git');
+    });
+
+    // Also run if script loads after DOM
+    if (document.readyState !== 'loading') {
+      runDemo('git');
+    }
+  </script>
+</body>
+</html>

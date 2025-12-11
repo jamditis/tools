@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe coding starter guide for newsrooms</title>
+    <meta name="description" content="A practical guide for journalists and non-developers by Joe Amditis.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Vibe Coding Starter Guide for Newsrooms">
+    <meta property="og:description" content="A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.">
+    <meta property="og:image" content="vibe-coding.png">
+    <meta property="og:type" content="article">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="vibe-coding.png">
+    <meta property="twitter:title" content="Vibe Coding Starter Guide for Newsrooms">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Space Grotesk (Headings), Merriweather (Body), JetBrains Mono (Code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Glossary styles -->
+    <link rel="stylesheet" href="../assets/glossary.css">
+
+    <!-- Custom Configuration & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'news-bg': '#0a0a0c',
+                        'news-paper': '#e4e4e7',
+                        'news-gray': '#27272a',
+                        'accent-green': '#00dc82',
+                        'accent-blue': '#3b82f6',
+                        'accent-pink': '#f43f5e',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glossary CSS variable overrides for this theme */
+        :root {
+            --accent: #00dc82;
+            --accent-light: #4ade80;
+            --surface: #18181b;
+            --border: #27272a;
+            --text: #e4e4e7;
+            --muted: #a1a1aa;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+
+        /* Typography Tweaks */
+        body {
+            background-color: #0a0a0c;
+            color: #e4e4e7;
+            font-feature-settings: "salt" on, "ss01" on;
+        }
+
+        h1, h2, h3, h4 {
+            letter-spacing: -0.02em;
+        }
+
+        /* Code Block Styling */
+        .code-window {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        
+        .code-window:hover {
+            border-color: #52525b;
+        }
+
+        .code-header {
+            background: #27272a;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #a1a1aa;
+        }
+
+        .copy-btn {
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            color: #fff;
+        }
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Selection color */
+        ::selection {
+            background: #00dc82;
+            color: #000;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row relative selection:bg-accent-green selection:text-black">
+
+    <!-- Mobile Header -->
+    <div class="md:hidden fixed top-0 left-0 w-full bg-news-bg/90 backdrop-blur-md border-b border-news-gray z-50 p-4 flex justify-between items-center">
+        <span class="font-sans font-bold text-lg tracking-tight text-accent-green">VIBE CODING</span>
+        <button id="menu-toggle" class="text-white focus:outline-none">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- Sidebar Navigation (Desktop Sticky / Mobile Drawer) -->
+    <nav id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 md:w-72 bg-[#0f0f11] border-r border-news-gray z-40 transition-transform duration-300 ease-in-out overflow-y-auto p-6 md:p-8">
+        <div class="hidden md:block mb-10">
+            <div class="font-mono text-xs text-accent-green mb-1 opacity-70">GUIDE v1.0</div>
+            <h1 class="font-sans font-bold text-2xl leading-tight">Vibe coding starter guide</h1>
+            <p class="font-serif italic text-sm text-gray-400 mt-2">For newsrooms</p>
+        </div>
+
+        <ul class="space-y-1 font-sans text-sm">
+            <li><a href="#intro" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">What is ‘vibe coding’?</a></li>
+            <li><a href="#mindset" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Mindset shifts</a></li>
+            <li><a href="#scripts" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Useful scripts</a></li>
+            <li><a href="#comparison" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Language guide</a></li>
+            <li><a href="#progression" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Progression</a></li>
+            <li><a href="#llms" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Best LLMs</a></li>
+            <li><a href="#workflow" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">The workflow</a></li>
+            <li><a href="#changelog" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-accent-blue hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-blue font-bold">Changelog Template</a></li>
+            <li><a href="#checklist" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Quick start</a></li>
+        </ul>
+
+        <div class="mt-10 pt-6 border-t border-white/10 text-xs text-gray-500 font-mono">
+            <p>By <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
+            <p class="mt-1"><a href="https://centerforcooperativemedia.org/">Center for Cooperative Media</a></p>
+            <p class="mt-4 opacity-50">Last updated: Nov 2025</p>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 md:ml-72 p-6 md:p-16 lg:p-24 max-w-5xl mx-auto w-full pt-20 md:pt-16">
+        
+        <!-- Intro Header Mobile Only -->
+        <div class="md:hidden mb-8 animate-fade-in-up">
+            <div class="font-mono text-xs text-accent-green mb-1">GUIDE v1.0</div>
+            <h1 class="font-sans font-bold text-3xl leading-tight mb-2">Vibe coding starter guide</h1>
+            <p class="font-serif italic text-gray-400">For journalists and non-developers by Joe Amditis.</p>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="relative mb-12 group animate-fade-in-up">
+            <!-- Glow Effect -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-accent-green/20 to-accent-blue/20 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+            <!-- Image -->
+            <img src="vibe-coding.png" alt="Vibe Coding for Newsrooms" class="relative w-full rounded-xl border border-white/10 shadow-2xl" onerror="this.style.display='none'">
+        </div>
+
+        <!-- Section: Intro -->
+        <section id="intro" class="mb-20 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <h2 class="font-sans text-3xl md:text-4xl font-bold mb-6 text-white relative inline-block">
+                What is ‘vibe coding’?
+                <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-accent-green rounded-full"></span>
+            </h2>
+            <div class="font-serif text-lg md:text-xl leading-relaxed text-gray-300 space-y-4">
+                <p>
+                    <span class="text-white font-bold">"<span class="term" data-term="vibe-coding">Vibe coding</span>"</span> is when you use <span class="term" data-term="llm">LLMs</span> to write code by describing what you want in plain language. You don't need to be a developer—you need to be a good project manager who can clearly articulate requirements and give feedback.
+                </p>
+                <div class="bg-[#121214] border-l-4 border-accent-green p-6 my-6 rounded-r-lg">
+                    <p class="font-sans text-white font-medium">Key principle</p>
+                    <p class="text-gray-400 mt-1">Code often either works or it doesn't, making it (somewhat) safer from hallucinations than other LLM uses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Mindset -->
+        <section id="mindset" class="mb-20 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <h2 class="font-sans text-2xl md:text-3xl font-bold mb-8 text-white">Essential mindset shifts</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-[#121214] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
+                        <i data-lucide="user-cog" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-sans font-bold text-xl mb-2">Manager, not mechanic</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                        Think like a project coordinator. Your job is to clearly describe what you want, provide direct feedback, and organize information. Learn enough to "have a conversation with a mechanic" but don't try to fix the car yourself.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-[#121214] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400 mb-4">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-sans font-bold text-xl mb-2">Start simple, build up</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                        1. Google Sheets formulas (instant verification)<br>
+                        2. HTML/CSS for static pages<br>
+                        3. Interactive dashboards and apps<br>
+                        Each project teaches you what you need for the next.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-[#121214] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 mb-4">
+                        <i data-lucide="hammer" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-sans font-bold text-xl mb-2">Project-based learning</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                        Abstract tutorials don't stick. Look for real problems to solve. Build things you actually need for work. Learn infrastructure (FTP, Git) only as they become necessary.
+                    </p>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="bg-[#121214] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4">
+                        <i data-lucide="anchor" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-sans font-bold text-xl mb-2">AI as tool, not dependency</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                        Use LLMs to write code, but the result should run independently. No API keys required for users. Privacy, reliability, and sustainability are the goals.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 p-6 border border-dashed border-gray-700 rounded-lg bg-gray-900/30">
+                <h4 class="font-mono font-bold text-accent-green mb-4 text-sm uppercase tracking-wider">The "Vibe" Check</h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 text-green-500 shrink-0"></i>
+                        <span class="text-gray-300">Use Claude to write a <span class="term" data-term="python">Python</span> <span class="term" data-term="script">script</span> that analyzes <span class="term" data-term="csv">CSVs</span> → Script runs on any computer locally.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 text-green-500 shrink-0"></i>
+                        <span class="text-gray-300">Use ChatGPT to build a dashboard → HTML/CSS/JS files run in any browser.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0"></i>
+                        <span class="text-gray-400 line-through decoration-gray-600">Build a tool that requires GPT-5 <span class="term" data-term="api">API</span> calls every time someone uses it.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section: Scripts -->
+        <section id="scripts" class="mb-20">
+            <h2 class="font-sans text-3xl font-bold mb-4 text-white">Useful scripts for journalists</h2>
+            <p class="font-serif text-gray-400 mb-8">Your first projects. Start here before building full applications.</p>
+
+            <div class="space-y-12">
+                
+                <!-- Python -->
+                <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
+                        <h3 class="text-xl font-bold text-yellow-400 font-mono">Python</h3>
+                        <span class="text-xs text-gray-500 font-mono uppercase">Data Cleaning & Processing</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                            <p><strong class="text-white">Use cases:</strong> Remove duplicates, merge <span class="term" data-term="csv">CSVs</span>, convert formats, text analysis, <span class="term" data-term="web-scraping">web scraping</span>, file management.</p>
+                            <ul class="list-disc list-inside marker:text-yellow-500 pl-2 space-y-1 opacity-80">
+                                <li>Count word frequency in transcripts</li>
+                                <li>Extract emails/phones from text</li>
+                                <li>Download PDFs from URLs</li>
+                                <li>Rename files in bulk</li>
+                            </ul>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span>PROMPT TEMPLATE</span>
+                                <button class="copy-btn flex items-center gap-1 text-xs hover:text-white" onclick="copyToClipboard(this, 'python-prompt')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                </button>
+                            </div>
+                            <pre id="python-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a Python script that:
+1. Reads all CSV files in a folder
+2. Combines them into one spreadsheet
+3. Removes duplicate rows based on email address
+4. Sorts by date (newest first)
+5. Exports as combined_results.csv
+
+Include comments explaining each step."</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- R Script -->
+                <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
+                        <h3 class="text-xl font-bold text-blue-400 font-mono">R Scripts</h3>
+                        <span class="text-xs text-gray-500 font-mono uppercase">Statistical Analysis</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                            <p><strong class="text-white">Use cases:</strong> Significance testing, correlation matrices, confidence intervals, publication-ready charts (<span class="term" data-term="ggplot2">ggplot2</span>).</p>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span>PROMPT TEMPLATE</span>
+                                <button class="copy-btn flex items-center gap-1 text-xs hover:text-white" onclick="copyToClipboard(this, 'r-prompt')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                </button>
+                            </div>
+                            <pre id="r-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write an R script using ggplot2 that:
+1. Loads survey_data.csv
+2. Calculates response percentages by demographic group
+3. Creates a clean bar chart with error bars
+4. Exports as a high-res PNG for print
+
+Use accessible colors and large labels."</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bash -->
+                <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
+                        <h3 class="text-xl font-bold text-green-400 font-mono">Bash/Shell</h3>
+                        <span class="text-xs text-gray-500 font-mono uppercase">Automation</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                            <p><strong class="text-white">Use cases:</strong> Automated backups, batch processing, scheduled downloads, folder monitoring via <span class="term" data-term="cron">cron jobs</span>.</p>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span>PROMPT TEMPLATE</span>
+                                <button class="copy-btn flex items-center gap-1 text-xs hover:text-white" onclick="copyToClipboard(this, 'bash-prompt')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                </button>
+                            </div>
+                            <pre id="bash-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a bash script that:
+1. Checks if today is Monday
+2. If yes, downloads the latest file from [URL]
+3. Saves it to the /reports folder with today's date
+4. Sends me a notification when done
+
+Make it simple enough to run as a cron job."</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
+                        <h3 class="text-xl font-bold text-purple-400 font-mono">JavaScript</h3>
+                        <span class="text-xs text-gray-500 font-mono uppercase">Web Tools & Automation</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                            <p><strong class="text-white">Use cases:</strong> Bookmarklets, browser automation, scraping current pages, data parsing (<span class="term" data-term="json">JSON</span>).</p>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span>PROMPT TEMPLATE</span>
+                                <button class="copy-btn flex items-center gap-1 text-xs hover:text-white" onclick="copyToClipboard(this, 'js-prompt')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                </button>
+                            </div>
+                            <pre id="js-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a browser bookmarklet that:
+1. Finds all email addresses on the current page
+2. Copies them to clipboard as a comma-separated list
+3. Shows a count of how many were found
+
+Keep it simple and safe to run on any page."</pre>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- SQL -->
+                 <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
+                        <h3 class="text-xl font-bold text-pink-400 font-mono">SQL</h3>
+                        <span class="text-xs text-gray-500 font-mono uppercase">Databases</span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                            <p><strong class="text-white">Use cases:</strong> Extracting records, joining tables, finding duplicates, calculating aggregates.</p>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span>PROMPT TEMPLATE</span>
+                                <button class="copy-btn flex items-center gap-1 text-xs hover:text-white" onclick="copyToClipboard(this, 'sql-prompt')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                </button>
+                            </div>
+                            <pre id="sql-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a SQL query that:
+1. Finds all articles published in 2024
+2. Groups them by author
+3. Counts how many each author wrote
+4. Shows only authors with more than 10 articles
+5. Orders by article count (highest first)
+
+Use standard SQL syntax that works in SQLite."</pre>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section: Comparison Table -->
+        <section id="comparison" class="mb-20">
+            <h2 class="font-sans text-2xl font-bold mb-6 text-white">When to use each language</h2>
+            <div class="overflow-x-auto border border-white/10 rounded-lg">
+                <table class="w-full text-left text-sm font-sans">
+                    <thead class="bg-white/5 text-gray-300 uppercase font-mono text-xs">
+                        <tr>
+                            <th class="px-6 py-4">Need</th>
+                            <th class="px-6 py-4">Best Tool</th>
+                            <th class="px-6 py-4">Why</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-gray-400">
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">Quick data cleaning</td>
+                            <td class="px-6 py-3 text-yellow-400 font-mono"><span class="term" data-term="python">Python</span> (<span class="term" data-term="pandas">pandas</span>)</td>
+                            <td class="px-6 py-3">Easiest to read, massive libraries</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">Statistical analysis</td>
+                            <td class="px-6 py-3 text-blue-400 font-mono"><span class="term" data-term="r">R</span></td>
+                            <td class="px-6 py-3">Built for stats, best visualizations</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">File/folder automation</td>
+                            <td class="px-6 py-3 text-green-400 font-mono"><span class="term" data-term="bash">Bash</span>/Shell</td>
+                            <td class="px-6 py-3">Native to Unix systems, fast</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">Web page interaction</td>
+                            <td class="px-6 py-3 text-purple-400 font-mono"><span class="term" data-term="javascript">JavaScript</span></td>
+                            <td class="px-6 py-3">Runs in browser, no installation</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">Database queries</td>
+                            <td class="px-6 py-3 text-pink-400 font-mono"><span class="term" data-term="sql">SQL</span></td>
+                            <td class="px-6 py-3">Designed for structured data</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-3 text-white">Cross-platform scripts</td>
+                            <td class="px-6 py-3 text-yellow-400 font-mono">Python</td>
+                            <td class="px-6 py-3">Works on Mac/Windows/Linux</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section: Progression & LLMs -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+            <section id="progression">
+                <h2 class="font-sans text-2xl font-bold mb-6 text-white">The "scripts to full apps" progression</h2>
+                <ol class="relative border-l border-gray-700 ml-3 space-y-8">
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                            <span class="text-accent-green font-bold text-xs">1</span>
+                        </span>
+                        <h3 class="font-bold text-white mb-1">Start: Single-purpose scripts</h3>
+                        <p class="text-gray-400 text-sm">Clean this CSV, scrape this page.</p>
+                    </li>
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                            <span class="text-accent-green font-bold text-xs">2</span>
+                        </span>
+                        <h3 class="font-bold text-white mb-1">Combine: Chain scripts</h3>
+                        <p class="text-gray-400 text-sm">Clean → Analyze → Visualize.</p>
+                    </li>
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                            <span class="text-accent-green font-bold text-xs">3</span>
+                        </span>
+                        <h3 class="font-bold text-white mb-1">Automate: Schedule scripts</h3>
+                        <p class="text-gray-400 text-sm">Run automatically (<span class="term" data-term="cron">cron jobs</span>, triggers).</p>
+                    </li>
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                            <span class="text-accent-green font-bold text-xs">4</span>
+                        </span>
+                        <h3 class="font-bold text-white mb-1">Wrap: Web interface</h3>
+                        <p class="text-gray-400 text-sm">Add a simple dashboard for your scripts.</p>
+                    </li>
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                            <span class="text-accent-green font-bold text-xs">5</span>
+                        </span>
+                        <h3 class="font-bold text-white mb-1">Deploy</h3>
+                        <p class="text-gray-400 text-sm">Put it online for colleagues to use.</p>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="llms">
+                <h2 class="font-sans text-2xl font-bold mb-6 text-white">Best LLMs (Nov 2025)</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Newsroom Work</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
+                            <li><strong class="text-white">Codex by OpenAI (GPT-5.1-codex):</strong> Preferred model.</li>
+                            <li><strong class="text-white">Claude 4.5 Sonnet:</strong> Best overall coding + explaining.</li>
+                            <li><strong class="text-white">Claude Code:</strong> Autonomous coding with <span class="term" data-term="cli">CLI</span> planning mode.</li>
+                            <li><strong class="text-white">Gemini 3.0 Pro:</strong> Excellent for large docs/datasets.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Budget-Conscious</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
+                            <li><strong class="text-white">DeepSeek R1:</strong> 30x more cost-efficient.</li>
+                            <li><strong class="text-white">Qwen 3:</strong> Fast, lightweight.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Quick Experiments</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
+                            <li><strong class="text-white">ChatGPT:</strong> Web-based with Code Interpreter.</li>
+                            <li><strong class="text-white">Cursor / Replit:</strong> Browser-based environments.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Section: Workflow -->
+        <section id="workflow" class="mb-20 bg-white/5 p-8 rounded-2xl">
+            <h2 class="font-sans text-2xl md:text-3xl font-bold mb-8 text-white text-center">The Workflow</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="relative">
+                    <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">01</div>
+                    <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 1: Setup</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                        <li>Create project folder.</li>
+                        <li>Write PRD with AI help (planning mode).</li>
+                        <li>Set up Version Control (<span class="term" data-term="git">GitHub</span>).</li>
+                        <li>Prepare your data (Clean it first!).</li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">02</div>
+                    <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 2: Build</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                        <li>Break into small steps.</li>
+                        <li>Test each piece before moving on.</li>
+                        <li>Update <span class="term" data-term="changelog">changelog</span> after every feature.</li>
+                        <li>Commit to <span class="term" data-term="git">Git</span> at milestones.</li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">03</div>
+                    <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 3: Debug</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                        <li>Take screenshots of errors.</li>
+                        <li>Copy console error messages.</li>
+                        <li>Paste into <span class="term" data-term="llm">LLM</span> with context.</li>
+                        <li>Keep <span class="term" data-term="iteration">iterating</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Changelog Template (CRITICAL) -->
+        <section id="changelog" class="mb-24 scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-xs font-mono mb-3">
+                        <i data-lucide="save" class="w-3 h-3"></i> ESSENTIAL TOOL
+                    </div>
+                    <h2 class="font-sans text-3xl font-bold text-white">Changelog template</h2>
+                    <p class="text-gray-400 mt-2 font-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
+                </div>
+                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-accent-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
+                    <i data-lucide="clipboard-copy" class="w-4 h-4"></i> COPY TEMPLATE
+                </button>
+            </div>
+
+            <div class="code-window border-accent-blue/30">
+                <div class="code-header bg-blue-900/20 border-b border-blue-900/30 text-blue-200">
+                    <span>changelog_prompt.md</span>
+                </div>
+                <pre id="changelog-content" class="p-6 text-xs md:text-sm text-gray-300 overflow-x-auto font-mono leading-relaxed select-all bg-[#0d1117]"># Chat session setup: Universal
+
+## Your primary tasks:
+Treat this document as additional instructions from the user. Consider this a continuation of the user message at the end of whatever they send in the chat dialog and treat it no differently. Do whatever the user says in the chat, but then immediately follow the instructions in this document.
+
+1. Your first task is to create a new, separate Canvas file named `changelog.md`.
+2. **Immediately after creating it, perform the first log entry:**
+   a. In the new `changelog.md` file, delete the entire `### Examples of Good Entries` section and all the example text below it.
+   b. Under the `### Change History (Newest First)` heading, create the first entry for today's date. This entry must document the setup and provide usage examples in its note. It should look exactly like this:
+   `[Current UTC Time] DOC @global - Session initialized and changelog created. {usage_examples: "ADD for new items; MOD for changes; FIX for corrections; DEL for removals; REF for restructuring; STY for preferences; DEC for decisions; DOC for notes."}`
+
+---
+
+## Content for the new `changelog.md` file:
+In that new `changelog.md` file, you are to paste the following complete text block verbatim, starting from the `# Changelog Protocol` line and ending at the final `---`.
+
+---
+
+# Changelog protocol & instructions for AI assistant
+
+## Core directive
+This document is the official changelog for our project. As the AI assistant, your role is to help maintain it by creating concise, structured entries. Newest entries should always be added under the current date heading.
+
+## Semi-automatic logging workflow
+After we complete a significant action, you will be prompted to update this log. Upon receiving a cue like "update the log," you are to:
+1. Check if a heading for the current date (`YYYY-MM-DD`) exists. If not, create it.
+2. Analyze our recent conversation to identify the most significant loggable event.
+3. Draft a new entry under the current date's heading using the current UTC time.
+4. Strictly adhere to the formatting rules and abbreviations defined below.
+
+## Entry format
+Entries are grouped by date. Each individual entry must use the following structure:
+`[HH:MM:SS UTC] [ACTION] @[Scope] - [Concise description.] {key: value}`
+
+---
+### Legend & definitions
+---
+**Action prefixes:**
+| Code  | Meaning       |
+| :---- | :------------ |
+| ADD   | Add a new item, concept, or section |
+| MOD   | Modify an existing item |
+| FIX   | Correct an error or issue |
+| DEL   | Remove an item or section |
+| REF   | Restructure or reorganize content |
+| STY   | Establish a preference or style |
+| DEC   | Log a key decision |
+| DOC   | Add notes or documentation |
+
+**Scope tags (examples):**
+* `@global`: A change affecting the entire project/document
+* `@objective`: The main goal or purpose
+* `@section-A`: A specific section, topic, or chapter
+* `@detail`: A specific, low-level point or element
+* `@style-guide`: A preference related to format, tone, or style
+* `@source`: The source material or input
+* `@output`: The resulting draft or deliverable
+
+---
+### Change history (newest first)
+---
+(Your new entries will be added under a date heading like the examples below)
+
+---
+### Examples of good entries
+---
+### 2025-06-27
+---
+[20:15:10 UTC] STY @style-guide - Established that all output should use a formal, academic tone. {note: Avoid colloquialisms}
+[20:16:35 UTC] ADD @section-A - Added a new 'Historical Background' chapter. {source: research_notes.txt}
+
+---
+### 2025-06-26
+---
+[14:05:55 UTC] DEC @objective - Decided to pivot project focus to a mobile-first user experience. {reason: Analytics show 80% mobile traffic}</pre>
+            </div>
+        </section>
+
+        <!-- Section: Checklist -->
+        <section id="checklist" class="mb-20">
+            <div class="bg-[#18181b] border border-white/10 p-8 rounded-xl">
+                <h2 class="font-sans text-2xl font-bold mb-6 text-white">Quick start checklist</h2>
+                <ul class="space-y-4 text-gray-300 font-serif">
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Choose your LLM (start with Claude or ChatGPT)</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Set up GitHub account and learn basic <span class="term" data-term="git">Git</span> commands</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Install FileZilla or learn your hosting provider's file upload method</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Pick a real, simple project (start with a Google Sheets formula)</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span><strong>Copy <span class="term" data-term="changelog">changelog</span> template into first chat</strong></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Write PRD with <span class="term" data-term="llm">LLM</span> help before any coding</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <span>Build one small feature, test it, commit it</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 pt-12 pb-20 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="font-sans font-bold text-white text-lg">Center for Cooperative Media</p>
+                    <p class="font-serif text-gray-500 mt-2">A practical guide for journalists and non-developers.</p>
+                </div>
+                <div class="md:text-right text-gray-600 font-mono text-xs">
+                    <p>This resource was created by <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
+                    <p>Last updated: Nov. 24, 2025</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // Close sidebar on link click (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                    isMenuOpen = false;
+                }
+            });
+        });
+
+        // Copy to Clipboard Function
+        function copyToClipboard(button, elementId) {
+            const text = document.getElementById(elementId).innerText;
+            const originalContent = button.innerHTML;
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.innerHTML = `<i data-lucide="check" class="w-3 h-3"></i> COPIED`;
+                button.classList.add('text-green-400');
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.classList.remove('text-green-400');
+                    lucide.createIcons();
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Scroll Spy for Navigation Highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-white', 'border-accent-green');
+                link.classList.add('text-gray-400', 'border-transparent');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.remove('text-gray-400', 'border-transparent');
+                    link.classList.add('text-white', 'border-accent-green');
+                }
+            });
+        });
+    </script>
+
+    <!-- Glossary system -->
+    <script src="../assets/glossary.js"></script>
+</body>
+</html>

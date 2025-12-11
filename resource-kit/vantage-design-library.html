@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMDITIS // SYSTEM_KIT_v2.5</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Chakra Petch', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    },
+                    colors: {
+                        void: '#050505',
+                        panel: '#0a0a0a',
+                        surface: '#111111',
+                        chrome: '#e5e5e5',
+                        acid: '#ccff00',
+                        acidDim: 'rgba(204, 255, 0, 0.1)',
+                        signal: '#ff2a2a', 
+                        signalDim: 'rgba(255, 42, 42, 0.1)',
+                        ice: '#00f0ff',
+                        iceDim: 'rgba(0, 240, 255, 0.1)',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #222 1px, transparent 1px), linear-gradient(to bottom, #222 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'flash': 'flash 0.5s steps(1) infinite',
+                    },
+                    keyframes: {
+                        flash: {
+                            '0%, 50%': { opacity: '1' },
+                            '51%, 100%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- CORE AESTHETICS --- */
+        :root {
+            --cursor-size: 20px;
+        }
+
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            cursor: crosshair;
+        }
+
+        /* Selection */
+        ::selection {
+            background-color: #ccff00;
+            color: #000;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: #ccff00; }
+
+        /* --- UTILITIES --- */
+        
+        /* 1. The "Cut Corner" Effect */
+        .clip-notch {
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc(100% - 10px), 
+                calc(100% - 10px) 100%, 
+                0 100%
+            );
+        }
+        
+        .clip-notch-top {
+            clip-path: polygon(
+                10px 0, 
+                100% 0, 
+                100% 100%, 
+                0 100%, 
+                0 10px
+            );
+        }
+
+        /* 2. Scanline Overlay */
+        .crt-overlay {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* 3. Glitch Text Animation */
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #ccff00;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #ff2a2a;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(12px, 9999px, 52px, 0); }
+            5% { clip: rect(34px, 9999px, 12px, 0); }
+            10% { clip: rect(6px, 9999px, 86px, 0); }
+            15% { clip: rect(12px, 9999px, 2px, 0); }
+            20% { clip: rect(67px, 9999px, 21px, 0); }
+            100% { clip: rect(12px, 9999px, 52px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(2px, 9999px, 82px, 0); }
+            5% { clip: rect(64px, 9999px, 12px, 0); }
+            10% { clip: rect(16px, 9999px, 46px, 0); }
+            15% { clip: rect(2px, 9999px, 92px, 0); }
+            20% { clip: rect(17px, 9999px, 1px, 0); }
+            100% { clip: rect(2px, 9999px, 82px, 0); }
+        }
+
+        /* 4. Checkbox Styling */
+        .cyber-checkbox {
+            appearance: none;
+            background-color: transparent;
+            border: 1px solid #333;
+            width: 1.25rem;
+            height: 1.25rem;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cyber-checkbox::before {
+            content: "";
+            width: 0.65rem;
+            height: 0.65rem;
+            transform: scale(0);
+            background-color: #ccff00;
+            box-shadow: 0 0 10px #ccff00;
+            transition: 120ms transform ease-in-out;
+        }
+        .cyber-checkbox:checked {
+            border-color: #ccff00;
+        }
+        .cyber-checkbox:checked::before {
+            transform: scale(1);
+        }
+
+        /* 5. Accordion Styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* 6. Code Block Syntax Colors */
+        .syntax-keyword { color: #ff2a2a; }
+        .syntax-string { color: #ccff00; }
+        .syntax-func { color: #00f0ff; }
+        .syntax-comment { color: #666; font-style: italic; }
+
+    </style>
+</head>
+<body class="antialiased font-mono">
+
+    <div class="crt-overlay"></div>
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="flex min-h-screen relative z-10">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="w-64 fixed h-full border-r border-white/10 bg-void hidden md:flex flex-col z-50">
+            <div class="p-6 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch">V</div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">AMDITIS</h1>
+                        <p class="text-xs text-gray-500 tracking-[0.2em]">KIT v2.5 // FULL</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 overflow-y-auto py-6 space-y-8 px-6">
+                
+                <div>
+                    <h3 class="text-xs font-bold text-acid mb-4 uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="layers" class="w-3 h-3"></i> Core
+                    </h3>
+                    <ul class="space-y-1 text-sm text-gray-500">
+                        <li><a href="#typography" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-acid">Typography</a></li>
+                        <li><a href="#colors" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-acid">Colors</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-ice mb-4 uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="compass" class="w-3 h-3"></i> Navigation
+                    </h3>
+                    <ul class="space-y-1 text-sm text-gray-500">
+                        <li><a href="#nav-modules" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-ice">Nav Bars</a></li>
+                        <li><a href="#nav-modules" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-ice">Tabs & Menus</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-signal mb-4 uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="box" class="w-3 h-3"></i> Structure
+                    </h3>
+                    <ul class="space-y-1 text-sm text-gray-500">
+                        <li><a href="#accordions" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-signal">Accordions</a></li>
+                        <li><a href="#cards" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-signal">Data Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-chrome mb-4 uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="file-code" class="w-3 h-3"></i> Content
+                    </h3>
+                    <ul class="space-y-1 text-sm text-gray-500">
+                        <li><a href="#markdown" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-white">Rich Text (MD)</a></li>
+                        <li><a href="#codeblocks" class="block py-1 hover:text-chrome hover:pl-2 transition-all duration-200 border-l border-transparent hover:border-white">Code Editors</a></li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <div class="p-6 border-t border-white/10 text-xs text-gray-600 font-mono">
+                STATUS: <span class="text-acid">READY</span><br>
+                BUILD: 2025.12.10
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-7xl mx-auto space-y-32">
+            
+            <!-- HERO INTRO -->
+            <header class="border-b border-white/10 pb-12 relative overflow-hidden">
+                <h2 class="font-display text-4xl md:text-6xl text-chrome mb-4 glitch-text" data-text="SYSTEM_KIT_V2.5">SYSTEM_KIT_V2.5</h2>
+                <p class="text-gray-400 max-w-2xl text-lg font-mono border-l-2 border-acid pl-4">
+                    Expanded component library. Includes complex navigation structures, collapsible data modules, and high-fidelity text displays.
+                </p>
+            </header>
+
+            <!-- 1. NAVIGATION MODULES -->
+            <section id="nav-modules" class="scroll-mt-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">01 // NAV_SYSTEMS</h3>
+                    <span class="text-xs text-gray-600 font-mono">MENUS / TABS / BREADCRUMBS</span>
+                </div>
+
+                <div class="space-y-12">
+                    
+                    <!-- Horizontal Top Bar -->
+                    <div class="bg-panel border border-white/10 p-2">
+                        <div class="flex items-center justify-between px-4 py-2">
+                            <div class="font-display font-bold text-xl text-chrome tracking-widest">NEXUS</div>
+                            <div class="hidden md:flex items-center gap-1">
+                                <a href="#" class="px-4 py-2 text-xs font-mono text-acid border border-acid bg-acidDim">DASHBOARD</a>
+                                <a href="#" class="px-4 py-2 text-xs font-mono text-gray-400 hover:text-white hover:bg-white/5 border border-transparent transition-all">ANALYTICS</a>
+                                <a href="#" class="px-4 py-2 text-xs font-mono text-gray-400 hover:text-white hover:bg-white/5 border border-transparent transition-all">SETTINGS</a>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-500">
+                                <i data-lucide="bell" class="w-4 h-4 hover:text-ice cursor-pointer transition-colors"></i>
+                                <div class="w-px h-4 bg-white/20"></div>
+                                <div class="w-6 h-6 bg-surface border border-white/20 flex items-center justify-center text-xs">USR</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cyber Tabs -->
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Module Tabs</h4>
+                        <div class="border-b border-white/10 flex items-end gap-2">
+                            <button class="px-6 py-2 bg-surface border-t border-l border-r border-white/20 text-acid text-xs font-bold font-mono relative top-px z-10">
+                                [ TERMINAL ]
+                            </button>
+                            <button class="px-6 py-2 bg-transparent text-gray-600 border-t border-l border-r border-transparent hover:border-white/10 text-xs font-mono hover:text-gray-400 transition-colors">
+                                [ PREVIEW ]
+                            </button>
+                            <button class="px-6 py-2 bg-transparent text-gray-600 border-t border-l border-r border-transparent hover:border-white/10 text-xs font-mono hover:text-gray-400 transition-colors">
+                                [ LOGS ]
+                            </button>
+                        </div>
+                        <div class="bg-surface border border-white/20 p-6 h-32 flex items-center justify-center text-gray-600 font-mono text-xs">
+                            TAB_CONTENT_AREA_ACTIVE
+                        </div>
+                    </div>
+
+                    <!-- Vertical Menu List -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Side Menu</h4>
+                            <div class="w-64 border border-white/10 bg-panel">
+                                <div class="p-3 border-b border-white/10 text-xs text-gray-500 bg-surface">DIRECTORY_ROOT</div>
+                                <nav class="flex flex-col text-sm font-mono">
+                                    <a href="#" class="px-4 py-3 border-l-2 border-acid bg-white/5 text-white flex justify-between items-center group">
+                                        <span>Overview</span>
+                                        <i data-lucide="chevron-right" class="w-3 h-3 text-acid"></i>
+                                    </a>
+                                    <a href="#" class="px-4 py-3 border-l-2 border-transparent text-gray-400 hover:text-white hover:bg-white/5 flex justify-between items-center transition-all group">
+                                        <span>Deployments</span>
+                                    </a>
+                                    <a href="#" class="px-4 py-3 border-l-2 border-transparent text-gray-400 hover:text-white hover:bg-white/5 flex justify-between items-center transition-all group">
+                                        <span>Security</span>
+                                        <i data-lucide="lock" class="w-3 h-3 opacity-50"></i>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <!-- Breadcrumbs -->
+                        <div>
+                             <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Path Tracing</h4>
+                             <div class="flex items-center gap-2 text-xs font-mono text-gray-500">
+                                 <a href="#" class="hover:text-acid transition-colors">HOME</a>
+                                 <span>/</span>
+                                 <a href="#" class="hover:text-acid transition-colors">SYSTEMS</a>
+                                 <span>/</span>
+                                 <span class="text-white bg-white/10 px-2 py-0.5">CONFIG</span>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 2. ACCORDION MODULES -->
+            <section id="accordions" class="scroll-mt-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-signal">02 // COLLAPSIBLE_DATA</h3>
+                    <span class="text-xs text-gray-600 font-mono">EXPANSION MODULES</span>
+                </div>
+
+                <div class="space-y-4 max-w-2xl">
+                    
+                    <!-- Accordion Item 1 -->
+                    <div class="accordion-item border border-white/10 bg-panel group">
+                        <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex justify-between items-center bg-surface hover:bg-white/5 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 bg-signal rounded-full animate-pulse-fast"></div>
+                                <span class="font-display text-lg text-chrome tracking-wide">SYSTEM_DIAGNOSTICS</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 border-t border-white/10 space-y-4">
+                                <div class="flex justify-between text-xs font-mono text-gray-400 border-b border-white/5 pb-2">
+                                    <span>CORE_TEMP</span>
+                                    <span class="text-signal">98°C [CRITICAL]</span>
+                                </div>
+                                <div class="flex justify-between text-xs font-mono text-gray-400 border-b border-white/5 pb-2">
+                                    <span>FAN_SPEED</span>
+                                    <span class="text-white">4500 RPM</span>
+                                </div>
+                                <div class="flex justify-between text-xs font-mono text-gray-400 pb-2">
+                                    <span>UPTIME</span>
+                                    <span class="text-white">402h 12m</span>
+                                </div>
+                                <button class="w-full py-2 bg-signalDim border border-signal text-signal text-xs font-bold hover:bg-signal hover:text-black transition-colors uppercase">
+                                    INITIATE COOLING
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Item 2 -->
+                    <div class="accordion-item border border-white/10 bg-panel group">
+                        <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex justify-between items-center bg-surface hover:bg-white/5 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 bg-acid rounded-full"></div>
+                                <span class="font-display text-lg text-chrome tracking-wide">NETWORK_PROTOCOLS</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 border-t border-white/10">
+                                <p class="text-sm text-gray-400 font-mono mb-4">
+                                    Available protocols for secure data transmission. Select encryption level below.
+                                </p>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-3 border border-white/10 hover:border-acid cursor-pointer text-center">
+                                        <div class="text-xs text-gray-500 mb-1">TYPE_A</div>
+                                        <div class="text-acid font-bold">WEP-2</div>
+                                    </div>
+                                    <div class="p-3 border border-white/10 hover:border-acid cursor-pointer text-center">
+                                        <div class="text-xs text-gray-500 mb-1">TYPE_B</div>
+                                        <div class="text-acid font-bold">WPA-3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. RICH TEXT / MARKDOWN -->
+            <section id="markdown" class="scroll-mt-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">03 // TEXT_PROCESSOR</h3>
+                    <span class="text-xs text-gray-600 font-mono">MARKDOWN & DOCS</span>
+                </div>
+
+                <div class="bg-panel border border-white/10 p-8 md:p-12 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 text-6xl font-display font-bold text-white select-none">DOC</div>
+                    
+                    <!-- Markdown Content Simulation -->
+                    <div class="prose prose-invert max-w-none font-sans">
+                        
+                        <h1 class="font-display text-3xl text-white border-l-4 border-acid pl-4 mb-6">Mission Directive: Alpha</h1>
+                        
+                        <p class="text-gray-400 text-lg leading-relaxed mb-6 font-mono">
+                            The objective is to establish a secure perimeter around the data core. All units must maintain <span class="text-acid bg-acidDim px-1">radio silence</span> until the breach is confirmed.
+                        </p>
+
+                        <blockquote class="border-l-2 border-ice bg-iceDim p-4 mb-6 italic text-gray-300 font-mono text-sm">
+                            "Chaos is merely data without a pattern. Find the pattern, control the chaos." <br>
+                            <span class="text-ice not-italic font-bold mt-2 block">— SysAdmin_01</span>
+                        </blockquote>
+
+                        <h3 class="text-xl text-white font-display mb-4 flex items-center gap-2">
+                            <i data-lucide="list" class="w-5 h-5 text-gray-500"></i> 
+                            Protocol Sequence
+                        </h3>
+                        <ul class="space-y-2 mb-8 font-mono text-sm text-gray-400">
+                            <li class="flex items-start gap-3">
+                                <span class="text-acid">></span> 
+                                Initialize boot sequence v4.2
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-acid">></span> 
+                                Verify user biometrics (Retina/Fingerprint)
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-acid">></span> 
+                                Establish encrypted tunnel to Host
+                            </li>
+                        </ul>
+
+                        <div class="p-4 border border-dashed border-gray-700 bg-surface/50 text-center">
+                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Attachment</p>
+                            <div class="inline-flex items-center gap-2 text-ice hover:text-white cursor-pointer transition-colors">
+                                <i data-lucide="file-text" class="w-4 h-4"></i>
+                                <span class="underline">full_report.pdf</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. CODE BLOCKS -->
+            <section id="codeblocks" class="scroll-mt-24 pb-32">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">04 // CODE_EDITOR</h3>
+                    <span class="text-xs text-gray-600 font-mono">SYNTAX HIGHLIGHTING</span>
+                </div>
+
+                <div class="w-full bg-[#0d0d0d] border border-gray-800 rounded-sm overflow-hidden shadow-2xl relative group">
+                    
+                    <!-- Editor Header -->
+                    <div class="bg-[#1a1a1a] border-b border-gray-800 px-4 py-2 flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                        </div>
+                        <div class="text-xs font-mono text-gray-500">main.js — Read Only</div>
+                        <button class="text-xs text-gray-500 hover:text-white flex items-center gap-1 transition-colors">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+
+                    <!-- Editor Body -->
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300">
+<code><span class="text-gray-600 select-none mr-4">01</span><span class="syntax-keyword">const</span> <span class="syntax-func">initiateCore</span> = <span class="syntax-keyword">async</span> () => {
+<span class="text-gray-600 select-none mr-4">02</span>  <span class="syntax-comment">// Establish connection to mainframe</span>
+<span class="text-gray-600 select-none mr-4">03</span>  <span class="syntax-keyword">try</span> {
+<span class="text-gray-600 select-none mr-4">04</span>    <span class="syntax-keyword">const</span> uplink = <span class="syntax-keyword">await</span> system.<span class="syntax-func">connect</span>({
+<span class="text-gray-600 select-none mr-4">05</span>      target: <span class="syntax-string">"SECURE_SERVER_01"</span>,
+<span class="text-gray-600 select-none mr-4">06</span>      protocol: <span class="syntax-string">"HTTPS_OVERRIDE"</span>,
+<span class="text-gray-600 select-none mr-4">07</span>      timeout: <span class="text-orange-400">5000</span>
+<span class="text-gray-600 select-none mr-4">08</span>    });
+<span class="text-gray-600 select-none mr-4">09</span>    
+<span class="text-gray-600 select-none mr-4">10</span>    <span class="syntax-keyword">if</span> (uplink.status === <span class="syntax-string">"CONNECTED"</span>) {
+<span class="text-gray-600 select-none mr-4">11</span>      <span class="syntax-func">console</span>.log(<span class="syntax-string">"ACCESS GRANTED"</span>);
+<span class="text-gray-600 select-none mr-4">12</span>      <span class="syntax-keyword">return</span> <span class="syntax-keyword">true</span>;
+<span class="text-gray-600 select-none mr-4">13</span>    }
+<span class="text-gray-600 select-none mr-4">14</span>  } <span class="syntax-keyword">catch</span> (err) {
+<span class="text-gray-600 select-none mr-4">15</span>    <span class="syntax-func">console</span>.error(<span class="syntax-string">"CRITICAL FAILURE"</span>, err);
+<span class="text-gray-600 select-none mr-4">16</span>  }
+<span class="text-gray-600 select-none mr-4">17</span>};</code></pre>
+                    </div>
+
+                    <!-- Status Bar -->
+                    <div class="bg-[#1a1a1a] border-t border-gray-800 px-4 py-1 flex justify-between items-center text-xs font-mono text-gray-500">
+                        <div>JavaScript</div>
+                        <div>UTF-8</div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Accordion Logic
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const content = button.nextElementSibling;
+            
+            // Toggle active state
+            item.classList.toggle('active');
+            
+            // Note: The max-height transition is handled in CSS based on the .active class
+            // But we can add extra logic here if we wanted "only one open at a time"
+            
+            // Optional: Close others
+            /*
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            */
+        }
+    </script>
+</body>
+</html>

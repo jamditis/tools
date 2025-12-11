@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICK REF // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @media print {
+            @page { margin: 0.5in; size: letter; }
+            body { 
+                background: white !important; 
+                color: black !important; 
+                -webkit-print-color-adjust: exact; 
+            }
+            .no-print { display: none !important; }
+            
+            /* Print Overrides to flatten the cyber look into ink-friendly styles */
+            .bg-void, .bg-panel, .bg-surface { background: white !important; border: 1px solid #ddd !important; }
+            .text-chrome, .text-gray-400, .text-gray-500, .text-gray-600 { color: black !important; }
+            .text-acid, .text-signal, .text-ice { color: black !important; font-weight: bold !important; }
+            .border-white\/10, .border-white\/20 { border-color: #000 !important; }
+            .glitch-text::before, .glitch-text::after { display: none !important; }
+            .crt-overlay, .bg-grid-pattern { display: none !important; }
+            
+            /* Compact layout for print */
+            main { padding: 0 !important; }
+            .gap-6 { gap: 1rem !important; }
+            .p-6 { padding: 1rem !important; }
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <!-- Print Button -->
+    <div class="fixed top-4 right-4 z-50 no-print">
+        <button onclick="window.print()" class="px-4 py-2 bg-acid text-black font-bold text-xs clip-notch hover:bg-white transition-colors flex items-center gap-2">
+            <i data-lucide="printer" class="w-4 h-4"></i> PRINT_CARD
+        </button>
+    </div>
+
+    <div class="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-8">
+        
+        <div class="max-w-[8.5in] w-full bg-panel border border-white/10 p-8 shadow-2xl relative overflow-hidden">
+            <!-- Decorative Corners -->
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-acid"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-acid"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-acid"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-acid"></div>
+
+            <!-- Header -->
+            <header class="flex justify-between items-end border-b-2 border-white/10 pb-4 mb-6">
+                <div>
+                    <h1 class="font-display text-3xl text-white font-bold tracking-tight">AI_TOOLS // REFERENCE</h1>
+                    <p class="text-xs text-gray-500 tracking-[0.2em] mt-1">NEWSROOM PROTOCOLS v2.5</p>
+                </div>
+                <div class="text-right hidden sm:block">
+                    <div class="text-acid font-bold text-xs">AMDITIS KIT</div>
+                    <div class="text-xs text-gray-600">CCM RESOURCES</div>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Col 1 -->
+                <div class="space-y-6">
+                    <!-- LLMs -->
+                    <div>
+                        <h3 class="text-ice font-bold text-sm border-b border-ice/30 pb-1 mb-2">MODEL_SELECTION</h3>
+                        <table class="w-full text-xs text-left">
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">CODING/WRITING</td>
+                                <td class="py-1.5 text-right font-bold text-white">Claude 4.5 Opus</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">FRONT-END</td>
+                                <td class="py-1.5 text-right font-bold text-white">Gemini 3.0 Pro</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">RESEARCH</td>
+                                <td class="py-1.5 text-right font-bold text-white">GPT 5.1</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 text-gray-400">EDITOR</td>
+                                <td class="py-1.5 text-right font-bold text-white">GitHub Copilot</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Languages -->
+                    <div>
+                        <h3 class="text-acid font-bold text-sm border-b border-acid/30 pb-1 mb-2">LANGUAGE_MATRIX</h3>
+                        <table class="w-full text-xs text-left">
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">DATA CLEANING</td>
+                                <td class="py-1.5 text-right font-bold text-acid">Python</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">STATS</td>
+                                <td class="py-1.5 text-right font-bold text-ice">R Lang</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">INTERACTIVE</td>
+                                <td class="py-1.5 text-right font-bold text-signal">JavaScript</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-1.5 text-gray-400">SCRAPING</td>
+                                <td class="py-1.5 text-right font-bold text-acid">Python</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 text-gray-400">DATABASE</td>
+                                <td class="py-1.5 text-right font-bold text-white">SQL</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="space-y-6">
+                    <!-- Workflow -->
+                    <div>
+                        <h3 class="text-signal font-bold text-sm border-b border-signal/30 pb-1 mb-2">EXECUTION_LOOP</h3>
+                        <div class="space-y-2.5 text-xs">
+                            <div class="flex gap-2">
+                                <span class="text-signal font-bold">01</span>
+                                <span class="text-gray-400">DEFINE :: State the objective clearly.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-signal font-bold">02</span>
+                                <span class="text-gray-400">GENERATE :: AI drafts initial code.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-signal font-bold">03</span>
+                                <span class="text-gray-400">TEST :: Run locally. Expect errors.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-signal font-bold">04</span>
+                                <span class="text-gray-400">DEBUG :: Feed errors back to AI.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-signal font-bold">05</span>
+                                <span class="text-gray-400">LOG :: Document success in changelog.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Debugging -->
+                    <div class="bg-surface border border-white/10 p-3">
+                        <h3 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-signal"></i> DEBUG_PROTOCOL
+                        </h3>
+                        <ul class="text-xs text-gray-400 space-y-1.5 list-disc pl-3">
+                            <li>Copy FULL error message.</li>
+                            <li>Paste with context ("I ran X, got Y").</li>
+                            <li>Same error 3x? <span class="text-white">STOP. Re-prompt.</span></li>
+                            <li>Check environment variables.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="space-y-6">
+                    <!-- Structure -->
+                    <div>
+                        <h3 class="text-chrome font-bold text-sm border-b border-white/20 pb-1 mb-2">FILE_STRUCTURE</h3>
+                        <div class="bg-[#050505] p-2 border border-white/10 text-xs font-mono text-gray-400 leading-relaxed">
+                            project_root/<br>
+                            ├── <span class="text-acid">CHANGELOG.md</span><br>
+                            ├── <span class="text-ice">data/</span><br>
+                            ├── output/<br>
+                            ├── scripts/<br>
+                            └── README.md
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div>
+                        <h3 class="text-chrome font-bold text-sm border-b border-white/20 pb-1 mb-2">PRE_FLIGHT</h3>
+                        <ul class="text-xs text-gray-400 space-y-1.5">
+                            <li class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 border border-gray-600"></div> Goal Defined
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 border border-gray-600"></div> Data Cleaned
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 border border-gray-600"></div> Time Limit Set
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 border border-gray-600"></div> Log Created
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-6 pt-4 border-t border-white/10 flex justify-between text-[8px] text-gray-600">
+                <div>AUTHOR: JOE AMDITIS</div>
+                <div>CENTERFORCOOPERATIVEMEDIA.ORG</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

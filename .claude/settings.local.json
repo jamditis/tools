@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "Bash(powershell -Command \"& {(Get-Content ''C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\context\\Vibe coding starter guide for newsrooms (12_10_2025 9：02：40 PM).html'' -Raw) -replace ''<[^>]+>'', '' '' -replace ''\\s+'', '' '' | Select-Object -First 1}\")",
+      "Bash(powershell -Command \"& {(Get-Content ''C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\context\\Vibe coding starter guide for newsrooms (12_10_2025 9：02：40 PM).html'' -Raw) | Select-String -Pattern ''<h[1-3][^>]*>.*?</h[1-3]>'' -AllMatches | ForEach-Object { $_Matches.Value } | ForEach-Object { $_-replace ''<[^>]+>'', '''' }}\")",
+      "Bash(powershell -Command \"& {(Get-Content ''C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\context\\LLM journalism tool advisor (12_10_2025 9：03：07 PM).html'' -Raw) | Select-String -Pattern ''<h[1-3][^>]*>.*?</h[1-3]>'' -AllMatches | ForEach-Object { $_Matches.Value } | ForEach-Object { $_-replace ''<[^>]+>'', '''' }}\")",
+      "Skill(frontend-design:frontend-design)",
+      "Bash(powershell -Command \"Get-Content ''C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\context\\Vibe coding starter guide for newsrooms (12_10_2025 9：02：40 PM).html'' -Raw | Select-String -Pattern '':root\\s*\\{[^}]+\\}'' -AllMatches\")",
+      "Bash(powershell -Command \"(Get-Content ''C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\context\\Vibe coding starter guide for newsrooms (12_10_2025 9：02：40 PM).html'' -Raw).Substring(0, 8000)\")",
+      "Bash(powershell:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(gh auth status:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: CCM AI tools resource kit\n\nIncludes:\n- Vibe coding starter guide with interactive glossary\n- LLM journalism tool advisor (interactive decision tree)\n- Quick reference card (printable)\n- Language selection guide\n- Technical glossary (40+ terms)\n- Downloadable templates (changelog, checklist, comparison)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(gh repo create:*)",
+      "Bash(gh api:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(gh repo rename:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(wc:*)",
+      "Bash(dir /s /b \"C:\\Users\\amdit\\OneDrive\\Desktop\\Crimes\\playground\\ccm\\templates\\*.md\")",
+      "Bash(findstr:*)",
+      "Bash(git pull:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(start http://localhost:8000/html/index.html)",
+      "Bash(netstat:*)",
+      "Bash(start:*)",
+      "Bash(git rm:*)"
+    ]
+  }
+}

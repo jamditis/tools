@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM journalism tool advisor</title>
+    
+    <!-- This script loads Tailwind CSS, which is the framework used for all styling. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // This is the main configuration "dashboard" for your app's design.
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        light: {
+                            'bg': '#CAF0F8',
+                            'bg-secondary': '#ADE8F4',
+                            'bg-tertiary': '#90E0EF',
+                            'text': '#03045E',
+                            'text-secondary': '#0077B6',
+                            'border': '#023E8A'
+                        },
+                        dark: {
+                            'bg': '#0f172a',
+                            'bg-secondary': '#1e293b',
+                            'bg-tertiary': '#334155',
+                            'text': '#f8fafc',
+                            'text-secondary': '#cbd5e1',
+                            'border': '#334155'
+                        },
+                        accent: {
+                            research: '#3b82f6',
+                            content: '#16a34a',
+                            data: '#8b5cf6',
+                            editing: '#ea580c',
+                            sources: '#db2777',
+                            multimedia: '#14b8a6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html.dark strong {
+            color: #f8fafc; 
+        }
+        .switch { font-size: 17px; position: relative; display: inline-block; width: 3.5em; height: 2em; }
+        .switch .input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #73C0FC; transition: .4s; border-radius: 30px; }
+        .slider:before { position: absolute; content: ""; height: 1.4em; width: 1.4em; border-radius: 20px; left: 0.3em; bottom: 0.3em; z-index: 2; background-color: #e8e8e8; transition: .4s; }
+        .sun svg { position: absolute; top: 0.35em; left: 2.1em; z-index: 1; width: 1.2em; height: 1.2em; }
+        .moon svg { fill: #73C0FC; position: absolute; top: 0.3em; left: 0.3em; z-index: 1; width: 1.2em; height: 1.2em; }
+        .sun svg { animation: rotate 15s linear infinite; }
+        @keyframes rotate { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+        .moon svg { animation: tilt 5s linear infinite; }
+        @keyframes tilt { 0% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(0deg); } }
+        .input:checked + .slider { background-color: #183153; }
+        .input:focus + .slider { box-shadow: 0 0 1px #183153; }
+        .input:checked + .slider:before { transform: translateX(1.5em); }
+    </style>
+</head>
+<body class="h-full">
+
+    <div id="llm-tool-advisor-container" class="text-light-text dark:text-dark-text p-4 flex items-center justify-center min-h-full">
+        <div id="app-container" class="bg-light-bg dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-2xl shadow-lg w-full max-w-4xl mx-auto flex flex-col transition-all duration-300">
+            
+            <div id="header" class="p-4 sm:p-6 border-b border-light-border dark:border-dark-border">
+                <div class="flex justify-between items-center gap-4">
+                    <h1 class="text-xl sm:text-2xl font-bold text-light-text dark:text-dark-text">LLM journalism tool advisor</h1>
+                    <div class="flex space-x-2 items-center flex-shrink-0">
+                          <label class="switch">
+                              <input type="checkbox" id="theme-toggle-checkbox" class="input">
+                              <span class="slider">
+                                  <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
+                                  <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></span>
+                              </span>
+                          </label>
+                        <button id="back-btn" class="bg-light-bg-tertiary dark:bg-dark-bg-tertiary p-2 rounded-full hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 transition-colors" aria-label="Go back">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <button id="restart-btn" class="bg-light-bg-tertiary dark:bg-dark-bg-tertiary p-2 rounded-full hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 transition-colors" aria-label="Restart">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 bg-light-bg-tertiary dark:bg-dark-bg-tertiary rounded-full h-2">
+                    <div id="progress-bar" class="bg-blue-500 rounded-full h-2 transition-all duration-500 ease-in-out" style="width: 0%;"></div>
+                </div>
+                <div class="mt-4 flex flex-col sm:flex-row items-center gap-2">
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button id="show-comparison-btn" class="flex-1 sm:flex-none justify-center items-center px-4 py-2 rounded-lg transition-colors text-sm font-medium bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border">Compare</button>
+                        <button id="show-case-studies-btn" class="flex-1 sm:flex-none justify-center items-center px-4 py-2 rounded-lg transition-colors text-sm font-medium bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border">Case studies</button>
+                    </div>
+                    <select id="tool-selector" class="w-full sm:flex-1 p-2 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border text-sm text-light-text-secondary dark:text-dark-text-secondary focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow">
+                    </select>
+                </div>
+                <div id="breadcrumb" class="mt-3 flex flex-wrap items-center text-xs text-light-text-secondary dark:text-dark-text-secondary hidden">
+                </div>
+            </div>
+
+            <div id="main-content" class="p-4 sm:p-6 flex-grow">
+            </div>
+
+            <div id="footer" class="p-4 sm:p-6 border-t border-light-border dark:border-dark-border">
+                <div class="flex flex-col items-start gap-4">
+                    <p class="text-sm text-light-text-secondary dark:text-dark-text-secondary">This interactive advisor helps journalists select appropriate LLM tools.  <a href="https://centerforcooperativemedia.org/llmadvisor/experimental/" target="_blank" rel="noopener noreferrer" class="underline hover:text-light-text dark:hover:text-dark-text">View all decision paths</a> (beta). Created by <a href="https://twitter.com/jsamditis" target="_blank" rel="noopener noreferrer" class="underline hover:text-light-text dark:hover:text-dark-text">Joe Amditis</a>.
+                        Last updated: October 1, 2025. <button id="show-changelog-btn" class="underline hover:text-light-text dark:hover:text-dark-text transition-colors">View patch notes</button>.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <button id="footer-best-practices-btn" class="footer-button text-sm font-medium px-4 py-2 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border transition-colors">View best practices</button>
+                        <button id="footer-model-info-btn" class="footer-button text-sm font-medium px-4 py-2 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border transition-colors">Learn about models</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="universal-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4 hidden">
+                <div id="modal-content-container" class="bg-light-bg dark:bg-dark-bg-secondary rounded-2xl w-full max-w-4xl shadow-2xl flex flex-col max-h-[85vh]">
+                    <div class="p-4 flex justify-between items-center border-b border-light-border dark:border-dark-border flex-shrink-0">
+                        <h2 id="modal-title" class="text-xl font-bold text-light-text dark:text-dark-text">Modal Title</h2>
+                        <button class="modal-close-btn bg-light-bg-tertiary dark:bg-dark-bg-tertiary p-2 rounded-full hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 transition-colors">✕</button>
+                    </div>
+                    <div id="modal-body" class="p-6 overflow-y-auto"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    (function() {
+
+        const container = document.getElementById('llm-tool-advisor-container');
+        if (!container) {
+            console.error('LLM Tool Advisor container not found.');
+            return;
+        }
+
+        const decisionTree = {
+            start: { question: "What journalism task are you working on today?", options: [ { text: "Research & background information", next: "research", track: "research" }, { text: "Content creation & writing", next: "content", track: "content" }, { text: "Data analysis & visualization", next: "data", track: "data" }, { text: "Editing & refining", next: "editing", track: "editing" }, { text: "Source finding & management", next: "sources", track: "sources" }, { text: "Multimedia content", next: "multimedia", track: "multimedia" } ] },
+            research: { question: "What kind of research are you conducting?", options: [ { text: "Quick background on a topic", next: "research_basic" }, { text: "Deep dive into a complex issue", next: "research_deep" }, { text: "Finding recent or real-time info", next: "research_recent" }, { text: "Analyzing specific documents", next: "research_documents" } ] },
+            research_basic: { question: "How specialized is your topic?", options: [ { text: "General knowledge topic", next: "recommendation", tools: [{ name: "General purpose LLM interaction", description: "For broad research and brainstorming, the fast 'chat' models are your best bet. They are quick and conversational.", tools: ["Claude 4 Sonnet", "GPT-4o", "Gemini 2.5 Flash"], prompt: "Act as a research assistant. Create a comprehensive briefing document on [TOPIC]. The document should be structured with the following sections: 1. Executive Summary, 2. Historical Context, 3. Key Stakeholders, 4. Current State of Affairs, 5. Major Debates and Controversies. The target audience is a journalist needing to get up to speed quickly.", tips: "The faster models are great starting points. After the initial summary, ask follow-up questions to drill down into specific areas of interest. Always verify the information." }] }, { text: "Niche or specialized subject", next: "recommendation", tools: [{ name: "Deep research models", description: "For complex or specialized topics that require careful reasoning, you must switch to a powerful 'work' model.", tools: ["Claude 4 Opus", "GPT-5", "Gemini 2.5 Pro"], prompt: "You are a subject matter expert in [NICHE FIELD]. I am a journalist writing an investigative piece on [SPECIFIC NICHE TOPIC]. Explain it to me as you would a colleague. Please detail key terminology, a timeline of major developments, the most influential figures or organizations, and three potential, non-obvious story angles worth exploring. I need you to think critically and not just summarize.", tips: "Switching to the 'work' tier of models (Opus, GPT-5, Pro) is crucial for high-stakes, complex topics. Always fact-check specialized information with a human expert." }] } ] },
+            research_deep: { question: "Do you have specific documents to analyze?", options: [ { text: "Yes, I have a large collection of documents", next: "recommendation", tools: [{ name: "Large context document analysis", description: "Use powerful models with large context windows to process and synthesize entire document collections.", tools: ["Gemini 2.5 Pro", "Claude 4 Opus"], prompt: "Act as an investigative data analyst. I have uploaded a collection of [NUMBER] documents related to [TOPIC]. Your task is to: 1. Cross-reference all documents to create a master timeline. 2. Identify any conflicting information or inconsistencies between the documents. 3. Extract all names of people and corporations mentioned. 4. Provide a summary of the most critical finding supported by evidence from the provided files, citing which document the evidence comes from.", tips: "This is the ideal use case for the large context windows of Gemini 2.5 Pro and Claude 4 Opus. Ensure you are using the powerful 'work' tier models for this task." }] }, { text: "No, I'm starting from scratch", next: "recommendation", tools: [{ name: "Investigative research tools", description: "Use specialized research modes to find and synthesize information from the web.", tools: ["GPT-5 (Deep Research)", "Grok 3 (DeepSearch)"], prompt: "I am beginning an investigative report on [COMPLEX TOPIC]. I need a comprehensive research plan. First, think step-by-step to create a rubric for what a world-class research plan would contain. Then, use that rubric to provide: 1. A list of 10 keywords and search phrases. 2. A list of potential source types (e.g., academic journals, government reports). 3. Three potential narrative arcs for the story. 4. A list of key ethical considerations.", tips: "In ChatGPT, use the GPT-5 model and explicitly trigger the 'Deep Research' feature which is more thorough. In Grok 3, use the 'DeepSearch' function for a similar, exhaustive search. This is for lead generation—all findings must be independently verified." }] } ] },
+            research_recent: { question: "How time-sensitive is your information need?", options: [ { text: "Breaking news & real-time social media", next: "recommendation", tools: [{ name: "Real-time news monitoring", description: "Use LLMs integrated with real-time data streams for up-to-the-minute information.", tools: ["Grok 3"], prompt: "Monitor X/Twitter for the topic [EVENT/TOPIC]. Provide a summary of developments over the last 30 minutes. Identify the 5 most influential accounts (by engagement) discussing this topic. What is the prevailing sentiment? Is there any emerging misinformation?", tips: "Grok 3's direct X/Twitter integration is its killer feature. Use it to find eyewitnesses or see how a narrative is forming online in real-time. Treat everything as a lead, not a fact. Always verify." }] }, { text: "Recent news (last few days/weeks)", next: "recommendation", tools: [{ name: "Web-connected LLMs", description: "Use search-enabled LLMs to find information from the recent past.", tools: ["GPT-4o", "Perplexity"], prompt: "Provide a chronological summary of news coverage about [TOPIC] from the last 7 days. For each key development, cite the primary news source with a URL. Distinguish between official statements and pundit commentary. Conclude with a list of unanswered questions based on the current reporting.", tips: "These tools are essentially intelligent search engines. The key is to review the *original sources* they cite. Never take the summary at face value without clicking through to read the context from the source article." }] } ] },
+            research_documents: { question: "What is your main goal with these documents?", options: [ { text: "Summarize and find key insights", next: "recommendation", tools: [{ name: "Document analysis & summarization", description: "Analyze text-based documents (PDFs, reports) to extract key information.", tools: ["Claude 4 Opus", "Gemini 2.5 Pro", "GPT-5"], prompt: "I have uploaded a [DOCUMENT TYPE]. Act as a policy analyst. Provide the following: 1. A one-paragraph executive summary. 2. A bulleted list of the top 5 most impactful conclusions. 3. A table extracting all statistics, data points, and their corresponding sources mentioned in the document. 4. A list of any jargon or acronyms and their definitions.", tips: "Use a powerful 'work' tier model (Opus, Pro, or GPT-5) if you have a very large document or a whole folder of them for the best summarization and analysis." }] }, { text: "Ask questions of my documents", next: "recommendation", tools: [{ name: "Source-Grounded Q&A", description: "Use an AI notebook to ask questions, summarize, and generate ideas based on your specific documents.", tools: ["NotebookLM"], prompt: "After uploading your documents (e.g., interview transcripts, reports), ask: 'What are the main points of disagreement between Source A and Source B?' or 'Generate a five-point summary of the key findings across all documents.' or 'Create a FAQ based on this material.'", tips: "NotebookLM excels when you have a specific set of sources to work from. Use its 'Notebook guide' feature to see an automatic overview of your sources, including summaries and key topics. It helps you get started quickly." }] }, { text: "Analyze and visualize data from files", next: "recommendation", tools: [{ name: "Data file analysis", description: "Analyze structured data from files like CSVs or spreadsheets to find trends and create charts.", tools: ["GPT-5", "Gemini 2.5 Pro", "Claude 4 Opus"], prompt: "I have uploaded a CSV file containing [DATASET DESCRIPTION]. Act as a data journalist. Analyze this data to find the three most newsworthy insights. For each insight, explain why it is significant, generate a corresponding data visualization (e.g., bar chart), and provide the Python code you used for the analysis.", tips: "Use Gemini 2.5 Pro's 'Canvas' or GPT-5's code interpreter to perform the analysis and create the chart directly. Use Claude 4 Opus for its top-tier ability to generate clean code for you to run yourself." }] } ] },
+            content: { question: "What type of content are you creating?", options: [ { text: "Article drafting or writing assistance", next: "content_writing" }, { text: "Headline and social media copy", next: "content_social" }, { text: "Interview question preparation", next: "content_interview" } ] },
+            content_writing: { question: "What stage of writing are you in?", options: [ { text: "Brainstorming and outlining", next: "recommendation", tools: [{ name: "Story angle explorer", description: "Use an LLM to brainstorm different angles and structures for a story.", tools: ["Claude 4 Sonnet", "GPT-4o"], prompt: "I'm developing a story about [TOPIC]. My target audience is [AUDIENCE DESCRIPTION]. Generate three distinct narrative structures for this story: 1. Inverted Pyramid (for a hard news approach). 2. Narrative Arc (for a feature story). 3. Explainer (for a deep dive). For each, provide a brief outline and a compelling lede.", tips: "The fast 'chat' models are great for brainstorming. Claude's conversational style often leads to more unique and nuanced story angles. It's like having a very creative editor to bounce ideas off of." }] }, { text: "Writing a first draft", next: "recommendation", tools: [{ name: "Long-form writing assistant", description: "Generate a first draft of an article based on your notes and research.", tools: ["Claude 4 Opus"], prompt: "You are a feature writer for [PUBLICATION-STYLE, e.g., The New Yorker]. Using only the provided notes, quotes, and data below, write a compelling 800-word narrative article. Weave the quotes in naturally and use the data to support the story. Do not add any information not present in the notes. NOTES: [PASTE YOUR DETAILED NOTES, QUOTES, and DATA]", tips: "Claude 4 Opus is the industry leader for this task. The output quality is directly proportional to the detail and quality of your input notes. This is a tool to assemble your reporting, not to do the reporting for you. The draft will still require rigorous fact-checking and editing." }] } ] },
+            content_social: { question: "What kind of copy do you need?", options: [ { text: "Headlines for an article", next: "recommendation", tools: [{ name: "Headline generator", description: "Generate multiple headline options for an article, optimized for SEO or engagement.", tools: ["Claude 4 Sonnet", "GPT-4o"], prompt: "I've written an article about [TOPIC]. The main takeaway is [MAIN TAKEAWAY]. The target keyword is '[KEYWORD]'. Generate 10 headline options: 5 optimized for Google search results (under 60 characters, including the keyword), and 5 optimized for high engagement on social media (e.g., posing a question). Ensure all headlines are accurate and not clickbait.", tips: "For best results, paste the full text of your article into the LLM first and ask it to summarize the key points. Use that summary to inform your headline generation prompt for more accurate and compelling options." }] }, { text: "A cross-platform social media package", next: "recommendation", tools: [{ name: "Social media package creator", description: "Create tailored posts for different social media platforms from a single article.", tools: ["Claude 4 Opus", "Gemini 2.5 Pro"], prompt: "Here is my article: [PASTE ARTICLE TEXT]. Create a promotional social media package. The package should include: 1. Two posts for X/Twitter (one with a key quote, one with a surprising stat), including relevant hashtags and tagging [@RELEVANT_ACCOUNTS]. 2. One professional post for LinkedIn, aimed at industry experts. 3. One engaging post for Facebook that asks a question to drive comments.", tips: "After generating the text, ask the model to suggest a specific type of visual for each post (e.g., 'For the Facebook post, an infographic showing the key statistic would work well.')." }] } ] },
+            content_interview: { question: "Who are you interviewing?", options: [ { text: "An expert or public figure", next: "recommendation", tools: [{ name: "Expert interview preparation", description: "Generate insightful questions for subject matter experts.", tools: ["GPT-5", "Claude 4 Opus"], prompt: "I am interviewing [PERSON], an expert in [FIELD]. I have pasted their biography and three of their recent articles below. First, summarize their main arguments and known positions on [TOPIC]. Second, based on this research, generate 15 critical, open-ended questions that go beyond simple clarification and challenge them to elaborate on their views. Avoid questions they have likely been asked before. RESEARCH MATERIAL: [PASTE BIO AND ARTICLES]", tips: "Pro-tip workflow: Use a web-connected model like GPT-4o to compile a dossier on your subject. Then, paste that complete dossier into a reasoning model like GPT-5 or Claude 4 Opus to craft truly unique and effective questions." }] }, { text: "A person with a personal story (human interest)", next: "recommendation", tools: [{ name: "Human interest interview guide", description: "Generate sensitive and narrative-focused questions for personal stories.", tools: ["Claude 4 Opus"], prompt: "You are a trauma-informed journalist. I am interviewing someone about their personal experience with [SENSITIVE TOPIC]. My goal is to empower them to tell their story in their own words. Generate 12 questions that are empathetic, open-ended, and non-judgmental. Order the questions to build rapport first before moving to more difficult topics. Conclude with questions about their hopes for the future.", tips: "Claude's strength in understanding emotional nuance makes it the only choice for this kind of sensitive work. Its ability to generate gentle, respectful questions is unmatched. Read the questions carefully and use your own judgment during the actual interview." }] } ] },
+            data: { question: "What are you trying to do with data?", options: [ { text: "Analyze a dataset to find stories", next: "data_analysis" }, { text: "Generate code for data work", next: "data_coding" }, { text: "Extract structured data from documents", next: "data_extraction" } ] },
+            data_analysis: { question: "What is your main goal?", options: [ { text: "Find trends and create visualizations", next: "recommendation", tools: [{ name: "Advanced data analysis & visualization", description: "Analyze structured data files to find trends and create charts directly within the chat interface.", tools: ["Gemini 2.5 Pro (Canvas)", "GPT-5"], prompt: "I've uploaded a dataset about [TOPIC]. Act as a data journalist. Your task is to: 1. Perform an exploratory data analysis to understand the dataset. 2. Identify the three most statistically significant and newsworthy insights. 3. For each insight, explain it in a single paragraph. 4. Generate a clean, well-labeled data visualization for each of the three insights.", tips: "Gemini 2.5 Pro or GPT-5 are the best tools for this because they have powerful, built-in data analysis and visualization capabilities (sometimes called 'code interpreter' functionality). You can upload a file and have it work directly on the data." }] }, { text: "Perform complex analysis on a budget", next: "recommendation", tools: [{ name: "Cost-effective complex reasoning", description: "Use highly efficient models for complex mathematical or logical analysis.", tools: ["DeepSeek R1"], prompt: "I have a complex dataset on [TOPIC]. I need to perform a [SPECIFIC STATISTICAL ANALYSIS, e.g., multiple regression analysis] to determine the relationship between [VARIABLE 1] and [VARIABLE 2]. Provide the results, an interpretation of their statistical significance, and any caveats about the methodology.", tips: "When your newsroom is facing budget constraints but needs to perform serious data analysis, DeepSeek R1 offers analytical power comparable to top-tier models at a fraction of the API cost. It's a specialist tool for when you need math, not prose." }] } ] },
+            data_coding: { question: "What kind of coding help do you need?", options: [ { text: "Writing scripts for analysis or scraping", next: "recommendation", tools: [{ name: "Coding assistant for journalists", description: "Generate and debug code for data analysis, visualization, or web scraping.", tools: ["Claude 4 Opus", "GPT-5"], prompt: "You are an expert Python developer specializing in data journalism. Write a well-commented Python script that uses the 'pandas' and 'matplotlib' libraries. The script should: 1. Load the dataset from 'data.csv'. 2. Clean the data by removing rows with missing values in the '[COLUMN_NAME]' column. 3. Calculate the average of '[COLUMN_A]' grouped by '[COLUMN_B]'. 4. Create and save a bar chart of the result, titled 'Average [A] by [B]'.", tips: "Claude 4 Opus is widely considered the best for generating clean, well-explained code. For more complex projects involving multiple files or directories, GPT-5's advanced capabilities make it a top-tier choice. You can also paste your own broken code and ask for a fix." }] }, { text: "Quick code checks and simple scripts", next: "recommendation", tools: [{ name: "Fast and lightweight code generation", description: "For when you need a quick script or a code snippet without waiting.", tools: ["Mistral Small 3", "Qwen 2.5"], prompt: "Write a javascript bookmarklet that allows me to select text on a page and automatically perform a Google search for that selected text in a new tab.", tips: "These smaller, open-source models are incredibly fast. For simple, everyday coding tasks, they can provide an answer almost instantly. They can also be run locally on your own machine using tools like Ollama for ultimate privacy and speed." }] } ] },
+            data_extraction: { question: "What is your source format?", options: [ { text: "PDFs, scanned documents, or reports", next: "recommendation", tools: [{ name: "Document data extractor", description: "Extract structured data (like names, dates, numbers) from unstructured text documents.", tools: ["Gemini 2.5 Pro", "Claude 4 Opus"], prompt: "I have uploaded a 100-page PDF report. Scan the entire document and extract every instance of a person's name, their stated job title, and the organization they work for. Your output must be a valid CSV-formatted table with three columns: 'Name', 'Title', 'Organization'. Do not include any other text or explanation.", tips: "For this kind of structured data extraction from large files, Gemini 2.5 Pro is the most reliable tool due to its large context window. For smaller files, Claude is also excellent. The key to success is being extremely specific about the desired output format, as in the prompt above." }] }, { text: "Web pages", next: "recommendation", tools: [{ name: "Web scraping code generator", description: "Generate a script to extract information from websites.", tools: ["Claude 4 Opus"], prompt: "I need to extract the headline, author, and publication date for every article listed on this news hub page: [URL]. Please provide a complete, runnable Python script using the 'requests' and 'Beautiful Soup' libraries. The script should save the extracted data into a CSV file named 'articles.csv'. Include comments explaining each part of the script.", tips: "Claude 4 Opus is the top choice for generating clean, well-commented code. Important: Always check a website's 'robots.txt' file and terms of service before scraping to ensure you are complying with their policies. Be a good internet citizen." }] } ] },
+            editing: { question: "What kind of editing assistance do you need?", options: [ { text: "Copy editing (grammar and style)", next: "recommendation", tools: [{ name: "AI copy editor", description: "Review text for grammar, spelling, punctuation, and adherence to a style guide.", tools: ["Claude 4 Opus"], prompt: "Act as the lead copy editor for the Associated Press. Review the following text for any grammatical errors, spelling mistakes, and punctuation issues. Ensure every part of it strictly follows the latest AP style guide. For each correction you make, briefly explain the rule that justifies the change. TEXT: [PASTE TEXT]", tips: "Claude 4 Opus is the most nuanced and 'human-like' AI editor. For even better results, you can create a custom project where you upload your newsroom's specific style guide, and it will learn to edit according to your rules, not just general ones." }] }, { text: "Structural and developmental editing", next: "recommendation", tools: [{ name: "AI developmental editor", description: "Get feedback on the structure, flow, and narrative of your draft.", tools: ["Claude 4 Opus"], prompt: "You are a seasoned developmental editor known for candid, constructive feedback. I am providing my draft article below. I want you to read it and provide feedback in the following format: 1. Overall Thesis: Is it clear and well-supported? 2. Structure and Flow: Where does the narrative drag or lose focus? 3. Lede/Introduction: Does it successfully hook the reader? 4. Strongest & Weakest Sections: Identify them and explain why. 5. A Final Provocative Question: What is the one thing I'm not thinking about that would make this piece better? DRAFT: [PASTE DRAFT]", tips: "Don't just accept the feedback. Argue with it. Ask 'why do you think that?' to get deeper insights. Using the model as a Socratic partner is more valuable than just using it as a proofreader. Claude is the best tool for this high-level, nuanced feedback." }] } ] },
+            sources: { question: "What do you need help with regarding sources?", options: [ { text: "Finding new sources", next: "recommendation", tools: [{ name: "Expert source finder", description: "Identify potential experts, organizations, and individuals to interview for a story.", tools: ["GPT-5 (w/ Deep Research)", "Perplexity"], prompt: "I am writing an article on [TOPIC] and need to find diverse, expert sources. Please identify five potential experts, ensuring they represent a range of perspectives (e.g., academic, industry, activist). For each expert, provide: their name, current affiliation, a brief summary of their known stance on the topic, and a link to their professional profile or contact page.", tips: "These tools are connected to the web, making them ideal for discovery. Be specific in your prompt to find sources with different viewpoints to avoid a one-sided story. Always independently vet the credentials of any source suggested by an AI." }] }, { text: "Organizing and preparing for interviews", next: "recommendation", tools: [{ name: "Interview preparation assistant", description: "Create a dossier on an interview subject and generate questions.", tools: ["GPT-4o", "Claude 4 Opus"], prompt: "I am interviewing [PERSON] tomorrow about their new book, '[BOOK TITLE]'. First, act as a research assistant and compile a dossier on this person including their career history, major achievements, past controversies, and common themes in their work. Second, act as an expert journalist and, based on that dossier, generate 10 insightful questions that have not been asked in other recent interviews.", tips: "This two-step process is key. Use a web-connected tool like GPT-4o to do the background research. Then, feed that research into a more conversationally nuanced tool like Claude 4 Opus to craft truly unique and effective questions." }] } ] },
+            multimedia: { question: "What are you creating?", options: [ { text: "Audio (podcasts, voiceovers)", next: "multimedia_audio" }, { text: "Images (conceptual illustrations)", next: "recommendation", tools: [{ name: "AI image generation", description: "Create conceptual images or illustrations for articles when photography isn't an option.", tools: ["DALL-E 3 (in ChatGPT)", "Gemini (Nano Banana)"], prompt: "A photorealistic close-up portrait of an elderly journalist, with deep, thoughtful wrinkles and a curious expression. They are reviewing notes in a rustic, sun-drenched office. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the texture of the paper. Captured with an 85mm portrait lens, resulting in a soft, blurred background. The overall mood is serene and wise.", tips: "The key to great images is describing the scene, not just listing keywords. A narrative paragraph works best. For tools like Gemini's Nano Banana, you can also have a conversation to edit and refine the image iteratively. Always disclose AI-generated images according to your publication's policy." }] }, { text: "Video (short conceptual clips)", next: "recommendation", tools: [{ name: "AI video generation", description: "Create short, conceptual video clips for social media or articles.", tools: ["Gemini 2.5 (Veo 3)"], prompt: "Create a 5-second, photorealistic video clip of a single drop of water falling into a still pond, but the ripples expand outwards as glowing lines of data code.", tips: "Video generation is still new and experimental. Use it for short, abstract concepts. Gemini's Veo is a very impressive early tool in this space. You must activate video mode in the Gemini interface." }] } ] },
+            multimedia_audio: { question: "What kind of audio help do you need?", options: [ { text: "Generate a voiceover from text", next: "recommendation", tools: [{ name: "AI text-to-voice generation", description: "Generate high-quality, realistic voiceovers from a script.", tools: ["ElevenLabs", "GPT-4o"], prompt: "For ElevenLabs: 'Convert the following article text into a realistic, professional audio voiceover using a standard American English male voice. Ensure the pacing is appropriate for a news report. TEXT: [TEXT]'.", tips: "For professional, high-quality voice work, a specialized tool like ElevenLabs is often the best choice. For quick audio previews or more conversational chat, the built-in voice modes in ChatGPT and Gemini are excellent." }] }, { text: "Have a conversation with an AI", next: "recommendation", tools: [{ name: "AI voice chat", description: "Use voice mode for brainstorming, practicing interviews, or working while away from your keyboard.", tools: ["GPT-4o", "Gemini 2.5 Flash"], prompt: "Activate voice mode and have a natural conversation. For example: 'Let's brainstorm some ideas for a podcast about the local food scene.' or 'Pretend you are [PERSON], I'm going to ask you some practice interview questions.'", tips: "ChatGPT and Gemini have the best voice modes. Their killer feature is multimodality: you can point your phone's camera at something (a document, a broken appliance) and the AI will see it and talk about it with you." }] } ] },
+            recommendation: { question: "Here are your recommended tools and approaches:", options: [] }
+        };
+        const toolComparisonData = { "Claude 4 Opus": { strengths: ["Best for serious work (writing, editing, coding)", "Most 'human-like' and nuanced outputs", "Does not train on user data by default"], weaknesses: ["Slower than 'chat' models", "Cannot create images or video"], bestFor: ["Long-form writing", "Developmental editing", "Coding assistance"], pricing: "Requires paid subscription" }, "Claude 4 Sonnet": { strengths: ["Very fast and conversational", "Best for expressive writing and brainstorming"], weaknesses: ["Not as powerful or accurate as Opus", "Cannot create images or video"], bestFor: ["Quick brainstorming", "Summarizing text", "Creative writing"], pricing: "Free tier available; included in paid plan" }, "Gemini 2.5 Pro": { strengths: ["Excellent for serious work & data analysis", "Industry-leading context window for large documents", "Can create video (Veo 3)"], weaknesses: ["Slower than 'chat' models", "May train on data unless opted out"], bestFor: ["Investigative research", "Analyzing large datasets", "Summarizing document collections"], pricing: "Requires paid subscription" }, "Gemini 2.5 Flash": { strengths: ["Very fast 'chat' model", "Excellent voice mode with multimodal input (camera)"], weaknesses: ["Not as powerful as Pro", "More likely to hallucinate than Pro"], bestFor: ["Voice conversations", "Quick questions", "Using camera input"], pricing: "Free tier available; included in paid plan" }, "GPT-4o": { strengths: ["Excellent 'chat' model", "Best-in-class voice chat functionality", "Good at creating images (DALL-E 3)"], weaknesses: ["Less powerful than GPT-5 for pure reasoning", "May train on data unless opted out"], bestFor: ["General research", "Voice conversations", "Image creation"], pricing: "Free tier available; included in paid plan" }, "GPT-5": { strengths: ["Top-tier reasoning for complex problems", "Highly steerable for specific tasks", "Excellent for multi-step projects and deep research"], weaknesses: ["Highest cost model", "Can be overly thorough on simple tasks without careful prompting"], bestFor: ["Complex, multi-file coding projects", "Advanced data analysis", "Investigative deep research"], pricing: "Requires paid subscription" }, "Gemini (Nano Banana)": { strengths: ["Fast and efficient image generation", "Conversational editing and refinement", "Excellent at rendering text in images"], weaknesses: ["Newer model, style may be less consistent than established rivals", "Requires descriptive prompts for best results"], bestFor: ["Conceptual illustrations", "Logos with text", "Iterative image editing"], pricing: "Included with Gemini Advanced" }, "Grok 3": { strengths: ["Direct, real-time X/Twitter integration", "Excellent for breaking news and social media trends"], weaknesses: ["Less polished for general writing tasks", "Less transparent about its operations"], bestFor: ["Real-time news monitoring", "Social media analysis", "Finding sources during breaking news"], pricing: "Included with X Premium subscription" }, "NotebookLM": { strengths: ["Answers are grounded in your sources", "Helps avoid hallucination", "Excellent for analyzing multiple documents"], weaknesses: ["Cannot access the live web", "Limited to the documents you upload"], bestFor: ["Document analysis", "Source-based Q&A", "Summarizing interviews"], pricing: "Free" }, "Perplexity": { strengths: ["Excellent real-time search integration", "Good citation of sources", "Clean interface focused on research"], weaknesses: ["Less versatile for content creation", "Fewer advanced features"], bestFor: ["Fact-checking", "Current events research", "Finding sources"], pricing: "Free tier, with paid Pro plan" }, "Open Source Models": { strengths: ["Extremely fast and lightweight", "Can run on local hardware for privacy", "Fully open-source and free"], weaknesses: ["Less powerful than larger models for deep analysis", "Requires technical setup to run locally"], bestFor: ["Quick code checks", "Real-time applications", "Privacy-focused workflows"], pricing: "Open-source (free)" } };
+        const caseStudiesData = [ 
+           { 
+                title: "Improving infographic accessibility with AI alt text", 
+                tool: "GPT-4o", 
+                journalist: "Clare Spencer, Generative AI in the Newsroom", 
+                challenge: "The Austrian Press Agency (APA) needed to provide descriptive alt text for thousands of infographics to comply with new EU accessibility laws, but doing so manually was too time-consuming and expensive.", 
+                solution: "The team used GPT-4o's vision capabilities to build a tool that automatically generates alt text. The prompt instructs the AI to describe the infographic's theme, highlight the most important data points, and cite the source, turning a confusing jumble of numbers into a clear narrative.",
+                quote: "\"We realised quite early in the project that accessibility improvements benefit not only people with special needs but basically everyone... whenever the alt text generator was not able to explain correctly what happens in the infographics, it was mostly not the problem of the alt text generator but the problem of the infographic.\"",
+                tips: "AI can be a powerful tool for accessibility. By automating tedious but crucial tasks like writing alt text, newsrooms can make their content accessible to a wider audience without overburdening their staff.", 
+                sourceUrl: "https://generative-ai-newsroom.com/improving-the-accessibility-of-infographics-with-ai-generated-alt-text-f56aa3aef661" 
+            },
+            { 
+                title: "Administrative boon, editorial question: Generative AI’s role in small newsrooms", 
+                tool: "Custom AI", 
+                journalist: "Stuart Duncan, Generative AI in the Newsroom", 
+                challenge: "Audience-facing AI and LLM use cases aren't guaranteed to be accurate, useful, or trusted, and the effort required to address those concerns and maintain the tools themselves if often too much for small newsrooms.", 
+                solution: "Focus on internal, back-office support, and operations use cases for LLMs and AI tools, such as transcription, translation, copyediting, and SEO-friendly headline brainstorming.",
+                quote: "My interviews revealed that small news organizations are most often using generative AI as an administrative support tool, rather than a journalism creation tool.",
+                tips: "AI tool development efforts may be more impactful if they focus on enhancing back-end administrative workflows rather than content generation.", 
+                sourceUrl: "https://generative-ai-newsroom.com/administrative-boon-editorial-question-generative-ais-role-in-small-newsrooms-62e376764685" 
+            },
+            { 
+                title: "How CT Mirror uses custom AI to cover 169 towns", 
+                tool: "ChatGPT o3", 
+                journalist: "Angela Eichhorst & Stephen Busemeyer, The CT Mirror", 
+                challenge: "With a small team, The CT Mirror couldn't effectively cover all 169 towns in Connecticut, leaving important local stories and legislative developments unreported.", 
+                solution: "The newsroom developed a 'little army' of four internal AI tools using ChatGPT o3, each trained on specific Connecticut government datasets, to automate the tedious work of parsing documents, tracking legislation, and analyzing voting records to generate story leads for reporters.",
+                quote: "We just wanted to do better journalism. If an AI tool can help readers better understand important topics, the Mirror will explore it. If it's just something sparkly and even puts the readers at risk of having bad information, no, we won't go there.",
+                tips: "Don't replace reporters, augment them. Build or train specialized AI tools on your specific coverage area's datasets (like local laws or government reports) to help your newsroom 'punch way above its weight' and uncover unique stories.", 
+                sourceUrl: "https://www.poynter.org/tech-tools/artificial-intelligence/2025/ai-local-journalism-ct-mirror-coverage/" 
+            },
+            { title: "Generative AI can customize your home page", tool: "Custom AI", journalist: "Janis Kitzhofer, Senior Manager, Editorial Insights & Development at Axel Springer", challenge: "The newsroom has very high direct traffic, with 80 percent of referrers being direct. Publishing 400 articles daily with only 75 promoted on the home page, producers need to consider multiple variables including desk origin, content format, visual elements, paywall status, article length, and sentiment to maximize clicks.", solution: "The team created bots to monitor and analyze performance metrics across all published content and benchmark it continuously. Once the data is gathered, the bot identifies patterns and predicts which articles have high engagement potential and broad relevance, then shares real-time alerts to team channels via Slack with actionable links to dashboards and CMS.", outcome: "More engagement, value, and monetization while freeing editors from constant data monitoring. The system enables data-driven decisions instead of relying on gut feelings, while empowering the team rather than completely automating the process.", quote: "As a result, we have more engagement, more value, and are driving monetization while freeing the editors from having to watch the data closely themselves, so it adds efficiency. It allows us to make data-driven decisions instead of relying on gut feelings. At the same time, we're empowering our team to do this work instead of completely automating it.", tips: "Implement AI bots for monitoring and analysis rather than direct content decisions. Focus on using AI to identify patterns and potential rather than making final placement choices. Keep human editors in control while automating the data monitoring aspects.", sourceUrl: "https://drive.google.com/file/d/1C6IEY_NhaJCJGZUXmEim-I5j3F5OCu7x/view?usp=sharing", }, { title: "How the Jersey Bee Uses AI for Local News Newsletters", tool: "ChatGPT", journalist: "Simon Galperin, The Jersey Bee", challenge: "Producing daily curated newsletters for 12 different communities with only a small team of part-time staff members.", solution: "Implemented a comprehensive workflow combining Airtable, Zapier, ChatGPT Assistants via the OpenAI API, WordPress, and Mailchimp to curate thousands of news items annually across multiple platforms.", outcome: "Successfully scaled operations to serve 12 communities with consistent, high-quality local news content distributed across email newsletters, website updates, and social media.", quote: "AI tools are most effective when integrated into existing, well-defined processes. Automation works best for repetitive tasks, freeing up human resources for higher-level editorial work.", tips: "Maintain a balance of AI assistance and human oversight. Carefully integrate technologies into existing workflows to create a scalable model for producing localized news content.", sourceUrl: "https://youtu.be/b6xZiMTphD0" }, { title: "How The Economist Uses LLMs with Structured Data", tool: "ChatGPT", journalist: "James Fransham, Data Journalist at The Economist", challenge: "Extract and structure 15 years of financial disclosures from Britain's parliamentary website, focusing specifically on MPs' second jobs.", solution: "Using R, an open-source programming language, scraped financial disclosures and used OpenAI's API to convert unstructured text into structured tabular data.", outcome: "Successfully extracted specific employment data from complex documents, ignoring irrelevant information like donations, shareholdings, and foreign travel.", quote: "You are an expert at structured data extraction. You will be given unstructured text about British parliamentarians who have been paid money to write newspaper articles, appear on television or carry out other similar media work.", tips: "Use specific system prompts that clearly define the extraction parameters. Specify exactly what information to include and exclude, along with the desired output format.", sourceUrl: "https://view.e.economist.com/?qs=c7cea31b919860dd7a83890cc0d05bdb7f340d78be7fe166b642101a21b1abb20168e94c2d9682b1ea27d42ccb020993b0a33b9b0f1ddc17cd860b3407d33ea8b7d8bfb21b21ed8d5d09c0f6a05e798f" }, { title: "How the Baltimore Times Uses AI", tool: "ChatGPT", journalist: "Paris Brown, Associate Editor of the Baltimore Times", challenge: "As a small local publication with limited resources, the Baltimore Times needed to enhance operations and better serve its audience.", solution: "Integrated AI into five key areas: editorial assistance, image generation, audience engagement experiences, audience development, and diversity and inclusion.", outcome: "Created more interactive and immersive audience experiences, including audio versions of stories and personalized AR experiences for readers.", quote: "AI is the assistant I prayed for. We train it on The Baltimore Times' mission and values to ensure alignment.", tips: "Use AI as a starting point and always with human oversight. It's a tool to augment human capabilities, not replace them.", sourceUrl: "https://localmedia.org/2024/02/how-the-baltimore-times-uses-ai-to-serve-audiences-better/" }, { title: "How The Marshall Project Uses ChatGPT", tool: "ChatGPT", journalist: "The Marshall Project team", challenge: "Managing the tedious and under-resourced work of writing policy summaries while maintaining editorial integrity.", solution: "Used ChatGPT to simplify complex bureaucratic text into accessible summaries, perform textual analysis to identify themes, and classify content using data dictionaries.", outcome: "Allowed journalists to focus more time on fact-checking, editing, and deeper reporting while making complex information more accessible to the public.", quote: "The best and most obvious use cases for AI tools are the ones where the bots are helping with the boring and tedious stuff so the journalists can spend more time actually serving their communities.", tips: "A human-in-the-loop approach encourages accurate, reliable outputs. Involve historically marginalized groups in the design process to ensure tools are responsive to real needs.", sourceUrl: "https://generative-ai-newsroom.com/decoding-bureaucracy-5b0c1411171" }, { title: "Science Dejargonizer for Reporters", tool: "RAG-enabled LLMs", journalist: "Sachita Mishal's team", challenge: "Reporters struggling to understand and explain complex, jargon-heavy documents, especially in scientific and technical fields.", solution: "Built a 'Science Dejargonizer' web app using LLMs with Retrieval Augmented Generation (RAG) to identify and define jargon terms within scientific abstracts.", outcome: "Created a tool that highlights scientific terms in papers, allowing users to hover over terms to view simpler definitions and search for specific jargon.", quote: "The retrieved snippets will actually be informative for creating a definition of the jargon term, and a human will verify the supplied definition if it elicits their interest.", tips: "Use RAG to provide context-specific definitions, and always include a human verification step for any AI-generated explanations of complex terms.", sourceUrl: "https://www.niemanlab.org/2024/07/making-sense-of-science-using-llms-to-help-reporters-understand-complex-research/" }, { title: "How Colorado Newsrooms Use AI", tool: "ChatGPT and other AI tools", journalist: "Various Colorado newsrooms", challenge: "Finding appropriate ways to integrate AI tools while maintaining journalistic integrity and human oversight across diverse newsroom operations.", solution: "Different newsrooms adopted varied approaches: Denver Post for headlines and information distillation, Colorado Community Media for policy drafting, Colorado Public Radio for research, Colorado Newsline for administrative tasks, Axios Denver for reporting assistance, and Boulder Reporting Lab for various editorial tasks.", outcome: "Streamlined workflows while maintaining human oversight, with each newsroom finding specific applications that fit their editorial needs and ethical standards.", quote: "Our work is for humans by humans. Published journalism is produced entirely by the exertion of human synapses.", tips: "Establish clear policies about AI use with emphasis on human oversight and transparency. Start with administrative or background tasks rather than direct content creation.", sourceUrl: "https://coloradomedia.substack.com/p/how-some-colorado-newsrooms-are-using" }, { title: "Personalizing newsletters with iterative prompting", tool: "ChatGPT and other AI tools", journalist: "Ashlyn Wang, Generative AI in the Newsroom", challenge: "Generating AI-powered newsletter headlines at scale that are accurate, on-brand, and relevant—while avoiding hallucinations, style inconsistencies, and off-topic outputs—requires managing large volumes of iterations and diverse user preferences with limited editorial resources.", solution: "Build a repeatable prompt-engineering pipeline that—1) breaks headline creation into discrete steps, 2) embeds clear style and formatting rules, 3) layers in self-validation checks and targeted “if-then” failsafes, and 4) routes outputs through lightweight human review. This hybrid system automates the grunt work while preserving final editorial control.", outcome: "Streamlined workflows while maintaining human oversight, with each newsroom finding specific applications that fit their editorial needs and ethical standards.", quote: "Maintaining human oversight not only over the outputs — the content generated — but also over the inputs — the cues that influence model responses — can help build a more reliable and systematic AI-assisted operation.", tips: "Language models can be highly sensitive to the phrasing of prompts, and even slight modifications may lead to inconsistent or unpredictable results.", sourceUrl: "https://generative-ai-newsroom.com/personalizing-newsletters-a-case-study-on-iterative-prompt-evaluation-and-improvement-a9f1141900fd" } ];
+        const bestPracticesData = { general: { corePrinciples: [ "Focus on the system, not just the model. Choose between Claude, Gemini, or ChatGPT as your primary platform and learn its features.", "Use the right tier for the task. Use fast 'chat' models (Sonnet, GPT-4o, Flash) for quick questions and brainstorming. Manually switch to powerful 'work' models (Opus, GPT-5, Pro) for any high-stakes analysis, writing, or coding.", "Trust, but always verify. Every fact, quote, and statistic generated by an AI must be independently verified. Hallucinations are less common but still occur, especially in faster models.", "You are the journalist. The AI is a tool to augment your abilities. You are ultimately responsible for the accuracy, fairness, and integrity of your work." ], promptingTechniques: [ "Write Clearer Instructions. Newer models like GPT-5 are very literal. Avoid contradictory instructions (e.g., telling it to 'never do X' and then asking it 'to do X'). Be direct and specific about what you want.", "Ask the AI to 'Think First'. For complex tasks, ask the model to create a plan or a rubric before writing the final answer. This often results in more structured and higher-quality outputs.", "Use the AI to Improve Your Prompts. If you aren't getting the results you want, describe the problem to the AI and ask it how you could improve your prompt to get a better answer. This 'metaprompting' is a powerful way to learn.", "Get the AI to Be More (or Less) Proactive. You can tell the model to be more thorough and take more steps on its own, or you can tell it to be quick and only do the bare minimum. A simple instruction like 'Be as thorough as possible' or 'Provide a brief answer' can make a big difference." ], workflowIntegration: [ "Use 'deep research' for comprehensive reports. This feature (available in all major systems) is far more powerful than a simple web search and provides better citations.", "Use voice mode for mobile productivity. The killer feature is screen/camera sharing—point your phone at something to have the AI see and discuss it with you in real-time.", "Check the AI's 'thinking'. If you get a strange result, use the 'show thinking' or similar feature to see the steps the model took. This can help you spot errors in its logic.", "Use a changelog to maintain context across sessions. This is especially helpful for complex, multi-day projects. You can find a <a href='https://drive.google.com/file/d/1apf8wb_xiYisbyLNGtDIiMCTlj5iuIYt/view?usp=sharing' target='_blank' rel='noopener noreferrer' class='underline'>changelog template here</a> that you can upload to the LLM at the start of your conversation." ], imagePrompting: [ "Describe the scene, don't just list keywords. A narrative, descriptive paragraph will almost always produce a better, more coherent image.", "For photorealistic images, think like a photographer. Mention camera angles, lighting, and fine details to guide the model.", "For stickers or logos, be explicit about the style (e.g., 'kawaii-style sticker') and request a white background if needed for easy editing.", "To add text to an image, clearly state the exact text you want, describe the font style, and specify its placement in the overall design." ], ethicalGuidelines: [ "Protect your sources and your data. Never upload confidential information to a public AI service.", "Understand the privacy policies. Claude does not train on your data by default. For Gemini and ChatGPT, you may need to go into the settings and manually turn off data training to ensure privacy.", "Guard against bias. Be aware that LLMs are trained on vast amounts of internet data and can perpetuate societal biases. Critically evaluate outputs for biased language or perspectives.", "Disclose AI use. Be transparent with your editor and your audience about how AI was used in your reporting. Always label AI-generated images." ] } };
+        const modelInfoData = { "Claude 4 Opus": { description: "Anthropic's most powerful 'work' model. It excels at complex reasoning, detailed analysis, and nuanced content creation, making it a top choice for high-stakes tasks.", features: ["Best-in-class for writing, editing, and coding", "Does not train on user data by default", "Strong ethical guardrails"], link: "https://www.anthropic.com/claude" }, "Claude 4 Sonnet": { description: "Anthropic's fast 'chat' model. It's designed for quick, conversational interactions, brainstorming, and everyday tasks. It is the default model in the Claude interface.", features: ["Very fast and conversational", "Best for expressive writing and brainstorming", "Included in the free tier"], link: "https://www.anthropic.com/claude" }, "Gemini 2.5 Pro": { description: "Google's powerful 'work' model. It features a massive context window, making it the best choice for analyzing very large documents or entire collections of files. It also has strong built-in data analysis tools.", features: ["Industry-leading 1M+ token context window", "Built-in 'Canvas' for data analysis & visualization", "Can create video with the Veo 3 model"], link: "https://gemini.google.com/" }, "Gemini 2.5 Flash": { description: "Google's fast 'chat' model. It's a capable all-arounder with an excellent voice mode that can use your phone's camera for real-time multimodal input.", features: ["Very fast for conversational tasks", "Excellent multimodal voice mode", "Good for quick questions"], link: "https://gemini.google.com/" }, "GPT-4o": { description: "OpenAI's latest fast 'chat' model. It's a versatile, high-speed model that powers the ChatGPT experience, including the best-in-class voice mode and image generation via DALL-E 3.", features: ["Powers the main ChatGPT experience", "Industry-leading voice chat functionality", "Excellent image generation with DALL-E 3"], link: "https://openai.com/chatgpt/" }, "GPT-5": { description: "OpenAI's new flagship 'work' model for deep reasoning. It is slower but more powerful than GPT-4o for tasks requiring complex, multi-step logical deduction.", features: ["Top-tier reasoning for complex problems", "Highly steerable for specific tasks", "Powers the 'Deep Research' feature"], link: "https://openai.com/chatgpt/" }, "Gemini (Nano Banana 🍌)": { description: "Google's latest, fastest, and most efficient image model, also known as Gemini 2.5 Flash Image. Its native multimodal architecture allows for powerful conversational editing, multi-image composition, and accurate text rendering.", features: ["Text-to-image from narrative descriptions", "Image editing with text prompts", "Iterative, conversational refinement", "Renders text clearly in images"], link: "https://aistudio.google.com/prompts/new_chat?model=gemini-2.5-flash-image-preview" }, "NotebookLM": { description: "Google's research and writing assistant that is grounded in your chosen source documents. It helps you get summaries, ask questions, and generate ideas based only on the material you provide, reducing hallucinations.", features: ["Source-grounded answers to avoid hallucinations", "Generates summaries, FAQs, and audio overviews", "Excellent for analyzing collections of documents"], link: "https://notebooklm.google.com/" }, "Grok 3": { description: "Developed by xAI, Grok is the only major LLM with real-time integration with a social media platform (X/Twitter), making it an indispensable tool for monitoring breaking news.", features: ["Real-time X/Twitter data integration", "'DeepSearch' mode for current events", "Useful for tracking online narratives"], link: "https://grok.x.ai/" }, "Perplexity": { description: "An AI-powered search engine that provides direct answers to queries with citations. It's designed for research and finding information, functioning as a 'conversational search engine'.", features: ["Provides answers with inline source citations", "Excellent for fact-checking and initial research", "Focus mode for searching specific domains (e.g., academic papers)"], link: "https://www.perplexity.ai/" }, "Open Source Models": { description: "A category of smaller, often open-source models (like those from Mistral, Llama, or Qwen) that are extremely fast and can be run locally on your own machine. They are ideal for quick tasks and workflows where privacy is paramount.", features: ["Extremely fast and lightweight", "Can run on local hardware (via Ollama, etc.)", "Excellent for privacy-focused tasks", "Good for simple, quick code generation"], link: "https://ollama.com/" }, "ElevenLabs": { description: "A specialized AI tool for high-quality, realistic voice synthesis. It's the industry leader for generating voiceovers, podcast audio, and other narrated content.", features: ["Extremely realistic and natural-sounding voices", "Voice cloning capabilities", "Fine-grained control over voice emotion and pacing"], link: "https://elevenlabs.io/" }, "Midjourney": { description: "A premier AI image generation service known for producing highly artistic, detailed, and aesthetically pleasing images. It operates primarily through the Discord platform.", features: ["Produces high-quality, artistic images", "Strong control over style and composition", "Excellent for conceptual illustrations"], link: "https://www.midjourney.com/" } };
+        const changelogData = [
+            {
+                version: "October 1, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Content update: New case study</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">A new case study has been added, demonstrating how AI can generate alt text for infographics to improve accessibility.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Added: "<u><a href="https://generative-ai-newsroom.com/improving-the-accessibility-of-infographics-with-ai-generated-alt-text-f56aa3aef661">Improving infographic accessibility with AI alt text</a></u>" from Generative AI in the Newsroom.</li>
+                    </ul>
+                `
+            },
+            {
+                version: "September 15, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Content update: New case study</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">A new case study has been added to the "Case Studies" modal, focusing on how small newsrooms are grappling with audience-facing vs internal LLM uses and implementation.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li><strong>Added:</strong> "<u><a href="https://generative-ai-newsroom.com/administrative-boon-editorial-question-generative-ais-role-in-small-newsrooms-62e376764685">Administrative boon, editorial question: Generative AI’s role in small newsrooms</a></u>" from Generative AI in the Newsroom (GAIN).</li>
+                    </ul>
+                `
+            },
+            {
+                version: "September 12, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Content update: New case study</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">A new case study has been added to the "Case Studies" modal, focusing on how a small local newsroom is using custom AI tools to augment its reporting.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li><strong>Added:</strong> "<u><a href="https://www.poynter.org/tech-tools/artificial-intelligence/2025/ai-local-journalism-ct-mirror-coverage/">How CT Mirror uses custom AI to cover 169 towns</a></u>" from Poynter.</li>
+                    </ul>
+                `
+            },
+            {
+                version: "September 3, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Major update: GPT-5 & Nano Banana integration</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">This update fully integrates OpenAI's new flagship model, GPT-5, and Google's new image generation model, Nano Banana. The tool's recommendations and best practices have been overhauled to align with the next generation of prompting techniques.</p>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">✨ Model and recommendation updates</h4>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li><strong>Hello, GPT-5:</strong> OpenAI's <em>GPT-5</em> has been added and now replaces <em>ChatGPT o3</em> as the top-tier "Work" model for complex reasoning and agentic tasks. <a href="https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide"><u>Check out the official GPT-5 Prompting Guide from OpenAI Cookbook here</a></u>.</li>
+                        <li><strong>Smarter coding advice:</strong> GPT-5 is now included as a leading recommendation for coding tasks, with updated tips on when to use it versus other models like Claude 4 Opus.</li>
+                        <li><strong>Next-gen prompts:</strong> All sample prompts and tips have been revised to incorporate GPT-5 best practices, including techniques for asking the AI to self-correct, writing clearer instructions, and getting more proactive responses.</li>
+                        <li><strong>Meet Nano Banana 🍌:</strong> Google's new image generation model, <em>Gemini (Nano Banana 🍌)</em>, has been added with new recommendations for text-to-image, conversational editing, and more. <u><a href="https://developers.googleblog.com/en/how-to-prompt-gemini-2-5-flash-image-generation-for-the-best-results/">Read the full image prompting guide from Google here</a></u>.</li>
+                    </ul>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">🧠 Best practices 2.0</h4>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">The "Best Practices" guide has been completely rewritten to include cutting-edge, practical techniques for getting the most out of modern LLMs, including a new section on prompting for images and a template for maintaining a project changelog.</p>
+                `
+            },
+            {
+                version: "June 30, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Content update: New case study</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">A new case study has been added to the "Case Studies" modal, focusing on prompt engineering for newsletters.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Added: "Personalizing newsletters: Iterative prompt evaluation and improvement" from Ashlyn Wang at Generative AI in the Newsroom.</li>
+                    </ul>
+                `
+            },
+            {
+                version: "June 23, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Model tiers & system-focused updates</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">As <a href="https://www.oneusefulthing.org/p/using-ai-right-now-a-quick-guide" target="_blank" rel="noopener noreferrer" class="underline hover:text-light-text dark:hover:text-dark-text">noted by Ethan Mollick</a>, the landscape is shifting from finding the single "best model" to choosing the "best system" and, most importantly, the right <em>tier</em> of model for your specific task.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Introducing model tiers: The advisor's core recommendation engine now helps you choose between fast 'Chat' models (for brainstorming) and powerful 'Work' models (for high-stakes tasks).</li>
+                        <li>Updated tool information: All tool recommendations, descriptions, and comparisons have been updated to reflect the latest model names and capabilities from Anthropic, Google, and OpenAI.</li>
+                        <li>Smarter recommendations: The decision tree is now more nuanced, guiding you to select the appropriate model tier based on the complexity and importance of your task.</li>
+                        <li>Revised "Best Practices" guide: The guide has been significantly overhauled to include modern, practical advice on choosing a system, using 'Deep Research' modes, and managing privacy.</li>
+                    </ul>
+                `
+            },
+            {
+                version: "June 2, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Functional and mobile view improvements</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">This update introduces functional improvements, user interface enhancements, and a fully optimized mobile version of the tool.</p>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">✨ Functional improvements</h4>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Progress bar activated: The progress bar now tracks your path through the decision tree, providing a visual indicator of your progress toward a recommendation.</li>
+                        <li>Breadcrumb navigation enabled: A breadcrumb trail is now displayed below the progress bar, showing your current selection path for easier navigation.</li>
+                        <li>Workflow dropdown fixed: An issue was resolved where some selections in the "Jump to a workflow" dropdown were not working. All options now correctly navigate to the corresponding recommendation page.</li>
+                    </ul>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">📱 Mobile view optimizations</h4>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">A lighter version of the application now loads on mobile browsers to improve performance and usability on smaller screens.</p>
+                     <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Compact layout: Padding and margins have been reduced for a more efficient use of space.</li>
+                        <li>Improved readability: Typography has been adjusted for better legibility on mobile devices.</li>
+                        <li>Enhanced touch controls: Interactive elements are now better optimized for touch input.</li>
+                    </ul>
+                `
+            },
+            {
+                version: "May 24, 2025",
+                notes: `
+                    <h3 class="text-lg font-bold mb-2 text-light-text dark:text-dark-text">Major stability and UI/UX overhaul</h3>
+                    <p class="mb-3 text-sm text-light-text-secondary dark:text-dark-text">This major update brings a completely refreshed and stabilized LLM Tool Advisor experience.</p>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">✨ Functional improvements</h4>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Core system overhaul: Addressed foundational issues to ensure the app builds, deploys, and runs reliably.</li>
+                        <li>Dark mode persistence: Your dark/light mode preference is now saved and will persist across sessions.</li>
+                        <li>Enhanced error handling: Implemented a new Error Boundary to gracefully catch and display issues.</li>
+                    </ul>
+                    <h4 class="font-bold text-md mb-2 mt-4 text-light-text dark:text-dark-text">🎨 UI/UX enhancements</h4>
+                     <ul class="list-disc pl-5 space-y-2 text-sm text-light-text-secondary dark:text-dark-text">
+                        <li>Dynamic animated background: Introducing a vibrant, animated gradient background.</li>
+                        <li>Smooth animations & transitions: Integrated fluid animations for page transitions, button interactions, and modal pop-ups.</li>
+                        <li>Upgraded iconography: Replaced and added icons for a cleaner and more consistent visual language.</li>
+                        <li>Interactive modals: Tool Comparison, Case Studies, and Best Practices modals are now fully interactive.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        let currentStep = 'start', history = [], selectedTools = [], compareTools = [], showRecommendation = false, currentTrack = 'research';
+
+        let mainContent, progressBar, breadcrumbContainer, themeToggleBtn, backBtn, restartBtn, toolSelector, universalModal, modalTitle, modalBody;
+
+        function queryDOMElements() {
+            mainContent = container.querySelector('#main-content');
+            progressBar = container.querySelector('#progress-bar');
+            breadcrumbContainer = container.querySelector('#breadcrumb');
+            themeToggleBtn = container.querySelector('#theme-toggle-checkbox');
+            backBtn = container.querySelector('#back-btn');
+            restartBtn = container.querySelector('#restart-btn');
+            toolSelector = container.querySelector('#tool-selector');
+            universalModal = container.querySelector('#universal-modal');
+            modalTitle = container.querySelector('#modal-title');
+            modalBody = container.querySelector('#modal-body');
+            return mainContent && progressBar && breadcrumbContainer && themeToggleBtn && backBtn && restartBtn && toolSelector && universalModal;
+        }
+        
+        // CHANGE: Added "Nano Banana" to the color map for pill button styling.
+        const getPillClasses = (tool) => {
+             const toolColorMap = { 'Claude': 'bg-[#d9843b] text-white', 'Gemini': 'bg-[#369a8b] text-white', 'Nano Banana': 'bg-[#369a8b] text-white', 'ChatGPT': 'bg-slate-500 text-white', 'GPT-4o': 'bg-slate-500 text-white', 'GPT-5': 'bg-slate-500 text-white', 'Grok': 'bg-blue-500 text-white', 'DeepSeek': 'bg-[#615EFC] text-white', 'Mistral': 'bg-pink-500 text-white', 'Perplexity': 'bg-violet-500 text-white', 'ElevenLabs': 'bg-emerald-500 text-white', 'Midjourney': 'bg-indigo-600 text-white', 'NotebookLM': 'bg-slate-600 text-white', 'Custom AI': 'bg-gray-400 text-black dark:bg-gray-500 dark:text-gray-100', 'RAG-enabled': 'bg-gray-500 text-white', 'Open Source': 'bg-orange-500 text-white' };
+             const key = Object.keys(toolColorMap).find(k => tool.includes(k));
+             return key ? toolColorMap[key] : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+        };
+        const sanitizeHTML = (str) => { const temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
+        const escapeAttr = (str) => str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+
+        function injectOverrideStyles() {
+            const styleId = 'llm-advisor-override-styles';
+            if (document.getElementById(styleId)) return;
+
+            const styleElement = document.createElement('style');
+            styleElement.id = styleId;
+            
+            const config = tailwind.config.theme.extend.colors;
+            const lightBg = config.light.bg;
+            const lightBgSec = config.light['bg-secondary'];
+            const lightBgTer = config.light['bg-tertiary'];
+            
+            const darkBg = config.dark.bg;
+            const darkBgSec = config.dark['bg-secondary'];
+            const darkBgTer = config.dark['bg-tertiary'];
+
+            styleElement.innerHTML = `
+                @keyframes llm-animated-gradient {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+
+                body {
+                    background: linear-gradient(-45deg, ${lightBg}, ${lightBgSec}, ${lightBgTer}) !important;
+                    background-size: 400% 400% !important;
+                    animation: llm-animated-gradient 15s ease infinite !important;
+                }
+
+                html.dark body {
+                    background: linear-gradient(-45deg, ${darkBg}, ${darkBgSec}, ${darkBgTer}) !important;
+                    background-size: 400% 400% !important;
+                    animation-name: llm-animated-gradient !important;
+                }
+            `;
+            document.body.appendChild(styleElement);
+        }
+
+        function renderApp() {
+            if (!mainContent) return;
+            mainContent.style.opacity = '0';
+            setTimeout(() => {
+                if (showRecommendation) { renderRecommendationView(); }  
+                else { renderQuestionView(); }
+                mainContent.style.opacity = '1';
+                updateProgressBarAndBreadcrumbs();
+            }, 150);
+        }
+
+        function renderQuestionView() {
+            const node = decisionTree[currentStep];
+            
+            let optionsHTML = node.options.map((option) => {
+                const toolsJSON = option.tools ? escapeAttr(JSON.stringify(option.tools)) : 'null';
+                return `<button class="option-button w-full text-left p-4 rounded-lg transition-all duration-200 flex justify-between items-center bg-light-bg-secondary dark:bg-dark-bg-tertiary border-2 border-transparent hover:border-accent-${option.track || currentTrack} hover:bg-light-bg dark:hover:bg-dark-bg hover:text-slate-900 dark:hover:text-slate-100" data-next="${option.next}" data-text="${sanitizeHTML(option.text)}" data-tools='${toolsJSON}' data-track="${option.track || currentTrack}"><span class="font-medium">${sanitizeHTML(option.text)}</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-light-text-secondary dark:text-dark-text-secondary"><path d="m9 18 6-6-6-6"/></svg></button>`;
+            }).join('');
+            mainContent.innerHTML = `<h2 class="text-xl sm:text-2xl font-bold mb-6 text-light-text dark:text-dark-text">${sanitizeHTML(node.question)}</h2><div class="space-y-3">${optionsHTML}</div>`;
+        }
+        
+        function renderRecommendationView() {
+            let toolsHTML = selectedTools.map(tool => `
+                <div class="recommendation-card border border-light-border dark:border-dark-border rounded-xl p-5 transition-all duration-300 bg-light-bg dark:bg-dark-bg-secondary">
+                    <h3 class="text-lg font-bold flex items-center text-light-text dark:text-dark-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0 text-accent-${currentTrack}"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
+                        ${sanitizeHTML(tool.name)}
+                    </h3>
+                    <p class="mt-2 text-sm text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(tool.description)}</p>
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Recommended tools:</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1 rounded-full ${getPillClasses(item)}" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Sample prompt:</h4>
+                        <code class="block mt-2 text-s text-light-text-secondary dark:text-dark-text-secondary whitespace-pre-wrap font-mono bg-light-bg-secondary/50 dark:bg-dark-bg p-3 rounded-md">${sanitizeHTML(tool.prompt)}</code>
+                    </div>
+                    ${tool.tips ? `<div class="mt-4"><h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Tips:</h4><p class="mt-1 text-sm text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(tool.tips)}</p></div>` : ''}
+                </div>`).join('');
+
+            mainContent.innerHTML = `
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-light-text dark:text-dark-text">Your recommended tools and approaches</h2>
+                <div class="space-y-6">${toolsHTML}</div>
+                <div class="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
+                    <button id="restart-from-rec-btn" class="w-full sm:w-auto flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        Start another task
+                    </button>
+                </div>`;
+        }
+        
+        function findPathForWorkflow(workflowName) {
+            let endNodeInfo = null;
+            for (const stepKey in decisionTree) {
+                const node = decisionTree[stepKey];
+                if (node.options) {
+                    for (const option of node.options) {
+                        if (option.tools && option.tools[0].name === workflowName) {
+                            endNodeInfo = { parentStep: stepKey, finalSelection: option.text, track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research') };
+                            break;
+                        }
+                    }
+                }
+                if (endNodeInfo) break;
+            }
+            if (!endNodeInfo) return [];
+            function traceBack(targetStep) {
+                if (targetStep === 'start') return [];
+                for (const stepKey in decisionTree) {
+                    const node = decisionTree[stepKey];
+                    if (node.options) {
+                        for (const option of node.options) {
+                            if (option.next === targetStep) {
+                                const path = traceBack(stepKey);
+                                path.push({ step: stepKey, question: node.question, selection: option.text, track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research'), });
+                                return path;
+                            }
+                        }
+                    }
+                }
+                return []; 
+            }
+            const basePath = traceBack(endNodeInfo.parentStep);
+            basePath.push({ step: endNodeInfo.parentStep, question: decisionTree[endNodeInfo.parentStep].question, selection: endNodeInfo.finalSelection, track: endNodeInfo.track });
+            return basePath;
+        }
+
+        function populateToolSelector() {
+            if (!toolSelector) return;
+            const allOptions = Object.values(decisionTree).flatMap(node => node.options || []).filter(option => option.tools);
+            let uniqueWorkflows = {};
+            allOptions.forEach(option => {
+                const toolName = option.tools[0].name;
+                if (!uniqueWorkflows[toolName]) {
+                    uniqueWorkflows[toolName] = { name: toolName, value: toolName };
+                }
+            });
+            toolSelector.innerHTML = '<option value="">Jump to a workflow...</option>' + Object.values(uniqueWorkflows).sort((a,b) => a.name.localeCompare(b.name)).map(opt => `<option value="${escapeAttr(opt.value)}">${sanitizeHTML(opt.name)}</option>`).join('');
+        }
+
+        function renderComparisonModal() {
+            const headerHTML = `<h3 class="text-lg font-semibold mb-4 text-light-text dark:text-dark-text">Select tools to compare (up to 3):</h3><div class="flex flex-wrap gap-2">${Object.keys(toolComparisonData).map(tool => `<button class="px-3 py-1.5 rounded-full text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 dark:ring-offset-dark-bg-secondary ring-current' : 'bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border dark:hover:bg-dark-border'}" data-tool="${tool}">${tool}</button>`).join('')}</div>`;
+            let tableHTML = '';
+            if (compareTools.length > 0) {
+                const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
+                const featureNames = { strengths: 'Key strengths', weaknesses: 'Limitations', bestFor: 'Best use cases', pricing: 'Pricing' };
+                tableHTML = `<div class="overflow-x-auto mt-6"><table class="min-w-full w-full text-left text-sm"><thead><tr><th class="py-3 font-medium w-1.4 text-light-text dark:text-dark-text">Feature</th>${compareTools.map(tool => `<th class="py-3 font-medium w-1.4"><span class="text-xs font-medium px-3 py-1 rounded-full inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}</tr></thead><tbody class="text-light-text-secondary dark:text-dark-text-secondary">${features.map(feature => `<tr class="align-top border-t border-light-border dark:border-dark-border"><td class="py-4 font-medium text-light-text dark:text-dark-text">${featureNames[feature]}</td>${compareTools.map(tool => `<td class="py-4 pr-2">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+            } else { tableHTML = `<div class="text-center p-8 bg-light-bg-secondary dark:bg-dark-bg rounded-lg mt-6"><p class="text-light-text-secondary dark:text-dark-text-secondary">Select up to three tools to compare their features side-by-side.</p></div>`; }
+            modalBody.innerHTML = headerHTML + tableHTML;
+        }
+
+        function renderCaseStudiesModal() { 
+            modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">${caseStudiesData.map(study => `
+                <div class="border border-light-border dark:border-dark-border rounded-xl overflow-hidden flex flex-col bg-light-bg dark:bg-dark-bg-secondary">
+                    <div class="px-5 py-4 ${getPillClasses(study.tool)}">
+                        <div class="flex justify-between items-start gap-1">
+                            <h3 class="font-bold text-lg leading-tight">${sanitizeHTML(study.title)}</h3>
+                            <span class="text-xs px-2 py-1 bg-white/20 rounded-full font-medium flex-shrink-0">${sanitizeHTML(study.tool)}</span>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex-grow">
+                            <p class="text-sm mb-3 font-medium text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.journalist)}</p>
+                            <div class="text-sm space-y-3">
+                                <div><h4 class="font-bold text-light-text dark:text-dark-text">Challenge:</h4><p class="mt-1 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.challenge)}</p></div>
+                                <div><h4 class="font-bold text-light-text dark:text-dark-text">Key takeaway:</h4><p class="mt-1 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.tips)}</p></div>
+                                <div><h4 class="font-bold text-light-text dark:text-dark-text ">Words of wisdom:</h4><p class="case-study-quote border-l-4 pl-4 pr-2 py-2 my-4 border-accent-${currentTrack} bg-light-bg-secondary dark:bg-dark-bg text-sm italic text-light-text-secondary dark:text-dark-text-secondary">
+                                    "${sanitizeHTML(study.quote)}"
+                                </p></div>
+                            </div>
+                        </div>
+                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-accent-${currentTrack} hover:underline">Learn more →</a></div>` : ''}
+                    </div>
+                </div>`).join('')}</div>`; 
+        }
+
+        function renderBestPracticesModal() {
+            const data = bestPracticesData.general;
+            if (!data) { modalBody.innerHTML = '<p>No best practices available.</p>'; return; }
+            let contentHTML = '<div class="space-y-8">';
+            // CHANGE: Added new "Prompting for Images" section and "Use a changelog" to workflow integration.
+            const sections = { 
+                'Core principles': data.corePrinciples, 
+                'Effective prompting is a conversation': data.promptingTechniques, 
+                'Workflow integration': data.workflowIntegration, 
+                'Prompting for Images': data.imagePrompting,
+                'Ethical guidelines & privacy': data.ethicalGuidelines 
+            };
+            for (const [title, tips] of Object.entries(sections)) {
+                if (tips) { contentHTML += `<div><h3 class="text-lg font-bold mb-3 text-light-text dark:text-dark-text">${title}</h3><ul class="space-y-2 text-sm">${tips.map((tip) => `<li class="flex items-start text-light-text-secondary dark:text-dark-text-secondary"><svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-accent-research" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${tip}</span></li>`).join('')}</ul></div>`; }
+            }
+            contentHTML += '</div>';
+            modalBody.innerHTML = contentHTML;
+        }
+
+        function renderModelInfoModal(highlightModel = null) {
+            let contentHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
+            for (const [name, data] of Object.entries(modelInfoData)) {
+                const isHighlighted = name === highlightModel;
+                contentHTML += `
+                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-light-border dark:border-dark-border rounded-xl overflow-hidden flex flex-col bg-light-bg dark:bg-dark-bg-secondary ${isHighlighted ? 'ring-2 ring-accent-research' : ''}">
+                    <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-bold text-lg">${sanitizeHTML(name)}</h3></div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex-grow">
+                            <p class="text-sm mb-4 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(data.description)}</p>
+                            <h4 class="text-sm font-bold mb-2 text-light-text dark:text-dark-text">Key features:</h4>
+                            <ul class="space-y-1 text-sm list-disc pl-5 text-light-text-secondary dark:text-dark-text-secondary">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-accent-research hover:underline">Visit website →</a>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            contentHTML += '</div>';
+            modalBody.innerHTML = contentHTML;
+            if (highlightModel) { const cardElement = container.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`); if (cardElement) { setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100); } }
+        }
+
+        function renderChangelogModal() {
+            modalBody.innerHTML = changelogData.map(log => `
+                <div class="pb-6 mb-6 border-b border-light-border dark:border-dark-border last:border-b-0 last:mb-0 last:pb-0">
+                    <p class="text-sm font-semibold text-light-text dark:text-dark-text mb-1">Update: ${log.version}</p>
+                    <div class="text-sm text-light-text-secondary dark:text-dark-text-secondary">${log.notes}</div>
+                </div>
+            `).join('');
+        }
+        
+        function updateProgressBarAndBreadcrumbs() {
+            const estimatedTotalSteps = 4;
+            const progress = Math.min(100, (history.length / estimatedTotalSteps) * 100);
+            progressBar.style.width = `${progress}%`;
+
+            if (history.length === 0) {
+                currentTrack = 'research';
+            }
+            progressBar.className = `h-2 rounded-full transition-all duration-500 ease-in-out bg-accent-${currentTrack}`;
+
+            backBtn.disabled = history.length === 0;
+            backBtn.classList.toggle('opacity-50', backBtn.disabled);
+            backBtn.classList.toggle('cursor-not-allowed', backBtn.disabled);
+            
+            if (history.length > 0) {
+                breadcrumbContainer.classList.remove('hidden');
+                breadcrumbContainer.innerHTML = history.map(item => `<span class="truncate">${sanitizeHTML(item.selection)}</span>`).join('<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-1 flex-shrink-0"><path d="m9 18 6-6-6-6"/></svg>');
+            } else {
+                breadcrumbContainer.classList.add('hidden');
+            }
+        }
+        
+        function updateTrackColor(track) {
+            if (!track) return;
+            currentTrack = track;
+        }
+
+        function showModal(title, renderFunction, ...args) {
+            modalTitle.textContent = title;
+            renderFunction(...args);
+            universalModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal() {
+            universalModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function handleOptionSelect(e) {
+            const button = e.target.closest('.option-button');
+            if (!button) return;
+            const { next, text, track } = button.dataset;
+            let tools = button.dataset.tools;
+
+            if (track) updateTrackColor(track);
+
+            if (tools && tools !== 'null') {
+                tools = tools.replace(/&quot;/g, '"');
+                selectedTools = JSON.parse(tools);
+            }
+            history.push({ step: currentStep, question: decisionTree[currentStep].question, selection: text, track: currentTrack });
+            if (next === "recommendation") {
+                showRecommendation = true;
+            } else {
+                currentStep = next;
+            }
+            renderApp();
+        }
+
+        function handleRestart() { currentStep = 'start'; history = []; selectedTools = []; showRecommendation = false; renderApp(); }
+        function handleBack() { if (history.length > 0) { const previous = history.pop(); currentStep = previous.step; updateTrackColor(previous.track); showRecommendation = false; selectedTools = []; renderApp(); } }
+        
+        function handleToolSelect(e) { 
+            if (!e.target.value) return; 
+            const workflowName = e.target.value;
+
+            const path = findPathForWorkflow(workflowName);
+            if (path.length > 0) {
+                history = path;
+                const allOptions = Object.values(decisionTree).flatMap(node => node.options || []).filter(option => option.tools);
+                const targetOption = allOptions.find(opt => opt.tools && opt.tools[0].name === workflowName);
+                if (targetOption) {
+                    selectedTools = targetOption.tools;
+                    currentTrack = path[path.length - 1].track;
+                    showRecommendation = true;
+                    renderApp();
+                }
+            }
+        }
+        
+        function toggleDarkMode(event) { 
+            if (event.target.checked) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        
+        function handleEscKey(e) {
+            if (e.key === 'Escape') hideModal();
+        }
+
+        function init() {
+            if (!queryDOMElements()) { return; }
+
+            injectOverrideStyles();
+            renderApp();
+            populateToolSelector();
+
+            container.addEventListener('click', e => {
+                const button = e.target.closest('button');
+                if (!button) return;
+                const id = button.id;
+                const classList = button.classList;
+                if (classList.contains('option-button')) { handleOptionSelect(e); return; }
+                if (id === 'restart-from-rec-btn' || id === 'restart-btn') { handleRestart(); return; }
+                if (id === 'footer-best-practices-btn') { showModal('Best practices guide', renderBestPracticesModal); return; }
+                if (id === 'show-changelog-btn') { showModal('Release notes', renderChangelogModal); return; }
+                if (classList.contains('model-pill-btn')) { const modelName = button.dataset.modelName; showModal('Model information', renderModelInfoModal, modelName); return; }
+                if (id === 'back-btn') { handleBack(); return; }
+                if (id === 'show-comparison-btn') { compareTools = []; showModal('Tool comparison', renderComparisonModal); return; }
+                if (id === 'show-case-studies-btn') { showModal('Journalistic case studies', renderCaseStudiesModal); return; }
+                if (id === 'footer-model-info-btn') { showModal('Model information', renderModelInfoModal); return; }
+                if (classList.contains('modal-close-btn')) { hideModal(); return; }
+                if(classList.contains('compare-tool-btn')) {
+                    const tool = button.dataset.tool;
+                    if (compareTools.includes(tool)) {
+                        compareTools = compareTools.filter(t => t !== tool);
+                    } else if (compareTools.length < 3) {
+                        compareTools.push(tool);
+                    }
+                    renderComparisonModal();
+                }
+            });
+
+            themeToggleBtn.addEventListener('change', toggleDarkMode);
+            toolSelector.addEventListener('change', handleToolSelect);
+            
+            document.addEventListener('keydown', handleEscKey);
+            universalModal.addEventListener('click', e => { 
+                if (e.target === universalModal) hideModal();
+            });
+        }
+        
+        if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } 
+        else { init(); }
+    })();
+    </script>
+</body>
+</html>

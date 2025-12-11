@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOSSARY // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+        
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">V</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome">DATABASE // GLOSSARY</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">TERMS_V2.5</div>
+                    </div>
+                </div>
+                <a href="../markdown/glossary.md" download class="hidden md:flex items-center gap-2 px-3 py-1 border border-white/20 text-xs text-gray-400 hover:border-acid hover:text-acid transition-colors">
+                    <i data-lucide="download" class="w-3 h-3"></i> DOWNLOAD.MD
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16">
+            
+            <!-- Search Hero -->
+            <div class="max-w-2xl mx-auto mb-16 text-center">
+                <h2 class="font-display text-4xl text-chrome mb-4 glitch-text" data-text="KNOWLEDGE_BASE">KNOWLEDGE_BASE</h2>
+                <p class="text-gray-500 text-sm mb-8 font-mono">Plain-english definitions for technical terms. Search or browse below.</p>
+                
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-600 group-focus-within:text-acid transition-colors">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" id="searchInput" class="w-full bg-surface border border-white/10 text-white pl-12 pr-4 py-4 font-mono text-sm focus:outline-none focus:border-acid focus:bg-white/5 transition-all clip-notch" placeholder="SEARCH_TERMS...">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <span class="text-xs text-gray-700 font-mono group-focus-within:text-acid transition-colors">[INPUT]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="glossaryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Terms injected here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-20 border border-dashed border-white/10 bg-surface/50">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-4 text-gray-500">
+                    <i data-lucide="database" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-display text-lg text-white mb-1">NO_MATCH_FOUND</h3>
+                <p class="text-xs text-gray-500 font-mono">Query returned 0 results. Refine search parameters.</p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-void py-8">
+            <div class="max-w-7xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
+                <p>SYSTEM STATUS: ONLINE // <a href="index.html" class="hover:text-acid transition-colors">RETURN_ROOT</a></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Load Data -->
+    <script src="../assets/glossary.js"></script>
+
+    <!-- App Logic -->
+    <script>
+        lucide.createIcons();
+
+        const grid = document.getElementById('glossaryGrid');
+        const searchInput = document.getElementById('searchInput');
+        const emptyState = document.getElementById('emptyState');
+
+        // Convert GLOSSARY object to array
+        const terms = Object.keys(GLOSSARY).map(key => ({
+            key: key,
+            ...GLOSSARY[key]
+        })).sort((a, b) => a.term.localeCompare(b.term));
+
+        function renderTerms(filter = '') {
+            grid.innerHTML = '';
+            const query = filter.toLowerCase();
+            let count = 0;
+
+            terms.forEach(item => {
+                const match = item.term.toLowerCase().includes(query) || 
+                              item.short.toLowerCase().includes(query) || 
+                              item.full.toLowerCase().includes(query);
+                
+                if (match) {
+                    count++;
+                    const card = document.createElement('div');
+                    card.className = 'border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden flex flex-col h-full';
+                    
+                    // Header
+                    let headerHtml = `
+                        <div class="p-6 border-b border-white/10 bg-surface flex justify-between items-start">
+                            <div>
+                                <div class="text-xs text-ice font-mono mb-1 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">TERM_DEF</div>
+                                <h3 class="font-display text-xl text-white font-bold tracking-wide group-hover:text-ice transition-colors">${item.term}</h3>
+                            </div>
+                            <button onclick="copyDefinition('${item.key}')" class="text-gray-600 hover:text-white transition-colors" title="COPY_DATA">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    // Body
+                    let bodyHtml = `
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="mb-4">
+                                <span class="inline-block px-2 py-0.5 border border-white/10 bg-white/5 text-xs font-mono text-gray-400 uppercase tracking-wider">
+                                    Synopsis
+                                </span>
+                                <p class="mt-2 text-sm font-bold text-white">${item.short}</p>
+                            </div>
+                            <div class="mt-auto pt-4 border-t border-white/5">
+                                <p class="text-xs text-gray-500 leading-relaxed font-mono">${item.full}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    card.innerHTML = headerHtml + bodyHtml;
+                    grid.appendChild(card);
+                }
+            });
+
+            if (count === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+            
+            // Re-init icons for new elements
+            lucide.createIcons();
+        }
+
+        function copyDefinition(key) {
+            const item = GLOSSARY[key];
+            if (!item) return;
+            
+            const text = `${item.term}\n\n${item.short}\n\n${item.full}`;
+            navigator.clipboard.writeText(text).then(() => {
+                // Flash effect could be added here
+            });
+        }
+
+        // Search listener
+        searchInput.addEventListener('input', (e) => {
+            renderTerms(e.target.value);
+        });
+
+        // Initial render
+        renderTerms();
+    </script>
+</body>
+</html>

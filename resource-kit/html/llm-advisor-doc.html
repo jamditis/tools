@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM ADVISOR // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="flex min-h-screen relative z-10">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-white/10 bg-void hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
+            <div class="p-6 border-b border-white/10">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">V</div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">AMDITIS</h1>
+                        <p class="text-xs text-gray-500 tracking-[0.2em]">KIT v2.5</p>
+                    </div>
+                </a>
+            </div>
+            
+            <nav class="p-6 space-y-1 text-sm">
+                <a href="index.html" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">DASHBOARD</a>
+                <a href="#workflow" class="block px-3 py-2 text-acid border-l-2 border-acid bg-white/5">WORKFLOW</a>
+                <a href="#complexity" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">COMPLEXITY</a>
+                <a href="#budget" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">BUDGET</a>
+                <a href="#matrix" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">MATRIX</a>
+                <a href="#models" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">MODELS</a>
+                <a href="#tips" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">OPTIMIZATION</a>
+                <a href="#switch" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">FAILOVER</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-5xl mx-auto space-y-24">
+            
+            <!-- Hero -->
+            <section class="border-b border-white/10 pb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="h-px flex-1 bg-white/10"></div>
+                    <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Protocol Selection</span>
+                    <div class="h-px flex-1 bg-white/10"></div>
+                </div>
+                <h2 class="font-display text-4xl md:text-6xl text-chrome mb-8 glitch-text" data-text="LLM_ADVISOR">LLM_ADVISOR</h2>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <p class="text-gray-400 text-lg leading-relaxed font-mono border-l-2 border-ice pl-4 max-w-2xl">
+                        Choose the right AI coding assistant. Manual decision guide for newsroom deployments.
+                    </p>
+                    <a href="../llm-advisor/index.html" class="inline-flex items-center justify-center px-6 py-3 border border-acid text-acid font-bold font-mono text-xs hover:bg-acid hover:text-black transition-colors">
+                        LAUNCH_INTERACTIVE_MODE
+                    </a>
+                </div>
+            </section>
+
+            <!-- Q1: Workflow -->
+            <section id="workflow">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">01 // TASK_ANALYSIS</h3>
+                    <span class="text-xs text-gray-600 font-mono">OBJECTIVE PARAMETERS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card -->
+                    <div class="border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden p-6">
+                        <div class="mb-4 text-ice opacity-50 group-hover:opacity-100"><i data-lucide="bar-chart-2" class="w-6 h-6"></i></div>
+                        <h4 class="font-display text-xl text-white font-bold mb-2">Data Analysis</h4>
+                        <p class="text-xs text-gray-500 mb-6 font-mono">Cleaning spreadsheets, merging datasets, statistical analysis.</p>
+                        <div class="border-t border-white/10 pt-4">
+                            <div class="text-xs font-mono text-gray-600 mb-1">OPTIMAL_TOOL</div>
+                            <div class="text-acid font-bold">Python</div>
+                            <div class="text-xs text-ice mt-1 font-mono">Claude 4.5 Opus / Gemini 3.0 Pro</div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden p-6">
+                        <div class="mb-4 text-ice opacity-50 group-hover:opacity-100"><i data-lucide="globe" class="w-6 h-6"></i></div>
+                        <h4 class="font-display text-xl text-white font-bold mb-2">Web Scraping</h4>
+                        <p class="text-xs text-gray-500 mb-6 font-mono">Extracting data from websites, automating downloads.</p>
+                        <div class="border-t border-white/10 pt-4">
+                            <div class="text-xs font-mono text-gray-600 mb-1">OPTIMAL_TOOL</div>
+                            <div class="text-acid font-bold">Python (BS4)</div>
+                            <div class="text-xs text-ice mt-1 font-mono">Claude 4.5 Sonnet</div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden p-6">
+                        <div class="mb-4 text-ice opacity-50 group-hover:opacity-100"><i data-lucide="pie-chart" class="w-6 h-6"></i></div>
+                        <h4 class="font-display text-xl text-white font-bold mb-2">Interactive Viz</h4>
+                        <p class="text-xs text-gray-500 mb-6 font-mono">Charts, maps, interactive graphics for stories.</p>
+                        <div class="border-t border-white/10 pt-4">
+                            <div class="text-xs font-mono text-gray-600 mb-1">OPTIMAL_TOOL</div>
+                            <div class="text-signal font-bold">JavaScript</div>
+                            <div class="text-xs text-ice mt-1 font-mono">Claude 4.5 Sonnet</div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden p-6">
+                        <div class="mb-4 text-ice opacity-50 group-hover:opacity-100"><i data-lucide="file-cog" class="w-6 h-6"></i></div>
+                        <h4 class="font-display text-xl text-white font-bold mb-2">File Automation</h4>
+                        <p class="text-xs text-gray-500 mb-6 font-mono">Batch renaming, format conversion, organization.</p>
+                        <div class="border-t border-white/10 pt-4">
+                            <div class="text-xs font-mono text-gray-600 mb-1">OPTIMAL_TOOL</div>
+                            <div class="text-white font-bold">Bash / Python</div>
+                            <div class="text-xs text-ice mt-1 font-mono">Gemini 3.0 Flash</div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden p-6">
+                        <div class="mb-4 text-ice opacity-50 group-hover:opacity-100"><i data-lucide="database" class="w-6 h-6"></i></div>
+                        <h4 class="font-display text-xl text-white font-bold mb-2">Database Work</h4>
+                        <p class="text-xs text-gray-500 mb-6 font-mono">SQL queries, data extraction, reporting.</p>
+                        <div class="border-t border-white/10 pt-4">
+                            <div class="text-xs font-mono text-gray-600 mb-1">OPTIMAL_TOOL</div>
+                            <div class="text-white font-bold">SQL</div>
+                            <div class="text-xs text-ice mt-1 font-mono">Claude 4.5 Sonnet</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Q2: Complexity -->
+            <section id="complexity">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">02 // COMPLEXITY_LEVEL</h3>
+                    <span class="text-xs text-gray-600 font-mono">PROCESSING LOAD</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="border-l-4 border-l-acid/50 bg-panel p-6">
+                        <div class="text-xs font-mono text-acid mb-2">LEVEL_1</div>
+                        <h4 class="font-bold text-white mb-2">Simple</h4>
+                        <p class="text-xs text-gray-500 font-mono mb-4">Single script, one task.</p>
+                        <div class="text-xs font-mono text-white bg-white/5 inline-block px-2 py-1">USE: Claude.ai Free</div>
+                    </div>
+                    <div class="border-l-4 border-l-acid bg-panel p-6">
+                        <div class="text-xs font-mono text-acid mb-2">LEVEL_2</div>
+                        <h4 class="font-bold text-white mb-2">Medium</h4>
+                        <p class="text-xs text-gray-500 font-mono mb-4">Multiple files, some logic.</p>
+                        <div class="text-xs font-mono text-white bg-white/5 inline-block px-2 py-1">USE: Claude 4.5 Sonnet</div>
+                    </div>
+                    <div class="border-l-4 border-l-signal bg-panel p-6">
+                        <div class="text-xs font-mono text-signal mb-2">LEVEL_3</div>
+                        <h4 class="font-bold text-white mb-2">Complex</h4>
+                        <p class="text-xs text-gray-500 font-mono mb-4">Multi-step, debugging intensive.</p>
+                        <div class="text-xs font-mono text-white bg-white/5 inline-block px-2 py-1">USE: Claude 4.5 Opus</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q3: Budget -->
+            <section id="budget">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">03 // RESOURCE_ALLOCATION</h3>
+                    <span class="text-xs text-gray-600 font-mono">BUDGETARY CONSTRAINTS</span>
+                </div>
+
+                <div class="border border-white/10 bg-panel overflow-hidden">
+                    <table class="w-full text-left text-sm font-mono">
+                        <thead class="bg-surface border-b border-white/10 text-xs text-gray-500 uppercase tracking-widest">
+                            <tr>
+                                <th class="p-4 font-normal">Tier</th>
+                                <th class="p-4 font-normal">Option</th>
+                                <th class="p-4 font-normal">Cost</th>
+                                <th class="p-4 font-normal">Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5 text-gray-400">
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-acid">FREE</td>
+                                <td class="p-4 text-white">Claude.ai</td>
+                                <td class="p-4 text-gray-500">$0</td>
+                                <td class="p-4">Learning, simple scripts</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-acid">FREE</td>
+                                <td class="p-4 text-white">ChatGPT</td>
+                                <td class="p-4 text-gray-500">$0</td>
+                                <td class="p-4">Quick questions</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-signal">PAID</td>
+                                <td class="p-4 text-white">Claude Pro</td>
+                                <td class="p-4 text-gray-500">$20/mo</td>
+                                <td class="p-4">Heavy daily use</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-signal">PAID</td>
+                                <td class="p-4 text-white">GitHub Copilot</td>
+                                <td class="p-4 text-gray-500">$10/mo</td>
+                                <td class="p-4">Real-time coding</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Matrix -->
+            <section id="matrix">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-signal">04 // DECISION_MATRIX</h3>
+                    <span class="text-xs text-gray-600 font-mono">LOGIC GATES</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-mono">
+                    <div class="bg-surface p-4 border-l-2 border-acid flex justify-between items-center">
+                        <span class="text-gray-400">Best coding/writing</span>
+                        <span class="text-white font-bold">Claude 4.5 Opus</span>
+                    </div>
+                    <div class="bg-surface p-4 border-l-2 border-signal flex justify-between items-center">
+                        <span class="text-gray-400">Front-end design</span>
+                        <span class="text-white font-bold">Gemini 3.0 Pro</span>
+                    </div>
+                    <div class="bg-surface p-4 border-l-2 border-ice flex justify-between items-center">
+                        <span class="text-gray-400">OpenAI coding</span>
+                        <span class="text-white font-bold">Codex (GPT 5.1)</span>
+                    </div>
+                    <div class="bg-surface p-4 border-l-2 border-chrome flex justify-between items-center">
+                        <span class="text-gray-400">In-editor help</span>
+                        <span class="text-white font-bold">GitHub Copilot</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Models -->
+            <section id="models" class="pb-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">05 // MODEL_SPECS</h3>
+                    <span class="text-xs text-gray-600 font-mono">TECHNICAL SPECIFICATIONS</span>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-display text-xl text-white font-bold">Claude 4.5 Opus</h4>
+                            <span class="text-xs font-mono text-signal border border-signal px-2 py-1">BEST_FOR_CODE</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono text-gray-400">
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">STRENGTHS</span>
+                                Best model for coding and writing by far, excellent at debugging.
+                            </div>
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">TARGET_USE</span>
+                                All coding tasks, large projects, long-form writing.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-display text-xl text-white font-bold">Gemini 3.0 Pro</h4>
+                            <span class="text-xs font-mono text-acid border border-acid px-2 py-1">FRONTEND</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono text-gray-400">
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">STRENGTHS</span>
+                                Best for front-end design, industry-leading context window.
+                            </div>
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">TARGET_USE</span>
+                                Front-end work, large document analysis, multimodal projects.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-display text-xl text-white font-bold">Codex (GPT 5.1)</h4>
+                            <span class="text-xs font-mono text-ice border border-ice px-2 py-1">OPENAI</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono text-gray-400">
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">STRENGTHS</span>
+                                Specialized for coding, excellent multi-file projects.
+                            </div>
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">TARGET_USE</span>
+                                All OpenAI coding work, multi-file projects.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-display text-xl text-white font-bold">GitHub Copilot</h4>
+                            <span class="text-xs font-mono text-chrome border border-white/30 px-2 py-1">INLINE</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono text-gray-400">
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">STRENGTHS</span>
+                                Real-time suggestions, integrated in VS Code/editors, line-by-line autocomplete.
+                            </div>
+                            <div>
+                                <span class="text-gray-600 block text-xs mb-1">TARGET_USE</span>
+                                In-editor coding, autocomplete, small functions. $10/mo (free for students/educators).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips -->
+            <section id="tips">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">06 // OPTIMIZATION</h3>
+                    <span class="text-xs text-gray-600 font-mono">TIPS FOR BETTER RESULTS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="mb-4 text-acid"><i data-lucide="info" class="w-5 h-5"></i></div>
+                        <h4 class="font-bold text-white mb-2 font-display">Include context</h4>
+                        <ul class="text-xs text-gray-500 space-y-1 font-mono">
+                            <li>> Operating system (Windows, Mac, Linux)</li>
+                            <li>> Language version (Python 3.11, Node 18)</li>
+                            <li>> Frameworks or libraries you're using</li>
+                        </ul>
+                    </div>
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="mb-4 text-ice"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                        <h4 class="font-bold text-white mb-2 font-display">Show sample data</h4>
+                        <p class="text-xs text-gray-500 font-mono">Include examples of your input and expected output. CSV columns, JSON structure, etc.</p>
+                    </div>
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="mb-4 text-signal"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                        <h4 class="font-bold text-white mb-2 font-display">Ask for chunks</h4>
+                        <ul class="text-xs text-gray-500 space-y-1 font-mono">
+                            <li>1. Core function first</li>
+                            <li>2. Error handling second</li>
+                            <li>3. Edge cases third</li>
+                        </ul>
+                    </div>
+                    <div class="border border-white/10 bg-panel p-6">
+                        <div class="mb-4 text-chrome"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                        <h4 class="font-bold text-white mb-2 font-display">Verify everything</h4>
+                        <ul class="text-xs text-gray-500 space-y-1 font-mono">
+                            <li>> Test with real data</li>
+                            <li>> Check edge cases</li>
+                            <li>> Verify calculations manually</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- When to Switch -->
+            <section id="switch" class="pb-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-signal">07 // FAILOVER_PROTOCOL</h3>
+                    <span class="text-xs text-gray-600 font-mono">WHEN TO SWITCH LLMs</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-surface p-6 border-l-4 border-signal">
+                        <h4 class="text-white font-bold mb-2">Same error 3+ times?</h4>
+                        <p class="text-xs text-gray-500 font-mono">Try a different model. Each has different training data and approaches.</p>
+                    </div>
+                    <div class="bg-surface p-6 border-l-4 border-ice">
+                        <h4 class="text-white font-bold mb-2">Too slow?</h4>
+                        <p class="text-xs text-gray-500 font-mono">Drop from Opus to Sonnet, or use Gemini 3.0 Flash for quick tasks.</p>
+                    </div>
+                    <div class="bg-surface p-6 border-l-4 border-acid">
+                        <h4 class="text-white font-bold mb-2">Too expensive?</h4>
+                        <p class="text-xs text-gray-500 font-mono">Use free tiers for exploration, paid for production code.</p>
+                    </div>
+                    <div class="bg-surface p-6 border-l-4 border-chrome">
+                        <h4 class="text-white font-bold mb-2">Need real-time help?</h4>
+                        <p class="text-xs text-gray-500 font-mono">GitHub Copilot for in-editor, conversational LLM for debugging.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

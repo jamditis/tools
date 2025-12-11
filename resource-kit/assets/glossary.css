@@ -1,0 +1,181 @@
+/**
+ * Glossary tooltip styles for CCM AI Tools Resource Kit
+ */
+
+/* Term styling - the highlighted word in text */
+.term {
+  color: var(--accent, #60a5fa);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--accent, #60a5fa);
+  text-underline-offset: 3px;
+  cursor: help;
+  transition: all 0.15s ease;
+}
+
+.term:hover,
+.term.active {
+  color: var(--accent-light, #93c5fd);
+  text-decoration-style: solid;
+  background: rgba(96, 165, 250, 0.1);
+  border-radius: 2px;
+  padding: 0 2px;
+  margin: 0 -2px;
+}
+
+/* Tooltip container */
+.glossary-tooltip {
+  position: absolute;
+  z-index: 1000;
+  max-width: 360px;
+  min-width: 280px;
+  background: var(--surface, #1e293b);
+  border: 1px solid var(--border, #334155);
+  border-radius: 8px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.glossary-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Tooltip header */
+.tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border, #334155);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px 8px 0 0;
+}
+
+.tooltip-term {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 600;
+  color: var(--accent, #60a5fa);
+  font-size: 13px;
+}
+
+.tooltip-close {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--muted, #94a3b8);
+  font-size: 18px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.tooltip-close:hover {
+  color: var(--text, #f1f5f9);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Short definition - always visible */
+.tooltip-short {
+  padding: 12px 14px;
+  color: var(--text, #f1f5f9);
+  font-weight: 500;
+}
+
+/* Full definition - shown on expand */
+.tooltip-full {
+  padding: 0 14px 12px;
+  color: var(--muted, #94a3b8);
+  font-size: 13px;
+  line-height: 1.6;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.glossary-tooltip.expanded .tooltip-full {
+  max-height: 200px;
+  opacity: 1;
+  padding-top: 0;
+  border-top: 1px solid var(--border, #334155);
+  padding-top: 12px;
+}
+
+/* Expand hint */
+.tooltip-short::after {
+  content: ' (click for more)';
+  color: var(--muted, #64748b);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.glossary-tooltip.expanded .tooltip-short::after {
+  display: none;
+}
+
+/* Light theme overrides */
+@media (prefers-color-scheme: light) {
+  .glossary-tooltip {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .tooltip-header {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+
+  .tooltip-short {
+    color: #1e293b;
+  }
+
+  .tooltip-full {
+    color: #64748b;
+  }
+
+  .term {
+    color: #2563eb;
+    text-decoration-color: #2563eb;
+  }
+
+  .term:hover,
+  .term.active {
+    color: #1d4ed8;
+    background: rgba(37, 99, 235, 0.1);
+  }
+}
+
+/* Print styles - hide tooltips, show terms normally */
+@media print {
+  .glossary-tooltip {
+    display: none !important;
+  }
+
+  .term {
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .term::after {
+    content: ' [' attr(data-term) ']';
+    font-size: 0.8em;
+    color: #666;
+  }
+}

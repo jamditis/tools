@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANGUAGE GUIDE // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="flex min-h-screen relative z-10">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-white/10 bg-void hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
+            <div class="p-6 border-b border-white/10">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">V</div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">AMDITIS</h1>
+                        <p class="text-xs text-gray-500 tracking-[0.2em]">KIT v2.5</p>
+                    </div>
+                </a>
+            </div>
+            
+            <nav class="p-6 space-y-1 text-sm">
+                <a href="index.html" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">DASHBOARD</a>
+                <a href="#summary" class="block px-3 py-2 text-ice border-l-2 border-ice bg-white/5">SHORT ANSWER</a>
+                <a href="#python" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">PYTHON</a>
+                <a href="#javascript" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">JAVASCRIPT</a>
+                <a href="#r" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">R LANG</a>
+                <a href="#sql" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">SQL</a>
+                <a href="#bash" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">BASH</a>
+                <a href="#flowchart" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">DECISION TREE</a>
+                <a href="#mixing" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">PIPELINES</a>
+                <a href="#getting-started" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">GETTING STARTED</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-5xl mx-auto space-y-24">
+            
+            <!-- Hero -->
+            <section class="border-b border-white/10 pb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="h-px flex-1 bg-white/10"></div>
+                    <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Documentation</span>
+                    <div class="h-px flex-1 bg-white/10"></div>
+                </div>
+                <h2 class="font-display text-4xl md:text-6xl text-chrome mb-8 glitch-text" data-text="LANGUAGE_GUIDE">LANGUAGE_GUIDE</h2>
+                <p class="text-gray-400 text-lg leading-relaxed font-mono border-l-2 border-ice pl-4">
+                    When to use Python vs JavaScript vs R vs SQL. A tactical analysis for newsroom deployments.
+                </p>
+            </section>
+
+            <!-- Summary Table -->
+            <section id="summary">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">01 // OVERVIEW</h3>
+                    <span class="text-xs text-gray-600 font-mono">QUICK REFERENCE</span>
+                </div>
+
+                <div class="border border-white/10 bg-panel overflow-hidden">
+                    <table class="w-full text-left text-sm font-mono">
+                        <thead class="bg-surface border-b border-white/10 text-xs text-gray-500 uppercase tracking-widest">
+                            <tr>
+                                <th class="p-4 font-normal">Objective</th>
+                                <th class="p-4 font-normal">Protocol</th>
+                                <th class="p-4 font-normal">Rationale</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5 text-gray-400">
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">Data cleaning</td>
+                                <td class="p-4 text-acid">PYTHON</td>
+                                <td class="p-4">pandas library, readable syntax</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">Statistical analysis</td>
+                                <td class="p-4 text-ice">R</td>
+                                <td class="p-4">Built for stats, publication output</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">Web scraping</td>
+                                <td class="p-4 text-acid">PYTHON</td>
+                                <td class="p-4">BeautifulSoup, Playwright</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">Interactive viz</td>
+                                <td class="p-4 text-signal">JAVASCRIPT</td>
+                                <td class="p-4">D3.js, runs in browsers</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">File automation</td>
+                                <td class="p-4 text-white">BASH</td>
+                                <td class="p-4">System native, fast execution</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="p-4 text-white">Database queries</td>
+                                <td class="p-4 text-white">SQL</td>
+                                <td class="p-4">Purpose-built for databases</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section id="python">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">02 // PYTHON</h3>
+                    <span class="text-xs text-gray-600 font-mono">GENERAL PURPOSE</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Capabilities</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Data cleaning and transformation</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Web scraping</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> API integrations</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> PDF processing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Advantages</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Readable syntax</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Huge ecosystem</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Cross-platform</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Code Block -->
+                <div class="w-full bg-[#0d0d0d] border border-white/10 overflow-hidden relative group">
+                    <div class="bg-surface border-b border-white/10 px-4 py-2 flex justify-between items-center">
+                        <div class="text-xs font-mono text-gray-500">USE_CASE.py</div>
+                        <button class="text-xs text-gray-500 hover:text-acid flex items-center gap-1 transition-colors" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300"><code><span class="syntax-keyword">import</span> pandas <span class="syntax-keyword">as</span> pd
+
+<span class="syntax-comment"># Load, clean, and analyze campaign finance data</span>
+df = pd.<span class="syntax-func">read_csv</span>(<span class="syntax-string">"contributions.csv"</span>)
+df[<span class="syntax-string">'date'</span>] = pd.<span class="syntax-func">to_datetime</span>(df[<span class="syntax-string">'date'</span>])
+monthly = df.<span class="syntax-func">groupby</span>(df[<span class="syntax-string">'date'</span>].dt.month)[<span class="syntax-string">'amount'</span>].<span class="syntax-func">sum</span>()
+<span class="syntax-func">print</span>(monthly)</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JavaScript -->
+            <section id="javascript">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-signal">03 // JAVASCRIPT</h3>
+                    <span class="text-xs text-gray-600 font-mono">WEB INTERACTION</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Capabilities</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> Interactive visualizations</li>
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> Browser-based tools</li>
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> Maps and charts</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Advantages</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> Runs in browser</li>
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> No user installation</li>
+                            <li class="flex items-center gap-2"><span class="text-signal">></span> D3.js ecosystem</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full bg-[#0d0d0d] border border-white/10 overflow-hidden relative group">
+                    <div class="bg-surface border-b border-white/10 px-4 py-2 flex justify-between items-center">
+                        <div class="text-xs font-mono text-gray-500">VISUALIZE.js</div>
+                        <button class="text-xs text-gray-500 hover:text-signal flex items-center gap-1 transition-colors" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300"><code><span class="syntax-comment">// Interactive bar chart with D3</span>
+d3.<span class="syntax-func">csv</span>(<span class="syntax-string">"data.csv"</span>).<span class="syntax-func">then</span>(data => {
+  <span class="syntax-keyword">const</span> svg = d3.<span class="syntax-func">select</span>(<span class="syntax-string">"#chart"</span>)
+    .<span class="syntax-func">append</span>(<span class="syntax-string">"svg"</span>)
+    .<span class="syntax-func">attr</span>(<span class="syntax-string">"width"</span>, <span class="text-orange-400">600</span>)
+    .<span class="syntax-func">attr</span>(<span class="syntax-string">"height"</span>, <span class="text-orange-400">400</span>);
+
+  <span class="syntax-comment">// ... bindings and rendering</span>
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- R Lang -->
+            <section id="r">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">04 // R_LANG</h3>
+                    <span class="text-xs text-gray-600 font-mono">STATISTICS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Capabilities</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> Statistical analysis</li>
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> Publication-quality plots</li>
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> Reproducible research</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Advantages</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> Built for stats</li>
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> ggplot2 engine</li>
+                            <li class="flex items-center gap-2"><span class="text-ice">></span> Tidyverse syntax</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full bg-[#0d0d0d] border border-white/10 overflow-hidden relative group">
+                    <div class="bg-surface border-b border-white/10 px-4 py-2 flex justify-between items-center">
+                        <div class="text-xs font-mono text-gray-500">ANALYSIS.r</div>
+                        <button class="text-xs text-gray-500 hover:text-ice flex items-center gap-1 transition-colors" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300"><code><span class="syntax-func">library</span>(tidyverse)
+
+<span class="syntax-comment"># Analyze election results with statistical summary</span>
+results <- <span class="syntax-func">read_csv</span>(<span class="syntax-string">"election_data.csv"</span>)
+results %>%
+  <span class="syntax-func">group_by</span>(county) %>%
+  <span class="syntax-func">summarize</span>(
+    avg_turnout = <span class="syntax-func">mean</span>(turnout),
+    margin = <span class="syntax-func">mean</span>(dem_votes - rep_votes)
+  ) %>%
+  <span class="syntax-func">ggplot</span>(<span class="syntax-func">aes</span>(x = avg_turnout, y = margin)) +
+  <span class="syntax-func">geom_point</span>() +
+  <span class="syntax-func">geom_smooth</span>(method = <span class="syntax-string">"lm"</span>)</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SQL -->
+            <section id="sql">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">05 // SQL</h3>
+                    <span class="text-xs text-gray-600 font-mono">DATABASE QUERIES</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Capabilities</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Querying databases</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Filtering and aggregating large datasets</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Joining tables</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Data extraction from newsroom databases</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Advantages</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Purpose-built for data queries</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Extremely fast on large datasets</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Works with most data systems</li>
+                            <li class="flex items-center gap-2"><span class="text-white">></span> Skills transfer across databases</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full bg-[#0d0d0d] border border-white/10 overflow-hidden relative group">
+                    <div class="bg-surface border-b border-white/10 px-4 py-2 flex justify-between items-center">
+                        <div class="text-xs font-mono text-gray-500">TOP_DONORS.sql</div>
+                        <button class="text-xs text-gray-500 hover:text-white flex items-center gap-1 transition-colors" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300"><code><span class="syntax-comment">-- Find top donors by total contributions</span>
+<span class="syntax-keyword">SELECT</span>
+    donor_name,
+    <span class="syntax-func">COUNT</span>(*) <span class="syntax-keyword">as</span> num_contributions,
+    <span class="syntax-func">SUM</span>(amount) <span class="syntax-keyword">as</span> total_amount
+<span class="syntax-keyword">FROM</span> contributions
+<span class="syntax-keyword">WHERE</span> date >= <span class="syntax-string">'2024-01-01'</span>
+<span class="syntax-keyword">GROUP BY</span> donor_name
+<span class="syntax-keyword">ORDER BY</span> total_amount <span class="syntax-keyword">DESC</span>
+<span class="syntax-keyword">LIMIT</span> <span class="text-orange-400">20</span>;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bash -->
+            <section id="bash">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">06 // BASH</h3>
+                    <span class="text-xs text-gray-600 font-mono">FILE AUTOMATION</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Capabilities</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Quick file operations</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Batch renaming</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Combining command-line tools</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Scheduled tasks (cron jobs)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase tracking-widest">Advantages</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Already on Mac/Linux</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Extremely fast for simple tasks</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Pipes let you chain tools</li>
+                            <li class="flex items-center gap-2"><span class="text-acid">></span> Great for automation scripts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full bg-[#0d0d0d] border border-white/10 overflow-hidden relative group">
+                    <div class="bg-surface border-b border-white/10 px-4 py-2 flex justify-between items-center">
+                        <div class="text-xs font-mono text-gray-500">FILE_OPS.sh</div>
+                        <button class="text-xs text-gray-500 hover:text-acid flex items-center gap-1 transition-colors" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-x-auto">
+                        <pre class="font-mono text-sm leading-relaxed text-gray-300"><code><span class="syntax-comment"># Rename all PDFs to include date prefix</span>
+<span class="syntax-keyword">for</span> f <span class="syntax-keyword">in</span> *.pdf; <span class="syntax-keyword">do</span>
+  mv <span class="syntax-string">"$f"</span> <span class="syntax-string">"2024-12-$(basename "$f")"</span>
+<span class="syntax-keyword">done</span>
+
+<span class="syntax-comment"># Count lines in all CSV files</span>
+wc -l *.csv
+
+<span class="syntax-comment"># Find all files modified today</span>
+find . -mtime <span class="text-orange-400">0</span> -type f</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flowchart -->
+            <section id="flowchart">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">05 // LOGIC_TREE</h3>
+                    <span class="text-xs text-gray-600 font-mono">SELECTION ALGORITHM</span>
+                </div>
+
+                <div class="bg-panel border border-white/10 p-8 rounded-sm font-mono text-sm text-gray-400 whitespace-pre-wrap overflow-x-auto leading-loose">What are you doing?
+│
+├─► Working with data in spreadsheets/CSVs?
+│   └─► <span class="text-acid font-bold">Python (pandas)</span>
+│
+├─► Need statistical analysis or p-values?
+│   └─► <span class="text-ice font-bold">R</span>
+│
+├─► Building something for a web page?
+│   └─► <span class="text-signal font-bold">JavaScript</span>
+│
+├─► Querying a database?
+│   └─► <span class="text-white font-bold">SQL</span>
+│
+├─► Quick file operations?
+│   └─► <span class="text-white font-bold">Bash</span>
+│
+└─► Not sure?
+    └─► <span class="text-acid bg-acidDim px-1 font-bold">START WITH PYTHON</span></div>
+            </section>
+
+            <!-- Mixing Languages -->
+            <section id="mixing">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">08 // PIPELINE_INTEGRATION</h3>
+                    <span class="text-xs text-gray-600 font-mono">MIXING LANGUAGES</span>
+                </div>
+
+                <p class="text-gray-400 mb-8 text-sm leading-relaxed">Real projects often combine languages. Each does what it's best at:</p>
+
+                <div class="bg-panel border border-white/10 p-6 space-y-4">
+                    <div class="flex items-center gap-4">
+                        <span class="w-8 h-8 bg-white/10 flex items-center justify-center text-white font-bold text-sm">1</span>
+                        <div>
+                            <span class="text-white font-bold">SQL</span>
+                            <span class="text-gray-500 ml-2">to extract data from database</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-8 h-8 bg-white/10 flex items-center justify-center text-acid font-bold text-sm">2</span>
+                        <div>
+                            <span class="text-acid font-bold">Python</span>
+                            <span class="text-gray-500 ml-2">to clean and transform</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-8 h-8 bg-white/10 flex items-center justify-center text-ice font-bold text-sm">3</span>
+                        <div>
+                            <span class="text-ice font-bold">R</span>
+                            <span class="text-gray-500 ml-2">to run statistical analysis</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-8 h-8 bg-white/10 flex items-center justify-center text-signal font-bold text-sm">4</span>
+                        <div>
+                            <span class="text-signal font-bold">JavaScript</span>
+                            <span class="text-gray-500 ml-2">to create interactive visualization</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="w-8 h-8 bg-white/10 flex items-center justify-center text-acid font-bold text-sm">5</span>
+                        <div>
+                            <span class="text-acid font-bold">Bash</span>
+                            <span class="text-gray-500 ml-2">to schedule the pipeline</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section id="getting-started" class="pb-24">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">09 // INIT_SEQUENCE</h3>
+                    <span class="text-xs text-gray-600 font-mono">GETTING STARTED</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors">
+                        <h4 class="text-acid font-bold font-display mb-4">Python</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><span class="text-gray-600">INSTALL:</span> python.org or Anaconda</li>
+                            <li><span class="text-gray-600">EDITOR:</span> VS Code + Python extension</li>
+                            <li><span class="text-gray-600">FIRST:</span> Clean a CSV with pandas</li>
+                        </ul>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-signal transition-colors">
+                        <h4 class="text-signal font-bold font-display mb-4">JavaScript</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><span class="text-gray-600">INSTALL:</span> None (runs in browser)</li>
+                            <li><span class="text-gray-600">EDITOR:</span> VS Code</li>
+                            <li><span class="text-gray-600">FIRST:</span> Chart with Chart.js</li>
+                        </ul>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-ice transition-colors">
+                        <h4 class="text-ice font-bold font-display mb-4">R</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><span class="text-gray-600">INSTALL:</span> r-project.org</li>
+                            <li><span class="text-gray-600">EDITOR:</span> RStudio (free)</li>
+                            <li><span class="text-gray-600">FIRST:</span> ggplot2 chart</li>
+                        </ul>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-white transition-colors">
+                        <h4 class="text-white font-bold font-display mb-4">SQL</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><span class="text-gray-600">PRACTICE:</span> SQLite or online playgrounds</li>
+                            <li><span class="text-gray-600">FIRST:</span> Query a public dataset</li>
+                        </ul>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors">
+                        <h4 class="text-acid font-bold font-display mb-4">Bash</h4>
+                        <ul class="space-y-2 text-xs text-gray-400">
+                            <li><span class="text-gray-600">INSTALL:</span> Already on Mac/Linux</li>
+                            <li><span class="text-gray-600">WINDOWS:</span> Git Bash or WSL</li>
+                            <li><span class="text-gray-600">FIRST:</span> Batch rename files</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function copyCode(btn) {
+            const pre = btn.closest('.relative').querySelector('pre');
+            const text = pre.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<span class="text-acid">COPIED</span>`;
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

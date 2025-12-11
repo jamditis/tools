@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI SHOWCASE // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+        
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="../html/index.html" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">V</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome">DATABASE // SHOWCASE</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">RESOURCES_V2.5</div>
+                    </div>
+                </div>
+                <div class="hidden md:flex gap-6 text-xs font-mono">
+                    <a href="#guides" class="text-gray-400 hover:text-acid transition-colors">GUIDES</a>
+                    <a href="#videos" class="text-gray-400 hover:text-ice transition-colors">VIDEOS</a>
+                    <a href="#writing" class="text-gray-400 hover:text-signal transition-colors">WRITING</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="inline-block px-3 py-1 mb-6 border border-acid/30 text-acid text-xs font-mono tracking-widest bg-acidDim">
+                    AUTHOR: JOE AMDITIS
+                </div>
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="AUTOMATION RESOURCES">
+                    AUTOMATION RESOURCES
+                </h1>
+                <p class="text-gray-400 text-lg font-mono max-w-2xl mx-auto mb-10 leading-relaxed border-l-2 border-ice pl-4 text-left">
+                    Center for Cooperative Media associate director Joe Amditis established as a leading voice at the intersection of AI and journalism.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <div class="bg-panel border border-white/10 p-4 w-full md:w-auto text-left">
+                        <div class="text-xs text-gray-500 mb-1">CONTACT</div>
+                        <a href="mailto:murrayst@montclair.edu" class="text-acid hover:text-white transition-colors text-sm font-bold">murrayst@montclair.edu</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16 space-y-24">
+            
+            <!-- Guides Section -->
+            <section id="guides">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">01 // GUIDES_TOOLS</h3>
+                    <span class="text-xs text-gray-600 font-mono">HANDBOOKS</span>
+                </div>
+
+                <!-- Featured -->
+                <div class="mb-8 border border-acid bg-panel p-8 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 text-6xl font-display font-bold text-acid select-none">FEAT</div>
+                    <div class="relative z-10">
+                        <div class="text-acid font-bold font-mono text-xs mb-2">:: FEATURED_RESOURCE</div>
+                        <h3 class="text-3xl text-white font-display font-bold mb-4">Vibe coding starter guide</h3>
+                        <p class="text-gray-400 font-mono text-sm max-w-xl mb-6">
+                            A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.
+                        </p>
+                        <a href="vibe-coding.html" class="inline-flex items-center gap-2 px-6 py-2 bg-acid text-black font-bold font-mono text-xs clip-notch hover:bg-white transition-colors">
+                            ACCESS_GUIDE ->
+                        </a>
+                    </div>
+                </div>
+
+                <div class="chroma-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- Videos Section -->
+            <section id="videos">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">02 // VIDEO_LOGS</h3>
+                    <span class="text-xs text-gray-600 font-mono">TRAINING SERIES</span>
+                </div>
+                <div class="chroma-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- Writing Section -->
+            <section id="writing">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-signal">03 // TEXT_ARCHIVE</h3>
+                    <span class="text-xs text-gray-600 font-mono">COMMENTARY</span>
+                </div>
+                <div class="chroma-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- Speaking Section -->
+            <section id="speaking">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-chrome">04 // COMMS_LOG</h3>
+                    <span class="text-xs text-gray-600 font-mono">APPEARANCES</span>
+                </div>
+                <div class="chroma-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- Consulting Section -->
+            <section id="consulting">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">05 // CONSULTING</h3>
+                    <span class="text-xs text-gray-600 font-mono">SERVICES & PRESS</span>
+                </div>
+                
+                <div id="accordion-container" class="space-y-4 max-w-3xl">
+                    <!-- Accordions injected by JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-void py-12 text-center text-xs text-gray-600 font-mono">
+            <p>CENTER FOR COOPERATIVE MEDIA // <span id="currentYear"></span></p>
+        </footer>
+
+    </div>
+
+    <!-- Data Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Data - FULL VERBATIM CONTENT
+        const portfolioData = {
+            guides: [
+                { title: '✨ Tool: LLM journalism tool advisor', date: '2024', desc: 'An interactive tool to help journalists select appropriate LLM tools based on specific tasks and best practices.', link: 'index.html', color: 'text-acid', border: 'border-acid' },
+                { title: '🔨 Tool: AI disclosure framework', date: 'May 2025', desc: 'A guide for deciding whether and how to disclose AI disclosure in journalistic content.', link: 'https://centerforcooperativemedia.org/ai-disclosure-tool/', color: 'text-acid', border: 'border-acid' },
+                { title: '🔨 Tool: AI disclosure scenarios', date: 'May 2025', desc: 'Illustrates AI disclosure "materiality" and "proportionality" through common journalistic scenarios.', link: 'https://centerforcooperativemedia.org/ai-disclosures/', color: 'text-acid', border: 'border-acid' },
+                { title: '📔 Handbook: An updated guide to using AI and automation', date: 'Dec. 2024', desc: 'Focuses on free/low-cost AI tools, with case studies on successful newsroom implementation for various tasks.', link: 'https://jamditis.notion.site/AI-and-automation-An-updated-guide-to-using-LLMs-for-local-news-14985ff7f20a8075aab6cdec875ea83a', color: 'text-acid', border: 'border-acid' },
+                { title: '📔 Handbook: Creating Custom GPTs for journalism', date: 'Nov. 2023', desc: 'Learn to build custom GPTs with use cases, step-by-step instructions, and best practices for newsrooms.', link: 'https://jamditis.notion.site/Beginner-s-guide-Custom-GPTs-for-local-news-publishers-dd36d47275e34aacbc648f7fa926c2bc', color: 'text-acid', border: 'border-acid' },
+                { title: "🖼️ Guide: Beginner's guide to image generation", date: 'Oct. 2023', desc: 'A starting point for creatives to explore image generation tools, complete with a repository of art styles and sample prompts.', link: 'https://medium.com/centerforcooperativemedia/a-beginners-guide-to-image-generation-with-dall-e-3-4efd969ab8fb', color: 'text-acid', border: 'border-acid' },
+                { title: '📔 Handbook: ChatGPT for local news publishers', date: 'March 2023', desc: "In this introductory prompt engineering guide, discover use cases, prompt anatomy, and examples for local newsrooms.", link: 'https://jamditis.notion.site/Beginner-s-prompt-handbook-ChatGPT-for-local-news-publishers-15d1f07d5b194265a41fdd42955679b4', color: 'text-acid', border: 'border-acid' },
+            ],
+            videos: [
+                { title: '▶️ Series: Prompting for journalism 101', date: 'May 2025', desc: "A crash course in prompt engineering 101, designed specifically for journalists.", link: 'https://youtube.com/playlist?list=PLgq6gq6KYlKkyosYJf-X_b9POqPlaNnAc&si=polbWpvBIqNibuj5', color: 'text-ice', border: 'border-ice' },
+                { title: '📹 Interview: How the Jersey Bee uses AI and automation', date: 'Feb. 2025', desc: 'A case study on how a small team leverages AI and automation for local news production.', link: 'https://youtube.com/playlist?list=PLgq6gq6KYlKnrsc3JH0NFmtMT8W7EuSjL&si=Nn3EsCQGtUAU6yen', color: 'text-ice', border: 'border-ice' },
+                { title: '📽️ Training series: Mastering automation for small newsrooms', date: 'Oct. 2024', desc: 'A three-part workshop on incorporating automation into daily workflows and newsgathering processes.', link: 'https://youtube.com/playlist?list=PLgq6gq6KYlKnrsc3JH0NFmtMT8W7EuSjL&si=Nn3EsCQGtUAU6yen', color: 'text-ice', border: 'border-ice' },
+                { title: '📼 Video: How I created an auto file-sorting automation', date: 'Aug. 2024', desc: 'A prototype demonstration of automated file classification and sorting using Zapier and LLMs.', link: 'https://youtu.be/LzNZYF9gFmc?list=PLgq6gq6KYlKltR6MReGQULWyfcYrAx5Kg', color: 'text-ice', border: 'border-ice' },
+                { title: '💻 Webinar: Building Custom GPTs for small and local news orgs', date: 'Dec. 2023', desc: 'A workshop covering the guide to custom GPTs, aimed at improving resources for small newsrooms.', link: 'https://youtu.be/IwkK53Hjb6g?list=PLgq6gq6KYlKltR6MReGQULWyfcYrAx5Kg', color: 'text-ice', border: 'border-ice' },
+                { title: '📼 Video: How are newsrooms using generative AI for journalism?', date: 'July 2023', desc: 'A brief overview of generative AI tool usage in newsgathering and back-office workflows.', link: 'https://youtu.be/dZdUYZaFBrQ?list=PLgq6gq6KYlKltR6MReGQULWyfcYrAx5Kg', color: 'text-ice', border: 'border-ice' },
+                { title: '💻 Webinar: ChatGPT and AI for local news publishers', date: 'March 2023', desc: 'An introductory webinar on using generative AI like ChatGPT to improve workflows and serve communities effectively.', link: 'https://youtu.be/IwkK53Hjb6g?list=PLgq6gq6KYlKltR6MReGQULWyfcYrAx5Kg', color: 'text-ice', border: 'border-ice' },
+            ],
+            writing: [
+                { title: '📝 Could alt text be a useful framework for AI disclosures?', date: 'May 2025', desc: 'Using image accessibility approaches as a framework for AI disclosure in journalism.', link: 'https://medium.com/centerforcooperativemedia/could-alt-text-be-a-useful-framework-for-ai-disclosures-701a8b0115e1', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 We stop excusing the lack of accessibility in news', date: 'Dec. 2024', desc: 'How AI tools can help address common excuses for neglecting accessibility in news.', link: 'https://www.niemanlab.org/2024/12/we-stop-excusing-the-lack-of-accessibility-in-news/', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 Journalism grapples with the promise and pitfalls of AI-assisted reporting', date: 'Dec. 2023', desc: 'Navigating the potential of AI tools while staying anchored in community realities.', link: 'https://www.niemanlab.org/2023/12/journalism-grapples-with-the-promise-and-pitfalls-of-ai-assisted-reporting/', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 AI-generated news has arrived in New Jersey', date: 'Aug. 2023', desc: 'Questioning the reliance on machines for journalism and capturing human nuances.', link: 'https://medium.com/centerforcooperativemedia/ai-generated-news-has-arrived-in-new-jersey-6971f9949c47', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 What if you could use AI as the institutional memory for your newsroom?', date: 'March 2023', desc: "Exploring AI's potential to revolutionize how newsrooms preserve collective knowledge.", link: 'https://medium.com/centerforcooperativemedia/what-if-you-could-use-ai-as-the-institutional-memory-for-your-newsroom-85571d3aa9ba', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 The Nazi chatbots are coming', date: 'March 2023', desc: 'Concerns about fine-tuned models spreading hatred and eroding democratic institutions.', link: 'https://medium.com/centerforcooperativemedia/a-beginners-guide-to-image-generation-with-dall-e-3-4efd969ab8fb', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 AI throws a lifeline to local publishers', date: 'Dec. 2022', desc: 'How AI can save time and effort for independent and hyperlocal news publishers.', link: 'https://www.niemanlab.org/2022/12/ai-throws-a-lifeline-to-local-publishers/', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 The bots are coming and you have two options: Adapt or die.', date: 'Oct. 2017', desc: 'Commentary on voice-activated AI as a technological revolution in the news industry.', link: 'https://medium.com/mobilenewslab/the-bots-are-coming-and-you-have-two-options-adapt-or-die-365e6e15c458', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 What are some ethical considerations that chatbots raise?', date: 'Mar. 2017', desc: 'Addressing ethical challenges and implications for responsible chatbot implementation.', link: 'https://medium.com/mobilenewslab/what-are-some-ethical-considerations-that-chatbots-raise-and-how-can-those-be-best-be-addressed-7f7fed23557', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 What are chatbots and how do they work?', date: 'Mar. 2017', desc: 'Discussion on effective chatbot uses centered around convenience and easy access to information.', link: 'https://medium.com/mobilenewslab/what-are-chatbots-and-how-do-they-work-4694340797ee', color: 'text-signal', border: 'border-signal' },
+                { title: '📝 Building a basic chatbot with WNYC's John Keefe', date: 'Dec. 2016', desc: 'Exploring simple call-and-response bots and the underlying machine-learning infrastructure.', link: 'https://medium.com/mobilenewslab/building-a-basic-chatbot-with-wnycs-john-keefe-2afdba274d27', color: 'text-signal', border: 'border-signal' },
+            ],
+            speaking: [
+                { title: '📺 Al Jazeera English: What concerns does the use of AI in news raise?', date: 'Jan. 2025', desc: 'Exploring ethical challenges, misinformation risks, and the need for frameworks for AI in journalism.', link: 'https://www.aljazeera.com/program/the-stream/2025/1/15/what-concerns-does-the-use-of-ai-in-news-raise', color: 'text-chrome', border: 'border-white' },
+                { title: '📰 Miami Herald: As workplaces adopt AI, Gen Z is ahead', date: 'Feb. 2025', desc: "Caution on AI accountability, stating tools shouldn't manage decisions impacting lives if not punishable.", link: 'https://www.miamiherald.com/news/business/article299794634.html', color: 'text-chrome', border: 'border-white' },
+                { title: '💻 Magazine Association of BC: Let AI do the boring stuff', date: 'April 2024', desc: 'Demonstration of using AI to handle routine tasks, allowing focus on community work.', link: 'https://www.youtube.com/watch?v=cDZS41qtwH8', color: 'text-chrome', border: 'border-white' },
+                { title: '🎙️ AImpactful #1: Exploring AI in Newsrooms Insights', date: 'Dec. 2023', desc: 'Inaugural podcast episode on integrating AI tools like ChatGPT into journalistic practices.', link: 'https://www.youtube.com/watch?v=U4N0MA7Zglo', color: 'text-chrome', border: 'border-white' },
+                { title: '🎙️ Media Copilot: The reality of applying AI in newsrooms', date: 'Aug. 2023', desc: 'Discussion on practical AI application in journalism at individual and organizational levels.', link: 'https://mediacopilot.substack.com/p/the-reality-of-applying-ai-in-newsrooms', color: 'text-chrome', border: 'border-white' },
+                { title: '📰 SIIA: A lot is being written by and about AI', date: 'May 2023', desc: 'Encouraging curiosity and experimentation with AI tools while warning against losing credibility.', link: 'https://www.siia.net/lean-in-test-these-things-out-a-lot-is-being-written-by-and-about-ai-heres-some-help/', color: 'text-chrome', border: 'border-white' },
+                { title: '📰 Humber News: AI can help journalists but not replace them', date: 'April 2023', desc: "Expert opinion on AI's role in editing versus writing stories for journalists.", link: 'https://humbernews.ca/2023/04/ai-can-help-journalists-but-not-replace-them-experts-say/', color: 'text-chrome', border: 'border-white' },
+                { title: '🎙️ Newsroom Robots: Harnessing the power of ChatGPT', date: 'April 2023', desc: "Podcast exploring ChatGPT's potential for local newsrooms with Joe Amditis.", link: 'https://substack.com/home/post/p-138291128', color: 'text-chrome', border: 'border-white' },
+            ],
+            accordionItems: [
+                {
+                    title: "CONSULTING_SERVICES",
+                    color: 'text-acid',
+                    content: `
+                        <p class="mb-4">Amditis provides hands-on AI implementation guidance to diverse news organizations:</p>
+                        <ul class="list-disc pl-4 space-y-2 text-xs text-gray-400">
+                            <li>Advised Tegna on AI and automation strategies.</li>
+                            <li>Conducted consulting and training for The Hechinger Report on GPT-4.</li>
+                            <li>Presented to Arizent publications on AI, including Gemini for Business.</li>
+                            <li>Implemented AI email summarization for Local Media Association.</li>
+                            <li>Helped NJ Advance Media automate content summarization and social copy.</li>
+                            <li>Supported The Current (Louisiana) with weather data newsletter automation.</li>
+                            <li>Created automated workflows for Dallas Free Press, News Product Alliance, and more.</li>
+                            <li>Developed cross-language solutions via NJ News Commons Spanish Translation Project.</li>
+                        </ul>
+                        <div class="mt-4 p-4 border border-acid/20 bg-acidDim">
+                            <span class="text-acid font-bold">BOOKING:</span>
+                            <a href="mailto:murrayst@montclair.edu" class="text-white hover:underline">murrayst@montclair.edu</a>
+                        </div>`
+                }
+            ],
+            pressMentions: [
+                { date: '2025-06-19', source: 'CCM Notes', type: 'TRAINING SESSION', title: 'Preserving history and using AI to document it' },
+                { date: '2025-03-13', source: 'Knight Center for Journalism in the Americas', type: 'COURSE LEADERSHIP', title: "Prompt Engineering 101 for Journalists" },
+                { date: '2025-02-06', source: 'Miami Herald', type: 'EXPERT QUOTE', title: 'As workplaces adopt AI at varying rates, Gen Z is ahead of the curve.' },
+                { date: '2025-01-15', source: 'Al Jazeera English', type: 'MEDIA APPEARANCE', title: 'What concerns does the use of AI in news raise?' },
+                { date: '2024-04-03', source: 'Magazine Association of BC', type: 'VIDEO PRESENTATION', title: 'Let AI do the boring stuff so you can focus more on serving your community.' },
+                { date: '2024-03-15', source: 'The Media Copilot', type: 'PODCAST INTERVIEW', title: 'The reality of applying AI in newsrooms.' },
+                { date: '2024-03-11', source: 'Nieman Lab/Journalism A11y', type: 'EXPERT CONTRIBUTION', title: "Five of this year's Pulitzer finalists are AI-powered." },
+                { date: '2023-12-08', source: 'AImpactful', type: 'PODCAST INTERVIEW', title: 'Exploring AI in Newsrooms: Insights from Joe Amditis.' },
+                { date: '2023-08-04', source: 'PBS News', type: 'EXPERT ANALYSIS', title: "AI-powered local news site stirs new questions about tech's role in journalism." },
+                { date: '2023-07-19', source: 'Online News Association', type: 'WORKSHOP FACILITATION', title: 'A Practical Newsroom Guide to Artificial Intelligence.' },
+                { date: '2023-06-30', source: 'Software & Information Industry Association', type: 'IN-DEPTH INTERVIEW', title: "'Dig in and start playing around'; Amditis offers more ways AI can help your publishing." },
+                { date: '2023-06-20', source: 'News Product Alliance', type: 'PANEL PRESENTATION', title: 'Newsroom 2.0: How AI is changing the game.' },
+                { date: '2023-06-14', source: 'Poynter', type: 'EXPERT QUOTE', title: 'Why journalists should pay attention to developments in artificial intelligence.' },
+                { date: '2023-05-25', source: 'Software & Information Industry Association', type: 'FEATURED INTERVIEW', title: "'Probe it, test it, try to stretch the limits'; An AI practitioner shares secret sauce." },
+                { date: '2023-05-19', source: 'Software & Information Industry Association', type: 'EXPERT QUOTE', title: "'Lean in. Test these things out.' A lot is being written by and about AI; here's some help." },
+                { date: '2023-05-08', source: 'Nieman Lab', type: 'PUBLICATION CITATION', title: 'Can AI help local newsrooms streamline their newsletters? ARLnow tests the waters.' },
+                { date: '2023-04-19', source: 'Newsroom Robots', type: 'PODCAST INTERVIEW', title: 'Joe Amditis: Harnessing the Power of ChatGPT for Local Newsrooms.' },
+                { date: '2023-04-14', source: 'Local Media Innovation Alliance', type: 'EXPERT CONSULTATION', title: 'Here come the machines: AI for local news.' },
+                { date: '2023-04-11', source: 'Local Media Association', type: 'PUBLICATION CITATION', title: 'What AI chatbots (might) mean for local news.' },
+                { date: '2023-04-07', source: 'Humber News', type: 'EXPERT QUOTE', title: 'AI can help journalists but not replace them, experts say.' },
+                { date: '2023-03-29', source: 'WAN-IFRA', type: 'PUBLICATION FEATURE', title: 'ChatGPT prompts: A real, non-AI generated handbook for journalists.' },
+            ]
+        };
+
+        // Render Cards
+        const sections = {
+            'guides': portfolioData.guides,
+            'videos': portfolioData.videos,
+            'writing': portfolioData.writing,
+            'speaking': portfolioData.speaking
+        };
+
+        Object.keys(sections).forEach(id => {
+            const container = document.querySelector(`#${id} .chroma-grid`);
+            if(container) {
+                sections[id].forEach(item => {
+                    const card = document.createElement('a');
+                    card.href = item.link;
+                    card.className = `group block border border-white/10 bg-panel hover:${item.border} transition-all duration-300 relative overflow-hidden p-6`;
+                    card.innerHTML = `
+                        <div class="text-xs ${item.color} font-mono mb-2 opacity-70 group-hover:opacity-100">${item.date}</div>
+                        <h4 class="font-display text-lg text-white font-bold mb-3 group-hover:${item.color} transition-colors">${item.title}</h4>
+                        <p class="text-xs text-gray-500 font-mono leading-relaxed">${item.desc}</p>
+                        <div class="absolute bottom-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity ${item.color}">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        });
+
+        // Render Accordions
+        const accContainer = document.getElementById('accordion-container');
+        
+        // Consulting
+        const consulting = portfolioData.accordionItems[0];
+        const acc1 = document.createElement('div');
+        acc1.className = 'accordion-item border border-white/10 bg-panel group';
+        acc1.innerHTML = `
+            <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex justify-between items-center bg-surface hover:bg-white/5 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-acid rounded-full"></div>
+                    <span class="font-display text-lg text-chrome tracking-wide">${consulting.title}</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 border-t border-white/10 text-sm font-mono text-gray-400">
+                    ${consulting.content}
+                </div>
+            </div>
+        `;
+        accContainer.appendChild(acc1);
+
+        // Press
+        const acc2 = document.createElement('div');
+        acc2.className = 'accordion-item border border-white/10 bg-panel group';
+        let pressHtml = '<div class="space-y-4">';
+        portfolioData.pressMentions.forEach(item => {
+            pressHtml += `
+                <div class="flex flex-col md:flex-row md:items-center gap-2 border-b border-white/5 pb-2 last:border-0">
+                    <span class="text-acid text-xs font-mono min-w-[100px]">${item.date}</span>
+                    <span class="text-white font-bold text-sm flex-1">${item.title}</span>
+                    <span class="text-xs text-gray-500 border border-white/10 px-2 py-0.5">${item.source}</span>
+                </div>
+            `;
+        });
+        pressHtml += '</div>';
+        
+        acc2.innerHTML = `
+            <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex justify-between items-center bg-surface hover:bg-white/5 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-ice rounded-full"></div>
+                    <span class="font-display text-lg text-chrome tracking-wide">PRESS_MENTIONS</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 border-t border-white/10">
+                    ${pressHtml}
+                </div>
+            </div>
+        `;
+        accContainer.appendChild(acc2);
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+
+    // Accordion Logic
+    function toggleAccordion(button) {
+        const item = button.parentElement;
+        item.classList.toggle('active');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{
+  "Claude 4.5 Opus": {
+    "description": "Anthropic's most powerful 'work' model. It is by far the best model for coding and writing, excelling at complex reasoning, detailed analysis, and nuanced content creation.",
+    "features": [
+      "Best-in-class for writing, editing, and coding",
+      "Does not train on user data by default",
+      "Strong ethical guardrails",
+      "Unmatched code generation quality"
+    ],
+    "link": "https://www.anthropic.com/claude"
+  },
+  "Claude 4.5 Sonnet": {
+    "description": "Anthropic's fast 'chat' model. It's designed for quick, conversational interactions, brainstorming, and everyday tasks. It is the default model in the Claude interface.",
+    "features": [
+      "Very fast and conversational",
+      "Best for expressive writing and brainstorming",
+      "Included in the free tier"
+    ],
+    "link": "https://www.anthropic.com/claude"
+  },
+  "Gemini 3.0 Pro": {
+    "description": "Google's latest powerful 'work' model. Gemini 3.0 Pro features improved reasoning, directness, and multimodal coherence compared to 2.5. It maintains the massive context window while being more efficient and less verbose by default.",
+    "features": [
+      "Industry-leading 1M+ token context window",
+      "Improved reasoning and directness over 2.5",
+      "Better multimodal synthesis (text, images, audio, video)",
+      "Built-in 'Canvas' for data analysis & visualization",
+      "More efficient, less verbose outputs",
+      "Can create video with the Veo 3 model"
+    ],
+    "link": "https://gemini.google.com/"
+  },
+  "Gemini 3.0 Flash": {
+    "description": "Google's latest fast 'chat' model. Gemini 3.0 Flash is more direct and efficient than 2.5 Flash, with improved multimodal capabilities and an excellent voice mode that can use your phone's camera for real-time input.",
+    "features": [
+      "Very fast for conversational tasks",
+      "Improved directness and efficiency over 2.5",
+      "Excellent multimodal voice mode with camera support",
+      "Better at following structured prompts",
+      "Good for quick questions and brainstorming"
+    ],
+    "link": "https://gemini.google.com/"
+  },
+  "Gemini 2.5 Pro (legacy)": {
+    "description": "Google's previous-generation 'work' model. While still capable, Gemini 3.0 Pro is recommended for new work due to its improved reasoning and efficiency.",
+    "features": [
+      "Industry-leading 1M+ token context window",
+      "Built-in 'Canvas' for data analysis & visualization",
+      "Can create video with the Veo 3 model"
+    ],
+    "link": "https://gemini.google.com/"
+  },
+  "Gemini 2.5 Flash (legacy)": {
+    "description": "Google's previous-generation fast 'chat' model. Gemini 3.0 Flash is recommended for new work due to better directness and efficiency.",
+    "features": [
+      "Very fast for conversational tasks",
+      "Excellent multimodal voice mode",
+      "Good for quick questions"
+    ],
+    "link": "https://gemini.google.com/"
+  },
+  "GPT 5.1": {
+    "description": "OpenAI's new flagship 'work' model for deep reasoning and complex tasks. Use it for multi-step logical deduction and investigative research.",
+    "features": [
+      "Top-tier reasoning for complex problems",
+      "Highly steerable for specific tasks",
+      "Powers the 'Deep Research' feature"
+    ],
+    "link": "https://openai.com/chatgpt/"
+  },
+  "Codex (GPT 5.1)": {
+    "description": "OpenAI's specialized coding model powered by GPT 5.1. This is the recommended OpenAI tool for all coding tasks, offering superior code generation, debugging, and project scaffolding.",
+    "features": [
+      "Specialized for coding tasks",
+      "Excellent at multi-file projects",
+      "Strong debugging and refactoring capabilities",
+      "Better code quality than general-purpose models"
+    ],
+    "link": "https://openai.com/codex/"
+  },
+  "Gemini (Nano Banana 🍌)": {
+    "description": "Google's latest, fastest, and most efficient image model, also known as Gemini 2.5 Flash Image. Its native multimodal architecture allows for powerful conversational editing, multi-image composition, and accurate text rendering.",
+    "features": [
+      "Text-to-image from narrative descriptions",
+      "Image editing with text prompts",
+      "Iterative, conversational refinement",
+      "Renders text clearly in images"
+    ],
+    "link": "https://aistudio.google.com/prompts/new_chat?model=gemini-2.5-flash-image-preview"
+  },
+  "NotebookLM": {
+    "description": "Google's research and writing assistant that is grounded in your chosen source documents. It helps you get summaries, ask questions, and generate ideas based only on the material you provide, reducing hallucinations.",
+    "features": [
+      "Source-grounded answers to avoid hallucinations",
+      "Generates summaries, FAQs, and audio overviews",
+      "Excellent for analyzing collections of documents"
+    ],
+    "link": "https://notebooklm.google.com/"
+  },
+  "Grok 3": {
+    "description": "Developed by xAI, Grok is the only major LLM with real-time integration with a social media platform (X/Twitter), making it an indispensable tool for monitoring breaking news.",
+    "features": [
+      "Real-time X/Twitter data integration",
+      "'DeepSearch' mode for current events",
+      "Useful for tracking online narratives"
+    ],
+    "link": "https://grok.x.ai/"
+  },
+  "Perplexity": {
+    "description": "An AI-powered search engine that provides direct answers to queries with citations. It's designed for research and finding information, functioning as a 'conversational search engine'.",
+    "features": [
+      "Provides answers with inline source citations",
+      "Excellent for fact-checking and initial research",
+      "Focus mode for searching specific domains (e.g., academic papers)"
+    ],
+    "link": "https://www.perplexity.ai/"
+  },
+  "Open Source Models": {
+    "description": "A category of smaller, often open-source models (like those from Mistral, Llama, or Qwen) that are extremely fast and can be run locally on your own machine. They are ideal for quick tasks and workflows where privacy is paramount.",
+    "features": [
+      "Extremely fast and lightweight",
+      "Can run on local hardware (via Ollama, etc.)",
+      "Excellent for privacy-focused tasks",
+      "Good for simple, quick code generation"
+    ],
+    "link": "https://ollama.com/"
+  },
+  "ElevenLabs": {
+    "description": "A specialized AI tool for high-quality, realistic voice synthesis. It's the industry leader for generating voiceovers, podcast audio, and other narrated content.",
+    "features": [
+      "Extremely realistic and natural-sounding voices",
+      "Voice cloning capabilities",
+      "Fine-grained control over voice emotion and pacing"
+    ],
+    "link": "https://elevenlabs.io/"
+  },
+  "Midjourney": {
+    "description": "A premier AI image generation service known for producing highly artistic, detailed, and aesthetically pleasing images. It operates primarily through the Discord platform.",
+    "features": [
+      "Produces high-quality, artistic images",
+      "Strong control over style and composition",
+      "Excellent for conceptual illustrations"
+    ],
+    "link": "https://www.midjourney.com/"
+  }
+}

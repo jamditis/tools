@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT // AMDITIS KIT</title>
+    
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/vantage-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vantage-config.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="flex min-h-screen relative z-10">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-white/10 bg-void hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
+            <div class="p-6 border-b border-white/10">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">V</div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">AMDITIS</h1>
+                        <p class="text-xs text-gray-500 tracking-[0.2em]">KIT v2.5</p>
+                    </div>
+                </a>
+            </div>
+            
+            <nav class="p-6 space-y-1 text-sm">
+                <a href="index.html" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">DASHBOARD</a>
+                <a href="#mission" class="block px-3 py-2 text-acid border-l-2 border-acid bg-white/5">MISSION</a>
+                <a href="#quickstart" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">QUICKSTART</a>
+                <a href="#philosophy" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">PHILOSOPHY</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-5xl mx-auto space-y-24">
+            
+            <!-- Hero -->
+            <section id="mission" class="border-b border-white/10 pb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="h-px flex-1 bg-white/10"></div>
+                    <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">About Module</span>
+                    <div class="h-px flex-1 bg-white/10"></div>
+                </div>
+                <h2 class="font-display text-4xl md:text-6xl text-chrome mb-8 glitch-text" data-text="RESOURCE_KIT">RESOURCE_KIT</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-gray-400 text-lg leading-relaxed font-mono">
+                            Practical guides, templates, and reference materials for journalists learning to build tools with AI assistance.
+                        </p>
+                        <div class="flex items-center gap-4 text-xs font-mono text-gray-500">
+                            <span class="flex items-center gap-2"><i data-lucide="user" class="w-3 h-3"></i> AUTHOR: JOE AMDITIS</span>
+                            <span class="flex items-center gap-2"><i data-lucide="building" class="w-3 h-3"></i> CCM</span>
+                        </div>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 relative">
+                        <div class="absolute top-0 right-0 p-2 opacity-50">
+                            <i data-lucide="info" class="w-5 h-5 text-acid"></i>
+                        </div>
+                        <h3 class="text-lg font-display text-white mb-4">Core Objective</h3>
+                        <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            To empower journalists and non-programmers to leverage AI for tool creation. Focusing on practical application over theoretical knowledge.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quickstart">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-ice">01 // INITIATE</h3>
+                    <span class="text-xs text-gray-600 font-mono">EXECUTION SEQUENCE</span>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Step 1 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-ice text-ice flex items-center justify-center font-bold font-mono text-sm group-hover:bg-ice group-hover:text-black transition-colors">01</div>
+                            <div class="w-px h-full bg-white/10 mt-2"></div>
+                        </div>
+                        <div class="pb-8">
+                            <h4 class="text-white font-bold font-display text-lg mb-2">Read Vibe Coding Guide</h4>
+                            <p class="text-sm text-gray-500">Understand the mindset. Manage projects, don't just write code.</p>
+                            <a href="../llm-advisor/vibe-coding.html" class="inline-flex items-center gap-2 text-xs text-ice mt-2 hover:text-white transition-colors">ACCESS_GUIDE -></a>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-gray-700 text-gray-500 flex items-center justify-center font-bold font-mono text-sm group-hover:border-acid group-hover:text-acid transition-colors">02</div>
+                            <div class="w-px h-full bg-white/10 mt-2"></div>
+                        </div>
+                        <div class="pb-8">
+                            <h4 class="text-white font-bold font-display text-lg mb-2">Select Tools</h4>
+                            <p class="text-sm text-gray-500">Use the LLM Advisor to pick the right model for your task.</p>
+                            <a href="../llm-advisor/index.html" class="inline-flex items-center gap-2 text-xs text-acid mt-2 hover:text-white transition-colors">LAUNCH_ADVISOR -></a>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-gray-700 text-gray-500 flex items-center justify-center font-bold font-mono text-sm group-hover:border-signal group-hover:text-signal transition-colors">03</div>
+                            <div class="w-px h-full bg-white/10 mt-2 opacity-0"></div>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold font-display text-lg mb-2">Deploy Assets</h4>
+                            <p class="text-sm text-gray-500">Download templates and checklists to your project root.</p>
+                            <div class="flex gap-2 mt-2">
+                                <a href="../downloads/CHANGELOG-TEMPLATE.md" download class="px-2 py-1 border border-white/10 text-xs text-gray-400 hover:border-white hover:text-white transition-colors">CHANGELOG</a>
+                                <a href="../downloads/VIBE-CODING-CHECKLIST.md" download class="px-2 py-1 border border-white/10 text-xs text-gray-400 hover:border-white hover:text-white transition-colors">CHECKLIST</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Philosophy -->
+            <section id="philosophy">
+                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl text-acid">02 // DIRECTIVES</h3>
+                    <span class="text-xs text-gray-600 font-mono">CORE VALUES</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors group">
+                        <i data-lucide="target" class="w-6 h-6 text-gray-600 mb-4 group-hover:text-acid transition-colors"></i>
+                        <h4 class="text-white font-bold font-display mb-2">Real Problems</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Don't learn abstractions. Build things you actually need to solve immediate problems.</p>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors group">
+                        <i data-lucide="users" class="w-6 h-6 text-gray-600 mb-4 group-hover:text-acid transition-colors"></i>
+                        <h4 class="text-white font-bold font-display mb-2">Manager Mindset</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">You're the director. The AI writes the code. Your job is architecture and verification.</p>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors group">
+                        <i data-lucide="file-text" class="w-6 h-6 text-gray-600 mb-4 group-hover:text-acid transition-colors"></i>
+                        <h4 class="text-white font-bold font-display mb-2">Total Recall</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Document everything. Your changelog is your institutional memory.</p>
+                    </div>
+                    <div class="bg-panel border border-white/10 p-6 hover:border-acid transition-colors group">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-gray-600 mb-4 group-hover:text-acid transition-colors"></i>
+                        <h4 class="text-white font-bold font-display mb-2">Trust No One</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">AI makes mistakes. Verify outputs. Test edge cases. Review security.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
