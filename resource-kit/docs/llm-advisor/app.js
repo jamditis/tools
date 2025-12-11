@@ -501,6 +501,32 @@ async function loadAllData() {
             document.addEventListener('keydown', handleEscKey);
             universalModal.addEventListener('click', e => {
                 if (e.target === universalModal) hideModal();
+
+                // Handle clicks inside the modal
+                const button = e.target.closest('button');
+                if (!button) return;
+
+                if (button.classList.contains('modal-close-btn')) {
+                    hideModal();
+                    return;
+                }
+
+                if (button.classList.contains('compare-tool-btn')) {
+                    const tool = button.dataset.tool;
+                    if (compareTools.includes(tool)) {
+                        compareTools = compareTools.filter(t => t !== tool);
+                    } else if (compareTools.length < 3) {
+                        compareTools.push(tool);
+                    }
+                    renderComparisonModal();
+                    return;
+                }
+
+                if (button.classList.contains('model-pill-btn')) {
+                    const modelName = button.dataset.modelName;
+                    showModal('Model information', renderModelInfoModal, modelName);
+                    return;
+                }
             });
 
             // Sidebar buttons (outside main container)
