@@ -502,6 +502,23 @@ async function loadAllData() {
             universalModal.addEventListener('click', e => {
                 if (e.target === universalModal) hideModal();
             });
+
+            // Sidebar buttons (outside main container)
+            const showComparisonBtn = document.getElementById('show-comparison-btn');
+            const showCaseStudiesBtn = document.getElementById('show-case-studies-btn');
+
+            if (showComparisonBtn) {
+                showComparisonBtn.addEventListener('click', () => {
+                    compareTools = [];
+                    showModal('Tool comparison', renderComparisonModal);
+                });
+            }
+
+            if (showCaseStudiesBtn) {
+                showCaseStudiesBtn.addEventListener('click', () => {
+                    showModal('Journalistic case studies', renderCaseStudiesModal);
+                });
+            }
         }
 
     // Expose init function for external calling after data loads
