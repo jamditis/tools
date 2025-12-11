@@ -67,7 +67,6 @@
             "description": "For broad research and brainstorming, the fast 'chat' models are your best bet. They are quick and conversational.",
             "tools": [
               "Claude 4.5 Sonnet",
-              "Gemini 3.0 Flash",
               "Gemini 3.0 Flash"
             ],
             "prompt": "Act as a research assistant. Create a comprehensive briefing document on [TOPIC]. The document should be structured with the following sections: 1. Executive Summary, 2. Historical Context, 3. Key Stakeholders, 4. Current State of Affairs, 5. Major Debates and Controversies. The target audience is a journalist needing to get up to speed quickly.",
@@ -576,10 +575,10 @@
             "name": "AI video generation",
             "description": "Create short, conceptual video clips for social media or articles.",
             "tools": [
-              "Gemini 2.5 (Veo 3)"
+              "Gemini 3.0 (Veo)"
             ],
             "prompt": "Create a 5-second, photorealistic video clip of a single drop of water falling into a still pond, but the ripples expand outwards as glowing lines of data code.",
-            "tips": "Video generation is still new and experimental. Use it for short, abstract concepts. Gemini's Veo is a very impressive early tool in this space. You must activate video mode in the Gemini interface."
+            "tips": "Video generation is only available in Gemini 3.0 with Veo. Use it for short, abstract concepts. You must activate video mode in the Gemini interface. This feature is experimental."
           }
         ]
       }
@@ -613,7 +612,7 @@
             "description": "Use voice mode for brainstorming, practicing interviews, or working while away from your keyboard.",
             "tools": [
               "Gemini 3.0 Flash",
-              "Gemini 3.0 Flash"
+              "GPT 5.1"
             ],
             "prompt": "Activate voice mode and have a natural conversation. For example: 'Let's brainstorm some ideas for a podcast about the local food scene.' or 'Pretend you are [PERSON], I'm going to ask you some practice interview questions.'",
             "tips": "ChatGPT and Gemini have the best voice modes. Their killer feature is multimodality: you can point your phone's camera at something (a document, a broken appliance) and the AI will see it and talk about it with you."

@@ -72,11 +72,28 @@
     ],
     "pricing": "Free tier available; included in paid plan"
   },
+  "Gemini 3.0 (Veo)": {
+    "strengths": [
+      "Text-to-video generation",
+      "Photorealistic short clips",
+      "Only LLM with native video generation"
+    ],
+    "weaknesses": [
+      "Experimental feature",
+      "Best for abstract/conceptual content",
+      "Cannot create long-form video"
+    ],
+    "bestFor": [
+      "Short conceptual clips",
+      "Social media video content",
+      "Abstract visual storytelling"
+    ],
+    "pricing": "Requires Gemini Advanced subscription"
+  },
   "Gemini 2.5 Pro (legacy)": {
     "strengths": [
       "Excellent for serious work & data analysis",
-      "Industry-leading context window for large documents",
-      "Can create video (Veo 3)"
+      "Industry-leading context window for large documents"
     ],
     "weaknesses": [
       "Slower than 'chat' models",

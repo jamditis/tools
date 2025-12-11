@@ -41,12 +41,21 @@
     ],
     "link": "https://gemini.google.com/"
   },
+  "Gemini 3.0 (Veo)": {
+    "description": "Google's video generation capability, available exclusively in Gemini 3.0. Veo can create short, photorealistic video clips from text descriptions. This is an experimental feature accessed through the Gemini interface.",
+    "features": [
+      "Text-to-video generation",
+      "Photorealistic short clips",
+      "Experimental feature in Gemini 3.0",
+      "Best for conceptual/abstract visuals"
+    ],
+    "link": "https://gemini.google.com/"
+  },
   "Gemini 2.5 Pro (legacy)": {
     "description": "Google's previous-generation 'work' model. While still capable, Gemini 3.0 Pro is recommended for new work due to its improved reasoning and efficiency.",
     "features": [
       "Industry-leading 1M+ token context window",
-      "Built-in 'Canvas' for data analysis & visualization",
-      "Can create video with the Veo 3 model"
+      "Built-in 'Canvas' for data analysis & visualization"
     ],
     "link": "https://gemini.google.com/"
   },
