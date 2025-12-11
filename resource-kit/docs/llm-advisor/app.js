@@ -1,4 +1,5 @@
 // LLM Journalism Tool Advisor - Main Application Script
+// Updated for Amditis Theme
 
 // Global data variables (loaded from JSON files)
 let decisionTree = null;
@@ -65,23 +66,46 @@ async function loadAllData() {
         }
 
         const getPillClasses = (tool) => {
-             const toolColorMap = { 'Claude': 'bg-[#d9843b] text-white', 'Gemini': 'bg-[#369a8b] text-white', 'Nano Banana': 'bg-[#369a8b] text-white', 'Codex': 'bg-slate-500 text-white', 'GPT 5.1': 'bg-slate-500 text-white', 'GPT': 'bg-slate-500 text-white', 'Grok': 'bg-blue-500 text-white', 'DeepSeek': 'bg-[#615EFC] text-white', 'Mistral': 'bg-pink-500 text-white', 'Perplexity': 'bg-violet-500 text-white', 'ElevenLabs': 'bg-emerald-500 text-white', 'Midjourney': 'bg-indigo-600 text-white', 'NotebookLM': 'bg-slate-600 text-white', 'Custom AI': 'bg-gray-400 text-black dark:bg-gray-500 dark:text-gray-100', 'RAG-enabled': 'bg-gray-500 text-white', 'Open Source': 'bg-orange-500 text-white' };
+             const toolColorMap = {
+                 'Claude': 'bg-[#d9843b] text-white',
+                 'Gemini': 'bg-[#369a8b] text-white',
+                 'Nano Banana': 'bg-[#369a8b] text-white',
+                 'Codex': 'bg-slate-500 text-white',
+                 'GPT 5.1': 'bg-slate-500 text-white',
+                 'GPT': 'bg-slate-500 text-white',
+                 'Grok': 'bg-blue-500 text-white',
+                 'DeepSeek': 'bg-[#615EFC] text-white',
+                 'Mistral': 'bg-pink-500 text-white',
+                 'Perplexity': 'bg-violet-500 text-white',
+                 'ElevenLabs': 'bg-emerald-500 text-white',
+                 'Midjourney': 'bg-indigo-600 text-white',
+                 'NotebookLM': 'bg-slate-600 text-white',
+                 'Custom AI': 'bg-gray-500 text-gray-100',
+                 'RAG-enabled': 'bg-gray-500 text-white',
+                 'Open Source': 'bg-orange-500 text-white'
+             };
              const key = Object.keys(toolColorMap).find(k => tool.includes(k));
-             return key ? toolColorMap[key] : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+             return key ? toolColorMap[key] : 'bg-slate-700 text-slate-300';
         };
+
+        const getTrackColor = (track) => {
+            const colors = {
+                'research': 'text-ice border-ice',
+                'content': 'text-acid border-acid',
+                'multimedia': 'text-signal border-signal',
+                'automation': 'text-white border-white'
+            };
+            return colors[track] || 'text-acid border-acid';
+        };
+
         const sanitizeHTML = (str) => { const temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
         const escapeAttr = (str) => str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-
-        // Legacy style injection removed for Yap Theme compatibility
-        function injectOverrideStyles() {
-            // No-op
-        }
 
         function renderApp() {
             if (!mainContent) return;
             mainContent.style.opacity = '0';
             setTimeout(() => {
-                if (showRecommendation) { renderRecommendationView(); }  
+                if (showRecommendation) { renderRecommendationView(); }
                 else { renderQuestionView(); }
                 mainContent.style.opacity = '1';
                 updateProgressBarAndBreadcrumbs();
@@ -90,46 +114,80 @@ async function loadAllData() {
 
         function renderQuestionView() {
             const node = decisionTree[currentStep];
-            
-            let optionsHTML = node.options.map((option) => {
+
+            let optionsHTML = node.options.map((option, index) => {
                 const toolsJSON = option.tools ? escapeAttr(JSON.stringify(option.tools)) : 'null';
-                return `<button class="option-button w-full text-left p-4 rounded-lg transition-all duration-200 flex justify-between items-center bg-light-bg-secondary dark:bg-dark-bg-tertiary border-2 border-transparent hover:border-accent-${option.track || currentTrack} hover:bg-light-bg dark:hover:bg-dark-bg hover:text-slate-900 dark:hover:text-slate-100" data-next="${option.next}" data-text="${sanitizeHTML(option.text)}" data-tools='${toolsJSON}' data-track="${option.track || currentTrack}"><span class="font-medium">${sanitizeHTML(option.text)}</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-light-text-secondary dark:text-dark-text-secondary"><path d="m9 18 6-6-6-6"/></svg></button>`;
+                const trackColor = getTrackColor(option.track || currentTrack);
+                return `
+                <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-surface border border-white/10 hover:border-acid hover:bg-panel"
+                        data-next="${option.next}"
+                        data-text="${sanitizeHTML(option.text)}"
+                        data-tools='${toolsJSON}'
+                        data-track="${option.track || currentTrack}"
+                        style="animation-delay: ${index * 50}ms">
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-mono text-gray-600 group-hover:text-acid transition-colors">0${index + 1}</span>
+                        <span class="font-display text-chrome group-hover:text-white transition-colors">${sanitizeHTML(option.text)}</span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-gray-600 group-hover:text-acid group-hover:translate-x-1 transition-all"><path d="m9 18 6-6-6-6"/></svg>
+                </button>`;
             }).join('');
-            mainContent.innerHTML = `<h2 class="text-xl sm:text-2xl font-bold mb-6 text-light-text dark:text-dark-text">${sanitizeHTML(node.question)}</h2><div class="space-y-3">${optionsHTML}</div>`;
+
+            mainContent.innerHTML = `
+                <div class="mb-8">
+                    <div class="text-xs font-mono text-acid mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-white tracking-wide">${sanitizeHTML(node.question)}</h2>
+                </div>
+                <div class="space-y-3">${optionsHTML}</div>`;
         }
-        
+
         function renderRecommendationView() {
-            let toolsHTML = selectedTools.map(tool => `
-                <div class="recommendation-card border border-light-border dark:border-dark-border rounded-xl p-5 transition-all duration-300 bg-light-bg dark:bg-dark-bg-secondary">
-                    <h3 class="text-lg font-bold flex items-center text-light-text dark:text-dark-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0 text-accent-${currentTrack}"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
-                        ${sanitizeHTML(tool.name)}
-                    </h3>
-                    <p class="mt-2 text-sm text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(tool.description)}</p>
-                    <div class="mt-4">
-                        <h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Recommended tools:</h4>
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1 rounded-full ${getPillClasses(item)}" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
+            let toolsHTML = selectedTools.map((tool, index) => `
+                <div class="recommendation-card border border-white/10 bg-panel p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-acid"></div>
+                    <div class="pl-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-8 h-8 bg-acid/20 border border-acid flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-acid"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
+                            </div>
+                            <h3 class="font-display text-xl text-white tracking-wide">${sanitizeHTML(tool.name)}</h3>
                         </div>
+                        <p class="text-sm text-gray-400 mb-6 leading-relaxed">${sanitizeHTML(tool.description)}</p>
+
+                        <div class="mb-6">
+                            <h4 class="text-xs font-mono text-acid mb-3 tracking-widest">RECOMMENDED_MODELS</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="text-xs font-mono text-ice mb-3 tracking-widest">SAMPLE_PROMPT</h4>
+                            <code class="block text-sm text-gray-300 whitespace-pre-wrap font-mono bg-void border border-white/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
+                        </div>
+
+                        ${tool.tips ? `
+                        <div>
+                            <h4 class="text-xs font-mono text-signal mb-3 tracking-widest">PRO_TIPS</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed border-l-2 border-signal/30 pl-4">${sanitizeHTML(tool.tips)}</p>
+                        </div>` : ''}
                     </div>
-                    <div class="mt-4">
-                        <h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Sample prompt:</h4>
-                        <code class="block mt-2 text-s text-light-text-secondary dark:text-dark-text-secondary whitespace-pre-wrap font-mono bg-light-bg-secondary/50 dark:bg-dark-bg p-3 rounded-md">${sanitizeHTML(tool.prompt)}</code>
-                    </div>
-                    ${tool.tips ? `<div class="mt-4"><h4 class="font-semibold text-sm text-light-text dark:text-dark-text">Tips:</h4><p class="mt-1 text-sm text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(tool.tips)}</p></div>` : ''}
                 </div>`).join('');
 
             mainContent.innerHTML = `
-                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-light-text dark:text-dark-text">Your recommended tools and approaches</h2>
+                <div class="mb-8">
+                    <div class="text-xs font-mono text-acid mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-white tracking-wide">Recommended tools and approaches</h2>
+                </div>
                 <div class="space-y-6">${toolsHTML}</div>
-                <div class="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
-                    <button id="restart-from-rec-btn" class="w-full sm:w-auto flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border hover:text-slate-900 dark:hover:bg-dark-border dark:hover:text-slate-100 border border-light-border dark:border-dark-border transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                        Start another task
+                <div class="mt-8 pt-6 border-t border-white/10">
+                    <button id="restart-from-rec-btn" class="flex items-center gap-2 px-6 py-3 text-sm font-mono bg-surface border border-white/10 text-gray-400 hover:text-acid hover:border-acid transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        [ START_NEW_QUERY ]
                     </button>
                 </div>`;
         }
-        
+
         function findPathForWorkflow(workflowName) {
             let endNodeInfo = null;
             for (const stepKey in decisionTree) {
@@ -159,7 +217,7 @@ async function loadAllData() {
                         }
                     }
                 }
-                return []; 
+                return [];
             }
             const basePath = traceBack(endNodeInfo.parentStep);
             basePath.push({ step: endNodeInfo.parentStep, question: decisionTree[endNodeInfo.parentStep].question, selection: endNodeInfo.finalSelection, track: endNodeInfo.track });
@@ -180,115 +238,161 @@ async function loadAllData() {
         }
 
         function renderComparisonModal() {
-            const headerHTML = `<h3 class="text-lg font-semibold mb-4 text-light-text dark:text-dark-text">Select tools to compare (up to 3):</h3><div class="flex flex-wrap gap-2">${Object.keys(toolComparisonData).map(tool => `<button class="px-3 py-1.5 rounded-full text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 dark:ring-offset-dark-bg-secondary ring-current' : 'bg-light-bg-secondary dark:bg-dark-bg-tertiary hover:bg-light-border dark:hover:bg-dark-border'}" data-tool="${tool}">${tool}</button>`).join('')}</div>`;
+            const headerHTML = `
+                <h3 class="text-sm font-mono text-acid mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
+                <div class="flex flex-wrap gap-2">
+                    ${Object.keys(toolComparisonData).map(tool => `
+                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-panel ring-current' : 'bg-surface border border-white/10 text-gray-400 hover:text-white hover:border-white/30'}" data-tool="${tool}">${tool}</button>
+                    `).join('')}
+                </div>`;
             let tableHTML = '';
             if (compareTools.length > 0) {
                 const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
                 const featureNames = { strengths: 'Key strengths', weaknesses: 'Limitations', bestFor: 'Best use cases', pricing: 'Pricing' };
-                tableHTML = `<div class="overflow-x-auto mt-6"><table class="min-w-full w-full text-left text-sm"><thead><tr><th class="py-3 font-medium w-1.4 text-light-text dark:text-dark-text">Feature</th>${compareTools.map(tool => `<th class="py-3 font-medium w-1.4"><span class="text-xs font-medium px-3 py-1 rounded-full inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}</tr></thead><tbody class="text-light-text-secondary dark:text-dark-text-secondary">${features.map(feature => `<tr class="align-top border-t border-light-border dark:border-dark-border"><td class="py-4 font-medium text-light-text dark:text-dark-text">${featureNames[feature]}</td>${compareTools.map(tool => `<td class="py-4 pr-2">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-            } else { tableHTML = `<div class="text-center p-8 bg-light-bg-secondary dark:bg-dark-bg rounded-lg mt-6"><p class="text-light-text-secondary dark:text-dark-text-secondary">Select up to three tools to compare their features side-by-side.</p></div>`; }
+                tableHTML = `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="min-w-full w-full text-left text-sm">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="py-3 font-mono text-xs text-gray-500 tracking-wider">FEATURE</th>
+                                    ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-400">
+                                ${features.map(feature => `
+                                    <tr class="align-top border-b border-white/5">
+                                        <td class="py-4 font-medium text-chrome">${featureNames[feature]}</td>
+                                        ${compareTools.map(tool => `<td class="py-4 pr-4">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>`;
+            } else {
+                tableHTML = `<div class="text-center p-8 bg-surface border border-white/10 mt-6"><p class="text-gray-500 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
+            }
             modalBody.innerHTML = headerHTML + tableHTML;
         }
 
-        function renderCaseStudiesModal() { 
-            modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">${caseStudiesData.map(study => `
-                <div class="border border-light-border dark:border-dark-border rounded-xl overflow-hidden flex flex-col bg-light-bg dark:bg-dark-bg-secondary">
+        function renderCaseStudiesModal() {
+            modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => `
+                <div class="border border-white/10 overflow-hidden flex flex-col bg-panel">
                     <div class="px-5 py-4 ${getPillClasses(study.tool)}">
-                        <div class="flex justify-between items-start gap-1">
-                            <h3 class="font-bold text-lg leading-tight">${sanitizeHTML(study.title)}</h3>
-                            <span class="text-xs px-2 py-1 bg-white/20 rounded-full font-medium flex-shrink-0">${sanitizeHTML(study.tool)}</span>
+                        <div class="flex justify-between items-start gap-2">
+                            <h3 class="font-display font-bold text-lg leading-tight">${sanitizeHTML(study.title)}</h3>
+                            <span class="text-xs px-2 py-1 bg-white/20 rounded-sm font-mono flex-shrink-0">${sanitizeHTML(study.tool)}</span>
                         </div>
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex-grow">
-                            <p class="text-sm mb-3 font-medium text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.journalist)}</p>
-                            <div class="text-sm space-y-3">
-                                <div><h4 class="font-bold text-light-text dark:text-dark-text">Challenge:</h4><p class="mt-1 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.challenge)}</p></div>
-                                <div><h4 class="font-bold text-light-text dark:text-dark-text">Key takeaway:</h4><p class="mt-1 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(study.tips)}</p></div>
-                                <div><h4 class="font-bold text-light-text dark:text-dark-text ">Words of wisdom:</h4><p class="case-study-quote border-l-4 pl-4 pr-2 py-2 my-4 border-accent-${currentTrack} bg-light-bg-secondary dark:bg-dark-bg text-sm italic text-light-text-secondary dark:text-dark-text-secondary">
-                                    "${sanitizeHTML(study.quote)}"
-                                </p></div>
+                            <p class="text-sm mb-3 font-medium text-gray-500">${sanitizeHTML(study.journalist)}</p>
+                            <div class="text-sm space-y-4">
+                                <div>
+                                    <h4 class="font-mono text-xs text-signal tracking-wider mb-2">CHALLENGE</h4>
+                                    <p class="text-gray-400">${sanitizeHTML(study.challenge)}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-acid tracking-wider mb-2">KEY_TAKEAWAY</h4>
+                                    <p class="text-gray-400">${sanitizeHTML(study.tips)}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-ice tracking-wider mb-2">WORDS_OF_WISDOM</h4>
+                                    <p class="border-l-2 pl-4 py-2 border-ice/30 bg-iceDim text-sm italic text-gray-300">"${sanitizeHTML(study.quote)}"</p>
+                                </div>
                             </div>
                         </div>
-                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-accent-${currentTrack} hover:underline">Learn more →</a></div>` : ''}
+                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-acid hover:underline">Learn more →</a></div>` : ''}
                     </div>
-                </div>`).join('')}</div>`; 
+                </div>`).join('')}</div>`;
         }
 
         function renderBestPracticesModal() {
             const data = bestPracticesData.general;
-            if (!data) { modalBody.innerHTML = '<p>No best practices available.</p>'; return; }
+            if (!data) { modalBody.innerHTML = '<p class="text-gray-500">No best practices available.</p>'; return; }
             let contentHTML = '<div class="space-y-8">';
-            // CHANGE: Added new "Prompting for Images" section and "Use a changelog" to workflow integration.
-            const sections = { 
-                'Core principles': data.corePrinciples, 
-                'Effective prompting is a conversation': data.promptingTechniques, 
-                'Workflow integration': data.workflowIntegration, 
+            const sections = {
+                'Core principles': data.corePrinciples,
+                'Effective prompting is a conversation': data.promptingTechniques,
+                'Workflow integration': data.workflowIntegration,
                 'Prompting for Images': data.imagePrompting,
-                'Ethical guidelines & privacy': data.ethicalGuidelines 
+                'Ethical guidelines & privacy': data.ethicalGuidelines
             };
             for (const [title, tips] of Object.entries(sections)) {
-                if (tips) { contentHTML += `<div><h3 class="text-lg font-bold mb-3 text-light-text dark:text-dark-text">${title}</h3><ul class="space-y-2 text-sm">${tips.map((tip) => `<li class="flex items-start text-light-text-secondary dark:text-dark-text-secondary"><svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-accent-research" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${tip}</span></li>`).join('')}</ul></div>`; }
+                if (tips) {
+                    contentHTML += `
+                        <div>
+                            <h3 class="font-display text-lg font-bold mb-4 text-white">${title}</h3>
+                            <ul class="space-y-3 text-sm">
+                                ${tips.map((tip) => `
+                                    <li class="flex items-start text-gray-400">
+                                        <svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-acid" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>${tip}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>`;
+                }
             }
             contentHTML += '</div>';
             modalBody.innerHTML = contentHTML;
         }
 
         function renderModelInfoModal(highlightModel = null) {
-            let contentHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
+            let contentHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
             for (const [name, data] of Object.entries(modelInfoData)) {
                 const isHighlighted = name === highlightModel;
                 contentHTML += `
-                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-light-border dark:border-dark-border rounded-xl overflow-hidden flex flex-col bg-light-bg dark:bg-dark-bg-secondary ${isHighlighted ? 'ring-2 ring-accent-research' : ''}">
-                    <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-bold text-lg">${sanitizeHTML(name)}</h3></div>
+                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-white/10 overflow-hidden flex flex-col bg-panel ${isHighlighted ? 'ring-2 ring-acid' : ''}">
+                    <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-display font-bold text-lg">${sanitizeHTML(name)}</h3></div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex-grow">
-                            <p class="text-sm mb-4 text-light-text-secondary dark:text-dark-text-secondary">${sanitizeHTML(data.description)}</p>
-                            <h4 class="text-sm font-bold mb-2 text-light-text dark:text-dark-text">Key features:</h4>
-                            <ul class="space-y-1 text-sm list-disc pl-5 text-light-text-secondary dark:text-dark-text-secondary">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
+                            <p class="text-sm mb-4 text-gray-400">${sanitizeHTML(data.description)}</p>
+                            <h4 class="text-xs font-mono text-acid mb-3 tracking-wider">KEY_FEATURES</h4>
+                            <ul class="space-y-2 text-sm list-disc pl-5 text-gray-400">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
                         </div>
                         <div class="mt-4 flex justify-end">
-                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-accent-research hover:underline">Visit website →</a>
+                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-acid hover:underline">Visit website →</a>
                         </div>
                     </div>
                 </div>`;
             }
             contentHTML += '</div>';
             modalBody.innerHTML = contentHTML;
-            if (highlightModel) { const cardElement = container.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`); if (cardElement) { setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100); } }
+            if (highlightModel) {
+                const cardElement = document.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`);
+                if (cardElement) { setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100); }
+            }
         }
 
         function renderChangelogModal() {
             modalBody.innerHTML = changelogData.map(log => `
-                <div class="pb-6 mb-6 border-b border-light-border dark:border-dark-border last:border-b-0 last:mb-0 last:pb-0">
-                    <p class="text-sm font-semibold text-light-text dark:text-dark-text mb-1">Update: ${log.version}</p>
-                    <div class="text-sm text-light-text-secondary dark:text-dark-text-secondary">${log.notes}</div>
+                <div class="pb-6 mb-6 border-b border-white/10 last:border-b-0 last:mb-0 last:pb-0">
+                    <p class="text-sm font-mono text-acid mb-2">v${log.version}</p>
+                    <div class="text-sm text-gray-400">${log.notes}</div>
                 </div>
             `).join('');
         }
-        
+
         function updateProgressBarAndBreadcrumbs() {
             const estimatedTotalSteps = 4;
-            const progress = Math.min(100, (history.length / estimatedTotalSteps) * 100);
+            const progress = showRecommendation ? 100 : Math.min(100, (history.length / estimatedTotalSteps) * 100);
             progressBar.style.width = `${progress}%`;
-
-            if (history.length === 0) {
-                currentTrack = 'research';
-            }
-            progressBar.className = `h-2 rounded-full transition-all duration-500 ease-in-out bg-accent-${currentTrack}`;
+            progressBar.className = 'absolute top-0 left-0 h-full bg-acid transition-all duration-500';
 
             backBtn.disabled = history.length === 0;
-            backBtn.classList.toggle('opacity-50', backBtn.disabled);
+            backBtn.classList.toggle('opacity-30', backBtn.disabled);
             backBtn.classList.toggle('cursor-not-allowed', backBtn.disabled);
-            
+
             if (history.length > 0) {
                 breadcrumbContainer.classList.remove('hidden');
-                breadcrumbContainer.innerHTML = history.map(item => `<span class="truncate">${sanitizeHTML(item.selection)}</span>`).join('<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-1 flex-shrink-0"><path d="m9 18 6-6-6-6"/></svg>');
+                breadcrumbContainer.innerHTML = history.map(item => `<span class="text-gray-500 hover:text-acid transition-colors">${sanitizeHTML(item.selection)}</span>`).join('<span class="text-gray-700 mx-2">/</span>');
             } else {
                 breadcrumbContainer.classList.add('hidden');
             }
         }
-        
+
         function updateTrackColor(track) {
             if (!track) return;
             currentTrack = track;
@@ -298,11 +402,13 @@ async function loadAllData() {
             modalTitle.textContent = title;
             renderFunction(...args);
             universalModal.classList.remove('hidden');
+            universalModal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
 
         function hideModal() {
             universalModal.classList.add('hidden');
+            universalModal.classList.remove('flex');
             document.body.style.overflow = '';
         }
 
@@ -327,11 +433,11 @@ async function loadAllData() {
             renderApp();
         }
 
-        function handleRestart() { currentStep = 'start'; history = []; selectedTools = []; showRecommendation = false; renderApp(); }
+        function handleRestart() { currentStep = 'start'; history = []; selectedTools = []; showRecommendation = false; currentTrack = 'research'; renderApp(); }
         function handleBack() { if (history.length > 0) { const previous = history.pop(); currentStep = previous.step; updateTrackColor(previous.track); showRecommendation = false; selectedTools = []; renderApp(); } }
-        
-        function handleToolSelect(e) { 
-            if (!e.target.value) return; 
+
+        function handleToolSelect(e) {
+            if (!e.target.value) return;
             const workflowName = e.target.value;
 
             const path = findPathForWorkflow(workflowName);
@@ -347,25 +453,9 @@ async function loadAllData() {
                 }
             }
         }
-        
-        function toggleDarkMode(event) { 
-            if (event.target.checked) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-        
+
         function handleEscKey(e) {
             if (e.key === 'Escape') hideModal();
-        }
-
-        function toggleDarkMode(event) {
-            if (event.target.checked) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
         }
 
         function init() {
@@ -374,7 +464,6 @@ async function loadAllData() {
                 return;
             }
 
-            injectOverrideStyles();
             renderApp();
             populateToolSelector();
 
@@ -404,7 +493,9 @@ async function loadAllData() {
                 }
             });
 
-            themeToggleBtn.addEventListener('change', toggleDarkMode);
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('change', () => {});
+            }
             toolSelector.addEventListener('change', handleToolSelect);
 
             document.addEventListener('keydown', handleEscKey);
@@ -432,7 +523,7 @@ loadAllData().then(success => {
         document.addEventListener('DOMContentLoaded', () => {
             const mainContent = document.querySelector('#main-content');
             if (mainContent) {
-                mainContent.innerHTML = '<div class="text-center p-8"><p class="text-red-600 font-semibold">Error loading application data. Please refresh the page.</p></div>';
+                mainContent.innerHTML = '<div class="text-center p-8 border border-signal/30 bg-signalDim"><p class="text-signal font-mono">ERROR: Failed to load application data. Please refresh the page.</p></div>';
             }
         });
     }
