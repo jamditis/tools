@@ -1,53 +1,63 @@
+---
+name: llm-advisor-data-schema
+description: Validate JSON data structures for the LLM Advisor. Activate when creating, editing, or debugging data in the advisor's JSON files.
+---
+
 # LLM Advisor Data Schema Expert
 
 Six JSON files power the LLM Advisor. They reference each other by tool name—consistency is critical. A typo in a tool name causes silent failures.
 
+## When to activate
+
+- Adding new models, tools, or case studies
+- Editing decision tree paths
+- Debugging "tool not found" or empty UI errors
+- Validating data integrity after changes
+- Reviewing PRs that modify JSON files
+
+## Core concept
+
+**Tool names are foreign keys.** Every reference to a tool must exactly match a key in `model-info.json`. Case sensitivity and spacing matter: "Claude 4.5 Opus" ≠ "Claude 4.5 opus".
+
 ## File locations
 
-All data files live in `/resource-kit/docs/llm-advisor/data/`:
-- `decision-tree.json` (627 lines) - Navigation graph
-- `model-info.json` (154 lines) - Tool descriptions
-- `tool-comparison.json` (244 lines) - Strengths/weaknesses
-- `case-studies.json` (119 lines) - Real-world examples
-- `best-practices.json` (43 lines) - Guidance content
-- `changelog.json` (37 lines) - Version history
+All data files: `/resource-kit/docs/llm-advisor/data/`
 
-## Schema: decision-tree.json
+| File | Lines | Purpose |
+|------|-------|---------|
+| `decision-tree.json` | 627 | Navigation graph |
+| `model-info.json` | 154 | Tool descriptions |
+| `tool-comparison.json` | 244 | Strengths/weaknesses |
+| `case-studies.json` | 119 | Real-world examples |
+| `best-practices.json` | 43 | Guidance content |
+| `changelog.json` | 37 | Version history |
+
+## Schemas
+
+### decision-tree.json
 
 ```json
 {
   "nodeId": {
-    "question": "Required - The question shown to user",
+    "question": "Required - User-facing question",
     "options": [
       {
-        "text": "Required - Button label text",
-        "next": "Required - Next nodeId OR 'recommendation'",
+        "text": "Required - Button label",
+        "next": "Required - nodeId or 'recommendation'",
         "track": "Required - research|content|data|editing|sources|multimedia",
-        "tools": "Optional - Required if next='recommendation'"
+        "tools": "Conditional - Required if next='recommendation'"
       }
     ]
   }
 }
 ```
 
-**Rules:**
-- Every `nodeId` must be unique
-- Every path must eventually reach `"next": "recommendation"`
-- When `next` is `"recommendation"`, `tools` array is REQUIRED
-- Valid tracks: `research`, `content`, `data`, `editing`, `sources`, `multimedia`
+**Validation rules:**
+- Every `next` value must be a valid nodeId or "recommendation"
+- When `next` = "recommendation", `tools` array is required
+- All paths must eventually reach "recommendation"
 
-**Tools array structure (when present):**
-```json
-"tools": [{
-  "name": "Required - Workflow name",
-  "description": "Required - What this workflow does",
-  "tools": ["Required - Array of model names"],
-  "prompt": "Required - Sample prompt template",
-  "tips": "Optional - Pro tip for users"
-}]
-```
-
-## Schema: model-info.json
+### model-info.json
 
 ```json
 {
@@ -59,86 +69,63 @@ All data files live in `/resource-kit/docs/llm-advisor/data/`:
 }
 ```
 
-**Rules:**
-- Keys are exact tool names (case-sensitive)
-- All three fields are required
-- `link` must be a valid URL
-
-## Schema: tool-comparison.json
+### tool-comparison.json
 
 ```json
 {
   "Tool Name": {
-    "strengths": ["Required - Array of strength strings"],
-    "weaknesses": ["Required - Array of weakness strings"],
-    "bestFor": ["Required - Array of use case strings"],
-    "pricing": "Required - Pricing description string"
+    "strengths": ["Required - Array"],
+    "weaknesses": ["Required - Array"],
+    "bestFor": ["Required - Array"],
+    "pricing": "Required - String"
   }
 }
 ```
 
-**Rules:**
-- Keys must EXACTLY match keys in `model-info.json`
-- All four fields are required
-- Arrays can't be empty
+**Rule:** Keys must exactly match `model-info.json` keys.
 
-## Schema: case-studies.json
+### case-studies.json
 
 ```json
-[
-  {
-    "title": "Required - Case study title",
-    "tool": "Required - Must match a key in model-info.json",
-    "journalist": "Required - Name, Publication format",
-    "challenge": "Required - The problem they faced",
-    "solution": "Required - How they solved it",
-    "quote": "Required - Direct quote from journalist",
-    "tips": "Required - Key takeaway",
-    "sourceUrl": "Required - Link to full article"
-  }
-]
+[{
+  "title": "Required",
+  "tool": "Required - Must match model-info.json key",
+  "journalist": "Required - Name, Publication",
+  "challenge": "Required",
+  "solution": "Required",
+  "quote": "Required",
+  "tips": "Required",
+  "sourceUrl": "Required - Valid URL"
+}]
 ```
 
-**Rules:**
-- Root is an ARRAY, not an object
-- `tool` field must exactly match a key in `model-info.json`
-- All 8 fields are required
-- `sourceUrl` must be a valid URL
-
-## Schema: best-practices.json
+### best-practices.json
 
 ```json
 {
   "general": {
-    "corePrinciples": ["Array of strings"],
-    "promptingTechniques": ["Array of strings"],
-    "workflowIntegration": ["Array of strings"],
-    "imagePrompting": ["Array of strings"],
-    "ethicalGuidelines": ["Array of strings"],
-    "gemini3Advanced": ["Array of strings"]
+    "corePrinciples": ["Array"],
+    "promptingTechniques": ["Array"],
+    "workflowIntegration": ["Array"],
+    "imagePrompting": ["Array"],
+    "ethicalGuidelines": ["Array"],
+    "gemini3Advanced": ["Array"]
   }
 }
 ```
 
-## Schema: changelog.json
+### changelog.json
 
 ```json
-[
-  {
-    "version": "Required - 'Month Day, Year' format",
-    "notes": "Required - HTML string with changelog content"
-  }
-]
+[{
+  "version": "Required - 'Month Day, Year' format",
+  "notes": "Required - HTML string"
+}]
 ```
-
-**Rules:**
-- Root is an ARRAY
-- Newest entries should be first
-- `notes` can contain HTML tags
 
 ## Valid tool names (December 2025)
 
-These are the ONLY valid tool names. Use EXACTLY as written:
+Copy-paste these exactly:
 
 ```
 Claude 4.5 Opus
@@ -158,21 +145,83 @@ Mistral
 
 ## Cross-file validation
 
-When adding or updating data:
+```javascript
+// Validate all tool references
+const modelKeys = Object.keys(modelInfo);
 
-1. **New model?** Add to BOTH `model-info.json` AND `tool-comparison.json`
-2. **New case study?** Ensure `tool` field matches a key in `model-info.json`
-3. **New decision path?** Ensure all `tools` arrays use valid model names
-4. **Renaming a model?** Search and replace in ALL 6 files
+// Check tool-comparison.json
+Object.keys(toolComparison).forEach(key => {
+    if (!modelKeys.includes(key)) {
+        console.error(`tool-comparison: Unknown key: ${key}`);
+    }
+});
 
-## Color mapping (app.js)
+// Check case-studies.json
+caseStudies.forEach((study, i) => {
+    if (!modelKeys.includes(study.tool)) {
+        console.error(`case-studies[${i}]: Unknown tool: ${study.tool}`);
+    }
+});
 
-Tool names map to colors in `getPillClasses()`:
-- Claude → Orange (#d9843b)
-- Gemini → Teal (#369a8b)
-- GPT/Codex → Slate
-- Perplexity → Violet
-- ElevenLabs → Emerald
-- Midjourney → Indigo
+// Check decision-tree.json
+Object.entries(decisionTree).forEach(([nodeId, node]) => {
+    node.options?.forEach((opt, i) => {
+        opt.tools?.forEach(toolSet => {
+            toolSet.tools?.forEach(tool => {
+                // Tool names in arrays should match modelKeys
+                const match = modelKeys.find(k => tool.includes(k));
+                if (!match) {
+                    console.error(`decision-tree[${nodeId}][${i}]: Unknown tool: ${tool}`);
+                }
+            });
+        });
+    });
+});
+```
 
-If adding a new tool, also add its color mapping in app.js ~line 68.
+## Color mapping
+
+Tool names map to colors in `app.js` `getPillClasses()`:
+
+| Pattern | Color | Class |
+|---------|-------|-------|
+| Claude | Orange | `bg-[#d9843b]` |
+| Gemini | Teal | `bg-[#369a8b]` |
+| GPT/Codex | Slate | `bg-slate-500` |
+| Perplexity | Violet | `bg-violet-500` |
+| ElevenLabs | Emerald | `bg-emerald-500` |
+| Midjourney | Indigo | `bg-indigo-600` |
+| DeepSeek | Purple | `bg-[#615EFC]` |
+
+**Adding new tool?** Also add color mapping in `app.js` ~line 68.
+
+## Failure modes
+
+| Failure | Symptom | Cause |
+|---------|---------|-------|
+| Blank recommendation | No tools shown | Invalid tool name or missing `tools` array |
+| Wrong color pill | Gray instead of brand color | Name doesn't match `getPillClasses()` pattern |
+| Missing case study | Not in modal | `tool` field doesn't match model-info key |
+| Dead-end path | User gets stuck | `next` points to non-existent nodeId |
+| Parse error | Page won't load | Invalid JSON syntax |
+
+## Quick validation
+
+```bash
+# Check JSON syntax
+cat data/model-info.json | jq .
+cat data/tool-comparison.json | jq .
+cat data/case-studies.json | jq .
+cat data/decision-tree.json | jq .
+
+# If jq isn't available, paste into jsonlint.com
+```
+
+## Related skills
+
+- `tool-design-principles` - Schema design patterns
+- `development-workflow` - Pipeline for making data changes
+- `model-name-validator` - Current model naming conventions
+
+---
+*Skill version: 1.1 | Updated: December 2025*

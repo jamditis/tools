@@ -1,60 +1,90 @@
+---
+name: llm-advisor-event-architecture
+description: Handle event delegation correctly in the LLM Advisor app. Activate when adding buttons, debugging click handlers, or modifying UI interactions.
+---
+
 # LLM Advisor Event Architecture
 
-The LLM Advisor uses event delegation, but with a critical gotcha you must understand before adding any event handlers.
+The LLM Advisor uses event delegation, but with a critical architectural constraint you must understand before adding any event handlers.
 
-## The DOM architecture
+## When to activate
+
+- Adding new buttons to sidebar, modal, or main content
+- Debugging "button doesn't work" or "click not firing" issues
+- Modifying event handling in app.js
+- Reviewing PRs that touch JavaScript event code
+- Creating new interactive features
+
+## Core concept
+
+**The sidebar and modal are OUTSIDE the main container.** Event delegation on the container won't catch events from elements outside it. This is the #1 source of event handling bugs.
+
+## DOM architecture
 
 ```
 <body>
-  ├── #sidebar (OUTSIDE container)
+  ├── #sidebar                          ← OUTSIDE container
   │   ├── #show-comparison-btn
   │   ├── #case-studies-btn
   │   ├── #best-practices-btn
   │   └── #model-info-btn
   │
-  ├── #llm-tool-advisor-container (delegated listener here)
+  ├── #llm-tool-advisor-container       ← Delegated listener here
   │   ├── #main-content
   │   ├── #progress-bar
   │   ├── #breadcrumb
-  │   └── .option-button elements
+  │   └── .option-button (dynamic)
   │
-  └── #universal-modal (OUTSIDE container)
+  └── #universal-modal                  ← OUTSIDE container
       ├── #modal-close-btn
-      ├── .compare-tool-btn elements
-      └── .model-pill-btn elements
+      ├── .compare-tool-btn (dynamic)
+      └── .model-pill-btn (dynamic)
 ```
 
-## The rule
+## Decision rule
 
-| Element Location | How to Handle Events |
-|-----------------|---------------------|
-| INSIDE `#llm-tool-advisor-container` | Use delegation via `e.target.closest()` |
-| OUTSIDE (sidebar, modal) | Attach listener DIRECTLY to element |
+| Element Location | Event Pattern |
+|-----------------|---------------|
+| Inside `#llm-tool-advisor-container` | Use delegation via `e.target.closest()` |
+| Outside (sidebar, modal) | Attach listener directly to element |
 
-## Correct pattern: Sidebar buttons
+## Patterns
+
+### Pattern 1: Container delegation (for elements INSIDE)
 
 ```javascript
-// Sidebar buttons are OUTSIDE container - attach directly
+container.addEventListener('click', e => {
+    const button = e.target.closest('button');
+    if (!button) return;
+
+    if (button.classList.contains('option-button')) {
+        handleOptionSelect(e);
+    }
+    if (button.id === 'back-btn') {
+        handleBack();
+    }
+    if (button.id === 'restart-btn') {
+        handleRestart();
+    }
+});
+```
+
+### Pattern 2: Direct attachment (for elements OUTSIDE)
+
+```javascript
+// Sidebar buttons - attach directly
 const showComparisonBtn = document.getElementById('show-comparison-btn');
 if (showComparisonBtn) {
     showComparisonBtn.addEventListener('click', () => {
         showModal('Tool comparison', renderComparisonModal);
     });
 }
-
-// Same for other sidebar buttons
-const caseStudiesBtn = document.getElementById('case-studies-btn');
-if (caseStudiesBtn) {
-    caseStudiesBtn.addEventListener('click', () => {
-        showModal('Case studies', renderCaseStudiesModal);
-    });
-}
 ```
 
-## Correct pattern: Modal buttons
+### Pattern 3: Modal delegation (separate from container)
 
 ```javascript
-// Modal is OUTSIDE container - needs its own listener
+// Modal has its own delegated listener
 universalModal.addEventListener('click', e => {
     const button = e.target.closest('button');
     if (!button) return;
@@ -63,78 +93,41 @@ universalModal.addEventListener('click', e => {
         hideModal();
         return;
     }
-
     if (button.classList.contains('compare-tool-btn')) {
-        const tool = button.dataset.tool;
-        toggleComparisonTool(tool);
+        toggleComparisonTool(button.dataset.tool);
         renderComparisonModal();
     }
-
-    if (button.classList.contains('model-pill-btn')) {
-        const modelName = button.dataset.modelName;
-        showModal('Model information', renderModelInfoModal, modelName);
-    }
 });
 ```
 
-## Correct pattern: Container delegation
+## Failure modes
 
-```javascript
-// Elements INSIDE container can use delegation
-container.addEventListener('click', e => {
-    const button = e.target.closest('button');
-    if (!button) return;
+| Failure | Symptom | Cause | Fix |
+|---------|---------|-------|-----|
+| Silent failure | Button click does nothing | Handler on container, button outside | Attach directly to element |
+| Null reference | TypeError on addEventListener | Element doesn't exist yet | Add `if (element)` check |
+| Duplicate handlers | Action fires twice | Same handler in container AND modal | Remove duplicate |
+| Wrong target | Wrong button responds | `e.target` instead of `e.target.closest()` | Use `.closest('button')` |
 
-    // These elements ARE inside the container
-    if (button.classList.contains('option-button')) {
-        handleOptionSelect(e);
-    }
+## Checklist for adding new buttons
 
-    if (button.id === 'back-btn') {
-        handleBack();
-    }
-
-    if (button.id === 'restart-btn') {
-        handleRestart();
-    }
-});
-```
-
-## What breaks (common mistakes)
-
-```javascript
-// WRONG - Adding sidebar button to container listener
-container.addEventListener('click', e => {
-    if (e.target.id === 'show-comparison-btn') {
-        // This NEVER fires - button is outside container!
-        showModal(...);
-    }
-});
-
-// WRONG - Expecting modal buttons via container
-container.addEventListener('click', e => {
-    if (e.target.classList.contains('compare-tool-btn')) {
-        // This NEVER fires - button is in modal, outside container!
-    }
-});
-
-// WRONG - Not checking if element exists
-document.getElementById('new-btn').addEventListener('click', ...);
-// Throws error if element doesn't exist
-```
-
-## Before adding any event handler
-
-Ask yourself:
-1. Where does this element live in the DOM?
-2. Is it inside or outside `#llm-tool-advisor-container`?
-3. If outside → attach directly to element
-4. If inside → use container delegation
-5. Always check element exists before attaching: `if (btn) { btn.addEventListener... }`
+1. **Determine location:** Is this inside or outside container?
+2. **Choose pattern:** Delegation (inside) or direct (outside)
+3. **Check existence:** Always `if (btn)` before `.addEventListener()`
+4. **Verify scope:** Don't duplicate handlers between container and modal
+5. **Test:** Click the button. Does it fire once and only once?
 
 ## File reference
 
-Event handling code is in `/resource-kit/docs/llm-advisor/app.js`:
+Event handling code locations in `/resource-kit/docs/llm-advisor/app.js`:
 - Container delegation: ~line 470
 - Sidebar buttons: ~lines 533-547
 - Modal listener: ~line 502
+
+## Related skills
+
+- `state-management-debugger` - Debug state changes from event handlers
+- `llm-advisor-data-schema` - Understand data passed via button attributes
+
+---
+*Skill version: 1.1 | Updated: December 2025*
