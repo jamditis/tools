@@ -1,88 +1,105 @@
+---
+name: ai-writing-detox
+description: Eliminate AI-generated writing patterns that reduce trust. Activate when writing documentation, content, READMEs, or any user-facing text.
+---
+
 # AI Writing Detox
 
-Eliminate phrases that signal AI-generated content. Think like an editor who's read 10,000 AI articles and spots the patterns instantly. Good writing is invisible.
+Eliminate phrases that signal AI-generated content. Think like an editor who's read 10,000 AI articles and spots the patterns instantly.
 
-## Banned words (never use)
+## When to activate
 
-**Overused AI vocabulary:**
-- delve, realm, tapestry, landscape, multifaceted
-- utilize (use "use"), facilitate (use "help"), leverage (use "use")
-- robust, seamless, comprehensive, cutting-edge, innovative
-- embark, unveil, unlock, harness, foster
-- crucial, vital, key, essential, critical (as filler)
-- plethora, myriad, a testament to
-- paradigm, synergy, holistic
+- Writing documentation or READMEs
+- Creating content for the resource kit
+- Editing case studies or descriptions
+- Reviewing PRs with text changes
+- Any user-facing writing
+
+## Core concept
+
+**Good writing is invisible.** If readers notice the writing style, it's distracting from the content. AI patterns are noticeable—they break trust.
+
+## Banned words (search and destroy)
+
+| Word | Why It's Bad | Alternative |
+|------|--------------|-------------|
+| delve | AI signature | explore, examine, look at |
+| realm | Pretentious | area, field, domain |
+| tapestry | Purple prose | (usually delete entirely) |
+| landscape | Corporate speak | situation, environment |
+| leverage | Jargon | use |
+| utilize | Jargon | use |
+| robust | Meaningless | strong, reliable, tested |
+| seamless | Meaningless | smooth, easy |
+| cutting-edge | Cliché | modern, new, current |
+| holistic | Corporate | complete, full, overall |
+| synergy | Corporate | (delete, rewrite sentence) |
+| paradigm | Academic jargon | model, approach |
 
 ## Banned phrases (delete entirely)
 
-**Throat-clearing openers:**
-- "It's important to note that..." → Just state it
-- "In today's [X] landscape..." → Delete, start with substance
-- "Let's dive/delve into..." → Just start
-- "In this article, we will..." → Delete, just do it
-- "Without further ado..." → Delete
+**Throat-clearing:**
+- "It's important to note that..."
+- "In today's [X] landscape..."
+- "Let's dive/delve into..."
+- "Without further ado..."
+- "In this article, we will..."
 
-**Filler hedges:**
-- "To be fair..." / "To be honest..." / "Honestly..."
+**Empty hedges:**
+- "To be fair..." / "To be honest..."
 - "At the end of the day..."
 - "When it comes to..."
-- "In terms of..."
 - "It goes without saying..."
-- "Needless to say..."
 
-**AI enthusiasm markers:**
+**AI enthusiasm:**
 - "This is a game-changer"
 - "...and that's a good thing!"
 - "Here's the thing:"
-- "Here's the deal:"
 - "...and that's okay!"
-- "...and that's a wrap!"
-
-**Empty transitions:**
-- "That being said..."
-- "With that in mind..."
-- "Moving forward..."
-- "At its core..."
-- "When all is said and done..."
 
 ## Banned structures
 
-**Starting sentences with:**
+**Don't start sentences with:**
 - "So," or "Well,"
 - "Now," (when not about time)
 - "Look," or "Listen,"
 - "Basically," or "Essentially,"
 
-**Ending sentences with:**
+**Don't end sentences with:**
 - "...right?"
 - "...you know?"
 - "...if you will"
 
-## The verbal tic test
+## The substitution table
 
-Read your text aloud. Flag anything that sounds like:
-- A TED talk introduction
-- A LinkedIn post
-- A press release
-- A motivational speaker
-- Corporate communications
-
-If it sounds like any of these, rewrite it.
+| If you wrote | Write instead |
+|--------------|---------------|
+| utilize | use |
+| facilitate | help |
+| implement | build, add, create |
+| leverage | use |
+| functionality | feature |
+| methodology | method |
+| in order to | to |
+| due to the fact that | because |
+| at this point in time | now |
+| a large number of | many |
+| in the event that | if |
 
 ## Case sensitivity rule
 
-Use **Sentence case** for headings, not Title Case.
+**Use sentence case for headings, not Title Case.**
 
-**Wrong:**
-> Getting Started With Your New Project
-
-**Right:**
-> Getting started with your new project
+| Wrong | Right |
+|-------|-------|
+| Getting Started With Your Project | Getting started with your project |
+| How To Use The LLM Advisor | How to use the LLM advisor |
+| Best Practices For AI Tools | Best practices for AI tools |
 
 ## Before and after examples
 
 **AI slop:**
-> In today's rapidly evolving digital landscape, it's crucial to understand the multifaceted nature of AI tools. Let's delve into how these robust solutions can help you leverage cutting-edge technology to unlock your full potential.
+> In today's rapidly evolving digital landscape, it's crucial to understand the multifaceted nature of AI tools. Let's delve into how these robust solutions can help you leverage cutting-edge technology.
 
 **Human writing:**
 > AI tools do three things well: drafting, analysis, and research. Here's when to use each.
@@ -90,7 +107,7 @@ Use **Sentence case** for headings, not Title Case.
 ---
 
 **AI slop:**
-> This comprehensive guide will walk you through everything you need to know about setting up your development environment. Without further ado, let's dive in!
+> This comprehensive guide will walk you through everything you need to know about the setup process. Without further ado, let's dive in!
 
 **Human writing:**
 > Setup takes 10 minutes. You need Node.js 18+ and a GitHub account.
@@ -98,40 +115,37 @@ Use **Sentence case** for headings, not Title Case.
 ---
 
 **AI slop:**
-> At its core, effective communication is a vital skill that fosters meaningful connections. It's important to note that listening is just as crucial as speaking.
+> At its core, effective communication is a vital skill that fosters meaningful connections.
 
 **Human writing:**
 > Listen more than you talk.
 
-## The substitution test
+## The verbal tic test
 
-For any word, ask: "Would I say this out loud to a colleague?"
-
-| If you wrote | Say instead |
-|--------------|-------------|
-| utilize | use |
-| facilitate | help |
-| leverage | use |
-| implement | build, add, create |
-| functionality | feature |
-| methodology | method, approach |
-| utilize | use |
-| in order to | to |
-| due to the fact that | because |
-| at this point in time | now |
-
-## Voice principle
-
-Write like you talk to a smart friend. If you wouldn't say "utilize" out loud, don't write it. If you wouldn't start a sentence with "It's important to note," don't type it.
+Read your text aloud. Does it sound like:
+- A TED talk introduction? **Rewrite.**
+- A LinkedIn post? **Rewrite.**
+- A press release? **Rewrite.**
+- Corporate communications? **Rewrite.**
+- How you'd explain it to a colleague? **Keep it.**
 
 ## Quick self-check
 
-Before submitting any writing, search for:
-1. "delve" - delete or replace
-2. "landscape" - delete or replace
-3. "crucial" - is it actually crucial or just important?
-4. "robust" - what does this actually mean here?
-5. "leverage" - just say "use"
-6. Starting "So," - delete
+Before submitting, search for:
+1. "delve" → delete or replace
+2. "landscape" → delete or replace
+3. "crucial" → is it actually crucial?
+4. "robust" → what does this mean here?
+5. "leverage" → just say "use"
+6. Starting "So," → delete
 
-If you find any, your writing needs another pass.
+Found any? Your writing needs another pass.
+
+## Related skills
+
+- `frontend-authenticity` - Avoid generic patterns in UI too
+- `project-memory-generator` - Apply these principles to CLAUDE.md
+- `project-retrospective-writer` - Write specific retrospectives
+
+---
+*Skill version: 1.1 | Updated: December 2025*
