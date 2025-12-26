@@ -1,8 +1,67 @@
 /**
- * Glossary system for CCM AI Tools Resource Kit
- * Provides inline tooltips with plain-english explanations of technical terms
+ * @fileoverview Glossary System for CCM AI Tools Resource Kit
+ *
+ * Provides an interactive tooltip system that displays plain-English explanations
+ * of technical programming terms. Terms are marked up in HTML with data attributes,
+ * and this script creates hoverable/clickable tooltips with short and expanded
+ * definitions.
+ *
+ * ## Usage
+ *
+ * 1. Mark up terms in your HTML:
+ *    ```html
+ *    <span class="term" data-term="python">Python</span>
+ *    ```
+ *
+ * 2. Include this script (auto-initializes on DOMContentLoaded):
+ *    ```html
+ *    <script src="assets/glossary.js"></script>
+ *    ```
+ *
+ * ## Interaction Model
+ *
+ * - **Desktop**: Hover to show tooltip, click to expand full definition
+ * - **Touch**: Tap to show tooltip, tap again to expand
+ * - **Dismiss**: Click outside, press Escape, or click the close button
+ *
+ * ## Adding New Terms
+ *
+ * Add entries to the GLOSSARY object with this structure:
+ * ```javascript
+ * "term-key": {
+ *   term: "Display Name",     // Shown in tooltip header
+ *   short: "Brief definition", // Always visible
+ *   full: "Detailed explanation..." // Shown when expanded
+ * }
+ * ```
+ *
+ * @module GlossarySystem
+ * @requires glossary.css
+ * @see {@link https://jamditis.github.io/tools/vibe-coding/} Live implementation
  */
 
+/* ==========================================================================
+   GLOSSARY DATA
+   ========================================================================== */
+
+/**
+ * Dictionary of technical terms with plain-English explanations.
+ *
+ * Each entry contains:
+ * - `term`: The display name shown in the tooltip header
+ * - `short`: A brief one-line definition (always visible)
+ * - `full`: A detailed explanation (shown when user clicks/taps to expand)
+ *
+ * Terms are organized into categories:
+ * - Programming languages (python, javascript, r, sql, bash)
+ * - Tools and libraries (pandas, beautifulsoup, playwright, d3, etc.)
+ * - Concepts (vibe-coding, llm, prompt, debugging, etc.)
+ * - Data formats (csv, json)
+ * - Development tools (terminal, cli, ide, vs-code, git)
+ *
+ * @type {Object<string, {term: string, short: string, full: string}>}
+ * @constant
+ */
 const GLOSSARY = {
   // Programming languages
   "python": {
@@ -211,12 +270,46 @@ const GLOSSARY = {
   }
 };
 
+/* ==========================================================================
+   INITIALIZATION
+   ========================================================================== */
+
 /**
- * Initialize glossary tooltips on the page
- * Looks for <span class="term" data-term="key"> elements
+ * Initializes the glossary tooltip system.
+ *
+ * This function:
+ * 1. Creates the tooltip DOM element and appends it to the body
+ * 2. Sets up event listeners for all `.term[data-term]` elements
+ * 3. Handles positioning, showing, hiding, and expanding tooltips
+ *
+ * The tooltip has three states:
+ * - Hidden: Default state, not visible
+ * - Visible: Short definition shown, "click for more" hint displayed
+ * - Expanded: Full definition revealed below the short definition
+ *
+ * @function initGlossary
+ * @returns {void}
+ *
+ * @example
+ * // Auto-initialization (default behavior):
+ * // The script calls initGlossary() automatically on DOMContentLoaded
+ *
+ * // Manual initialization:
+ * initGlossary();
  */
 function initGlossary() {
-  // Create tooltip container
+  // -------------------------------------------------------------------------
+  // CREATE TOOLTIP DOM STRUCTURE
+  // -------------------------------------------------------------------------
+
+  /**
+   * The tooltip container element.
+   * Structure:
+   * - .tooltip-header: Contains term name and close button
+   * - .tooltip-short: Always-visible brief definition
+   * - .tooltip-full: Expandable detailed definition
+   * @type {HTMLDivElement}
+   */
   const tooltip = document.createElement('div');
   tooltip.className = 'glossary-tooltip';
   tooltip.innerHTML = `
@@ -229,15 +322,36 @@ function initGlossary() {
   `;
   document.body.appendChild(tooltip);
 
+  // Cache DOM references for performance
   const tooltipTerm = tooltip.querySelector('.tooltip-term');
   const tooltipShort = tooltip.querySelector('.tooltip-short');
   const tooltipFull = tooltip.querySelector('.tooltip-full');
   const tooltipClose = tooltip.querySelector('.tooltip-close');
 
+  // -------------------------------------------------------------------------
+  // STATE VARIABLES
+  // -------------------------------------------------------------------------
+
+  /** @type {HTMLElement|null} The currently active term element */
   let activeElement = null;
+
+  /** @type {boolean} Whether the tooltip is showing the full definition */
   let isExpanded = false;
 
-  // Close tooltip
+  // -------------------------------------------------------------------------
+  // TOOLTIP CONTROL FUNCTIONS
+  // -------------------------------------------------------------------------
+
+  /**
+   * Hides the tooltip and resets state.
+   *
+   * Removes the 'visible' and 'expanded' classes from the tooltip,
+   * removes the 'active' class from the previously active term element,
+   * and resets the tracking variables.
+   *
+   * @function hideTooltip
+   * @returns {void}
+   */
   function hideTooltip() {
     tooltip.classList.remove('visible', 'expanded');
     if (activeElement) {
@@ -247,51 +361,75 @@ function initGlossary() {
     isExpanded = false;
   }
 
-  // Show tooltip
+  /**
+   * Shows the tooltip for a specific term element.
+   *
+   * Positions the tooltip below the term by default, with smart repositioning
+   * if the tooltip would overflow the viewport edges. Updates the tooltip
+   * content with the term's definition from the GLOSSARY object.
+   *
+   * @function showTooltip
+   * @param {HTMLElement} element - The term element that triggered the tooltip
+   * @param {string} termKey - The key to look up in the GLOSSARY object
+   * @returns {void}
+   */
   function showTooltip(element, termKey) {
     const entry = GLOSSARY[termKey];
     if (!entry) return;
 
-    // Update content
+    // Update tooltip content from glossary entry
     tooltipTerm.textContent = entry.term;
     tooltipShort.textContent = entry.short;
     tooltipFull.textContent = entry.full;
 
-    // Position tooltip
+    // Calculate position relative to the term element
     const rect = element.getBoundingClientRect();
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-    // Position below the term by default
+    // Position below the term by default (8px gap)
     let top = rect.bottom + scrollTop + 8;
     let left = rect.left + scrollLeft;
 
-    // Adjust if tooltip would go off-screen
+    // Make visible to measure dimensions
     tooltip.classList.add('visible');
     const tooltipRect = tooltip.getBoundingClientRect();
 
+    // Prevent overflow on right edge
     if (left + tooltipRect.width > window.innerWidth - 20) {
       left = window.innerWidth - tooltipRect.width - 20;
     }
+    // Prevent overflow on left edge
     if (left < 20) left = 20;
 
-    // If tooltip would go below viewport, show above
+    // If tooltip would overflow bottom, show above the term instead
     if (top + tooltipRect.height > scrollTop + window.innerHeight - 20) {
       top = rect.top + scrollTop - tooltipRect.height - 8;
     }
 
+    // Apply calculated position
     tooltip.style.top = `${top}px`;
     tooltip.style.left = `${left}px`;
 
-    // Track active element
+    // Update active element tracking
     if (activeElement) activeElement.classList.remove('active');
     activeElement = element;
     element.classList.add('active');
+
+    // Reset expanded state for new tooltip
     isExpanded = false;
     tooltip.classList.remove('expanded');
   }
 
-  // Expand tooltip to show full definition
+  /**
+   * Expands the tooltip to show the full definition.
+   *
+   * Adds the 'expanded' class to the tooltip, which triggers CSS transitions
+   * to reveal the .tooltip-full element and hide the "click for more" hint.
+   *
+   * @function expandTooltip
+   * @returns {void}
+   */
   function expandTooltip() {
     if (!isExpanded) {
       tooltip.classList.add('expanded');
@@ -299,12 +437,25 @@ function initGlossary() {
     }
   }
 
-  // Event listeners for term elements
+  // -------------------------------------------------------------------------
+  // EVENT LISTENERS - Term Elements
+  // -------------------------------------------------------------------------
+
+  /**
+   * Set up event listeners for all term elements.
+   *
+   * Each term element gets three listeners:
+   * - mouseenter: Show tooltip on hover (desktop)
+   * - click: Expand tooltip if visible, otherwise show it
+   * - touchstart: Same as click, for touch devices
+   */
   document.querySelectorAll('.term[data-term]').forEach(element => {
     const termKey = element.dataset.term;
 
-    // Desktop: hover to show, click to expand
+    // Desktop: hover to show tooltip
     element.addEventListener('mouseenter', () => showTooltip(element, termKey));
+
+    // Desktop: click to expand (if visible) or show
     element.addEventListener('click', (e) => {
       e.preventDefault();
       if (activeElement === element && tooltip.classList.contains('visible')) {
@@ -314,7 +465,7 @@ function initGlossary() {
       }
     });
 
-    // Touch: tap to show, tap again to expand
+    // Touch devices: tap to show, tap again to expand
     element.addEventListener('touchstart', (e) => {
       e.preventDefault();
       if (activeElement === element && tooltip.classList.contains('visible')) {
@@ -325,26 +476,40 @@ function initGlossary() {
     });
   });
 
-  // Close tooltip when clicking outside
+  // -------------------------------------------------------------------------
+  // EVENT LISTENERS - Dismissal
+  // -------------------------------------------------------------------------
+
+  // Click outside tooltip or term to dismiss
   document.addEventListener('click', (e) => {
     if (!tooltip.contains(e.target) && !e.target.classList.contains('term')) {
       hideTooltip();
     }
   });
 
-  // Close button
+  // Close button click
   tooltipClose.addEventListener('click', hideTooltip);
 
-  // Close on escape
+  // Escape key to dismiss
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') hideTooltip();
   });
 
-  // Hide on scroll (optional, can be removed)
+  // Optional: Hide on scroll (currently disabled for better UX)
   // document.addEventListener('scroll', hideTooltip);
 }
 
-// Auto-initialize when DOM is ready
+/* ==========================================================================
+   AUTO-INITIALIZATION
+   ========================================================================== */
+
+/**
+ * Auto-initialize the glossary system when the DOM is ready.
+ *
+ * Uses document.readyState to handle both:
+ * - Script loaded before DOM ready: Wait for DOMContentLoaded
+ * - Script loaded after DOM ready: Initialize immediately
+ */
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initGlossary);
 } else {

@@ -1,8 +1,54 @@
 /**
- * Glossary tooltip styles for CCM AI Tools Resource Kit
+ * @fileoverview Glossary Tooltip Styles
+ *
+ * Styles for the glossary tooltip component used in the CCM AI Tools Resource Kit.
+ * Works in conjunction with glossary.js to provide interactive term definitions.
+ *
+ * ## Component Structure
+ *
+ * ```
+ * .glossary-tooltip
+ * ├── .tooltip-header
+ * │   ├── .tooltip-term    (term name)
+ * │   └── .tooltip-close   (close button)
+ * ├── .tooltip-short       (brief definition - always visible)
+ * └── .tooltip-full        (detailed definition - shown when expanded)
+ * ```
+ *
+ * ## States
+ *
+ * - Default: Hidden (opacity: 0, visibility: hidden)
+ * - `.visible`: Shown with fade-in animation
+ * - `.visible.expanded`: Full definition revealed
+ *
+ * ## Theme Support
+ *
+ * Uses CSS custom properties for theming:
+ * - `--accent`: Highlight color for terms
+ * - `--surface`: Tooltip background
+ * - `--border`: Border color
+ * - `--text`: Primary text color
+ * - `--muted`: Secondary text color
+ *
+ * Includes automatic light theme overrides via `prefers-color-scheme`.
+ *
+ * @module GlossaryStyles
+ * @requires glossary.js
  */
 
-/* Term styling - the highlighted word in text */
+/* ==========================================================================
+   1. TERM STYLING - The highlighted word in text
+   ========================================================================== */
+
+/**
+ * .term
+ *
+ * Styles the inline term elements that trigger tooltips.
+ * Features a dotted underline and cursor change to indicate interactivity.
+ *
+ * @example
+ * <span class="term" data-term="python">Python</span>
+ */
 .term {
   color: var(--accent, #60a5fa);
   text-decoration: underline;
@@ -13,6 +59,12 @@
   transition: all 0.15s ease;
 }
 
+/**
+ * .term:hover, .term.active
+ *
+ * Hover and active states for term elements.
+ * Solid underline and subtle background highlight.
+ */
 .term:hover,
 .term.active {
   color: var(--accent-light, #93c5fd);
@@ -23,7 +75,20 @@
   margin: 0 -2px;
 }
 
-/* Tooltip container */
+/* ==========================================================================
+   2. TOOLTIP CONTAINER
+   ========================================================================== */
+
+/**
+ * .glossary-tooltip
+ *
+ * The main tooltip container. Positioned absolutely via JavaScript.
+ * Hidden by default, with smooth fade/translate transition when shown.
+ *
+ * Dimensions:
+ * - max-width: 360px (prevents overly wide tooltips)
+ * - min-width: 280px (ensures readability)
+ */
 .glossary-tooltip {
   position: absolute;
   z-index: 1000;
@@ -44,13 +109,27 @@
   line-height: 1.5;
 }
 
+/**
+ * .glossary-tooltip.visible
+ *
+ * Visible state - fully opaque with no transform offset.
+ */
 .glossary-tooltip.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Tooltip header */
+/* ==========================================================================
+   3. TOOLTIP HEADER
+   ========================================================================== */
+
+/**
+ * .tooltip-header
+ *
+ * Contains the term name and close button.
+ * Darker background to visually separate from content.
+ */
 .tooltip-header {
   display: flex;
   justify-content: space-between;
@@ -61,6 +140,12 @@
   border-radius: 8px 8px 0 0;
 }
 
+/**
+ * .tooltip-term
+ *
+ * The term name displayed in the header.
+ * Monospace font with accent color for code-like appearance.
+ */
 .tooltip-term {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-weight: 600;
@@ -68,6 +153,12 @@
   font-size: 13px;
 }
 
+/**
+ * .tooltip-close
+ *
+ * Close button (×) in the header.
+ * Subtle by default, highlighted on hover.
+ */
 .tooltip-close {
   width: 20px;
   height: 20px;
@@ -87,14 +178,28 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Short definition - always visible */
+/* ==========================================================================
+   4. TOOLTIP CONTENT
+   ========================================================================== */
+
+/**
+ * .tooltip-short
+ *
+ * Brief definition that's always visible.
+ * Includes a "(click for more)" hint via ::after pseudo-element.
+ */
 .tooltip-short {
   padding: 12px 14px;
   color: var(--text, #f1f5f9);
   font-weight: 500;
 }
 
-/* Full definition - shown on expand */
+/**
+ * .tooltip-full
+ *
+ * Detailed definition, hidden by default (max-height: 0).
+ * Revealed when tooltip has `.expanded` class.
+ */
 .tooltip-full {
   padding: 0 14px 12px;
   color: var(--muted, #94a3b8);
@@ -106,6 +211,12 @@
   transition: all 0.25s ease;
 }
 
+/**
+ * .glossary-tooltip.expanded .tooltip-full
+ *
+ * Expanded state - reveals the full definition with animation.
+ * Adds a top border to visually separate from short definition.
+ */
 .glossary-tooltip.expanded .tooltip-full {
   max-height: 200px;
   opacity: 1;
@@ -114,7 +225,14 @@
   padding-top: 12px;
 }
 
-/* Expand hint */
+/* ==========================================================================
+   5. EXPAND HINT
+   ========================================================================== */
+
+/**
+ * Expand hint - "(click for more)" shown after short definition.
+ * Hidden when tooltip is expanded.
+ */
 .tooltip-short::after {
   content: ' (click for more)';
   color: var(--muted, #64748b);
@@ -126,7 +244,14 @@
   display: none;
 }
 
-/* Light theme overrides */
+/* ==========================================================================
+   6. LIGHT THEME OVERRIDES
+   ========================================================================== */
+
+/**
+ * Automatic light theme adjustments for users who prefer light color scheme.
+ * Inverts backgrounds and adjusts text colors for readability.
+ */
 @media (prefers-color-scheme: light) {
   .glossary-tooltip {
     background: #ffffff;
@@ -161,7 +286,14 @@
   }
 }
 
-/* Print styles - hide tooltips, show terms normally */
+/* ==========================================================================
+   7. PRINT STYLES
+   ========================================================================== */
+
+/**
+ * Print styles - hides tooltips and shows terms as normal text.
+ * Appends the term key in brackets for reference.
+ */
 @media print {
   .glossary-tooltip {
     display: none !important;
@@ -173,6 +305,7 @@
     cursor: default;
   }
 
+  /* Show term key in brackets when printed */
   .term::after {
     content: ' [' attr(data-term) ']';
     font-size: 0.8em;
