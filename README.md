@@ -47,7 +47,7 @@ Templates for documenting project learnings, designed to carry forward wisdom wi
 
 ### Software development
 
-| Template | Use For |
+| Template | Use for |
 |----------|---------|
 | `LESSONS-general.md` | Any project type (start here if unsure) |
 | `LESSONS-desktop-app.md` | Electron, Tauri, native desktop apps |
@@ -58,7 +58,7 @@ Templates for documenting project learnings, designed to carry forward wisdom wi
 
 ### Journalism & publishing
 
-| Template | Use For |
+| Template | Use for |
 |----------|---------|
 | `LESSONS-digital-archive.md` | Digital preservation, historical archives, collections |
 | `LESSONS-event-website.md` | Conferences, summits, events with registration |
@@ -75,7 +75,7 @@ Project memory files for Claude Code, providing context and guidelines for AI as
 
 ### Software development
 
-| Template | Use For |
+| Template | Use for |
 |----------|---------|
 | `CLAUDE-RULES-general.md` | Any project type |
 | `CLAUDE-RULES-desktop-app.md` | Electron, Tauri, native apps |
@@ -86,7 +86,7 @@ Project memory files for Claude Code, providing context and guidelines for AI as
 
 ### Journalism & publishing
 
-| Template | Use For |
+| Template | Use for |
 |----------|---------|
 | `CLAUDE-RULES-digital-archive.md` | Digital archives |
 | `CLAUDE-RULES-event-website.md` | Event websites |
