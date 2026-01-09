@@ -1,88 +1,218 @@
-/* --- VANTAGE SYSTEM CORE --- */
+/**
+ * @fileoverview Amditis Theme - Core CSS Utilities & Effects
+ *
+ * This stylesheet provides custom utility classes and visual effects for the
+ * Amditis retrotech/cyberpunk theme. It complements the Tailwind configuration
+ * in amditis-config.js with CSS-only features that Tailwind cannot provide.
+ *
+ * ## Sections
+ *
+ * 1. **Font Imports** - Google Fonts for display and mono typography
+ * 2. **CSS Variables** - Theme tokens for consistent styling
+ * 3. **Base Styles** - Body background, text selection, scrollbar
+ * 4. **Clip-Path Utilities** - Cut-corner effects for cards and panels
+ * 5. **CRT Overlay** - Scanline effect for retro monitor aesthetic
+ * 6. **Glitch Text** - Animated text distortion effect
+ * 7. **Cyber Checkbox** - Custom styled checkbox with glow effect
+ * 8. **Accordion** - Collapsible content component styles
+ * 9. **Syntax Highlighting** - Code block color tokens
+ *
+ * @module AmditisCSS
+ * @requires amditis-config.js (Tailwind extension)
+ * @see {@link https://jamditis.github.io/tools/} Live implementation
+ */
 
+/* ==========================================================================
+   1. FONT IMPORTS
+   ========================================================================== */
+
+/**
+ * Google Fonts import for Amditis typography.
+ * - Chakra Petch: Angular, techy display font (weights 300-700)
+ * - Share Tech Mono: Clean monospace for code and labels
+ */
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 
+/* ==========================================================================
+   2. CSS VARIABLES
+   ========================================================================== */
+
+/**
+ * Theme CSS custom properties.
+ * These provide fallback values and are used by components that may exist
+ * outside of Tailwind's processing (e.g., third-party widgets).
+ *
+ * @property {string} --cursor-size - Size of custom cursor (if enabled)
+ * @property {string} --acid - Primary accent color (lime green)
+ * @property {string} --signal - Warning accent color (red)
+ */
 :root {
     --cursor-size: 20px;
     --acid: #ccff00;
     --signal: #ff2a2a;
 }
 
+/* ==========================================================================
+   3. BASE STYLES
+   ========================================================================== */
+
+/**
+ * Base body styling.
+ * Sets the deep black background and light text color.
+ * Custom crosshair cursor is disabled for usability.
+ */
 body {
     background-color: #050505;
     color: #e5e5e5;
-    /* cursor: crosshair; */ /* Optional: keeping standard cursor for usability */
+    /* cursor: crosshair; */ /* Disabled for accessibility */
 }
 
-/* Selection */
+/**
+ * Text selection styling.
+ * Inverts to acid green background with black text for high visibility.
+ */
 ::selection {
     background-color: var(--acid);
     color: #000;
 }
 
-/* Scrollbar */
+/**
+ * Custom scrollbar styling for WebKit browsers.
+ * - Track: Matches void background
+ * - Thumb: Dark gray with acid green hover state
+ * - Size: Compact 6px width
+ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #050505; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 0; }
 ::-webkit-scrollbar-thumb:hover { background: var(--acid); }
 
-/* --- UTILITIES --- */
+/* ==========================================================================
+   4. CLIP-PATH UTILITIES - Cut Corner Effects
+   ========================================================================== */
 
-/* 1. The "Cut Corner" Effect */
+/**
+ * .clip-notch
+ *
+ * Creates a "cut corner" effect on the bottom-right of an element.
+ * Commonly used on cards and panels for a tech/industrial look.
+ *
+ * The clip removes a 10px x 10px triangle from the bottom-right corner.
+ *
+ * @example
+ * <div class="clip-notch bg-panel p-4">
+ *   Content with cut corner
+ * </div>
+ */
 .clip-notch {
     clip-path: polygon(
-        0 0, 
-        100% 0, 
-        100% calc(100% - 10px), 
-        calc(100% - 10px) 100%, 
-        0 100%
+        0 0,                        /* top-left */
+        100% 0,                     /* top-right */
+        100% calc(100% - 10px),     /* bottom-right, 10px up */
+        calc(100% - 10px) 100%,     /* bottom-right corner cut */
+        0 100%                      /* bottom-left */
     );
 }
 
+/**
+ * .clip-notch-top
+ *
+ * Creates a "cut corner" effect on the top-left of an element.
+ * Mirror of .clip-notch for variety in layouts.
+ *
+ * @example
+ * <div class="clip-notch-top bg-surface p-4">
+ *   Content with top-left cut
+ * </div>
+ */
 .clip-notch-top {
     clip-path: polygon(
-        10px 0, 
-        100% 0, 
-        100% 100%, 
-        0 100%, 
-        0 10px
+        10px 0,                     /* top-left corner cut */
+        100% 0,                     /* top-right */
+        100% 100%,                  /* bottom-right */
+        0 100%,                     /* bottom-left */
+        0 10px                      /* back to top-left cut */
     );
 }
 
-/* 2. Scanline Overlay */
+/* ==========================================================================
+   5. CRT OVERLAY - Scanline Effect
+   ========================================================================== */
+
+/**
+ * .crt-overlay
+ *
+ * Applies a subtle CRT monitor scanline effect over the entire page.
+ * Uses a repeating horizontal gradient to simulate scan lines.
+ *
+ * Properties:
+ * - Fixed position covering entire viewport
+ * - pointer-events: none to allow clicking through
+ * - High z-index (9999) to appear above all content
+ * - 30% opacity for subtle effect
+ *
+ * @example
+ * <body>
+ *   <div class="crt-overlay"></div>
+ *   <!-- page content -->
+ * </body>
+ */
 .crt-overlay {
     background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%, 
+        rgba(18, 16, 16, 0) 50%,
         rgba(0, 0, 0, 0.25) 50%
     );
-    background-size: 100% 4px;
-    pointer-events: none;
+    background-size: 100% 4px;      /* 4px tall scan lines */
+    pointer-events: none;           /* Click-through */
     position: fixed;
-    inset: 0;
+    inset: 0;                       /* Cover entire viewport */
     z-index: 9999;
-    opacity: 0.3;
+    opacity: 0.3;                   /* Subtle effect */
 }
 
-/* 3. Glitch Text Animation */
+/* ==========================================================================
+   6. GLITCH TEXT - Animated Distortion Effect
+   ========================================================================== */
+
+/**
+ * .glitch-text
+ *
+ * Creates an animated "glitch" effect on text, simulating digital corruption.
+ * Uses CSS pseudo-elements with offset colors (acid/signal) and animated
+ * clip-rect to create the distortion.
+ *
+ * IMPORTANT: Requires a `data-text` attribute containing the same text
+ * as the element's content for the pseudo-elements to display.
+ *
+ * @example
+ * <h1 class="glitch-text" data-text="SYSTEM ERROR">SYSTEM ERROR</h1>
+ */
 .glitch-text {
     position: relative;
     display: inline-block;
 }
-.glitch-text::before, .glitch-text::after {
-    content: attr(data-text);
+
+/* Pseudo-elements for glitch layers */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);       /* Copy text from data attribute */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #050505;
+    background: #050505;            /* Match page background */
 }
+
+/* Green (acid) glitch layer - offset right */
 .glitch-text::before {
     left: 2px;
     text-shadow: -1px 0 #ccff00;
     clip: rect(44px, 450px, 56px, 0);
     animation: glitch-anim 5s infinite linear alternate-reverse;
 }
+
+/* Red (signal) glitch layer - offset left */
 .glitch-text::after {
     left: -2px;
     text-shadow: -1px 0 #ff2a2a;
@@ -90,70 +220,143 @@ body {
     animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
+/**
+ * Glitch animation keyframes.
+ * Rapidly changes the visible clip region to simulate digital corruption.
+ * Two slightly different animations (glitch-anim, glitch-anim2) create
+ * the offset effect between the two pseudo-element layers.
+ */
 @keyframes glitch-anim {
-    0% { clip: rect(12px, 9999px, 52px, 0); }
-    5% { clip: rect(34px, 9999px, 12px, 0); }
-    10% { clip: rect(6px, 9999px, 86px, 0); }
-    15% { clip: rect(12px, 9999px, 2px, 0); }
-    20% { clip: rect(67px, 9999px, 21px, 0); }
+    0%   { clip: rect(12px, 9999px, 52px, 0); }
+    5%   { clip: rect(34px, 9999px, 12px, 0); }
+    10%  { clip: rect(6px, 9999px, 86px, 0); }
+    15%  { clip: rect(12px, 9999px, 2px, 0); }
+    20%  { clip: rect(67px, 9999px, 21px, 0); }
     100% { clip: rect(12px, 9999px, 52px, 0); }
 }
+
 @keyframes glitch-anim2 {
-    0% { clip: rect(2px, 9999px, 82px, 0); }
-    5% { clip: rect(64px, 9999px, 12px, 0); }
-    10% { clip: rect(16px, 9999px, 46px, 0); }
-    15% { clip: rect(2px, 9999px, 92px, 0); }
-    20% { clip: rect(17px, 9999px, 1px, 0); }
+    0%   { clip: rect(2px, 9999px, 82px, 0); }
+    5%   { clip: rect(64px, 9999px, 12px, 0); }
+    10%  { clip: rect(16px, 9999px, 46px, 0); }
+    15%  { clip: rect(2px, 9999px, 92px, 0); }
+    20%  { clip: rect(17px, 9999px, 1px, 0); }
     100% { clip: rect(2px, 9999px, 82px, 0); }
 }
 
-/* 4. Checkbox Styling */
+/* ==========================================================================
+   7. CYBER CHECKBOX - Custom Styled Checkbox
+   ========================================================================== */
+
+/**
+ * .cyber-checkbox
+ *
+ * A custom-styled checkbox with a glowing acid green indicator.
+ * Completely replaces the native checkbox appearance.
+ *
+ * Features:
+ * - Transparent background with gray border
+ * - Acid green square indicator when checked
+ * - Glowing box-shadow effect when checked
+ *
+ * @example
+ * <input type="checkbox" class="cyber-checkbox" id="opt1">
+ * <label for="opt1">Option 1</label>
+ */
 .cyber-checkbox {
-    appearance: none;
+    appearance: none;               /* Remove native styling */
     background-color: transparent;
     border: 1px solid #333;
     width: 1.25rem;
     height: 1.25rem;
     display: grid;
-    place-content: center;
+    place-content: center;          /* Center the indicator */
     cursor: pointer;
     transition: all 0.2s;
 }
+
+/* Indicator element (hidden until checked) */
 .cyber-checkbox::before {
     content: "";
     width: 0.65rem;
     height: 0.65rem;
-    transform: scale(0);
+    transform: scale(0);            /* Hidden by default */
     background-color: #ccff00;
-    box-shadow: 0 0 10px #ccff00;
+    box-shadow: 0 0 10px #ccff00;   /* Glow effect */
     transition: 120ms transform ease-in-out;
 }
+
+/* Checked state - show border highlight */
 .cyber-checkbox:checked {
     border-color: #ccff00;
 }
+
+/* Checked state - reveal indicator with scale animation */
 .cyber-checkbox:checked::before {
     transform: scale(1);
 }
 
-/* 5. Accordion Styles */
+/* ==========================================================================
+   8. ACCORDION - Collapsible Content Component
+   ========================================================================== */
+
+/**
+ * Accordion component styles.
+ *
+ * Uses max-height animation for smooth expand/collapse transitions.
+ * Requires JavaScript to toggle the `.active` class on `.accordion-item`.
+ *
+ * @example
+ * <div class="accordion-item">
+ *   <button class="accordion-header">
+ *     Section Title
+ *     <span class="accordion-icon">▼</span>
+ *   </button>
+ *   <div class="accordion-content">
+ *     <p>Hidden content here...</p>
+ *   </div>
+ * </div>
+ */
+
+/* Content container - collapsed by default */
 .accordion-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
 }
+
+/* Expanded state - large max-height allows content to show */
 .accordion-item.active .accordion-content {
-    max-height: 1000px;
+    max-height: 1000px;             /* Arbitrary large value */
     transition: max-height 0.5s ease-in-out;
 }
+
+/* Arrow/chevron icon */
 .accordion-icon {
     transition: transform 0.3s ease;
 }
+
+/* Rotate icon when expanded */
 .accordion-item.active .accordion-icon {
     transform: rotate(180deg);
 }
 
-/* 6. Code Block Syntax Colors */
-.syntax-keyword { color: #ff2a2a; }
-.syntax-string { color: #ccff00; }
-.syntax-func { color: #00f0ff; }
-.syntax-comment { color: #666; font-style: italic; }
+/* ==========================================================================
+   9. SYNTAX HIGHLIGHTING - Code Block Colors
+   ========================================================================== */
+
+/**
+ * Syntax highlighting color classes for code blocks.
+ * Uses Amditis theme colors for consistency.
+ *
+ * @example
+ * <pre><code>
+ *   <span class="syntax-keyword">const</span> x =
+ *   <span class="syntax-string">"hello"</span>;
+ *   <span class="syntax-comment">// comment</span>
+ * </code></pre>
+ */
+.syntax-keyword { color: #ff2a2a; }         /* Signal red - keywords */
+.syntax-string  { color: #ccff00; }         /* Acid green - strings */
+.syntax-func    { color: #00f0ff; }         /* Ice blue - functions */
+.syntax-comment { color: #666; font-style: italic; }  /* Gray - comments */
