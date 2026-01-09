@@ -2,33 +2,33 @@
 
 A collection of AI tools, templates, and guides for journalists and developers. Hosted on GitHub Pages at **https://jamditis.github.io/tools/**
 
-## Resource Kit Website
+## Resource kit website
 
 Interactive tools and guides built with the Amditis dark theme.
 
-### Tools & Guides
+### Tools & guides
 
 | Page | Description |
 |------|-------------|
 | [LLM Advisor](https://jamditis.github.io/tools/llm-advisor/) | Decision tree tool for selecting the right AI model for your task |
-| [Vibe Coding Guide](https://jamditis.github.io/tools/vibe-coding/) | Multi-page tutorial on AI-assisted development |
-| [Terminal Setup Guide](https://jamditis.github.io/tools/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
-| [Low-Cost Tool Stacks](https://jamditis.github.io/tools/tool-stacks/) | Development resources and affordable tool recommendations |
-| [Quick Reference Card](https://jamditis.github.io/tools/quick-reference-card.html) | Printable cheat sheet for common AI prompts |
+| [Vibe coding guide](https://jamditis.github.io/tools/vibe-coding/) | Multi-page tutorial on AI-assisted development |
+| [Terminal setup guide](https://jamditis.github.io/tools/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
+| [Low-cost tool stacks](https://jamditis.github.io/tools/tool-stacks/) | Development resources and affordable tool recommendations |
+| [Quick reference card](https://jamditis.github.io/tools/quick-reference-card.html) | Printable cheat sheet for common AI prompts |
 | [Glossary](https://jamditis.github.io/tools/glossary.html) | AI and development terminology |
-| [Language Guide](https://jamditis.github.io/tools/language-guide.html) | How to write effective prompts |
+| [Language guide](https://jamditis.github.io/tools/language-guide.html) | How to write effective prompts |
 
-### Vibe Coding Guide Sections
+### Vibe coding guide sections
 
-The Vibe Coding Guide is a comprehensive multi-page resource:
+The vibe coding guide is a comprehensive multi-page resource:
 
 - **Essentials** - Core concepts for AI-assisted development
-- **Level Up** - Advanced techniques and patterns
-- **Common Mistakes** - Pitfalls to avoid
-- **Cheat Sheet** - Quick reference for common tasks
+- **Level up** - Advanced techniques and patterns
+- **Common mistakes** - Pitfalls to avoid
+- **Cheat sheet** - Quick reference for common tasks
 - **Glossary** - Key terms and definitions
 
-### Downloadable Templates
+### Downloadable templates
 
 Available in `resource-kit/docs/downloads/`:
 
@@ -41,11 +41,11 @@ Available in `resource-kit/docs/downloads/`:
 
 ---
 
-## LESSONS.md Templates
+## LESSONS.md templates
 
 Templates for documenting project learnings, designed to carry forward wisdom without context bleed.
 
-### Software Development
+### Software development
 
 | Template | Use For |
 |----------|---------|
@@ -56,7 +56,7 @@ Templates for documenting project learnings, designed to carry forward wisdom wi
 | `LESSONS-data-pipeline.md` | Python scripts, ETL, scrapers, data processing |
 | `LESSONS-mobile-app.md` | React Native, Capacitor, Flutter, native mobile |
 
-### Journalism & Publishing
+### Journalism & publishing
 
 | Template | Use For |
 |----------|---------|
@@ -69,11 +69,11 @@ Templates for documenting project learnings, designed to carry forward wisdom wi
 
 ---
 
-## CLAUDE-RULES Templates
+## CLAUDE-RULES templates
 
 Project memory files for Claude Code, providing context and guidelines for AI assistance.
 
-### Software Development
+### Software development
 
 | Template | Use For |
 |----------|---------|
@@ -84,7 +84,7 @@ Project memory files for Claude Code, providing context and guidelines for AI as
 | `CLAUDE-RULES-data-pipeline.md` | Data processing, ETL |
 | `CLAUDE-RULES-mobile-app.md` | Mobile applications |
 
-### Journalism & Publishing
+### Journalism & publishing
 
 | Template | Use For |
 |----------|---------|
@@ -97,7 +97,7 @@ Project memory files for Claude Code, providing context and guidelines for AI as
 
 ---
 
-## Anime.js Documentation
+## Anime.js documentation
 
 Comprehensive documentation for the Anime.js animation library (v4):
 
@@ -113,7 +113,7 @@ Comprehensive documentation for the Anime.js animation library (v4):
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 tools/
@@ -136,9 +136,9 @@ tools/
 
 ---
 
-## How to Use
+## How to use
 
-### Using Templates
+### Using templates
 
 ```bash
 # Copy a template to your project
@@ -149,7 +149,7 @@ cp CLAUDE-RULES-web-app.md /path/to/project/CLAUDE.md
 Or ask Claude Code:
 > "Create a LESSONS.md for this project using the web-app template"
 
-### Local Development
+### Local development
 
 ```bash
 cd resource-kit/docs
@@ -168,20 +168,20 @@ gh run list --limit 3
 
 ---
 
-## Template Philosophy
+## Template philosophy
 
-### Focus on "The Real Problem"
+### Focus on "the real problem"
 Every template has a section for this. What did users actually need vs what you built? This insight transfers to future projects.
 
-### Keep vs Start Fresh
+### Keep vs start fresh
 Templates separate recommendations for continuing vs starting over. Both are valid paths.
 
-### Artifacts Worth Keeping
+### Artifacts worth keeping
 Code dies, but patterns live. Identify files/components that could be extracted and reused.
 
 ---
 
-## Choosing a Template
+## Choosing a template
 
 **Building software?**
 - Desktop app → `desktop-app`
