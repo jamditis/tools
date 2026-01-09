@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV_JARGON // DECODED</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="../index.html" class="w-8 h-8 bg-signal text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">V</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome">DEV_JARGON // DECODED</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">VIBE_CODER_TERMS</div>
+                    </div>
+                </div>
+                <a href="index.html" class="hidden md:flex items-center gap-2 px-3 py-1 border border-white/20 text-xs text-gray-400 hover:border-signal hover:text-signal transition-colors">
+                    <i data-lucide="arrow-left" class="w-3 h-3"></i> BACK_TO_GUIDE
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16">
+
+            <!-- Search Hero -->
+            <div class="max-w-2xl mx-auto mb-12 text-center">
+                <h2 class="font-display text-4xl text-chrome mb-4 glitch-text" data-text="DECODE_THE_JARGON">DECODE_THE_JARGON</h2>
+                <p class="text-gray-500 text-sm mb-8 font-mono">Plain-english definitions for the technical terms you'll encounter as a vibe coder.</p>
+
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-600 group-focus-within:text-signal transition-colors">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" id="searchInput" class="w-full bg-surface border border-white/10 text-white pl-12 pr-4 py-4 font-mono text-sm focus:outline-none focus:border-signal focus:bg-white/5 transition-all clip-notch" placeholder="SEARCH_TERMS...">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <span class="text-xs text-gray-700 font-mono group-focus-within:text-signal transition-colors">[INPUT]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-2 justify-center mb-12" id="categoryFilters">
+                <button data-category="all" class="category-btn active px-3 py-1 border border-signal/50 bg-signal/10 text-signal text-xs font-mono uppercase tracking-wider transition-all hover:bg-signal/20">
+                    ALL_TERMS
+                </button>
+            </div>
+
+            <!-- Results Count -->
+            <div class="text-center mb-8">
+                <span id="resultsCount" class="text-xs text-gray-600 font-mono">LOADING...</span>
+            </div>
+
+            <!-- Grid -->
+            <div id="glossaryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Terms injected here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-20 border border-dashed border-white/10 bg-surface/50">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-4 text-gray-500">
+                    <i data-lucide="search-x" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-display text-lg text-white mb-1">NO_MATCH_FOUND</h3>
+                <p class="text-xs text-gray-500 font-mono">Query returned 0 results. Try a different search term.</p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-void py-8">
+            <div class="max-w-7xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
+                <p>SYSTEM STATUS: ONLINE // <a href="../index.html" class="hover:text-signal transition-colors">RETURN_ROOT</a> // <a href="index.html" class="hover:text-signal transition-colors">VIBE_GUIDE</a></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Load Data -->
+    <script src="data/glossary-data.js"></script>
+
+    <!-- App Logic -->
+    <script>
+        lucide.createIcons();
+
+        const grid = document.getElementById('glossaryGrid');
+        const searchInput = document.getElementById('searchInput');
+        const emptyState = document.getElementById('emptyState');
+        const categoryFilters = document.getElementById('categoryFilters');
+        const resultsCount = document.getElementById('resultsCount');
+
+        let activeCategory = 'all';
+
+        // Convert GLOSSARY object to array
+        const terms = Object.keys(VIBE_GLOSSARY).map(key => ({
+            key: key,
+            ...VIBE_GLOSSARY[key]
+        })).sort((a, b) => a.term.localeCompare(b.term));
+
+        // Build category filter buttons
+        function buildCategoryFilters() {
+            GLOSSARY_CATEGORIES.forEach(category => {
+                const btn = document.createElement('button');
+                btn.dataset.category = category;
+                btn.className = 'category-btn px-3 py-1 border border-white/20 text-gray-400 text-xs font-mono uppercase tracking-wider transition-all hover:border-signal hover:text-signal';
+                btn.textContent = category.replace(/\//g, '_').replace(/ /g, '_').toUpperCase();
+                categoryFilters.appendChild(btn);
+            });
+
+            // Add click handlers
+            categoryFilters.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryFilters.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active', 'border-signal/50', 'bg-signal/10', 'text-signal');
+                        b.classList.add('border-white/20', 'text-gray-400');
+                    });
+                    btn.classList.add('active', 'border-signal/50', 'bg-signal/10', 'text-signal');
+                    btn.classList.remove('border-white/20', 'text-gray-400');
+                    activeCategory = btn.dataset.category;
+                    renderTerms(searchInput.value);
+                });
+            });
+        }
+
+        function renderTerms(filter = '') {
+            grid.innerHTML = '';
+            const query = filter.toLowerCase();
+            let count = 0;
+
+            terms.forEach(item => {
+                const matchesSearch = item.term.toLowerCase().includes(query) ||
+                              item.short.toLowerCase().includes(query) ||
+                              item.full.toLowerCase().includes(query);
+
+                const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    count++;
+                    const card = document.createElement('div');
+                    card.className = 'border border-white/10 bg-panel hover:border-signal transition-colors group relative overflow-hidden flex flex-col h-full';
+
+                    // Header with category badge
+                    let headerHtml = `
+                        <div class="p-6 border-b border-white/10 bg-surface flex justify-between items-start">
+                            <div>
+                                <div class="text-xs text-signal font-mono mb-1 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">${item.category.toUpperCase().replace(/ /g, '_')}</div>
+                                <h3 class="font-display text-xl text-white font-bold tracking-wide group-hover:text-signal transition-colors">${item.term}</h3>
+                            </div>
+                            <button onclick="copyDefinition('${item.key}')" class="text-gray-600 hover:text-white transition-colors" title="COPY_DATA">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    // Body
+                    let bodyHtml = `
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="mb-4">
+                                <span class="inline-block px-2 py-0.5 border border-signal/30 bg-signal/10 text-xs font-mono text-signal uppercase tracking-wider">
+                                    Synopsis
+                                </span>
+                                <p class="mt-2 text-sm font-bold text-white">${item.short}</p>
+                            </div>
+                            <div class="mt-auto pt-4 border-t border-white/5">
+                                <p class="text-xs text-gray-500 leading-relaxed font-mono">${item.full}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    card.innerHTML = headerHtml + bodyHtml;
+                    grid.appendChild(card);
+                }
+            });
+
+            // Update results count
+            resultsCount.textContent = `DISPLAYING ${count} OF ${terms.length} TERMS`;
+
+            if (count === 0) {
+                emptyState.classList.remove('hidden');
+                resultsCount.textContent = 'NO MATCHES FOUND';
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Re-init icons for new elements
+            lucide.createIcons();
+        }
+
+        function copyDefinition(key) {
+            const item = VIBE_GLOSSARY[key];
+            if (!item) return;
+
+            const text = `${item.term}\n\n${item.short}\n\n${item.full}`;
+            navigator.clipboard.writeText(text).then(() => {
+                // Could add a toast notification here
+            });
+        }
+
+        // Search listener
+        searchInput.addEventListener('input', (e) => {
+            renderTerms(e.target.value);
+        });
+
+        // Initialize
+        buildCategoryFilters();
+        renderTerms();
+    </script>
+</body>
+</html>
