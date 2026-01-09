@@ -1,6 +1,6 @@
-# Amditis Resource Kit
+# AI resources + toolkit
 
-A collection of AI tools, templates, and guides for journalists and developers. Hosted on GitHub Pages at **https://jamditis.github.io/tools/**
+A collection of AI tools, templates, and guides for journalists and developers. Created by *Joe Amditis* and hosted on GitHub Pages at **https://jamditis.github.io/tools/**
 
 ## Resource Kit Website
 
