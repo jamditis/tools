@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOL_STACKS // AMDITIS KIT</title>
+    <meta name="description" content="Low-cost development tool stacks for building and shipping projects without breaking the bank.">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Page-specific enhancements */
+        .card-glow-acid:hover {
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.15);
+        }
+        .card-glow-ice:hover {
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+        }
+        .card-glow-signal:hover {
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.15);
+        }
+        .card-glow-white:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animated underline */
+        .hover-line {
+            position: relative;
+        }
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+        .hover-line:hover::after {
+            width: 100%;
+        }
+
+        /* Pulse animation for the status indicator */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
+            50% { opacity: 0.6; box-shadow: 0 0 15px currentColor; }
+        }
+        .pulse-status {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* Tool card styling */
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-2px);
+        }
+        .tool-link {
+            transition: color 0.2s ease;
+        }
+        .tool-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Price tag styling */
+        .price-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 2px;
+        }
+        .price-free {
+            background: rgba(204, 255, 0, 0.15);
+            color: #ccff00;
+            border: 1px solid rgba(204, 255, 0, 0.3);
+        }
+        .price-freemium {
+            background: rgba(0, 240, 255, 0.15);
+            color: #00f0ff;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-acid transition-colors">TOOL_STACKS</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">AMDITIS_KIT</div>
+                    </div>
+                </a>
+                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
+                    <a href="../index.html" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                        <span class="hidden sm:inline">[ MAIN_HUB ]</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="py-16 md:py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
+            <!-- Gradient glow -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-ice/5 blur-[100px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-acid/5 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10">
+                <!-- Status badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-ice/30 text-ice text-xs font-mono tracking-widest bg-ice/5">
+                    <span class="w-2 h-2 bg-ice rounded-full pulse-status"></span>
+                    MODE: LOW_COST
+                </div>
+
+                <!-- Glitch title -->
+                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="TOOL STACKS">
+                    TOOL STACKS
+                </h1>
+
+                <!-- Tagline -->
+                <p class="text-gray-400 text-lg md:text-xl font-mono max-w-2xl mx-auto mb-8 leading-relaxed">
+                    Ship real projects without breaking the bank. <br class="hidden sm:inline">
+                    <span class="text-acid">Everything you need, mostly free.</span>
+                </p>
+
+                <!-- Terminal-style intro -->
+                <div class="max-w-xl mx-auto bg-panel border border-white/10 p-4 text-left text-sm">
+                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
+                        <span class="w-3 h-3 rounded-full bg-signal"></span>
+                        <span class="w-3 h-3 rounded-full bg-acid"></span>
+                        <span class="w-3 h-3 rounded-full bg-ice"></span>
+                        <span class="text-xs text-gray-600 ml-2">stack_init.sh</span>
+                    </div>
+                    <code class="text-gray-500">
+                        <span class="text-acid">$</span> ./init_stack --budget=<span class="text-ice">$0</span><br>
+                        <span class="text-gray-600"># Loading free tier tools...</span><br>
+                        <span class="text-gray-600"># Enterprise pricing: IGNORED</span><br>
+                        <span class="text-gray-600"># Ship-first mindset: ENABLED</span><br>
+                        <span class="text-acid">Ready.</span> <span class="text-white">Browse the stack below.</span>
+                    </code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12 md:py-16">
+
+            <!-- Low-Cost Stack Section -->
+            <section class="mb-16">
+                <div class="border-b border-white/10 pb-4 mb-8">
+                    <div class="flex items-end justify-between">
+                        <h2 class="font-display text-xl md:text-2xl text-white">// THE_$0_STACK</h2>
+                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">HOBBYIST_APPROVED</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mt-2">A complete development stack that costs nothing to start. Perfect for side projects, MVPs, and learning.</p>
+                </div>
+
+                <div class="space-y-4">
+
+                    <!-- IDE -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="code-2" class="w-6 h-6 text-acid"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">IDE</h3>
+                                        <span class="price-tag price-free">100% FREE</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Your coding environment - where you write and edit code with AI assistance.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://antigravity.google/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">Google Antigravity</a>
+                                            <span class="text-gray-500 text-sm">- AI-powered IDE with Gemini 3, free for all. <span class="text-ice">Student ID = higher access limits.</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">01</div>
+                        </div>
+                    </div>
+
+                    <!-- AI Documentation -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="file-text" class="w-6 h-6 text-ice"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">AI Documentation</h3>
+                                        <span class="price-tag price-free">OPEN SOURCE</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Auto-generate docs for your codebase. Saves hours of manual documentation work.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-ice text-xs">></span>
+                                            <a href="https://www.superdocs.cloud/" target="_blank" rel="noopener" class="tool-link text-ice font-bold">SuperDocs</a>
+                                            <span class="text-gray-500 text-sm">- AI-powered documentation generation, 100% free & open source.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">02</div>
+                        </div>
+                    </div>
+
+                    <!-- Database -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="database" class="w-6 h-6 text-acid"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">Database</h3>
+                                        <span class="price-tag price-freemium">FREE TIER</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Store your app's data. Both options include real-time sync and easy setup.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://firebase.google.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">Firebase</a>
+                                            <span class="text-gray-500 text-sm">- Google's BaaS. Free tier or pay-as-you-go. Great for real-time apps.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://supabase.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">Supabase</a>
+                                            <span class="text-gray-500 text-sm">- Open source Firebase alternative. Nano plan free, enough for basic needs.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">03</div>
+                        </div>
+                    </div>
+
+                    <!-- Authentication -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-ice"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">Authentication</h3>
+                                        <span class="price-tag price-free">FREE UP TO 10K</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">User login, signup, OAuth, magic links. Handle auth without building it yourself.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-ice text-xs">></span>
+                                            <a href="https://stack-auth.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold">Stack Auth</a>
+                                            <span class="text-gray-500 text-sm">- Open source Auth0/Clerk alternative. Free up to 10K users. MIT licensed.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">04</div>
+                        </div>
+                    </div>
+
+                    <!-- LLM / AI Models -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-signal/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-signal/10 border border-signal/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="brain" class="w-6 h-6 text-signal"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">LLM (AI Model)</h3>
+                                        <span class="price-tag price-freemium">FREE / LOW COST</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Add AI capabilities to your app. Multiple options for testing and production.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-signal text-xs">></span>
+                                            <a href="https://openrouter.ai/" target="_blank" rel="noopener" class="tool-link text-signal font-bold">OpenRouter</a>
+                                            <span class="text-gray-500 text-sm">- Unified API for multiple LLMs. Pay only for what you use.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-signal text-xs">></span>
+                                            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="tool-link text-signal font-bold">Gemini via AI Studio</a>
+                                            <span class="text-gray-500 text-sm">- Free testing with Google's Gemini models. Great for prototyping.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-signal text-xs">></span>
+                                            <a href="https://unsloth.ai/" target="_blank" rel="noopener" class="tool-link text-signal font-bold">Unsloth AI</a>
+                                            <span class="text-gray-500 text-sm">- Fine-tune models 2x faster in Google Colab. Perfect for custom production models.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">05</div>
+                        </div>
+                    </div>
+
+                    <!-- Version Control -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="git-branch" class="w-6 h-6 text-acid"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">Version Control</h3>
+                                        <span class="price-tag price-free">100% FREE</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Track changes, collaborate, and never lose your work. Essential for any project.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://github.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">GitHub</a>
+                                            <span class="text-gray-500 text-sm">- Industry standard. Free unlimited repos. Great CI/CD with Actions.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://gitlab.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">GitLab</a>
+                                            <span class="text-gray-500 text-sm">- Open source alternative. Self-host option. Built-in CI/CD pipelines.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">06</div>
+                        </div>
+                    </div>
+
+                    <!-- Deployment -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="rocket" class="w-6 h-6 text-ice"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">Deployment</h3>
+                                        <span class="price-tag price-freemium">FREE TIER</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Get your app live in minutes. Push to git, auto-deploy to the world.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-ice text-xs">></span>
+                                            <a href="https://vercel.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold">Vercel</a>
+                                            <span class="text-gray-500 text-sm">- Deploy frontend & serverless in seconds. Free tier enough for hobbyists.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">07</div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics -->
+                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-6 relative overflow-hidden">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bar-chart-3" class="w-6 h-6 text-acid"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-display text-lg text-white font-bold">Analytics</h3>
+                                        <span class="price-tag price-free">ALL FREE</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-3">Understand your users. Each tool tracks different things - use all three for complete visibility.</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://posthog.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">PostHog</a>
+                                            <span class="text-gray-500 text-sm">- Product analytics, session replays, feature flags. Open source. Generous free tier.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://clarity.microsoft.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">Microsoft Clarity</a>
+                                            <span class="text-gray-500 text-sm">- Heatmaps & session recordings. 100% free, unlimited traffic.</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-acid text-xs">></span>
+                                            <a href="https://analytics.google.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold">Google Analytics</a>
+                                            <span class="text-gray-500 text-sm">- Traffic, demographics, conversions. The industry standard, free forever.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 font-mono hidden md:block">08</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Stack Summary -->
+            <section class="mb-16">
+                <div class="border border-acid/30 bg-acid/5 p-6 md:p-8">
+                    <div class="flex items-start gap-4">
+                        <div class="text-acid mt-1 hidden sm:block">
+                            <i data-lucide="calculator" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-lg text-acid font-bold mb-3">TOTAL COST: $0/month</h3>
+                            <p class="text-gray-400 font-mono leading-relaxed mb-4">
+                                This entire stack can run a production app for <span class="text-white">zero dollars</span> until you hit scale.
+                                When you do need to pay, it's usage-based - you only spend when you're making money.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs">
+                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">IDE: Free</span>
+                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">DB: Free tier</span>
+                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Auth: 10K users free</span>
+                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Deploy: Free tier</span>
+                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Analytics: Always free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pro Tips -->
+            <section class="mt-16 border border-white/10 bg-surface/50 p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-void px-3 text-xs text-gray-500 font-mono">
+                    SYSTEM_MESSAGE
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="text-ice mt-1 hidden sm:block">
+                        <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 font-mono leading-relaxed mb-4">
+                            <span class="text-white">Pro tip:</span> Start with this exact stack. Don't over-engineer.
+                            You can always swap tools later when you hit real limits - but most projects never do.
+                        </p>
+                        <p class="text-sm text-gray-600 font-mono">
+                            // The best stack is the one that lets you ship. These tools do exactly that.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+            <div class="max-w-6xl mx-auto px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <p class="text-gray-500 font-mono text-sm">
+                            <span class="text-ice">//</span> Build more. Spend less. <span class="text-acid">Ship something today.</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-6 text-xs font-mono">
+                        <a href="../index.html" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                            <i data-lucide="home" class="w-3 h-3"></i>
+                            MAIN_HUB
+                        </a>
+                        <a href="../vibe-coding/index.html" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                            <i data-lucide="code" class="w-3 h-3"></i>
+                            VIBE_CODING
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-white/5 text-center">
+                    <p class="text-xs text-gray-600 font-mono">
+                        AMDITIS_KIT v2.6 // Part of the <a href="../index.html" class="text-gray-500 hover:text-acid transition-colors hover-line">CCM Resource Collection</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
