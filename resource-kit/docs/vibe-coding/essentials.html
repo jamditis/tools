@@ -158,7 +158,7 @@
                                     <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
                                         <i data-lucide="shield-x" class="w-4 h-4"></i> NEVER PUSH TO GIT
                                     </h4>
-                                    <p class="text-gray-400 text-sm mb-3">The .env file should ALWAYS be listed in your .gitignore. If someone gets your .env file, they have your keys to everything.</p>
+                                    <p class="text-gray-400 text-sm mb-3">The .env file should ALWAYS be listed in your <span data-term="gitignore" class="term-link">.gitignore</span>. If someone gets your .env file, they have your keys to everything.</p>
                                 </div>
 
                                 <div>
@@ -209,7 +209,7 @@
                                         <i data-lucide="play" class="w-4 h-4"></i> WHAT IT DOES
                                     </h4>
                                     <p class="text-gray-300 text-sm mb-3">
-                                        Starts a <strong class="text-white">local development server</strong> on your computer. This creates a mini web server that watches your files and automatically refreshes when you make changes.
+                                        Starts a local development <span data-term="server" class="term-link">server</span> on your computer. This creates a mini web server that watches your files and automatically refreshes when you make changes (<span data-term="hot-reload" class="term-link">hot reload</span>).
                                     </p>
                                 </div>
 
@@ -276,7 +276,7 @@
                                         <i data-lucide="file-json" class="w-4 h-4"></i> WHAT IT IS
                                     </h4>
                                     <p class="text-gray-300 text-sm">
-                                        The <strong class="text-white">DNA of your project</strong>. It lists everything your project needs to run: its name, version, dependencies, and available commands.
+                                        A <span data-term="json" class="term-link">JSON</span> file that describes your project. It lists everything your project needs to run: its name, version, <span data-term="dependencies" class="term-link">dependencies</span>, and available commands.
                                     </p>
                                 </div>
 
@@ -464,7 +464,7 @@
                                     </h4>
                                     <div class="bg-surface border border-white/10 p-4 rounded">
                                         <p class="text-gray-300 text-sm mb-3">
-                                            The <code class="text-acid">node_modules/</code> folder contains ALL your installed packages and their dependencies. It can get huge (hundreds of MB).
+                                            The <span data-term="node-modules" class="term-link">node_modules</span> folder contains ALL your installed packages and their <span data-term="dependencies" class="term-link">dependencies</span>. It can get huge (hundreds of MB).
                                         </p>
                                         <ul class="text-gray-400 text-xs space-y-1">
                                             <li class="flex items-center gap-2">
@@ -608,7 +608,7 @@
                                         <i data-lucide="monitor" class="w-4 h-4"></i> WHAT localhost MEANS
                                     </h4>
                                     <p class="text-gray-300 text-sm mb-3">
-                                        <code class="text-acid">localhost</code> is a special address that means <strong class="text-white">"this computer"</strong>. It's an alias for the IP address <code class="text-ice">127.0.0.1</code>.
+                                        <span data-term="localhost" class="term-link">localhost</span> is a special address that means <strong class="text-white">"this computer"</strong>. The number after the colon is the <span data-term="port" class="term-link">port</span> (like different doors into the same building).
                                     </p>
                                     <div class="bg-surface border border-white/10 p-4 rounded">
                                         <p class="text-gray-400 text-sm">
@@ -745,7 +745,7 @@ fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
                                 <div class="bg-surface border border-white/10 p-4 rounded">
                                     <h4 class="text-white text-sm font-bold mb-2">Security implications</h4>
                                     <p class="text-gray-400 text-sm">
-                                        If you hardcode secrets and push to GitHub, you're essentially publishing your password to the world.
+                                        If you <span data-term="hardcoding" class="term-link">hardcode</span> secrets and push to GitHub, you're essentially publishing your password to the world.
                                         <strong class="text-white">Environment variables keep secrets separate from code.</strong>
                                     </p>
                                 </div>
@@ -774,7 +774,7 @@ fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
                                         <i data-lucide="alert-octagon" class="w-4 h-4"></i> DON'T IGNORE RED TEXT
                                     </h4>
                                     <p class="text-gray-300 text-sm mb-3">
-                                        Red text in your terminal is not decoration. It's your code screaming for help. <strong class="text-white">Every error message contains clues about what went wrong.</strong>
+                                        Red text in your <span data-term="terminal" class="term-link">terminal</span> is not decoration. It's your code telling you something broke. <strong class="text-white">Every <span data-term="error-message" class="term-link">error message</span> contains clues about what went wrong.</strong>
                                     </p>
                                 </div>
 
@@ -895,6 +895,10 @@ fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
         </footer>
 
     </div>
+
+    <!-- Glossary data and term info system -->
+    <script src="data/glossary-data.js"></script>
+    <script src="data/term-info.js"></script>
 
     <!-- Scripts -->
     <script>
