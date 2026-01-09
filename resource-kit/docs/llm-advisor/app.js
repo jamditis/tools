@@ -1,17 +1,204 @@
-// LLM Journalism Tool Advisor - Main Application Script
-// Updated for Amditis Theme
+/**
+ * @fileoverview LLM Journalism Tool Advisor - Main Application Script
+ *
+ * This is the core application module for the LLM Tool Advisor, an interactive
+ * decision tree that helps journalists select appropriate AI tools for their
+ * workflows. The application guides users through a series of questions and
+ * provides personalized tool recommendations.
+ *
+ * ## Architecture Overview
+ *
+ * The application uses an IIFE (Immediately Invoked Function Expression) pattern
+ * to encapsulate state and avoid polluting the global namespace. Only the `init`
+ * function is exposed globally via `window.initLLMAdvisor`.
+ *
+ * ## Data Flow
+ *
+ * 1. `loadAllData()` fetches JSON files and populates global data variables
+ * 2. `init()` is called after data loads, querying DOM elements and setting up events
+ * 3. `renderApp()` orchestrates view rendering based on current state
+ * 4. User interactions trigger state changes and re-renders
+ *
+ * ## State Management
+ *
+ * Application state is managed through module-scoped variables:
+ * - `currentStep`: Current position in the decision tree
+ * - `history`: Array of previous selections for back navigation
+ * - `selectedTools`: Tools selected for the current recommendation
+ * - `showRecommendation`: Boolean flag for recommendation view
+ * - `currentTrack`: Current workflow track (research/content/multimedia/automation)
+ *
+ * ## Event Handling
+ *
+ * Uses event delegation on the main container for most interactions. Elements
+ * outside the container (modal, sidebar) have their own event listeners attached
+ * in `init()`.
+ *
+ * @module LLMToolAdvisor
+ * @author Amditis Resource Kit
+ * @version 2.0
+ * @requires Tailwind CSS
+ * @requires Lucide Icons
+ * @see {@link https://jamditis.github.io/tools/llm-advisor/} Live Demo
+ */
 
-// Global data variables (loaded from JSON files)
+/* ============================================================================
+ * TYPE DEFINITIONS
+ * ============================================================================ */
+
+/**
+ * Represents a single tool recommendation with details and sample prompts.
+ * @typedef {Object} ToolRecommendation
+ * @property {string} name - Display name of the tool/workflow (e.g., "Research Assistant")
+ * @property {string} description - Detailed description of the tool's purpose
+ * @property {string[]} tools - Array of AI model names recommended for this task
+ * @property {string} prompt - Sample prompt to get started with this workflow
+ * @property {string} [tips] - Optional pro tips for effective usage
+ */
+
+/**
+ * Represents a decision tree option that users can select.
+ * @typedef {Object} DecisionOption
+ * @property {string} text - Display text for the option button
+ * @property {string} [next] - Key of the next decision tree node, or "recommendation"
+ * @property {ToolRecommendation[]} [tools] - Tool recommendations (only for terminal nodes)
+ * @property {string} [track] - Workflow track: "research" | "content" | "multimedia" | "automation"
+ */
+
+/**
+ * Represents a node in the decision tree.
+ * @typedef {Object} DecisionNode
+ * @property {string} question - The question to display to the user
+ * @property {DecisionOption[]} options - Available options for this question
+ */
+
+/**
+ * The complete decision tree structure loaded from JSON.
+ * @typedef {Object<string, DecisionNode>} DecisionTree
+ */
+
+/**
+ * Comparison data for an AI tool.
+ * @typedef {Object} ToolComparisonEntry
+ * @property {string|string[]} strengths - Key strengths of the tool
+ * @property {string|string[]} weaknesses - Known limitations
+ * @property {string|string[]} bestFor - Ideal use cases
+ * @property {string} pricing - Pricing information
+ */
+
+/**
+ * Case study demonstrating AI tool usage in journalism.
+ * @typedef {Object} CaseStudy
+ * @property {string} title - Title of the case study
+ * @property {string} tool - Primary AI tool featured
+ * @property {string} journalist - Author or organization
+ * @property {string} challenge - Problem being addressed
+ * @property {string} tips - Key takeaways
+ * @property {string} quote - Notable quote from the case study
+ * @property {string} [sourceUrl] - Link to the original source
+ */
+
+/**
+ * Information about an AI model.
+ * @typedef {Object} ModelInfo
+ * @property {string} description - Brief description of the model
+ * @property {string[]} features - Key features of the model
+ * @property {string} link - URL to the model's website
+ */
+
+/**
+ * A history entry recording a user's navigation through the decision tree.
+ * @typedef {Object} HistoryEntry
+ * @property {string} step - The decision tree node key
+ * @property {string} question - The question that was displayed
+ * @property {string} selection - The option text the user selected
+ * @property {string} track - The workflow track at this step
+ */
+
+/**
+ * Changelog entry for version history.
+ * @typedef {Object} ChangelogEntry
+ * @property {string} version - Version number
+ * @property {string} notes - HTML-formatted release notes
+ */
+
+/* ============================================================================
+ * GLOBAL DATA VARIABLES
+ * ============================================================================ */
+
+/**
+ * The complete decision tree data structure.
+ * Loaded from `data/decision-tree.json`.
+ * Keys are node identifiers (e.g., "start", "research_1"), values are DecisionNode objects.
+ * @type {DecisionTree|null}
+ */
 let decisionTree = null;
+
+/**
+ * Tool comparison data for the comparison modal.
+ * Loaded from `data/tool-comparison.json`.
+ * Keys are tool names (e.g., "Claude", "Gemini"), values are ToolComparisonEntry objects.
+ * @type {Object<string, ToolComparisonEntry>|null}
+ */
 let toolComparisonData = null;
+
+/**
+ * Array of journalism case studies demonstrating AI tool usage.
+ * Loaded from `data/case-studies.json`.
+ * @type {CaseStudy[]|null}
+ */
 let caseStudiesData = null;
+
+/**
+ * Best practices guide organized by category.
+ * Loaded from `data/best-practices.json`.
+ * Currently uses a "general" key containing various tip categories.
+ * @type {{ general: Object }|null}
+ */
 let bestPracticesData = null;
+
+/**
+ * Information about available AI models.
+ * Loaded from `data/model-info.json`.
+ * Keys are model names, values are ModelInfo objects.
+ * @type {Object<string, ModelInfo>|null}
+ */
 let modelInfoData = null;
+
+/**
+ * Version history and changelog entries.
+ * Loaded from `data/changelog.json`.
+ * @type {ChangelogEntry[]|null}
+ */
 let changelogData = null;
 
-// Load all data from JSON files
+/* ============================================================================
+ * DATA LOADING
+ * ============================================================================ */
+
+/**
+ * Loads all required JSON data files in parallel.
+ *
+ * This function must be called before initializing the application. It fetches
+ * all six JSON data files concurrently and populates the global data variables.
+ *
+ * @async
+ * @function loadAllData
+ * @returns {Promise<boolean>} True if all data loaded successfully, false on error
+ *
+ * @example
+ * // Typical usage at application startup
+ * loadAllData().then(success => {
+ *   if (success) {
+ *     window.initLLMAdvisor();
+ *   }
+ * });
+ *
+ * @throws {Error} Logs error to console but does not throw; returns false instead
+ */
 async function loadAllData() {
     try {
+        // Fetch all JSON files concurrently for better performance
         const responses = await Promise.all([
             fetch('data/decision-tree.json'),
             fetch('data/tool-comparison.json'),
@@ -21,6 +208,7 @@ async function loadAllData() {
             fetch('data/changelog.json')
         ]);
 
+        // Parse all JSON responses and assign to global variables via destructuring
         [
             decisionTree,
             toolComparisonData,
@@ -37,18 +225,114 @@ async function loadAllData() {
     }
 }
 
-// Main application code (wrapped to execute after data loads)
+/* ============================================================================
+ * MAIN APPLICATION MODULE (IIFE)
+ * ============================================================================ */
+
+/**
+ * Main application module using the Immediately Invoked Function Expression (IIFE) pattern.
+ *
+ * This encapsulates all application state and logic, preventing global namespace pollution.
+ * Only `window.initLLMAdvisor` is exposed for external initialization.
+ *
+ * @namespace LLMAdvisorApp
+ */
 (function() {
+        // -------------------------------------------------------------------------
+        // DOM CONTAINER REFERENCE
+        // -------------------------------------------------------------------------
+
+        /** @type {HTMLElement|null} The main container element for the advisor */
         const container = document.getElementById('llm-tool-advisor-container');
         if (!container) {
             console.error('LLM Tool Advisor container not found.');
             return;
         }
 
-        let currentStep = 'start', history = [], selectedTools = [], compareTools = [], showRecommendation = false, currentTrack = 'research';
+        // -------------------------------------------------------------------------
+        // APPLICATION STATE
+        // -------------------------------------------------------------------------
 
-        let mainContent, progressBar, breadcrumbContainer, themeToggleBtn, backBtn, restartBtn, toolSelector, universalModal, modalTitle, modalBody;
+        /**
+         * Current position in the decision tree.
+         * @type {string}
+         */
+        let currentStep = 'start';
 
+        /**
+         * Navigation history for back button functionality.
+         * @type {HistoryEntry[]}
+         */
+        let history = [];
+
+        /**
+         * Currently selected tool recommendations.
+         * @type {ToolRecommendation[]}
+         */
+        let selectedTools = [];
+
+        /**
+         * Tools selected for comparison in the comparison modal (max 3).
+         * @type {string[]}
+         */
+        let compareTools = [];
+
+        /**
+         * Whether to display the recommendation view vs. question view.
+         * @type {boolean}
+         */
+        let showRecommendation = false;
+
+        /**
+         * Current workflow track for theming.
+         * @type {'research'|'content'|'multimedia'|'automation'}
+         */
+        let currentTrack = 'research';
+
+        // -------------------------------------------------------------------------
+        // DOM ELEMENT REFERENCES
+        // -------------------------------------------------------------------------
+
+        /** @type {HTMLElement} Main content area for questions and recommendations */
+        let mainContent;
+        /** @type {HTMLElement} Progress bar element */
+        let progressBar;
+        /** @type {HTMLElement} Breadcrumb navigation container */
+        let breadcrumbContainer;
+        /** @type {HTMLInputElement} Theme toggle checkbox (currently unused) */
+        let themeToggleBtn;
+        /** @type {HTMLButtonElement} Back navigation button */
+        let backBtn;
+        /** @type {HTMLButtonElement} Restart button */
+        let restartBtn;
+        /** @type {HTMLSelectElement} Workflow jump dropdown selector */
+        let toolSelector;
+        /** @type {HTMLElement} Universal modal overlay */
+        let universalModal;
+        /** @type {HTMLElement} Modal title element */
+        let modalTitle;
+        /** @type {HTMLElement} Modal body content area */
+        let modalBody;
+
+        // -------------------------------------------------------------------------
+        // DOM QUERY FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Queries and caches all required DOM element references.
+         *
+         * This function separates elements inside the main container from those
+         * outside (modal, sidebar buttons) which require document-level queries.
+         *
+         * @function queryDOMElements
+         * @returns {boolean} True if all required elements were found, false otherwise
+         *
+         * @example
+         * if (!queryDOMElements()) {
+         *   console.error('Failed to initialize - missing DOM elements');
+         *   return;
+         * }
+         */
         function queryDOMElements() {
             // Elements inside the container
             mainContent = container.querySelector('#main-content');
@@ -57,37 +341,80 @@ async function loadAllData() {
             backBtn = container.querySelector('#back-btn');
             restartBtn = container.querySelector('#restart-btn');
             toolSelector = container.querySelector('#tool-selector');
+
             // Elements outside the container (modal and hidden controls)
+            // These must be queried from document, not container
             themeToggleBtn = document.querySelector('#theme-toggle-checkbox');
             universalModal = document.querySelector('#universal-modal');
             modalTitle = document.querySelector('#modal-title');
             modalBody = document.querySelector('#modal-body');
+
+            // Return false if any critical element is missing
             return mainContent && progressBar && breadcrumbContainer && backBtn && restartBtn && toolSelector && universalModal;
         }
 
+        // -------------------------------------------------------------------------
+        // STYLING UTILITY FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Returns Tailwind CSS classes for styling AI tool pills/badges.
+         *
+         * Uses partial string matching to determine the tool family and return
+         * appropriate brand colors. Falls back to neutral gray for unknown tools.
+         *
+         * @function getPillClasses
+         * @param {string} tool - The tool name (may include version, e.g., "Claude 4.5 Opus")
+         * @returns {string} Tailwind CSS classes for background and text color
+         *
+         * @example
+         * getPillClasses('Claude 4.5 Opus')  // Returns 'bg-[#d9843b] text-white'
+         * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
+         */
         const getPillClasses = (tool) => {
+             // Map of tool name fragments to their brand colors
              const toolColorMap = {
-                 'Claude': 'bg-[#d9843b] text-white',
-                 'Gemini': 'bg-[#369a8b] text-white',
-                 'Nano Banana': 'bg-[#369a8b] text-white',
-                 'Codex': 'bg-slate-500 text-white',
-                 'GPT 5.1': 'bg-slate-500 text-white',
-                 'GPT': 'bg-slate-500 text-white',
-                 'Grok': 'bg-blue-500 text-white',
-                 'DeepSeek': 'bg-[#615EFC] text-white',
-                 'Mistral': 'bg-pink-500 text-white',
-                 'Perplexity': 'bg-violet-500 text-white',
-                 'ElevenLabs': 'bg-emerald-500 text-white',
-                 'Midjourney': 'bg-indigo-600 text-white',
-                 'NotebookLM': 'bg-slate-600 text-white',
-                 'Custom AI': 'bg-gray-500 text-gray-100',
-                 'RAG-enabled': 'bg-gray-500 text-white',
-                 'Open Source': 'bg-orange-500 text-white'
+                 'Claude': 'bg-[#d9843b] text-white',       // Anthropic orange
+                 'Gemini': 'bg-[#369a8b] text-white',       // Google teal
+                 'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
+                 'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
+                 'GPT 5.1': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
+                 'Grok': 'bg-blue-500 text-white',          // xAI blue
+                 'DeepSeek': 'bg-[#615EFC] text-white',     // DeepSeek purple
+                 'Mistral': 'bg-pink-500 text-white',       // Mistral pink
+                 'Perplexity': 'bg-violet-500 text-white',  // Perplexity violet
+                 'ElevenLabs': 'bg-emerald-500 text-white', // ElevenLabs green
+                 'Midjourney': 'bg-indigo-600 text-white',  // Midjourney indigo
+                 'NotebookLM': 'bg-slate-600 text-white',   // Google NotebookLM
+                 'Custom AI': 'bg-gray-500 text-gray-100',  // Generic custom
+                 'RAG-enabled': 'bg-gray-500 text-white',   // RAG systems
+                 'Open Source': 'bg-orange-500 text-white'  // Open source models
              };
+
+             // Find the first matching key using partial string match
              const key = Object.keys(toolColorMap).find(k => tool.includes(k));
              return key ? toolColorMap[key] : 'bg-slate-700 text-slate-300';
         };
 
+        /**
+         * Returns Tailwind CSS classes for track-specific theming.
+         *
+         * Each workflow track has a distinct color scheme aligned with the
+         * Amditis theme:
+         * - research: ice (cyan) - for investigation and analysis
+         * - content: acid (lime) - for writing and content creation
+         * - multimedia: signal (red) - for audio/video production
+         * - automation: white - for workflow automation
+         *
+         * @function getTrackColor
+         * @param {string} track - The workflow track name
+         * @returns {string} Tailwind CSS classes for text and border colors
+         *
+         * @example
+         * getTrackColor('research')   // Returns 'text-ice border-ice'
+         * getTrackColor('invalid')    // Returns 'text-acid border-acid' (default)
+         */
         const getTrackColor = (track) => {
             const colors = {
                 'research': 'text-ice border-ice',
@@ -98,26 +425,110 @@ async function loadAllData() {
             return colors[track] || 'text-acid border-acid';
         };
 
-        const sanitizeHTML = (str) => { const temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
+        // -------------------------------------------------------------------------
+        // SECURITY UTILITY FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Sanitizes a string for safe HTML insertion by escaping HTML entities.
+         *
+         * Uses the browser's built-in text content encoding to prevent XSS attacks.
+         * All user-provided content should be passed through this function before
+         * being inserted into the DOM via innerHTML.
+         *
+         * @function sanitizeHTML
+         * @param {string} str - The string to sanitize
+         * @returns {string} The sanitized string with HTML entities escaped
+         *
+         * @example
+         * sanitizeHTML('<script>alert("xss")</script>')
+         * // Returns '&lt;script&gt;alert("xss")&lt;/script&gt;'
+         */
+        const sanitizeHTML = (str) => {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        };
+
+        /**
+         * Escapes quotes in a string for safe use in HTML attributes.
+         *
+         * Used specifically for data attributes that may contain JSON or
+         * user-provided strings with quotes.
+         *
+         * @function escapeAttr
+         * @param {string} str - The string to escape
+         * @returns {string} The string with quotes replaced by HTML entities
+         *
+         * @example
+         * escapeAttr('Say "hello"')  // Returns 'Say &quot;hello&quot;'
+         */
         const escapeAttr = (str) => str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
 
+        // -------------------------------------------------------------------------
+        // RENDERING FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Main render orchestrator that handles view transitions.
+         *
+         * Applies a fade-out/fade-in transition effect when switching between
+         * question and recommendation views. Updates the progress bar and
+         * breadcrumbs after rendering.
+         *
+         * @function renderApp
+         * @returns {void}
+         *
+         * @fires updateProgressBarAndBreadcrumbs
+         */
         function renderApp() {
             if (!mainContent) return;
+
+            // Fade out current content
             mainContent.style.opacity = '0';
+
+            // After fade completes, render new content and fade in
             setTimeout(() => {
-                if (showRecommendation) { renderRecommendationView(); }
-                else { renderQuestionView(); }
+                if (showRecommendation) {
+                    renderRecommendationView();
+                } else {
+                    renderQuestionView();
+                }
                 mainContent.style.opacity = '1';
                 updateProgressBarAndBreadcrumbs();
             }, 150);
         }
 
+        /**
+         * Renders the question/options view for the current decision tree step.
+         *
+         * Generates HTML for the current question and all available options as
+         * interactive buttons. Each button contains data attributes used by the
+         * event handler to determine navigation:
+         *
+         * - `data-next`: The next node key or "recommendation"
+         * - `data-text`: The option text for history tracking
+         * - `data-tools`: JSON-stringified tool recommendations (for terminal nodes)
+         * - `data-track`: The workflow track for theming
+         *
+         * @function renderQuestionView
+         * @returns {void}
+         *
+         * @example
+         * // Button structure generated:
+         * // <button class="option-button" data-next="research_2" data-track="research">
+         * //   <span>Option text</span>
+         * // </button>
+         */
         function renderQuestionView() {
             const node = decisionTree[currentStep];
 
+            // Generate option buttons with staggered animation delays
             let optionsHTML = node.options.map((option, index) => {
+                // Serialize tools array for data attribute (if present)
                 const toolsJSON = option.tools ? escapeAttr(JSON.stringify(option.tools)) : 'null';
                 const trackColor = getTrackColor(option.track || currentTrack);
+
                 return `
                 <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-surface border border-white/10 hover:border-acid hover:bg-panel"
                         data-next="${option.next}"
@@ -133,6 +544,7 @@ async function loadAllData() {
                 </button>`;
             }).join('');
 
+            // Render question header with step counter and options
             mainContent.innerHTML = `
                 <div class="mb-8">
                     <div class="text-xs font-mono text-acid mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
@@ -141,7 +553,22 @@ async function loadAllData() {
                 <div class="space-y-3">${optionsHTML}</div>`;
         }
 
+        /**
+         * Renders the recommendation view with tool cards.
+         *
+         * Displays the selected tool recommendations as styled cards, each containing:
+         * - Tool name and description
+         * - Recommended AI models (as clickable pills that open model info)
+         * - Sample prompt for getting started
+         * - Optional pro tips
+         *
+         * Also includes a restart button to begin a new query.
+         *
+         * @function renderRecommendationView
+         * @returns {void}
+         */
         function renderRecommendationView() {
+            // Generate HTML for each recommended tool card
             let toolsHTML = selectedTools.map((tool, index) => `
                 <div class="recommendation-card border border-white/10 bg-panel p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
                     <div class="absolute top-0 left-0 w-1 h-full bg-acid"></div>
@@ -174,6 +601,7 @@ async function loadAllData() {
                     </div>
                 </div>`).join('');
 
+            // Render the complete recommendation view with header and restart button
             mainContent.innerHTML = `
                 <div class="mb-8">
                     <div class="text-xs font-mono text-acid mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
@@ -188,30 +616,78 @@ async function loadAllData() {
                 </div>`;
         }
 
+        // -------------------------------------------------------------------------
+        // NAVIGATION & PATH FINDING FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Finds the complete navigation path to reach a specific workflow.
+         *
+         * This function is used by the "Jump to workflow" dropdown to reconstruct
+         * the history that would lead to a specific tool recommendation. It performs
+         * two operations:
+         *
+         * 1. Forward search: Find the terminal node containing the workflow
+         * 2. Backward trace: Recursively trace from that node back to "start"
+         *
+         * @function findPathForWorkflow
+         * @param {string} workflowName - The name of the workflow/tool to find
+         * @returns {HistoryEntry[]} Array of history entries from start to the workflow,
+         *                           or empty array if workflow not found
+         *
+         * @example
+         * const path = findPathForWorkflow('Research Assistant');
+         * // Returns: [
+         * //   { step: 'start', question: '...', selection: 'Research', track: 'research' },
+         * //   { step: 'research_1', question: '...', selection: 'Quick lookup', track: 'research' }
+         * // ]
+         */
         function findPathForWorkflow(workflowName) {
+            // Step 1: Find the terminal node containing this workflow
             let endNodeInfo = null;
             for (const stepKey in decisionTree) {
                 const node = decisionTree[stepKey];
                 if (node.options) {
                     for (const option of node.options) {
+                        // Check if this option leads to the target workflow
                         if (option.tools && option.tools[0].name === workflowName) {
-                            endNodeInfo = { parentStep: stepKey, finalSelection: option.text, track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research') };
+                            endNodeInfo = {
+                                parentStep: stepKey,
+                                finalSelection: option.text,
+                                track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research')
+                            };
                             break;
                         }
                     }
                 }
                 if (endNodeInfo) break;
             }
+
+            // Return empty path if workflow not found
             if (!endNodeInfo) return [];
+
+            /**
+             * Recursively traces backwards from a target step to the start node.
+             * @param {string} targetStep - The step key to trace back from
+             * @returns {HistoryEntry[]} The path from start to targetStep
+             */
             function traceBack(targetStep) {
                 if (targetStep === 'start') return [];
+
+                // Search all nodes for one that leads to targetStep
                 for (const stepKey in decisionTree) {
                     const node = decisionTree[stepKey];
                     if (node.options) {
                         for (const option of node.options) {
                             if (option.next === targetStep) {
+                                // Recursively trace back, then add this step
                                 const path = traceBack(stepKey);
-                                path.push({ step: stepKey, question: node.question, selection: option.text, track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research'), });
+                                path.push({
+                                    step: stepKey,
+                                    question: node.question,
+                                    selection: option.text,
+                                    track: option.track || (decisionTree[stepKey] ? decisionTree[stepKey].track : 'research'),
+                                });
                                 return path;
                             }
                         }
@@ -219,14 +695,37 @@ async function loadAllData() {
                 }
                 return [];
             }
+
+            // Build complete path: trace back to start, then add the final selection
             const basePath = traceBack(endNodeInfo.parentStep);
-            basePath.push({ step: endNodeInfo.parentStep, question: decisionTree[endNodeInfo.parentStep].question, selection: endNodeInfo.finalSelection, track: endNodeInfo.track });
+            basePath.push({
+                step: endNodeInfo.parentStep,
+                question: decisionTree[endNodeInfo.parentStep].question,
+                selection: endNodeInfo.finalSelection,
+                track: endNodeInfo.track
+            });
             return basePath;
         }
 
+        /**
+         * Populates the workflow jump dropdown with all available workflows.
+         *
+         * Extracts all unique workflow names from terminal nodes in the decision
+         * tree and creates sorted dropdown options. This allows users to jump
+         * directly to any workflow without navigating through the decision tree.
+         *
+         * @function populateToolSelector
+         * @returns {void}
+         */
         function populateToolSelector() {
             if (!toolSelector) return;
-            const allOptions = Object.values(decisionTree).flatMap(node => node.options || []).filter(option => option.tools);
+
+            // Extract all options that have tool recommendations (terminal nodes)
+            const allOptions = Object.values(decisionTree)
+                .flatMap(node => node.options || [])
+                .filter(option => option.tools);
+
+            // Build unique workflow map (using first tool name as identifier)
             let uniqueWorkflows = {};
             allOptions.forEach(option => {
                 const toolName = option.tools[0].name;
@@ -234,10 +733,37 @@ async function loadAllData() {
                     uniqueWorkflows[toolName] = { name: toolName, value: toolName };
                 }
             });
-            toolSelector.innerHTML = '<option value="">Jump to a workflow...</option>' + Object.values(uniqueWorkflows).sort((a,b) => a.name.localeCompare(b.name)).map(opt => `<option value="${escapeAttr(opt.value)}">${sanitizeHTML(opt.name)}</option>`).join('');
+
+            // Render sorted dropdown options
+            toolSelector.innerHTML = '<option value="">Jump to a workflow...</option>' +
+                Object.values(uniqueWorkflows)
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(opt => `<option value="${escapeAttr(opt.value)}">${sanitizeHTML(opt.name)}</option>`)
+                    .join('');
         }
 
+        // -------------------------------------------------------------------------
+        // MODAL RENDERING FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Renders the tool comparison modal content.
+         *
+         * Displays a tool selection interface and a comparison table. Users can
+         * select up to 3 tools to compare side-by-side across features:
+         * - Key strengths
+         * - Limitations
+         * - Best use cases
+         * - Pricing
+         *
+         * The modal updates dynamically as tools are selected/deselected via
+         * the `compareTools` state array.
+         *
+         * @function renderComparisonModal
+         * @returns {void}
+         */
         function renderComparisonModal() {
+            // Render tool selection buttons
             const headerHTML = `
                 <h3 class="text-sm font-mono text-acid mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
                 <div class="flex flex-wrap gap-2">
@@ -245,10 +771,18 @@ async function loadAllData() {
                         <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-panel ring-current' : 'bg-surface border border-white/10 text-gray-400 hover:text-white hover:border-white/30'}" data-tool="${tool}">${tool}</button>
                     `).join('')}
                 </div>`;
+
             let tableHTML = '';
             if (compareTools.length > 0) {
+                // Build comparison table when tools are selected
                 const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
-                const featureNames = { strengths: 'Key strengths', weaknesses: 'Limitations', bestFor: 'Best use cases', pricing: 'Pricing' };
+                const featureNames = {
+                    strengths: 'Key strengths',
+                    weaknesses: 'Limitations',
+                    bestFor: 'Best use cases',
+                    pricing: 'Pricing'
+                };
+
                 tableHTML = `
                     <div class="overflow-x-auto mt-6">
                         <table class="min-w-full w-full text-left text-sm">
@@ -269,11 +803,26 @@ async function loadAllData() {
                         </table>
                     </div>`;
             } else {
+                // Show placeholder when no tools selected
                 tableHTML = `<div class="text-center p-8 bg-surface border border-white/10 mt-6"><p class="text-gray-500 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
             }
             modalBody.innerHTML = headerHTML + tableHTML;
         }
 
+        /**
+         * Renders the journalism case studies modal content.
+         *
+         * Displays a grid of case study cards, each featuring:
+         * - Title and tool used
+         * - Journalist/organization
+         * - Challenge addressed
+         * - Key takeaway
+         * - Notable quote
+         * - Optional source link
+         *
+         * @function renderCaseStudiesModal
+         * @returns {void}
+         */
         function renderCaseStudiesModal() {
             modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => `
                 <div class="border border-white/10 overflow-hidden flex flex-col bg-panel">
@@ -306,10 +855,29 @@ async function loadAllData() {
                 </div>`).join('')}</div>`;
         }
 
+        /**
+         * Renders the best practices guide modal content.
+         *
+         * Displays categorized tips for effective AI tool usage:
+         * - Core principles
+         * - Effective prompting techniques
+         * - Workflow integration
+         * - Image prompting
+         * - Ethical guidelines & privacy
+         *
+         * @function renderBestPracticesModal
+         * @returns {void}
+         */
         function renderBestPracticesModal() {
             const data = bestPracticesData.general;
-            if (!data) { modalBody.innerHTML = '<p class="text-gray-500">No best practices available.</p>'; return; }
+            if (!data) {
+                modalBody.innerHTML = '<p class="text-gray-500">No best practices available.</p>';
+                return;
+            }
+
             let contentHTML = '<div class="space-y-8">';
+
+            // Map section keys to display titles
             const sections = {
                 'Core principles': data.corePrinciples,
                 'Effective prompting is a conversation': data.promptingTechniques,
@@ -317,6 +885,8 @@ async function loadAllData() {
                 'Prompting for Images': data.imagePrompting,
                 'Ethical guidelines & privacy': data.ethicalGuidelines
             };
+
+            // Render each section with its tips
             for (const [title, tips] of Object.entries(sections)) {
                 if (tips) {
                     contentHTML += `
@@ -339,8 +909,21 @@ async function loadAllData() {
             modalBody.innerHTML = contentHTML;
         }
 
+        /**
+         * Renders the AI model information modal content.
+         *
+         * Displays a grid of model information cards with descriptions,
+         * key features, and links to official websites. Optionally highlights
+         * and scrolls to a specific model when opened from a model pill click.
+         *
+         * @function renderModelInfoModal
+         * @param {string|null} [highlightModel=null] - Model name to highlight and scroll to
+         * @returns {void}
+         */
         function renderModelInfoModal(highlightModel = null) {
             let contentHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+
+            // Generate card for each model
             for (const [name, data] of Object.entries(modelInfoData)) {
                 const isHighlighted = name === highlightModel;
                 contentHTML += `
@@ -360,12 +943,25 @@ async function loadAllData() {
             }
             contentHTML += '</div>';
             modalBody.innerHTML = contentHTML;
+
+            // Scroll to highlighted model after render
             if (highlightModel) {
                 const cardElement = document.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`);
-                if (cardElement) { setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100); }
+                if (cardElement) {
+                    setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                }
             }
         }
 
+        /**
+         * Renders the changelog/release notes modal content.
+         *
+         * Displays version history with release notes for each version.
+         * Notes may contain HTML formatting.
+         *
+         * @function renderChangelogModal
+         * @returns {void}
+         */
         function renderChangelogModal() {
             modalBody.innerHTML = changelogData.map(log => `
                 <div class="pb-6 mb-6 border-b border-white/10 last:border-b-0 last:mb-0 last:pb-0">
@@ -375,29 +971,78 @@ async function loadAllData() {
             `).join('');
         }
 
+        // -------------------------------------------------------------------------
+        // UI STATE FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Updates the progress bar width and breadcrumb navigation.
+         *
+         * Progress is calculated as a percentage based on navigation history
+         * depth, with 100% shown when viewing recommendations. Also manages
+         * the back button's disabled state and visibility of breadcrumbs.
+         *
+         * @function updateProgressBarAndBreadcrumbs
+         * @returns {void}
+         */
         function updateProgressBarAndBreadcrumbs() {
+            // Calculate progress (estimate 4 steps to completion)
             const estimatedTotalSteps = 4;
             const progress = showRecommendation ? 100 : Math.min(100, (history.length / estimatedTotalSteps) * 100);
+
+            // Update progress bar
             progressBar.style.width = `${progress}%`;
             progressBar.className = 'absolute top-0 left-0 h-full bg-acid transition-all duration-500';
 
+            // Update back button state
             backBtn.disabled = history.length === 0;
             backBtn.classList.toggle('opacity-30', backBtn.disabled);
             backBtn.classList.toggle('cursor-not-allowed', backBtn.disabled);
 
+            // Update breadcrumb trail
             if (history.length > 0) {
                 breadcrumbContainer.classList.remove('hidden');
-                breadcrumbContainer.innerHTML = history.map(item => `<span class="text-gray-500 hover:text-acid transition-colors">${sanitizeHTML(item.selection)}</span>`).join('<span class="text-gray-700 mx-2">/</span>');
+                breadcrumbContainer.innerHTML = history
+                    .map(item => `<span class="text-gray-500 hover:text-acid transition-colors">${sanitizeHTML(item.selection)}</span>`)
+                    .join('<span class="text-gray-700 mx-2">/</span>');
             } else {
                 breadcrumbContainer.classList.add('hidden');
             }
         }
 
+        /**
+         * Updates the current workflow track for theming.
+         *
+         * @function updateTrackColor
+         * @param {string} track - The new track: "research" | "content" | "multimedia" | "automation"
+         * @returns {void}
+         */
         function updateTrackColor(track) {
             if (!track) return;
             currentTrack = track;
         }
 
+        // -------------------------------------------------------------------------
+        // MODAL CONTROL FUNCTIONS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Opens the universal modal with specified content.
+         *
+         * Accepts a title and a render function that will populate the modal body.
+         * Additional arguments are passed through to the render function.
+         * Prevents body scrolling while modal is open.
+         *
+         * @function showModal
+         * @param {string} title - The modal title text
+         * @param {Function} renderFunction - Function to render modal body content
+         * @param {...*} args - Additional arguments to pass to renderFunction
+         * @returns {void}
+         *
+         * @example
+         * showModal('Tool comparison', renderComparisonModal);
+         * showModal('Model information', renderModelInfoModal, 'Claude 4.5 Opus');
+         */
         function showModal(title, renderFunction, ...args) {
             modalTitle.textContent = title;
             renderFunction(...args);
@@ -406,25 +1051,59 @@ async function loadAllData() {
             document.body.style.overflow = 'hidden';
         }
 
+        /**
+         * Closes the universal modal and restores body scrolling.
+         *
+         * @function hideModal
+         * @returns {void}
+         */
         function hideModal() {
             universalModal.classList.add('hidden');
             universalModal.classList.remove('flex');
             document.body.style.overflow = '';
         }
 
+        // -------------------------------------------------------------------------
+        // EVENT HANDLERS
+        // -------------------------------------------------------------------------
+
+        /**
+         * Handles option button clicks in the question view.
+         *
+         * Extracts navigation data from button's data attributes, updates state,
+         * and triggers a re-render. If the option leads to a recommendation,
+         * switches to recommendation view.
+         *
+         * @function handleOptionSelect
+         * @param {Event} e - The click event
+         * @returns {void}
+         */
         function handleOptionSelect(e) {
             const button = e.target.closest('.option-button');
             if (!button) return;
+
+            // Extract data from button attributes
             const { next, text, track } = button.dataset;
             let tools = button.dataset.tools;
 
+            // Update track theming if specified
             if (track) updateTrackColor(track);
 
+            // Parse tools JSON if this is a terminal node
             if (tools && tools !== 'null') {
                 tools = tools.replace(/&quot;/g, '"');
                 selectedTools = JSON.parse(tools);
             }
-            history.push({ step: currentStep, question: decisionTree[currentStep].question, selection: text, track: currentTrack });
+
+            // Add current step to history before navigating
+            history.push({
+                step: currentStep,
+                question: decisionTree[currentStep].question,
+                selection: text,
+                track: currentTrack
+            });
+
+            // Navigate to next step or show recommendation
             if (next === "recommendation") {
                 showRecommendation = true;
             } else {
@@ -433,18 +1112,68 @@ async function loadAllData() {
             renderApp();
         }
 
-        function handleRestart() { currentStep = 'start'; history = []; selectedTools = []; showRecommendation = false; currentTrack = 'research'; renderApp(); }
-        function handleBack() { if (history.length > 0) { const previous = history.pop(); currentStep = previous.step; updateTrackColor(previous.track); showRecommendation = false; selectedTools = []; renderApp(); } }
+        /**
+         * Resets the application to its initial state.
+         *
+         * Clears all navigation history and returns to the start node.
+         *
+         * @function handleRestart
+         * @returns {void}
+         */
+        function handleRestart() {
+            currentStep = 'start';
+            history = [];
+            selectedTools = [];
+            showRecommendation = false;
+            currentTrack = 'research';
+            renderApp();
+        }
 
+        /**
+         * Navigates back to the previous step in history.
+         *
+         * Pops the last entry from history and restores that step's state.
+         * Does nothing if history is empty.
+         *
+         * @function handleBack
+         * @returns {void}
+         */
+        function handleBack() {
+            if (history.length > 0) {
+                const previous = history.pop();
+                currentStep = previous.step;
+                updateTrackColor(previous.track);
+                showRecommendation = false;
+                selectedTools = [];
+                renderApp();
+            }
+        }
+
+        /**
+         * Handles workflow selection from the jump dropdown.
+         *
+         * Reconstructs the navigation path to the selected workflow and
+         * displays its recommendations directly.
+         *
+         * @function handleToolSelect
+         * @param {Event} e - The change event from the select element
+         * @returns {void}
+         */
         function handleToolSelect(e) {
             if (!e.target.value) return;
             const workflowName = e.target.value;
 
+            // Find the path to this workflow
             const path = findPathForWorkflow(workflowName);
             if (path.length > 0) {
                 history = path;
-                const allOptions = Object.values(decisionTree).flatMap(node => node.options || []).filter(option => option.tools);
+
+                // Find the target option to get its tools
+                const allOptions = Object.values(decisionTree)
+                    .flatMap(node => node.options || [])
+                    .filter(option => option.tools);
                 const targetOption = allOptions.find(opt => opt.tools && opt.tools[0].name === workflowName);
+
                 if (targetOption) {
                     selectedTools = targetOption.tools;
                     currentTrack = path[path.length - 1].track;
@@ -454,35 +1183,121 @@ async function loadAllData() {
             }
         }
 
+        /**
+         * Handles Escape key press to close modal.
+         *
+         * @function handleEscKey
+         * @param {KeyboardEvent} e - The keyboard event
+         * @returns {void}
+         */
         function handleEscKey(e) {
             if (e.key === 'Escape') hideModal();
         }
 
+        // -------------------------------------------------------------------------
+        // INITIALIZATION
+        // -------------------------------------------------------------------------
+
+        /**
+         * Initializes the LLM Tool Advisor application.
+         *
+         * This function:
+         * 1. Queries and caches all DOM element references
+         * 2. Renders the initial view
+         * 3. Populates the workflow jump dropdown
+         * 4. Sets up event delegation on the main container
+         * 5. Attaches event listeners to elements outside the container
+         *
+         * ## Event Delegation Pattern
+         *
+         * Most click events are handled via event delegation on the main container
+         * for efficiency. However, elements outside the container (modal, sidebar)
+         * require their own event listeners attached here.
+         *
+         * @function init
+         * @returns {void}
+         * @global
+         * @see window.initLLMAdvisor
+         */
         function init() {
             if (!queryDOMElements()) {
                 console.error('Failed to query DOM elements.');
                 return;
             }
 
+            // Initial render and populate dropdown
             renderApp();
             populateToolSelector();
 
+            // ----------------------------------------------------------------
+            // Main Container Event Delegation
+            // ----------------------------------------------------------------
+            // Single event listener handles all button clicks inside container
             container.addEventListener('click', e => {
                 const button = e.target.closest('button');
                 if (!button) return;
+
                 const id = button.id;
                 const classList = button.classList;
-                if (classList.contains('option-button')) { handleOptionSelect(e); return; }
-                if (id === 'restart-from-rec-btn' || id === 'restart-btn') { handleRestart(); return; }
-                if (id === 'footer-best-practices-btn') { showModal('Best practices guide', renderBestPracticesModal); return; }
-                if (id === 'show-changelog-btn') { showModal('Release notes', renderChangelogModal); return; }
-                if (classList.contains('model-pill-btn')) { const modelName = button.dataset.modelName; showModal('Model information', renderModelInfoModal, modelName); return; }
-                if (id === 'back-btn') { handleBack(); return; }
-                if (id === 'show-comparison-btn') { compareTools = []; showModal('Tool comparison', renderComparisonModal); return; }
-                if (id === 'show-case-studies-btn') { showModal('Journalistic case studies', renderCaseStudiesModal); return; }
-                if (id === 'footer-model-info-btn') { showModal('Model information', renderModelInfoModal); return; }
-                if (classList.contains('modal-close-btn')) { hideModal(); return; }
-                if(classList.contains('compare-tool-btn')) {
+
+                // Option buttons (question view)
+                if (classList.contains('option-button')) {
+                    handleOptionSelect(e);
+                    return;
+                }
+
+                // Restart buttons (both in header and recommendation view)
+                if (id === 'restart-from-rec-btn' || id === 'restart-btn') {
+                    handleRestart();
+                    return;
+                }
+
+                // Footer modal triggers
+                if (id === 'footer-best-practices-btn') {
+                    showModal('Best practices guide', renderBestPracticesModal);
+                    return;
+                }
+                if (id === 'show-changelog-btn') {
+                    showModal('Release notes', renderChangelogModal);
+                    return;
+                }
+
+                // Model pills (open model info modal with highlight)
+                if (classList.contains('model-pill-btn')) {
+                    const modelName = button.dataset.modelName;
+                    showModal('Model information', renderModelInfoModal, modelName);
+                    return;
+                }
+
+                // Navigation buttons
+                if (id === 'back-btn') {
+                    handleBack();
+                    return;
+                }
+
+                // Sidebar modal triggers (may also be in container on mobile)
+                if (id === 'show-comparison-btn') {
+                    compareTools = [];
+                    showModal('Tool comparison', renderComparisonModal);
+                    return;
+                }
+                if (id === 'show-case-studies-btn') {
+                    showModal('Journalistic case studies', renderCaseStudiesModal);
+                    return;
+                }
+                if (id === 'footer-model-info-btn') {
+                    showModal('Model information', renderModelInfoModal);
+                    return;
+                }
+
+                // Modal close button
+                if (classList.contains('modal-close-btn')) {
+                    hideModal();
+                    return;
+                }
+
+                // Tool comparison toggle
+                if (classList.contains('compare-tool-btn')) {
                     const tool = button.dataset.tool;
                     if (compareTools.includes(tool)) {
                         compareTools = compareTools.filter(t => t !== tool);
@@ -493,13 +1308,27 @@ async function loadAllData() {
                 }
             });
 
+            // ----------------------------------------------------------------
+            // Theme Toggle (currently unused, placeholder for future)
+            // ----------------------------------------------------------------
             if (themeToggleBtn) {
                 themeToggleBtn.addEventListener('change', () => {});
             }
+
+            // ----------------------------------------------------------------
+            // Workflow Jump Dropdown
+            // ----------------------------------------------------------------
             toolSelector.addEventListener('change', handleToolSelect);
 
+            // ----------------------------------------------------------------
+            // Global Event Listeners
+            // ----------------------------------------------------------------
+            // Escape key to close modal
             document.addEventListener('keydown', handleEscKey);
+
+            // Modal backdrop click and internal button handling
             universalModal.addEventListener('click', e => {
+                // Click on backdrop closes modal
                 if (e.target === universalModal) hideModal();
 
                 // Handle clicks inside the modal
@@ -511,6 +1340,7 @@ async function loadAllData() {
                     return;
                 }
 
+                // Tool comparison toggles inside modal
                 if (button.classList.contains('compare-tool-btn')) {
                     const tool = button.dataset.tool;
                     if (compareTools.includes(tool)) {
@@ -522,6 +1352,7 @@ async function loadAllData() {
                     return;
                 }
 
+                // Model pills inside modal (for switching between models)
                 if (button.classList.contains('model-pill-btn')) {
                     const modelName = button.dataset.modelName;
                     showModal('Model information', renderModelInfoModal, modelName);
@@ -529,7 +1360,11 @@ async function loadAllData() {
                 }
             });
 
-            // Sidebar buttons (outside main container)
+            // ----------------------------------------------------------------
+            // Sidebar Buttons (Outside Main Container)
+            // ----------------------------------------------------------------
+            // These elements are in the page layout but outside #llm-tool-advisor-container,
+            // so they need their own event listeners (event delegation doesn't reach them)
             const showComparisonBtn = document.getElementById('show-comparison-btn');
             const showCaseStudiesBtn = document.getElementById('show-case-studies-btn');
 
@@ -547,21 +1382,44 @@ async function loadAllData() {
             }
         }
 
-    // Expose init function for external calling after data loads
+    // =========================================================================
+    // EXPOSE INIT FUNCTION
+    // =========================================================================
+
+    /**
+     * Global reference to the initialization function.
+     *
+     * Exposed on window object so it can be called after data loads.
+     * This is the only externally accessible function from the IIFE.
+     *
+     * @global
+     * @function window.initLLMAdvisor
+     */
     window.initLLMAdvisor = init;
 
 })();
 
-// Start the application by loading data first
+/* ============================================================================
+ * APPLICATION STARTUP
+ * ============================================================================ */
+
+/**
+ * Application entry point.
+ *
+ * Loads all JSON data files, then initializes the application once
+ * the DOM is ready. Displays an error message if data loading fails.
+ */
 loadAllData().then(success => {
     if (success) {
-        // Wait for DOM to be ready
+        // Wait for DOM to be ready if still loading
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', window.initLLMAdvisor);
         } else {
+            // DOM already ready, initialize immediately
             window.initLLMAdvisor();
         }
     } else {
+        // Data loading failed - show error message
         console.error('Failed to load application data');
         document.addEventListener('DOMContentLoaded', () => {
             const mainContent = document.querySelector('#main-content');

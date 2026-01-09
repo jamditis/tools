@@ -1,30 +1,96 @@
+/**
+ * @fileoverview Yap Theme - Alternative Dark Theme
+ *
+ * An alternative dark theme called "Professional Yap" that provides a more
+ * subdued, professional aesthetic compared to the vibrant Amditis theme.
+ * Uses a Zinc-based color palette with Emerald and Sky accents.
+ *
+ * ## Design Philosophy
+ *
+ * The Yap theme emphasizes:
+ * - Professional, understated dark UI
+ * - Zinc gray color scale for backgrounds
+ * - Emerald green as primary accent
+ * - Sky blue as secondary accent
+ * - Subtle grain texture overlay
+ *
+ * ## Color System
+ *
+ * Background layers (darkest to lightest):
+ * - `--bg-void` (Zinc 950): #09090b - Page background
+ * - `--bg-panel` (Zinc 925): #121214 - Card backgrounds
+ * - `--bg-elevated` (Zinc 900): #18181b - Elevated surfaces
+ *
+ * Border colors:
+ * - `--border-dim` (Zinc 800): #27272a - Subtle borders
+ * - `--border-bright` (Zinc 700): #3f3f46 - Prominent borders
+ *
+ * Accent colors:
+ * - `--accent-primary` (Emerald 500): #10b981 - Primary CTA, highlights
+ * - `--accent-secondary` (Sky 500): #0ea5e9 - Secondary highlights
+ *
+ * Text colors:
+ * - `--text-primary` (Zinc 100): #f4f4f5 - Main text
+ * - `--text-muted` (Zinc 400): #a1a1aa - Secondary text
+ * - `--text-dim` (Zinc 600): #52525b - Disabled/tertiary text
+ *
+ * ## Typography
+ *
+ * - Display: Space Grotesk - Modern geometric sans-serif
+ * - Body: Inter - Highly readable UI font
+ * - Mono: IBM Plex Mono - Clean monospace for code
+ *
+ * @module YapTheme
+ * @see {@link amditis-config.js} For the primary Amditis theme
+ */
+
+/* ==========================================================================
+   1. CSS CUSTOM PROPERTIES
+   ========================================================================== */
+
+/**
+ * Root-level CSS custom properties for the Yap theme.
+ * These variables are used throughout the theme for consistent styling.
+ */
 :root {
-  /* "Professional Yap" Palette */
-  --bg-void: #09090b; /* Zinc 950 */
-  --bg-panel: #121214; /* Zinc 925ish */
-  --bg-elevated: #18181b; /* Zinc 900 */
-  
-  --border-dim: #27272a; /* Zinc 800 */
-  --border-bright: #3f3f46; /* Zinc 700 */
+  /* Background colors - Zinc scale */
+  --bg-void: #09090b;      /* Zinc 950 - Deepest background */
+  --bg-panel: #121214;     /* Zinc 925ish - Card/panel backgrounds */
+  --bg-elevated: #18181b;  /* Zinc 900 - Elevated surfaces, inputs */
 
-  /* Accents */
-  --accent-primary: #10b981; /* Emerald 500 */
-  --accent-primary-dim: #059669; /* Emerald 600 */
-  --accent-primary-glow: rgba(16, 185, 129, 0.4);
+  /* Border colors */
+  --border-dim: #27272a;   /* Zinc 800 - Subtle borders */
+  --border-bright: #3f3f46; /* Zinc 700 - Prominent borders */
 
-  --accent-secondary: #0ea5e9; /* Sky 500 */
-  --accent-secondary-dim: #0284c7;
-  
-  --text-primary: #f4f4f5; /* Zinc 100 */
-  --text-muted: #a1a1aa; /* Zinc 400 */
-  --text-dim: #52525b; /* Zinc 600 */
+  /* Primary accent - Emerald */
+  --accent-primary: #10b981;      /* Emerald 500 */
+  --accent-primary-dim: #059669;  /* Emerald 600 - Darker variant */
+  --accent-primary-glow: rgba(16, 185, 129, 0.4); /* For glow effects */
 
+  /* Secondary accent - Sky */
+  --accent-secondary: #0ea5e9;    /* Sky 500 */
+  --accent-secondary-dim: #0284c7; /* Sky 600 */
+
+  /* Text colors - Zinc scale */
+  --text-primary: #f4f4f5; /* Zinc 100 - Main text */
+  --text-muted: #a1a1aa;   /* Zinc 400 - Secondary text */
+  --text-dim: #52525b;     /* Zinc 600 - Tertiary/disabled text */
+
+  /* Typography */
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
 
-/* Base resets and fonts */
+/* ==========================================================================
+   2. BASE STYLES
+   ========================================================================== */
+
+/**
+ * Base body styling.
+ * Sets the void background and primary text color.
+ * Uses antialiased font rendering for cleaner text on dark backgrounds.
+ */
 body {
   background-color: var(--bg-void);
   color: var(--text-primary);
@@ -32,17 +98,40 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/**
+ * Heading typography.
+ * All headings use the display font with slight negative letter-spacing.
+ */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
+/**
+ * Monospace elements.
+ * Code blocks, inline code, and .font-mono utility use IBM Plex Mono.
+ */
 code, pre, .font-mono {
   font-family: var(--font-mono);
 }
 
-/* Subtle Grain Overlay */
+/* ==========================================================================
+   3. GRAIN OVERLAY EFFECT
+   ========================================================================== */
+
+/**
+ * Subtle film grain texture overlay.
+ *
+ * Uses an inline SVG data URL with feTurbulence filter to create
+ * a subtle noise texture. Applied to the entire viewport with
+ * mix-blend-mode: overlay for a film-like quality.
+ *
+ * Properties:
+ * - Very subtle (2.5% opacity)
+ * - Non-interactive (pointer-events: none)
+ * - High z-index to appear above all content
+ */
 body::before {
   content: '';
   position: fixed;
@@ -57,20 +146,48 @@ body::before {
   mix-blend-mode: overlay;
 }
 
-/* Utility Classes */
+/* ==========================================================================
+   4. UTILITY CLASSES
+   ========================================================================== */
+
+/**
+ * Background color utilities.
+ * Map to CSS custom properties for consistent theming.
+ */
 .bg-void { background-color: var(--bg-void); }
 .bg-panel { background-color: var(--bg-panel); }
 .bg-elevated { background-color: var(--bg-elevated); }
 
+/**
+ * Border color utilities.
+ */
 .border-dim { border-color: var(--border-dim); }
 .border-bright { border-color: var(--border-bright); }
 
+/**
+ * Text color utilities.
+ */
 .text-primary { color: var(--text-primary); }
 .text-muted { color: var(--text-muted); }
 .text-dim { color: var(--text-dim); }
 .text-accent { color: var(--accent-primary); }
 
-/* Component: Cards */
+/* ==========================================================================
+   5. COMPONENT: CARDS
+   ========================================================================== */
+
+/**
+ * .yap-card
+ *
+ * A styled card component with subtle hover effects.
+ * Features panel background, dim border, and hover elevation.
+ *
+ * @example
+ * <div class="yap-card p-6">
+ *   <h3>Card Title</h3>
+ *   <p>Card content...</p>
+ * </div>
+ */
 .yap-card {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-dim);
@@ -83,7 +200,20 @@ body::before {
   box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.5);
 }
 
-/* Component: Inputs/Selects */
+/* ==========================================================================
+   6. COMPONENT: INPUTS
+   ========================================================================== */
+
+/**
+ * .yap-input
+ *
+ * A styled input/select component.
+ * Features elevated background, focus ring effect.
+ *
+ * @example
+ * <input type="text" class="yap-input" placeholder="Enter text...">
+ * <select class="yap-input">...</select>
+ */
 .yap-input {
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-dim);
@@ -99,21 +229,28 @@ body::before {
   box-shadow: 0 0 0 1px var(--accent-primary-dim);
 }
 
-/* Scrollbar */
+/* ==========================================================================
+   7. SCROLLBAR STYLING
+   ========================================================================== */
+
+/**
+ * Custom scrollbar for WebKit browsers.
+ * Thin (8px), rounded, with hover highlight.
+ */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-void); 
+  background: var(--bg-void);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-bright); 
+  background: var(--border-bright);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim); 
+  background: var(--text-dim);
 }
