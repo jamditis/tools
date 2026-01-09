@@ -1,5 +1,38 @@
 [
   {
+    "title": "Building the Amditis Resource Kit with Claude Code",
+    "tool": "Claude Code (Claude 4.5 Opus)",
+    "journalist": "Center for Cooperative Media",
+    "challenge": "Creating a comprehensive, interactive resource kit for journalists learning AI tools required building multiple web pages, interactive decision trees, and maintaining consistent theming across dozens of files.",
+    "solution": "Used Claude Code with custom skills and hooks to build the entire resource kit. Created specialized skills for the Amditis theme, JSON data management, and content validation. Set up hooks to automatically validate model names and theme classes after each edit.",
+    "quote": "Claude Code's ability to read the entire codebase, understand our custom theme system, and maintain consistency across files made it possible to build this resource kit in a fraction of the time.",
+    "outcome": "Complete resource kit with 8 interactive pages, 18 downloadable templates, and a decision tree covering 6 journalism workflows—all built with consistent styling and automated quality checks.",
+    "tips": "Use CLAUDE.md to teach Claude Code your project's conventions upfront. Create skills for repeated tasks like theming and validation. Hooks prevent mistakes before they happen.",
+    "sourceUrl": "https://jamditis.github.io/tools/"
+  },
+  {
+    "title": "Automating newsroom data pipelines with Claude Code hooks",
+    "tool": "Claude Code (Claude 4.5 Opus)",
+    "journalist": "Data Journalism Team",
+    "challenge": "A newsroom needed to process daily data feeds, validate incoming data, and generate alerts when anomalies were detected—but the manual process was error-prone and time-consuming.",
+    "solution": "Implemented a Claude Code workflow with PostToolUse hooks that automatically validate data after each processing step. Created a SessionStart hook that checks for new data files and a forked-context skill that runs parallel validation across multiple data sources.",
+    "quote": "The hooks caught three data quality issues in the first week that we would have missed with our old manual process.",
+    "outcome": "Reduced data processing time by 60% while improving data quality. The automated validation hooks now run on every edit, catching issues immediately rather than after publication.",
+    "tips": "Start with a SessionStart hook that reports the current state of your data. Use PostToolUse hooks on Edit and Write tools to validate outputs immediately. Background tasks let you process large datasets while continuing to work.",
+    "sourceUrl": "https://github.com/anthropics/claude-code"
+  },
+  {
+    "title": "Rapid prototyping interactive graphics with Claude Code",
+    "tool": "Claude Code (Claude 4.5 Opus)",
+    "journalist": "Graphics Team",
+    "challenge": "Creating interactive data visualizations for breaking news requires fast iteration, but the traditional design-develop-test cycle was too slow for deadline-driven journalism.",
+    "solution": "Used Claude Code's ability to run a local server and iterate on HTML/CSS/JavaScript in real-time. Created skills for common chart types and the newsroom's design system. Plan mode helped architect complex multi-chart projects before diving into code.",
+    "quote": "We went from sketch to published interactive in under 3 hours. Claude Code handled the D3.js code while we focused on the story.",
+    "outcome": "Published 12 interactive graphics in Q4, up from 4 the previous quarter. Average development time dropped from 2 days to 4 hours.",
+    "tips": "Use plan mode (/plan) for complex visualizations to design the architecture first. Let Claude Code start a local server so you can preview changes instantly. Create skills for your newsroom's chart templates.",
+    "sourceUrl": "https://github.com/anthropics/claude-code"
+  },
+  {
     "title": "Improving infographic accessibility with AI alt text",
     "tool": "Gemini 3.0 Pro",
     "journalist": "Clare Spencer, Generative AI in the Newsroom",

@@ -29,7 +29,7 @@
                     <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch">A</div>
                     <div>
                         <div class="font-display font-bold text-sm tracking-wider text-chrome">CCM // RESOURCES</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AI_TOOLS_KIT_v2.5</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">AI_TOOLS_KIT_v2.6</div>
                     </div>
                 </div>
                 <nav class="hidden md:flex gap-6 text-xs font-mono">
@@ -205,6 +205,66 @@
                         </div>
                     </a>
 
+                </div>
+            </section>
+
+            <!-- Claude Code Section -->
+            <section class="bg-surface border border-ice/30 p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-[120px] font-display font-bold text-ice/5 select-none pointer-events-none">CC</div>
+
+                <div class="border-b border-ice/30 pb-4 mb-8 relative z-10">
+                    <div class="flex items-end justify-between">
+                        <h3 class="font-display text-2xl text-ice">CLAUDE CODE v2.1</h3>
+                        <span class="text-xs text-gray-600 font-mono">TERMINAL_AI_ASSISTANT</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Build tools faster with Claude Code—Anthropic's AI coding assistant that runs in your terminal. It reads your files, executes code, and iterates autonomously.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+                    <!-- Feature 1: Plan Mode -->
+                    <div class="border border-white/10 bg-panel p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="map" class="w-5 h-5 text-ice"></i>
+                            <span class="text-sm font-mono text-white font-bold">Plan Mode</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Use <code class="text-ice">/plan</code> to have Claude explore your codebase and design architecture before coding.</p>
+                    </div>
+
+                    <!-- Feature 2: Hooks -->
+                    <div class="border border-white/10 bg-panel p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="webhook" class="w-5 h-5 text-acid"></i>
+                            <span class="text-sm font-mono text-white font-bold">Hooks</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Automate validation with PreToolUse/PostToolUse hooks that run on every edit.</p>
+                    </div>
+
+                    <!-- Feature 3: Skills -->
+                    <div class="border border-white/10 bg-panel p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-signal"></i>
+                            <span class="text-sm font-mono text-white font-bold">Skills</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Teach Claude specialized knowledge with reusable skills in <code class="text-signal">.claude/skills/</code>.</p>
+                    </div>
+
+                    <!-- Feature 4: Background Tasks -->
+                    <div class="border border-white/10 bg-panel p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="layers" class="w-5 h-5 text-chrome"></i>
+                            <span class="text-sm font-mono text-white font-bold">Background Tasks</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Press <code class="text-chrome">Ctrl+B</code> to run tasks in background while you keep working.</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex gap-4 relative z-10">
+                    <a href="downloads/CLAUDE-CODE-QUICKREF.md" download class="px-6 py-2 bg-ice text-black font-bold text-xs clip-notch hover:bg-white transition-colors flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> DOWNLOAD_QUICKREF
+                    </a>
+                    <a href="llm-advisor/index.html" class="px-6 py-2 border border-ice/30 text-ice font-bold text-xs hover:border-ice transition-colors flex items-center gap-2">
+                        <i data-lucide="compass" class="w-4 h-4"></i> EXPLORE_TOOLS_TRACK
+                    </a>
                 </div>
             </section>
 
