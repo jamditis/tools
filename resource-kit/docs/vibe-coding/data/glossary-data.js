@@ -53,6 +53,66 @@ const VIBE_GLOSSARY = {
     short: "The text-based way to control your computer",
     full: "The application where you type commands instead of clicking buttons. On Mac it's Terminal, on Windows it's Command Prompt or PowerShell. Developers use it constantly: running servers, installing packages, using Git. It looks intimidating but you'll mostly use the same few commands repeatedly."
   },
+  "cli": {
+    term: "CLI",
+    category: "Development Environment",
+    short: "Command Line Interface",
+    full: "A program you run by typing commands in the terminal instead of clicking buttons. npm is a CLI. Git is a CLI. Claude Code is a CLI. Most developer tools are CLIs because they're faster to use once you know the commands, and they can be scripted and automated."
+  },
+  "ide": {
+    term: "IDE / code editor",
+    category: "Development Environment",
+    short: "The app where you write code",
+    full: "IDE stands for Integrated Development Environment. It's software for writing code with features like syntax highlighting, autocomplete, and error detection. VS Code is the most popular free option. JetBrains makes paid IDEs. The difference between an IDE and a simple text editor is the extra features that help you code faster."
+  },
+  "port": {
+    term: "port",
+    category: "Development Environment",
+    short: "A numbered channel for network connections",
+    full: "When your computer runs a server, it listens on a specific port number. localhost:3000 means port 3000. localhost:8080 means port 8080. Different apps use different ports so they don't conflict. If you see 'port already in use,' another program is using that port—either stop it or use a different port."
+  },
+  "nodejs": {
+    term: "Node.js",
+    category: "Development Environment",
+    short: "JavaScript that runs outside the browser",
+    full: "JavaScript was originally browser-only. Node.js lets you run JavaScript on servers and your local machine. This is why you can build backends in JavaScript, run build tools, and use npm. When you install Node.js, you get both the 'node' command and npm."
+  },
+  "legacy-peer-deps": {
+    term: "--legacy-peer-deps",
+    category: "Development Environment",
+    short: "Flag that ignores dependency version conflicts",
+    full: "When npm install fails with peer dependency errors, this flag tells npm to install anyway using older, more lenient rules. Use it when packages fight over versions: npm install --legacy-peer-deps. It's a workaround, not a fix—the underlying version conflict still exists, but your code will usually work."
+  },
+  "hot-reload": {
+    term: "hot reload / HMR",
+    category: "Development Environment",
+    short: "Auto-updating your app when you save",
+    full: "Hot Module Replacement. When you edit code and save, your running app updates instantly without a full page refresh. It keeps your current state (form inputs, scroll position) while showing your changes. This is why 'npm run dev' is different from opening an HTML file directly—dev servers provide hot reload."
+  },
+  "linter": {
+    term: "linter / ESLint",
+    category: "Development Environment",
+    short: "Tool that catches code problems automatically",
+    full: "A linter scans your code for errors, bad practices, and style inconsistencies without running it. ESLint is the standard for JavaScript. It catches things like unused variables, missing semicolons, or potentially buggy patterns. Red/yellow squiggles in your editor are often from a linter."
+  },
+  "typescript": {
+    term: "TypeScript",
+    category: "Development Environment",
+    short: "JavaScript with type checking",
+    full: "A language that adds type annotations to JavaScript: instead of just 'let x = 5', you write 'let x: number = 5'. The TypeScript compiler catches type errors before your code runs. Files end in .ts instead of .js. It compiles to regular JavaScript. Most modern projects use it."
+  },
+  "json": {
+    term: "JSON",
+    category: "Development Environment",
+    short: "A standard format for structured data",
+    full: "JavaScript Object Notation. A text format for data that looks like: {\"name\": \"Alex\", \"age\": 30}. APIs send data as JSON. Config files (package.json, tsconfig.json) use JSON. It's human-readable and every programming language can parse it. Keys must be in double quotes."
+  },
+  "console-log": {
+    term: "console.log()",
+    category: "Development Environment",
+    short: "Prints output for debugging",
+    full: "The most basic debugging tool. console.log('hello') prints 'hello' to the browser console or terminal. Use it to see what values your variables have at different points: console.log('user is:', user). Check browser DevTools (F12) or your terminal to see the output."
+  },
 
   // ===== Git & Version Control =====
   "git": {
@@ -96,6 +156,48 @@ const VIBE_GLOSSARY = {
     category: "Git & Version Control",
     short: "Copying a repository to your computer",
     full: "When you 'git clone' a repository, you download the entire project including all its history to your computer. It's how you get a copy of someone else's project to work on. You'll have the same files they do, plus the full Git history."
+  },
+  "staging": {
+    term: "staging / git add",
+    category: "Git & Version Control",
+    short: "Selecting which changes to include in a commit",
+    full: "Before committing, you 'stage' files with git add. Staging lets you choose which changes go into the next commit. git add . stages everything. git add filename.js stages one file. Think of it as putting items in a shopping cart before checkout—staged changes are ready to commit."
+  },
+  "pull-request": {
+    term: "pull request / PR",
+    category: "Git & Version Control",
+    short: "Asking to merge your changes into another branch",
+    full: "A PR is a request to merge your branch into another (usually main). On GitHub, you create a PR, others review your code, leave comments, and approve or request changes. When approved, you merge the PR. It's how teams review code before it goes live."
+  },
+  "merge": {
+    term: "merge",
+    category: "Git & Version Control",
+    short: "Combining two branches into one",
+    full: "Merging takes changes from one branch and adds them to another. When you merge a feature branch into main, all the commits from the feature branch become part of main. Git usually handles this automatically, but sometimes you get merge conflicts."
+  },
+  "conflict": {
+    term: "merge conflict",
+    category: "Git & Version Control",
+    short: "When Git can't automatically combine changes",
+    full: "A conflict happens when two branches change the same lines of code differently. Git doesn't know which version to keep, so it marks the conflict in the file with <<<<<<< and >>>>>>> markers. You manually choose which code to keep, remove the markers, then commit."
+  },
+  "origin": {
+    term: "origin",
+    category: "Git & Version Control",
+    short: "The default name for your remote repository",
+    full: "When you clone a repo or push for the first time, Git names the remote 'origin' by default. 'git push origin main' means push to the main branch on the origin remote. It's just a name—you could rename it, but almost nobody does."
+  },
+  "readme": {
+    term: "README.md",
+    category: "Git & Version Control",
+    short: "The front page documentation for a project",
+    full: "A markdown file that explains what a project does, how to install it, and how to use it. GitHub displays it automatically on the repo's homepage. Every project should have one. The .md extension means it's written in Markdown format."
+  },
+  "fork": {
+    term: "fork",
+    category: "Git & Version Control",
+    short: "Your own copy of someone else's repository",
+    full: "Forking creates a copy of a repository under your GitHub account. You can make changes to your fork without affecting the original. It's how you contribute to open source: fork the repo, make changes, then submit a pull request to the original."
   },
 
   // ===== UI/Frontend =====
@@ -191,6 +293,54 @@ const VIBE_GLOSSARY = {
     short: "The four basic database operations",
     full: "Create, Read, Update, Delete—the four fundamental things you do with data. Most apps are basically CRUD apps: create new records, read/display them, update when things change, delete when needed. When you hear 'build a CRUD API,' it means endpoints for these four operations."
   },
+  "rest": {
+    term: "REST / RESTful API",
+    category: "Backend/Data",
+    short: "A standard pattern for web APIs",
+    full: "REST is a set of conventions for building APIs. Use HTTP methods meaningfully: GET to read, POST to create, PUT/PATCH to update, DELETE to remove. Use nouns for URLs (/users, /posts). Return appropriate status codes. Most web APIs follow REST conventions."
+  },
+  "http-methods": {
+    term: "HTTP methods (GET, POST, PUT, DELETE)",
+    category: "Backend/Data",
+    short: "Different types of web requests",
+    full: "GET retrieves data without changing anything. POST sends data to create something new. PUT/PATCH updates existing data. DELETE removes data. When you visit a URL, that's a GET request. When you submit a form, that's usually POST. APIs use all four."
+  },
+  "cors": {
+    term: "CORS",
+    category: "Backend/Data",
+    short: "Security rule about cross-site requests",
+    full: "Cross-Origin Resource Sharing. Browsers block requests from one website to another by default for security. If your frontend at localhost:3000 calls an API at localhost:8000, you'll get a CORS error unless the API explicitly allows it. The fix is on the server side, not the client."
+  },
+  "server": {
+    term: "server",
+    category: "Backend/Data",
+    short: "A computer that responds to requests",
+    full: "A server is software (or the computer running it) that listens for requests and sends responses. Web servers serve web pages. API servers serve data. Database servers handle data storage. When you run 'npm run dev', you're starting a local development server on your machine."
+  },
+  "client": {
+    term: "client",
+    category: "Backend/Data",
+    short: "The thing making requests (usually the browser)",
+    full: "In web development, the client is typically the user's browser. It makes requests to servers and displays responses. 'Client-side' code runs in the browser (JavaScript). 'Server-side' code runs on the server. The client-server model is how the web works."
+  },
+  "frontend-backend": {
+    term: "frontend vs backend",
+    category: "Backend/Data",
+    short: "What users see vs what runs on servers",
+    full: "Frontend is everything the user interacts with: HTML, CSS, JavaScript in the browser, the visual interface. Backend is everything on the server: databases, business logic, APIs, authentication. Some developers specialize in one; fullstack developers do both."
+  },
+  "orm": {
+    term: "ORM",
+    category: "Backend/Data",
+    short: "Tool that lets you use objects instead of SQL",
+    full: "Object-Relational Mapping. Instead of writing SQL queries, you work with objects in your code: User.findAll() instead of SELECT * FROM users. Prisma, Sequelize, and SQLAlchemy are popular ORMs. They make database work easier but you should still understand basic SQL."
+  },
+  "status-codes": {
+    term: "status codes (200, 404, 500)",
+    category: "Backend/Data",
+    short: "Numbers that indicate request results",
+    full: "Every HTTP response has a status code. 200 means success. 201 means created. 400 means bad request (your fault). 401 means unauthorized. 404 means not found. 500 means server error (their fault). Check the status code first when debugging API calls."
+  },
 
   // ===== Authentication =====
   "auth": {
@@ -260,6 +410,104 @@ const VIBE_GLOSSARY = {
     category: "General",
     short: "The path your code took to crash",
     full: "When an error occurs, the stack trace shows you the sequence of function calls that led to it—like breadcrumbs. It lists files and line numbers, starting from where the error happened and going back through what called what. Read from top to bottom to find where things went wrong."
+  },
+  "hardcoding": {
+    term: "hardcoding",
+    category: "General",
+    short: "Putting fixed values directly in code",
+    full: "Writing specific values directly in your code instead of using variables or configuration. Hardcoding 'http://localhost:3000' instead of using an environment variable is bad because it breaks in production. Hardcoding your API key is dangerous because it can be exposed. Use environment variables instead."
+  },
+  "refactor": {
+    term: "refactor",
+    category: "General",
+    short: "Improving code without changing what it does",
+    full: "Refactoring is reorganizing or cleaning up code while keeping the same functionality. You might rename variables to be clearer, break a long function into smaller ones, or remove duplicate code. Good code is refactored regularly. AI is great at suggesting refactors."
+  },
+  "boilerplate": {
+    term: "boilerplate / starter",
+    category: "General",
+    short: "Template code to start a project",
+    full: "Pre-written code that handles common setup so you don't start from scratch. A Next.js starter might include auth, database setup, and styling already configured. 'npx create-next-app' generates boilerplate. Boilerplate code is the repetitive stuff every project needs."
+  },
+  "framework-vs-library": {
+    term: "framework vs library",
+    category: "General",
+    short: "Tools that call you vs tools you call",
+    full: "A library is code you call when you need it (like Lodash for utilities). A framework calls your code—it's in control and you fill in the pieces (like Next.js or Django). You use libraries. Frameworks use you. Both help you avoid reinventing the wheel."
+  },
+  "syntax": {
+    term: "syntax",
+    category: "General",
+    short: "The grammar rules of a programming language",
+    full: "Every language has rules about how code must be written. JavaScript uses curly braces { } for blocks. Python uses indentation. Missing a semicolon or misspelling a keyword causes a syntax error. The computer can't run code that doesn't follow syntax rules."
+  },
+  "runtime": {
+    term: "runtime",
+    category: "General",
+    short: "When your code actually executes",
+    full: "Runtime is when your code is running, as opposed to when it's being written or compiled. 'Runtime error' means something went wrong while the program was executing. Node.js is a JavaScript runtime—the environment that executes JavaScript code."
+  },
+  "async": {
+    term: "async / await",
+    category: "General",
+    short: "Handling operations that take time",
+    full: "Some operations take time: fetching data, reading files, waiting for user input. Async code lets your program do other things while waiting. 'await' pauses until an operation completes. Without async handling, your app would freeze during every slow operation."
+  },
+  "callback": {
+    term: "callback",
+    category: "General",
+    short: "A function passed to another function",
+    full: "A callback is a function you give to another function to call later. In 'button.onClick(handleClick)', handleClick is a callback—it gets called when the button is clicked. Callbacks are how JavaScript handles events and asynchronous operations."
+  },
+
+  // ===== Programming Basics =====
+  "variable": {
+    term: "variable",
+    category: "Programming Basics",
+    short: "A named container for data",
+    full: "A variable stores a value you can use later. 'let name = \"Alex\"' creates a variable called name containing the text Alex. You can change it later: 'name = \"Sam\"'. Use 'const' for values that shouldn't change, 'let' for values that will change."
+  },
+  "function": {
+    term: "function",
+    category: "Programming Basics",
+    short: "A reusable block of code",
+    full: "A function is code you write once and call whenever you need it. Functions can take inputs (parameters) and return outputs. 'function add(a, b) { return a + b }' defines a function. 'add(2, 3)' calls it and returns 5. Functions are the building blocks of programs."
+  },
+  "string": {
+    term: "string",
+    category: "Programming Basics",
+    short: "Text data",
+    full: "A string is a sequence of characters—text data. 'Hello world' is a string. \"123\" is also a string, not a number. You create strings with quotes (single or double) or backticks. Backticks allow string interpolation: `Hello ${name}` inserts the variable name into the string."
+  },
+  "array": {
+    term: "array",
+    category: "Programming Basics",
+    short: "An ordered list of items",
+    full: "An array holds multiple values in order. ['apple', 'banana', 'cherry'] is an array of three strings. Access items by position (starting at 0): array[0] is 'apple'. Arrays have methods like .map(), .filter(), and .forEach() to work with their contents."
+  },
+  "object": {
+    term: "object",
+    category: "Programming Basics",
+    short: "A collection of key-value pairs",
+    full: "An object stores related data as named properties. {name: 'Alex', age: 30} is an object with two properties. Access them with dot notation (user.name) or brackets (user['name']). Objects can contain other objects, arrays, functions—anything."
+  },
+  "import-export": {
+    term: "import / export",
+    category: "Programming Basics",
+    short: "Sharing code between files",
+    full: "Export makes code available to other files: 'export function helper() {}'. Import brings it in: 'import { helper } from './utils''. This is how you organize code into modules. 'export default' exports one main thing. Named exports let you export multiple things."
+  },
+  "boolean": {
+    term: "boolean",
+    category: "Programming Basics",
+    short: "True or false value",
+    full: "A boolean is either true or false—nothing else. Used for conditions: 'if (isLoggedIn)'. Comparisons return booleans: '5 > 3' is true. Many functions return booleans: 'array.includes(\"item\")' returns true if the item exists. Named after mathematician George Boole."
+  },
+  "null-undefined": {
+    term: "null / undefined",
+    category: "Programming Basics",
+    short: "Values representing 'nothing'",
+    full: "Both mean 'no value' but differ in intent. undefined means a variable exists but hasn't been assigned anything. null means intentionally set to 'nothing'. Check for both when handling missing data: if (value == null) catches both. This is a common source of bugs."
   }
 };
 
@@ -270,5 +518,6 @@ const GLOSSARY_CATEGORIES = [
   "UI/Frontend",
   "Backend/Data",
   "Authentication",
+  "Programming Basics",
   "General"
 ];
