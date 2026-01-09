@@ -1,10 +1,10 @@
 # AI resources + toolkit
 
-A collection of AI tools, templates, and guides for journalists and developers. Created by *Joe Amditis* and hosted on GitHub Pages at **https://jamditis.github.io/tools/**
+A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted on GitHub Pages at **https://jamditis.github.io/tools/**
 
 ## Resource Kit Website
 
-Interactive tools and guides built with the Amditis dark theme.
+Interactive tools and guides built with love and frustration by Joe Amditis.
 
 ### Tools & Guides
 
@@ -18,9 +18,9 @@ Interactive tools and guides built with the Amditis dark theme.
 | [Glossary](https://jamditis.github.io/tools/glossary.html) | AI and development terminology |
 | [Language Guide](https://jamditis.github.io/tools/language-guide.html) | How to write effective prompts |
 
-### Vibe Coding Guide Sections
+### Vibe coding guide sections
 
-The Vibe Coding Guide is a comprehensive multi-page resource:
+The vibe coding guide is a comprehensive multi-page resource:
 
 - **Essentials** - Core concepts for AI-assisted development
 - **Level Up** - Advanced techniques and patterns
@@ -28,7 +28,7 @@ The Vibe Coding Guide is a comprehensive multi-page resource:
 - **Cheat Sheet** - Quick reference for common tasks
 - **Glossary** - Key terms and definitions
 
-### Downloadable Templates
+### Downloadable templates
 
 Available in `resource-kit/docs/downloads/`:
 
@@ -41,11 +41,11 @@ Available in `resource-kit/docs/downloads/`:
 
 ---
 
-## LESSONS.md Templates
+## LESSONS.md templates
 
 Templates for documenting project learnings, designed to carry forward wisdom without context bleed.
 
-### Software Development
+### Software development
 
 | Template | Use For |
 |----------|---------|
