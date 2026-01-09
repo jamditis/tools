@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL_SETUP // AI CLI TOOLS GUIDE</title>
+    <meta name="description" content="Complete guide to setting up your terminal for Claude Code, Gemini CLI, and Codex. Includes status line configuration for all platforms.">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Accordion animations */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 5000px;
+            transition: max-height 0.6s ease-in;
+        }
+
+        .accordion-trigger[aria-expanded="true"] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Code block styling */
+        .code-block {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .code-block:hover {
+            border-color: rgba(200, 255, 0, 0.3);
+        }
+
+        /* Tab styles */
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: rgba(204, 255, 0, 0.1);
+            border-color: #ccff00;
+            color: #ccff00;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* OS selector cards */
+        .os-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .os-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .os-card.selected {
+            border-color: #ccff00;
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.15);
+        }
+
+        /* Tool badge colors */
+        .badge-claude { background: rgba(255, 107, 53, 0.1); border-color: rgba(255, 107, 53, 0.3); color: #ff6b35; }
+        .badge-gemini { background: rgba(66, 133, 244, 0.1); border-color: rgba(66, 133, 244, 0.3); color: #4285f4; }
+        .badge-codex { background: rgba(16, 163, 127, 0.1); border-color: rgba(16, 163, 127, 0.3); color: #10a37f; }
+
+        /* Definition tooltip */
+        .def-trigger {
+            border-bottom: 1px dashed currentColor;
+            cursor: help;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            transform: scale(0.95) translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Sidebar navigation */
+        .sidebar-nav {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #ccff00;
+            border-left-color: #ccff00;
+        }
+
+        /* Topic number styling */
+        .topic-number {
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Pulse animation for status line demo */
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .status-demo {
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="../index.html" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">A</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome">TERMINAL_SETUP</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">AI_CLI_TOOLS_v1.0</div>
+                    </div>
+                </div>
+                <nav class="flex gap-4 text-xs font-mono">
+                    <a href="../vibe-coding/index.html" class="hidden md:flex items-center gap-2 text-gray-400 hover:text-acid transition-colors">
+                        <i data-lucide="book-open" class="w-3 h-3"></i> VIBE_GUIDE
+                    </a>
+                    <a href="../index.html" class="flex items-center gap-2 px-3 py-1 border border-white/20 text-gray-400 hover:border-acid hover:text-acid transition-colors">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i> <span class="hidden sm:inline">RETURN_HOME</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="py-12 md:py-20 px-6 text-center border-b border-white/10 relative overflow-hidden">
+            <!-- Gradient glow -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-acid/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10">
+                <!-- Status badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-acid/30 text-acid text-xs font-mono tracking-widest bg-acidDim">
+                    <i data-lucide="terminal" class="w-4 h-4"></i>
+                    SYSTEM: TERMINAL_INIT
+                </div>
+
+                <!-- Title -->
+                <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight glitch-text" data-text="TERMINAL SETUP GUIDE">
+                    TERMINAL SETUP GUIDE
+                </h1>
+
+                <!-- Tagline -->
+                <p class="text-gray-400 text-base md:text-lg font-mono max-w-2xl mx-auto mb-6 leading-relaxed">
+                    Configure your terminal for <span class="text-ice">Claude Code</span>, <span class="text-acid">Gemini CLI</span>, and <span class="text-white">Codex</span>.
+                    <br class="hidden sm:inline">Includes status line configuration and platform-specific setup.
+                </p>
+
+                <!-- Terminal-style preview -->
+                <div class="max-w-2xl mx-auto bg-panel border border-white/10 text-left text-sm overflow-hidden">
+                    <div class="flex items-center gap-2 px-4 py-2 bg-surface border-b border-white/10">
+                        <span class="w-3 h-3 rounded-full bg-signal"></span>
+                        <span class="w-3 h-3 rounded-full bg-acid"></span>
+                        <span class="w-3 h-3 rounded-full bg-ice"></span>
+                        <span class="text-xs text-gray-600 ml-2">status_line_demo.sh</span>
+                    </div>
+                    <div class="p-4 status-demo">
+                        <code class="text-gray-400">
+                            <span class="text-ice">user/my-project</span> <span class="text-gray-600">|</span> <span class="text-acid">main</span> <span class="text-gray-600">|</span> S: <span class="text-yellow-400">0</span> <span class="text-gray-600">|</span> U: <span class="text-yellow-400">2</span> <span class="text-gray-600">|</span> A: <span class="text-yellow-400">1</span> <span class="text-gray-600">|</span> <span class="text-yellow-400 font-bold">23.4%</span>
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content with Sidebar -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12">
+            <div class="flex flex-col lg:flex-row gap-8">
+
+                <!-- Sidebar Navigation -->
+                <aside class="lg:w-64 shrink-0 hidden lg:block">
+                    <nav class="sidebar-nav space-y-1 text-sm">
+                        <div class="text-xs text-gray-600 font-mono mb-3 tracking-widest">// SECTIONS</div>
+                        <a href="#prerequisites" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Prerequisites
+                        </a>
+                        <a href="#mac-setup" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Mac Setup
+                        </a>
+                        <a href="#windows-setup" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Windows Setup
+                        </a>
+                        <a href="#claude-code" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Claude Code
+                        </a>
+                        <a href="#gemini-cli" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Gemini CLI
+                        </a>
+                        <a href="#codex-cli" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Codex CLI
+                        </a>
+                        <a href="#status-line" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Status Line Config
+                        </a>
+                        <a href="#troubleshooting" class="sidebar-link block py-2 px-3 border-l-2 border-white/10 text-gray-400 hover:text-acid">
+                            Troubleshooting
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="flex-1 max-w-3xl">
+
+                    <!-- Prerequisites Section -->
+                    <section id="prerequisites" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white">// PREREQUISITES</h2>
+                                <span class="text-xs text-gray-600 font-mono hidden sm:inline">BEFORE_YOU_START</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Node.js requirement -->
+                            <div class="border border-white/10 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-acid/10 text-acid flex items-center justify-center shrink-0">
+                                        <i data-lucide="box" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">Node.js 20 LTS</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            All three AI CLI tools require <span class="def-trigger text-acid" data-def="nodejs">Node.js</span> version 18 or higher.
+                                            We recommend installing <strong class="text-white">Node.js 20 LTS</strong> for maximum compatibility.
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 text-xs border badge-claude">Claude Code: 18+</span>
+                                            <span class="px-2 py-1 text-xs border badge-gemini">Gemini CLI: 20+</span>
+                                            <span class="px-2 py-1 text-xs border badge-codex">Codex: 18+</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Git requirement -->
+                            <div class="border border-white/10 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-ice/10 text-ice flex items-center justify-center shrink-0">
+                                        <i data-lucide="git-branch" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">Git</h3>
+                                        <p class="text-gray-400 text-sm">
+                                            <span class="def-trigger text-ice" data-def="git">Git</span> is required for version control features.
+                                            All three tools integrate with Git for tracking changes, creating commits, and managing branches.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- API Keys -->
+                            <div class="border border-white/10 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                                        <i data-lucide="key" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">API Keys</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            Each tool requires an API key from its respective provider. You'll set these up during installation.
+                                        </p>
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                                            <a href="https://console.anthropic.com" target="_blank" class="block p-3 bg-surface border border-white/10 hover:border-acid/50 transition-colors">
+                                                <div class="text-white font-bold mb-1">Anthropic</div>
+                                                <div class="text-gray-500">console.anthropic.com</div>
+                                            </a>
+                                            <a href="https://aistudio.google.com" target="_blank" class="block p-3 bg-surface border border-white/10 hover:border-acid/50 transition-colors">
+                                                <div class="text-white font-bold mb-1">Google AI</div>
+                                                <div class="text-gray-500">aistudio.google.com</div>
+                                            </a>
+                                            <a href="https://platform.openai.com" target="_blank" class="block p-3 bg-surface border border-white/10 hover:border-acid/50 transition-colors">
+                                                <div class="text-white font-bold mb-1">OpenAI</div>
+                                                <div class="text-gray-500">platform.openai.com</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mac Setup Section -->
+                    <section id="mac-setup" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white flex items-center gap-3">
+                                    <i data-lucide="apple" class="w-6 h-6 text-gray-400"></i>
+                                    // MAC_SETUP
+                                </h2>
+                                <span class="text-xs text-gray-600 font-mono hidden sm:inline">macOS</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4" id="accordionMac">
+
+                            <!-- Terminal Options -->
+                            <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="mac-terminal">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">01</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">Choose Your Terminal</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Terminal.app vs alternatives</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                                </button>
+                                <div id="mac-terminal" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <p class="text-gray-300 text-sm">
+                                                macOS comes with <strong class="text-white">Terminal.app</strong>, but there are better alternatives for AI coding:
+                                            </p>
+
+                                            <div class="grid gap-4">
+                                                <div class="bg-surface border border-acid/20 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-acid text-sm font-bold">Warp (Recommended for Beginners)</div>
+                                                        <span class="text-xs bg-acid/10 text-acid px-2 py-0.5 rounded">FREE</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs mb-2">Modern terminal with built-in AI assistance. Great for learning commands.</p>
+                                                    <a href="https://www.warp.dev" target="_blank" class="text-xs text-acid hover:underline">warp.dev</a>
+                                                </div>
+
+                                                <div class="bg-surface border border-white/10 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-white text-sm font-bold">iTerm2 (Power Users)</div>
+                                                        <span class="text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded">FREE</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs mb-2">Highly customizable, split panes, search, and extensive features.</p>
+                                                    <a href="https://iterm2.com" target="_blank" class="text-xs text-ice hover:underline">iterm2.com</a>
+                                                </div>
+
+                                                <div class="bg-surface border border-white/10 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-white text-sm font-bold">Terminal.app (Built-in)</div>
+                                                        <span class="text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded">DEFAULT</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs">Works fine for basic use. No installation needed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Install Homebrew -->
+                            <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="mac-homebrew">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">02</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">Install Homebrew</h3>
+                                            <p class="text-xs text-gray-500 mt-1">The package manager for macOS</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                                </button>
+                                <div id="mac-homebrew" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <p class="text-gray-300 text-sm">
+                                                <span class="def-trigger text-acid" data-def="homebrew">Homebrew</span> is the easiest way to install developer tools on Mac.
+                                                Open Terminal and run:
+                                            </p>
+
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">Install Homebrew</span>
+                                                    <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                        <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                    </button>
+                                                </div>
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+                                            </div>
+
+                                            <div class="bg-signal/10 border border-signal/30 p-4 rounded">
+                                                <div class="flex items-start gap-3">
+                                                    <i data-lucide="alert-triangle" class="w-5 h-5 text-signal shrink-0 mt-0.5"></i>
+                                                    <div>
+                                                        <div class="text-signal text-sm font-bold mb-1">Apple Silicon Macs (M1/M2/M3/M4)</div>
+                                                        <p class="text-gray-400 text-xs mb-2">After installation, you MUST add Homebrew to your PATH:</p>
+                                                        <div class="code-block rounded overflow-hidden mt-2">
+                                                            <pre class="p-3 text-xs overflow-x-auto"><code class="text-gray-300">echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-gray-400 text-sm">
+                                                Verify installation: <code class="text-acid">brew --version</code>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Install Node.js with nvm -->
+                            <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="mac-node">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">03</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">Install Node.js with nvm</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Recommended approach for managing Node versions</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                                </button>
+                                <div id="mac-node" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <p class="text-gray-300 text-sm">
+                                                <span class="def-trigger text-ice" data-def="nvm">nvm</span> (Node Version Manager) lets you install and switch between Node.js versions easily.
+                                            </p>
+
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="download" class="w-4 h-4"></i> Step 1: Install nvm
+                                                </h4>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">Terminal</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="file-text" class="w-4 h-4"></i> Step 2: Add to your shell profile
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">Add these lines to your <code class="text-acid">~/.zshrc</code> file:</p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="play" class="w-4 h-4"></i> Step 3: Restart terminal and install Node
+                                                </h4>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Restart your terminal, then:</span>
+nvm install 20      <span class="text-gray-500"># Install Node.js 20 LTS</span>
+nvm use 20          <span class="text-gray-500"># Use Node.js 20</span>
+node --version      <span class="text-gray-500"># Verify installation</span></code></pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Install Git -->
+                            <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="mac-git">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">04</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">Install Git</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Version control system</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                                </button>
+                                <div id="mac-git" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-4">
+                                            <p class="text-gray-300 text-sm">
+                                                macOS may already have Git installed. Check first:
+                                            </p>
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">git --version</code></pre>
+                                            </div>
+                                            <p class="text-gray-400 text-sm">
+                                                If not installed, use Homebrew:
+                                            </p>
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">brew install git</code></pre>
+                                            </div>
+                                            <div class="bg-ice/10 border border-ice/30 p-4 rounded">
+                                                <p class="text-gray-300 text-sm">
+                                                    <i data-lucide="lightbulb" class="w-4 h-4 inline text-ice"></i>
+                                                    <strong class="text-white">First time?</strong> Configure your identity:
+                                                </p>
+                                                <div class="code-block rounded overflow-hidden mt-2">
+                                                    <pre class="p-3 text-xs overflow-x-auto"><code class="text-gray-300">git config --global user.name "Your Name"
+git config --global user.email "your@email.com"</code></pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Windows Setup Section -->
+                    <section id="windows-setup" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white flex items-center gap-3">
+                                    <i data-lucide="monitor" class="w-6 h-6 text-ice"></i>
+                                    // WINDOWS_SETUP
+                                </h2>
+                                <span class="text-xs text-gray-600 font-mono hidden sm:inline">Windows 10/11</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4" id="accordionWindows">
+
+                            <!-- Terminal Options -->
+                            <div class="border border-white/10 bg-panel hover:border-ice/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="win-terminal">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-ice/10 text-ice flex items-center justify-center text-sm font-bold">01</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-ice transition-colors">Choose Your Terminal</h3>
+                                            <p class="text-xs text-gray-500 mt-1">PowerShell vs WSL2 vs Command Prompt</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-ice"></i>
+                                </button>
+                                <div id="win-terminal" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <div class="grid gap-4">
+                                                <div class="bg-surface border border-acid/20 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-acid text-sm font-bold">WSL2 + Windows Terminal (Recommended)</div>
+                                                        <span class="text-xs bg-acid/10 text-acid px-2 py-0.5 rounded">BEST</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs">
+                                                        <span class="def-trigger text-ice" data-def="wsl">WSL2</span> gives you a full Linux environment inside Windows.
+                                                        Most programming tutorials assume Unix-like systems, so this makes following them much easier.
+                                                    </p>
+                                                </div>
+
+                                                <div class="bg-surface border border-white/10 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-white text-sm font-bold">PowerShell</div>
+                                                        <span class="text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded">NATIVE</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs">Modern Windows shell. Works for all three CLI tools but some commands differ from tutorials.</p>
+                                                </div>
+
+                                                <div class="bg-surface border border-white/10 p-4 rounded">
+                                                    <div class="flex items-center justify-between mb-2">
+                                                        <div class="text-white text-sm font-bold">Command Prompt (cmd)</div>
+                                                        <span class="text-xs bg-signal/10 text-signal px-2 py-0.5 rounded">LEGACY</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-xs">Old Windows shell. Not recommended for development work.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="bg-ice/10 border border-ice/30 p-4 rounded">
+                                                <p class="text-gray-300 text-sm">
+                                                    <i data-lucide="download" class="w-4 h-4 inline text-ice"></i>
+                                                    <strong class="text-white">Get Windows Terminal:</strong> Free from the Microsoft Store.
+                                                    It lets you use PowerShell, CMD, and WSL2 in one app with tabs.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Install WSL2 -->
+                            <div class="border border-white/10 bg-panel hover:border-ice/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="win-wsl">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-ice/10 text-ice flex items-center justify-center text-sm font-bold">02</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-ice transition-colors">Install WSL2 (Recommended)</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Linux environment for Windows</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-ice"></i>
+                                </button>
+                                <div id="win-wsl" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="terminal" class="w-4 h-4"></i> Step 1: Open PowerShell as Administrator
+                                                </h4>
+                                                <p class="text-gray-400 text-sm">
+                                                    Right-click the Start menu and select "Windows Terminal (Admin)" or "PowerShell (Admin)"
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="download" class="w-4 h-4"></i> Step 2: Install WSL
+                                                </h4>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">PowerShell (Admin)</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">wsl --install</code></pre>
+                                                </div>
+                                                <p class="text-gray-500 text-xs mt-2">This installs Ubuntu by default. You'll be prompted to restart.</p>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="user" class="w-4 h-4"></i> Step 3: Set up your Linux user
+                                                </h4>
+                                                <p class="text-gray-400 text-sm">
+                                                    After restart, Ubuntu will open and ask you to create a username and password.
+                                                    This is separate from your Windows login.
+                                                </p>
+                                            </div>
+
+                                            <div class="bg-acid/10 border border-acid/30 p-4 rounded">
+                                                <p class="text-gray-300 text-sm">
+                                                    <i data-lucide="check" class="w-4 h-4 inline text-acid"></i>
+                                                    <strong class="text-white">After WSL2 is set up:</strong> Use Windows Terminal to open an "Ubuntu" tab.
+                                                    All following Node.js and Git commands will work just like on Mac/Linux.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PowerShell-only setup -->
+                            <div class="border border-white/10 bg-panel hover:border-ice/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="win-powershell">
+                                    <div class="flex items-center gap-4">
+                                        <span class="topic-number w-8 h-8 bg-ice/10 text-ice flex items-center justify-center text-sm font-bold">03</span>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-ice transition-colors">PowerShell-Only Setup</h3>
+                                            <p class="text-xs text-gray-500 mt-1">If you prefer native Windows</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-ice"></i>
+                                </button>
+                                <div id="win-powershell" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="shield" class="w-4 h-4"></i> Enable Script Execution
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">
+                                                    Windows blocks scripts by default. Open PowerShell as Administrator and run:
+                                                </p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">Set-ExecutionPolicy RemoteSigned</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="download" class="w-4 h-4"></i> Install Node.js with nvm-windows
+                                                </h4>
+                                                <ol class="space-y-3 text-sm text-gray-300">
+                                                    <li class="flex items-start gap-2">
+                                                        <span class="text-ice font-bold">1.</span>
+                                                        <span>Uninstall any existing Node.js installations first</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <span class="text-ice font-bold">2.</span>
+                                                        <span>Download <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" class="text-ice hover:underline">nvm-windows from GitHub</a></span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <span class="text-ice font-bold">3.</span>
+                                                        <span>Run the installer</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <span class="text-ice font-bold">4.</span>
+                                                        <span>Open PowerShell <strong class="text-white">as Administrator</strong> and run:</span>
+                                                    </li>
+                                                </ol>
+                                                <div class="code-block rounded-lg overflow-hidden mt-3">
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">nvm install lts
+nvm use lts
+node --version</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <i data-lucide="git-branch" class="w-4 h-4"></i> Install Git for Windows
+                                                </h4>
+                                                <p class="text-gray-400 text-sm">
+                                                    Download and install from <a href="https://git-scm.com/download/win" target="_blank" class="text-ice hover:underline">git-scm.com</a>.
+                                                    This also includes Git Bash as an alternative shell.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Claude Code Section -->
+                    <section id="claude-code" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm">C</div>
+                                    // CLAUDE_CODE
+                                </h2>
+                                <span class="text-xs font-mono badge-claude px-2 py-1 border rounded">Anthropic</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="border border-white/10 bg-panel p-6">
+                                <p class="text-gray-300 text-sm mb-6">
+                                    <strong class="text-white">Claude Code</strong> is Anthropic's CLI tool powered by Claude 4.5 Opus.
+                                    It can read your codebase, make changes, run commands, and help you ship code faster.
+                                </p>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="download" class="w-4 h-4"></i> Installation
+                                        </h4>
+
+                                        <!-- Tabs for Mac/Windows -->
+                                        <div class="flex gap-2 mb-4">
+                                            <button class="tab-btn active px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="claude-mac">
+                                                Mac / Linux
+                                            </button>
+                                            <button class="tab-btn px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="claude-win">
+                                                Windows
+                                            </button>
+                                        </div>
+
+                                        <div id="claude-mac" class="tab-content active">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">Terminal</span>
+                                                    <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                        <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                    </button>
+                                                </div>
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Install Claude Code</span>
+curl -fsSL https://claude.ai/install.sh | bash
+
+<span class="text-gray-500"># Or with npm (if you prefer)</span>
+npm install -g @anthropic-ai/claude-code</code></pre>
+                                            </div>
+                                        </div>
+
+                                        <div id="claude-win" class="tab-content">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">PowerShell or WSL2</span>
+                                                    <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                        <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                    </button>
+                                                </div>
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Install with npm</span>
+npm install -g @anthropic-ai/claude-code
+
+<span class="text-gray-500"># In WSL2, you can also use:</span>
+curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="key" class="w-4 h-4"></i> Authentication
+                                        </h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            Claude Code uses browser-based authentication. Just run:
+                                        </p>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">claude</code></pre>
+                                        </div>
+                                        <p class="text-gray-500 text-xs mt-2">
+                                            It will open your browser to sign in with your Anthropic account.
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="play" class="w-4 h-4"></i> Basic Usage
+                                        </h4>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Start Claude Code in your project</span>
+cd your-project
+claude
+
+<span class="text-gray-500"># Or start with a specific task</span>
+claude "fix the bug in auth.js"</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Gemini CLI Section -->
+                    <section id="gemini-cli" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">G</div>
+                                    // GEMINI_CLI
+                                </h2>
+                                <span class="text-xs font-mono badge-gemini px-2 py-1 border rounded">Google</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="border border-white/10 bg-panel p-6">
+                                <p class="text-gray-300 text-sm mb-6">
+                                    <strong class="text-white">Gemini CLI</strong> is Google's command-line tool powered by Gemini 3.0 Pro.
+                                    Excellent for front-end design, working with large documents, and multimodal tasks.
+                                </p>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="download" class="w-4 h-4"></i> Installation
+                                        </h4>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                <span class="text-xs text-gray-500">Terminal / PowerShell</span>
+                                                <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                </button>
+                                            </div>
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">npm install -g @google/gemini-cli</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="key" class="w-4 h-4"></i> Authentication
+                                        </h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            Get your API key from <a href="https://aistudio.google.com/apikey" target="_blank" class="text-ice hover:underline">Google AI Studio</a>, then:
+                                        </p>
+
+                                        <div class="flex gap-2 mb-4">
+                                            <button class="tab-btn active px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="gemini-mac">
+                                                Mac / Linux
+                                            </button>
+                                            <button class="tab-btn px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="gemini-win">
+                                                Windows
+                                            </button>
+                                        </div>
+
+                                        <div id="gemini-mac" class="tab-content active">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Add to your ~/.zshrc or ~/.bashrc</span>
+export GEMINI_API_KEY="your-api-key-here"
+
+<span class="text-gray-500"># Then reload your shell</span>
+source ~/.zshrc</code></pre>
+                                            </div>
+                                        </div>
+
+                                        <div id="gemini-win" class="tab-content">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># In PowerShell (permanent)</span>
+setx GEMINI_API_KEY "your-api-key-here"
+
+<span class="text-gray-500"># Restart your terminal for changes to take effect</span></code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="play" class="w-4 h-4"></i> Basic Usage
+                                        </h4>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Start Gemini CLI</span>
+gemini
+
+<span class="text-gray-500"># Chat mode</span>
+gemini chat
+
+<span class="text-gray-500"># One-off query</span>
+gemini "explain this code" < myfile.js</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Codex CLI Section -->
+                    <section id="codex-cli" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm">O</div>
+                                    // CODEX_CLI
+                                </h2>
+                                <span class="text-xs font-mono badge-codex px-2 py-1 border rounded">OpenAI</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="border border-white/10 bg-panel p-6">
+                                <p class="text-gray-300 text-sm mb-6">
+                                    <strong class="text-white">Codex</strong> is OpenAI's CLI tool powered by GPT 5.1.
+                                    A capable coding assistant with strong reasoning abilities.
+                                </p>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="download" class="w-4 h-4"></i> Installation
+                                        </h4>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                <span class="text-xs text-gray-500">Terminal / PowerShell</span>
+                                                <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                    <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                </button>
+                                            </div>
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">npm install -g @openai/codex</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="key" class="w-4 h-4"></i> Authentication
+                                        </h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank" class="text-ice hover:underline">OpenAI Platform</a>, then:
+                                        </p>
+
+                                        <div class="flex gap-2 mb-4">
+                                            <button class="tab-btn active px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="codex-mac">
+                                                Mac / Linux
+                                            </button>
+                                            <button class="tab-btn px-4 py-2 text-xs border border-white/20 text-gray-400" data-tab="codex-win">
+                                                Windows
+                                            </button>
+                                        </div>
+
+                                        <div id="codex-mac" class="tab-content active">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Add to your ~/.zshrc or ~/.bashrc</span>
+export OPENAI_API_KEY="your-api-key-here"
+
+<span class="text-gray-500"># Then reload your shell</span>
+source ~/.zshrc</code></pre>
+                                            </div>
+                                        </div>
+
+                                        <div id="codex-win" class="tab-content">
+                                            <div class="code-block rounded-lg overflow-hidden">
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># In PowerShell (permanent)</span>
+setx OPENAI_API_KEY "your-api-key-here"
+
+<span class="text-gray-500"># Restart your terminal for changes to take effect</span></code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="play" class="w-4 h-4"></i> Basic Usage
+                                        </h4>
+                                        <div class="code-block rounded-lg overflow-hidden">
+                                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Start Codex in your project</span>
+cd your-project
+codex
+
+<span class="text-gray-500"># With a specific task</span>
+codex "refactor this function to be more efficient"</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Status Line Configuration Section -->
+                    <section id="status-line" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white">// STATUS_LINE_CONFIG</h2>
+                                <span class="text-xs text-gray-600 font-mono hidden sm:inline">ADVANCED</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Introduction -->
+                            <div class="border border-acid/30 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-acid/10 text-acid flex items-center justify-center shrink-0 rounded">
+                                        <i data-lucide="gauge" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">What is a Status Line?</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            A status line shows real-time information about your coding session right in the terminal.
+                                            For AI CLI tools, the most valuable info is the <strong class="text-acid">context window percentage</strong> -
+                                            how much of the AI's memory you've used.
+                                        </p>
+                                        <div class="bg-void border border-white/10 p-3 rounded font-mono text-sm">
+                                            <span class="text-ice">user/my-project</span> <span class="text-gray-600">|</span>
+                                            <span class="text-acid">main</span> <span class="text-gray-600">|</span>
+                                            S: <span class="text-yellow-400">0</span> <span class="text-gray-600">|</span>
+                                            U: <span class="text-yellow-400">2</span> <span class="text-gray-600">|</span>
+                                            A: <span class="text-yellow-400">1</span> <span class="text-gray-600">|</span>
+                                            <span class="text-yellow-400 font-bold">17.3%</span>
+                                        </div>
+                                        <p class="text-gray-500 text-xs mt-2">
+                                            Repo path | Branch | Staged | Unstaged | Added | Context %
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Why it matters -->
+                            <div class="bg-signal/5 border border-signal/20 p-4 rounded">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="alert-circle" class="w-5 h-5 text-signal shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <div class="text-signal text-sm font-bold mb-1">Why Context Percentage Matters</div>
+                                        <p class="text-gray-400 text-xs">
+                                            The more context you use, the worse the AI performs. Keeping an eye on this helps you know when to
+                                            start a fresh session. Most users aim to stay under 60% for best results.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Claude Code Status Line Setup -->
+                            <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                                <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="status-claude">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm">C</div>
+                                        <div>
+                                            <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">Claude Code Status Line</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Using ccstatusline package</p>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                                </button>
+                                <div id="status-claude" class="accordion-content">
+                                    <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                                        <div class="space-y-6">
+                                            <p class="text-gray-300 text-sm">
+                                                Claude Code supports custom status lines through its settings. Here's how to set up the perfect status line
+                                                with git info and context percentage.
+                                            </p>
+
+                                            <!-- Step 1 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">1</span>
+                                                    Install ccstatusline
+                                                </h4>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">Terminal</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">npm install -g ccstatusline</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 2 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">2</span>
+                                                    Configure ccstatusline
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">Create <code class="text-acid">~/.config/ccstatusline/settings.json</code>:</p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">~/.config/ccstatusline/settings.json</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "context-percentage",
+        "color": "yellow",
+        "bold": true,
+        "rawValue": true
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2
+}</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 3 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">3</span>
+                                                    Create the Git Status Script
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">Create <code class="text-acid">~/.claude/statusline-command.sh</code>:</p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">~/.claude/statusline-command.sh</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">#!/bin/bash
+
+# Read JSON input
+input=$(cat)
+
+# Extract current directory from JSON
+cwd=$(echo "$input" | sed -n 's/.*"current_dir":"\([^"]*\)".*/\1/p')
+
+# Git information
+if git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
+  # Get repo name relative to ~/repos/ (change this path!)
+  repo_name=$(echo "$cwd" | sed "s|^$HOME/repos/||")
+
+  # Get branch
+  branch=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+  # Count staged files
+  staged=$(git -C "$cwd" --no-optional-locks diff --cached --name-only 2>/dev/null | wc -l)
+
+  # Count unstaged files
+  unstaged=$(git -C "$cwd" --no-optional-locks diff --name-only 2>/dev/null | wc -l)
+
+  # Count untracked files
+  untracked=$(git -C "$cwd" --no-optional-locks ls-files --others --exclude-standard 2>/dev/null | wc -l)
+
+  printf '\033[01;36m%s\033[00m | \033[01;32m%s\033[00m | S: \033[01;33m%s\033[00m | U: \033[01;33m%s\033[00m | A: \033[01;33m%s\033[00m' \
+    "$repo_name" "$branch" "$staged" "$unstaged" "$untracked"
+else
+  printf '\033[01;36m%s\033[00m' "$cwd"
+fi</code></pre>
+                                                </div>
+                                                <p class="text-gray-500 text-xs mt-2">
+                                                    <i data-lucide="info" class="w-3 h-3 inline"></i>
+                                                    Change <code class="text-acid">~/repos/</code> on line 11 to match your projects directory.
+                                                </p>
+                                            </div>
+
+                                            <!-- Step 4 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">4</span>
+                                                    Create the Wrapper Script
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">Create <code class="text-acid">~/.claude/statusline-wrapper.sh</code>:</p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">~/.claude/statusline-wrapper.sh</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">#!/bin/bash
+
+# Read JSON input once
+input=$(cat)
+
+# Get git info from existing script
+git_info=$(echo "$input" | bash ~/.claude/statusline-command.sh)
+
+# Get context percentage from ccstatusline
+context_pct=$(echo "$input" | npx ccstatusline)
+
+# Combine outputs
+printf '%s | %s' "$git_info" "$context_pct"</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 5 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">5</span>
+                                                    Make Scripts Executable
+                                                </h4>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">chmod +x ~/.claude/statusline-command.sh
+chmod +x ~/.claude/statusline-wrapper.sh</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 6 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">6</span>
+                                                    Update Claude Settings
+                                                </h4>
+                                                <p class="text-gray-400 text-sm mb-3">Add this to <code class="text-acid">~/.claude/settings.json</code>:</p>
+                                                <div class="code-block rounded-lg overflow-hidden">
+                                                    <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                                        <span class="text-xs text-gray-500">~/.claude/settings.json</span>
+                                                        <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                            <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                                        </button>
+                                                    </div>
+                                                    <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300">{
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-wrapper.sh"
+  }
+}</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 7 -->
+                                            <div>
+                                                <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                                    <span class="w-5 h-5 bg-acid/20 text-acid flex items-center justify-center rounded text-xs">7</span>
+                                                    Restart Claude Code
+                                                </h4>
+                                                <p class="text-gray-400 text-sm">
+                                                    Close and reopen Claude Code to see your new status line in action!
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gemini CLI Status (simplified) -->
+                            <div class="border border-white/10 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">G</div>
+                                    <div>
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">Gemini CLI Status</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            Gemini CLI shows context usage in its interface. Custom status line configuration is not currently
+                                            supported in the same way as Claude Code, but you can use shell prompt customization (PS1) to
+                                            show git information.
+                                        </p>
+                                        <div class="bg-ice/10 border border-ice/30 p-3 rounded">
+                                            <p class="text-gray-300 text-xs">
+                                                <i data-lucide="info" class="w-4 h-4 inline text-ice"></i>
+                                                Look for the context indicator in the Gemini CLI interface during your session.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Codex CLI Status (simplified) -->
+                            <div class="border border-white/10 bg-panel p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm shrink-0">O</div>
+                                    <div>
+                                        <h3 class="font-display text-lg text-white font-bold mb-2">Codex CLI Status</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            Codex displays token usage information in its interface. For shell-level git status,
+                                            consider customizing your PS1 prompt or using a tool like <span class="text-acid">oh-my-zsh</span> with a git theme.
+                                        </p>
+                                        <div class="bg-emerald-500/10 border border-emerald-500/30 p-3 rounded">
+                                            <p class="text-gray-300 text-xs">
+                                                <i data-lucide="info" class="w-4 h-4 inline text-emerald-400"></i>
+                                                Token usage is displayed during conversations in Codex.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Troubleshooting Section -->
+                    <section id="troubleshooting" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-white/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl text-white">// TROUBLESHOOTING</h2>
+                                <span class="text-xs text-gray-600 font-mono hidden sm:inline">COMMON_ISSUES</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Command not found -->
+                            <div class="border border-signal/30 bg-panel p-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-signal/10 text-signal flex items-center justify-center shrink-0 rounded">
+                                        <i data-lucide="x-circle" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold mb-2">"command not found" error</h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            This usually means the tool isn't in your PATH. Try:
+                                        </p>
+                                        <ul class="text-gray-300 text-sm space-y-1">
+                                            <li><span class="text-acid">1.</span> Restart your terminal</li>
+                                            <li><span class="text-acid">2.</span> Check if npm's global bin is in PATH: <code class="text-acid">npm bin -g</code></li>
+                                            <li><span class="text-acid">3.</span> Re-run the installation command</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Permission denied -->
+                            <div class="border border-signal/30 bg-panel p-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-signal/10 text-signal flex items-center justify-center shrink-0 rounded">
+                                        <i data-lucide="lock" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold mb-2">"permission denied" error</h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            Don't use <code class="text-signal">sudo npm install -g</code>! Instead:
+                                        </p>
+                                        <ul class="text-gray-300 text-sm space-y-1">
+                                            <li><span class="text-acid">1.</span> Use nvm (which doesn't require sudo)</li>
+                                            <li><span class="text-acid">2.</span> Fix npm permissions: <a href="https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally" target="_blank" class="text-ice hover:underline">npm docs</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- API key issues -->
+                            <div class="border border-signal/30 bg-panel p-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-signal/10 text-signal flex items-center justify-center shrink-0 rounded">
+                                        <i data-lucide="key" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold mb-2">"invalid API key" or authentication errors</h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            Check that your API key is correctly set:
+                                        </p>
+                                        <div class="code-block rounded overflow-hidden">
+                                            <pre class="p-3 text-xs overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Mac/Linux - check if variable is set</span>
+echo $OPENAI_API_KEY
+echo $GEMINI_API_KEY
+
+<span class="text-gray-500"># Windows PowerShell</span>
+echo $env:OPENAI_API_KEY</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Node version issues -->
+                            <div class="border border-signal/30 bg-panel p-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-signal/10 text-signal flex items-center justify-center shrink-0 rounded">
+                                        <i data-lucide="box" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold mb-2">Node version errors</h4>
+                                        <p class="text-gray-400 text-sm mb-3">
+                                            If you see errors about Node.js version, upgrade:
+                                        </p>
+                                        <div class="code-block rounded overflow-hidden">
+                                            <pre class="p-3 text-xs overflow-x-auto"><code class="text-gray-300">nvm install 20
+nvm use 20
+node --version  <span class="text-gray-500"># Should show v20.x.x</span></code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Bottom CTA -->
+                    <div class="text-center">
+                        <div class="border border-white/10 bg-panel p-8 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-acid"></div>
+                            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-acid"></div>
+                            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-acid"></div>
+                            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-acid"></div>
+
+                            <h3 class="font-display text-xl text-white font-bold mb-3">TERMINAL_READY</h3>
+                            <p class="text-gray-400 text-sm mb-6">Your development environment is configured. Time to start building!</p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="../vibe-coding/essentials.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-acid text-black font-bold text-sm hover:bg-white transition-colors clip-notch">
+                                    <i data-lucide="book-open" class="w-4 h-4"></i> LEARN THE BASICS
+                                </a>
+                                <a href="../llm-advisor/index.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 text-chrome text-sm hover:border-acid hover:text-acid transition-colors">
+                                    <i data-lucide="bot" class="w-4 h-4"></i> CHOOSE YOUR TOOL
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-void py-8">
+            <div class="max-w-6xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
+                <p>SYSTEM STATUS: ONLINE // <a href="../index.html" class="hover:text-acid transition-colors">RETURN_ROOT</a> // <a href="../vibe-coding/index.html" class="hover:text-acid transition-colors">VIBE_GUIDE</a></p>
+                <p class="mt-2">AMDITIS_KIT v2.6 // Part of the CCM Resource Collection</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Definition Modal -->
+    <div id="defModal" class="modal-overlay fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-panel border border-white/10 max-w-md w-full">
+            <div class="flex items-center justify-between p-4 border-b border-white/10">
+                <h4 id="defTitle" class="font-display text-lg text-acid font-bold">Definition</h4>
+                <button onclick="closeDefModal()" class="text-gray-500 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="defContent" class="p-4 text-gray-300 text-sm">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Definition data
+        const definitions = {
+            nodejs: {
+                title: "Node.js",
+                content: "<strong class='text-white'>Node.js</strong> is a JavaScript runtime that lets you run JavaScript code outside of a web browser. It's required for most modern web development tools and CLI applications."
+            },
+            git: {
+                title: "Git",
+                content: "<strong class='text-white'>Git</strong> is a version control system that tracks changes to your code. It lets you save checkpoints, work on different features in branches, and collaborate with others."
+            },
+            nvm: {
+                title: "nvm (Node Version Manager)",
+                content: "<strong class='text-white'>nvm</strong> is a tool that lets you install and switch between multiple versions of Node.js. This is useful because different projects may require different Node versions."
+            },
+            homebrew: {
+                title: "Homebrew",
+                content: "<strong class='text-white'>Homebrew</strong> is a package manager for macOS. It makes it easy to install developer tools and applications from the command line with simple commands like <code class='text-acid'>brew install git</code>."
+            },
+            wsl: {
+                title: "WSL2 (Windows Subsystem for Linux)",
+                content: "<strong class='text-white'>WSL2</strong> lets you run a full Linux environment directly on Windows without dual-booting. This is useful because many development tools and tutorials are designed for Linux/Mac."
+            }
+        };
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const content = document.getElementById(targetId);
+                const isOpen = this.getAttribute('aria-expanded') === 'true';
+
+                this.setAttribute('aria-expanded', !isOpen);
+                content.classList.toggle('open');
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                const parent = this.closest('.space-y-6') || this.closest('div');
+
+                // Find sibling tabs and contents
+                const tabGroup = this.parentElement;
+                const tabBtns = tabGroup.querySelectorAll('.tab-btn');
+
+                // Get all tab contents that follow the tab group
+                let sibling = tabGroup.nextElementSibling;
+                const tabContents = [];
+                while (sibling && sibling.classList.contains('tab-content')) {
+                    tabContents.push(sibling);
+                    sibling = sibling.nextElementSibling;
+                }
+
+                // Deactivate all tabs
+                tabBtns.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Activate clicked tab
+                this.classList.add('active');
+                const targetContent = document.getElementById(tabId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').innerText;
+
+            navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> COPIED';
+                button.classList.add('text-acid');
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('text-acid');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // Definition modal functionality
+        document.querySelectorAll('.def-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                const defKey = this.getAttribute('data-def');
+                const def = definitions[defKey];
+
+                if (def) {
+                    document.getElementById('defTitle').textContent = def.title;
+                    document.getElementById('defContent').innerHTML = def.content;
+                    document.getElementById('defModal').classList.add('active');
+                }
+            });
+        });
+
+        function closeDefModal() {
+            document.getElementById('defModal').classList.remove('active');
+        }
+
+        // Close modal on background click
+        document.getElementById('defModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDefModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDefModal();
+            }
+        });
+
+        // Sidebar scroll highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        function updateActiveLink() {
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink();
+
+        // Smooth scroll for sidebar links
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
