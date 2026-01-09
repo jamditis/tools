@@ -81,7 +81,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code with Plan Mode",
+            "name": "Claude Code with plan mode",
             "description": "For complex projects, use Claude Code's /plan command to design the architecture before writing code. Claude will explore your codebase, create a plan, and wait for your approval.",
             "tools": ["Claude Code (Claude 4.5 Opus)"],
             "prompt": "I'm building a [PROJECT TYPE] that needs to [MAIN GOAL]. Before we start coding, please explore the codebase, understand the existing patterns, and create a detailed implementation plan. Use /plan to enter plan mode.",
@@ -99,7 +99,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code with Background Tasks",
+            "name": "Claude Code with background tasks",
             "description": "Automate repetitive file processing with Claude Code. Use background tasks (Ctrl+B) to run long processes while you continue working on other things.",
             "tools": ["Claude Code (Claude 4.5 Opus)"],
             "prompt": "I need to automate processing [NUMBER] files in [FOLDER]. For each file: 1. [OPERATION 1] 2. [OPERATION 2]. Create a script that handles errors gracefully and logs progress. Run it in the background so I can continue working.",
@@ -112,7 +112,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code Hooks for Automation",
+            "name": "Claude Code hooks for automation",
             "description": "Set up automated quality checks using Claude Code hooks. Hooks can run validation, tests, or notifications at key moments in your development process.",
             "tools": ["Claude Code (Claude 4.5 Opus)"],
             "prompt": "I want to set up automation that [DESCRIBES TRIGGER AND ACTION]. Create a Claude Code hook that runs [WHEN] and performs [WHAT]. The hook should be placed in .claude/hooks/ and include proper error handling.",
@@ -174,7 +174,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code Skills",
+            "name": "Claude Code skills",
             "description": "Create custom skills that teach Claude Code specialized knowledge for your newsroom's specific needs. Skills are reusable prompt templates.",
             "tools": ["Claude Code (Claude 4.5 Opus)"],
             "prompt": "I frequently need to [DESCRIBE REPEATED TASK]. Create a skill in .claude/skills/ that I can invoke to handle this. The skill should include: 1. Clear instructions 2. Examples 3. Validation steps",
@@ -187,7 +187,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code Hooks",
+            "name": "Claude Code hooks",
             "description": "Set up hooks that run automatically during your Claude Code sessions—validating changes, running tests, or checking conventions.",
             "tools": ["Claude Code (Claude 4.5 Opus)"],
             "prompt": "Help me set up Claude Code hooks for this project. I need: 1. A SessionStart hook to check my environment 2. PostToolUse hooks to validate edits 3. A Stop hook to remind me about next steps. Place them in .claude/hooks/",
@@ -354,7 +354,7 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Source-Grounded Q&A",
+            "name": "Source-grounded Q&A",
             "description": "Use an AI notebook to ask questions, summarize, and generate ideas based on your specific documents.",
             "tools": [
               "NotebookLM"

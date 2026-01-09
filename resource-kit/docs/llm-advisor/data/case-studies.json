@@ -1,6 +1,6 @@
 [
   {
-    "title": "Building the Amditis Resource Kit with Claude Code",
+    "title": "Building the Amditis resource kit with Claude Code",
     "tool": "Claude Code (Claude 4.5 Opus)",
     "journalist": "Center for Cooperative Media",
     "challenge": "Creating a comprehensive, interactive resource kit for journalists learning AI tools required building multiple web pages, interactive decision trees, and maintaining consistent theming across dozens of files.",
@@ -74,7 +74,7 @@
     "sourceUrl": "https://drive.google.com/file/d/1C6IEY_NhaJCJGZUXmEim-I5j3F5OCu7x/view?usp=sharing"
   },
   {
-    "title": "How the Jersey Bee Uses AI for Local News Newsletters",
+    "title": "How the Jersey Bee uses AI for local news newsletters",
     "tool": "ChatGPT",
     "journalist": "Simon Galperin, The Jersey Bee",
     "challenge": "Producing daily curated newsletters for 12 different communities with only a small team of part-time staff members.",
@@ -85,7 +85,7 @@
     "sourceUrl": "https://youtu.be/b6xZiMTphD0"
   },
   {
-    "title": "How The Economist Uses LLMs with Structured Data",
+    "title": "How The Economist uses LLMs with structured data",
     "tool": "ChatGPT",
     "journalist": "James Fransham, Data Journalist at The Economist",
     "challenge": "Extract and structure 15 years of financial disclosures from Britain's parliamentary website, focusing specifically on MPs' second jobs.",
@@ -96,7 +96,7 @@
     "sourceUrl": "https://view.e.economist.com/?qs=c7cea31b919860dd7a83890cc0d05bdb7f340d78be7fe166b642101a21b1abb20168e94c2d9682b1ea27d42ccb020993b0a33b9b0f1ddc17cd860b3407d33ea8b7d8bfb21b21ed8d5d09c0f6a05e798f"
   },
   {
-    "title": "How the Baltimore Times Uses AI",
+    "title": "How the Baltimore Times uses AI",
     "tool": "ChatGPT",
     "journalist": "Paris Brown, Associate Editor of the Baltimore Times",
     "challenge": "As a small local publication with limited resources, the Baltimore Times needed to enhance operations and better serve its audience.",
@@ -107,7 +107,7 @@
     "sourceUrl": "https://localmedia.org/2024/02/how-the-baltimore-times-uses-ai-to-serve-audiences-better/"
   },
   {
-    "title": "How The Marshall Project Uses ChatGPT",
+    "title": "How The Marshall Project uses ChatGPT",
     "tool": "ChatGPT",
     "journalist": "The Marshall Project team",
     "challenge": "Managing the tedious and under-resourced work of writing policy summaries while maintaining editorial integrity.",
@@ -118,7 +118,7 @@
     "sourceUrl": "https://generative-ai-newsroom.com/decoding-bureaucracy-5b0c1411171"
   },
   {
-    "title": "Science Dejargonizer for Reporters",
+    "title": "Science dejargonizer for reporters",
     "tool": "RAG-enabled LLMs",
     "journalist": "Sachita Mishal's team",
     "challenge": "Reporters struggling to understand and explain complex, jargon-heavy documents, especially in scientific and technical fields.",
@@ -129,7 +129,7 @@
     "sourceUrl": "https://www.niemanlab.org/2024/07/making-sense-of-science-using-llms-to-help-reporters-understand-complex-research/"
   },
   {
-    "title": "How Colorado Newsrooms Use AI",
+    "title": "How Colorado newsrooms use AI",
     "tool": "ChatGPT and other AI tools",
     "journalist": "Various Colorado newsrooms",
     "challenge": "Finding appropriate ways to integrate AI tools while maintaining journalistic integrity and human oversight across diverse newsroom operations.",

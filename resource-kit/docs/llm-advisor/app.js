@@ -882,7 +882,7 @@ async function loadAllData() {
                 'Core principles': data.corePrinciples,
                 'Effective prompting is a conversation': data.promptingTechniques,
                 'Workflow integration': data.workflowIntegration,
-                'Prompting for Images': data.imagePrompting,
+                'Prompting for images': data.imagePrompting,
                 'Ethical guidelines & privacy': data.ethicalGuidelines
             };
 
