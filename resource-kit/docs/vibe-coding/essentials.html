@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE BASICS // VIBE CODER ESSENTIALS</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Accordion animations */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 3000px;
+            transition: max-height 0.6s ease-in;
+        }
+
+        .accordion-trigger[aria-expanded="true"] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Code block styling */
+        .code-block {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-block:hover {
+            border-color: rgba(200, 255, 0, 0.3);
+        }
+
+        /* Warning pulse */
+        @keyframes danger-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(255, 51, 102, 0.2); }
+        }
+
+        .danger-card {
+            animation: danger-pulse 2s infinite;
+        }
+
+        /* Topic number styling */
+        .topic-number {
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="../index.html" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">A</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome">VIBE_CODER // ESSENTIALS</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">THE_BASICS_v1.0</div>
+                    </div>
+                </div>
+                <a href="../index.html" class="hidden md:flex items-center gap-2 px-3 py-1 border border-white/20 text-xs text-gray-400 hover:border-acid hover:text-acid transition-colors">
+                    <i data-lucide="arrow-left" class="w-3 h-3"></i> RETURN_HOME
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+
+            <!-- Hero Section -->
+            <div class="max-w-3xl mx-auto mb-16 text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 border border-acid/30 bg-acid/5 text-acid text-xs font-mono mb-6">
+                    <i data-lucide="zap" class="w-3 h-3"></i> NON-NEGOTIABLE KNOWLEDGE
+                </div>
+                <h1 class="font-display text-4xl md:text-5xl text-chrome mb-4 glitch-text" data-text="THE_BASICS">THE_BASICS</h1>
+                <p class="text-gray-400 text-sm md:text-base font-mono max-w-2xl mx-auto leading-relaxed">
+                    These 9 concepts separate functional vibe coders from frustrated ones.
+                    Master these before writing your first line of AI-generated code.
+                </p>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="max-w-3xl mx-auto mb-12">
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+                    <span>TOPICS_LOADED</span>
+                    <span>9/9 MODULES</span>
+                </div>
+                <div class="h-1 bg-surface rounded-full overflow-hidden">
+                    <div class="h-full bg-acid w-full"></div>
+                </div>
+            </div>
+
+            <!-- Accordion Container -->
+            <div class="max-w-3xl mx-auto space-y-4" id="accordionContainer">
+
+                <!-- Topic 1: .env files -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-1">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">01</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">.env FILES</h3>
+                                <p class="text-xs text-gray-500 mt-1">Your secrets vault</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-1" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="file-key" class="w-4 h-4"></i> WHAT GOES IN .env FILES
+                                    </h4>
+                                    <ul class="space-y-2 text-sm text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">API keys</strong> - Your access tokens for services like OpenAI, Anthropic, etc.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Database URLs</strong> - Connection strings with credentials</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Secret keys</strong> - Encryption keys, session secrets</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Environment-specific values</strong> - Different configs for dev vs production</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="shield-x" class="w-4 h-4"></i> NEVER PUSH TO GIT
+                                    </h4>
+                                    <p class="text-gray-400 text-sm mb-3">The .env file should ALWAYS be listed in your .gitignore. If someone gets your .env file, they have your keys to everything.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="code" class="w-4 h-4"></i> EXAMPLE FORMAT
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <div class="bg-surface px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-gray-500">.env</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-gray-500 hover:text-acid flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> COPY
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># API Keys</span>
+<span class="text-acid">OPENAI_API_KEY</span>=sk-xxxxxxxxxxxxxxxxxxxxx
+<span class="text-acid">ANTHROPIC_API_KEY</span>=sk-ant-xxxxxxxxxxxxx
+
+<span class="text-gray-500"># Database</span>
+<span class="text-acid">DATABASE_URL</span>=postgres://user:pass@host:5432/db
+
+<span class="text-gray-500"># App Settings</span>
+<span class="text-acid">NODE_ENV</span>=development
+<span class="text-acid">PORT</span>=3000</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 2: npm run dev -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-2">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">02</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">npm run dev</h3>
+                                <p class="text-xs text-gray-500 mt-1">Start your local server</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-2" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="play" class="w-4 h-4"></i> WHAT IT DOES
+                                    </h4>
+                                    <p class="text-gray-300 text-sm mb-3">
+                                        Starts a <strong class="text-white">local development server</strong> on your computer. This creates a mini web server that watches your files and automatically refreshes when you make changes.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="eye" class="w-4 h-4"></i> WHY YOU NEED IT
+                                    </h4>
+                                    <ul class="space-y-2 text-sm text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-ice mt-1">></span>
+                                            <span><strong class="text-white">See changes in real-time</strong> - No manual refresh needed</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-ice mt-1">></span>
+                                            <span><strong class="text-white">Test before deploying</strong> - Catch errors locally first</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-ice mt-1">></span>
+                                            <span><strong class="text-white">Hot reloading</strong> - Changes appear instantly in your browser</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="terminal" class="w-4 h-4"></i> COMMON VARIATIONS
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <div class="bg-surface px-4 py-2 border-b border-white/10">
+                                            <span class="text-xs text-gray-500">Terminal commands</span>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-acid">npm run dev</span>      <span class="text-gray-500"># Generic/custom scripts</span>
+<span class="text-acid">next dev</span>          <span class="text-gray-500"># Next.js projects</span>
+<span class="text-acid">vite</span>              <span class="text-gray-500"># Vite projects</span>
+<span class="text-acid">npm start</span>         <span class="text-gray-500"># Some older projects</span>
+<span class="text-acid">yarn dev</span>          <span class="text-gray-500"># If using Yarn instead of npm</span></code></pre>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-3">
+                                        <i data-lucide="info" class="w-3 h-3 inline"></i> Check your package.json "scripts" section to see what commands are available.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 3: package.json -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-3">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">03</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">package.json</h3>
+                                <p class="text-xs text-gray-500 mt-1">Your project's manifest</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-3" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="file-json" class="w-4 h-4"></i> WHAT IT IS
+                                    </h4>
+                                    <p class="text-gray-300 text-sm">
+                                        The <strong class="text-white">DNA of your project</strong>. It lists everything your project needs to run: its name, version, dependencies, and available commands.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="scroll" class="w-4 h-4"></i> SCRIPTS SECTION
+                                    </h4>
+                                    <p class="text-gray-400 text-sm mb-3">Custom commands you can run with <code class="text-acid">npm run [script-name]</code></p>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500">"scripts"</span>: {
+  <span class="text-acid">"dev"</span>: <span class="text-gray-400">"next dev"</span>,
+  <span class="text-acid">"build"</span>: <span class="text-gray-400">"next build"</span>,
+  <span class="text-acid">"start"</span>: <span class="text-gray-400">"next start"</span>,
+  <span class="text-acid">"lint"</span>: <span class="text-gray-400">"eslint ."</span>
+}</code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="package" class="w-4 h-4"></i> DEPENDENCIES VS DEVDEPENDENCIES
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-surface border border-white/10 p-4 rounded">
+                                            <div class="text-acid text-xs font-bold mb-2">dependencies</div>
+                                            <p class="text-gray-400 text-xs">Needed to RUN your app (React, Express, etc.)</p>
+                                        </div>
+                                        <div class="bg-surface border border-white/10 p-4 rounded">
+                                            <div class="text-ice text-xs font-bold mb-2">devDependencies</div>
+                                            <p class="text-gray-400 text-xs">Only needed to BUILD/TEST (ESLint, TypeScript, etc.)</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="hash" class="w-4 h-4"></i> VERSION NUMBERS EXPLAINED
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500">// Format: MAJOR.MINOR.PATCH</span>
+<span class="text-acid">"react"</span>: <span class="text-gray-400">"^18.2.0"</span>
+         <span class="text-ice">^</span>  <span class="text-gray-500">= allows minor updates (18.x.x)</span>
+         <span class="text-signal">~</span>  <span class="text-gray-500">= allows patch updates only (18.2.x)</span>
+         <span class="text-white">18.2.0</span> <span class="text-gray-500">= exact version, no updates</span></code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 4: npm run build -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-4">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">04</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">npm run build</h3>
+                                <p class="text-xs text-gray-500 mt-1">Prepare for production</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-4" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="hammer" class="w-4 h-4"></i> PRODUCTION VS DEVELOPMENT
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-surface border border-acid/20 p-4 rounded">
+                                            <div class="text-acid text-xs font-bold mb-2">DEVELOPMENT (npm run dev)</div>
+                                            <ul class="text-gray-400 text-xs space-y-1">
+                                                <li>> Unoptimized, verbose</li>
+                                                <li>> Debug tools enabled</li>
+                                                <li>> Hot reload active</li>
+                                                <li>> Only you can see it</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-surface border border-ice/20 p-4 rounded">
+                                            <div class="text-ice text-xs font-bold mb-2">PRODUCTION (npm run build)</div>
+                                            <ul class="text-gray-400 text-xs space-y-1">
+                                                <li>> Minified, optimized</li>
+                                                <li>> Debug tools removed</li>
+                                                <li>> Maximum performance</li>
+                                                <li>> Ready for real users</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="rocket" class="w-4 h-4"></i> WHAT "SHIPPING" MEANS
+                                    </h4>
+                                    <p class="text-gray-300 text-sm">
+                                        When developers say "ship it," they mean <strong class="text-white">deploy to production</strong> - make your code live on the internet where real users can access it.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="folder" class="w-4 h-4"></i> OUTPUT FOLDERS
+                                    </h4>
+                                    <p class="text-gray-400 text-sm mb-3">After building, your optimized code lands in one of these folders:</p>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-acid">dist/</span>      <span class="text-gray-500"># Vite, Rollup (most common)</span>
+<span class="text-acid">build/</span>     <span class="text-gray-500"># Create React App</span>
+<span class="text-acid">.next/</span>     <span class="text-gray-500"># Next.js</span>
+<span class="text-acid">out/</span>       <span class="text-gray-500"># Next.js static export</span>
+<span class="text-acid">public/</span>    <span class="text-gray-500"># Some static site generators</span></code></pre>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-3">
+                                        <i data-lucide="info" class="w-3 h-3 inline"></i> This folder is what you upload to your hosting provider.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 5: npm packages -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-5">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">05</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">npm PACKAGES</h3>
+                                <p class="text-xs text-gray-500 mt-1">Adding and managing dependencies</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-5" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="download" class="w-4 h-4"></i> INSTALLING PACKAGES
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Install a package</span>
+<span class="text-acid">npm install axios</span>
+<span class="text-acid">npm i axios</span>           <span class="text-gray-500"># shorthand</span>
+
+<span class="text-gray-500"># Install as dev dependency</span>
+<span class="text-acid">npm install -D eslint</span>
+
+<span class="text-gray-500"># Install all dependencies (from package.json)</span>
+<span class="text-acid">npm install</span>
+<span class="text-acid">npm i</span>                  <span class="text-gray-500"># shorthand</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i> REMOVING PACKAGES
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-signal">npm uninstall axios</span>
+<span class="text-signal">npm un axios</span>          <span class="text-gray-500"># shorthand</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> UPDATING PACKAGES
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Update all packages</span>
+<span class="text-ice">npm update</span>
+
+<span class="text-gray-500"># Update specific package</span>
+<span class="text-ice">npm update axios</span>
+
+<span class="text-gray-500"># Check for outdated packages</span>
+<span class="text-ice">npm outdated</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="folder-tree" class="w-4 h-4"></i> node_modules EXPLAINED
+                                    </h4>
+                                    <div class="bg-surface border border-white/10 p-4 rounded">
+                                        <p class="text-gray-300 text-sm mb-3">
+                                            The <code class="text-acid">node_modules/</code> folder contains ALL your installed packages and their dependencies. It can get huge (hundreds of MB).
+                                        </p>
+                                        <ul class="text-gray-400 text-xs space-y-1">
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="check" class="w-3 h-3 text-acid"></i>
+                                                <span>Always in .gitignore (never commit it)</span>
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="check" class="w-3 h-3 text-acid"></i>
+                                                <span>Regenerate anytime with <code class="text-acid">npm install</code></span>
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="check" class="w-3 h-3 text-acid"></i>
+                                                <span>Delete and reinstall if things break</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 6: git add .env (DANGER) -->
+                <div class="border border-signal/50 bg-panel hover:border-signal transition-colors group danger-card">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-6">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-signal/20 text-signal flex items-center justify-center text-sm font-bold">06</span>
+                            <div>
+                                <h3 class="font-display text-lg text-signal font-bold flex items-center gap-2">
+                                    <span class="text-2xl">&#128128;</span> git add .env
+                                    <span class="text-xs bg-signal/20 text-signal px-2 py-0.5 rounded">NEVER DO THIS</span>
+                                </h3>
+                                <p class="text-xs text-gray-500 mt-1">The most dangerous mistake</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-signal"></i>
+                    </button>
+                    <div id="topic-6" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-signal/20">
+                            <div class="space-y-6">
+                                <div class="bg-signal/10 border border-signal/30 p-4 rounded-lg">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span class="text-4xl">&#128128;</span>
+                                        <div>
+                                            <h4 class="text-signal text-lg font-bold">CRITICAL WARNING</h4>
+                                            <p class="text-gray-400 text-sm">This mistake can cost you thousands of dollars</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4"></i> WHY THIS IS DANGEROUS
+                                    </h4>
+                                    <ul class="space-y-2 text-sm text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">Bots scan GitHub constantly</strong> for exposed API keys</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">Within minutes</strong>, attackers can use your keys to rack up charges</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">Even if you delete it</strong>, git history preserves everything</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="search" class="w-4 h-4"></i> HOW TO CHECK IF YOU DID IT
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Check if .env is tracked</span>
+<span class="text-ice">git ls-files | grep .env</span>
+
+<span class="text-gray-500"># If output shows .env, YOU HAVE A PROBLEM</span>
+
+<span class="text-gray-500"># Check git history for .env</span>
+<span class="text-ice">git log --all --full-history -- .env</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="shield-check" class="w-4 h-4"></i> HOW TO PREVENT IT
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <div class="bg-surface px-4 py-2 border-b border-white/10">
+                                            <span class="text-xs text-gray-500">.gitignore</span>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500"># Environment files - ALWAYS ignore these</span>
+<span class="text-acid">.env</span>
+<span class="text-acid">.env.local</span>
+<span class="text-acid">.env.*.local</span>
+<span class="text-acid">.env.development</span>
+<span class="text-acid">.env.production</span></code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="eraser" class="w-4 h-4"></i> IF YOU ALREADY PUSHED IT
+                                    </h4>
+                                    <div class="bg-surface border border-white/10 p-4 rounded">
+                                        <ol class="text-gray-300 text-sm space-y-2">
+                                            <li><span class="text-acid font-bold">1.</span> <strong class="text-white">Immediately rotate ALL exposed keys</strong> - Generate new ones</li>
+                                            <li><span class="text-acid font-bold">2.</span> Remove from git tracking: <code class="text-signal">git rm --cached .env</code></li>
+                                            <li><span class="text-acid font-bold">3.</span> Add to .gitignore and commit</li>
+                                            <li><span class="text-acid font-bold">4.</span> Consider using BFG Repo-Cleaner to scrub history</li>
+                                        </ol>
+                                        <p class="text-xs text-gray-500 mt-3">
+                                            <i data-lucide="info" class="w-3 h-3 inline"></i> Even after removal, consider those keys compromised forever.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 7: localhost:3000 -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-7">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">07</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">localhost:3000 IS NOT REAL</h3>
+                                <p class="text-xs text-gray-500 mt-1">Understanding local vs production</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-7" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="monitor" class="w-4 h-4"></i> WHAT localhost MEANS
+                                    </h4>
+                                    <p class="text-gray-300 text-sm mb-3">
+                                        <code class="text-acid">localhost</code> is a special address that means <strong class="text-white">"this computer"</strong>. It's an alias for the IP address <code class="text-ice">127.0.0.1</code>.
+                                    </p>
+                                    <div class="bg-surface border border-white/10 p-4 rounded">
+                                        <p class="text-gray-400 text-sm">
+                                            <code class="text-acid">localhost:3000</code> = Your computer, port 3000<br>
+                                            Only accessible from YOUR machine, in YOUR browser.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="users" class="w-4 h-4"></i> WHY OTHERS CAN'T SEE IT
+                                    </h4>
+                                    <ul class="space-y-2 text-sm text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">It's not on the internet</strong> - It only exists on your computer</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">No domain name</strong> - There's nothing for browsers to look up</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-signal mt-1">></span>
+                                            <span><strong class="text-white">Firewall blocked</strong> - Even if they had your IP, routers block it</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="globe" class="w-4 h-4"></i> DEV VS PRODUCTION URLs
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-surface border border-signal/20 p-4 rounded">
+                                            <div class="text-signal text-xs font-bold mb-2">DEVELOPMENT</div>
+                                            <code class="text-gray-300 text-sm">http://localhost:3000</code>
+                                            <p class="text-gray-500 text-xs mt-2">Only you can see this</p>
+                                        </div>
+                                        <div class="bg-surface border border-acid/20 p-4 rounded">
+                                            <div class="text-acid text-xs font-bold mb-2">PRODUCTION</div>
+                                            <code class="text-gray-300 text-sm">https://yoursite.com</code>
+                                            <p class="text-gray-500 text-xs mt-2">Anyone can see this</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-ice/10 border border-ice/30 p-4 rounded">
+                                    <p class="text-gray-300 text-sm">
+                                        <i data-lucide="lightbulb" class="w-4 h-4 inline text-ice"></i>
+                                        <strong class="text-white">Pro tip:</strong> To share your local work with others, use services like <strong class="text-ice">ngrok</strong>, <strong class="text-ice">Vercel preview deploys</strong>, or <strong class="text-ice">GitHub Pages</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 8: Environment variables -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-8">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">08</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">ENV VARS ≠ HARDCODED</h3>
+                                <p class="text-xs text-gray-500 mt-1">Why you use environment variables</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-8" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="key" class="w-4 h-4"></i> WHY USE ENV VARS
+                                    </h4>
+                                    <ul class="space-y-2 text-sm text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Security</strong> - Secrets never touch your code</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Flexibility</strong> - Different values for dev/staging/production</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-acid mt-1">></span>
+                                            <span><strong class="text-white">Team safety</strong> - Each person uses their own keys</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="x-circle" class="w-4 h-4"></i> THE WRONG WAY
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden border-signal/30">
+                                        <div class="bg-signal/10 px-4 py-2 border-b border-signal/30 flex items-center gap-2">
+                                            <i data-lucide="x" class="w-4 h-4 text-signal"></i>
+                                            <span class="text-xs text-signal">NEVER DO THIS</span>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500">// Hardcoded API key - DANGEROUS!</span>
+const apiKey = <span class="text-signal">"sk-xxxxxxxxxxxxxxxxxxxxx"</span>;
+
+fetch(<span class="text-signal">"https://api.openai.com/v1/chat"</span>, {
+  headers: {
+    Authorization: <span class="text-signal">`Bearer ${apiKey}`</span>
+  }
+});</code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4"></i> THE RIGHT WAY
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden border-acid/30">
+                                        <div class="bg-acid/10 px-4 py-2 border-b border-acid/30 flex items-center gap-2">
+                                            <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                            <span class="text-xs text-acid">CORRECT APPROACH</span>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-gray-500">// Read from environment variable</span>
+const apiKey = <span class="text-acid">process.env.OPENAI_API_KEY</span>;
+
+fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
+  headers: {
+    Authorization: <span class="text-acid">`Bearer ${apiKey}`</span>
+  }
+});</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="bg-surface border border-white/10 p-4 rounded">
+                                    <h4 class="text-white text-sm font-bold mb-2">Security implications</h4>
+                                    <p class="text-gray-400 text-sm">
+                                        If you hardcode secrets and push to GitHub, you're essentially publishing your password to the world.
+                                        <strong class="text-white">Environment variables keep secrets separate from code.</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 9: Terminal errors -->
+                <div class="border border-white/10 bg-panel hover:border-acid/30 transition-colors group">
+                    <button class="accordion-trigger w-full p-6 flex items-center justify-between text-left" aria-expanded="false" data-target="topic-9">
+                        <div class="flex items-center gap-4">
+                            <span class="topic-number w-8 h-8 bg-acid/10 text-acid flex items-center justify-center text-sm font-bold">09</span>
+                            <div>
+                                <h3 class="font-display text-lg text-white font-bold group-hover:text-acid transition-colors">TERMINAL ERRORS MATTER</h3>
+                                <p class="text-xs text-gray-500 mt-1">Don't ignore the red text</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-500 group-hover:text-acid"></i>
+                    </button>
+                    <div id="topic-9" class="accordion-content">
+                        <div class="px-6 pb-6 pt-2 border-t border-white/5">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-signal text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="alert-octagon" class="w-4 h-4"></i> DON'T IGNORE RED TEXT
+                                    </h4>
+                                    <p class="text-gray-300 text-sm mb-3">
+                                        Red text in your terminal is not decoration. It's your code screaming for help. <strong class="text-white">Every error message contains clues about what went wrong.</strong>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-acid text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="book-open" class="w-4 h-4"></i> HOW TO READ ERROR MESSAGES
+                                    </h4>
+                                    <div class="code-block rounded-lg overflow-hidden">
+                                        <div class="bg-surface px-4 py-2 border-b border-white/10">
+                                            <span class="text-xs text-gray-500">Example error</span>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-gray-300"><span class="text-signal">Error: Cannot find module 'express'</span>
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at <span class="text-ice">/Users/you/project/server.js:1:17</span>
+
+<span class="text-gray-500">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="text-acid">1. Error type</span>: "Cannot find module" = missing package
+<span class="text-acid">2. What's missing</span>: 'express'
+<span class="text-acid">3. Where it happened</span>: server.js, line 1
+<span class="text-acid">4. Solution</span>: npm install express</code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="message-square" class="w-4 h-4"></i> WHAT TO COPY WHEN ASKING AI FOR HELP
+                                    </h4>
+                                    <div class="bg-surface border border-ice/20 p-4 rounded space-y-3">
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-ice font-bold">1.</span>
+                                            <div>
+                                                <strong class="text-white">The FULL error message</strong>
+                                                <p class="text-gray-400 text-xs">Not just the first line - copy everything in red</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-ice font-bold">2.</span>
+                                            <div>
+                                                <strong class="text-white">What command you ran</strong>
+                                                <p class="text-gray-400 text-xs">"I ran npm run dev and got this error"</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-ice font-bold">3.</span>
+                                            <div>
+                                                <strong class="text-white">The relevant code file</strong>
+                                                <p class="text-gray-400 text-xs">Usually mentioned in the error's file path</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-ice font-bold">4.</span>
+                                            <div>
+                                                <strong class="text-white">What you expected to happen</strong>
+                                                <p class="text-gray-400 text-xs">Context helps AI understand the problem</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-white text-sm font-bold mb-3 flex items-center gap-2">
+                                        <i data-lucide="list-checks" class="w-4 h-4"></i> COMMON ERROR TYPES
+                                    </h4>
+                                    <div class="grid grid-cols-1 gap-3">
+                                        <div class="bg-surface border border-white/10 p-3 rounded flex items-start gap-3">
+                                            <code class="text-signal text-xs shrink-0">MODULE_NOT_FOUND</code>
+                                            <span class="text-gray-400 text-xs">Run <code class="text-acid">npm install</code></span>
+                                        </div>
+                                        <div class="bg-surface border border-white/10 p-3 rounded flex items-start gap-3">
+                                            <code class="text-signal text-xs shrink-0">ENOENT</code>
+                                            <span class="text-gray-400 text-xs">File or directory doesn't exist</span>
+                                        </div>
+                                        <div class="bg-surface border border-white/10 p-3 rounded flex items-start gap-3">
+                                            <code class="text-signal text-xs shrink-0">EADDRINUSE</code>
+                                            <span class="text-gray-400 text-xs">Port already in use - close other servers</span>
+                                        </div>
+                                        <div class="bg-surface border border-white/10 p-3 rounded flex items-start gap-3">
+                                            <code class="text-signal text-xs shrink-0">SyntaxError</code>
+                                            <span class="text-gray-400 text-xs">Typo in your code (missing bracket, comma, etc.)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="max-w-3xl mx-auto mt-16 text-center">
+                <div class="border border-white/10 bg-panel p-8 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-acid"></div>
+                    <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-acid"></div>
+                    <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-acid"></div>
+                    <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-acid"></div>
+
+                    <h3 class="font-display text-xl text-white font-bold mb-3">KNOWLEDGE_BASE LOADED</h3>
+                    <p class="text-gray-400 text-sm mb-6">You now know more than 90% of people who try vibe coding for the first time.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="../glossary.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-acid text-black font-bold text-sm hover:bg-white transition-colors clip-notch">
+                            <i data-lucide="book" class="w-4 h-4"></i> VIEW GLOSSARY
+                        </a>
+                        <a href="../quick-reference-card.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 text-chrome text-sm hover:border-acid hover:text-acid transition-colors">
+                            <i data-lucide="layout-grid" class="w-4 h-4"></i> QUICK REFERENCE
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-void py-8">
+            <div class="max-w-5xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
+                <p>SYSTEM STATUS: ONLINE // <a href="../index.html" class="hover:text-acid transition-colors">RETURN_ROOT</a> // <a href="../glossary.html" class="hover:text-acid transition-colors">GLOSSARY</a></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const content = document.getElementById(targetId);
+                const isOpen = this.getAttribute('aria-expanded') === 'true';
+
+                // Close all other accordions (optional - remove for multi-open)
+                // document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                //     if (openContent.id !== targetId) {
+                //         openContent.classList.remove('open');
+                //         openContent.previousElementSibling.setAttribute('aria-expanded', 'false');
+                //     }
+                // });
+
+                // Toggle current accordion
+                this.setAttribute('aria-expanded', !isOpen);
+                content.classList.toggle('open');
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').innerText;
+
+            navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> COPIED';
+                button.classList.add('text-acid');
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('text-acid');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // Open first accordion by default
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstTrigger = document.querySelector('.accordion-trigger');
+            if (firstTrigger) {
+                firstTrigger.click();
+            }
+        });
+    </script>
+</body>
+</html>
