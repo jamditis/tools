@@ -208,6 +208,58 @@ const GLOSSARY = {
     term: "Conditional",
     short: "Code that runs only if something is true",
     full: "An if/then structure: 'If the amount is over 1000, flag it.' Conditionals let code make decisions and behave differently based on the data it encounters. Most real programs are full of conditionals."
+  },
+
+  // Claude Code v2.1 Terms
+  "claude-code": {
+    term: "Claude Code",
+    short: "Anthropic's AI coding assistant in your terminal",
+    full: "A command-line interface (CLI) tool from Anthropic that brings Claude's AI capabilities directly to your terminal. Unlike web-based chat, Claude Code can read your files, run commands, edit code, and manage projects autonomously. It's like having a senior developer pair-programming with you."
+  },
+  "hook": {
+    term: "Hook",
+    short: "Code that runs automatically at specific moments",
+    full: "In Claude Code, hooks are scripts that execute at specific points in a session—like when a tool is used, when a session starts, or when it ends. For example, a PreToolUse hook can validate changes before they're made, while a PostToolUse hook can run tests after code is edited."
+  },
+  "skill": {
+    term: "Skill",
+    short: "A specialized prompt template for Claude Code",
+    full: "A markdown file that gives Claude Code specialized knowledge for specific tasks. Skills live in the .claude/skills folder and can be invoked with slash commands. They're like teaching Claude a new specialty—such as 'Amditis theme expert' or 'JSON validator'."
+  },
+  "mcp-server": {
+    term: "MCP Server",
+    short: "A plugin that gives Claude new tools",
+    full: "Model Context Protocol servers extend Claude Code with custom tools. An MCP server might connect to your database, manage API calls, or provide specialized functions. They run as separate processes and communicate with Claude Code to provide new capabilities."
+  },
+  "claude-memory": {
+    term: "Claude Memory (CLAUDE.md)",
+    short: "A file that tells Claude about your project",
+    full: "A markdown file in your project root that provides Claude Code with persistent context about your codebase—architecture, conventions, what to avoid, common commands. It's read at the start of every session so Claude remembers your project's specifics."
+  },
+  "forked-context": {
+    term: "Forked Context",
+    short: "Running multiple Claude agents in parallel",
+    full: "A Claude Code v2.1 feature where skills can spawn sub-agents that work independently and in parallel. Each 'fork' gets its own context to complete a subtask, then reports back. Useful for running multiple audits, generating multiple outputs, or parallel processing."
+  },
+  "agent": {
+    term: "Agent",
+    short: "Claude operating autonomously on tasks",
+    full: "When Claude Code works as an 'agent,' it autonomously plans, executes, and iterates on tasks with minimal human input. It can read files, run commands, make edits, and verify results on its own. You describe the goal; the agent figures out the steps."
+  },
+  "plan-mode": {
+    term: "Plan Mode",
+    short: "Claude plans before coding",
+    full: "A Claude Code mode where Claude first explores your codebase and creates a detailed plan before making any changes. Use the /plan command to enter plan mode. It's ideal for complex features where you want to review the approach before implementation."
+  },
+  "session": {
+    term: "Session",
+    short: "A single Claude Code conversation",
+    full: "One continuous interaction with Claude Code. Sessions can be named (with /rename), resumed later (with --resume), and have their own history. Named sessions let you maintain context across multiple coding sessions on the same feature."
+  },
+  "background-task": {
+    term: "Background Task",
+    short: "Commands that run while you keep working",
+    full: "Claude Code v2.1 can run long-running commands in the background while you continue the conversation. Press Ctrl+B to background all foreground tasks. Useful for running test suites, build processes, or monitoring scripts without blocking your workflow."
   }
 };
 
