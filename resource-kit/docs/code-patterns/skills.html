@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXECUTABLE SKILLS // CODE_PATTERNS</title>
+    <meta name="description" content="Copy-paste skills for Claude Code. /log_error and /log_success commands for systematic feedback loops.">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .code-block {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn.copied {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-signal text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-signal transition-colors">SKILLS</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">CODE_PATTERNS</div>
+                    </div>
+                </a>
+                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
+                    <a href="index.html" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                        <span class="hidden sm:inline">[ PATTERNS_HUB ]</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+
+            <!-- Page Header -->
+            <div class="mb-12">
+                <div class="text-xs text-signal font-mono mb-3 tracking-widest">:: EXECUTABLE_SKILLS</div>
+                <h1 class="font-display text-3xl md:text-4xl text-white font-bold mb-4">
+                    Feedback loop skills
+                </h1>
+                <p class="text-gray-500 font-mono leading-relaxed max-w-2xl">
+                    Copy these skill definitions into your <code class="text-acid">.claude/skills/</code> directory. They implement the error and success logging patterns from Lesson 01.
+                </p>
+            </div>
+
+            <!-- Usage Instructions -->
+            <div class="mb-12 p-6 bg-surface border border-white/10">
+                <h3 class="text-sm text-acid font-mono mb-4">// SETUP_INSTRUCTIONS</h3>
+                <ol class="space-y-3 text-gray-400">
+                    <li class="flex gap-3">
+                        <span class="text-acid font-mono">1.</span>
+                        <span>Create <code class="text-ice bg-panel px-1">.claude/skills/</code> directory in your project root</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-acid font-mono">2.</span>
+                        <span>Create <code class="text-ice bg-panel px-1">.claude/error-logs/</code> directory for log storage</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-acid font-mono">3.</span>
+                        <span>Copy each skill below into its own <code class="text-ice bg-panel px-1">.md</code> file</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-acid font-mono">4.</span>
+                        <span>Invoke with <code class="text-acid bg-panel px-1">/log_error</code> or <code class="text-acid bg-panel px-1">/log_success</code> when needed</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Skills -->
+            <div class="space-y-12">
+
+                <!-- /log_error Skill -->
+                <section id="log-error">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-signal/10 border border-signal/30">
+                            <i data-lucide="bug" class="w-6 h-6 text-signal"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-display text-2xl text-white font-bold">/log_error</h2>
+                            <p class="text-sm text-gray-500">Systematic failure capture and analysis</p>
+                        </div>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-signal font-mono mb-3">// PURPOSE</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            When Claude makes a mistake, this skill guides you through a structured process to capture what went wrong, why it happened, and how to prevent it in the future. The key is capturing the <strong class="text-white">exact prompt wording</strong>, not a paraphrase.
+                        </p>
+                    </div>
+
+                    <!-- Workflow -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-ice font-mono mb-3">// WORKFLOW</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-ice font-display font-bold">1</span>
+                                <p class="text-xs text-gray-400 mt-2">Fork conversation (create checkpoint)</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-ice font-display font-bold">2</span>
+                                <p class="text-xs text-gray-400 mt-2">Interview Claude about the failure</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-ice font-display font-bold">3</span>
+                                <p class="text-xs text-gray-400 mt-2">Document exact prompt</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-ice font-display font-bold">4</span>
+                                <p class="text-xs text-gray-400 mt-2">Rewind to pre-error state</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Definition -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-acid font-mono mb-3">// SKILL_DEFINITION</h3>
+                        <p class="text-xs text-gray-500 mb-2">Save as: <code class="text-acid">.claude/skills/log-error.md</code></p>
+                        <div class="code-block border border-white/10 bg-panel">
+                            <button class="copy-btn px-3 py-1 bg-acid/10 text-acid text-xs border border-acid/30 hover:bg-acid hover:text-black transition-colors" onclick="copyCode(this, 'log-error-code')">
+                                <i data-lucide="copy" class="w-3 h-3 inline"></i> Copy
+                            </button>
+                            <pre class="p-4 text-sm text-gray-300 overflow-x-auto" id="log-error-code"><code># /log_error
+
+Systematic error capture for building feedback loops.
+
+## Trigger
+Invoke when Claude produces incorrect output, misses instructions, or behaves unexpectedly.
+
+## Workflow
+
+### Step 1: Create Checkpoint
+Fork the conversation to preserve the error state before investigating.
+
+### Step 2: Root Cause Interview
+Ask Claude:
+- "What prompt or instruction triggered this behavior?"
+- "What did you think I was asking for?"
+- "What context were you missing?"
+
+### Step 3: Document the Failure
+Create log entry in `.claude/error-logs/` with timestamp:
+
+```markdown
+## Error Log: [YYYY-MM-DD-HHMM]
+
+**Context:** [What were you trying to accomplish?]
+
+**Incorrect Behavior:** [What Claude did wrong]
+
+**Exact Prompt (verbatim, not paraphrased):**
+> [Copy the exact text you sent]
+
+**What Claude Misunderstood:** [The gap between intent and interpretation]
+
+**Root Cause Category:**
+- [ ] Ambiguous instruction
+- [ ] Missing context
+- [ ] Assumed knowledge
+- [ ] Faulty mental model
+- [ ] Other: ___
+
+**Preventive Guideline:** [What rule would prevent this?]
+
+**Consider Hook?** [ ] Yes - if this is a recurring pattern
+```
+
+### Step 4: Recovery
+Rewind to pre-error state using double-escape restore.
+
+## Key Principle
+Capture the EXACT prompt wording. Paraphrasing loses the specific language that caused the failure.</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Root Cause Categories -->
+                    <div class="p-4 bg-signalDim border border-signal/30">
+                        <h4 class="text-sm text-signal font-mono mb-3">ROOT_CAUSE_CATEGORIES</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Ambiguous instruction</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Missing context</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Assumed knowledge</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Faulty mental model</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Hallucination</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Context lost</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Divider -->
+                <div class="border-t border-white/10"></div>
+
+                <!-- /log_success Skill -->
+                <section id="log-success">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-acid/10 border border-acid/30">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-acid"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-display text-2xl text-white font-bold">/log_success</h2>
+                            <p class="text-sm text-gray-500">Capture what works for reuse</p>
+                        </div>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-acid font-mono mb-3">// PURPOSE</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            When Claude produces excellent results, capture the interaction pattern while context is fresh. Look for <strong class="text-white">recurring patterns that can be promoted</strong> to CLAUDE.md or converted into reusable skills.
+                        </p>
+                    </div>
+
+                    <!-- Workflow -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-ice font-mono mb-3">// WORKFLOW</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-acid font-display font-bold">1</span>
+                                <p class="text-xs text-gray-400 mt-2">Pause to preserve context</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-acid font-display font-bold">2</span>
+                                <p class="text-xs text-gray-400 mt-2">Identify what worked</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-acid font-display font-bold">3</span>
+                                <p class="text-xs text-gray-400 mt-2">Record exact prompt</p>
+                            </div>
+                            <div class="p-3 bg-surface border border-white/5 text-center">
+                                <span class="text-2xl text-acid font-display font-bold">4</span>
+                                <p class="text-xs text-gray-400 mt-2">Extract reusable template</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Definition -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-acid font-mono mb-3">// SKILL_DEFINITION</h3>
+                        <p class="text-xs text-gray-500 mb-2">Save as: <code class="text-acid">.claude/skills/log-success.md</code></p>
+                        <div class="code-block border border-white/10 bg-panel">
+                            <button class="copy-btn px-3 py-1 bg-acid/10 text-acid text-xs border border-acid/30 hover:bg-acid hover:text-black transition-colors" onclick="copyCode(this, 'log-success-code')">
+                                <i data-lucide="copy" class="w-3 h-3 inline"></i> Copy
+                            </button>
+                            <pre class="p-4 text-sm text-gray-300 overflow-x-auto" id="log-success-code"><code># /log_success
+
+Capture effective patterns for reuse.
+
+## Trigger
+Invoke when Claude produces excellent results that you want to replicate.
+
+## Workflow
+
+### Step 1: Pause
+Capture while context is fresh - don't wait until later.
+
+### Step 2: Identify Success Factors
+What made this work?
+- Clear, specific instruction?
+- Good examples provided?
+- Appropriate context given?
+- Right level of detail?
+
+### Step 3: Document the Success
+Create log entry:
+
+```markdown
+## Success Log: [YYYY-MM-DD-HHMM]
+
+**Context:** [What were you building?]
+
+**Outcome:** [What Claude produced that impressed you]
+
+**Exact Prompt (verbatim):**
+> [Copy the exact text you sent]
+
+**Success Factors:**
+- [ ] Clear, specific instruction
+- [ ] Effective example included
+- [ ] Appropriate context scope
+- [ ] Good constraint definition
+- [ ] Other: ___
+
+**What Made It Work:**
+1. [Factor 1]
+2. [Factor 2]
+3. [Factor 3]
+
+**Generalized Template:**
+> [Reusable version with placeholders]
+
+**Promote to CLAUDE.md?** [ ] Yes - if this is a recurring need
+**Convert to Skill?** [ ] Yes - if this is a complex workflow
+```
+
+### Step 4: Pattern Recognition
+Look across multiple success logs to identify recurring patterns worth promoting.
+
+## Key Principle
+Success patterns compound. What works once can work many times if documented properly.</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Success Factors -->
+                    <div class="p-4 bg-acidDim border border-acid/30">
+                        <h4 class="text-sm text-acid font-mono mb-3">SUCCESS_FACTORS_CHECKLIST</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Clear instruction</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Good examples</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Right context scope</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Defined constraints</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Specific output format</span>
+                            <span class="px-2 py-1 bg-panel border border-white/10 text-gray-400">Iterative refinement</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Directory Structure -->
+            <section class="mt-16 p-6 bg-surface border border-white/10">
+                <h3 class="text-sm text-ice font-mono mb-4">// RECOMMENDED_DIRECTORY_STRUCTURE</h3>
+                <pre class="text-sm text-gray-400 overflow-x-auto"><code>your-project/
+├── .claude/
+│   ├── skills/
+│   │   ├── log-error.md
+│   │   └── log-success.md
+│   ├── error-logs/
+│   │   ├── 2024-01-15-1430.md
+│   │   └── 2024-01-16-0900.md
+│   ├── success-logs/
+│   │   └── 2024-01-15-1600.md
+│   └── commands/
+│       └── [your custom commands]
+└── CLAUDE.md</code></pre>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+            <div class="max-w-5xl mx-auto px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <p class="text-gray-500 font-mono text-sm">
+                            <span class="text-signal">//</span> Log errors. Log successes. <span class="text-acid">Build the feedback loops.</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-6 text-xs font-mono">
+                        <a href="index.html" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                            <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                            PATTERNS_HUB
+                        </a>
+                        <a href="lessons.html" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                            <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                            LESSONS
+                        </a>
+                        <a href="quick-reference.html" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                            <i data-lucide="table" class="w-3 h-3"></i>
+                            QUICK_REF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Copy code functionality
+        function copyCode(button, codeId) {
+            const codeElement = document.getElementById(codeId);
+            const text = codeElement.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.innerHTML = '<i data-lucide="check" class="w-3 h-3 inline"></i> Copied!';
+                button.classList.add('copied');
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    button.innerHTML = '<i data-lucide="copy" class="w-3 h-3 inline"></i> Copy';
+                    button.classList.remove('copied');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

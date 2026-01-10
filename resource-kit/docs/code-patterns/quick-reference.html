@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICK REFERENCE // CODE_PATTERNS</title>
+    <meta name="description" content="Situation-action lookup tables for Claude Code. Quick reference for debugging, workflows, recovery, and optimization.">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="../assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ref-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: rgba(17, 17, 17, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .ref-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+        .ref-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .situation-cell {
+            color: #e8e8e8;
+            font-weight: 500;
+        }
+        .action-cell {
+            font-family: monospace;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .no-print { display: none; }
+            .ref-table th { background: #f0f0f0; }
+            .ref-table td { border-color: #ccc; }
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome">
+
+    <div class="crt-overlay no-print"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0 no-print"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50 no-print">
+            <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-ice text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-ice transition-colors">QUICK_REFERENCE</div>
+                        <div class="text-xs text-gray-500 tracking-[0.2em]">CODE_PATTERNS</div>
+                    </div>
+                </a>
+                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
+                    <button onclick="window.print()" class="text-gray-400 hover:text-ice transition-colors flex items-center gap-2">
+                        <i data-lucide="printer" class="w-3 h-3"></i>
+                        <span class="hidden sm:inline">[ PRINT ]</span>
+                    </button>
+                    <a href="index.html" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                        <span class="hidden sm:inline">[ PATTERNS_HUB ]</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+
+            <!-- Page Header -->
+            <div class="mb-12">
+                <div class="text-xs text-ice font-mono mb-3 tracking-widest">:: MODULE_02</div>
+                <h1 class="font-display text-3xl md:text-4xl text-white font-bold mb-4">
+                    Quick reference tables
+                </h1>
+                <p class="text-gray-500 font-mono leading-relaxed max-w-2xl">
+                    Situation-action lookup for common Claude Code scenarios. Find your situation, apply the recommended action.
+                </p>
+            </div>
+
+            <!-- Reference Tables -->
+            <div class="space-y-12">
+
+                <!-- Debugging & Logging -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="bug" class="w-5 h-5 text-signal"></i>
+                        <h2 class="font-display text-xl text-white">Debugging & logging</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Claude does something wrong</td>
+                                    <td class="action-cell text-gray-400">
+                                        <code class="text-acid">/log_error</code> → fork → interview → capture verbatim prompt → rewind
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Claude does something right</td>
+                                    <td class="action-cell text-gray-400">
+                                        <code class="text-acid">/log_success</code> → capture prompt → extract template → consider promoting to CLAUDE.md
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Same error keeps recurring</td>
+                                    <td class="action-cell text-gray-400">
+                                        Review error logs → identify pattern → create hook or add to CLAUDE.md
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Claude hallucinating APIs</td>
+                                    <td class="action-cell text-gray-400">
+                                        Use <code class="text-ice">Context7 MCP</code> for current documentation → category: hallucination
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Workflow Execution -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="play-circle" class="w-5 h-5 text-acid"></i>
+                        <h2 class="font-display text-xl text-white">Workflow execution</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Need reliable workflow execution</td>
+                                    <td class="action-cell text-gray-400">
+                                        Use <code class="text-acid">/command</code> with deterministic wrapping, not natural language
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Repetitive multi-step task</td>
+                                    <td class="action-cell text-gray-400">
+                                        Create command in <code class="text-ice">.claude/commands/</code> → document purpose + workflow
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Different phases need different models</td>
+                                    <td class="action-cell text-gray-400">
+                                        Implement model routing in command definition
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Tasks can run in parallel</td>
+                                    <td class="action-cell text-gray-400">
+                                        Design command to spawn independent subagents → maintain isolated contexts
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Permission & Context Management -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="shield" class="w-5 h-5 text-ice"></i>
+                        <h2 class="font-display text-xl text-white">Permission & context management</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Claude requesting excessive permissions</td>
+                                    <td class="action-cell text-gray-400">
+                                        Implement hooks + <code class="text-signal">--dangerously-skip-permissions</code> for safe autonomy
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Need to block dangerous operations</td>
+                                    <td class="action-cell text-gray-400">
+                                        Create pre-execution hooks in <code class="text-ice">.claude/hooks/</code> → pattern match blocked commands
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Context getting bloated</td>
+                                    <td class="action-cell text-gray-400">
+                                        Use <code class="text-acid">/compact</code> at natural boundaries → consider subagent delegation
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">CLAUDE.md exceeds 50 lines</td>
+                                    <td class="action-cell text-gray-400">
+                                        Audit weekly → move rarely-used instructions to skills → keep only essentials
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Switching between projects</td>
+                                    <td class="action-cell text-gray-400">
+                                        <code class="text-acid">/clear</code> with repo-specific config → clean context transition
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Recovery & Restoration -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5 text-signal"></i>
+                        <h2 class="font-display text-xl text-white">Recovery & restoration</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Bugs polluted the context</td>
+                                    <td class="action-cell text-gray-400">
+                                        Double-escape → restore conversation only (preserves correct code)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Need full rollback</td>
+                                    <td class="action-cell text-gray-400">
+                                        Double-escape → full restore (reverts conversation + code)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Claude going in circles</td>
+                                    <td class="action-cell text-gray-400">
+                                        Fork conversation → rephrase approach → try different angle
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Ending session cleanly</td>
+                                    <td class="action-cell text-gray-400">
+                                        <code class="text-acid">/handoff {NOTES}</code> → explicit priority notes for next session
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Multi-Agent Patterns -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="network" class="w-5 h-5 text-acid"></i>
+                        <h2 class="font-display text-xl text-white">Multi-agent patterns</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Complex reasoning task</td>
+                                    <td class="action-cell text-gray-400">
+                                        Force Opus subagent → add "Always launch opus subagents" to config
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Subagent producing poor results</td>
+                                    <td class="action-cell text-gray-400">
+                                        Check model selection → likely model mismatch → upgrade to Opus
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Errors compounding across agents</td>
+                                    <td class="action-cell text-gray-400">
+                                        Implement deterministic verification between handoffs → don't trust claims
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Subagent handling too many tasks</td>
+                                    <td class="action-cell text-gray-400">
+                                        Split into multiple focused agents → one objective per agent
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Input Optimization -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                        <i data-lucide="mic" class="w-5 h-5 text-ice"></i>
+                        <h2 class="font-display text-xl text-white">Input optimization</h2>
+                    </div>
+                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                        <table class="ref-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-signal w-2/5">Situation</th>
+                                    <th class="text-acid">Recommended action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="situation-cell">Typing prompts feels slow</td>
+                                    <td class="action-cell text-gray-400">
+                                        Use reprompter tool → voice input → automated structure → keybind activation
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Unsure what to ask for</td>
+                                    <td class="action-cell text-gray-400">
+                                        Model interview approach → "Interview me about what I want" → let model surface requirements
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Prompt too vague</td>
+                                    <td class="action-cell text-gray-400">
+                                        Add XML structure → role assignment → specific examples → clear constraints
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="situation-cell">Same prompt type needed repeatedly</td>
+                                    <td class="action-cell text-gray-400">
+                                        Extract template → store in success logs → promote to skill if valuable
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-panel/50 mt-auto no-print">
+            <div class="max-w-5xl mx-auto px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <p class="text-gray-500 font-mono text-sm">
+                            <span class="text-ice">//</span> Find the situation. <span class="text-acid">Apply the action.</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-6 text-xs font-mono">
+                        <a href="index.html" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                            <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                            PATTERNS_HUB
+                        </a>
+                        <a href="lessons.html" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                            <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                            LESSONS
+                        </a>
+                        <a href="skills.html" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                            <i data-lucide="terminal" class="w-3 h-3"></i>
+                            SKILLS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
