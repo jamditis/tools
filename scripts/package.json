@@ -1,0 +1,16 @@
+{
+  "name": "playwright-cli-tools",
+  "version": "1.0.0",
+  "description": "Full-featured Playwright CLI tool for browser automation",
+  "type": "module",
+  "scripts": {
+    "browser": "npx tsx browser.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}
