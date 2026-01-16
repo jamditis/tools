@@ -1,6 +1,6 @@
 # AI resources + toolkit
 
-A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted on GitHub Pages at **https://jamditis.github.io/tools/**
+A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted at **https://tools.amditis.tech/**
 
 ## Resource kit website
 
@@ -10,13 +10,14 @@ Interactive tools and guides built with love and frustration by Joe Amditis.
 
 | Page | Description |
 |------|-------------|
-| [LLM Advisor](https://jamditis.github.io/tools/llm-advisor/) | Decision tree tool for selecting the right AI model for your task |
-| [Vibe coding guide](https://jamditis.github.io/tools/vibe-coding/) | Multi-page tutorial on AI-assisted development |
-| [Terminal setup guide](https://jamditis.github.io/tools/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
-| [Low-cost tool stacks](https://jamditis.github.io/tools/tool-stacks/) | Development resources and affordable tool recommendations |
-| [Quick reference card](https://jamditis.github.io/tools/quick-reference-card.html) | Printable cheat sheet for common AI prompts |
-| [Glossary](https://jamditis.github.io/tools/glossary.html) | AI and development terminology |
-| [Language guide](https://jamditis.github.io/tools/language-guide.html) | How to write effective prompts |
+| [LLM Advisor](https://tools.amditis.tech/llm-advisor/) | Decision tree tool for selecting the right AI model for your task |
+| [Vibe coding guide](https://tools.amditis.tech/vibe-coding/) | Multi-page tutorial on AI-assisted development |
+| [Terminal setup guide](https://tools.amditis.tech/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
+| [Tool stacks](https://tools.amditis.tech/tool-stacks/) | IDEs, AI app builders, databases, deployment, and 14 tool categories |
+| [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable cheat sheet for common AI prompts |
+| [Glossary](https://tools.amditis.tech/glossary/) | AI and development terminology |
+| [Language guide](https://tools.amditis.tech/language-guide/) | How to write effective prompts |
+| [About](https://tools.amditis.tech/about/) | About the project and author |
 
 ### Vibe coding guide sections
 
@@ -120,10 +121,15 @@ tools/
 ├── resource-kit/
 │   └── docs/                    # GitHub Pages (served from here)
 │       ├── index.html           # Main landing page
+│       ├── about/               # About page
+│       ├── glossary/            # AI terminology glossary
+│       ├── language-guide/      # Prompt writing guide
 │       ├── llm-advisor/         # LLM tool selector app
-│       ├── vibe-coding/         # Vibe coding guide (5 pages)
+│       ├── llm-advisor-doc/     # Static LLM documentation
+│       ├── quick-reference-card/ # Printable cheat sheet
 │       ├── terminal-setup/      # Terminal configuration guide
-│       ├── tool-stacks/         # Low-cost development tools
+│       ├── tool-stacks/         # Development tools (14 categories)
+│       ├── vibe-coding/         # Vibe coding guide (5 pages)
 │       ├── downloads/           # Downloadable templates
 │       └── assets/              # Shared CSS, JS, images
 ├── LESSONS-*.md                 # Project retrospective templates
