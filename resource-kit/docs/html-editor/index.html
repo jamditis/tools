@@ -158,6 +158,18 @@
                     <i data-lucide="settings" class="w-4 h-4"></i>
                 </button>
 
+                <div class="w-px h-6 bg-ink/10 hidden sm:block"></div>
+
+                <button id="new-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:text-accent" title="Start new project">
+                    <i data-lucide="file-plus" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">New</span>
+                </button>
+
+                <button id="recent-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:text-accent" title="Recent sessions">
+                    <i data-lucide="history" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Recent</span>
+                </button>
+
                 <button id="upload-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:text-accent">
                     <i data-lucide="upload" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">Upload</span>
@@ -578,6 +590,39 @@
         </div>
     </div>
 
+    <!-- Recent Sessions Modal -->
+    <div id="recent-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" id="recent-modal-backdrop"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto">
+            <div class="bg-canvas border border-ink/10 shadow-2xl w-full max-w-lg my-8 animate-page-in">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-ink/5">
+                    <h3 class="font-display text-xl italic">Recent <span class="font-black">Sessions</span></h3>
+                    <button id="recent-modal-close" class="p-2 hover:bg-ink/5 transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6">
+                    <div id="recent-sessions-list" class="space-y-2 max-h-80 overflow-y-auto">
+                        <p class="text-sm text-mist text-center py-8">No saved sessions yet</p>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-6 pt-0 flex gap-3">
+                    <button id="recent-clear-all-btn" class="flex-1 px-4 py-3 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:bg-ink/5 transition-colors text-red-600">
+                        Clear All
+                    </button>
+                    <button id="recent-close-btn" class="flex-1 px-4 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-colors">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
@@ -776,6 +821,251 @@
         imgurAuthRadios.forEach(radio => {
             radio.addEventListener('change', updateSettingsInputStates);
         });
+
+        // ==========================================
+        // SESSION MANAGEMENT (NEW / RECENT)
+        // ==========================================
+        const newBtn = document.getElementById('new-btn');
+        const recentBtn = document.getElementById('recent-btn');
+        const recentModal = document.getElementById('recent-modal');
+        const recentModalBackdrop = document.getElementById('recent-modal-backdrop');
+        const recentModalClose = document.getElementById('recent-modal-close');
+        const recentCloseBtn = document.getElementById('recent-close-btn');
+        const recentClearAllBtn = document.getElementById('recent-clear-all-btn');
+        const recentSessionsList = document.getElementById('recent-sessions-list');
+
+        const SESSIONS_STORAGE_KEY = 'amditis-html-editor-sessions';
+        const MAX_SAVED_SESSIONS = 10;
+
+        // Get saved sessions from localStorage
+        function getSavedSessions() {
+            try {
+                const saved = localStorage.getItem(SESSIONS_STORAGE_KEY);
+                return saved ? JSON.parse(saved) : [];
+            } catch (e) {
+                console.warn('Could not load sessions:', e);
+                return [];
+            }
+        }
+
+        // Save sessions to localStorage
+        function saveSessions(sessions) {
+            try {
+                localStorage.setItem(SESSIONS_STORAGE_KEY, JSON.stringify(sessions));
+            } catch (e) {
+                console.warn('Could not save sessions:', e);
+            }
+        }
+
+        // Save current project as a session
+        function saveCurrentSession() {
+            if (projectFiles.size === 0) return;
+
+            // Save current file first
+            if (currentFile) {
+                saveCurrentFile();
+            }
+
+            // Convert Map to object for JSON storage
+            const filesObj = {};
+            for (const [name, content] of projectFiles) {
+                filesObj[name] = content;
+            }
+
+            const session = {
+                id: Date.now(),
+                name: projectName || 'Untitled',
+                isZip: isZipProject,
+                files: filesObj,
+                savedAt: new Date().toISOString()
+            };
+
+            const sessions = getSavedSessions();
+
+            // Add new session at the beginning
+            sessions.unshift(session);
+
+            // Keep only the most recent sessions
+            if (sessions.length > MAX_SAVED_SESSIONS) {
+                sessions.length = MAX_SAVED_SESSIONS;
+            }
+
+            saveSessions(sessions);
+            return session;
+        }
+
+        // Restore a session
+        function restoreSession(session) {
+            projectFiles.clear();
+            projectName = session.name;
+            isZipProject = session.isZip;
+
+            // Convert object back to Map
+            for (const [name, content] of Object.entries(session.files)) {
+                projectFiles.set(name, content);
+            }
+
+            projectNameDisplay.textContent = projectName;
+            renderFileList();
+            showEditor();
+
+            // Auto-select first HTML file
+            const htmlFiles = getFilesByType('html');
+            if (htmlFiles.length > 0) {
+                selectFile(htmlFiles[0]);
+            }
+
+            closeRecentModal();
+        }
+
+        // Delete a session
+        function deleteSession(sessionId) {
+            const sessions = getSavedSessions().filter(s => s.id !== sessionId);
+            saveSessions(sessions);
+            renderRecentSessionsList();
+        }
+
+        // Clear all sessions
+        function clearAllSessions() {
+            if (confirm('Delete all saved sessions? This cannot be undone.')) {
+                saveSessions([]);
+                renderRecentSessionsList();
+            }
+        }
+
+        // Start new project
+        function startNewProject() {
+            // Save current project if any
+            if (projectFiles.size > 0) {
+                const saved = saveCurrentSession();
+                if (saved) {
+                    console.log('Session saved:', saved.name);
+                }
+            }
+
+            // Clear editor state
+            projectFiles.clear();
+            projectName = '';
+            currentFile = null;
+            isZipProject = false;
+
+            // Reset UI
+            projectNameDisplay.textContent = 'No project loaded';
+            currentFileDisplay.textContent = 'No file selected';
+            editorFrame.srcdoc = '';
+
+            // Show upload zone, hide editor
+            editorZone.classList.add('hidden');
+            uploadZone.classList.remove('hidden');
+            downloadBtn.disabled = true;
+
+            // Clear input fields
+            urlInput.value = '';
+            fileInput.value = '';
+        }
+
+        // Render recent sessions list
+        function renderRecentSessionsList() {
+            const sessions = getSavedSessions();
+
+            if (sessions.length === 0) {
+                recentSessionsList.innerHTML = '<p class="text-sm text-mist text-center py-8">No saved sessions yet</p>';
+                recentClearAllBtn.disabled = true;
+                recentClearAllBtn.classList.add('opacity-30');
+                return;
+            }
+
+            recentClearAllBtn.disabled = false;
+            recentClearAllBtn.classList.remove('opacity-30');
+
+            recentSessionsList.innerHTML = sessions.map(session => {
+                const fileCount = Object.keys(session.files).length;
+                const date = new Date(session.savedAt);
+                const timeAgo = getTimeAgo(date);
+                const icon = session.isZip ? 'folder-archive' : 'file-code';
+
+                return `
+                    <div class="flex items-center gap-3 p-3 border border-ink/10 hover:bg-ink/5 transition-colors group">
+                        <i data-lucide="${icon}" class="w-5 h-5 text-accent flex-shrink-0"></i>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-medium text-sm truncate">${escapeHtml(session.name)}</p>
+                            <p class="text-[10px] text-mist">${fileCount} file${fileCount !== 1 ? 's' : ''} · ${timeAgo}</p>
+                        </div>
+                        <button class="restore-session-btn px-3 py-1.5 bg-accent text-canvas text-[9px] font-bold uppercase tracking-wider hover:bg-ink transition-colors" data-id="${session.id}">
+                            Open
+                        </button>
+                        <button class="delete-session-btn p-1.5 text-mist hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all" data-id="${session.id}" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // Add event listeners
+            recentSessionsList.querySelectorAll('.restore-session-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const sessionId = parseInt(btn.dataset.id);
+                    const session = sessions.find(s => s.id === sessionId);
+                    if (session) {
+                        // Save current first if needed
+                        if (projectFiles.size > 0) {
+                            saveCurrentSession();
+                        }
+                        restoreSession(session);
+                    }
+                });
+            });
+
+            recentSessionsList.querySelectorAll('.delete-session-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const sessionId = parseInt(btn.dataset.id);
+                    deleteSession(sessionId);
+                });
+            });
+
+            lucide.createIcons();
+        }
+
+        // Helper: escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Helper: get relative time
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return 'just now';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}m ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h ago`;
+            const days = Math.floor(hours / 24);
+            if (days < 7) return `${days}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        // Open recent modal
+        function openRecentModal() {
+            renderRecentSessionsList();
+            recentModal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Close recent modal
+        function closeRecentModal() {
+            recentModal.classList.add('hidden');
+        }
+
+        // Event listeners
+        newBtn.addEventListener('click', startNewProject);
+        recentBtn.addEventListener('click', openRecentModal);
+        recentModalClose.addEventListener('click', closeRecentModal);
+        recentModalBackdrop.addEventListener('click', closeRecentModal);
+        recentCloseBtn.addEventListener('click', closeRecentModal);
+        recentClearAllBtn.addEventListener('click', clearAllSessions);
 
         // File Upload Handlers
         uploadBtn.addEventListener('click', () => {
