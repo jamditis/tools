@@ -167,25 +167,60 @@
 
             <!-- Upload Zone (shown when no file loaded) -->
             <div id="upload-zone" class="flex-1 flex items-center justify-center p-8 animate-page-in">
-                <div class="drop-zone w-full max-w-2xl p-12 md:p-16 text-center cursor-pointer deckle-card" id="drop-zone">
-                    <div class="mb-8">
-                        <i data-lucide="folder-archive" class="w-16 h-16 mx-auto text-ink/20"></i>
-                    </div>
-                    <h2 class="font-display text-3xl md:text-5xl font-light italic mb-6 text-ink">
-                        Drop your <span class="font-black">project.</span>
-                    </h2>
-                    <p class="text-mist text-sm mb-8 max-w-md mx-auto">
-                        Upload a ZIP file with your HTML pages and CSS files, or a single HTML file. Edit text across all pages, then download the complete project.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <div class="inline-block px-4 py-2 border border-ink/10">
-                            <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">.zip projects</span>
+                <div class="w-full max-w-2xl space-y-6">
+
+                    <!-- URL Fetch Section -->
+                    <div class="deckle-card p-8 md:p-10">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i data-lucide="globe" class="w-5 h-5 text-accent"></i>
+                            <h3 class="font-display text-xl italic">Fetch from <span class="font-black">URL</span></h3>
                         </div>
-                        <div class="inline-block px-4 py-2 border border-ink/10">
-                            <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">.html files</span>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input
+                                type="url"
+                                id="url-input"
+                                placeholder="https://example.com/page.html"
+                                class="flex-1 px-4 py-3 bg-white/50 border border-ink/10 text-sm focus:outline-none focus:border-accent"
+                            >
+                            <button id="fetch-btn" class="toolbar-btn px-6 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                                Fetch
+                            </button>
                         </div>
+                        <p id="fetch-status" class="text-xs text-mist mt-3 hidden"></p>
+                        <p class="text-[10px] text-mist/60 mt-4">
+                            Fetches a snapshot of the page. Some sites may block this due to CORS restrictions.
+                        </p>
                     </div>
-                    <input type="file" id="file-input" accept=".html,.htm,.zip" class="hidden">
+
+                    <!-- Divider -->
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 h-px bg-ink/10"></div>
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">or</span>
+                        <div class="flex-1 h-px bg-ink/10"></div>
+                    </div>
+
+                    <!-- File Upload Section -->
+                    <div class="drop-zone w-full p-10 md:p-12 text-center cursor-pointer deckle-card" id="drop-zone">
+                        <div class="mb-6">
+                            <i data-lucide="folder-archive" class="w-12 h-12 mx-auto text-ink/20"></i>
+                        </div>
+                        <h3 class="font-display text-2xl md:text-3xl font-light italic mb-4 text-ink">
+                            Drop your <span class="font-black">file.</span>
+                        </h3>
+                        <p class="text-mist text-sm mb-6 max-w-md mx-auto">
+                            Upload a ZIP with multiple pages, or a single HTML file.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <div class="inline-block px-3 py-1.5 border border-ink/10">
+                                <span class="text-[9px] font-bold tracking-[0.3em] uppercase opacity-50">.zip</span>
+                            </div>
+                            <div class="inline-block px-3 py-1.5 border border-ink/10">
+                                <span class="text-[9px] font-bold tracking-[0.3em] uppercase opacity-50">.html</span>
+                            </div>
+                        </div>
+                        <input type="file" id="file-input" accept=".html,.htm,.zip" class="hidden">
+                    </div>
                 </div>
             </div>
 
@@ -315,6 +350,9 @@
         const cssFilesSection = document.getElementById('css-files-section');
         const otherFilesList = document.getElementById('other-files-list');
         const otherFilesSection = document.getElementById('other-files-section');
+        const urlInput = document.getElementById('url-input');
+        const fetchBtn = document.getElementById('fetch-btn');
+        const fetchStatus = document.getElementById('fetch-status');
 
         // Project State
         let projectName = '';
@@ -350,6 +388,181 @@
             const file = e.target.files[0];
             if (file) handleFileUpload(file);
         });
+
+        // URL Fetch Handlers
+        fetchBtn.addEventListener('click', () => fetchFromUrl());
+        urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') fetchFromUrl();
+        });
+
+        // Fetch page from URL
+        async function fetchFromUrl() {
+            const url = urlInput.value.trim();
+            if (!url) {
+                showFetchStatus('Please enter a URL', 'error');
+                return;
+            }
+
+            // Validate URL
+            try {
+                new URL(url);
+            } catch {
+                showFetchStatus('Please enter a valid URL', 'error');
+                return;
+            }
+
+            showFetchStatus('Fetching page...', 'loading');
+            fetchBtn.disabled = true;
+
+            try {
+                // Try multiple CORS proxies in case one fails
+                const proxies = [
+                    (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+                    (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+                ];
+
+                let html = null;
+                let lastError = null;
+
+                for (const proxyFn of proxies) {
+                    try {
+                        const proxyUrl = proxyFn(url);
+                        const response = await fetch(proxyUrl, {
+                            headers: { 'Accept': 'text/html' }
+                        });
+
+                        if (response.ok) {
+                            html = await response.text();
+                            break;
+                        }
+                    } catch (err) {
+                        lastError = err;
+                    }
+                }
+
+                if (!html) {
+                    throw lastError || new Error('Could not fetch page');
+                }
+
+                // Process HTML: convert relative URLs to absolute
+                html = makeUrlsAbsolute(html, url);
+
+                // Extract filename from URL
+                const urlObj = new URL(url);
+                let filename = urlObj.pathname.split('/').pop() || 'index.html';
+                if (!filename.endsWith('.html') && !filename.endsWith('.htm')) {
+                    filename = 'page.html';
+                }
+
+                // Load into editor
+                projectFiles.clear();
+                isZipProject = false;
+                projectName = urlObj.hostname;
+                projectFiles.set(filename, html);
+
+                projectNameDisplay.textContent = projectName;
+                renderFileList();
+                showEditor();
+                selectFile(filename);
+
+                showFetchStatus('Page loaded successfully!', 'success');
+                setTimeout(() => { fetchStatus.classList.add('hidden'); }, 2000);
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                showFetchStatus('Could not fetch page. The site may block external requests.', 'error');
+            } finally {
+                fetchBtn.disabled = false;
+            }
+        }
+
+        // Convert relative URLs to absolute
+        function makeUrlsAbsolute(html, baseUrl) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const base = new URL(baseUrl);
+
+            // Add base tag if not present
+            if (!doc.querySelector('base')) {
+                const baseTag = doc.createElement('base');
+                baseTag.href = base.origin + base.pathname.replace(/\/[^\/]*$/, '/');
+                doc.head.insertBefore(baseTag, doc.head.firstChild);
+            }
+
+            // Convert common attributes with URLs
+            const urlAttributes = [
+                { selector: '[href]', attr: 'href' },
+                { selector: '[src]', attr: 'src' },
+                { selector: '[srcset]', attr: 'srcset' },
+                { selector: '[data-src]', attr: 'data-src' },
+                { selector: '[poster]', attr: 'poster' },
+            ];
+
+            urlAttributes.forEach(({ selector, attr }) => {
+                doc.querySelectorAll(selector).forEach(el => {
+                    const value = el.getAttribute(attr);
+                    if (value && !value.startsWith('data:') && !value.startsWith('#') && !value.startsWith('javascript:')) {
+                        try {
+                            if (attr === 'srcset') {
+                                // Handle srcset specially (comma-separated)
+                                const newSrcset = value.split(',').map(part => {
+                                    const [url, descriptor] = part.trim().split(/\s+/);
+                                    try {
+                                        const absUrl = new URL(url, baseUrl).href;
+                                        return descriptor ? `${absUrl} ${descriptor}` : absUrl;
+                                    } catch {
+                                        return part;
+                                    }
+                                }).join(', ');
+                                el.setAttribute(attr, newSrcset);
+                            } else {
+                                const absUrl = new URL(value, baseUrl).href;
+                                el.setAttribute(attr, absUrl);
+                            }
+                        } catch {
+                            // Invalid URL, leave as-is
+                        }
+                    }
+                });
+            });
+
+            // Convert CSS url() references in style attributes and style tags
+            doc.querySelectorAll('[style]').forEach(el => {
+                el.setAttribute('style', convertCssUrls(el.getAttribute('style'), baseUrl));
+            });
+
+            doc.querySelectorAll('style').forEach(style => {
+                style.textContent = convertCssUrls(style.textContent, baseUrl);
+            });
+
+            return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+        }
+
+        // Convert CSS url() to absolute
+        function convertCssUrls(css, baseUrl) {
+            return css.replace(/url\(['"]?([^'")]+)['"]?\)/g, (match, url) => {
+                if (url.startsWith('data:') || url.startsWith('http://') || url.startsWith('https://')) {
+                    return match;
+                }
+                try {
+                    const absUrl = new URL(url, baseUrl).href;
+                    return `url('${absUrl}')`;
+                } catch {
+                    return match;
+                }
+            });
+        }
+
+        // Show fetch status message
+        function showFetchStatus(message, type) {
+            fetchStatus.textContent = message;
+            fetchStatus.classList.remove('hidden', 'text-accent', 'text-red-600');
+            if (type === 'success') {
+                fetchStatus.classList.add('text-accent');
+            } else if (type === 'error') {
+                fetchStatus.classList.add('text-red-600');
+            }
+        }
 
         // Handle file upload (ZIP or HTML)
         async function handleFileUpload(file) {
