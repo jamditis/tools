@@ -569,10 +569,23 @@
                                     <div id="imgur-oauth-status" class="mb-2">
                                         <p class="text-[10px] text-mist">Not connected</p>
                                     </div>
+
+                                    <!-- Step 1: Open Imgur auth -->
                                     <button type="button" id="imgur-connect-btn" class="w-full px-4 py-2 bg-[#1bb76e] text-white text-[10px] font-bold uppercase tracking-wider hover:bg-[#159955] transition-colors disabled:opacity-50 flex items-center justify-center gap-2" disabled>
-                                        <i data-lucide="log-in" class="w-4 h-4"></i>
-                                        Connect with Imgur
+                                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                                        Step 1: Open Imgur Login
                                     </button>
+
+                                    <!-- Step 2: Paste the redirect URL -->
+                                    <div id="imgur-paste-section" class="mt-3 hidden">
+                                        <p class="text-[10px] text-mist mb-2">Step 2: After authorizing, paste the URL you were redirected to:</p>
+                                        <input type="text" id="imgur-redirect-url-input" placeholder="Paste URL here (contains #access_token=...)" class="w-full px-3 py-2 bg-white/50 border border-ink/10 text-xs focus:outline-none focus:border-accent mb-2">
+                                        <button type="button" id="imgur-extract-token-btn" class="w-full px-4 py-2 bg-ink text-canvas text-[10px] font-bold uppercase tracking-wider hover:bg-accent transition-colors">
+                                            Extract Token & Connect
+                                        </button>
+                                    </div>
+
+                                    <!-- Disconnect button (shown when connected) -->
                                     <button type="button" id="imgur-disconnect-btn" class="w-full px-4 py-2 border border-ink/10 text-[10px] font-bold uppercase tracking-wider hover:bg-ink/5 transition-colors mt-2 hidden">
                                         Disconnect Account
                                     </button>
@@ -788,42 +801,21 @@
         const imgurOAuthStatus = document.getElementById('imgur-oauth-status');
         const imgurConnectBtn = document.getElementById('imgur-connect-btn');
         const imgurDisconnectBtn = document.getElementById('imgur-disconnect-btn');
+        const imgurPasteSection = document.getElementById('imgur-paste-section');
+        const imgurRedirectUrlInput = document.getElementById('imgur-redirect-url-input');
+        const imgurExtractTokenBtn = document.getElementById('imgur-extract-token-btn');
 
-        // Build OAuth URL (redirect back to this page)
+        // Build OAuth URL (no redirect_uri - user will paste the URL back)
         function getImgurOAuthUrl() {
-            const redirectUri = window.location.origin + window.location.pathname;
-            return `https://api.imgur.com/oauth2/authorize?client_id=${DEFAULT_IMGUR_CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}`;
+            return `https://api.imgur.com/oauth2/authorize?client_id=${DEFAULT_IMGUR_CLIENT_ID}&response_type=token`;
         }
 
-        // Check for OAuth callback on page load
-        function handleOAuthCallback() {
-            const hash = window.location.hash;
-            if (hash && hash.includes('access_token=')) {
-                // Parse the hash parameters
-                const params = new URLSearchParams(hash.substring(1));
-                const accessToken = params.get('access_token');
-                const accountUsername = params.get('account_username');
-
-                if (accessToken) {
-                    // Save the token
-                    imgurSettings.accessToken = accessToken;
-                    imgurSettings.accountUsername = accountUsername || 'Connected';
-                    imgurSettings.authMethod = 'oauth';
-                    saveSettings();
-
-                    // Clear the hash from URL
-                    history.replaceState(null, '', window.location.pathname + window.location.search);
-
-                    // Show success message
-                    setTimeout(() => {
-                        alert(`Successfully connected to Imgur as ${accountUsername || 'your account'}!`);
-                    }, 100);
-                }
-            }
+        // Helper: escape HTML (defined early for use in settings)
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
-
-        // Run OAuth callback check
-        handleOAuthCallback();
 
         // Update OAuth status display
         function updateOAuthStatusDisplay() {
@@ -836,17 +828,71 @@
                     </div>
                 `;
                 imgurConnectBtn.classList.add('hidden');
+                imgurPasteSection.classList.add('hidden');
                 imgurDisconnectBtn.classList.remove('hidden');
             } else {
                 imgurOAuthStatus.innerHTML = '<p class="text-[10px] text-mist">Not connected</p>';
                 imgurConnectBtn.classList.remove('hidden');
                 imgurDisconnectBtn.classList.add('hidden');
+                // Don't auto-show paste section - only show after clicking connect
             }
         }
 
-        // Connect to Imgur
+        // Step 1: Open Imgur login in new window
         function connectImgur() {
-            window.location.href = getImgurOAuthUrl();
+            // Open Imgur auth in a new window
+            window.open(getImgurOAuthUrl(), '_blank', 'width=600,height=700');
+
+            // Show the paste section
+            imgurPasteSection.classList.remove('hidden');
+            imgurRedirectUrlInput.value = '';
+            imgurRedirectUrlInput.focus();
+        }
+
+        // Step 2: Extract token from pasted URL
+        function extractTokenFromUrl() {
+            const pastedUrl = imgurRedirectUrlInput.value.trim();
+
+            if (!pastedUrl) {
+                alert('Please paste the URL from Imgur');
+                return;
+            }
+
+            // Try to extract access_token from URL hash
+            let accessToken = null;
+            let accountUsername = null;
+
+            try {
+                // URL might have # fragment with token
+                const hashIndex = pastedUrl.indexOf('#');
+                if (hashIndex !== -1) {
+                    const hashPart = pastedUrl.substring(hashIndex + 1);
+                    const params = new URLSearchParams(hashPart);
+                    accessToken = params.get('access_token');
+                    accountUsername = params.get('account_username');
+                }
+            } catch (e) {
+                console.error('Error parsing URL:', e);
+            }
+
+            if (!accessToken) {
+                alert('Could not find access token in the URL. Make sure you copied the full URL after authorizing on Imgur.');
+                return;
+            }
+
+            // Save the token
+            imgurSettings.accessToken = accessToken;
+            imgurSettings.accountUsername = accountUsername || 'Connected';
+            imgurSettings.authMethod = 'oauth';
+            saveSettings();
+
+            // Update UI
+            updateOAuthStatusDisplay();
+            imgurRedirectUrlInput.value = '';
+
+            // Show success
+            settingsStatus.textContent = `Connected to Imgur as ${accountUsername || 'your account'}!`;
+            settingsStatus.classList.remove('hidden');
         }
 
         // Disconnect from Imgur
@@ -859,6 +905,7 @@
             saveSettings();
             updateOAuthStatusDisplay();
             updateSettingsInputStates();
+            imgurPasteSection.classList.add('hidden');
 
             // Update radio selection
             const defaultRadio = document.querySelector('input[name="imgur-auth"][value="default"]');
@@ -874,6 +921,10 @@
             updateOAuthStatusDisplay();
             updateSettingsInputStates();
             settingsStatus.classList.add('hidden');
+            // Hide paste section when opening (unless already connected)
+            if (!imgurSettings.accessToken) {
+                imgurPasteSection.classList.add('hidden');
+            }
             settingsModal.classList.remove('hidden');
             lucide.createIcons();
         }
@@ -886,6 +937,10 @@
             const selected = document.querySelector('input[name="imgur-auth"]:checked')?.value;
             imgurClientIdInput.disabled = selected !== 'client-id';
             imgurConnectBtn.disabled = selected !== 'oauth';
+            // Hide paste section if not oauth selected
+            if (selected !== 'oauth') {
+                imgurPasteSection.classList.add('hidden');
+            }
         }
 
         function saveSettingsFromModal() {
@@ -898,13 +953,6 @@
             setTimeout(closeSettingsModal, 1000);
         }
 
-        // Helper: escape HTML (defined early for use in settings)
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
         settingsBtn.addEventListener('click', openSettingsModal);
         settingsModalClose.addEventListener('click', closeSettingsModal);
         settingsModalBackdrop.addEventListener('click', closeSettingsModal);
@@ -912,6 +960,7 @@
         settingsSaveBtn.addEventListener('click', saveSettingsFromModal);
         imgurConnectBtn.addEventListener('click', connectImgur);
         imgurDisconnectBtn.addEventListener('click', disconnectImgur);
+        imgurExtractTokenBtn.addEventListener('click', extractTokenFromUrl);
         imgurAuthRadios.forEach(radio => {
             radio.addEventListener('change', updateSettingsInputStates);
         });
