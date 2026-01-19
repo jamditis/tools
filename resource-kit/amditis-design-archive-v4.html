@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMDITIS // ARCHIVE_v4.2</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        canvas: '#ede6d4', 
+                        ink: '#121212',    
+                        clay: '#d6cdb7',   
+                        mist: '#6b6b6b',   
+                        accent: '#3d4b40', 
+                    },
+                    animation: {
+                        'page-in': 'pageIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'drift': 'drift 25s ease-in-out infinite',
+                        'ink-spread': 'inkSpread 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        pageIn: {
+                            '0%': { opacity: '0', transform: 'translateY(15px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        drift: {
+                            '0%, 100%': { transform: 'translate(0, 0)' },
+                            '50%': { transform: 'translate(-1%, 1%)' },
+                        },
+                        inkSpread: {
+                            '0%': { filter: 'blur(10px)', opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { filter: 'blur(0)', opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #ede6d4;
+            color: #121212;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- THE ARCHIVAL GRID & TEXTURE --- */
+        .paper-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        :focus-visible {
+            outline: 2px solid #3d4b40;
+            outline-offset: 4px;
+        }
+
+        .scrolled-nav {
+            background: rgba(237, 230, 212, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #121212;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .deckle-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+        }
+
+        /* Motion Guidelines Stagger */
+        .stagger-child { opacity: 0; transform: translateY(10px); }
+        .visible .stagger-child { animation: pageIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+
+        /* Responsive Type Handling */
+        @media (max-width: 640px) {
+            .fluid-title { font-size: 14vw !important; }
+        }
+
+        /* Drawer State */
+        .drawer-closed { transform: translateX(100%); }
+        .drawer-open { transform: translateX(0); }
+    </style>
+</head>
+<body class="font-sans overflow-x-hidden">
+
+    <div class="paper-overlay"></div>
+
+    <!-- Soft Ambient Light -->
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="relative z-10">
+        
+        <!-- ACCESSIBLE NAVIGATION -->
+        <nav id="main-nav" class="fixed top-0 w-full flex justify-between items-center p-6 md:p-14 z-50 transition-all duration-500 ease-in-out" role="navigation" aria-label="Main navigation">
+            <div class="flex items-center gap-4">
+                <span class="font-display text-3xl font-black italic tracking-tighter">A.</span>
+                <span class="text-[10px] tracking-[0.4em] font-bold opacity-30 uppercase hidden lg:block">Archive_v4.2</span>
+            </div>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-widest text-ink items-center">
+                <a href="#elements" class="nav-link relative">Elements</a>
+                <a href="#motion" class="nav-link relative">Motion</a>
+                <a href="#responsive" class="nav-link relative">Responsive</a>
+                <button onclick="toggleDrawer()" class="bg-ink text-canvas px-6 py-2.5 hover:bg-accent transition-all focus:ring-2 focus:ring-accent" aria-label="Open directory">
+                    Directory
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleDrawer()" class="md:hidden p-2 text-ink" aria-label="Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+
+        <!-- MOBILE / SYSTEM DRAWER -->
+        <div id="side-drawer" class="fixed inset-y-0 right-0 w-full md:w-96 bg-canvas border-l border-ink/5 z-[100] drawer-closed transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) shadow-2xl overflow-y-auto">
+            <div class="p-8 md:p-14">
+                <div class="flex justify-between items-center mb-20">
+                    <span class="font-display text-2xl font-black italic">A.</span>
+                    <button onclick="toggleDrawer()" class="p-2 hover:bg-ink hover:text-canvas transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="space-y-12">
+                    <h6 class="text-[10px] font-bold tracking-[0.4em] text-mist uppercase">Archival index</h6>
+                    <nav class="flex flex-col gap-8 text-2xl font-display italic">
+                        <a href="#elements" onclick="toggleDrawer()" class="hover:pl-4 transition-all duration-300">Materiality</a>
+                        <a href="#composition" onclick="toggleDrawer()" class="hover:pl-4 transition-all duration-300">Composition</a>
+                        <a href="#motion" onclick="toggleDrawer()" class="hover:pl-4 transition-all duration-300">Motion kinetics</a>
+                        <a href="#responsive" onclick="toggleDrawer()" class="hover:pl-4 transition-all duration-300">Responsive standard</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="max-w-7xl mx-auto pt-40 md:pt-52 pb-64 px-6 md:px-8" id="main-content">
+            
+            <!-- HERO -->
+            <header class="mb-52 md:mb-72 animate-page-in">
+                <div class="inline-block px-4 py-1 border border-ink/10 mb-8">
+                    <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">Issue 004 // Institutional archive</span>
+                </div>
+                <h1 class="font-display fluid-title text-[11vw] md:text-[8.5vw] font-light leading-[0.85] tracking-tight mb-16 text-ink">
+                    The silent <br> <span class="italic font-black">archive.</span>
+                </h1>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div class="lg:col-start-7 lg:col-span-6 space-y-10">
+                        <p class="text-xl md:text-2xl text-ink/80 font-light leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-10">
+                            Parchment is a study in material honesty. We prioritize the physical qualities of communication—contrast, weight, and the tactile nature of the written word.
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. MOTION KINETICS SECTION -->
+            <section id="motion" class="reveal-section mb-72">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-28 border-b border-ink/10 pb-10 gap-4">
+                    <h2 class="font-display text-4xl font-light italic">01 / Motion kinetics</h2>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-mist">Style guidelines for movement</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-24">
+                    <!-- Reveal Pattern -->
+                    <div class="space-y-8">
+                        <h3 class="text-[11px] font-bold uppercase tracking-widest text-mist">Staggered entrance</h3>
+                        <div class="p-10 border border-ink/5 bg-white/10 space-y-4 reveal-section">
+                            <div class="h-1 w-20 bg-ink stagger-child stagger-1"></div>
+                            <div class="h-8 w-full bg-clay/20 stagger-child stagger-2"></div>
+                            <div class="h-24 w-full bg-clay/10 stagger-child stagger-3"></div>
+                        </div>
+                        <p class="text-xs text-ink/60">Elements should never appear simultaneously. Use a 100ms offset to simulate organic discovery.</p>
+                    </div>
+
+                    <!-- Kinetic Hover -->
+                    <div class="space-y-8">
+                        <h3 class="text-[11px] font-bold uppercase tracking-widest text-mist">Ink spreads</h3>
+                        <button class="w-full py-10 border border-ink/10 hover:border-ink transition-all group overflow-hidden relative">
+                            <span class="relative z-10 font-display text-2xl italic group-hover:scale-110 transition-transform duration-500 block">Hover to spread</span>
+                            <div class="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 group-hover:animate-ink-spread transition-all"></div>
+                        </button>
+                        <p class="text-xs text-ink/60">Interactive states should feel like ink soaking into paper. Use soft blurs and scale-ups.</p>
+                    </div>
+
+                    <!-- Page Drifts -->
+                    <div class="space-y-8">
+                        <h3 class="text-[11px] font-bold uppercase tracking-widest text-mist">Ambient drift</h3>
+                        <div class="aspect-square border border-ink/5 bg-white/5 flex items-center justify-center relative overflow-hidden">
+                            <div class="w-32 h-32 bg-accent/5 rounded-full blur-3xl animate-drift"></div>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">Floating light</span>
+                        </div>
+                        <p class="text-xs text-ink/60">Large empty spaces should contain slow-moving atmospheric light to prevent a static feel.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. RESPONSIVE COMPANION SECTION -->
+            <section id="responsive" class="reveal-section mb-72">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-28 border-b border-ink/10 pb-10 gap-4">
+                    <h2 class="font-display text-4xl font-light italic">02 / Responsive standard</h2>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-mist">Adaptive layout rules</span>
+                </div>
+
+                <div class="space-y-20">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                        <div class="space-y-8">
+                            <h4 class="font-display text-2xl">The fluid typography floor</h4>
+                            <p class="text-sm text-ink/70">On mobile, our large display type scales to 14vw. This ensures that titles remain a design element rather than just text, but never clip the viewport boundaries.</p>
+                            <div class="p-8 bg-clay/10 border border-ink/5">
+                                <div class="text-[14vw] font-display font-black leading-none italic mb-4">Mbl.</div>
+                                <div class="text-[9px] font-bold uppercase tracking-widest text-mist">Min: 48px / Max: 120px</div>
+                            </div>
+                        </div>
+                        <div class="space-y-8">
+                            <h4 class="font-display text-2xl">Adaptive containment</h4>
+                            <p class="text-sm text-ink/70">Margins and padding contract by 50% on mobile. A p-24 container on desktop becomes p-8 on mobile to maximize horizontal real estate for content.</p>
+                            <div class="flex gap-4">
+                                <div class="w-1/2 p-4 border-2 border-dashed border-ink/10 text-center text-[9px] font-bold uppercase">Mobile p-4</div>
+                                <div class="w-1/2 p-12 border-2 border-dashed border-ink/10 text-center text-[9px] font-bold uppercase">Desktop p-12</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stacking Pattern Exhibit -->
+                    <div class="deckle-card p-8 md:p-20">
+                        <h4 class="text-[10px] font-bold uppercase tracking-[0.4em] mb-12">Universal stacking pattern</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="aspect-video bg-white/20 border border-ink/5 flex items-center justify-center text-[10px] font-bold">Col_01</div>
+                            <div class="aspect-video bg-white/20 border border-ink/5 flex items-center justify-center text-[10px] font-bold">Col_02</div>
+                            <div class="aspect-video bg-white/20 border border-ink/5 flex items-center justify-center text-[10px] font-bold">Col_03</div>
+                        </div>
+                        <p class="mt-8 text-xs text-mist text-center">3-column grids collapse to 1-column on viewports < 768px with increased vertical spacing.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. INTERACTIVE BITS SECTION -->
+            <section id="elements" class="reveal-section">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-28 border-b border-ink/10 pb-10 gap-4">
+                    <h2 class="font-display text-4xl font-light italic">03 / Interactive fragments</h2>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-mist">Reactbits & components</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <!-- Interactive Status Tracker -->
+                    <div class="space-y-10">
+                        <h3 class="text-[11px] font-bold uppercase tracking-widest text-mist">Dynamic status node</h3>
+                        <div class="p-12 border-2 border-ink/5 bg-white/20 hover:border-accent transition-colors cursor-default">
+                            <div class="flex justify-between items-center mb-12">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2.5 h-2.5 bg-accent animate-pulse"></div>
+                                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase">Active sync</span>
+                                </div>
+                                <span class="text-xs font-mono">0x221B</span>
+                            </div>
+                            <div class="h-2 w-full bg-clay/20 relative">
+                                <div class="absolute h-full bg-accent w-2/3"></div>
+                            </div>
+                            <div class="mt-4 flex justify-between text-[9px] font-bold opacity-40 uppercase">
+                                <span>Registry</span>
+                                <span>66% depth</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Trigger Exhibit -->
+                    <div class="space-y-10">
+                        <h3 class="text-[11px] font-bold uppercase tracking-widest text-mist">Institutional modal</h3>
+                        <div class="p-12 border-2 border-ink/5 bg-white/20 flex flex-col items-center justify-center gap-8">
+                            <i data-lucide="scan" class="w-10 h-10 opacity-20"></i>
+                            <button onclick="toggleDrawer()" class="text-[10px] font-bold uppercase tracking-[0.4em] underline hover:text-accent transition-colors">
+                                Trigger side overlay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-ink text-canvas py-40 relative z-10" role="contentinfo">
+        <div class="max-w-7xl mx-auto px-10">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-24 mb-40">
+                <div class="space-y-10">
+                    <h5 class="font-display text-6xl italic font-light tracking-tight text-canvas leading-tight">The new <br> <span class="font-black">standard.</span></h5>
+                </div>
+                <div class="grid grid-cols-2 gap-20 md:gap-32">
+                    <div class="space-y-8">
+                        <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Core index</h6>
+                        <ul class="space-y-5 text-sm font-semibold tracking-wide">
+                            <li><a href="#" class="hover:text-accent transition-colors">History</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">Protocols</a></li>
+                        </ul>
+                    </div>
+                    <div class="space-y-8">
+                        <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Directives</h6>
+                        <ul class="space-y-5 text-sm font-semibold tracking-wide">
+                            <li><a href="#" class="hover:text-accent transition-colors">Privacy</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">Legal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-20 border-t border-canvas/5 gap-10">
+                <div class="font-display text-2xl italic font-black">AMDITIS.</div>
+                <div class="text-[10px] font-bold tracking-[0.5em] text-canvas/10 uppercase">Registry signature: 0x882A_2026</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Nav Scroll Logic
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled-nav');
+            } else {
+                nav.classList.remove('scrolled-nav');
+            }
+        });
+
+        // Side Drawer Toggle
+        function toggleDrawer() {
+            const drawer = document.getElementById('side-drawer');
+            drawer.classList.toggle('drawer-open');
+            drawer.classList.toggle('drawer-closed');
+            
+            // Prevent body scroll when drawer is open
+            if (drawer.classList.contains('drawer-open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Hero Parallax Logic
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('header');
+            if(hero && window.innerWidth > 768) {
+                hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+                hero.style.opacity = 1 - (scrolled / 1200);
+            }
+        });
+    </script>
+</body>
+</html>
