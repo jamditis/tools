@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMDITIS // SPECTRUM_v4</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        dusk: '#020617',
+                        glass: 'rgba(255, 255, 255, 0.02)',
+                        prism: {
+                            cyan: '#06b6d4',
+                            magenta: '#d946ef',
+                            blue: '#3b82f6',
+                            violet: '#8b5cf6',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    backgroundImage: {
+                        'spectrum-gradient': 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 25%, #8b5cf6 50%, #d946ef 75%, #f43f5e 100%)',
+                        'noise': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+        }
+
+        body {
+            background-color: #020617;
+            color: #f1f5f9;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- MAGIC INTERFACE TOKENS --- */
+
+        /* Refractive Cursor Light */
+        .cursor-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            transform: translate(calc(var(--mouse-x) - 300px), calc(var(--mouse-y) - 300px));
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(40px);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Kinetic Glass Card */
+        .kinetic-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .kinetic-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.08) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .kinetic-glass:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+        }
+        .kinetic-glass:hover::before { opacity: 1; }
+
+        /* Liquid Range Slider */
+        .prism-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+        .prism-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px; height: 24px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.8), 0 0 40px rgba(59, 130, 246, 0.4);
+            border: 2px solid #020617;
+            transition: transform 0.2s ease;
+        }
+        .prism-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        /* Prismatic Toggle */
+        .magic-toggle {
+            width: 52px; height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .magic-toggle::after {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 20px; height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        input:checked + .magic-toggle { background: #3b82f6; }
+        input:checked + .magic-toggle::after { transform: translateX(24px); box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+        .reveal-node {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .reveal-node.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="font-display">
+
+    <!-- Refractive Layering -->
+    <div class="cursor-glow" id="glow"></div>
+    <div class="fixed inset-0 bg-noise opacity-[0.02] pointer-events-none z-10"></div>
+    
+    <div class="relative z-20">
+        
+        <!-- NAVIGATION -->
+        <nav class="sticky top-0 w-full z-50 border-b border-white/5 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-spectrum-gradient rounded-2xl rotate-12 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+                        <span class="font-black italic text-dusk -rotate-12">A.</span>
+                    </div>
+                    <span class="text-[10px] font-bold tracking-[0.4em] opacity-40 uppercase hidden sm:block">Spectrum library v6.5</span>
+                </div>
+                
+                <div class="flex gap-10 text-[10px] font-bold uppercase tracking-widest items-center">
+                    <a href="#components" class="text-slate-400 hover:text-white transition-colors">Components</a>
+                    <a href="#interaction" class="text-slate-400 hover:text-white transition-colors">Interaction</a>
+                    <button class="bg-white text-dusk px-6 py-2 rounded-full font-black text-[9px] hover:bg-prism-cyan hover:scale-105 transition-all active:scale-95 shadow-2xl">
+                        Open portal
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN -->
+        <main class="max-w-7xl mx-auto py-32 px-6 md:px-12 space-y-64">
+            
+            <!-- HERO -->
+            <header class="reveal-node visible">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+                    <div class="w-1.5 h-1.5 rounded-full bg-prism-cyan shadow-[0_0_8px_#06b6d4]"></div>
+                    <span class="text-[9px] font-bold tracking-[0.3em] opacity-60 uppercase">System initialization complete</span>
+                </div>
+                <h1 class="text-[12vw] lg:text-[10vw] font-black leading-[0.85] tracking-tightest mb-16">
+                    A splash of <br> <span class="bg-spectrum-gradient bg-clip-text text-transparent italic">liquid light.</span>
+                </h1>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div class="lg:col-span-6">
+                        <p class="text-xl md:text-2xl font-light text-slate-400 leading-relaxed border-l border-white/10 pl-8">
+                            Spectrum 6.5 moves beyond static glass. It is an environment built on refractive logic, where every interaction influences the light around it.
+                        </p>
+                    </div>
+                    <div class="lg:col-start-8 lg:col-span-5 flex flex-col gap-6">
+                        <div class="kinetic-glass p-8 flex flex-col justify-between h-40 group cursor-default">
+                            <span class="text-[10px] font-bold opacity-30 uppercase tracking-[0.3em]">Light response</span>
+                            <div class="text-5xl font-black group-hover:text-prism-cyan transition-colors">0.12<span class="text-xl opacity-40 ml-1">ms</span></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. INTERACTIVE FRAGMENTS -->
+            <section id="components" class="reveal-node">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+                    <h2 class="text-5xl font-black italic tracking-tight">01 // Prismatic fragments</h2>
+                    <span class="text-[10px] font-bold opacity-30 uppercase tracking-[0.5em]">The variety exhibit</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <!-- Action Nodes -->
+                    <div class="space-y-12">
+                        <h3 class="text-xs font-bold opacity-40 uppercase tracking-widest border-l-2 border-prism-cyan pl-4">Trigger states</h3>
+                        <div class="space-y-6">
+                            <button class="w-full h-16 bg-white text-dusk rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all transform hover:-translate-y-1 active:scale-95">
+                                Primary execute
+                            </button>
+                            <button class="w-full h-16 kinetic-glass flex items-center justify-center font-black text-xs uppercase tracking-widest hover:bg-white/5 transition-all">
+                                Secondary protocol
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Input/Dropdown -->
+                    <div class="space-y-12">
+                        <h3 class="text-xs font-bold opacity-40 uppercase tracking-widest border-l-2 border-prism-magenta pl-4">Data modules</h3>
+                        <div class="space-y-8">
+                            <div class="group">
+                                <label class="text-[10px] font-bold opacity-40 mb-3 block">Access identifier</label>
+                                <input type="text" placeholder="Enter handle..." class="w-full h-16 kinetic-glass px-6 focus:outline-none focus:border-prism-blue focus:bg-white/5 transition-all font-semibold">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold opacity-40 mb-3 block">Classification tier</label>
+                                <div class="relative">
+                                    <select class="w-full h-16 kinetic-glass px-6 appearance-none font-bold text-sm cursor-pointer outline-none focus:border-prism-magenta">
+                                        <option>Standard clearance</option>
+                                        <option>Elevated access</option>
+                                        <option>Root supervisor</option>
+                                    </select>
+                                    <i data-lucide="chevron-down" class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Toggles & Sliders -->
+                    <div class="space-y-12">
+                        <h3 class="text-xs font-bold opacity-40 uppercase tracking-widest border-l-2 border-prism-rose pl-4">Magic controls</h3>
+                        <div class="space-y-10">
+                            <div class="p-6 kinetic-glass flex items-center justify-between">
+                                <span class="font-bold text-sm">Neural sync</span>
+                                <div class="relative">
+                                    <input type="checkbox" class="sr-only" checked id="toggle-1">
+                                    <label for="toggle-1" class="magic-toggle block"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 kinetic-glass">
+                                <div class="flex justify-between items-center mb-6">
+                                    <span class="font-bold text-sm">Output power</span>
+                                    <span class="text-prism-cyan font-mono font-bold" id="val">82%</span>
+                                </div>
+                                <input type="range" min="0" max="100" value="82" class="prism-range" oninput="document.getElementById('val').innerText = this.value + '%'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. REFRACTIVE MODULES -->
+            <section id="interaction" class="reveal-node">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+                    <h2 class="text-5xl font-black italic tracking-tight">02 // The interaction depth</h2>
+                    <span class="text-[10px] font-bold opacity-30 uppercase tracking-[0.5em]">Kinetic artifacts</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Main Exhibit Card -->
+                    <div class="lg:col-span-8 group">
+                        <div class="kinetic-glass p-12 md:p-20 min-h-[500px] flex flex-col justify-between">
+                            <div class="absolute inset-0 bg-spectrum-gradient opacity-0 group-hover:opacity-[0.03] transition-opacity duration-1000"></div>
+                            <h4 class="text-5xl md:text-7xl font-black leading-tight mb-8">Refining <br> the <span class="italic text-prism-blue">magic.</span></h4>
+                            <p class="text-slate-400 text-lg max-w-lg mb-12">
+                                Every element in version 6.5 is built to respond to its environment. Move your pointer over this card to see the liquid shimmer react to your presence.
+                            </p>
+                            <div class="flex gap-6">
+                                <button class="px-8 py-3 rounded-xl border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all text-[10px] font-black uppercase tracking-widest">
+                                    Simulate sync
+                                </button>
+                                <button class="px-8 py-3 rounded-xl bg-prism-blue text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all">
+                                    Deploy light
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Status Nodes -->
+                    <div class="lg:col-span-4 flex flex-col gap-8">
+                        <div class="kinetic-glass p-8 flex-1 flex flex-col justify-center gap-4">
+                            <div class="w-2 h-2 rounded-full bg-prism-cyan shadow-[0_0_10px_#06b6d4]"></div>
+                            <span class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Core integrity</span>
+                            <div class="text-4xl font-black">Stable</div>
+                        </div>
+                        <div class="kinetic-glass p-8 flex-1 flex flex-col justify-center gap-4 border-prism-magenta/20">
+                            <div class="w-2 h-2 rounded-full bg-prism-magenta animate-ping"></div>
+                            <span class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Traffic flow</span>
+                            <div class="text-4xl font-black">Nominal</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dusk pt-48 pb-24 relative z-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-24 mb-40">
+                <div class="space-y-8">
+                    <h5 class="text-7xl font-black italic tracking-tighter leading-none">Spectrum <br> <span class="text-prism-blue">Nexus.</span></h5>
+                    <p class="text-slate-500 max-w-xs text-xs font-bold uppercase tracking-[0.4em]">Designed for institutional longevity and cross-platform clarity.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-24">
+                    <div class="space-y-8">
+                        <h6 class="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Navigation</h6>
+                        <ul class="space-y-5 text-sm font-semibold text-slate-400">
+                            <li><a href="#" class="hover:text-white transition-colors">Manifest</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Protocols</a></li>
+                        </ul>
+                    </div>
+                    <div class="space-y-8">
+                        <h6 class="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Social</h6>
+                        <ul class="space-y-5 text-sm font-semibold text-slate-400">
+                            <li><a href="#" class="hover:text-white transition-colors">Laboratory</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Directives</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="text-2xl font-black italic">AMDITIS.</div>
+                <div class="text-[9px] font-bold opacity-20 uppercase tracking-[0.5em]">Signature: 0x882A_SPECTRA_2026</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Mouse Tracker for Refractive Glow
+        const glow = document.getElementById('glow');
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Set global variables for CSS
+            document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        // Reveal Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-node').forEach(el => observer.observe(el));
+
+        // Glass Parallax Tilt Logic
+        document.querySelectorAll('.kinetic-glass').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                if(window.innerWidth < 768) return;
+                
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 25;
+                const rotateY = (centerX - x) / 25;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
