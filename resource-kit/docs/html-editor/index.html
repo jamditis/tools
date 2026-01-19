@@ -1187,7 +1187,16 @@
 
             } catch (error) {
                 console.error('Imgur upload error:', error);
-                showImageError('Upload failed: ' + error.message);
+
+                // Detect network/blocking errors vs server errors
+                let userMessage;
+                if (error.message === 'Failed to fetch' || error.message.includes('NetworkError')) {
+                    userMessage = 'Upload blocked. Try disabling browser tracking protection or ad blockers, then refresh the page.';
+                } else {
+                    userMessage = error.message;
+                }
+
+                showImageError(userMessage);
                 imageUploadBtn.disabled = false;
             }
         }
