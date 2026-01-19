@@ -566,8 +566,16 @@
                                 <div class="flex-1">
                                     <p class="text-sm font-medium">Imgur Account (OAuth)</p>
                                     <p class="text-[10px] text-mist mb-2">Use your Imgur account for higher limits. Images save to your account.</p>
-                                    <input type="text" id="imgur-access-token-input" placeholder="Enter your Access Token" class="w-full px-3 py-2 bg-white/50 border border-ink/10 text-xs focus:outline-none focus:border-accent disabled:opacity-50 mb-2" disabled>
-                                    <p class="text-[9px] text-mist">Get token from Imgur OAuth flow or <a href="https://api.imgur.com/oauth2/authorize?client_id=f9ae66a4705f252&response_type=token" target="_blank" class="text-accent underline">authorize here</a></p>
+                                    <div id="imgur-oauth-status" class="mb-2">
+                                        <p class="text-[10px] text-mist">Not connected</p>
+                                    </div>
+                                    <button type="button" id="imgur-connect-btn" class="w-full px-4 py-2 bg-[#1bb76e] text-white text-[10px] font-bold uppercase tracking-wider hover:bg-[#159955] transition-colors disabled:opacity-50 flex items-center justify-center gap-2" disabled>
+                                        <i data-lucide="log-in" class="w-4 h-4"></i>
+                                        Connect with Imgur
+                                    </button>
+                                    <button type="button" id="imgur-disconnect-btn" class="w-full px-4 py-2 border border-ink/10 text-[10px] font-bold uppercase tracking-wider hover:bg-ink/5 transition-colors mt-2 hidden">
+                                        Disconnect Account
+                                    </button>
                                 </div>
                             </label>
                         </div>
@@ -777,7 +785,85 @@
         const settingsBtn = document.getElementById('settings-btn');
         const imgurAuthRadios = document.querySelectorAll('input[name="imgur-auth"]');
         const imgurClientIdInput = document.getElementById('imgur-client-id-input');
-        const imgurAccessTokenInput = document.getElementById('imgur-access-token-input');
+        const imgurOAuthStatus = document.getElementById('imgur-oauth-status');
+        const imgurConnectBtn = document.getElementById('imgur-connect-btn');
+        const imgurDisconnectBtn = document.getElementById('imgur-disconnect-btn');
+
+        // Build OAuth URL (redirect back to this page)
+        function getImgurOAuthUrl() {
+            const redirectUri = window.location.origin + window.location.pathname;
+            return `https://api.imgur.com/oauth2/authorize?client_id=${DEFAULT_IMGUR_CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}`;
+        }
+
+        // Check for OAuth callback on page load
+        function handleOAuthCallback() {
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token=')) {
+                // Parse the hash parameters
+                const params = new URLSearchParams(hash.substring(1));
+                const accessToken = params.get('access_token');
+                const accountUsername = params.get('account_username');
+
+                if (accessToken) {
+                    // Save the token
+                    imgurSettings.accessToken = accessToken;
+                    imgurSettings.accountUsername = accountUsername || 'Connected';
+                    imgurSettings.authMethod = 'oauth';
+                    saveSettings();
+
+                    // Clear the hash from URL
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+
+                    // Show success message
+                    setTimeout(() => {
+                        alert(`Successfully connected to Imgur as ${accountUsername || 'your account'}!`);
+                    }, 100);
+                }
+            }
+        }
+
+        // Run OAuth callback check
+        handleOAuthCallback();
+
+        // Update OAuth status display
+        function updateOAuthStatusDisplay() {
+            if (imgurSettings.accessToken) {
+                const username = imgurSettings.accountUsername || 'Connected';
+                imgurOAuthStatus.innerHTML = `
+                    <div class="flex items-center gap-2 text-[10px]">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        <span class="text-green-700 font-medium">Connected as ${escapeHtml(username)}</span>
+                    </div>
+                `;
+                imgurConnectBtn.classList.add('hidden');
+                imgurDisconnectBtn.classList.remove('hidden');
+            } else {
+                imgurOAuthStatus.innerHTML = '<p class="text-[10px] text-mist">Not connected</p>';
+                imgurConnectBtn.classList.remove('hidden');
+                imgurDisconnectBtn.classList.add('hidden');
+            }
+        }
+
+        // Connect to Imgur
+        function connectImgur() {
+            window.location.href = getImgurOAuthUrl();
+        }
+
+        // Disconnect from Imgur
+        function disconnectImgur() {
+            imgurSettings.accessToken = '';
+            imgurSettings.accountUsername = '';
+            if (imgurSettings.authMethod === 'oauth') {
+                imgurSettings.authMethod = 'default';
+            }
+            saveSettings();
+            updateOAuthStatusDisplay();
+            updateSettingsInputStates();
+
+            // Update radio selection
+            const defaultRadio = document.querySelector('input[name="imgur-auth"][value="default"]');
+            if (defaultRadio) defaultRadio.checked = true;
+        }
 
         function openSettingsModal() {
             // Populate current settings
@@ -785,7 +871,7 @@
                 radio.checked = radio.value === imgurSettings.authMethod;
             });
             imgurClientIdInput.value = imgurSettings.clientId || '';
-            imgurAccessTokenInput.value = imgurSettings.accessToken || '';
+            updateOAuthStatusDisplay();
             updateSettingsInputStates();
             settingsStatus.classList.add('hidden');
             settingsModal.classList.remove('hidden');
@@ -799,18 +885,24 @@
         function updateSettingsInputStates() {
             const selected = document.querySelector('input[name="imgur-auth"]:checked')?.value;
             imgurClientIdInput.disabled = selected !== 'client-id';
-            imgurAccessTokenInput.disabled = selected !== 'oauth';
+            imgurConnectBtn.disabled = selected !== 'oauth';
         }
 
         function saveSettingsFromModal() {
             const selected = document.querySelector('input[name="imgur-auth"]:checked')?.value || 'default';
             imgurSettings.authMethod = selected;
             imgurSettings.clientId = imgurClientIdInput.value.trim();
-            imgurSettings.accessToken = imgurAccessTokenInput.value.trim();
             saveSettings();
             settingsStatus.textContent = 'Settings saved!';
             settingsStatus.classList.remove('hidden');
             setTimeout(closeSettingsModal, 1000);
+        }
+
+        // Helper: escape HTML (defined early for use in settings)
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         settingsBtn.addEventListener('click', openSettingsModal);
@@ -818,6 +910,8 @@
         settingsModalBackdrop.addEventListener('click', closeSettingsModal);
         settingsCancelBtn.addEventListener('click', closeSettingsModal);
         settingsSaveBtn.addEventListener('click', saveSettingsFromModal);
+        imgurConnectBtn.addEventListener('click', connectImgur);
+        imgurDisconnectBtn.addEventListener('click', disconnectImgur);
         imgurAuthRadios.forEach(radio => {
             radio.addEventListener('change', updateSettingsInputStates);
         });
@@ -1025,13 +1119,6 @@
             });
 
             lucide.createIcons();
-        }
-
-        // Helper: escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
 
         // Helper: get relative time
