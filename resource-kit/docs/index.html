@@ -11,54 +11,56 @@
     <link rel="stylesheet" href="assets/amditis-main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/amditis-config.js"></script>
-    
+
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+
+    <!-- Soft Ambient Light -->
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
-        
+
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition-all duration-500">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch">A</div>
+                    <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome">CCM // RESOURCES</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AI_TOOLS_KIT_v2.6</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
+                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
                     </div>
                 </div>
-                <nav class="hidden md:flex gap-6 text-xs font-mono">
-                    <a href="/about/" class="text-gray-400 hover:text-acid transition-colors">[ ABOUT ]</a>
-                    <a href="https://centerforcooperativemedia.org" class="text-gray-400 hover:text-white transition-colors">HOME</a>
+                <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
+                    <a href="/about/" class="nav-link text-mist hover:text-ink transition-colors">About</a>
+                    <a href="https://centerforcooperativemedia.org" class="text-mist hover:text-ink transition-colors">Home</a>
                 </nav>
             </div>
         </header>
 
         <!-- Hero -->
-        <section class="py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-acid/5 blur-[100px] rounded-full pointer-events-none"></div>
-            
-            <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
-                <div class="inline-flex items-center px-3 py-1 mb-6 border border-acid/30 text-acid text-xs font-mono tracking-widest bg-acidDim">
-                    SYSTEM_STATUS: ONLINE
+        <section class="py-24 px-6 text-center border-b border-ink/10 relative overflow-hidden reveal-section">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center animate-page-in">
+                <div class="inline-flex items-center px-4 py-1 mb-6 border border-ink/10 text-mist text-[10px] font-bold tracking-[0.4em] uppercase">
+                    System Status: Online
                 </div>
-                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="AI TOOLS FOR NEWSROOMS">
-                    AI TOOLS FOR NEWSROOMS
+                <h1 class="font-display fluid-title text-[11vw] md:text-[8.5vw] font-light leading-[0.85] tracking-tight mb-8 text-ink">
+                    AI tools for <br><span class="italic font-black">newsrooms.</span>
                 </h1>
-                <p class="text-gray-400 text-lg md:text-xl font-mono max-w-2xl mx-auto mb-10 leading-relaxed">
+                <p class="text-ink/70 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-10">
                     Practical guides, templates, and reference materials for journalists building tools with AI assistance.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="/vibe-coding/" class="px-8 py-3 bg-acid text-black font-bold font-mono text-sm hover:bg-white transition-colors clip-notch text-center">
-                        START_LEARNING
+                    <a href="/vibe-coding/" class="btn-primary">
+                        Start Learning
                     </a>
-                    <a href="/tool-stacks/" class="px-8 py-3 border border-white/20 text-white font-bold font-mono text-sm hover:border-acid hover:text-acid transition-colors text-center">
-                        VIEW_TOOL_STACKS
+                    <a href="/tool-stacks/" class="btn-outline">
+                        View Tool Stacks
                     </a>
                 </div>
             </div>
@@ -66,160 +68,158 @@
 
         <!-- Main Content -->
         <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16 space-y-24">
-            
+
             <!-- Guides Section -->
-            <section>
-                <div class="border-b border-white/10 pb-4 mb-8">
-                    <div class="flex items-end justify-between">
-                        <h3 class="font-display text-2xl text-ice">01 // GUIDES</h3>
-                        <span class="text-xs text-gray-600 font-mono">PRIMARY_MODULES</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Tutorials, reference materials, and documentation for working with AI coding assistants. Start with the Vibe Coding Guide to understand the mindset.</p>
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">01 / Guides</h2>
+                    <span class="section-label">Primary Modules</span>
                 </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Tutorials, reference materials, and documentation for working with AI coding assistants. Start with the Vibe Coding Guide to understand the mindset.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
+
                     <!-- Card 1 - Vibe Coder's Guide -->
-                    <a href="/vibe-coding/" class="group block border border-white/10 bg-panel hover:border-acid transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-acid">
+                    <a href="/vibe-coding/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="terminal" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-acid font-mono mb-3">:: VIBE_CODING</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-acid transition-colors">Vibe Coder's guide</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Vibe Coding</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Vibe Coder's guide</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Everything you need to ship code with AI. Essentials, advanced skills, glossary, and cheat sheet.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-acid transition-colors">
-                            <span>START_VIBING</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Start Vibing</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
                     <!-- Card 2 - Terminal Setup -->
-                    <a href="/terminal-setup/" class="group block border border-white/10 bg-panel hover:border-ice transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-ice">
+                    <a href="/terminal-setup/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="terminal" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-ice font-mono mb-3">:: SETUP_GUIDE</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-ice transition-colors">Terminal setup</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Setup Guide</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Terminal setup</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Configure your terminal for Claude Code, Gemini CLI, and Codex. Mac/Windows setup and status line config.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-ice transition-colors">
-                            <span>INIT_TERMINAL</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Init Terminal</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 4 - Quick Reference -->
-                    <a href="/quick-reference-card/" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-signal">
+                    <!-- Card 3 - Quick Reference -->
+                    <a href="/quick-reference-card/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="zap" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-3">:: CHEAT_SHEET</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">Quick reference</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Cheat Sheet</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Quick reference</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Printable one-page reference card. Essential info, workflow steps, and common pitfalls.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>VIEW_DATA</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>View Data</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 5 -->
-                    <a href="/language-guide/" class="group block border border-white/10 bg-panel hover:border-chrome transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-chrome">
+                    <!-- Card 4 - Language Guide -->
+                    <a href="/language-guide/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="code" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-chrome font-mono mb-3">:: DOCS</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-chrome transition-colors">Language guide</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Docs</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Language guide</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 When to use Python vs JavaScript vs R. Practical guide for common journalism tasks.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-chrome transition-colors">
-                            <span>READ_FILE</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Read File</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 5 -->
-                    <a href="/glossary/" class="group block border border-white/10 bg-panel hover:border-chrome transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-chrome">
+                    <!-- Card 5 - Glossary -->
+                    <a href="/glossary/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="book" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-chrome font-mono mb-3">:: DATABASE</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-chrome transition-colors">Technical glossary</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Database</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Technical glossary</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Plain-language definitions of 40+ technical terms. No jargon, just clear explanations.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-chrome transition-colors">
-                            <span>ACCESS_DB</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Access DB</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 6 -->
-                    <a href="/llm-advisor-doc/" class="group block border border-white/10 bg-panel hover:border-chrome transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-chrome">
+                    <!-- Card 6 - LLM Selection Guide -->
+                    <a href="/llm-advisor-doc/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="file-text" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-chrome font-mono mb-3">:: STATIC_DOC</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-chrome transition-colors">LLM selection guide</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Static Doc</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">LLM selection guide</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Static documentation and decision matrices for choosing AI coding assistants.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-chrome transition-colors">
-                            <span>READ_FILE</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Read File</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 6 - Tool Stacks -->
-                    <a href="/tool-stacks/" class="group block border border-white/10 bg-panel hover:border-ice transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-ice">
+                    <!-- Card 7 - Tool Stacks -->
+                    <a href="/tool-stacks/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="layers" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-ice font-mono mb-3">:: DEV_TOOLKIT</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-ice transition-colors">Tool stacks</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Dev Toolkit</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Tool stacks</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Low-cost development stack for shipping projects. IDEs, databases, auth, deployment—all free or nearly free.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-ice transition-colors">
-                            <span>VIEW_STACK</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>View Stack</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Card 9 - Code Patterns -->
-                    <a href="/code-patterns/" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-signal">
+                    <!-- Card 8 - Code Patterns -->
+                    <a href="/code-patterns/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="git-branch" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-3">:: ADVANCED</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">Code patterns</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Advanced</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Code patterns</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Seven battle-tested Claude Code patterns. Error logging, commands-as-apps, hooks, context hygiene, and more.
                             </p>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>LOAD_PATTERNS</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Load Patterns</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
@@ -227,167 +227,163 @@
             </section>
 
             <!-- Claude Code Section -->
-            <section class="bg-surface border border-ice/30 p-8 md:p-12 relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 text-[120px] font-display font-bold text-ice/5 select-none pointer-events-none">CC</div>
+            <section class="deckle-card-solid p-8 md:p-12 relative overflow-hidden reveal-section">
+                <div class="absolute -right-10 -top-10 text-[120px] font-display font-black italic text-accent/5 select-none pointer-events-none">CC</div>
 
-                <div class="border-b border-ice/30 pb-4 mb-8 relative z-10">
-                    <div class="flex items-end justify-between">
-                        <h3 class="font-display text-2xl text-ice">CLAUDE CODE v2.1</h3>
-                        <span class="text-xs text-gray-600 font-mono">TERMINAL_AI_ASSISTANT</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Build tools faster with Claude Code—Anthropic's AI coding assistant that runs in your terminal. It reads your files, executes code, and iterates autonomously.</p>
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
+                    <h2 class="font-display text-4xl font-light italic">Claude Code v2.1</h2>
+                    <span class="section-label">Terminal AI Assistant</span>
                 </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl relative z-10">Build tools faster with Claude Code—Anthropic's AI coding assistant that runs in your terminal. It reads your files, executes code, and iterates autonomously.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
                     <!-- Feature 1: Plan Mode -->
-                    <div class="border border-white/10 bg-panel p-4">
+                    <div class="border border-ink/10 bg-white/30 p-4">
                         <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="map" class="w-5 h-5 text-ice"></i>
-                            <span class="text-sm font-mono text-white font-bold">Plan mode</span>
+                            <i data-lucide="map" class="w-5 h-5 text-accent"></i>
+                            <span class="text-sm font-display font-bold text-ink">Plan mode</span>
                         </div>
-                        <p class="text-xs text-gray-500">Use <code class="text-ice">/plan</code> to have Claude explore your codebase and design architecture before coding.</p>
+                        <p class="text-xs text-mist">Use <code class="text-accent bg-white/50 px-1">/plan</code> to have Claude explore your codebase and design architecture before coding.</p>
                     </div>
 
                     <!-- Feature 2: Hooks -->
-                    <div class="border border-white/10 bg-panel p-4">
+                    <div class="border border-ink/10 bg-white/30 p-4">
                         <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="webhook" class="w-5 h-5 text-acid"></i>
-                            <span class="text-sm font-mono text-white font-bold">Hooks</span>
+                            <i data-lucide="webhook" class="w-5 h-5 text-accent"></i>
+                            <span class="text-sm font-display font-bold text-ink">Hooks</span>
                         </div>
-                        <p class="text-xs text-gray-500">Automate validation with PreToolUse/PostToolUse hooks that run on every edit.</p>
+                        <p class="text-xs text-mist">Automate validation with PreToolUse/PostToolUse hooks that run on every edit.</p>
                     </div>
 
                     <!-- Feature 3: Skills -->
-                    <div class="border border-white/10 bg-panel p-4">
+                    <div class="border border-ink/10 bg-white/30 p-4">
                         <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="sparkles" class="w-5 h-5 text-signal"></i>
-                            <span class="text-sm font-mono text-white font-bold">Skills</span>
+                            <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i>
+                            <span class="text-sm font-display font-bold text-ink">Skills</span>
                         </div>
-                        <p class="text-xs text-gray-500">Teach Claude specialized knowledge with reusable skills in <code class="text-signal">.claude/skills/</code>.</p>
+                        <p class="text-xs text-mist">Teach Claude specialized knowledge with reusable skills in <code class="text-accent bg-white/50 px-1">.claude/skills/</code>.</p>
                     </div>
 
                     <!-- Feature 4: Background Tasks -->
-                    <div class="border border-white/10 bg-panel p-4">
+                    <div class="border border-ink/10 bg-white/30 p-4">
                         <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="layers" class="w-5 h-5 text-chrome"></i>
-                            <span class="text-sm font-mono text-white font-bold">Background tasks</span>
+                            <i data-lucide="layers" class="w-5 h-5 text-accent"></i>
+                            <span class="text-sm font-display font-bold text-ink">Background tasks</span>
                         </div>
-                        <p class="text-xs text-gray-500">Press <code class="text-chrome">Ctrl+B</code> to run tasks in background while you keep working.</p>
+                        <p class="text-xs text-mist">Press <code class="text-accent bg-white/50 px-1">Ctrl+B</code> to run tasks in background while you keep working.</p>
                     </div>
                 </div>
 
                 <div class="mt-6 flex flex-wrap gap-4 relative z-10">
-                    <a href="downloads/CLAUDE-CODE-QUICKREF.md" download class="px-6 py-2 bg-ice text-black font-bold text-xs clip-notch hover:bg-white transition-colors flex items-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> DOWNLOAD_QUICKREF
+                    <a href="downloads/CLAUDE-CODE-QUICKREF.md" download class="btn-primary flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download Quickref
                     </a>
-                    <a href="/code-patterns/" class="px-6 py-2 border border-signal/30 text-signal font-bold text-xs hover:border-signal transition-colors flex items-center gap-2">
-                        <i data-lucide="git-branch" class="w-4 h-4"></i> ADVANCED_PATTERNS
+                    <a href="/code-patterns/" class="btn-outline flex items-center gap-2">
+                        <i data-lucide="git-branch" class="w-4 h-4"></i> Advanced Patterns
                     </a>
-                    <a href="/llm-advisor/" class="px-6 py-2 border border-ice/30 text-ice font-bold text-xs hover:border-ice transition-colors flex items-center gap-2">
-                        <i data-lucide="compass" class="w-4 h-4"></i> EXPLORE_TOOLS_TRACK
+                    <a href="/llm-advisor/" class="btn-outline flex items-center gap-2">
+                        <i data-lucide="compass" class="w-4 h-4"></i> Explore Tools Track
                     </a>
                 </div>
             </section>
 
             <!-- My Tools Section -->
-            <section>
-                <div class="border-b border-white/10 pb-4 mb-8">
-                    <div class="flex items-end justify-between">
-                        <h3 class="font-display text-2xl text-signal">02 // MY_TOOLS</h3>
-                        <span class="text-xs text-gray-600 font-mono">EXTERNAL_APPLICATIONS</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Standalone tools I've built for journalism and data work. These live at their own domains but share the same design philosophy.</p>
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">02 / My Tools</h2>
+                    <span class="section-label">External Applications</span>
                 </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Standalone tools I've built for journalism and data work. These live at their own domains but share the same design philosophy.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- LLM Advisor -->
-                    <a href="/llm-advisor/" class="group block border border-white/10 bg-panel hover:border-acid transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-acid">
+                    <a href="/llm-advisor/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="bot" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-acid font-mono mb-3">:: DECISION_ENGINE</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-acid transition-colors">LLM Advisor</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Decision Engine</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">LLM Advisor</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Decision support system for choosing the right LLM and approach for your newsroom project.
                             </p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">JavaScript</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Decision Tree</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">JavaScript</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Decision Tree</span>
                             </div>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-acid transition-colors">
-                            <span>LAUNCH_APP</span>
-                            <span>-></span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Launch App</span>
+                            <span>&rarr;</span>
                         </div>
                     </a>
 
                     <!-- Python Explorer -->
-                    <a href="https://jamditis.github.io/python-explorer/" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 bg-panel hover:border-ice transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-ice">
+                    <a href="https://jamditis.github.io/python-explorer/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="library" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-ice font-mono mb-3">:: LIBRARY_DATABASE</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-ice transition-colors">Python Explorer</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Library Database</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Python Explorer</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Interactive directory of Python libraries across 8+ domains. Browse, search, and compare packages.
                             </p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">JavaScript</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Search</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">JavaScript</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Search</span>
                             </div>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-ice transition-colors">
-                            <span>EXPLORE_DB</span>
-                            <span>↗</span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Explore DB</span>
+                            <span>&nearr;</span>
                         </div>
                     </a>
 
                     <!-- Scrapefruit -->
-                    <a href="https://scrapefruit.amditis.tech/" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-signal">
+                    <a href="https://scrapefruit.amditis.tech/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="grape" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-3">:: WEB_SCRAPER</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">Scrapefruit</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Web Scraper</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Scrapefruit</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Visual web scraping with anti-bot bypass. PyWebView GUI + Playwright stealth mode for extracting content from protected sites.
                             </p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Python</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Playwright</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Flask</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Python</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Playwright</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Flask</span>
                             </div>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>LAUNCH_APP</span>
-                            <span>↗</span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Launch App</span>
+                            <span>&nearr;</span>
                         </div>
                     </a>
 
                     <!-- AudioBash -->
-                    <a href="https://audiobash.app/" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-signal">
+                    <a href="https://audiobash.app/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="mic" class="w-6 h-6"></i>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-3">:: VOICE_TERMINAL</div>
-                            <h4 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">AudioBash</h4>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Voice Terminal</div>
+                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">AudioBash</h4>
+                            <p class="text-sm text-mist leading-relaxed">
                                 Voice-controlled desktop terminal. Speak commands, execute instantly with AI-powered context awareness.
                             </p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">Electron</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">React</span>
-                                <span class="px-2 py-0.5 bg-surface text-xs font-mono text-gray-400 border border-white/10">TypeScript</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Electron</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">React</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">TypeScript</span>
                             </div>
                         </div>
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>LAUNCH_APP</span>
-                            <span>↗</span>
+                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
+                            <span>Launch App</span>
+                            <span>&nearr;</span>
                         </div>
                     </a>
 
@@ -395,41 +391,39 @@
             </section>
 
             <!-- Downloads Section -->
-            <section class="bg-panel border border-white/10 p-8 md:p-12 relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 text-[150px] font-display font-bold text-white/5 select-none pointer-events-none">DL</div>
+            <section class="deckle-card p-8 md:p-12 relative overflow-hidden reveal-section">
+                <div class="absolute -right-10 -top-10 text-[150px] font-display font-black italic text-ink/5 select-none pointer-events-none">DL</div>
 
-                <div class="border-b border-white/10 pb-4 mb-8 relative z-10">
-                    <div class="flex items-end justify-between">
-                        <h3 class="font-display text-2xl text-acid">03 // ASSETS</h3>
-                        <span class="text-xs text-gray-600 font-mono">TEMPLATES & CHECKLISTS</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-3 max-w-2xl">Downloadable markdown files to copy into your projects. Use checklists during coding sessions, changelogs to track progress, and LESSONS templates for retrospectives.</p>
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
+                    <h2 class="font-display text-4xl font-light italic">03 / Assets</h2>
+                    <span class="section-label">Templates & Checklists</span>
                 </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl relative z-10">Downloadable markdown files to copy into your projects. Use checklists during coding sessions, changelogs to track progress, and LESSONS templates for retrospectives.</p>
 
                 <div class="space-y-4 relative z-10">
 
                     <!-- Vibe Coding Checklist -->
-                    <div class="template-card border border-white/10 bg-surface">
-                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('checklist')">
+                    <div class="template-card border border-ink/10 bg-white/30">
+                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/20 transition-colors" onclick="toggleTemplate('checklist')">
                             <div class="flex items-center gap-3">
-                                <i data-lucide="check-square" class="w-5 h-5 text-ice"></i>
+                                <i data-lucide="check-square" class="w-5 h-5 text-accent"></i>
                                 <div>
-                                    <span class="text-sm font-mono text-white">VIBE-CODING-CHECKLIST.md</span>
-                                    <p class="text-xs text-gray-500 mt-1">Pre-flight checklist for AI-assisted coding sessions</p>
+                                    <span class="text-sm font-display font-bold text-ink">VIBE-CODING-CHECKLIST.md</span>
+                                    <p class="text-xs text-mist mt-1">Pre-flight checklist for AI-assisted coding sessions</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <a href="downloads/VIBE-CODING-CHECKLIST.md" download class="p-2 hover:text-ice transition-colors" onclick="event.stopPropagation()" title="Download">
+                                <a href="downloads/VIBE-CODING-CHECKLIST.md" download class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation()" title="Download">
                                     <i data-lucide="download" class="w-4 h-4"></i>
                                 </a>
-                                <button class="p-2 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('checklist')" title="Copy to clipboard">
+                                <button class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation(); copyTemplate('checklist')" title="Copy to clipboard">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
-                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 template-chevron" id="chevron-checklist"></i>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-mist template-chevron" id="chevron-checklist"></i>
                             </div>
                         </div>
-                        <div class="template-content hidden border-t border-white/10" id="content-checklist">
-                            <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-96 overflow-y-auto" id="raw-checklist"># Vibe coding quick start checklist
+                        <div class="template-content hidden border-t border-ink/10" id="content-checklist">
+                            <pre class="p-4 text-xs text-mist overflow-x-auto max-h-96 overflow-y-auto" id="raw-checklist"># Vibe coding quick start checklist
 
 Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it open during your first few projects.
 
@@ -511,27 +505,27 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                     </div>
 
                     <!-- LLM Comparison -->
-                    <div class="template-card border border-white/10 bg-surface">
-                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('comparison')">
+                    <div class="template-card border border-ink/10 bg-white/30">
+                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/20 transition-colors" onclick="toggleTemplate('comparison')">
                             <div class="flex items-center gap-3">
-                                <i data-lucide="bar-chart-2" class="w-5 h-5 text-signal"></i>
+                                <i data-lucide="bar-chart-2" class="w-5 h-5 text-accent"></i>
                                 <div>
-                                    <span class="text-sm font-mono text-white">LLM-COMPARISON.md</span>
-                                    <p class="text-xs text-gray-500 mt-1">Detailed comparison chart of AI models for journalism projects</p>
+                                    <span class="text-sm font-display font-bold text-ink">LLM-COMPARISON.md</span>
+                                    <p class="text-xs text-mist mt-1">Detailed comparison chart of AI models for journalism projects</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <a href="downloads/LLM-COMPARISON.md" download class="p-2 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
+                                <a href="downloads/LLM-COMPARISON.md" download class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation()" title="Download">
                                     <i data-lucide="download" class="w-4 h-4"></i>
                                 </a>
-                                <button class="p-2 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyTemplate('comparison')" title="Copy to clipboard">
+                                <button class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation(); copyTemplate('comparison')" title="Copy to clipboard">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
-                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 template-chevron" id="chevron-comparison"></i>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-mist template-chevron" id="chevron-comparison"></i>
                             </div>
                         </div>
-                        <div class="template-content hidden border-t border-white/10" id="content-comparison">
-                            <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-96 overflow-y-auto" id="raw-comparison"># LLM comparison chart for journalism projects
+                        <div class="template-content hidden border-t border-ink/10" id="content-comparison">
+                            <pre class="p-4 text-xs text-mist overflow-x-auto max-h-96 overflow-y-auto" id="raw-comparison"># LLM comparison chart for journalism projects
 
 > Last updated: December 2025. The AI landscape changes fast—verify current pricing and capabilities.
 
@@ -550,178 +544,34 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
 ---
 
-## Detailed breakdown
-
-### Claude 4.5 Opus
-
-**Strengths:**
-- Best model for coding and writing by far
-- Excellent code architecture decisions
-- Thorough debugging—explains *why* things break
-- Long context window for large codebases
-- Unmatched code generation quality
-
-**Weaknesses:**
-- Slower response time
-- Higher cost per query
-
-**Best for:** All coding tasks, large projects, difficult bugs, long-form writing
-
----
-
-### Claude 4.5 Sonnet
-
-**Strengths:**
-- Great balance of speed and capability
-- Excellent at following instructions precisely
-- Strong at explaining code clearly
-- Good at iterating on feedback
-
-**Weaknesses:**
-- Less capable on very complex tasks than Opus
-- Better for brainstorming than production code
-
-**Best for:** Daily tasks, brainstorming, quick iterations
-
----
-
-### Gemini 3.0 Pro
-
-**Strengths:**
-- Best for front-end design work
-- Industry-leading context window for large documents
-- Excellent multimodal capabilities
-- Good integration with Google products
-
-**Weaknesses:**
-- Not as strong for pure coding as Claude 4.5 Opus
-- May train on data unless opted out
-
-**Best for:** Front-end design, large document analysis, multimodal projects
-
----
-
-### Codex (GPT 5.1)
-
-**Strengths:**
-- Specialized for coding tasks
-- Excellent at multi-file projects
-- Strong debugging capabilities
-
-**Weaknesses:**
-- Less versatile for non-coding tasks
-- Requires OpenAI subscription
-
-**Best for:** All OpenAI coding work, multi-file projects
-
----
-
-### GPT 5.1
-
-**Strengths:**
-- Top-tier reasoning for complex problems
-- Powers the 'Deep Research' feature
-- Highly steerable for specific tasks
-
-**Weaknesses:**
-- Higher cost
-- Can be overly thorough on simple tasks
-
-**Best for:** Deep research, complex reasoning, investigative work
-
----
-
-### GitHub Copilot
-
-**Strengths:**
-- Integrated into your editor (VS Code, etc.)
-- Real-time suggestions as you type
-- Great for boilerplate code
-- Affordable monthly price
-
-**Weaknesses:**
-- Less capable than chat-based AI for complex tasks
-- Suggestions without explanation
-- Requires code editor setup
-
-**Best for:** Writing code when you know what you want, reducing typing
-
----
-
-## Cost comparison (approximate, Dec 2025)
-
-| Service | Pricing model | Typical monthly cost |
-|---------|---------------|---------------------|
-| Claude Pro | Subscription | $20/month |
-| Claude API | Per token | Varies ($5-50+ based on usage) |
-| ChatGPT Plus | Subscription | $20/month |
-| OpenAI API | Per token | Varies |
-| GitHub Copilot | Subscription | $10/month |
-| Gemini Advanced | Subscription | $20/month |
-
----
-
-## Which should you start with?
-
-### Complete beginner, no budget
-→ **Claude.ai free tier** or **Gemini free tier**
-
-### Some experience, willing to pay $20/month
-→ **Claude Pro** (best for coding and writing)
-
-### Regular coding work
-→ **Claude 4.5 Opus** + **GitHub Copilot** for in-editor
-
-### Front-end design or large documents
-→ **Gemini 3.0 Pro** (best context window and multimodal)
-
-### Building production tools for newsroom
-→ **Claude 4.5 Opus** for all coding tasks
-
----
-
-## Tips for effective prompting
-
-1. **Include your environment** — "I'm using Python 3.11 on Mac with pandas 2.0"
-
-2. **Show sample data** — Paste a few rows of your actual data
-
-3. **State your goal, not just the task** — "I need to identify trends" is better than "make a graph"
-
-4. **Ask for chunks, not everything** — Build incrementally
-
-5. **When stuck, explain context** — "This is for a story about X, and I'm trying to show Y"
-
----
-
 *From [Center for Cooperative Media](https://centerforcooperativemedia.org) AI Tools for Newsrooms*</pre>
                         </div>
                     </div>
 
                     <!-- Changelog Template -->
-                    <div class="template-card border border-white/10 bg-surface">
-                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('changelog')">
+                    <div class="template-card border border-ink/10 bg-white/30">
+                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/20 transition-colors" onclick="toggleTemplate('changelog')">
                             <div class="flex items-center gap-3">
-                                <i data-lucide="file-code" class="w-5 h-5 text-acid"></i>
+                                <i data-lucide="file-code" class="w-5 h-5 text-accent"></i>
                                 <div>
-                                    <span class="text-sm font-mono text-white">CHANGELOG-TEMPLATE.md</span>
-                                    <p class="text-xs text-gray-500 mt-1">Document each vibe coding session with structured notes</p>
+                                    <span class="text-sm font-display font-bold text-ink">CHANGELOG-TEMPLATE.md</span>
+                                    <p class="text-xs text-mist mt-1">Document each vibe coding session with structured notes</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <a href="downloads/CHANGELOG-TEMPLATE.md" download class="p-2 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
+                                <a href="downloads/CHANGELOG-TEMPLATE.md" download class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation()" title="Download">
                                     <i data-lucide="download" class="w-4 h-4"></i>
                                 </a>
-                                <button class="p-2 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('changelog')" title="Copy to clipboard">
+                                <button class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation(); copyTemplate('changelog')" title="Copy to clipboard">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
-                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 template-chevron" id="chevron-changelog"></i>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-mist template-chevron" id="chevron-changelog"></i>
                             </div>
                         </div>
-                        <div class="template-content hidden border-t border-white/10" id="content-changelog">
-                            <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-96 overflow-y-auto" id="raw-changelog"># Project Name — Changelog
+                        <div class="template-content hidden border-t border-ink/10" id="content-changelog">
+                            <pre class="p-4 text-xs text-mist overflow-x-auto max-h-96 overflow-y-auto" id="raw-changelog"># Project Name — Changelog
 
-> Use this template to document each vibe coding session. Copy this file to your project folder and update it after each work session.
+> Use this template to document each vibe coding session.
 
 ---
 
@@ -730,43 +580,18 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 ### Goal
 &lt;!-- What you set out to accomplish this session --&gt;
 
-
 ### What worked
-&lt;!-- Wins, successful implementations, things that went smoothly --&gt;
 -
 
 ### What broke
-&lt;!-- Errors, problems, things that didn't work as expected --&gt;
--
 - **Error:**
 - **Fix:**
 
-### What I learned
-&lt;!-- Insights, discoveries, things to remember for next time --&gt;
--
-
 ### Code changes
-&lt;!-- Brief description of files created/modified --&gt;
-- `filename.py` — Description of what this file does
+- `filename.py` — Description
 
 ### Next steps
-&lt;!-- Tasks for the next session --&gt;
 - [ ]
-- [ ]
-
----
-
-## Template usage tips
-
-1. **Be specific about errors** — Copy the actual error message. Your future self will thank you.
-
-2. **Note the "why" not just the "what"** — "Fixed the bug" is less useful than "Fixed the bug by adding null check because API sometimes returns empty response."
-
-3. **Link to relevant docs** — If you found a helpful Stack Overflow answer or documentation page, paste the URL.
-
-4. **Track time spent** — Optional, but useful for estimating similar tasks later.
-
-5. **Include context** — Note which LLM you used, any specific prompts that worked well.
 
 ---
 
@@ -774,131 +599,67 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                         </div>
                     </div>
 
-                    <!-- Lessons Learned Template (Basic) -->
-                    <div class="template-card border border-white/10 bg-surface">
-                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons')">
+                    <!-- Lessons Learned Template -->
+                    <div class="template-card border border-ink/10 bg-white/30">
+                        <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/20 transition-colors" onclick="toggleTemplate('lessons')">
                             <div class="flex items-center gap-3">
-                                <i data-lucide="book-open" class="w-5 h-5 text-chrome"></i>
+                                <i data-lucide="book-open" class="w-5 h-5 text-accent"></i>
                                 <div>
-                                    <span class="text-sm font-mono text-white">LESSONS-TEMPLATE.md</span>
-                                    <p class="text-xs text-gray-500 mt-1">General template for documenting project learnings</p>
+                                    <span class="text-sm font-display font-bold text-ink">LESSONS-TEMPLATE.md</span>
+                                    <p class="text-xs text-mist mt-1">General template for documenting project learnings</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <a href="downloads/LESSONS-TEMPLATE.md" download class="p-2 hover:text-white transition-colors" onclick="event.stopPropagation()" title="Download">
+                                <a href="downloads/LESSONS-TEMPLATE.md" download class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation()" title="Download">
                                     <i data-lucide="download" class="w-4 h-4"></i>
                                 </a>
-                                <button class="p-2 hover:text-white transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons')" title="Copy to clipboard">
+                                <button class="p-2 hover:text-accent transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons')" title="Copy to clipboard">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
-                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 template-chevron" id="chevron-lessons"></i>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-mist template-chevron" id="chevron-lessons"></i>
                             </div>
                         </div>
-                        <div class="template-content hidden border-t border-white/10" id="content-lessons">
-                            <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-96 overflow-y-auto" id="raw-lessons"># Lessons learned — [Project Name]
+                        <div class="template-content hidden border-t border-ink/10" id="content-lessons">
+                            <pre class="p-4 text-xs text-mist overflow-x-auto max-h-96 overflow-y-auto" id="raw-lessons"># Lessons learned — [Project Name]
 
-> Use this template to document what you learned from a completed or abandoned project. This preserves institutional knowledge for future work.
+> Use this template to document what you learned from a completed or abandoned project.
 
 **Project:** [Name]
 **Date range:** [Start] – [End]
 **Status:** [Completed / Abandoned / On hold]
-**Author:** [Your name]
 
 ---
 
 ## Project summary
-
-&lt;!-- One paragraph: What was this? What problem did it solve? Who was it for? --&gt;
-
-
----
+&lt;!-- One paragraph: What was this? What problem did it solve? --&gt;
 
 ## What worked
-
 ### Technical wins
-&lt;!-- Decisions, tools, or approaches that paid off --&gt;
--
 -
 
 ### Process wins
-&lt;!-- Workflows, habits, or practices that helped --&gt;
 -
--
-
----
 
 ## What didn't work
-
 ### Critical failures
-&lt;!-- Things that blocked progress or caused major problems --&gt;
--
 -
 
 ### Technical debt
-&lt;!-- Shortcuts that caused problems later --&gt;
 -
--
-
----
 
 ## The real problem
-
-&lt;!-- This is the most important section. What was *actually* needed vs. what you initially set out to build? What did you learn about the underlying problem? --&gt;
-
-
----
+&lt;!-- What was *actually* needed vs. what you initially set out to build? --&gt;
 
 ## What I'd tell past me
-
-&lt;!-- Knowing what you know now, what advice would you give yourself at the start? --&gt;
-
 1.
 2.
 3.
 
----
-
 ## Recommendations
-
 ### If continuing this project
-&lt;!-- Next steps, priorities, what to fix first --&gt;
 1.
-2.
 
 ### If starting fresh
-&lt;!-- What would you do differently? What would you keep the same? --&gt;
--
--
-
----
-
-## Artifacts worth keeping
-
-&lt;!-- Code, templates, or patterns that could be reused in future projects --&gt;
-
-| File/Component | Why it's useful |
-|----------------|-----------------|
-| | |
-| | |
-
----
-
-## Tools and resources
-
-&lt;!-- Things that helped during this project --&gt;
-
-- **LLM used:**
-- **Key libraries:**
-- **Helpful documentation:**
-- **People who helped:**
-
----
-
-## Questions for next time
-
-&lt;!-- Things you still don't understand or want to research --&gt;
-
--
 -
 
 ---
@@ -909,1768 +670,12 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
                 </div>
 
-                <!-- Specialized LESSONS Templates Subsection -->
-                <div class="mt-8 border-t border-white/10 pt-8">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h4 class="font-display text-lg text-chrome">LESSONS TEMPLATES</h4>
-                            <p class="text-xs text-gray-500 mt-1 font-mono">Project retrospective documents</p>
-                        </div>
-                        <button onclick="toggleAllSpecialized()" class="text-xs font-mono text-gray-500 hover:text-acid transition-colors px-3 py-1 border border-white/10 hover:border-acid">
-                            EXPAND_ALL
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-500 mb-6 max-w-3xl">Fill these in when you finish, abandon, or pause a project. They capture what worked, what didn't, and "the real problem" — insights that help future you (or your team) avoid repeating mistakes. <strong class="text-gray-400">Deploy:</strong> Copy to your project root as <code class="text-chrome bg-surface px-1">LESSONS.md</code></p>
-
-                    <!-- Software Development Category -->
-                    <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <i data-lucide="code-2" class="w-4 h-4 text-ice"></i>
-                            <span class="text-xs font-mono text-ice tracking-wider">SOFTWARE_DEVELOPMENT</span>
-                        </div>
-                        <div class="space-y-2 pl-6 border-l border-ice/20">
-
-                            <!-- General -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-general')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-general.md</span>
-                                        <span class="text-xs text-gray-600">General projects</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-general')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-general"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-general">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-general"># Lessons learned — [Project name]
-
-&gt; Template for: General projects
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph: What is this? What problem does it solve? Who is it for?]
-
-## What worked
-
-### Technical wins
-- [Decision that paid off]
-- [Tool/library that worked well]
-- [Architecture pattern that scaled]
-
-### Process wins
-- [Development workflow that helped]
-- [Testing approach that caught bugs]
-- [Documentation that saved time]
-
-## What didn't work
-
-### Critical failures
-- [Blocker that stopped progress]
-- [Assumption that proved wrong]
-
-### Technical debt
-- [Shortcut that caused problems]
-- [Complexity that wasn't needed]
-
-### External factors
-- [Dependency that broke]
-- [Requirement that changed]
-
-## Key insights
-
-### The real problem
-[What was actually needed vs what you built. This is the most important section.]
-
-### What I'd tell past me
-- [Insight 1]
-- [Insight 2]
-- [Insight 3]
-
-## Recommendations
-
-### If continuing this project
-1. [Most important next step]
-2. [Second priority]
-
-### If starting fresh
-- [What you'd do differently]
-- [What you'd keep the same]
-
-## Artifacts worth keeping
-
-| File/Component | Why |
-|----------------|-----|
-| [path] | [reason it's reusable] |
-
-## Links &amp; references
-- [Related project or resource]
-- [Documentation that helped]
-
----
-
-*This is a living document. Update it when you learn something new.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Desktop App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-desktop')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-desktop-app.md</span>
-                                        <span class="text-xs text-gray-600">Electron, Tauri, etc.</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-desktop')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-desktop"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-desktop">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-desktop"># Lessons learned — [Project name]
-
-&gt; Template for: Desktop applications (Electron, Tauri, etc.)
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph describing what this app does and its primary use case]
-
-## What worked
-
-### Technical wins
-- [Tech decision that paid off]
-- [Library/API that worked well]
-- [Architecture pattern that scaled]
-
-### UX wins
-- [User interaction that felt right]
-- [Design decision users appreciated]
-- [Accessibility improvement]
-
-### Distribution wins
-- [Installer/packaging approach]
-- [Auto-update mechanism]
-- [Cross-platform considerations]
-
-## What didn't work
-
-### Critical failures
-- [Blocker that stopped core functionality]
-- [Assumption that proved wrong]
-- [Integration that failed]
-
-### Technical debt
-- [Shortcut that caused problems later]
-- [Dependency that became a burden]
-- [Code pattern that didn't scale]
-
-### Platform issues
-- [Windows-specific problem]
-- [macOS-specific problem]
-- [Permission/security issue]
-
-## Key insights
-
-### The real problem
-[What users actually needed vs what you built]
-
-### Architecture lessons
-[IPC patterns, main/renderer split, state management]
-
-### Performance lessons
-[Memory usage, startup time, bundle size]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority 1 fix/improvement]
-- [Priority 2 fix/improvement]
-
-### If starting fresh
-- [What you'd do differently]
-- [Alternative architecture to consider]
-
-### Tech stack recommendations
-- [Keep: tool/library that worked]
-- [Replace: tool/library to swap out]
-- [Add: missing capability]
-
-## Artifacts worth keeping
-
-| File | Why |
-|------|-----|
-| `path/to/file` | Reusable pattern/logic |
-
-## Build &amp; distribution notes
-- Dev command: `npm run dev`
-- Build command: `npm run build`
-- Installer output: `dist/`
-- Known installer issues: [any signing, permission issues]
-
----
-
-*Update this document when new insights emerge.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Browser Extension -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-extension')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-browser-extension.md</span>
-                                        <span class="text-xs text-gray-600">Chrome, Firefox, etc.</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-extension')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-extension"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-extension">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-extension"># Lessons learned — [Project name]
-
-&gt; Template for: Browser extensions (Chrome, Firefox, etc.)
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph describing what this extension does]
-
-## What worked
-
-### Technical wins
-- [Manifest V3 pattern that worked]
-- [Service worker architecture decision]
-- [Storage API usage]
-
-### UX wins
-- [Popup design that worked]
-- [Context menu integration]
-- [Keyboard shortcut]
-
-### Distribution wins
-- [Web Store submission process]
-- [Review approval strategy]
-- [Update deployment]
-
-## What didn't work
-
-### Critical failures
-- [Permission that got rejected]
-- [API that didn't work as expected]
-- [Cross-browser compatibility issue]
-
-### Manifest V3 pain points
-- [Service worker limitation]
-- [Content script restriction]
-- [Background script timeout issue]
-
-### Review/store issues
-- [Rejection reason]
-- [Policy violation discovered]
-- [Metadata requirement missed]
-
-## Key insights
-
-### The real problem
-[What users actually needed vs what you built]
-
-### Permission strategy
-[Minimum permissions needed, optional permissions approach]
-
-### Cross-browser lessons
-[Chrome vs Firefox vs Edge differences]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority 1 fix/improvement]
-- [Priority 2 fix/improvement]
-
-### If starting fresh
-- [What you'd do differently]
-- [Manifest V2 vs V3 considerations]
-
-## Artifacts worth keeping
-
-| File | Why |
-|------|-----|
-| `manifest.json` | Permission patterns |
-| `background.js` | Service worker patterns |
-
-## Store listing notes
-- Chrome Web Store ID: [if published]
-- Firefox Add-on ID: [if published]
-- Key screenshots needed: [list]
-- Privacy policy requirements: [notes]
-
----
-
-*Update this document when new insights emerge.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Web App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-webapp')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-web-app.md</span>
-                                        <span class="text-xs text-gray-600">React, Vue, static sites</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-webapp')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-webapp"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-webapp">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-webapp"># Lessons learned — [Project name]
-
-&gt; Template for: Web applications (React, Vue, Static sites, etc.)
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph describing what this web app does]
-
-## What worked
-
-### Technical wins
-- [Framework choice that paid off]
-- [Build tool that worked well]
-- [State management approach]
-
-### UX/design wins
-- [Design system decision]
-- [Responsive approach]
-- [Animation/interaction that worked]
-
-### Deployment wins
-- [Hosting solution]
-- [CI/CD pipeline]
-- [CDN/caching strategy]
-
-## What didn't work
-
-### Critical failures
-- [Performance bottleneck]
-- [SEO issue]
-- [Accessibility gap]
-
-### Technical debt
-- [Component that got messy]
-- [State management complexity]
-- [CSS/styling issues]
-
-### Infrastructure issues
-- [Hosting limitation]
-- [Build time problem]
-- [Environment configuration pain]
-
-## Key insights
-
-### The real problem
-[What users actually needed vs what you built]
-
-### Performance lessons
-- [Bundle size insights]
-- [Loading strategy]
-- [Runtime performance]
-
-### Design system lessons
-- [What should be componentized]
-- [Styling approach retrospective]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority 1 fix/improvement]
-- [Priority 2 fix/improvement]
-
-### If starting fresh
-- [Framework reconsideration]
-- [Build tool alternatives]
-
-### Tech stack recommendations
-- [Keep: tool/library that worked]
-- [Replace: tool/library to swap out]
-
-## Artifacts worth keeping
-
-| File | Why |
-|------|-----|
-| `components/` | Reusable UI patterns |
-| `styles/` | Design tokens/theme |
-
-## Deployment notes
-- Hosting: [Firebase, Vercel, Netlify, etc.]
-- Build command: `npm run build`
-- Deploy command: [command or CI trigger]
-- Environment variables needed: [list]
-
----
-
-*Update this document when new insights emerge.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Data Pipeline -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-pipeline')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-data-pipeline.md</span>
-                                        <span class="text-xs text-gray-600">Python, ETL, scraping</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-pipeline')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-pipeline"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-pipeline">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-pipeline"># Lessons learned — [Project name]
-
-&gt; Template for: Data pipelines &amp; processing tools (Python, ETL, scraping, etc.)
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph describing what this pipeline does and what data it processes]
-
-## What worked
-
-### Technical wins
-- [Library that handled the job well]
-- [Data storage approach]
-- [Error handling strategy]
-
-### Data quality wins
-- [Validation approach that caught issues]
-- [Deduplication strategy]
-- [Data enrichment technique]
-
-### Operational wins
-- [Logging/monitoring approach]
-- [Recovery/retry mechanism]
-- [Scheduling solution]
-
-## What didn't work
-
-### Critical failures
-- [Data source that broke]
-- [Rate limiting issue]
-- [Memory/performance bottleneck]
-
-### Technical debt
-- [Hardcoded assumption that broke]
-- [Missing error handling]
-- [Schema drift not handled]
-
-### External dependencies
-- [API that changed]
-- [Service that went down]
-- [Authentication issue]
-
-## Key insights
-
-### The real problem
-[What the data actually needed vs what you built]
-
-### Scraping/API lessons
-- [Anti-bot detection encountered]
-- [Rate limiting strategies]
-- [Authentication patterns]
-
-### Data storage lessons
-- [Why you chose SQLite/Sheets/Postgres/etc.]
-- [Schema evolution approach]
-- [Backup strategy]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority 1 fix/improvement]
-- [Priority 2 fix/improvement]
-
-### If starting fresh
-- [Architecture reconsideration]
-- [Tool alternatives]
-
-### Tech stack recommendations
-- [Keep: library that worked]
-- [Replace: library to swap out]
-- [Add: missing capability]
-
-## Artifacts worth keeping
-
-| File | Why |
-|------|-----|
-| `processors/` | Reusable data transformations |
-| `utils/` | Helper functions |
-
-## Operational notes
-- Run command: `python main.py`
-- Schedule: [cron expression or manual]
-- Data location: [path or service]
-- Credentials needed: [list, no values]
-- Recovery procedure: [steps if it fails]
-
-## Data schema
-```
-[Key tables/collections and their relationships]
-```
-
----
-
-*Update this document when new insights emerge.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Mobile App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-mobile')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-mobile-app.md</span>
-                                        <span class="text-xs text-gray-600">React Native, Flutter, etc.</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-ice transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-mobile')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-mobile"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-mobile">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-mobile"># Lessons learned — [Project name]
-
-&gt; Template for: Mobile &amp; cross-platform apps (React Native, Capacitor, Flutter, etc.)
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[One paragraph describing what this app does and target platforms]
-
-## What worked
-
-### Technical wins
-- [Cross-platform framework choice]
-- [Native module that worked well]
-- [State management approach]
-
-### UX wins
-- [Navigation pattern]
-- [Platform-specific adaptation]
-- [Gesture/interaction that felt native]
-
-### Distribution wins
-- [App Store submission process]
-- [Beta testing approach]
-- [Update strategy]
-
-## What didn't work
-
-### Critical failures
-- [Platform-specific bug]
-- [Performance issue]
-- [Native integration failure]
-
-### Cross-platform pain
-- [Inconsistency between iOS/Android]
-- [Native module compatibility]
-- [Build configuration nightmare]
-
-### Store/distribution issues
-- [Rejection reason]
-- [Review process pain]
-- [Signing/certificate issue]
-
-## Key insights
-
-### The real problem
-[What users actually needed vs what you built]
-
-### Platform lessons
-- [iOS-specific learnings]
-- [Android-specific learnings]
-- [Web/PWA considerations]
-
-### Performance lessons
-- [Startup time optimization]
-- [Memory management]
-- [Battery impact]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority 1 fix/improvement]
-- [Priority 2 fix/improvement]
-
-### If starting fresh
-- [Framework reconsideration]
-- [Native vs cross-platform decision]
-
-### Tech stack recommendations
-- [Keep: tool/library that worked]
-- [Replace: tool/library to swap out]
-
-## Artifacts worth keeping
-
-| File | Why |
-|------|-----|
-| `components/` | Cross-platform UI |
-| `native/` | Platform bridges |
-
-## Build &amp; distribution notes
-
-### iOS
-- Bundle ID: [com.example.app]
-- Build command: `npm run ios`
-- TestFlight setup: [notes]
-- App Store ID: [if published]
-
-### Android
-- Package name: [com.example.app]
-- Build command: `npm run android`
-- Keystore location: [path, not password]
-- Play Store ID: [if published]
-
-### Common issues
-- [Build failure pattern and fix]
-- [Emulator/device debugging tip]
-
----
-
-*Update this document when new insights emerge.*</pre>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Journalism/Publishing Category -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <i data-lucide="newspaper" class="w-4 h-4 text-acid"></i>
-                            <span class="text-xs font-mono text-acid tracking-wider">JOURNALISM_&amp;_PUBLISHING</span>
-                        </div>
-                        <div class="space-y-2 pl-6 border-l border-acid/20">
-
-                            <!-- Digital Archive -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-archive')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-digital-archive.md</span>
-                                        <span class="text-xs text-gray-600">Preservation projects</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-archive')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-archive"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-archive">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-archive"># Lessons learned — [Archive name]
-
-&gt; Template for: Digital archives &amp; preservation projects
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[What is being archived? Whose work? What time period? What's the preservation goal?]
-
-## Collection overview
-- **Total items:** [count]
-- **Date range:** [start] - [end]
-- **Content types:** [articles, audio, video, images, documents]
-- **Primary sources:** [websites, publications, personal files]
-
-## What worked
-
-### Acquisition wins
-- [Scraping/crawling approach that worked]
-- [API or data source that was reliable]
-- [Relationship that gave access]
-
-### Preservation wins
-- [Format decisions that aged well]
-- [Metadata schema that proved useful]
-- [Storage solution that scaled]
-
-### Access wins
-- [Search/discovery feature users loved]
-- [Interface design that worked]
-- [Citation/sharing feature]
-
-## What didn't work
-
-### Acquisition failures
-- [Source that went dark]
-- [Anti-scraping measure that blocked us]
-- [Content that couldn't be captured]
-
-### Preservation issues
-- [Format that degraded or became obsolete]
-- [Metadata gap that caused problems]
-- [Storage/backup failure]
-
-### Access problems
-- [Discoverability issue]
-- [Rights/permissions blocker]
-- [Performance problem at scale]
-
-## Key insights
-
-### The real problem
-[What researchers/users actually needed vs what you built]
-
-### Content lessons
-- [What content was most valuable]
-- [What was missing that people wanted]
-- [Unexpected use cases]
-
-### Sustainability lessons
-- [Ongoing maintenance burden]
-- [Funding/resource requirements]
-- [Institutional support needs]
-
-## Rights &amp; permissions
-- [Copyright status of materials]
-- [Permissions obtained]
-- [Outstanding rights issues]
-- [Takedown requests received]
-
-## Recommendations for future work
-
-### If continuing this project
-- [Priority gaps to fill]
-- [Maintenance tasks]
-
-### If starting a similar archive
-- [What to prioritize]
-- [What to skip]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [Scraper code] | [Reusable for similar sources] |
-| [Metadata schema] | [Could be standard for similar projects] |
-
-## Stakeholders &amp; relationships
-- [Subject/creator of archived work]
-- [Institutional partners]
-- [User communities]
-
-## Technical notes
-- Storage location: [cloud service, institutional repository]
-- Backup strategy: [approach]
-- Access URL: [if public]
-
----
-
-*Archives are never "done." Update this as the collection evolves.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Event Website -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-event')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-event-website.md</span>
-                                        <span class="text-xs text-gray-600">Conferences, summits</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-event')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-event"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-event">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-event"># Lessons learned — [Event name]
-
-&gt; Template for: Conference, summit, and event websites
-&gt; Last updated: YYYY-MM-DD
-
-## Event overview
-- **Event name:** [name]
-- **Date(s):** [dates]
-- **Location:** [venue/virtual]
-- **Expected attendance:** [number]
-- **Website launch:** [date] | **Event date:** [date]
-
-## What worked
-
-### Content wins
-- [Messaging that resonated]
-- [Speaker/session presentation that drove interest]
-- [Call-to-action that converted]
-
-### Design wins
-- [Visual identity choice]
-- [Mobile experience]
-- [Accessibility feature]
-
-### Technical wins
-- [Registration integration]
-- [Schedule display approach]
-- [Performance optimization]
-
-### Promotion wins
-- [Channel that drove traffic]
-- [Partnership that expanded reach]
-- [Timing that worked]
-
-## What didn't work
-
-### Content failures
-- [Information people couldn't find]
-- [Confusion caused by messaging]
-- [Missing content that caused support requests]
-
-### Design issues
-- [Element that confused users]
-- [Branding inconsistency]
-- [Responsive breakpoint problem]
-
-### Technical problems
-- [Registration friction]
-- [Load time issue]
-- [Integration failure]
-
-### Promotion misses
-- [Channel that underperformed]
-- [Timing mistake]
-- [Audience not reached]
-
-## Key insights
-
-### The real problem
-[What attendees actually needed from the site vs what you built]
-
-### Timeline lessons
-- [What should have been ready earlier]
-- [What could have waited]
-- [Crunch points to avoid]
-
-### Stakeholder lessons
-- [Whose input was essential]
-- [Approval bottlenecks]
-- [Communication gaps]
-
-## Content checklist for next time
-
-### Must-have at launch
-- [ ] Date, time, location
-- [ ] Registration link/form
-- [ ] Basic schedule/agenda
-- [ ] Speaker highlights
-- [ ] Venue/access info
-- [ ] Contact information
-
-### Add before event
-- [ ] Full schedule with sessions
-- [ ] Speaker bios and photos
-- [ ] Sponsor recognition
-- [ ] FAQ
-- [ ] Accessibility info
-- [ ] Code of conduct
-
-### Post-event
-- [ ] Recordings/slides
-- [ ] Photo gallery
-- [ ] Thank you messaging
-- [ ] Save the date for next year
-
-## Recommendations for future events
-
-### If running this event again
-- [What to keep]
-- [What to change]
-
-### For similar events
-- [Transferable patterns]
-- [Pitfalls to avoid]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [Design system/brand assets] | [Reusable for future years] |
-| [Registration flow] | [Proven conversion] |
-| [Email templates] | [Tested messaging] |
-
-## Analytics summary
-- Total unique visitors: [number]
-- Registration conversion: [%]
-- Top traffic sources: [list]
-- Peak traffic day: [date]
-
----
-
-*Update after the event with attendee feedback and final metrics.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Content Pipeline -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-content')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-content-pipeline.md</span>
-                                        <span class="text-xs text-gray-600">CMS, publishing workflows</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-content')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-content"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-content">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-content"># Lessons learned — [Pipeline name]
-
-&gt; Template for: Content management &amp; publishing pipelines
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[What content flows through this pipeline? From where to where? Who are the producers and consumers?]
-
-## Pipeline overview
-```
-[Source] → [Processing] → [Storage] → [Distribution] → [Audience]
-```
-
-## What worked
-
-### Ingestion wins
-- [Source integration that worked smoothly]
-- [Format handling that saved time]
-- [Automation that reduced manual work]
-
-### Processing wins
-- [Transformation that added value]
-- [Quality check that caught issues]
-- [Enrichment that improved content]
-
-### Distribution wins
-- [Channel that reached audience]
-- [Format that performed well]
-- [Timing/scheduling that worked]
-
-### Editorial wins
-- [Workflow that editors liked]
-- [Review process that caught errors]
-- [Collaboration feature that helped]
-
-## What didn't work
-
-### Ingestion failures
-- [Source that broke or changed]
-- [Format that caused problems]
-- [Manual step that created bottleneck]
-
-### Processing issues
-- [Transformation that corrupted content]
-- [Quality check that missed errors]
-- [Step that was too slow]
-
-### Distribution problems
-- [Channel that underperformed]
-- [Format that didn't render correctly]
-- [Scheduling failure]
-
-### Editorial pain
-- [Workflow friction]
-- [Approval bottleneck]
-- [Version control nightmare]
-
-## Key insights
-
-### The real problem
-[What content producers/consumers actually needed vs what you built]
-
-### Volume lessons
-- [What broke at scale]
-- [What scaled fine]
-- [Capacity planning insights]
-
-### Quality vs speed tradeoffs
-- [Where quality was sacrificed]
-- [Where speed was sacrificed]
-- [Right balance in retrospect]
-
-## Content types handled
-
-| Type | Volume | Complexity | Notes |
-|------|--------|------------|-------|
-| [Articles] | [/day] | [low/med/high] | [notes] |
-| [Images] | [/day] | [low/med/high] | [notes] |
-| [Video] | [/day] | [low/med/high] | [notes] |
-
-## Recommendations for future work
-
-### If continuing this pipeline
-- [Bottleneck to fix]
-- [Automation to add]
-
-### If rebuilding
-- [Architecture change]
-- [Tool replacement]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [Ingestion scripts] | [Handles tricky source] |
-| [Transform logic] | [Reusable patterns] |
-
-## Integration points
-- **Sources:** [CMS, feeds, APIs, manual upload]
-- **Storage:** [database, cloud storage, CDN]
-- **Outputs:** [website, app, social, email]
-
-## Operational notes
-- Typical throughput: [items/hour or day]
-- Failure rate: [%]
-- Recovery procedure: [steps]
-- On-call contact: [who handles issues]
-
----
-
-*Content pipelines are living systems. Update as the workflow evolves.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Editorial Tool -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-editorial')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-editorial-tool.md</span>
-                                        <span class="text-xs text-gray-600">Newsroom tools</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-editorial')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-editorial"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-editorial">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-editorial"># Lessons learned — [Tool name]
-
-&gt; Template for: Editorial, journalism &amp; newsroom tools
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[What does this tool do? Who uses it? What editorial workflow does it support?]
-
-## User overview
-- **Primary users:** [reporters, editors, producers, etc.]
-- **User count:** [number]
-- **Usage frequency:** [daily, weekly, per-story]
-
-## What worked
-
-### Workflow wins
-- [Step that got faster]
-- [Error that got eliminated]
-- [Collaboration that improved]
-
-### Adoption wins
-- [Feature that drove adoption]
-- [Training approach that worked]
-- [Champion who helped spread use]
-
-### Integration wins
-- [System it connected well with]
-- [Data it surfaced usefully]
-- [Export/output that fit workflow]
-
-## What didn't work
-
-### Workflow failures
-- [Step that got harder]
-- [New error introduced]
-- [Workaround users invented]
-
-### Adoption blockers
-- [Why some users resisted]
-- [Training gap]
-- [Competing tool preference]
-
-### Integration problems
-- [System it didn't connect with]
-- [Data format mismatch]
-- [Authentication friction]
-
-## Key insights
-
-### The real problem
-[What journalists actually needed vs what you built]
-
-### Newsroom culture lessons
-- [How deadline pressure affected adoption]
-- [How existing habits shaped usage]
-- [What editors vs reporters needed differently]
-
-### Trust lessons
-- [What made users trust the tool]
-- [What made users distrust it]
-- [Accuracy/reliability requirements]
-
-## User feedback themes
-
-### Loved
-- [Quote or paraphrase]
-- [Quote or paraphrase]
-
-### Hated
-- [Quote or paraphrase]
-- [Quote or paraphrase]
-
-### Requested
-- [Feature request pattern]
-- [Feature request pattern]
-
-## Recommendations for future work
-
-### If continuing this tool
-- [Priority fix based on feedback]
-- [Feature to add]
-
-### If building similar tools
-- [Design principle to follow]
-- [Mistake to avoid]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [UI patterns] | [Tested with real journalists] |
-| [Data models] | [Reflects editorial concepts correctly] |
-
-## Metrics
-- Daily active users: [number]
-- Key action completion rate: [%]
-- Time saved per task: [estimate]
-- Error rate before/after: [comparison]
-
----
-
-*Newsroom tools must evolve with the newsroom. Update as needs change.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Research Project -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-research')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-research-project.md</span>
-                                        <span class="text-xs text-gray-600">Investigations, analysis</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-research')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-research"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-research">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-research"># Lessons learned — [Project name]
-
-&gt; Template for: Research, investigation &amp; analysis projects
-&gt; Last updated: YYYY-MM-DD
-
-## Project summary
-[What question were you trying to answer? What was the investigation about?]
-
-## Research overview
-- **Duration:** [timeframe]
-- **Team:** [who worked on it]
-- **Output:** [article, report, database, tool]
-- **Status:** [published, ongoing, abandoned]
-
-## What worked
-
-### Source wins
-- [Source type that proved valuable]
-- [Access obtained that was crucial]
-- [FOIA/records request that succeeded]
-
-### Method wins
-- [Analysis technique that revealed insights]
-- [Tool that accelerated work]
-- [Collaboration approach that helped]
-
-### Verification wins
-- [Fact-check process that caught errors]
-- [Corroboration method that worked]
-- [Expert consultation that added credibility]
-
-## What didn't work
-
-### Source failures
-- [Source that dried up]
-- [Access denied]
-- [Records request that failed/delayed]
-
-### Method problems
-- [Analysis that led nowhere]
-- [Tool that wasted time]
-- [Assumption that proved wrong]
-
-### Verification gaps
-- [Fact we couldn't verify]
-- [Conflicting information unresolved]
-- [Expert who wouldn't go on record]
-
-## Key insights
-
-### The real story
-[What the investigation was actually about vs what you thought initially]
-
-### Data lessons
-- [What data existed vs what you expected]
-- [Quality issues encountered]
-- [Gaps that couldn't be filled]
-
-### Human source lessons
-- [How to approach sources for this topic]
-- [What motivated sources to talk]
-- [What scared sources off]
-
-## Findings summary
-- [Key finding 1]
-- [Key finding 2]
-- [Key finding 3]
-
-## What we couldn't prove
-- [Hypothesis that remained unconfirmed]
-- [Question that stayed unanswered]
-
-## Ethical considerations
-- [Privacy decision made]
-- [Harm consideration]
-- [Source protection measure]
-
-## Recommendations for future work
-
-### If continuing this investigation
-- [Lead to pursue]
-- [Source to revisit]
-- [Data to request]
-
-### For similar investigations
-- [Approach to replicate]
-- [Mistake to avoid]
-- [Tool to use]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [Data collection scripts] | [Could be reused for follow-up] |
-| [Source database] | [Contacts for future stories] |
-| [Analysis notebooks] | [Methodology documentation] |
-
-## Source log
-*(Keep detailed, consider security)*
-- [Source type, not name if sensitive]
-- [How contacted, response]
-
-## Documents obtained
-- [Document type, source, date obtained]
-- [Storage location]
-
-## Timeline of key events
-- [Date]: [Event in the story]
-- [Date]: [Event in the story]
-
----
-
-*Investigations may be revisited. Keep notes thorough.*</pre>
-                                </div>
-                            </div>
-
-                            <!-- Publication -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('lessons-publication')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">LESSONS-publication.md</span>
-                                        <span class="text-xs text-gray-600">Newsletters, blogs, podcasts</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyTemplate('lessons-publication')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-lessons-publication"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-lessons-publication">
-                                    <pre class="p-4 text-xs text-gray-400 font-mono overflow-x-auto max-h-64 overflow-y-auto" id="raw-lessons-publication"># Lessons learned — [Publication name]
-
-&gt; Template for: Newsletters, blogs, ongoing publications
-&gt; Last updated: YYYY-MM-DD
-
-## Publication overview
-- **Name:** [publication name]
-- **Format:** [newsletter, blog, podcast, etc.]
-- **Frequency:** [daily, weekly, etc.]
-- **Audience:** [who reads it]
-- **Issues published:** [count]
-- **Subscribers/readers:** [count]
-
-## What worked
-
-### Content wins
-- [Topic/format that resonated]
-- [Voice/tone that connected]
-- [Series or feature that performed]
-
-### Growth wins
-- [Channel that drove subscriptions]
-- [Referral pattern that worked]
-- [Partnership that expanded reach]
-
-### Production wins
-- [Workflow that made publishing sustainable]
-- [Tool that saved time]
-- [Template that maintained consistency]
-
-### Monetization wins (if applicable)
-- [Revenue stream that worked]
-- [Sponsor relationship that fit]
-- [Premium offering that converted]
-
-## What didn't work
-
-### Content failures
-- [Topic that flopped]
-- [Format that didn't land]
-- [Experiment that confused readers]
-
-### Growth problems
-- [Channel that didn't convert]
-- [Churn pattern observed]
-- [Audience mismatch]
-
-### Production pain
-- [Bottleneck in workflow]
-- [Burnout factor]
-- [Quality/consistency tradeoff]
-
-### Monetization misses (if applicable)
-- [Revenue attempt that failed]
-- [Sponsor mismatch]
-- [Pricing mistake]
-
-## Key insights
-
-### The real value
-[What readers actually came for vs what you thought you were providing]
-
-### Voice &amp; identity lessons
-- [What made the publication distinctive]
-- [What felt inauthentic]
-- [Evolution of voice over time]
-
-### Sustainability lessons
-- [What made it maintainable]
-- [What led to burnout]
-- [Right frequency in retrospect]
-
-## Audience insights
-- **Who they are:** [demographics, psychographics]
-- **Why they subscribe:** [value proposition]
-- **What they share:** [most viral content]
-- **What they reply to:** [engagement triggers]
-
-## Top performing issues/posts
-
-| Title | Date | Why it worked |
-|-------|------|---------------|
-| [title] | [date] | [reason] |
-| [title] | [date] | [reason] |
-
-## Recommendations for future work
-
-### If continuing this publication
-- [Content to do more of]
-- [Workflow to fix]
-- [Growth channel to invest in]
-
-### If starting a similar publication
-- [What to replicate]
-- [What to skip]
-- [Minimum viable version]
-
-## Artifacts worth keeping
-
-| Component | Why |
-|-----------|-----|
-| [Style guide] | [Defines voice] |
-| [Templates] | [Speeds production] |
-| [Subscriber data] | [Audience insights] |
-
-## Platform &amp; tools
-- **Publishing platform:** [Substack, Ghost, WordPress, etc.]
-- **Email service:** [if different]
-- **Analytics:** [what you track]
-- **Writing tools:** [what you use]
-
-## Metrics
-- Open rate: [%]
-- Click rate: [%]
-- Growth rate: [%/month]
-- Churn rate: [%/month]
-
----
-
-*Publications evolve with their audience. Update as you learn what resonates.*</pre>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CLAUDE-RULES Templates Subsection -->
-                <div class="mt-8 border-t border-white/10 pt-8">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h4 class="font-display text-lg text-signal">CLAUDE-RULES TEMPLATES</h4>
-                            <p class="text-xs text-gray-500 mt-1 font-mono">Project memory files for Claude Code — <a href="https://code.claude.com/docs/en/memory" class="text-signal hover:text-white transition-colors underline">official docs</a></p>
-                        </div>
-                        <button onclick="toggleAllClaudeRules()" class="text-xs font-mono text-gray-500 hover:text-signal transition-colors px-3 py-1 border border-white/10 hover:border-signal">
-                            EXPAND_ALL
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-500 mb-6 max-w-3xl">These give Claude Code persistent context about your project. Claude reads them at the start of every conversation, so it understands your codebase, conventions, and preferences without you re-explaining. <strong class="text-gray-400">Deploy:</strong> Copy to your project root as <code class="text-signal bg-surface px-1">CLAUDE.md</code> at the <em>start</em> of a project.</p>
-
-                    <!-- Software Development Category -->
-                    <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <i data-lucide="code-2" class="w-4 h-4 text-ice"></i>
-                            <span class="text-xs font-mono text-ice tracking-wider">SOFTWARE_DEVELOPMENT</span>
-                        </div>
-                        <div class="space-y-2 pl-6 border-l border-ice/20">
-
-                            <!-- General -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-general')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-general.md</span>
-                                        <span class="text-xs text-gray-600">General projects</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-general.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('general')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-general"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-general">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for setting up Claude Code project memory</p>
-                                        <p>Includes: Project overview, common commands, code style, architecture notes, file structure, testing approach, things to avoid.</p>
-                                        <p class="mt-2 text-gray-600">Copy to your project root as CLAUDE.md</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Web App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-webapp')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-web-app.md</span>
-                                        <span class="text-xs text-gray-600">React, Vue, Next.js</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-web-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('web-app')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-webapp"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-webapp">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for web applications</p>
-                                        <p>Includes: Component patterns, styling rules, state management, API integration, performance considerations, accessibility requirements.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Desktop App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-desktop')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-desktop-app.md</span>
-                                        <span class="text-xs text-gray-600">Electron, Tauri</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-desktop-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('desktop-app')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-desktop"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-desktop">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for desktop applications</p>
-                                        <p>Includes: Main/renderer architecture, IPC patterns, platform-specific notes, data storage, security considerations, build and release.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Browser Extension -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-extension')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-browser-extension.md</span>
-                                        <span class="text-xs text-gray-600">Chrome, Firefox</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-browser-extension.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('browser-extension')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-extension"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-extension">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for browser extensions</p>
-                                        <p>Includes: Manifest permissions, background/content scripts, message passing, storage, store submission, security considerations.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Data Pipeline -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-pipeline')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-data-pipeline.md</span>
-                                        <span class="text-xs text-gray-600">ETL, scraping</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-data-pipeline.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('data-pipeline')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-pipeline"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-pipeline">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for data pipelines</p>
-                                        <p>Includes: Data flow, schema overview, error handling, rate limits, idempotency, monitoring, secrets management.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Mobile App -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-mobile')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-mobile-app.md</span>
-                                        <span class="text-xs text-gray-600">React Native, Flutter</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-mobile-app.md" download class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-signal transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('mobile-app')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-mobile"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-mobile">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-signal mb-2">Template for mobile applications</p>
-                                        <p>Includes: Platform-specific code, navigation structure, build and release, environment configuration, deep linking, push notifications.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Journalism/Publishing Category -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <i data-lucide="newspaper" class="w-4 h-4 text-acid"></i>
-                            <span class="text-xs font-mono text-acid tracking-wider">JOURNALISM_&_PUBLISHING</span>
-                        </div>
-                        <div class="space-y-2 pl-6 border-l border-acid/20">
-
-                            <!-- Digital Archive -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-archive')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-digital-archive.md</span>
-                                        <span class="text-xs text-gray-600">Preservation projects</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-digital-archive.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('digital-archive')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-archive"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-archive">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for digital archives</p>
-                                        <p>Includes: Data model, metadata schema, rights and permissions, preservation standards, AI enrichment, search and discovery.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Event Website -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-event')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-event-website.md</span>
-                                        <span class="text-xs text-gray-600">Conferences, summits</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-event-website.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('event-website')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-event"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-event">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for event websites</p>
-                                        <p>Includes: Site structure, content management, design system, key dates, integrations, post-event updates.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content Pipeline -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-content')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-content-pipeline.md</span>
-                                        <span class="text-xs text-gray-600">Publishing workflows</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-content-pipeline.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('content-pipeline')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-content"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-content">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for content pipelines</p>
-                                        <p>Includes: Content flow, content schema, platform integrations, AI enrichment, quality gates, scheduling.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Editorial Tool -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-editorial')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-editorial-tool.md</span>
-                                        <span class="text-xs text-gray-600">Newsroom tools</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-editorial-tool.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('editorial-tool')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-editorial"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-editorial">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for editorial tools</p>
-                                        <p>Includes: Core functionality, data sources, AI/ML components, output format, accuracy and reliability, ethical considerations.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Research Project -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-research')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-research-project.md</span>
-                                        <span class="text-xs text-gray-600">Investigations, analysis</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-research-project.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('research-project')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-research"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-research">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for research projects</p>
-                                        <p>Includes: Research question, data sources, methodology, source log, key findings, ethical considerations, version control.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Publication -->
-                            <div class="template-card border border-white/10 bg-surface/50">
-                                <div class="flex items-center justify-between p-3 cursor-pointer hover:bg-white/5 transition-colors" onclick="toggleTemplate('claude-publication')">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-sm font-mono text-white">CLAUDE-RULES-publication.md</span>
-                                        <span class="text-xs text-gray-600">Newsletters, blogs</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <a href="downloads/CLAUDE-RULES-publication.md" download class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation()" title="Download">
-                                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                                        </a>
-                                        <button class="p-1.5 hover:text-acid transition-colors" onclick="event.stopPropagation(); copyClaudeTemplate('publication')" title="Copy">
-                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        </button>
-                                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 template-chevron" id="chevron-claude-publication"></i>
-                                    </div>
-                                </div>
-                                <div class="template-content hidden border-t border-white/10" id="content-claude-publication">
-                                    <div class="p-4 text-xs text-gray-400 font-mono">
-                                        <p class="text-acid mb-2">Template for publications</p>
-                                        <p>Includes: Content structure, editorial standards, workflow, SEO and distribution, subscriber management, analytics.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                <!-- More Templates Link -->
+                <div class="mt-8 pt-8 border-t border-ink/10 relative z-10">
+                    <p class="text-sm text-mist mb-4">Looking for specialized LESSONS templates or CLAUDE-RULES files?</p>
+                    <a href="/code-patterns/" class="btn-outline inline-flex items-center gap-2">
+                        <i data-lucide="folder" class="w-4 h-4"></i> View All Templates
+                    </a>
                 </div>
 
             </section>
@@ -2678,18 +683,37 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-void py-12">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-acid clip-notch"></div>
-                    <span class="font-display font-bold text-lg text-white">AMDITIS</span>
+        <footer class="bg-ink text-canvas py-20 relative z-10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col lg:flex-row justify-between items-start gap-16 mb-16">
+                    <div class="space-y-6">
+                        <h5 class="font-display text-4xl italic font-light tracking-tight text-canvas leading-tight">The new <br><span class="font-black">standard.</span></h5>
+                    </div>
+                    <div class="grid grid-cols-2 gap-16 md:gap-24">
+                        <div class="space-y-6">
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Core Index</h6>
+                            <ul class="space-y-4 text-sm font-semibold tracking-wide">
+                                <li><a href="/vibe-coding/" class="hover:text-accent transition-colors">Vibe Coding</a></li>
+                                <li><a href="/llm-advisor/" class="hover:text-accent transition-colors">LLM Advisor</a></li>
+                                <li><a href="/code-patterns/" class="hover:text-accent transition-colors">Code Patterns</a></li>
+                            </ul>
+                        </div>
+                        <div class="space-y-6">
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Directives</h6>
+                            <ul class="space-y-4 text-sm font-semibold tracking-wide">
+                                <li><a href="/about/" class="hover:text-accent transition-colors">About</a></li>
+                                <li><a href="/style-guide/" class="hover:text-accent transition-colors">Style Guide</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-xs font-mono text-gray-600 text-center md:text-right">
-                    <p><a href="https://centerforcooperativemedia.org" class="hover:text-acid transition-colors">CENTER FOR COOPERATIVE MEDIA</a></p>
-                    <p class="mt-1">
-                        <a href="https://github.com/jamditis" class="hover:text-acid transition-colors">AUTHOR: JOE AMDITIS</a> // 
-                        <a href="/style-guide/" class="hover:text-acid transition-colors">SYSTEM_GUIDE</a>
-                    </p>
+                <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-canvas/5 gap-6">
+                    <div class="font-display text-2xl italic font-black">AMDITIS.</div>
+                    <div class="text-[10px] font-bold tracking-[0.3em] text-canvas/30 uppercase text-center md:text-right">
+                        <a href="https://centerforcooperativemedia.org" class="hover:text-canvas transition-colors">Center for Cooperative Media</a>
+                        <span class="mx-2">//</span>
+                        <a href="https://github.com/jamditis" class="hover:text-canvas transition-colors">Joe Amditis</a>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -2698,6 +722,34 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
     <script>
         lucide.createIcons();
+
+        // Nav Scroll Logic
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled-nav');
+            } else {
+                nav.classList.remove('scrolled-nav');
+            }
+        });
+
+        // Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            observer.observe(section);
+        });
 
         // Toggle template expand/collapse
         function toggleTemplate(id) {
@@ -2713,66 +765,24 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
             }
         }
 
-        // Toggle all specialized LESSONS templates
-        let allSpecializedExpanded = false;
-        function toggleAllSpecialized() {
-            const specializedIds = [
-                'lessons-general', 'lessons-desktop', 'lessons-extension',
-                'lessons-webapp', 'lessons-pipeline', 'lessons-mobile',
-                'lessons-archive', 'lessons-event', 'lessons-content',
-                'lessons-editorial', 'lessons-research', 'lessons-publication'
-            ];
+        // Copy template to clipboard
+        function copyTemplate(id) {
+            const raw = document.getElementById('raw-' + id);
+            const text = raw.innerText;
 
-            allSpecializedExpanded = !allSpecializedExpanded;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show toast notification
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-6 right-6 bg-accent text-canvas px-4 py-2 font-sans text-sm z-50';
+                toast.textContent = 'Copied to clipboard';
+                document.body.appendChild(toast);
 
-            specializedIds.forEach(id => {
-                const content = document.getElementById('content-' + id);
-                const chevron = document.getElementById('chevron-' + id);
-
-                if (content && chevron) {
-                    if (allSpecializedExpanded) {
-                        content.classList.remove('hidden');
-                        chevron.style.transform = 'rotate(180deg)';
-                    } else {
-                        content.classList.add('hidden');
-                        chevron.style.transform = 'rotate(0deg)';
-                    }
-                }
+                setTimeout(() => {
+                    toast.remove();
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
             });
-
-            // Update button text
-            event.target.textContent = allSpecializedExpanded ? 'COLLAPSE_ALL' : 'EXPAND_ALL';
-        }
-
-        // Toggle all CLAUDE-RULES templates
-        let allClaudeRulesExpanded = false;
-        function toggleAllClaudeRules() {
-            const claudeIds = [
-                'claude-general', 'claude-webapp', 'claude-desktop',
-                'claude-extension', 'claude-pipeline', 'claude-mobile',
-                'claude-archive', 'claude-event', 'claude-content',
-                'claude-editorial', 'claude-research', 'claude-publication'
-            ];
-
-            allClaudeRulesExpanded = !allClaudeRulesExpanded;
-
-            claudeIds.forEach(id => {
-                const content = document.getElementById('content-' + id);
-                const chevron = document.getElementById('chevron-' + id);
-
-                if (content && chevron) {
-                    if (allClaudeRulesExpanded) {
-                        content.classList.remove('hidden');
-                        chevron.style.transform = 'rotate(180deg)';
-                    } else {
-                        content.classList.add('hidden');
-                        chevron.style.transform = 'rotate(0deg)';
-                    }
-                }
-            });
-
-            // Update button text
-            event.target.textContent = allClaudeRulesExpanded ? 'COLLAPSE_ALL' : 'EXPAND_ALL';
         }
 
         // Copy CLAUDE-RULES template (fetch from file)
@@ -2783,44 +793,20 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
                 await navigator.clipboard.writeText(text);
 
-                // Show toast notification
                 const toast = document.createElement('div');
-                toast.className = 'fixed bottom-6 right-6 bg-signal text-black px-4 py-2 font-mono text-sm z-50';
-                toast.textContent = 'COPIED TO CLIPBOARD';
+                toast.className = 'fixed bottom-6 right-6 bg-accent text-canvas px-4 py-2 font-sans text-sm z-50';
+                toast.textContent = 'Copied to clipboard';
                 document.body.appendChild(toast);
 
-                setTimeout(() => {
-                    toast.remove();
-                }, 2000);
+                setTimeout(() => toast.remove(), 2000);
             } catch (err) {
                 console.error('Failed to copy:', err);
-                // Fallback: show error toast
                 const toast = document.createElement('div');
-                toast.className = 'fixed bottom-6 right-6 bg-signal text-black px-4 py-2 font-mono text-sm z-50';
-                toast.textContent = 'USE DOWNLOAD BUTTON';
+                toast.className = 'fixed bottom-6 right-6 bg-accent text-canvas px-4 py-2 font-sans text-sm z-50';
+                toast.textContent = 'Use download button';
                 document.body.appendChild(toast);
                 setTimeout(() => toast.remove(), 2000);
             }
-        }
-
-        // Copy template to clipboard
-        function copyTemplate(id) {
-            const raw = document.getElementById('raw-' + id);
-            const text = raw.innerText;
-
-            navigator.clipboard.writeText(text).then(() => {
-                // Show toast notification
-                const toast = document.createElement('div');
-                toast.className = 'fixed bottom-6 right-6 bg-acid text-black px-4 py-2 font-mono text-sm z-50';
-                toast.textContent = 'COPIED TO CLIPBOARD';
-                document.body.appendChild(toast);
-
-                setTimeout(() => {
-                    toast.remove();
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
         }
     </script>
 

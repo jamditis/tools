@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUICK REFERENCE // CODE_PATTERNS</title>
+    <title>Quick Reference // Code Patterns</title>
     <meta name="description" content="Situation-action lookup tables for Claude Code. Quick reference for debugging, workflows, recovery, and optimization.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
@@ -16,6 +21,38 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        body {
+            background-color: #ede6d4;
+            color: #121212;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .paper-overlay {
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .deckle-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-1%, 1%); }
+        }
+        .animate-drift {
+            animation: drift 25s ease-in-out infinite;
+        }
+
         .ref-table {
             width: 100%;
             border-collapse: collapse;
@@ -23,61 +60,63 @@
         .ref-table th {
             text-align: left;
             padding: 0.75rem 1rem;
-            background: rgba(17, 17, 17, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.75rem;
+            background: rgba(18, 18, 18, 0.03);
+            border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            font-weight: 700;
         }
         .ref-table td {
             padding: 0.75rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
             vertical-align: top;
         }
         .ref-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(18, 18, 18, 0.02);
         }
         .situation-cell {
-            color: #e8e8e8;
+            color: #121212;
             font-weight: 500;
         }
         .action-cell {
-            font-family: monospace;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         @media print {
             body { background: white; color: black; }
             .no-print { display: none; }
+            .paper-overlay { display: none; }
             .ref-table th { background: #f0f0f0; }
             .ref-table td { border-color: #ccc; }
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay no-print"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0 no-print"></div>
+    <div class="paper-overlay no-print"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0 no-print"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50 no-print">
+        <header class="border-b border-ink/5 bg-canvas/80 backdrop-blur-md sticky top-0 z-50 no-print">
             <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="/code-patterns/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-ice text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-ice transition-colors">QUICK_REFERENCE</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">CODE_PATTERNS</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink group-hover:text-accent transition-colors">Quick Reference</div>
+                        <div class="text-xs text-mist tracking-[0.2em]">CODE PATTERNS</div>
                     </div>
                 </a>
-                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
-                    <button onclick="window.print()" class="text-gray-400 hover:text-ice transition-colors flex items-center gap-2">
+                <nav class="flex gap-4 md:gap-6 text-xs">
+                    <button onclick="window.print()" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="printer" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ PRINT ]</span>
+                        <span class="hidden sm:inline">Print</span>
                     </button>
-                    <a href="/code-patterns/" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                    <a href="/code-patterns/" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ PATTERNS_HUB ]</span>
+                        <span class="hidden sm:inline">Patterns Hub</span>
                     </a>
                 </nav>
             </div>
@@ -88,11 +127,11 @@
 
             <!-- Page Header -->
             <div class="mb-12">
-                <div class="text-xs text-ice font-mono mb-3 tracking-widest">:: MODULE_02</div>
-                <h1 class="font-display text-3xl md:text-4xl text-white font-bold mb-4">
+                <div class="text-xs text-accent font-bold mb-3 tracking-widest uppercase">Module 02</div>
+                <h1 class="font-display text-3xl md:text-4xl text-ink font-black italic mb-4">
                     Quick reference tables
                 </h1>
-                <p class="text-gray-500 font-mono leading-relaxed max-w-2xl">
+                <p class="text-mist leading-relaxed max-w-2xl">
                     Situation-action lookup for common Claude Code scenarios. Find your situation, apply the recommended action.
                 </p>
             </div>
@@ -102,41 +141,41 @@
 
                 <!-- Debugging & Logging -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="bug" class="w-5 h-5 text-signal"></i>
-                        <h2 class="font-display text-xl text-white">Debugging & logging</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="bug" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Debugging & logging</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Claude does something wrong</td>
-                                    <td class="action-cell text-gray-400">
-                                        <code class="text-acid">/log_error</code> → fork → interview → capture verbatim prompt → rewind
+                                    <td class="action-cell text-mist">
+                                        <code class="text-accent font-mono">/log_error</code> -> fork -> interview -> capture verbatim prompt -> rewind
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Claude does something right</td>
-                                    <td class="action-cell text-gray-400">
-                                        <code class="text-acid">/log_success</code> → capture prompt → extract template → consider promoting to CLAUDE.md
+                                    <td class="action-cell text-mist">
+                                        <code class="text-accent font-mono">/log_success</code> -> capture prompt -> extract template -> consider promoting to CLAUDE.md
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Same error keeps recurring</td>
-                                    <td class="action-cell text-gray-400">
-                                        Review error logs → identify pattern → create hook or add to CLAUDE.md
+                                    <td class="action-cell text-mist">
+                                        Review error logs -> identify pattern -> create hook or add to CLAUDE.md
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Claude hallucinating APIs</td>
-                                    <td class="action-cell text-gray-400">
-                                        Use <code class="text-ice">Context7 MCP</code> for current documentation → category: hallucination
+                                    <td class="action-cell text-mist">
+                                        Use <code class="text-accent font-mono">Context7 MCP</code> for current documentation -> category: hallucination
                                     </td>
                                 </tr>
                             </tbody>
@@ -146,41 +185,41 @@
 
                 <!-- Workflow Execution -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="play-circle" class="w-5 h-5 text-acid"></i>
-                        <h2 class="font-display text-xl text-white">Workflow execution</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="play-circle" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Workflow execution</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Need reliable workflow execution</td>
-                                    <td class="action-cell text-gray-400">
-                                        Use <code class="text-acid">/command</code> with deterministic wrapping, not natural language
+                                    <td class="action-cell text-mist">
+                                        Use <code class="text-accent font-mono">/command</code> with deterministic wrapping, not natural language
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Repetitive multi-step task</td>
-                                    <td class="action-cell text-gray-400">
-                                        Create command in <code class="text-ice">.claude/commands/</code> → document purpose + workflow
+                                    <td class="action-cell text-mist">
+                                        Create command in <code class="text-accent font-mono">.claude/commands/</code> -> document purpose + workflow
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Different phases need different models</td>
-                                    <td class="action-cell text-gray-400">
+                                    <td class="action-cell text-mist">
                                         Implement model routing in command definition
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Tasks can run in parallel</td>
-                                    <td class="action-cell text-gray-400">
-                                        Design command to spawn independent subagents → maintain isolated contexts
+                                    <td class="action-cell text-mist">
+                                        Design command to spawn independent subagents -> maintain isolated contexts
                                     </td>
                                 </tr>
                             </tbody>
@@ -190,47 +229,47 @@
 
                 <!-- Permission & Context Management -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="shield" class="w-5 h-5 text-ice"></i>
-                        <h2 class="font-display text-xl text-white">Permission & context management</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="shield" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Permission & context management</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Claude requesting excessive permissions</td>
-                                    <td class="action-cell text-gray-400">
-                                        Implement hooks + <code class="text-signal">--dangerously-skip-permissions</code> for safe autonomy
+                                    <td class="action-cell text-mist">
+                                        Implement hooks + <code class="text-accent font-mono">--dangerously-skip-permissions</code> for safe autonomy
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Need to block dangerous operations</td>
-                                    <td class="action-cell text-gray-400">
-                                        Create pre-execution hooks in <code class="text-ice">.claude/hooks/</code> → pattern match blocked commands
+                                    <td class="action-cell text-mist">
+                                        Create pre-execution hooks in <code class="text-accent font-mono">.claude/hooks/</code> -> pattern match blocked commands
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Context getting bloated</td>
-                                    <td class="action-cell text-gray-400">
-                                        Use <code class="text-acid">/compact</code> at natural boundaries → consider subagent delegation
+                                    <td class="action-cell text-mist">
+                                        Use <code class="text-accent font-mono">/compact</code> at natural boundaries -> consider subagent delegation
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">CLAUDE.md exceeds 50 lines</td>
-                                    <td class="action-cell text-gray-400">
-                                        Audit weekly → move rarely-used instructions to skills → keep only essentials
+                                    <td class="action-cell text-mist">
+                                        Audit weekly -> move rarely-used instructions to skills -> keep only essentials
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Switching between projects</td>
-                                    <td class="action-cell text-gray-400">
-                                        <code class="text-acid">/clear</code> with repo-specific config → clean context transition
+                                    <td class="action-cell text-mist">
+                                        <code class="text-accent font-mono">/clear</code> with repo-specific config -> clean context transition
                                     </td>
                                 </tr>
                             </tbody>
@@ -240,41 +279,41 @@
 
                 <!-- Recovery & Restoration -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="rotate-ccw" class="w-5 h-5 text-signal"></i>
-                        <h2 class="font-display text-xl text-white">Recovery & restoration</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Recovery & restoration</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Bugs polluted the context</td>
-                                    <td class="action-cell text-gray-400">
-                                        Double-escape → restore conversation only (preserves correct code)
+                                    <td class="action-cell text-mist">
+                                        Double-escape -> restore conversation only (preserves correct code)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Need full rollback</td>
-                                    <td class="action-cell text-gray-400">
-                                        Double-escape → full restore (reverts conversation + code)
+                                    <td class="action-cell text-mist">
+                                        Double-escape -> full restore (reverts conversation + code)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Claude going in circles</td>
-                                    <td class="action-cell text-gray-400">
-                                        Fork conversation → rephrase approach → try different angle
+                                    <td class="action-cell text-mist">
+                                        Fork conversation -> rephrase approach -> try different angle
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Ending session cleanly</td>
-                                    <td class="action-cell text-gray-400">
-                                        <code class="text-acid">/handoff {NOTES}</code> → explicit priority notes for next session
+                                    <td class="action-cell text-mist">
+                                        <code class="text-accent font-mono">/handoff {NOTES}</code> -> explicit priority notes for next session
                                     </td>
                                 </tr>
                             </tbody>
@@ -284,41 +323,41 @@
 
                 <!-- Multi-Agent Patterns -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="network" class="w-5 h-5 text-acid"></i>
-                        <h2 class="font-display text-xl text-white">Multi-agent patterns</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="network" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Multi-agent patterns</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Complex reasoning task</td>
-                                    <td class="action-cell text-gray-400">
-                                        Force Opus subagent → add "Always launch opus subagents" to config
+                                    <td class="action-cell text-mist">
+                                        Force Opus subagent -> add "Always launch opus subagents" to config
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Subagent producing poor results</td>
-                                    <td class="action-cell text-gray-400">
-                                        Check model selection → likely model mismatch → upgrade to Opus
+                                    <td class="action-cell text-mist">
+                                        Check model selection -> likely model mismatch -> upgrade to Opus
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Errors compounding across agents</td>
-                                    <td class="action-cell text-gray-400">
-                                        Implement deterministic verification between handoffs → don't trust claims
+                                    <td class="action-cell text-mist">
+                                        Implement deterministic verification between handoffs -> don't trust claims
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Subagent handling too many tasks</td>
-                                    <td class="action-cell text-gray-400">
-                                        Split into multiple focused agents → one objective per agent
+                                    <td class="action-cell text-mist">
+                                        Split into multiple focused agents -> one objective per agent
                                     </td>
                                 </tr>
                             </tbody>
@@ -328,41 +367,41 @@
 
                 <!-- Input Optimization -->
                 <section>
-                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
-                        <i data-lucide="mic" class="w-5 h-5 text-ice"></i>
-                        <h2 class="font-display text-xl text-white">Input optimization</h2>
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-ink/10">
+                        <i data-lucide="mic" class="w-5 h-5 text-accent"></i>
+                        <h2 class="font-display text-xl text-ink italic font-bold">Input optimization</h2>
                     </div>
-                    <div class="border border-white/10 bg-panel overflow-hidden overflow-x-auto">
+                    <div class="deckle-card overflow-hidden overflow-x-auto">
                         <table class="ref-table">
                             <thead>
                                 <tr>
-                                    <th class="text-signal w-2/5">Situation</th>
-                                    <th class="text-acid">Recommended action</th>
+                                    <th class="text-accent w-2/5">Situation</th>
+                                    <th class="text-accent">Recommended action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="situation-cell">Typing prompts feels slow</td>
-                                    <td class="action-cell text-gray-400">
-                                        Use reprompter tool → voice input → automated structure → keybind activation
+                                    <td class="action-cell text-mist">
+                                        Use reprompter tool -> voice input -> automated structure -> keybind activation
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Unsure what to ask for</td>
-                                    <td class="action-cell text-gray-400">
-                                        Model interview approach → "Interview me about what I want" → let model surface requirements
+                                    <td class="action-cell text-mist">
+                                        Model interview approach -> "Interview me about what I want" -> let model surface requirements
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Prompt too vague</td>
-                                    <td class="action-cell text-gray-400">
-                                        Add XML structure → role assignment → specific examples → clear constraints
+                                    <td class="action-cell text-mist">
+                                        Add XML structure -> role assignment -> specific examples -> clear constraints
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="situation-cell">Same prompt type needed repeatedly</td>
-                                    <td class="action-cell text-gray-400">
-                                        Extract template → store in success logs → promote to skill if valuable
+                                    <td class="action-cell text-mist">
+                                        Extract template -> store in success logs -> promote to skill if valuable
                                     </td>
                                 </tr>
                             </tbody>
@@ -375,26 +414,26 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel/50 mt-auto no-print">
+        <footer class="bg-ink text-canvas mt-auto no-print">
             <div class="max-w-5xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
-                        <p class="text-gray-500 font-mono text-sm">
-                            <span class="text-ice">//</span> Find the situation. <span class="text-acid">Apply the action.</span>
+                        <p class="text-canvas/70 text-sm">
+                            Find the situation. <span class="text-canvas">Apply the action.</span>
                         </p>
                     </div>
-                    <div class="flex items-center gap-6 text-xs font-mono">
-                        <a href="/code-patterns/" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/code-patterns/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                            PATTERNS_HUB
+                            Patterns Hub
                         </a>
-                        <a href="/code-patterns/lessons/" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                        <a href="/code-patterns/lessons/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="graduation-cap" class="w-3 h-3"></i>
-                            LESSONS
+                            Lessons
                         </a>
-                        <a href="/code-patterns/skills/" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                        <a href="/code-patterns/skills/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="terminal" class="w-3 h-3"></i>
-                            SKILLS
+                            Skills
                         </a>
                     </div>
                 </div>

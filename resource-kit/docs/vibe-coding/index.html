@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE_CODING // AMDITIS KIT</title>
+    <title>Vibe Coding Guide | Amditis Kit</title>
     <meta name="description" content="The vibe coder's guide - Learn to ship code with AI without being a 'real' developer.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
@@ -17,17 +17,9 @@
 
     <style>
         /* Page-specific enhancements */
-        .card-glow-acid:hover {
-            box-shadow: 0 0 30px rgba(204, 255, 0, 0.15);
-        }
-        .card-glow-ice:hover {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
-        }
-        .card-glow-signal:hover {
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.15);
-        }
-        .card-glow-white:hover {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        .card-hover:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
         }
 
         /* Animated underline */
@@ -50,79 +42,78 @@
 
         /* Pulse animation for the status indicator */
         @keyframes pulse-glow {
-            0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
-            50% { opacity: 0.6; box-shadow: 0 0 15px currentColor; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
         .pulse-status {
             animation: pulse-glow 2s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl rounded group-hover:bg-ink transition-colors">A</div>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-acid transition-colors">VIBE_CODING</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AMDITIS_KIT</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink group-hover:text-accent transition-colors">Vibe Coding</div>
+                        <div class="text-xs text-ink/50 tracking-wide">Amditis Kit</div>
                     </div>
                 </a>
-                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
-                    <a href="/" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                <nav class="flex gap-4 md:gap-6 text-xs font-sans">
+                    <a href="/" class="text-ink/60 hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ MAIN_HUB ]</span>
+                        <span class="hidden sm:inline">Main Hub</span>
                     </a>
                 </nav>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <section class="py-16 md:py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
+        <section class="py-16 md:py-24 px-6 text-center border-b border-ink/10 relative overflow-hidden">
             <!-- Gradient glow -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-acid/5 blur-[100px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-ice/5 blur-[80px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
                 <!-- Status badge -->
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-acid/30 text-acid text-xs font-mono tracking-widest bg-acidDim">
-                    <span class="w-2 h-2 bg-acid rounded-full pulse-status"></span>
-                    MODE: VIBE_ACTIVE
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-accent/30 text-accent text-xs font-medium tracking-wide rounded-full bg-accent/5">
+                    <span class="w-2 h-2 bg-accent rounded-full pulse-status"></span>
+                    Ready to Code
                 </div>
 
-                <!-- Glitch title -->
-                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="VIBE CODER'S GUIDE">
-                    VIBE CODER'S GUIDE
+                <!-- Title -->
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-light italic mb-6 text-ink">
+                    Vibe Coder's Guide
                 </h1>
 
                 <!-- Tagline -->
-                <p class="text-gray-400 text-lg md:text-xl font-mono max-w-2xl mx-auto mb-8 leading-relaxed">
+                <p class="text-ink/60 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
                     No CS degree required. <br class="hidden sm:inline">
-                    <span class="text-ice">Build working software with AI as your co-pilot.</span>
+                    <span class="text-accent">Build working software with AI as your co-pilot.</span>
                 </p>
 
-                <!-- Terminal-style intro -->
-                <div class="max-w-xl mx-auto bg-panel border border-white/10 p-4 text-left text-sm">
-                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
-                        <span class="w-3 h-3 rounded-full bg-signal"></span>
-                        <span class="w-3 h-3 rounded-full bg-acid"></span>
-                        <span class="w-3 h-3 rounded-full bg-ice"></span>
-                        <span class="text-xs text-gray-600 ml-2">vibe_init.sh</span>
+                <!-- Intro box -->
+                <div class="max-w-xl mx-auto deckle-card p-6 text-left text-sm">
+                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-ink/10">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-accent"></span>
+                        <span class="w-3 h-3 rounded-full bg-blue-400"></span>
+                        <span class="text-xs text-ink/40 ml-2">Getting Started</span>
                     </div>
-                    <code class="text-gray-500">
-                        <span class="text-acid">$</span> ./start_vibing --mode=<span class="text-ice">build</span><br>
-                        <span class="text-gray-600"># Loading AI assistants...</span><br>
-                        <span class="text-gray-600"># Syntax memorization: DISABLED</span><br>
-                        <span class="text-gray-600"># Ship-first mindset: ENABLED</span><br>
-                        <span class="text-acid">Ready.</span> <span class="text-white">Pick your path below.</span>
-                    </code>
+                    <div class="text-ink/60 space-y-1">
+                        <p><span class="text-accent font-medium">$</span> ./start_vibing --mode=build</p>
+                        <p class="text-ink/40"># Loading AI assistants...</p>
+                        <p class="text-ink/40"># Syntax memorization: DISABLED</p>
+                        <p class="text-ink/40"># Ship-first mindset: ENABLED</p>
+                        <p><span class="text-accent">Ready.</span> <span class="text-ink">Pick your path below.</span></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -132,78 +123,78 @@
 
             <!-- Primary Paths Section -->
             <section class="mb-16">
-                <div class="border-b border-white/10 pb-4 mb-8">
+                <div class="border-b border-ink/10 pb-4 mb-8">
                     <div class="flex items-end justify-between">
-                        <h2 class="font-display text-xl md:text-2xl text-white">// CHOOSE_YOUR_PATH</h2>
-                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">START_HERE</span>
+                        <h2 class="font-display text-2xl md:text-3xl font-light italic text-ink">Choose Your Path</h2>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Start Here</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- THE BASICS Card -->
-                    <a href="/vibe-coding/essentials/" class="group block border border-white/10 bg-panel hover:border-acid transition-all duration-300 relative overflow-hidden card-glow-acid">
+                    <a href="/vibe-coding/essentials/" class="group block deckle-card hover:border-accent/30 transition-all duration-300 relative overflow-hidden card-hover">
                         <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-acid/50 group-hover:border-acid transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-acid/50 group-hover:border-acid transition-colors"></div>
+                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors"></div>
+                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/30 group-hover:border-accent transition-colors"></div>
 
                         <!-- Icon -->
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-acid">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="shield-check" class="w-10 h-10"></i>
                         </div>
 
                         <div class="p-8 relative">
-                            <div class="text-xs text-acid font-mono mb-3 tracking-widest">:: MODULE_01</div>
-                            <h3 class="font-display text-2xl md:text-3xl text-white font-bold mb-4 group-hover:text-acid transition-colors">
-                                THE BASICS
+                            <div class="text-xs text-accent font-medium mb-3 tracking-wide">Module 01</div>
+                            <h3 class="font-display text-2xl md:text-3xl text-ink font-light italic mb-4 group-hover:text-accent transition-colors">
+                                The Basics
                             </h3>
-                            <p class="text-gray-500 font-mono leading-relaxed mb-6">
+                            <p class="text-ink/60 leading-relaxed mb-6">
                                 Non-negotiable knowledge for shipping code. Git, terminals, file structures, and the mental models that matter.
                             </p>
                             <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">git</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">terminal</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">debugging</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">prompting</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">git</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">terminal</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">debugging</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">prompting</span>
                             </div>
                         </div>
 
-                        <div class="bg-surface px-8 py-3 border-t border-white/10 flex justify-between items-center text-sm font-mono text-gray-600 group-hover:text-acid transition-colors">
-                            <span>LOAD_MODULE</span>
-                            <span class="group-hover:translate-x-2 transition-transform">-></span>
+                        <div class="bg-cream px-8 py-3 border-t border-ink/10 flex justify-between items-center text-sm text-ink/60 group-hover:text-accent transition-colors">
+                            <span>Load Module</span>
+                            <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
                     <!-- LEVEL UP Card -->
-                    <a href="/vibe-coding/level-up/" class="group block border border-white/10 bg-panel hover:border-ice transition-all duration-300 relative overflow-hidden card-glow-ice">
+                    <a href="/vibe-coding/level-up/" class="group block deckle-card hover:border-accent/30 transition-all duration-300 relative overflow-hidden card-hover">
                         <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-ice/50 group-hover:border-ice transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-ice/50 group-hover:border-ice transition-colors"></div>
+                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors"></div>
+                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/30 group-hover:border-accent transition-colors"></div>
 
                         <!-- Icon -->
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-ice">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="rocket" class="w-10 h-10"></i>
                         </div>
 
                         <div class="p-8 relative">
-                            <div class="text-xs text-ice font-mono mb-3 tracking-widest">:: MODULE_02</div>
-                            <h3 class="font-display text-2xl md:text-3xl text-white font-bold mb-4 group-hover:text-ice transition-colors">
-                                LEVEL UP
+                            <div class="text-xs text-accent font-medium mb-3 tracking-wide">Module 02</div>
+                            <h3 class="font-display text-2xl md:text-3xl text-ink font-light italic mb-4 group-hover:text-accent transition-colors">
+                                Level Up
                             </h3>
-                            <p class="text-gray-500 font-mono leading-relaxed mb-6">
+                            <p class="text-ink/60 leading-relaxed mb-6">
                                 Skills that will save you days. APIs, deployment, testing, and the techniques that separate shipping from struggling.
                             </p>
                             <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">APIs</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">deployment</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">testing</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">architecture</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">APIs</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">deployment</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">testing</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20 rounded">architecture</span>
                             </div>
                         </div>
 
-                        <div class="bg-surface px-8 py-3 border-t border-white/10 flex justify-between items-center text-sm font-mono text-gray-600 group-hover:text-ice transition-colors">
-                            <span>LOAD_MODULE</span>
-                            <span class="group-hover:translate-x-2 transition-transform">-></span>
+                        <div class="bg-cream px-8 py-3 border-t border-ink/10 flex justify-between items-center text-sm text-ink/60 group-hover:text-accent transition-colors">
+                            <span>Load Module</span>
+                            <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
@@ -212,78 +203,78 @@
 
             <!-- Resources Section -->
             <section>
-                <div class="border-b border-white/10 pb-4 mb-8">
+                <div class="border-b border-ink/10 pb-4 mb-8">
                     <div class="flex items-end justify-between">
-                        <h2 class="font-display text-xl md:text-2xl text-white">// QUICK_ACCESS</h2>
-                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">REFERENCE_TOOLS</span>
+                        <h2 class="font-display text-2xl md:text-3xl font-light italic text-ink">Quick Access</h2>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Reference Tools</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                     <!-- GLOSSARY Card -->
-                    <a href="/vibe-coding/glossary/" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden card-glow-signal">
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-signal">
+                    <a href="/vibe-coding/glossary/" class="group block deckle-card hover:border-accent/30 transition-all duration-300 relative overflow-hidden card-hover">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="book-open" class="w-8 h-8"></i>
                         </div>
 
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-2 tracking-widest">:: REFERENCE</div>
-                            <h3 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">
-                                GLOSSARY
+                            <div class="text-xs text-accent font-medium mb-2 tracking-wide">Reference</div>
+                            <h3 class="font-display text-xl text-ink font-light italic mb-3 group-hover:text-accent transition-colors">
+                                Glossary
                             </h3>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <p class="text-sm text-ink/60 leading-relaxed">
                                 Dev jargon decoded. Plain-language definitions for the terms you'll encounter while vibe coding.
                             </p>
                         </div>
 
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>ACCESS_DB</span>
-                            <span class="group-hover:translate-x-1 transition-transform">-></span>
+                        <div class="bg-cream px-6 py-2 border-t border-ink/10 flex justify-between items-center text-xs text-ink/60 group-hover:text-accent transition-colors">
+                            <span>Browse Terms</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
                     <!-- CHEAT SHEET Card -->
-                    <a href="/vibe-coding/cheat-sheet/" class="group block border border-white/10 bg-panel hover:border-white transition-all duration-300 relative overflow-hidden card-glow-white">
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-white">
+                    <a href="/vibe-coding/cheat-sheet/" class="group block deckle-card hover:border-accent/30 transition-all duration-300 relative overflow-hidden card-hover">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-ink/60">
                             <i data-lucide="file-text" class="w-8 h-8"></i>
                         </div>
 
                         <div class="p-6">
-                            <div class="text-xs text-gray-400 font-mono mb-2 tracking-widest">:: PRINTABLE</div>
-                            <h3 class="font-display text-xl text-white font-bold mb-3 group-hover:text-chrome transition-colors">
-                                CHEAT SHEET
+                            <div class="text-xs text-ink/50 font-medium mb-2 tracking-wide">Printable</div>
+                            <h3 class="font-display text-xl text-ink font-light italic mb-3 group-hover:text-accent transition-colors">
+                                Cheat Sheet
                             </h3>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <p class="text-sm text-ink/60 leading-relaxed">
                                 Print-friendly quick reference. Essential commands, keyboard shortcuts, and troubleshooting tips.
                             </p>
                         </div>
 
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-white transition-colors">
-                            <span>DOWNLOAD</span>
-                            <span class="group-hover:translate-x-1 transition-transform">-></span>
+                        <div class="bg-cream px-6 py-2 border-t border-ink/10 flex justify-between items-center text-xs text-ink/60 group-hover:text-accent transition-colors">
+                            <span>Download</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
                     <!-- COMMON MISTAKES Card -->
-                    <a href="/vibe-coding/common-mistakes/" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden card-glow-signal">
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-signal">
+                    <a href="/vibe-coding/common-mistakes/" class="group block deckle-card hover:border-red-400/30 transition-all duration-300 relative overflow-hidden card-hover">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-red-500">
                             <i data-lucide="alert-triangle" class="w-8 h-8"></i>
                         </div>
 
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-2 tracking-widest">:: DANGER_ZONE</div>
-                            <h3 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">
-                                COMMON MISTAKES
+                            <div class="text-xs text-red-500 font-medium mb-2 tracking-wide">Danger Zone</div>
+                            <h3 class="font-display text-xl text-ink font-light italic mb-3 group-hover:text-red-500 transition-colors">
+                                Common Mistakes
                             </h3>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <p class="text-sm text-ink/60 leading-relaxed">
                                 Avoid these pitfalls. Secrets in git, ignored errors, and other ways to break things.
                             </p>
                         </div>
 
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>STAY_SAFE</span>
-                            <span class="group-hover:translate-x-1 transition-transform">-></span>
+                        <div class="bg-cream px-6 py-2 border-t border-ink/10 flex justify-between items-center text-xs text-ink/60 group-hover:text-red-500 transition-colors">
+                            <span>Stay Safe</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
@@ -291,21 +282,21 @@
             </section>
 
             <!-- Philosophy callout -->
-            <section class="mt-16 border border-white/10 bg-surface/50 p-6 md:p-8 relative">
-                <div class="absolute -top-3 left-6 bg-void px-3 text-xs text-gray-500 font-mono">
-                    SYSTEM_MESSAGE
+            <section class="mt-16 deckle-card p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-canvas px-3 text-xs text-ink/50">
+                    Philosophy
                 </div>
                 <div class="flex items-start gap-4">
-                    <div class="text-acid mt-1 hidden sm:block">
+                    <div class="text-accent mt-1 hidden sm:block">
                         <i data-lucide="terminal" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <p class="text-gray-400 font-mono leading-relaxed mb-4">
-                            <span class="text-white">Vibe coding means learning by building</span> - you pick up programming concepts when your project needs them, not years before.
+                        <p class="text-ink/70 leading-relaxed mb-4">
+                            <span class="text-ink font-medium">Vibe coding means learning by building</span> - you pick up programming concepts when your project needs them, not years before.
                             AI handles the syntax; you handle the thinking.
                         </p>
-                        <p class="text-sm text-gray-600 font-mono">
-                            // Build things. Break things. Fix them. Repeat.
+                        <p class="text-sm text-ink/50 italic">
+                            Build things. Break things. Fix them. Repeat.
                         </p>
                     </div>
                 </div>
@@ -314,35 +305,35 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+        <footer class="border-t border-ink/10 bg-ink text-canvas mt-auto">
             <div class="max-w-6xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
-                        <p class="text-gray-500 font-mono text-sm">
-                            <span class="text-acid">//</span> Start building. <span class="text-ice">The rest comes with practice.</span>
+                        <p class="text-canvas/70 text-sm">
+                            Start building. <span class="text-accent">The rest comes with practice.</span>
                         </p>
                     </div>
-                    <div class="flex items-center gap-6 text-xs font-mono">
-                        <a href="/" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/" class="text-canvas/60 hover:text-accent transition-colors flex items-center gap-2">
                             <i data-lucide="home" class="w-3 h-3"></i>
-                            MAIN_HUB
+                            Main Hub
                         </a>
-                        <a href="/code-patterns/" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                        <a href="/code-patterns/" class="text-canvas/60 hover:text-accent transition-colors flex items-center gap-2">
                             <i data-lucide="git-branch" class="w-3 h-3"></i>
-                            CODE_PATTERNS
+                            Code Patterns
                         </a>
-                        <a href="/llm-advisor/" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                        <a href="/llm-advisor/" class="text-canvas/60 hover:text-accent transition-colors flex items-center gap-2">
                             <i data-lucide="bot" class="w-3 h-3"></i>
-                            LLM_ADVISOR
+                            LLM Advisor
                         </a>
                     </div>
                 </div>
-                <div class="mt-6 pt-6 border-t border-white/5 text-center">
-                    <p class="text-xs text-gray-600 font-mono">
-                        AMDITIS_KIT v2.6 // Part of the <a href="/" class="text-gray-500 hover:text-acid transition-colors hover-line">CCM Resource Collection</a>
+                <div class="mt-6 pt-6 border-t border-canvas/10 text-center">
+                    <p class="text-xs text-canvas/50">
+                        Amditis Kit v2.6 | Part of the <a href="/" class="text-canvas/60 hover:text-accent transition-colors hover-line">CCM Resource Collection</a>
                     </p>
-                    <p class="text-xs text-gray-700 font-mono mt-2">
-                        Inspired by <a href="https://www.aihero.dev/creating-the-perfect-claude-code-status-line" class="text-gray-600 hover:text-acid transition-colors hover-line" target="_blank" rel="noopener">Matt Pocock's Claude Code status line guide</a>
+                    <p class="text-xs text-canvas/40 mt-2">
+                        Inspired by <a href="https://www.aihero.dev/creating-the-perfect-claude-code-status-line" class="text-canvas/50 hover:text-accent transition-colors hover-line" target="_blank" rel="noopener">Matt Pocock's Claude Code status line guide</a>
                     </p>
                 </div>
             </div>

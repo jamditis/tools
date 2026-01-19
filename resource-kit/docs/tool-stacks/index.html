@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOL_STACKS // AMDITIS KIT</title>
+    <title>Tool Stacks // Amditis Kit</title>
     <meta name="description" content="Low-cost development tool stacks for building and shipping projects without breaking the bank.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
@@ -16,47 +16,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Page-specific enhancements */
-        .card-glow-acid:hover {
-            box-shadow: 0 0 30px rgba(204, 255, 0, 0.15);
-        }
-        .card-glow-ice:hover {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
-        }
-        .card-glow-signal:hover {
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.15);
-        }
-        .card-glow-white:hover {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Animated underline */
-        .hover-line {
-            position: relative;
-        }
-        .hover-line::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: currentColor;
-            transition: width 0.3s ease;
-        }
-        .hover-line:hover::after {
-            width: 100%;
-        }
-
-        /* Pulse animation for the status indicator */
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
-            50% { opacity: 0.6; box-shadow: 0 0 15px currentColor; }
-        }
-        .pulse-status {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
         /* Tool card styling */
         .tool-card {
             transition: all 0.3s ease;
@@ -103,81 +62,80 @@
             white-space: nowrap;
         }
         .price-free {
-            background: rgba(204, 255, 0, 0.15);
-            color: #ccff00;
-            border: 1px solid rgba(204, 255, 0, 0.3);
+            background: rgba(22, 163, 74, 0.1);
+            color: #16a34a;
+            border: 1px solid rgba(22, 163, 74, 0.3);
         }
         .price-freemium {
-            background: rgba(0, 240, 255, 0.15);
-            color: #00f0ff;
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            background: rgba(184, 134, 11, 0.1);
+            color: #b8860b;
+            border: 1px solid rgba(184, 134, 11, 0.3);
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl group-hover:bg-ink transition-colors">A</div>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-acid transition-colors">TOOL_STACKS</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AMDITIS_KIT</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink group-hover:text-accent transition-colors">Tool Stacks</div>
+                        <div class="text-xs text-ink/50 tracking-[0.2em]">Amditis Kit</div>
                     </div>
                 </a>
-                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
-                    <a href="/" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                <nav class="flex gap-4 md:gap-6 text-xs">
+                    <a href="/" class="text-ink/60 hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ MAIN_HUB ]</span>
+                        <span class="hidden sm:inline">Main Hub</span>
                     </a>
                 </nav>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <section class="py-16 md:py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
+        <section class="py-16 md:py-24 px-6 text-center border-b border-ink/10 relative overflow-hidden">
             <!-- Gradient glow -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-ice/5 blur-[100px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-acid/5 blur-[80px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
                 <!-- Status badge -->
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-ice/30 text-ice text-xs font-mono tracking-widest bg-ice/5">
-                    <span class="w-2 h-2 bg-ice rounded-full pulse-status"></span>
-                    MODE: LOW_COST
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-accent/30 text-accent text-xs tracking-widest bg-accent/5">
+                    <span class="w-2 h-2 bg-accent rounded-full"></span>
+                    Mode: Low Cost
                 </div>
 
-                <!-- Glitch title -->
-                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="TOOL STACKS">
-                    TOOL STACKS
+                <!-- Title -->
+                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-light italic mb-6 text-ink tracking-tight">
+                    Tool Stacks
                 </h1>
 
                 <!-- Tagline -->
-                <p class="text-gray-400 text-lg md:text-xl font-mono max-w-2xl mx-auto mb-8 leading-relaxed">
+                <p class="text-ink/60 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
                     Ship real projects without breaking the bank. <br class="hidden sm:inline">
-                    <span class="text-acid">Everything you need, mostly free.</span>
+                    <span class="text-accent">Everything you need, mostly free.</span>
                 </p>
 
                 <!-- Terminal-style intro -->
-                <div class="max-w-xl mx-auto bg-panel border border-white/10 p-4 text-left text-sm">
-                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
-                        <span class="w-3 h-3 rounded-full bg-signal"></span>
-                        <span class="w-3 h-3 rounded-full bg-acid"></span>
-                        <span class="w-3 h-3 rounded-full bg-ice"></span>
-                        <span class="text-xs text-gray-600 ml-2">stack_init.sh</span>
+                <div class="max-w-xl mx-auto deckle-card p-4 text-left text-sm overflow-hidden">
+                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-ink/5">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                        <span class="text-xs text-ink/40 ml-2">stack_init.sh</span>
                     </div>
-                    <code class="text-gray-500">
-                        <span class="text-acid">$</span> ./init_stack --budget=<span class="text-ice">$0</span><br>
-                        <span class="text-gray-600"># Loading free tier tools...</span><br>
-                        <span class="text-gray-600"># Enterprise pricing: IGNORED</span><br>
-                        <span class="text-gray-600"># Ship-first mindset: ENABLED</span><br>
-                        <span class="text-acid">Ready.</span> <span class="text-white">Browse the stack below.</span>
+                    <code class="text-ink/50 font-mono text-xs">
+                        <span class="text-accent">$</span> ./init_stack --budget=<span class="text-accent">$0</span><br>
+                        <span class="text-ink/40"># Loading free tier tools...</span><br>
+                        <span class="text-ink/40"># Enterprise pricing: IGNORED</span><br>
+                        <span class="text-ink/40"># Ship-first mindset: ENABLED</span><br>
+                        <span class="text-accent">Ready.</span> <span class="text-ink">Browse the stack below.</span>
                     </code>
                 </div>
             </div>
@@ -188,492 +146,492 @@
 
             <!-- Low-Cost Stack Section -->
             <section class="mb-16">
-                <div class="border-b border-white/10 pb-4 mb-8">
+                <div class="border-b border-ink/10 pb-4 mb-8">
                     <div class="flex items-end justify-between">
-                        <h2 class="font-display text-xl md:text-2xl text-white">// THE_$0_STACK</h2>
-                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">HOBBYIST_APPROVED</span>
+                        <h2 class="font-display text-xl md:text-2xl font-light italic text-ink">// The $0 Stack</h2>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Hobbyist approved</span>
                     </div>
-                    <p class="text-gray-500 text-sm mt-2">A complete development stack that costs nothing to start. Perfect for side projects, MVPs, and learning.</p>
+                    <p class="text-ink/50 text-sm mt-2">A complete development stack that costs nothing to start. Perfect for side projects, MVPs, and learning.</p>
                 </div>
 
                 <div class="space-y-4">
 
                     <!-- IDE -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="code-2" class="w-5 h-5 sm:w-6 sm:h-6 text-acid"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="code-2" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">IDE</h3>
-                                        <span class="price-tag price-freemium">FREE TIERS</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">IDE</h3>
+                                        <span class="price-tag price-freemium">Free tiers</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Your coding environment - where you write and edit code with AI assistance.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Your coding environment - where you write and edit code with AI assistance.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://firebase.studio/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Firebase Studio</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Google's cloud IDE + Gemini. 3 free workspaces.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://firebase.studio/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Firebase Studio</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Google's cloud IDE + Gemini. 3 free workspaces.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://www.codeium.com/windsurf" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Windsurf</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- AI-first VS Code fork. <span class="text-ice">Best free AI tier.</span></span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://www.codeium.com/windsurf" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Windsurf</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- AI-first VS Code fork. <span class="text-accent">Best free AI tier.</span></span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://zed.dev/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Zed</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Fastest editor (Rust). Free, open source.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://zed.dev/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Zed</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Fastest editor (Rust). Free, open source.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://cursor.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Cursor</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- AI-native VS Code fork. 50 free requests/mo.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://cursor.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Cursor</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- AI-native VS Code fork. 50 free requests/mo.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">GitHub Copilot</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Works in VS Code. Free tier: 2K completions/mo.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">GitHub Copilot</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Works in VS Code. Free tier: 2K completions/mo.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">01</div>
+                            <div class="text-xs text-ink/40 hidden md:block">01</div>
                         </div>
                     </div>
 
                     <!-- AI App Builders -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-signal/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-signal/10 border border-signal/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="wand-2" class="w-5 h-5 sm:w-6 sm:h-6 text-signal"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="wand-2" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">AI app builders</h3>
-                                        <span class="price-tag price-freemium">FREE / PAID</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">AI app builders</h3>
+                                        <span class="price-tag price-freemium">Free / Paid</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Describe what you want, get a working app. Great for prototypes and MVPs.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Describe what you want, get a working app. Great for prototypes and MVPs.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Google AI Studio</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Prototype with Gemini. Export to Firebase Studio.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Google AI Studio</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Prototype with Gemini. Export to Firebase Studio.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://bolt.new/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Bolt.new</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Full-stack apps in browser. StackBlitz powered.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://bolt.new/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Bolt.new</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Full-stack apps in browser. StackBlitz powered.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://v0.dev/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">v0 by Vercel</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- React UI from prompts. Image-to-code. Free tier.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://v0.dev/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">v0 by Vercel</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- React UI from prompts. Image-to-code. Free tier.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://lovable.dev/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Lovable</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- No-code app builder. Plain English → full app.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://lovable.dev/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Lovable</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- No-code app builder. Plain English -> full app.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://replit.com/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Replit</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Cloud IDE + AI Agent. Free starter plan.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://replit.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Replit</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Cloud IDE + AI Agent. Free starter plan.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">02</div>
+                            <div class="text-xs text-ink/40 hidden md:block">02</div>
                         </div>
                     </div>
 
                     <!-- AI Documentation -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="file-text" class="w-5 h-5 sm:w-6 sm:h-6 text-ice"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="file-text" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">AI documentation</h3>
-                                        <span class="price-tag price-free">OPEN SOURCE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">AI documentation</h3>
+                                        <span class="price-tag price-free">Open source</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Auto-generate docs for your codebase. Saves hours of manual documentation work.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Auto-generate docs for your codebase. Saves hours of manual documentation work.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://www.superdocs.cloud/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">SuperDocs</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- AI-powered documentation generation, 100% free & open source.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://www.superdocs.cloud/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">SuperDocs</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- AI-powered documentation generation, 100% free & open source.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">03</div>
+                            <div class="text-xs text-ink/40 hidden md:block">03</div>
                         </div>
                     </div>
 
                     <!-- Database -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="database" class="w-5 h-5 sm:w-6 sm:h-6 text-acid"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="database" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Database</h3>
-                                        <span class="price-tag price-freemium">FREE TIER</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Database</h3>
+                                        <span class="price-tag price-freemium">Free tier</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Store your app's data. Both options include real-time sync and easy setup.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Store your app's data. Both options include real-time sync and easy setup.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://firebase.google.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Firebase</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Google's BaaS. Free tier or pay-as-you-go.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://firebase.google.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Firebase</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Google's BaaS. Free tier or pay-as-you-go.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://supabase.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Supabase</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Open source Firebase alt. Nano plan free.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://supabase.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Supabase</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Open source Firebase alt. Nano plan free.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">04</div>
+                            <div class="text-xs text-ink/40 hidden md:block">04</div>
                         </div>
                     </div>
 
                     <!-- Authentication -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="shield-check" class="w-5 h-5 sm:w-6 sm:h-6 text-ice"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Authentication</h3>
-                                        <span class="price-tag price-free">FREE UP TO 10K</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Authentication</h3>
+                                        <span class="price-tag price-free">Free up to 10K</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">User login, signup, OAuth, magic links. Handle auth without building it yourself.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">User login, signup, OAuth, magic links. Handle auth without building it yourself.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://stack-auth.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Stack Auth</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Open source Auth0/Clerk alt. Free up to 10K users.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://stack-auth.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Stack Auth</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Open source Auth0/Clerk alt. Free up to 10K users.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">05</div>
+                            <div class="text-xs text-ink/40 hidden md:block">05</div>
                         </div>
                     </div>
 
                     <!-- LLM / AI Models -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-signal/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-signal/10 border border-signal/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="brain" class="w-5 h-5 sm:w-6 sm:h-6 text-signal"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="brain" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">LLM (AI model)</h3>
-                                        <span class="price-tag price-freemium">FREE / LOW COST</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">LLM (AI model)</h3>
+                                        <span class="price-tag price-freemium">Free / Low cost</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Add AI capabilities to your app. Multiple options for testing and production.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Add AI capabilities to your app. Multiple options for testing and production.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://openrouter.ai/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">OpenRouter</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Unified API for multiple LLMs. Pay per use.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://openrouter.ai/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">OpenRouter</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Unified API for multiple LLMs. Pay per use.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Gemini AI Studio</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Free testing with Google's Gemini models.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://aistudio.google.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Gemini AI Studio</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Free testing with Google's Gemini models.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://unsloth.ai/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Unsloth AI</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Fine-tune models 2x faster in Google Colab.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://unsloth.ai/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Unsloth AI</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Fine-tune models 2x faster in Google Colab.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">06</div>
+                            <div class="text-xs text-ink/40 hidden md:block">06</div>
                         </div>
                     </div>
 
                     <!-- Version Control -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="git-branch" class="w-5 h-5 sm:w-6 sm:h-6 text-acid"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="git-branch" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Version control</h3>
-                                        <span class="price-tag price-free">100% FREE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Version control</h3>
+                                        <span class="price-tag price-free">100% free</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Track changes, collaborate, and never lose your work. Essential for any project.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Track changes, collaborate, and never lose your work. Essential for any project.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://github.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">GitHub</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Industry standard. Free unlimited repos.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://github.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">GitHub</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Industry standard. Free unlimited repos.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://gitlab.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">GitLab</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Open source. Self-host option. Built-in CI/CD.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://gitlab.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">GitLab</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Open source. Self-host option. Built-in CI/CD.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">07</div>
+                            <div class="text-xs text-ink/40 hidden md:block">07</div>
                         </div>
                     </div>
 
                     <!-- Deployment -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="rocket" class="w-5 h-5 sm:w-6 sm:h-6 text-ice"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="rocket" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Deployment</h3>
-                                        <span class="price-tag price-freemium">FREE TIER</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Deployment</h3>
+                                        <span class="price-tag price-freemium">Free tier</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Get your app live in minutes. Push to git, auto-deploy to the world.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Get your app live in minutes. Push to git, auto-deploy to the world.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://vercel.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Vercel</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Deploy frontend & serverless in seconds.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://vercel.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Vercel</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Deploy frontend & serverless in seconds.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://pages.github.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">GitHub Pages</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Free static site hosting. Perfect for docs.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://pages.github.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">GitHub Pages</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Free static site hosting. Perfect for docs.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Cloudflare Pages</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Fast global CDN. Unlimited bandwidth free.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Cloudflare Pages</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Fast global CDN. Unlimited bandwidth free.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://www.digitalocean.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">DigitalOcean</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- VPS droplets from $4/mo. Full server control.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://www.digitalocean.com/" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">DigitalOcean</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- VPS droplets from $4/mo. Full server control.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">08</div>
+                            <div class="text-xs text-ink/40 hidden md:block">08</div>
                         </div>
                     </div>
 
                     <!-- DNS & CDN -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-signal/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-signal/10 border border-signal/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="globe" class="w-5 h-5 sm:w-6 sm:h-6 text-signal"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="globe" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">DNS & CDN</h3>
-                                        <span class="price-tag price-free">100% FREE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">DNS & CDN</h3>
+                                        <span class="price-tag price-free">100% free</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Domain management, SSL, caching, and DDoS protection. Essential infrastructure.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Domain management, SSL, caching, and DDoS protection. Essential infrastructure.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://www.cloudflare.com/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Cloudflare</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Free DNS, SSL, CDN, DDoS protection. Industry standard.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://www.cloudflare.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Cloudflare</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Free DNS, SSL, CDN, DDoS protection. Industry standard.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">09</div>
+                            <div class="text-xs text-ink/40 hidden md:block">09</div>
                         </div>
                     </div>
 
                     <!-- Analytics -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="bar-chart-3" class="w-5 h-5 sm:w-6 sm:h-6 text-acid"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bar-chart-3" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Analytics</h3>
-                                        <span class="price-tag price-free">ALL FREE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Analytics</h3>
+                                        <span class="price-tag price-free">All free</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Understand your users. Use all three for complete visibility.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Understand your users. Use all three for complete visibility.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://posthog.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">PostHog</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Product analytics, session replays, feature flags.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://posthog.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">PostHog</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Product analytics, session replays, feature flags.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://clarity.microsoft.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Microsoft Clarity</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Heatmaps & recordings. 100% free.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://clarity.microsoft.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Microsoft Clarity</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Heatmaps & recordings. 100% free.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://analytics.google.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Google Analytics</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Traffic & conversions. Industry standard.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://analytics.google.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Google Analytics</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Traffic & conversions. Industry standard.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">10</div>
+                            <div class="text-xs text-ink/40 hidden md:block">10</div>
                         </div>
                     </div>
 
                     <!-- Maps & Geo -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="map" class="w-5 h-5 sm:w-6 sm:h-6 text-ice"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="map" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Maps & geo</h3>
-                                        <span class="price-tag price-free">100% FREE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Maps & geo</h3>
+                                        <span class="price-tag price-free">100% free</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Interactive maps for data journalism and location-based projects.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Interactive maps for data journalism and location-based projects.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://leafletjs.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Leaflet</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Lightweight JS maps. OpenStreetMap tiles free.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://leafletjs.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Leaflet</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Lightweight JS maps. OpenStreetMap tiles free.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://www.mapbox.com/" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Mapbox</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Custom map styles. 50K loads/mo free.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://www.mapbox.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Mapbox</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Custom map styles. 50K loads/mo free.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">11</div>
+                            <div class="text-xs text-ink/40 hidden md:block">11</div>
                         </div>
                     </div>
 
                     <!-- Web Scraping -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-signal/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-signal/10 border border-signal/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="scan" class="w-5 h-5 sm:w-6 sm:h-6 text-signal"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="scan" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Web scraping</h3>
-                                        <span class="price-tag price-free">OPEN SOURCE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Web scraping</h3>
+                                        <span class="price-tag price-free">Open source</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Extract data from websites. Essential for data journalism and research.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Extract data from websites. Essential for data journalism and research.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://playwright.dev/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Playwright</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Browser automation. Handles JS-heavy sites.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://playwright.dev/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Playwright</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Browser automation. Handles JS-heavy sites.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://trafilatura.readthedocs.io/" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">Trafilatura</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Python content extraction. Clean article text.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://trafilatura.readthedocs.io/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Trafilatura</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Python content extraction. Clean article text.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-signal text-xs">></span>
-                                            <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener" class="tool-link text-signal font-bold text-sm">yt-dlp</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Download video/audio from 1000+ sites.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">yt-dlp</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Download video/audio from 1000+ sites.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">12</div>
+                            <div class="text-xs text-ink/40 hidden md:block">12</div>
                         </div>
                     </div>
 
                     <!-- Desktop Apps -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-acid/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-acid/10 border border-acid/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="monitor" class="w-5 h-5 sm:w-6 sm:h-6 text-acid"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-green-600/10 border border-green-600/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="monitor" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">Desktop apps</h3>
-                                        <span class="price-tag price-free">OPEN SOURCE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">Desktop apps</h3>
+                                        <span class="price-tag price-free">Open source</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Build native desktop apps using web technologies you already know.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Build native desktop apps using web technologies you already know.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://www.electronjs.org/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Electron</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- JS/HTML/CSS → Windows, Mac, Linux apps.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://www.electronjs.org/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Electron</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- JS/HTML/CSS -> Windows, Mac, Linux apps.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://pywebview.flowrl.com/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">PyWebView</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Python + HTML/CSS desktop GUIs. Lightweight.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://pywebview.flowrl.com/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">PyWebView</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Python + HTML/CSS desktop GUIs. Lightweight.</span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-acid text-xs">></span>
-                                            <a href="https://tauri.app/" target="_blank" rel="noopener" class="tool-link text-acid font-bold text-sm">Tauri</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Rust backend + web frontend. Tiny binaries.</span>
+                                            <span class="text-green-600 text-xs">></span>
+                                            <a href="https://tauri.app/" target="_blank" rel="noopener" class="tool-link text-green-600 font-bold text-sm">Tauri</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Rust backend + web frontend. Tiny binaries.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">13</div>
+                            <div class="text-xs text-ink/40 hidden md:block">13</div>
                         </div>
                     </div>
 
                     <!-- AI Coding Tools -->
-                    <div class="tool-card border border-white/10 bg-panel hover:border-ice/50 p-4 sm:p-6 relative overflow-hidden">
+                    <div class="tool-card deckle-card hover:border-accent/50 p-4 sm:p-6 relative overflow-hidden">
                         <div class="flex items-start justify-between gap-2 sm:gap-4">
                             <div class="flex items-start gap-3 sm:gap-4">
-                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-ice/10 border border-ice/30 flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="terminal" class="w-5 h-5 sm:w-6 sm:h-6 text-ice"></i>
+                                <div class="tool-icon-box w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 border border-accent/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="terminal" class="w-5 h-5 sm:w-6 sm:h-6 text-accent"></i>
                                 </div>
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                                        <h3 class="font-display text-base sm:text-lg text-white font-bold">AI coding CLIs</h3>
-                                        <span class="price-tag price-freemium">FREE / USAGE</span>
+                                        <h3 class="font-display text-base sm:text-lg text-ink font-bold">AI coding CLIs</h3>
+                                        <span class="price-tag price-freemium">Free / Usage</span>
                                     </div>
-                                    <p class="text-gray-400 text-xs sm:text-sm mb-3">Code with AI in your terminal. Agentic tools that read, write, and execute.</p>
+                                    <p class="text-ink/60 text-xs sm:text-sm mb-3">Code with AI in your terminal. Agentic tools that read, write, and execute.</p>
                                     <div class="space-y-2">
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://claude.ai/claude-code" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Claude Code</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Anthropic's agentic CLI. <span class="text-acid">Max plan = unlimited.</span></span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://claude.ai/claude-code" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Claude Code</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Anthropic's agentic CLI. <span class="text-accent">Max plan = unlimited.</span></span>
                                         </div>
                                         <div class="tool-item flex flex-wrap items-center gap-1 sm:gap-2">
-                                            <span class="text-ice text-xs">></span>
-                                            <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener" class="tool-link text-ice font-bold text-sm">Gemini CLI</a>
-                                            <span class="tool-desc text-gray-500 text-xs sm:text-sm">- Google's CLI. Free tier with Gemini models.</span>
+                                            <span class="text-accent text-xs">></span>
+                                            <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener" class="tool-link text-accent font-bold text-sm">Gemini CLI</a>
+                                            <span class="tool-desc text-ink/50 text-xs sm:text-sm">- Google's CLI. Free tier with Gemini models.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-gray-600 font-mono hidden md:block">14</div>
+                            <div class="text-xs text-ink/40 hidden md:block">14</div>
                         </div>
                     </div>
 
@@ -682,26 +640,26 @@
 
             <!-- Stack Summary -->
             <section class="mb-16">
-                <div class="border border-acid/30 bg-acid/5 p-6 md:p-8">
+                <div class="deckle-card border-accent/30 bg-accent/5 p-6 md:p-8">
                     <div class="flex items-start gap-4">
-                        <div class="text-acid mt-1 hidden sm:block">
+                        <div class="text-accent mt-1 hidden sm:block">
                             <i data-lucide="calculator" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h3 class="font-display text-lg text-acid font-bold mb-3">TOTAL COST: $0/month</h3>
-                            <p class="text-gray-400 font-mono leading-relaxed mb-4">
-                                This entire stack can run a production app for <span class="text-white">zero dollars</span> until you hit scale.
+                            <h3 class="font-display text-lg text-accent font-bold mb-3">Total cost: $0/month</h3>
+                            <p class="text-ink/60 leading-relaxed mb-4">
+                                This entire stack can run a production app for <span class="text-ink font-bold">zero dollars</span> until you hit scale.
                                 When you do need to pay, it's usage-based - you only spend when you're making money.
                             </p>
                             <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">IDE: Free</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">DB: Free tier</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Auth: 10K free</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Deploy: Free tier</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">DNS/CDN: Free</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Analytics: Free</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Maps: Free</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">Scraping: OSS</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">IDE: Free</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">DB: Free tier</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">Auth: 10K free</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">Deploy: Free tier</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">DNS/CDN: Free</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">Analytics: Free</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">Maps: Free</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">Scraping: OSS</span>
                             </div>
                         </div>
                     </div>
@@ -709,20 +667,20 @@
             </section>
 
             <!-- Pro Tips -->
-            <section class="mt-16 border border-white/10 bg-surface/50 p-6 md:p-8 relative">
-                <div class="absolute -top-3 left-6 bg-void px-3 text-xs text-gray-500 font-mono">
-                    SYSTEM_MESSAGE
+            <section class="mt-16 deckle-card bg-ink/[0.02] p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-canvas px-3 text-xs text-ink/50">
+                    System message
                 </div>
                 <div class="flex items-start gap-4">
-                    <div class="text-ice mt-1 hidden sm:block">
+                    <div class="text-accent mt-1 hidden sm:block">
                         <i data-lucide="lightbulb" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <p class="text-gray-400 font-mono leading-relaxed mb-4">
-                            <span class="text-white">Pro tip:</span> Start with this exact stack. Don't over-engineer.
+                        <p class="text-ink/60 leading-relaxed mb-4">
+                            <span class="text-ink font-bold">Pro tip:</span> Start with this exact stack. Don't over-engineer.
                             You can always swap tools later when you hit real limits - but most projects never do.
                         </p>
-                        <p class="text-sm text-gray-600 font-mono">
+                        <p class="text-sm text-ink/40">
                             // The best stack is the one that lets you ship. These tools do exactly that.
                         </p>
                     </div>
@@ -732,28 +690,28 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+        <footer class="bg-ink text-canvas mt-auto">
             <div class="max-w-6xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
-                        <p class="text-gray-500 font-mono text-sm">
-                            <span class="text-ice">//</span> Build more. Spend less. <span class="text-acid">Ship something today.</span>
+                        <p class="text-canvas/60 text-sm">
+                            <span class="text-accent">//</span> Build more. Spend less. <span class="text-accent">Ship something today.</span>
                         </p>
                     </div>
-                    <div class="flex items-center gap-6 text-xs font-mono">
-                        <a href="/" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/" class="text-canvas/50 hover:text-accent transition-colors flex items-center gap-2">
                             <i data-lucide="home" class="w-3 h-3"></i>
-                            MAIN_HUB
+                            Main Hub
                         </a>
-                        <a href="/vibe-coding/" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                        <a href="/vibe-coding/" class="text-canvas/50 hover:text-accent transition-colors flex items-center gap-2">
                             <i data-lucide="code" class="w-3 h-3"></i>
-                            VIBE_CODING
+                            Vibe Coding
                         </a>
                     </div>
                 </div>
                 <div class="mt-6 pt-6 border-t border-white/5 text-center">
-                    <p class="text-xs text-gray-600 font-mono">
-                        AMDITIS_KIT v2.6 // Part of the <a href="/" class="text-gray-500 hover:text-acid transition-colors hover-line">CCM Resource Collection</a>
+                    <p class="text-xs text-canvas/40">
+                        Amditis Kit v2.6 // Part of the <a href="/" class="text-canvas/50 hover:text-accent transition-colors">CCM Resource Collection</a>
                     </p>
                 </div>
             </div>

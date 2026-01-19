@@ -1,23 +1,26 @@
 /**
- * @fileoverview Amditis Theme - Core CSS Utilities & Effects
+ * @fileoverview Amditis Theme V2 - Core CSS Utilities & Effects
  *
  * This stylesheet provides custom utility classes and visual effects for the
- * Amditis retrotech/cyberpunk theme. It complements the Tailwind configuration
- * in amditis-config.js with CSS-only features that Tailwind cannot provide.
+ * Amditis V2 editorial/archival theme. It complements the Tailwind configuration
+ * in amditis-config.js with CSS-only features.
  *
  * ## Sections
  *
- * 1. **Font Imports** - Google Fonts for display and mono typography
+ * 1. **Font Imports** - Google Fonts for display and body typography
  * 2. **CSS Variables** - Theme tokens for consistent styling
  * 3. **Base Styles** - Body background, text selection, scrollbar
- * 4. **Clip-Path Utilities** - Cut-corner effects for cards and panels
- * 5. **CRT Overlay** - Scanline effect for retro monitor aesthetic
- * 6. **Glitch Text** - Animated text distortion effect
- * 7. **Cyber Checkbox** - Custom styled checkbox with glow effect
- * 8. **Accordion** - Collapsible content component styles
- * 9. **Syntax Highlighting** - Code block color tokens
+ * 4. **Paper Overlay** - Textured background effect
+ * 5. **Navigation** - Scrolled nav state and nav link animations
+ * 6. **Reveal Sections** - Scroll-triggered animations
+ * 7. **Stagger Animations** - Sequenced entrance effects
+ * 8. **Deckle Card** - Glass/paper card styling
+ * 9. **Drawer** - Slide-out panel component
+ * 10. **Interactive Components** - Buttons, form elements
+ * 11. **Responsive Type** - Fluid typography handling
+ * 12. **Legacy Compatibility** - Mappings from V1 classes
  *
- * @module AmditisCSS
+ * @module AmditisCSSV2
  * @requires amditis-config.js (Tailwind extension)
  * @see {@link https://jamditis.github.io/tools/} Live implementation
  */
@@ -27,11 +30,11 @@
    ========================================================================== */
 
 /**
- * Google Fonts import for Amditis typography.
- * - Chakra Petch: Angular, techy display font (weights 300-700)
- * - Share Tech Mono: Clean monospace for code and labels
+ * Google Fonts import for Amditis V2 typography.
+ * - Fraunces: Elegant variable serif for display text (weights 300, 900, italic)
+ * - Plus Jakarta Sans: Clean sans-serif for body (weights 300-600)
  */
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
 
 /* ==========================================================================
    2. CSS VARIABLES
@@ -40,16 +43,14 @@
 /**
  * Theme CSS custom properties.
  * These provide fallback values and are used by components that may exist
- * outside of Tailwind's processing (e.g., third-party widgets).
- *
- * @property {string} --cursor-size - Size of custom cursor (if enabled)
- * @property {string} --acid - Primary accent color (lime green)
- * @property {string} --signal - Warning accent color (red)
+ * outside of Tailwind's processing.
  */
 :root {
-    --cursor-size: 20px;
-    --acid: #ccff00;
-    --signal: #ff2a2a;
+    --canvas: #ede6d4;
+    --ink: #121212;
+    --clay: #d6cdb7;
+    --mist: #6b6b6b;
+    --accent: #3d4b40;
 }
 
 /* ==========================================================================
@@ -58,305 +59,455 @@
 
 /**
  * Base body styling.
- * Sets the deep black background and light text color.
- * Custom crosshair cursor is disabled for usability.
+ * Sets the cream canvas background and dark ink text color.
  */
 body {
-    background-color: #050505;
-    color: #e5e5e5;
-    /* cursor: crosshair; */ /* Disabled for accessibility */
+    background-color: #ede6d4;
+    color: #121212;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
 /**
  * Text selection styling.
- * Inverts to acid green background with black text for high visibility.
+ * Uses accent green background with canvas text.
  */
 ::selection {
-    background-color: var(--acid);
-    color: #000;
+    background-color: var(--accent);
+    color: var(--canvas);
+}
+
+/**
+ * Focus visible styling.
+ * Accessible focus indicator using accent color.
+ */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
 }
 
 /**
  * Custom scrollbar styling for WebKit browsers.
- * - Track: Matches void background
- * - Thumb: Dark gray with acid green hover state
- * - Size: Compact 6px width
+ * - Track: Matches canvas background
+ * - Thumb: Clay with accent hover state
  */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: var(--acid); }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ==========================================================================
-   4. CLIP-PATH UTILITIES - Cut Corner Effects
+   4. PAPER OVERLAY - Textured Background Effect
    ========================================================================== */
 
 /**
- * .clip-notch
+ * .paper-overlay
  *
- * Creates a "cut corner" effect on the bottom-right of an element.
- * Commonly used on cards and panels for a tech/industrial look.
- *
- * The clip removes a 10px x 10px triangle from the bottom-right corner.
- *
- * @example
- * <div class="clip-notch bg-panel p-4">
- *   Content with cut corner
- * </div>
- */
-.clip-notch {
-    clip-path: polygon(
-        0 0,                        /* top-left */
-        100% 0,                     /* top-right */
-        100% calc(100% - 10px),     /* bottom-right, 10px up */
-        calc(100% - 10px) 100%,     /* bottom-right corner cut */
-        0 100%                      /* bottom-left */
-    );
-}
-
-/**
- * .clip-notch-top
- *
- * Creates a "cut corner" effect on the top-left of an element.
- * Mirror of .clip-notch for variety in layouts.
- *
- * @example
- * <div class="clip-notch-top bg-surface p-4">
- *   Content with top-left cut
- * </div>
- */
-.clip-notch-top {
-    clip-path: polygon(
-        10px 0,                     /* top-left corner cut */
-        100% 0,                     /* top-right */
-        100% 100%,                  /* bottom-right */
-        0 100%,                     /* bottom-left */
-        0 10px                      /* back to top-left cut */
-    );
-}
-
-/* ==========================================================================
-   5. CRT OVERLAY - Scanline Effect
-   ========================================================================== */
-
-/**
- * .crt-overlay
- *
- * Applies a subtle CRT monitor scanline effect over the entire page.
- * Uses a repeating horizontal gradient to simulate scan lines.
+ * Applies a subtle paper texture over the entire page.
+ * Uses a natural paper pattern with a soft radial gradient.
  *
  * Properties:
  * - Fixed position covering entire viewport
  * - pointer-events: none to allow clicking through
- * - High z-index (9999) to appear above all content
- * - 30% opacity for subtle effect
- *
- * @example
- * <body>
- *   <div class="crt-overlay"></div>
- *   <!-- page content -->
- * </body>
+ * - High z-index (1) to appear above background
+ * - 50% opacity for subtle effect
  */
-.crt-overlay {
-    background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.25) 50%
-    );
-    background-size: 100% 4px;      /* 4px tall scan lines */
-    pointer-events: none;           /* Click-through */
+.paper-overlay {
     position: fixed;
-    inset: 0;                       /* Cover entire viewport */
-    z-index: 9999;
-    opacity: 0.3;                   /* Subtle effect */
+    inset: 0;
+    background-image:
+        url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* ==========================================================================
-   6. GLITCH TEXT - Animated Distortion Effect
+   5. NAVIGATION
    ========================================================================== */
 
 /**
- * .glitch-text
+ * .scrolled-nav
  *
- * Creates an animated "glitch" effect on text, simulating digital corruption.
- * Uses CSS pseudo-elements with offset colors (acid/signal) and animated
- * clip-rect to create the distortion.
- *
- * IMPORTANT: Requires a `data-text` attribute containing the same text
- * as the element's content for the pseudo-elements to display.
- *
- * @example
- * <h1 class="glitch-text" data-text="SYSTEM ERROR">SYSTEM ERROR</h1>
+ * Applied to navigation when page is scrolled.
+ * Adds frosted glass effect and bottom border.
  */
-.glitch-text {
-    position: relative;
-    display: inline-block;
+.scrolled-nav {
+    background: rgba(237, 230, 212, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
 }
 
-/* Pseudo-elements for glitch layers */
+/**
+ * .nav-link
+ *
+ * Navigation link with animated underline effect.
+ */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--ink);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   6. REVEAL SECTIONS - Scroll-triggered Animations
+   ========================================================================== */
+
+/**
+ * .reveal-section
+ *
+ * Section that animates in when scrolled into view.
+ * Requires JavaScript IntersectionObserver to add .visible class.
+ */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   7. STAGGER ANIMATIONS - Sequenced Entrance Effects
+   ========================================================================== */
+
+/**
+ * Staggered entrance animation system.
+ * Child elements animate in sequence when parent becomes visible.
+ */
+.stagger-child {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.visible .stagger-child {
+    animation: pageIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+@keyframes pageIn {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   8. DECKLE CARD - Glass/Paper Card Styling
+   ========================================================================== */
+
+/**
+ * .deckle-card
+ *
+ * Card component with frosted glass effect.
+ * Subtle white background with soft shadow.
+ */
+.deckle-card {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(18, 18, 18, 0.05);
+    box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+}
+
+/**
+ * .deckle-card-solid
+ *
+ * Solid white card variant for higher contrast content.
+ */
+.deckle-card-solid {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(18, 18, 18, 0.08);
+    box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.08);
+}
+
+/* ==========================================================================
+   9. DRAWER - Slide-out Panel Component
+   ========================================================================== */
+
+/**
+ * Drawer component states.
+ * Used for mobile navigation and side panels.
+ */
+.drawer-closed {
+    transform: translateX(100%);
+}
+
+.drawer-open {
+    transform: translateX(0);
+}
+
+/* ==========================================================================
+   10. INTERACTIVE COMPONENTS
+   ========================================================================== */
+
+/**
+ * .btn-primary
+ *
+ * Primary button with ink background and canvas text.
+ */
+.btn-primary {
+    background-color: var(--ink);
+    color: var(--canvas);
+    padding: 0.625rem 1.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+}
+
+/**
+ * .btn-outline
+ *
+ * Outline button with ink border.
+ */
+.btn-outline {
+    background-color: transparent;
+    color: var(--ink);
+    border: 1px solid rgba(18, 18, 18, 0.2);
+    padding: 0.625rem 1.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    border-color: var(--ink);
+    background-color: var(--ink);
+    color: var(--canvas);
+}
+
+/**
+ * .input-field
+ *
+ * Form input styling.
+ */
+.input-field {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(18, 18, 18, 0.1);
+    padding: 0.75rem 1rem;
+    color: var(--ink);
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: var(--mist);
+}
+
+/**
+ * Status indicators
+ */
+.status-active {
+    width: 0.625rem;
+    height: 0.625rem;
+    background-color: var(--accent);
+    animation: pulse 2s infinite;
+}
+
+/* ==========================================================================
+   11. RESPONSIVE TYPE - Fluid Typography Handling
+   ========================================================================== */
+
+/**
+ * Fluid title sizing for mobile.
+ * Ensures large display text scales appropriately.
+ */
+@media (max-width: 640px) {
+    .fluid-title {
+        font-size: 14vw !important;
+    }
+}
+
+/* ==========================================================================
+   12. SECTION DIVIDERS
+   ========================================================================== */
+
+/**
+ * .section-header
+ *
+ * Section header with bottom border divider.
+ */
+.section-header {
+    border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/**
+ * .section-label
+ *
+ * Small uppercase label text.
+ */
+.section-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--mist);
+}
+
+/* ==========================================================================
+   13. LEGACY COMPATIBILITY - V1 Class Mappings
+   ========================================================================== */
+
+/**
+ * These provide compatibility with pages still using V1 class names.
+ * The classes map old dark theme colors to appropriate V2 equivalents.
+ */
+
+/* Background mappings */
+.bg-void { background-color: var(--canvas); }
+.bg-panel { background-color: rgba(255, 255, 255, 0.3); }
+.bg-surface { background-color: rgba(255, 255, 255, 0.5); }
+
+/* Text mappings */
+.text-chrome { color: var(--ink); }
+.text-acid { color: var(--accent); }
+.text-signal { color: #c44; }
+.text-ice { color: var(--accent); }
+
+/* Border mappings */
+.border-acid { border-color: var(--accent); }
+.border-signal { border-color: #c44; }
+.border-ice { border-color: var(--accent); }
+
+/* Accent background mappings */
+.bg-acid { background-color: var(--accent); }
+.bg-signal { background-color: #c44; }
+.bg-ice { background-color: var(--accent); }
+.bg-acidDim { background-color: rgba(61, 75, 64, 0.1); }
+.bg-signalDim { background-color: rgba(204, 68, 68, 0.1); }
+.bg-iceDim { background-color: rgba(61, 75, 64, 0.1); }
+
+/* V1 utility class compatibility */
+.clip-notch,
+.clip-notch-top {
+    /* Disable clip paths in V2 - use border styles instead */
+    clip-path: none;
+}
+
+.crt-overlay {
+    /* Disable CRT effect in V2 */
+    display: none;
+}
+
 .glitch-text::before,
 .glitch-text::after {
-    content: attr(data-text);       /* Copy text from data attribute */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #050505;            /* Match page background */
-}
-
-/* Green (acid) glitch layer - offset right */
-.glitch-text::before {
-    left: 2px;
-    text-shadow: -1px 0 #ccff00;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-/* Red (signal) glitch layer - offset left */
-.glitch-text::after {
-    left: -2px;
-    text-shadow: -1px 0 #ff2a2a;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-/**
- * Glitch animation keyframes.
- * Rapidly changes the visible clip region to simulate digital corruption.
- * Two slightly different animations (glitch-anim, glitch-anim2) create
- * the offset effect between the two pseudo-element layers.
- */
-@keyframes glitch-anim {
-    0%   { clip: rect(12px, 9999px, 52px, 0); }
-    5%   { clip: rect(34px, 9999px, 12px, 0); }
-    10%  { clip: rect(6px, 9999px, 86px, 0); }
-    15%  { clip: rect(12px, 9999px, 2px, 0); }
-    20%  { clip: rect(67px, 9999px, 21px, 0); }
-    100% { clip: rect(12px, 9999px, 52px, 0); }
-}
-
-@keyframes glitch-anim2 {
-    0%   { clip: rect(2px, 9999px, 82px, 0); }
-    5%   { clip: rect(64px, 9999px, 12px, 0); }
-    10%  { clip: rect(16px, 9999px, 46px, 0); }
-    15%  { clip: rect(2px, 9999px, 92px, 0); }
-    20%  { clip: rect(17px, 9999px, 1px, 0); }
-    100% { clip: rect(2px, 9999px, 82px, 0); }
+    /* Disable glitch effect in V2 */
+    display: none;
 }
 
 /* ==========================================================================
-   7. CYBER CHECKBOX - Custom Styled Checkbox
-   ========================================================================== */
-
-/**
- * .cyber-checkbox
- *
- * A custom-styled checkbox with a glowing acid green indicator.
- * Completely replaces the native checkbox appearance.
- *
- * Features:
- * - Transparent background with gray border
- * - Acid green square indicator when checked
- * - Glowing box-shadow effect when checked
- *
- * @example
- * <input type="checkbox" class="cyber-checkbox" id="opt1">
- * <label for="opt1">Option 1</label>
- */
-.cyber-checkbox {
-    appearance: none;               /* Remove native styling */
-    background-color: transparent;
-    border: 1px solid #333;
-    width: 1.25rem;
-    height: 1.25rem;
-    display: grid;
-    place-content: center;          /* Center the indicator */
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-/* Indicator element (hidden until checked) */
-.cyber-checkbox::before {
-    content: "";
-    width: 0.65rem;
-    height: 0.65rem;
-    transform: scale(0);            /* Hidden by default */
-    background-color: #ccff00;
-    box-shadow: 0 0 10px #ccff00;   /* Glow effect */
-    transition: 120ms transform ease-in-out;
-}
-
-/* Checked state - show border highlight */
-.cyber-checkbox:checked {
-    border-color: #ccff00;
-}
-
-/* Checked state - reveal indicator with scale animation */
-.cyber-checkbox:checked::before {
-    transform: scale(1);
-}
-
-/* ==========================================================================
-   8. ACCORDION - Collapsible Content Component
+   14. ACCORDION - Collapsible Content Component
    ========================================================================== */
 
 /**
  * Accordion component styles.
- *
  * Uses max-height animation for smooth expand/collapse transitions.
- * Requires JavaScript to toggle the `.active` class on `.accordion-item`.
- *
- * @example
- * <div class="accordion-item">
- *   <button class="accordion-header">
- *     Section Title
- *     <span class="accordion-icon">▼</span>
- *   </button>
- *   <div class="accordion-content">
- *     <p>Hidden content here...</p>
- *   </div>
- * </div>
  */
-
-/* Content container - collapsed by default */
 .accordion-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
 }
 
-/* Expanded state - large max-height allows content to show */
 .accordion-item.active .accordion-content {
-    max-height: 1000px;             /* Arbitrary large value */
+    max-height: 1000px;
     transition: max-height 0.5s ease-in-out;
 }
 
-/* Arrow/chevron icon */
 .accordion-icon {
     transition: transform 0.3s ease;
 }
 
-/* Rotate icon when expanded */
 .accordion-item.active .accordion-icon {
     transform: rotate(180deg);
 }
 
 /* ==========================================================================
-   9. SYNTAX HIGHLIGHTING - Code Block Colors
+   15. CODE & SYNTAX HIGHLIGHTING
    ========================================================================== */
 
 /**
- * Syntax highlighting color classes for code blocks.
- * Uses Amditis theme colors for consistency.
- *
- * @example
- * <pre><code>
- *   <span class="syntax-keyword">const</span> x =
- *   <span class="syntax-string">"hello"</span>;
- *   <span class="syntax-comment">// comment</span>
- * </code></pre>
+ * Syntax highlighting using V2 color palette.
  */
-.syntax-keyword { color: #ff2a2a; }         /* Signal red - keywords */
-.syntax-string  { color: #ccff00; }         /* Acid green - strings */
-.syntax-func    { color: #00f0ff; }         /* Ice blue - functions */
-.syntax-comment { color: #666; font-style: italic; }  /* Gray - comments */
+.syntax-keyword { color: #8b5a2b; }
+.syntax-string { color: var(--accent); }
+.syntax-func { color: #2a5a8b; }
+.syntax-comment { color: var(--mist); font-style: italic; }
+
+/**
+ * Code block styling
+ */
+pre, code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+pre {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(18, 18, 18, 0.08);
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+code {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 0.125rem 0.375rem;
+    font-size: 0.875em;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+
+/* ==========================================================================
+   16. UTILITY CLASSES
+   ========================================================================== */
+
+/**
+ * Text balance for better line breaks
+ */
+.text-balance {
+    text-wrap: balance;
+}
+
+/**
+ * Ink border utilities
+ */
+.border-ink-5 { border-color: rgba(18, 18, 18, 0.05); }
+.border-ink-10 { border-color: rgba(18, 18, 18, 0.1); }
+.border-ink-20 { border-color: rgba(18, 18, 18, 0.2); }

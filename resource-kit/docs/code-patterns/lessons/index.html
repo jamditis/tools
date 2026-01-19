@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEVEN LESSONS // CODE_PATTERNS</title>
+    <title>Seven Lessons // Code Patterns</title>
     <meta name="description" content="Seven core patterns for reliable Claude Code development. Error logging, commands-as-apps, hooks, context hygiene, subagent control, tool stacks, and prompt engineering.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
@@ -16,6 +21,38 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        body {
+            background-color: #ede6d4;
+            color: #121212;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .paper-overlay {
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .deckle-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-1%, 1%); }
+        }
+        .animate-drift {
+            animation: drift 25s ease-in-out infinite;
+        }
+
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -33,37 +70,38 @@
         .lesson-number {
             font-size: 4rem;
             line-height: 1;
-            opacity: 0.1;
+            opacity: 0.08;
             position: absolute;
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            font-family: var(--font-display);
-            font-weight: 700;
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-style: italic;
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/5 bg-canvas/80 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="/code-patterns/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-acid transition-colors">SEVEN_LESSONS</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">CODE_PATTERNS</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink group-hover:text-accent transition-colors">Seven Lessons</div>
+                        <div class="text-xs text-mist tracking-[0.2em]">CODE PATTERNS</div>
                     </div>
                 </a>
-                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
-                    <a href="/code-patterns/" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                <nav class="flex gap-4 md:gap-6 text-xs">
+                    <a href="/code-patterns/" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ PATTERNS_HUB ]</span>
+                        <span class="hidden sm:inline">Patterns Hub</span>
                     </a>
                 </nav>
             </div>
@@ -74,11 +112,11 @@
 
             <!-- Page Header -->
             <div class="mb-12">
-                <div class="text-xs text-acid font-mono mb-3 tracking-widest">:: MODULE_01</div>
-                <h1 class="font-display text-3xl md:text-4xl text-white font-bold mb-4">
+                <div class="text-xs text-accent font-bold mb-3 tracking-widest uppercase">Module 01</div>
+                <h1 class="font-display text-3xl md:text-4xl text-ink font-black italic mb-4">
                     Seven core lessons
                 </h1>
-                <p class="text-gray-500 font-mono leading-relaxed max-w-2xl">
+                <p class="text-mist leading-relaxed max-w-2xl">
                     Extracted from 2000+ hours of LLM development. Each lesson addresses a fundamental challenge in agentic workflows and provides actionable implementation steps.
                 </p>
             </div>
@@ -87,80 +125,80 @@
             <div class="space-y-4">
 
                 <!-- Lesson 1: Error Logging System -->
-                <div class="border border-white/10 bg-panel" id="lesson-1">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-1')">
+                <div class="deckle-card" id="lesson-1">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-1')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-signal/10 text-signal text-xs font-mono border border-signal/20">LESSON_01</span>
-                                <i data-lucide="file-warning" class="w-4 h-4 text-signal"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 01</span>
+                                <i data-lucide="file-warning" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold group-hover:text-acid">Error logging system</h3>
-                            <p class="text-sm text-gray-500 mt-2">Build feedback loops by capturing failures systematically</p>
+                            <h3 class="font-display text-xl text-ink font-black italic group-hover:text-accent">Error logging system</h3>
+                            <p class="text-sm text-mist mt-2">Build feedback loops by capturing failures systematically</p>
                         </div>
-                        <span class="lesson-number text-signal">01</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-1"></i>
+                        <span class="lesson-number text-accent">01</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-1"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-1">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Problem -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// THE_PROBLEM</h4>
-                                <p class="text-gray-400 leading-relaxed">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">The Problem</h4>
+                                <p class="text-mist leading-relaxed">
                                     When Claude makes a mistake, reconstructing what went wrong is difficult because the context, prompts, and execution path are ephemeral. Without systematic capture, you lose the ability to learn from failures.
                                 </p>
                             </div>
 
                             <!-- Five Failure Categories -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// FAILURE_CATEGORIES</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Failure Categories</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Hallucination</span>
-                                        <p class="text-xs text-gray-500 mt-1">Generated false information</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Hallucination</span>
+                                        <p class="text-xs text-mist mt-1">Generated false information</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Instruction ignored</span>
-                                        <p class="text-xs text-gray-500 mt-1">Neglected explicit directives</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Instruction ignored</span>
+                                        <p class="text-xs text-mist mt-1">Neglected explicit directives</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Context lost</span>
-                                        <p class="text-xs text-gray-500 mt-1">Forgot prior conversation</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Context lost</span>
+                                        <p class="text-xs text-mist mt-1">Forgot prior conversation</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Wrong tool</span>
-                                        <p class="text-xs text-gray-500 mt-1">Applied incorrect methodology</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Wrong tool</span>
+                                        <p class="text-xs text-mist mt-1">Applied incorrect methodology</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Incomplete execution</span>
-                                        <p class="text-xs text-gray-500 mt-1">Started but abandoned tasks</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Incomplete execution</span>
+                                        <p class="text-xs text-mist mt-1">Started but abandoned tasks</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Implementation -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// IMPLEMENTATION</h4>
-                                <ol class="space-y-3 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Implementation</h4>
+                                <ol class="space-y-3 text-mist">
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">1.</span>
-                                        <span><strong class="text-white">Develop logging commands</strong> that preserve conversation context and classify failures systematically</span>
+                                        <span class="text-accent font-bold">1.</span>
+                                        <span><strong class="text-ink">Develop logging commands</strong> that preserve conversation context and classify failures systematically</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">2.</span>
-                                        <span><strong class="text-white">Establish organized storage</strong> using <code class="text-signal bg-surface px-1">.claude/error-logs/</code> with timestamped entries</span>
+                                        <span class="text-accent font-bold">2.</span>
+                                        <span><strong class="text-ink">Establish organized storage</strong> using <code class="text-accent bg-ink/5 px-1 font-mono text-sm">.claude/error-logs/</code> with timestamped entries</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">3.</span>
-                                        <span><strong class="text-white">Create success logging</strong> to identify which prompts consistently produce reliable results</span>
+                                        <span class="text-accent font-bold">3.</span>
+                                        <span><strong class="text-ink">Create success logging</strong> to identify which prompts consistently produce reliable results</span>
                                     </li>
                                 </ol>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-acidDim border border-acid/30">
-                                <p class="text-sm text-gray-300">
-                                    <span class="text-acid font-bold">KEY INSIGHT:</span> "The tightest feedback loops produce the fastest learning." Convert ephemeral failures into documented lessons.
+                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                                <p class="text-sm text-ink">
+                                    <span class="text-accent font-bold">KEY INSIGHT:</span> "The tightest feedback loops produce the fastest learning." Convert ephemeral failures into documented lessons.
                                 </p>
                             </div>
 
@@ -169,48 +207,48 @@
                 </div>
 
                 <!-- Lesson 2: Commands as Apps -->
-                <div class="border border-white/10 bg-panel" id="lesson-2">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-2')">
+                <div class="deckle-card" id="lesson-2">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-2')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-acid/10 text-acid text-xs font-mono border border-acid/20">LESSON_02</span>
-                                <i data-lucide="terminal-square" class="w-4 h-4 text-acid"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 02</span>
+                                <i data-lucide="terminal-square" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">/Commands as apps</h3>
-                            <p class="text-sm text-gray-500 mt-2">Deterministic triggers for sophisticated workflows</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">/Commands as apps</h3>
+                            <p class="text-sm text-mist mt-2">Deterministic triggers for sophisticated workflows</p>
                         </div>
-                        <span class="lesson-number text-acid">02</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-2"></i>
+                        <span class="lesson-number text-accent">02</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-2"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-2">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Core Concept -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// CORE_CONCEPT</h4>
-                                <p class="text-gray-400 leading-relaxed">
-                                    Slash commands transform Claude into a service platform. They're <strong class="text-white">deterministic triggers</strong> for multi-step operations—not probabilistic natural language requests. The intelligence lives in the skill, but you get reliable execution through the command.
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Core Concept</h4>
+                                <p class="text-mist leading-relaxed">
+                                    Slash commands transform Claude into a service platform. They're <strong class="text-ink">deterministic triggers</strong> for multi-step operations—not probabilistic natural language requests. The intelligence lives in the skill, but you get reliable execution through the command.
                                 </p>
                             </div>
 
                             <!-- Capabilities -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// CAPABILITIES</h4>
-                                <ul class="space-y-2 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Capabilities</h4>
+                                <ul class="space-y-2 text-mist">
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-ice"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Launch parallel subagents for concurrent work
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-ice"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Access files, repositories, and browsers
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-ice"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Chain multiple operations together
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-ice"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Route to different models based on task requirements
                                     </li>
                                 </ul>
@@ -218,32 +256,32 @@
 
                             <!-- Implementation -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// IMPLEMENTATION</h4>
-                                <ol class="space-y-3 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Implementation</h4>
+                                <ol class="space-y-3 text-mist">
                                     <li class="flex gap-3">
-                                        <span class="text-signal font-mono">1.</span>
-                                        <span><strong class="text-white">Identify repetitive workflows</strong> with multiple consistent steps</span>
+                                        <span class="text-accent font-bold">1.</span>
+                                        <span><strong class="text-ink">Identify repetitive workflows</strong> with multiple consistent steps</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-signal font-mono">2.</span>
-                                        <span><strong class="text-white">Design simple interfaces</strong> with memorable command names</span>
+                                        <span class="text-accent font-bold">2.</span>
+                                        <span><strong class="text-ink">Design simple interfaces</strong> with memorable command names</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-signal font-mono">3.</span>
-                                        <span><strong class="text-white">Create command files</strong> in <code class="text-acid bg-surface px-1">.claude/commands/</code></span>
+                                        <span class="text-accent font-bold">3.</span>
+                                        <span><strong class="text-ink">Create command files</strong> in <code class="text-accent bg-ink/5 px-1 font-mono text-sm">.claude/commands/</code></span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-signal font-mono">4.</span>
-                                        <span><strong class="text-white">Consider model routing</strong> for optimal performance across phases</span>
+                                        <span class="text-accent font-bold">4.</span>
+                                        <span><strong class="text-ink">Consider model routing</strong> for optimal performance across phases</span>
                                     </li>
                                 </ol>
                             </div>
 
                             <!-- Example -->
-                            <div class="p-4 bg-surface border border-white/10">
-                                <p class="text-xs text-gray-500 font-mono mb-2">// EXAMPLE</p>
-                                <p class="text-sm text-gray-300">
-                                    A <code class="text-acid">/presentation-to-shorts</code> command can replace "what would traditionally require a content analysis tool, a project management system, multiple team handoffs, and hours of coordination."
+                            <div class="p-4 bg-ink/5 border border-ink/5">
+                                <p class="text-xs text-mist uppercase tracking-wider mb-2 font-bold">Example</p>
+                                <p class="text-sm text-ink">
+                                    A <code class="text-accent font-mono">/presentation-to-shorts</code> command can replace "what would traditionally require a content analysis tool, a project management system, multiple team handoffs, and hours of coordination."
                                 </p>
                             </div>
 
@@ -252,65 +290,65 @@
                 </div>
 
                 <!-- Lesson 3: Hooks for Safety -->
-                <div class="border border-white/10 bg-panel" id="lesson-3">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-3')">
+                <div class="deckle-card" id="lesson-3">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-3')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-signal/10 text-signal text-xs font-mono border border-signal/20">LESSON_03</span>
-                                <i data-lucide="shield" class="w-4 h-4 text-signal"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 03</span>
+                                <i data-lucide="shield" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">Hooks for safety</h3>
-                            <p class="text-sm text-gray-500 mt-2">Programmatic guardrails that run before/after actions</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">Hooks for safety</h3>
+                            <p class="text-sm text-mist mt-2">Programmatic guardrails that run before/after actions</p>
                         </div>
-                        <span class="lesson-number text-signal">03</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-3"></i>
+                        <span class="lesson-number text-accent">03</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-3"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-3">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Problem & Solution -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// PROBLEM_&_SOLUTION</h4>
-                                <p class="text-gray-400 leading-relaxed mb-4">
-                                    Permission prompts exist for safety but disrupt workflow continuity. Rather than removing all safeguards through <code class="text-signal bg-surface px-1">--dangerously-skip-permissions</code> alone, combine this flag with hook-based validation for <strong class="text-white">autonomous operation within safe boundaries</strong>.
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Problem & Solution</h4>
+                                <p class="text-mist leading-relaxed mb-4">
+                                    Permission prompts exist for safety but disrupt workflow continuity. Rather than removing all safeguards through <code class="text-accent bg-ink/5 px-1 font-mono text-sm">--dangerously-skip-permissions</code> alone, combine this flag with hook-based validation for <strong class="text-ink">autonomous operation within safe boundaries</strong>.
                                 </p>
                             </div>
 
                             <!-- Implementation -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// IMPLEMENTATION</h4>
-                                <ol class="space-y-3 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Implementation</h4>
+                                <ol class="space-y-3 text-mist">
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">1.</span>
-                                        <span><strong class="text-white">Identify constraints</strong> — operations that should never execute autonomously (recursive deletions, force pushes, production config changes)</span>
+                                        <span class="text-accent font-bold">1.</span>
+                                        <span><strong class="text-ink">Identify constraints</strong> — operations that should never execute autonomously (recursive deletions, force pushes, production config changes)</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">2.</span>
-                                        <span><strong class="text-white">Deploy pre-execution hooks</strong> — create bash scripts in <code class="text-acid bg-surface px-1">.claude/hooks/</code></span>
+                                        <span class="text-accent font-bold">2.</span>
+                                        <span><strong class="text-ink">Deploy pre-execution hooks</strong> — create bash scripts in <code class="text-accent bg-ink/5 px-1 font-mono text-sm">.claude/hooks/</code></span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">3.</span>
-                                        <span><strong class="text-white">Register hooks</strong> — configure through JSON settings</span>
+                                        <span class="text-accent font-bold">3.</span>
+                                        <span><strong class="text-ink">Register hooks</strong> — configure through JSON settings</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-ice font-mono">4.</span>
-                                        <span><strong class="text-white">Validate thoroughly</strong> — test blocked patterns intentionally</span>
+                                        <span class="text-accent font-bold">4.</span>
+                                        <span><strong class="text-ink">Validate thoroughly</strong> — test blocked patterns intentionally</span>
                                     </li>
                                 </ol>
                             </div>
 
                             <!-- Code Example -->
-                            <div class="mb-6 bg-surface border border-white/10 p-4">
-                                <p class="text-xs text-gray-500 font-mono mb-2">// EXAMPLE: Block dangerous rm operations</p>
-                                <pre class="text-sm text-gray-300 overflow-x-auto"><code>if echo "$COMMAND" | grep -qE "rm\s+(-rf|-fr|--recursive).*(/|~|\$HOME)"; then
+                            <div class="mb-6 bg-ink/5 border border-ink/5 p-4">
+                                <p class="text-xs text-mist uppercase tracking-wider mb-2 font-bold">Example: Block dangerous rm operations</p>
+                                <pre class="text-sm text-ink overflow-x-auto font-mono"><code>if echo "$COMMAND" | grep -qE "rm\s+(-rf|-fr|--recursive).*(/|~|\$HOME)"; then
     echo "BLOCKED"
 fi</code></pre>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-signalDim border border-signal/30">
-                                <p class="text-sm text-gray-300">
-                                    <span class="text-signal font-bold">KEY INSIGHT:</span> Programmatic control through deterministic code rules creates superior outcomes compared to relying solely on probabilistic model guidance.
+                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                                <p class="text-sm text-ink">
+                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Programmatic control through deterministic code rules creates superior outcomes compared to relying solely on probabilistic model guidance.
                                 </p>
                             </div>
 
@@ -319,44 +357,44 @@ fi</code></pre>
                 </div>
 
                 <!-- Lesson 4: Context Hygiene -->
-                <div class="border border-white/10 bg-panel" id="lesson-4">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-4')">
+                <div class="deckle-card" id="lesson-4">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-4')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-ice/10 text-ice text-xs font-mono border border-ice/20">LESSON_04</span>
-                                <i data-lucide="eraser" class="w-4 h-4 text-ice"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 04</span>
+                                <i data-lucide="eraser" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">Context hygiene</h3>
-                            <p class="text-sm text-gray-500 mt-2">Keep context clean—models degrade 50%+ at 50k tokens</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">Context hygiene</h3>
+                            <p class="text-sm text-mist mt-2">Keep context clean—models degrade 50%+ at 50k tokens</p>
                         </div>
-                        <span class="lesson-number text-ice">04</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-4"></i>
+                        <span class="lesson-number text-accent">04</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-4"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-4">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Warning Signs -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// WARNING_SIGNS</h4>
-                                <ul class="space-y-2 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Warning Signs</h4>
+                                <ul class="space-y-2 text-mist">
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-accent"></i>
                                         Multiple unrelated projects in one session
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-accent"></i>
                                         Forgotten instructions in CLAUDE.md
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-accent"></i>
                                         CLAUDE.md files exceeding 50 lines
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-accent"></i>
                                         Claude referencing stale earlier discussions
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-accent"></i>
                                         Declining response quality over longer sessions
                                     </li>
                                 </ul>
@@ -364,53 +402,53 @@ fi</code></pre>
 
                             <!-- Compaction Strategies -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// COMPACTION_STRATEGIES</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Compaction Strategies</h4>
                                 <div class="space-y-3">
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Manual compaction control</span>
-                                        <p class="text-xs text-gray-500 mt-1">Disable automatic compaction, display context usage status</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Manual compaction control</span>
+                                        <p class="text-xs text-mist mt-1">Disable automatic compaction, display context usage status</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Clear breakpoints</span>
-                                        <p class="text-xs text-gray-500 mt-1">Use <code class="text-acid">/clear</code> with repo-specific config between work contexts</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Clear breakpoints</span>
+                                        <p class="text-xs text-mist mt-1">Use <code class="text-accent font-mono">/clear</code> with repo-specific config between work contexts</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Orchestrator pattern</span>
-                                        <p class="text-xs text-gray-500 mt-1">Assign Claude as coordinator launching specialized subagents for isolated tasks</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Orchestrator pattern</span>
+                                        <p class="text-xs text-mist mt-1">Assign Claude as coordinator launching specialized subagents for isolated tasks</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Strategic manual compaction</span>
-                                        <p class="text-xs text-gray-500 mt-1">Invoke <code class="text-acid">/compact</code> at appropriate boundaries</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Strategic manual compaction</span>
+                                        <p class="text-xs text-mist mt-1">Invoke <code class="text-accent font-mono">/compact</code> at appropriate boundaries</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Custom handoff command</span>
-                                        <p class="text-xs text-gray-500 mt-1">Implement <code class="text-acid">/handoff {NOTES}</code> for clean session transitions</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Custom handoff command</span>
+                                        <p class="text-xs text-mist mt-1">Implement <code class="text-accent font-mono">/handoff {NOTES}</code> for clean session transitions</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Double-Escape -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// DOUBLE_ESCAPE_TIME_TRAVEL</h4>
-                                <p class="text-gray-400 leading-relaxed mb-3">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Double-Escape Time Travel</h4>
+                                <p class="text-mist leading-relaxed mb-3">
                                     A powerful but underutilized feature allowing conversation restoration:
                                 </p>
-                                <ul class="space-y-2 text-gray-400">
+                                <ul class="space-y-2 text-mist">
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-ice"></i>
-                                        <strong class="text-white">Conversation-only restore:</strong> Clean polluted discussions, preserve code
+                                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-accent"></i>
+                                        <strong class="text-ink">Conversation-only restore:</strong> Clean polluted discussions, preserve code
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-ice"></i>
-                                        <strong class="text-white">Full restore:</strong> Revert both conversation and code to previous state
+                                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-accent"></i>
+                                        <strong class="text-ink">Full restore:</strong> Revert both conversation and code to previous state
                                     </li>
                                 </ul>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-iceDim border border-ice/30">
-                                <p class="text-sm text-gray-300">
-                                    <span class="text-ice font-bold">KEY INSIGHT:</span> Treat context as a finite resource. Irrelevant tokens actively impair performance. Rigorous hygiene practices significantly enhance results.
+                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                                <p class="text-sm text-ink">
+                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Treat context as a finite resource. Irrelevant tokens actively impair performance. Rigorous hygiene practices significantly enhance results.
                                 </p>
                             </div>
 
@@ -419,72 +457,72 @@ fi</code></pre>
                 </div>
 
                 <!-- Lesson 5: Subagent Control -->
-                <div class="border border-white/10 bg-panel" id="lesson-5">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-5')">
+                <div class="deckle-card" id="lesson-5">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-5')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-acid/10 text-acid text-xs font-mono border border-acid/20">LESSON_05</span>
-                                <i data-lucide="network" class="w-4 h-4 text-acid"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 05</span>
+                                <i data-lucide="network" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">Subagent control</h3>
-                            <p class="text-sm text-gray-500 mt-2">Match model capability to task demands</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">Subagent control</h3>
+                            <p class="text-sm text-mist mt-2">Match model capability to task demands</p>
                         </div>
-                        <span class="lesson-number text-acid">05</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-5"></i>
+                        <span class="lesson-number text-accent">05</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-5"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-5">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Core Problem -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// DEFAULT_BEHAVIOR</h4>
-                                <p class="text-gray-400 leading-relaxed">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Default Behavior</h4>
+                                <p class="text-mist leading-relaxed">
                                     Claude spawns Sonnet or Haiku subagents by default, even for knowledge-intensive tasks that would benefit from more capable models. You must take explicit control over subagent selection.
                                 </p>
                             </div>
 
                             <!-- Actionable Steps -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// ACTIONABLE_STEPS</h4>
-                                <ol class="space-y-3 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Actionable Steps</h4>
+                                <ol class="space-y-3 text-mist">
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">1.</span>
-                                        <span><strong class="text-white">Force Opus for complex tasks</strong> — Add "Always launch opus subagents" to config for knowledge-intensive work</span>
+                                        <span class="text-accent font-bold">1.</span>
+                                        <span><strong class="text-ink">Force Opus for complex tasks</strong> — Add "Always launch opus subagents" to config for knowledge-intensive work</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">2.</span>
-                                        <span><strong class="text-white">Monitor activity</strong> — Track which subagents spawn, their tasks, and completion status</span>
+                                        <span class="text-accent font-bold">2.</span>
+                                        <span><strong class="text-ink">Monitor activity</strong> — Track which subagents spawn, their tasks, and completion status</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">3.</span>
-                                        <span><strong class="text-white">Keep tasks focused</strong> — One clear objective per subagent with well-defined inputs/outputs</span>
+                                        <span class="text-accent font-bold">3.</span>
+                                        <span><strong class="text-ink">Keep tasks focused</strong> — One clear objective per subagent with well-defined inputs/outputs</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">4.</span>
-                                        <span><strong class="text-white">Parallelize work</strong> — Spawn multiple independent subagents to maintain clean contexts</span>
+                                        <span class="text-accent font-bold">4.</span>
+                                        <span><strong class="text-ink">Parallelize work</strong> — Spawn multiple independent subagents to maintain clean contexts</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">5.</span>
-                                        <span><strong class="text-white">Prioritize quantity over load</strong> — More subagents >> More tasks per subagent</span>
+                                        <span class="text-accent font-bold">5.</span>
+                                        <span><strong class="text-ink">Prioritize quantity over load</strong> — More subagents >> More tasks per subagent</span>
                                     </li>
                                 </ol>
                             </div>
 
                             <!-- Critical Warnings -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// CRITICAL_WARNINGS</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Critical Warnings</h4>
                                 <div class="space-y-3">
-                                    <div class="p-3 bg-signalDim border border-signal/30">
-                                        <span class="text-signal text-sm font-bold">Hallucination chains</span>
-                                        <p class="text-xs text-gray-400 mt-1">Subagent-to-subagent info passing can compound errors. Use deterministic verification between handoffs.</p>
+                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                        <span class="text-accent text-sm font-bold">Hallucination chains</span>
+                                        <p class="text-xs text-ink mt-1">Subagent-to-subagent info passing can compound errors. Use deterministic verification between handoffs.</p>
                                     </div>
-                                    <div class="p-3 bg-signalDim border border-signal/30">
-                                        <span class="text-signal text-sm font-bold">Subagent overload</span>
-                                        <p class="text-xs text-gray-400 mt-1">Multiple unrelated tasks create context pollution. Split into separate focused agents.</p>
+                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                        <span class="text-accent text-sm font-bold">Subagent overload</span>
+                                        <p class="text-xs text-ink mt-1">Multiple unrelated tasks create context pollution. Split into separate focused agents.</p>
                                     </div>
-                                    <div class="p-3 bg-signalDim border border-signal/30">
-                                        <span class="text-signal text-sm font-bold">Model mismatch</span>
-                                        <p class="text-xs text-gray-400 mt-1">Complex reasoning delegated to lighter models produces inferior results.</p>
+                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                        <span class="text-accent text-sm font-bold">Model mismatch</span>
+                                        <p class="text-xs text-ink mt-1">Complex reasoning delegated to lighter models produces inferior results.</p>
                                     </div>
                                 </div>
                             </div>
@@ -494,82 +532,82 @@ fi</code></pre>
                 </div>
 
                 <!-- Lesson 6: Lean Tool Stack -->
-                <div class="border border-white/10 bg-panel" id="lesson-6">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-6')">
+                <div class="deckle-card" id="lesson-6">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-6')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-ice/10 text-ice text-xs font-mono border border-ice/20">LESSON_06</span>
-                                <i data-lucide="layers" class="w-4 h-4 text-ice"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 06</span>
+                                <i data-lucide="layers" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">Lean tool stack</h3>
-                            <p class="text-sm text-gray-500 mt-2">Every token must fight for its place</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">Lean tool stack</h3>
+                            <p class="text-sm text-mist mt-2">Every token must fight for its place</p>
                         </div>
-                        <span class="lesson-number text-ice">06</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-6"></i>
+                        <span class="lesson-number text-accent">06</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-6"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-6">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Core Principle -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// CORE_PRINCIPLE</h4>
-                                <p class="text-gray-400 leading-relaxed">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Core Principle</h4>
+                                <p class="text-mist leading-relaxed">
                                     Context windows are finite resources. Rather than accumulating tools, ruthlessly evaluate whether each integration genuinely justifies its token consumption.
                                 </p>
                             </div>
 
                             <!-- Recommended Tools -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// RECOMMENDED_ESSENTIALS</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Recommended Essentials</h4>
                                 <div class="space-y-3">
-                                    <div class="p-4 bg-surface border border-white/10">
+                                    <div class="p-4 bg-ink/5 border border-ink/5">
                                         <div class="flex items-center gap-2 mb-2">
-                                            <i data-lucide="book-open" class="w-4 h-4 text-ice"></i>
-                                            <span class="text-white font-bold">Context7 MCP</span>
+                                            <i data-lucide="book-open" class="w-4 h-4 text-accent"></i>
+                                            <span class="text-ink font-bold">Context7 MCP</span>
                                         </div>
-                                        <p class="text-sm text-gray-400">Provides current framework documentation. Prevents reliance on outdated training data and reduces API hallucinations.</p>
+                                        <p class="text-sm text-mist">Provides current framework documentation. Prevents reliance on outdated training data and reduces API hallucinations.</p>
                                     </div>
-                                    <div class="p-4 bg-surface border border-white/10">
+                                    <div class="p-4 bg-ink/5 border border-ink/5">
                                         <div class="flex items-center gap-2 mb-2">
-                                            <i data-lucide="globe" class="w-4 h-4 text-ice"></i>
-                                            <span class="text-white font-bold">Dev Browser / Playwright MCP</span>
+                                            <i data-lucide="globe" class="w-4 h-4 text-accent"></i>
+                                            <span class="text-ink font-bold">Dev Browser / Playwright MCP</span>
                                         </div>
-                                        <p class="text-sm text-gray-400">Enables browser automation and visual debugging. Dev Browser is preferable for faster execution.</p>
+                                        <p class="text-sm text-mist">Enables browser automation and visual debugging. Dev Browser is preferable for faster execution.</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Implementation Strategy -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// IMPLEMENTATION</h4>
-                                <ul class="space-y-2 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Implementation</h4>
+                                <ul class="space-y-2 text-mist">
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Audit existing tools weekly to identify unused integrations
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Evaluate whether new tools warrant the overhead
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Start minimally with only Context7 and Dev Browser
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Monitor when context limitations actually emerge
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-acid"></i>
+                                        <i data-lucide="check" class="w-4 h-4 text-accent"></i>
                                         Leverage Claude's native capabilities before seeking MCPs
                                     </li>
                                 </ul>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-iceDim border border-ice/30">
-                                <p class="text-sm text-gray-300">
-                                    <span class="text-ice font-bold">KEY INSIGHT:</span> Constraint as opportunity—a streamlined toolkit preserves context capacity for actual problem-solving.
+                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                                <p class="text-sm text-ink">
+                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Constraint as opportunity—a streamlined toolkit preserves context capacity for actual problem-solving.
                                 </p>
                             </div>
 
@@ -578,59 +616,59 @@ fi</code></pre>
                 </div>
 
                 <!-- Lesson 7: Prompt Engineering -->
-                <div class="border border-white/10 bg-panel" id="lesson-7">
-                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-surface/50 transition-colors" onclick="toggleAccordion('lesson-7')">
+                <div class="deckle-card" id="lesson-7">
+                    <button class="accordion-trigger w-full p-6 text-left flex items-center justify-between relative hover:bg-ink/5 transition-colors" onclick="toggleAccordion('lesson-7')">
                         <div class="pr-16">
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2 py-1 bg-signal/10 text-signal text-xs font-mono border border-signal/20">LESSON_07</span>
-                                <i data-lucide="mic" class="w-4 h-4 text-signal"></i>
+                                <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 07</span>
+                                <i data-lucide="mic" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-white font-bold">Prompt engineering on steroids</h3>
-                            <p class="text-sm text-gray-500 mt-2">Voice input + automated enhancement systems</p>
+                            <h3 class="font-display text-xl text-ink font-black italic">Prompt engineering on steroids</h3>
+                            <p class="text-sm text-mist mt-2">Voice input + automated enhancement systems</p>
                         </div>
-                        <span class="lesson-number text-signal">07</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 accordion-chevron" id="chevron-lesson-7"></i>
+                        <span class="lesson-number text-accent">07</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-mist accordion-chevron" id="chevron-lesson-7"></i>
                     </button>
                     <div class="accordion-content" id="content-lesson-7">
-                        <div class="p-6 pt-0 border-t border-white/10">
+                        <div class="p-6 pt-0 border-t border-ink/5">
 
                             <!-- Two Observations -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-signal font-mono mb-3">// TWO_OBSERVATIONS</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Two Observations</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="p-4 bg-surface border border-white/10">
-                                        <span class="text-white font-bold block mb-2">Speaking is 3-4x faster</span>
-                                        <p class="text-sm text-gray-400">Voice captures nuance better than typing for most people</p>
+                                    <div class="p-4 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink font-bold block mb-2">Speaking is 3-4x faster</span>
+                                        <p class="text-sm text-mist">Voice captures nuance better than typing for most people</p>
                                     </div>
-                                    <div class="p-4 bg-surface border border-white/10">
-                                        <span class="text-white font-bold block mb-2">Automation potential</span>
-                                        <p class="text-sm text-gray-400">Prompt engineering follows repeatable patterns with templatable structures</p>
+                                    <div class="p-4 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink font-bold block mb-2">Automation potential</span>
+                                        <p class="text-sm text-mist">Prompt engineering follows repeatable patterns with templatable structures</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Reprompter System -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-acid font-mono mb-3">// REPROMPTER_WORKFLOW</h4>
-                                <ol class="space-y-2 text-gray-400">
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Reprompter Workflow</h4>
+                                <ol class="space-y-2 text-mist">
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">1.</span>
+                                        <span class="text-accent font-bold">1.</span>
                                         <span>Activate via keybind</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">2.</span>
+                                        <span class="text-accent font-bold">2.</span>
                                         <span>Dictate requirements verbally</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">3.</span>
+                                        <span class="text-accent font-bold">3.</span>
                                         <span>System poses clarifying questions</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">4.</span>
+                                        <span class="text-accent font-bold">4.</span>
                                         <span>Provide voice answers</span>
                                     </li>
                                     <li class="flex gap-3">
-                                        <span class="text-acid font-mono">5.</span>
+                                        <span class="text-accent font-bold">5.</span>
                                         <span>Automated generation of structured prompt with XML tags, role assignments, embedded best practices</span>
                                     </li>
                                 </ol>
@@ -638,23 +676,23 @@ fi</code></pre>
 
                             <!-- Alternative Approaches -->
                             <div class="mb-6">
-                                <h4 class="text-sm text-ice font-mono mb-3">// ALTERNATIVE_APPROACHES</h4>
+                                <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Alternative Approaches</h4>
                                 <div class="space-y-3">
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Option 1: Reprompter system</span>
-                                        <p class="text-xs text-gray-500 mt-1">Voice capture + global keybind + template-based enhancement + fast model processing</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Option 1: Reprompter system</span>
+                                        <p class="text-xs text-mist mt-1">Voice capture + global keybind + template-based enhancement + fast model processing</p>
                                     </div>
-                                    <div class="p-3 bg-surface border border-white/5">
-                                        <span class="text-white text-sm font-bold">Option 2: Model interviews</span>
-                                        <p class="text-xs text-gray-500 mt-1">"Instead of trying to write the perfect prompt upfront, ask the model to interview you about what you want"</p>
+                                    <div class="p-3 bg-ink/5 border border-ink/5">
+                                        <span class="text-ink text-sm font-bold">Option 2: Model interviews</span>
+                                        <p class="text-xs text-mist mt-1">"Instead of trying to write the perfect prompt upfront, ask the model to interview you about what you want"</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-signalDim border border-signal/30">
-                                <p class="text-sm text-gray-300">
-                                    <span class="text-signal font-bold">KEY INSIGHT:</span> Eliminate manual prompt typing. Leverage voice input or conversational interviews to focus on solving actual problems instead of formatting.
+                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                                <p class="text-sm text-ink">
+                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Eliminate manual prompt typing. Leverage voice input or conversational interviews to focus on solving actual problems instead of formatting.
                                 </p>
                             </div>
 
@@ -667,26 +705,26 @@ fi</code></pre>
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+        <footer class="bg-ink text-canvas mt-auto">
             <div class="max-w-5xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
-                        <p class="text-gray-500 font-mono text-sm">
-                            <span class="text-acid">//</span> Apply one pattern at a time. <span class="text-ice">Build the habits that compound.</span>
+                        <p class="text-canvas/70 text-sm">
+                            Apply one pattern at a time. <span class="text-canvas">Build the habits that compound.</span>
                         </p>
                     </div>
-                    <div class="flex items-center gap-6 text-xs font-mono">
-                        <a href="/code-patterns/" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/code-patterns/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                            PATTERNS_HUB
+                            Patterns Hub
                         </a>
-                        <a href="/code-patterns/quick-reference/" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                        <a href="/code-patterns/quick-reference/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="table" class="w-3 h-3"></i>
-                            QUICK_REF
+                            Quick Ref
                         </a>
-                        <a href="/code-patterns/skills/" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                        <a href="/code-patterns/skills/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="terminal" class="w-3 h-3"></i>
-                            SKILLS
+                            Skills
                         </a>
                     </div>
                 </div>

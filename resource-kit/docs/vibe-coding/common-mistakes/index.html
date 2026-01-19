@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMMON_MISTAKES // AVOID THESE</title>
+    <title>Common Mistakes | Amditis Kit</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
     <!-- CSS & Config -->
@@ -26,8 +26,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: #ff3366;
-            box-shadow: 0 0 20px #ff3366;
+            background: #ef4444;
         }
         .pulse-warning {
             animation: pulse-warn 2s infinite;
@@ -38,42 +37,42 @@
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <a href="/" class="w-8 h-8 bg-signal text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">!</a>
+                    <a href="/" class="w-8 h-8 bg-red-500 text-white flex items-center justify-center font-bold font-display text-xl rounded hover:bg-ink transition-colors">!</a>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-signal">DANGER ZONE // COMMON MISTAKES</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AVOID_THESE_V1.0</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-red-500">Common Mistakes</div>
+                        <div class="text-xs text-ink/50 tracking-wide">Avoid These v1.0</div>
                     </div>
                 </div>
                 <div class="hidden md:flex items-center gap-4">
-                    <span class="text-xs text-signal font-mono pulse-warning flex items-center gap-2">
+                    <span class="text-xs text-red-500 font-medium pulse-warning flex items-center gap-2">
                         <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                        WARNING_ACTIVE
+                        Warning Active
                     </span>
                 </div>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <section class="border-b border-white/10 bg-surface/30 py-12">
+        <section class="border-b border-ink/10 bg-cream py-12">
             <div class="max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 border border-signal/50 bg-signal/10 text-signal text-xs font-mono mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 border border-red-300 bg-red-50 text-red-500 text-xs font-medium rounded-full mb-6">
                     <i data-lucide="skull" class="w-4 h-4"></i>
-                    CRITICAL_KNOWLEDGE
+                    Critical Knowledge
                 </div>
-                <h1 class="font-display text-4xl md:text-5xl text-chrome mb-4 glitch-text" data-text="COMMON_MISTAKES">COMMON_MISTAKES</h1>
-                <p class="text-gray-500 text-sm font-mono max-w-2xl mx-auto">
-                    Every vibe coder makes these mistakes at least once. Learn from others' pain so you don't have to experience it yourself. Bookmark this page.
+                <h1 class="font-display text-4xl md:text-5xl font-light italic text-ink mb-4">Common Mistakes</h1>
+                <p class="text-ink/60 text-sm max-w-2xl mx-auto">
+                    Every vibe coder makes these mistakes at least once. Learn from others' pain so you do not have to experience it yourself. Bookmark this page.
                 </p>
             </div>
         </section>
@@ -84,70 +83,70 @@
             <div class="space-y-8">
 
                 <!-- Mistake 1: Pushing Secrets -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="key" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="key" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_01 // SEVERITY: CRITICAL</div>
-                                <h2 class="font-display text-2xl text-white">Pushing secrets to GitHub</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 01 | Severity: Critical</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Pushing secrets to GitHub</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this is dangerous
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Once a secret is pushed to GitHub, it's in the git history <span class="text-white">forever</span>. Bots constantly scan public repos for API keys and will find yours within minutes. You could wake up to a massive cloud bill or compromised accounts.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                Once a secret is pushed to GitHub, it is in the git history <span class="text-ink font-medium">forever</span>. Bots constantly scan public repos for API keys and will find yours within minutes. You could wake up to a massive cloud bill or compromised accounts.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">THE .ENV FILE DANGER</div>
-                                <p class="text-xs text-gray-500">
-                                    Your <code class="text-ice">.env</code> file should <span class="text-white">never</span> be committed. It contains your API keys, database passwords, and secrets. Always add <code class="text-ice">.env</code> to your <code class="text-ice">.gitignore</code> file.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">The .env File Danger</div>
+                                <p class="text-xs text-ink/60">
+                                    Your <code class="text-accent">.env</code> file should <span class="text-ink font-medium">never</span> be committed. It contains your API keys, database passwords, and secrets. Always add <code class="text-accent">.env</code> to your <code class="text-accent">.gitignore</code> file.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">API KEYS IN CODE</div>
-                                <p class="text-xs text-gray-500">
-                                    Never hardcode keys like <code class="text-signal">const API_KEY = "sk-..."</code>. Even if you delete the line later, it stays in git history. Use environment variables instead.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">API Keys in Code</div>
+                                <p class="text-xs text-ink/60">
+                                    Never hardcode keys like <code class="text-red-500">const API_KEY = "sk-..."</code>. Even if you delete the line later, it stays in git history. Use environment variables instead.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="terminal" class="w-3 h-3"></i> HOW TO CHECK GIT HISTORY
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="terminal" class="w-3 h-3"></i> How to Check Git History
                             </div>
-                            <pre class="text-xs text-gray-400 overflow-x-auto"><code><span class="syntax-comment"># Search for secrets in your git history</span>
-<span class="syntax-func">git</span> log -p | <span class="syntax-func">grep</span> -i <span class="syntax-string">"api_key\|secret\|password"</span>
+                            <pre class="text-xs text-white/70 overflow-x-auto"><code><span class="text-white/50"># Search for secrets in your git history</span>
+git log -p | grep -i "api_key\|secret\|password"
 
-<span class="syntax-comment"># Use a tool like git-secrets or trufflehog</span>
-<span class="syntax-func">trufflehog</span> git file://./</code></pre>
+<span class="text-white/50"># Use a tool like git-secrets or trufflehog</span>
+trufflehog git file://./</code></pre>
                         </div>
 
-                        <div class="border-l-2 border-signal pl-4">
-                            <div class="text-xs text-signal font-mono mb-1">IF YOU ALREADY PUSHED SECRETS:</div>
-                            <ol class="text-xs text-gray-400 space-y-1 list-decimal list-inside">
-                                <li><span class="text-white">Immediately revoke/rotate the exposed key</span> in your provider's dashboard</li>
-                                <li>Don't just delete the file - the secret is still in history</li>
-                                <li>Use <code class="text-ice">git filter-branch</code> or BFG Repo Cleaner to rewrite history</li>
+                        <div class="border-l-4 border-red-400 pl-4">
+                            <div class="text-xs text-red-500 font-medium mb-1">If You Already Pushed Secrets:</div>
+                            <ol class="text-xs text-ink/60 space-y-1 list-decimal list-inside">
+                                <li><span class="text-ink font-medium">Immediately revoke/rotate the exposed key</span> in your provider's dashboard</li>
+                                <li>Do not just delete the file - the secret is still in history</li>
+                                <li>Use <code class="text-accent">git filter-branch</code> or BFG Repo Cleaner to rewrite history</li>
                                 <li>Force push to overwrite the remote (coordinate with your team)</li>
                             </ol>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Use <code class="text-ice">git-secrets</code> as a pre-commit hook. It automatically blocks commits containing potential secrets. Set it up once and never worry again.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Use <code class="text-accent">git-secrets</code> as a pre-commit hook. It automatically blocks commits containing potential secrets. Set it up once and never worry again.
                                 </p>
                             </div>
                         </div>
@@ -155,60 +154,60 @@
                 </div>
 
                 <!-- Mistake 2: Ignoring Terminal Errors -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="terminal" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="terminal" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_02 // SEVERITY: HIGH</div>
-                                <h2 class="font-display text-2xl text-white">Ignoring terminal errors</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 02 | Severity: High</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Ignoring terminal errors</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this is a problem
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                That wall of red text isn't decoration - it's your computer telling you <span class="text-white">exactly</span> what went wrong. Ignoring errors leads to hours of confusion debugging the wrong thing.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                That wall of red text is not decoration - it is your computer telling you <span class="text-ink font-medium">exactly</span> what went wrong. Ignoring errors leads to hours of confusion debugging the wrong thing.
                             </p>
                         </div>
 
-                        <div class="border border-white/10 bg-void/50 p-4">
-                            <div class="text-xs text-signal font-mono mb-3">RED TEXT MEANS SOMETHING</div>
-                            <p class="text-xs text-gray-500 mb-3">
-                                Terminal colors are meaningful: <span class="text-signal">Red = error</span>, <span class="text-yellow-500">Yellow = warning</span>, <span class="text-acid">Green = success</span>. When you see red, stop and read it.
+                        <div class="border border-ink/10 bg-cream p-4 rounded">
+                            <div class="text-xs text-red-500 font-medium mb-3">Red Text Means Something</div>
+                            <p class="text-xs text-ink/60 mb-3">
+                                Terminal colors are meaningful: <span class="text-red-500 font-medium">Red = error</span>, <span class="text-yellow-600 font-medium">Yellow = warning</span>, <span class="text-green-600 font-medium">Green = success</span>. When you see red, stop and read it.
                             </p>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="layers" class="w-3 h-3"></i> HOW TO READ STACK TRACES
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="layers" class="w-3 h-3"></i> How to Read Stack Traces
                             </div>
-                            <div class="text-xs text-gray-400 space-y-2">
-                                <p><span class="text-white">1. Start from the bottom</span> - The actual error message is usually at the end</p>
-                                <p><span class="text-white">2. Find YOUR code</span> - Look for file paths in your project, not library code</p>
-                                <p><span class="text-white">3. Note the line number</span> - The stack trace tells you exactly where it broke</p>
-                                <p><span class="text-white">4. Read the error type</span> - <code class="text-signal">TypeError</code>, <code class="text-signal">SyntaxError</code>, etc. tell you what kind of problem</p>
+                            <div class="text-xs text-white/70 space-y-2">
+                                <p><span class="text-white font-medium">1. Start from the bottom</span> - The actual error message is usually at the end</p>
+                                <p><span class="text-white font-medium">2. Find YOUR code</span> - Look for file paths in your project, not library code</p>
+                                <p><span class="text-white font-medium">3. Note the line number</span> - The stack trace tells you exactly where it broke</p>
+                                <p><span class="text-white font-medium">4. Read the error type</span> - <code class="text-red-400">TypeError</code>, <code class="text-red-400">SyntaxError</code>, etc. tell you what kind of problem</p>
                             </div>
                         </div>
 
-                        <div class="border-l-2 border-signal pl-4">
-                            <div class="text-xs text-signal font-mono mb-1">"IT WAS WORKING YESTERDAY" SYNDROME</div>
-                            <p class="text-xs text-gray-400">
-                                Something changed. Check: Did you update dependencies? Did someone else push code? Did an API change? Did your environment variables expire? Use <code class="text-ice">git diff</code> to see what changed.
+                        <div class="border-l-4 border-red-400 pl-4">
+                            <div class="text-xs text-red-500 font-medium mb-1">"It Was Working Yesterday" Syndrome</div>
+                            <p class="text-xs text-ink/60">
+                                Something changed. Check: Did you update dependencies? Did someone else push code? Did an API change? Did your environment variables expire? Use <code class="text-accent">git diff</code> to see what changed.
                             </p>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Copy the <span class="text-white">exact</span> error message and paste it into your AI assistant. Include the full stack trace. This is the fastest path to a solution.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Copy the <span class="text-ink font-medium">exact</span> error message and paste it into your AI assistant. Include the full stack trace. This is the fastest path to a solution.
                                 </p>
                             </div>
                         </div>
@@ -216,61 +215,61 @@
                 </div>
 
                 <!-- Mistake 3: Not Understanding Localhost -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="globe" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="globe" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_03 // SEVERITY: MEDIUM</div>
-                                <h2 class="font-display text-2xl text-white">Not understanding localhost</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 03 | Severity: Medium</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Not understanding localhost</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this confuses people
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                <code class="text-ice">localhost</code> means "this computer only." It's not on the internet. Your friend in another city cannot see your <code class="text-ice">localhost:3000</code> no matter what URL you send them.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                <code class="text-accent">localhost</code> means "this computer only." It is not on the internet. Your friend in another city cannot see your <code class="text-accent">localhost:3000</code> no matter what URL you send them.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">"MY FRIEND CAN'T SEE MY SITE"</div>
-                                <p class="text-xs text-gray-500">
-                                    <code class="text-ice">localhost</code> is your computer talking to itself. To share your site, you need to <span class="text-white">deploy</span> it (Vercel, Netlify, GitHub Pages) or use a tunnel service like <code class="text-ice">ngrok</code>.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">"My Friend Cannot See My Site"</div>
+                                <p class="text-xs text-ink/60">
+                                    <code class="text-accent">localhost</code> is your computer talking to itself. To share your site, you need to <span class="text-ink font-medium">deploy</span> it (Vercel, Netlify, GitHub Pages) or use a tunnel service like <code class="text-accent">ngrok</code>.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-ice font-mono mb-2">LOCALHOST VS DEPLOYED</div>
-                                <p class="text-xs text-gray-500">
-                                    <code class="text-gray-500">localhost:3000</code> = Your machine only<br>
-                                    <code class="text-acid">mysite.vercel.app</code> = Anyone on internet
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2">Localhost vs Deployed</div>
+                                <p class="text-xs text-ink/60">
+                                    <code class="text-ink/50">localhost:3000</code> = Your machine only<br>
+                                    <code class="text-accent">mysite.vercel.app</code> = Anyone on internet
                                 </p>
                             </div>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="hash" class="w-3 h-3"></i> PORT NUMBERS EXPLAINED
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="hash" class="w-3 h-3"></i> Port Numbers Explained
                             </div>
-                            <div class="text-xs text-gray-400 space-y-2">
-                                <p>The number after the colon (like <code class="text-ice">:3000</code>) is the <span class="text-white">port</span>. Think of it as an apartment number in a building.</p>
-                                <p><code class="text-ice">localhost:3000</code> and <code class="text-ice">localhost:8080</code> are different "apartments" on your computer.</p>
+                            <div class="text-xs text-white/70 space-y-2">
+                                <p>The number after the colon (like <code class="text-accent">:3000</code>) is the <span class="text-white font-medium">port</span>. Think of it as an apartment number in a building.</p>
+                                <p><code class="text-accent">localhost:3000</code> and <code class="text-accent">localhost:8080</code> are different "apartments" on your computer.</p>
                                 <p>If you see "port already in use," another app is using that port. Either stop it or use a different port.</p>
                             </div>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Use <code class="text-ice">npx ngrok http 3000</code> to temporarily share your localhost with others. Great for demos and testing webhooks.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Use <code class="text-accent">npx ngrok http 3000</code> to temporarily share your localhost with others. Great for demos and testing webhooks.
                                 </p>
                             </div>
                         </div>
@@ -278,65 +277,65 @@
                 </div>
 
                 <!-- Mistake 4: Dependency Hell -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="package" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="package" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_04 // SEVERITY: HIGH</div>
-                                <h2 class="font-display text-2xl text-white">Dependency hell</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 04 | Severity: High</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Dependency hell</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this is a nightmare
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
+                            <p class="text-sm text-ink/60 leading-relaxed">
                                 Your project depends on packages that depend on other packages. When versions conflict, everything breaks. The error messages are cryptic and nothing makes sense.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">VERSION CONFLICTS</div>
-                                <p class="text-xs text-gray-500">
-                                    Package A needs <code class="text-ice">react@17</code>, Package B needs <code class="text-ice">react@18</code>. Now you have a conflict. Check <code class="text-ice">package.json</code> for version mismatches.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">Version Conflicts</div>
+                                <p class="text-xs text-ink/60">
+                                    Package A needs <code class="text-accent">react@17</code>, Package B needs <code class="text-accent">react@18</code>. Now you have a conflict. Check <code class="text-accent">package.json</code> for version mismatches.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">"WORKS ON MY MACHINE"</div>
-                                <p class="text-xs text-gray-500">
-                                    This usually means different dependency versions. The <code class="text-ice">package-lock.json</code> file locks exact versions. Always commit it and run <code class="text-ice">npm ci</code> (not <code class="text-ice">npm install</code>) in CI/CD.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">"Works on My Machine"</div>
+                                <p class="text-xs text-ink/60">
+                                    This usually means different dependency versions. The <code class="text-accent">package-lock.json</code> file locks exact versions. Always commit it and run <code class="text-accent">npm ci</code> (not <code class="text-accent">npm install</code>) in CI/CD.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="trash-2" class="w-3 h-3"></i> WHEN TO DELETE NODE_MODULES
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="trash-2" class="w-3 h-3"></i> When to Delete node_modules
                             </div>
-                            <pre class="text-xs text-gray-400 overflow-x-auto"><code><span class="syntax-comment"># The nuclear option - when nothing else works</span>
-<span class="syntax-func">rm</span> -rf node_modules package-lock.json
-<span class="syntax-func">npm</span> install
+                            <pre class="text-xs text-white/70 overflow-x-auto"><code><span class="text-white/50"># The nuclear option - when nothing else works</span>
+rm -rf node_modules package-lock.json
+npm install
 
-<span class="syntax-comment"># Or use npx for a cleaner approach</span>
-<span class="syntax-func">npx</span> rimraf node_modules
-<span class="syntax-func">npm</span> install</code></pre>
-                            <p class="text-xs text-gray-500 mt-2">
+<span class="text-white/50"># Or use npx for a cleaner approach</span>
+npx rimraf node_modules
+npm install</code></pre>
+                            <p class="text-xs text-white/50 mt-2">
                                 Try this when: weird errors after pulling changes, after switching Node versions, or when updates behave strangely.
                             </p>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Use <code class="text-ice">nvm</code> (Node Version Manager) to switch between Node versions. Different projects may need different versions. Run <code class="text-ice">nvm use</code> in each project.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Use <code class="text-accent">nvm</code> (Node Version Manager) to switch between Node versions. Different projects may need different versions. Run <code class="text-accent">nvm use</code> in each project.
                                 </p>
                             </div>
                         </div>
@@ -344,61 +343,61 @@
                 </div>
 
                 <!-- Mistake 5: Not Reading Error Messages -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="file-warning" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="file-warning" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_05 // SEVERITY: HIGH</div>
-                                <h2 class="font-display text-2xl text-white">Not reading error messages</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 05 | Severity: High</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Not reading error messages</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this wastes time
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Error messages are written by developers to help you fix problems. They literally tell you what's wrong. Reading them carefully can save hours of guessing.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                Error messages are written by developers to help you fix problems. They literally tell you what is wrong. Reading them carefully can save hours of guessing.
                             </p>
                         </div>
 
-                        <div class="border border-white/10 bg-void/50 p-4">
-                            <div class="text-xs text-white font-mono mb-3">ERRORS TELL YOU WHAT'S WRONG</div>
-                            <div class="text-xs text-gray-500 space-y-2">
-                                <p><code class="text-signal">Cannot read property 'x' of undefined</code> = You're accessing <code class="text-ice">.x</code> on something that doesn't exist</p>
-                                <p><code class="text-signal">Module not found</code> = You need to install something or your import path is wrong</p>
-                                <p><code class="text-signal">Unexpected token</code> = You have a syntax error (missing bracket, comma, etc.)</p>
+                        <div class="border border-ink/10 bg-cream p-4 rounded">
+                            <div class="text-xs text-ink font-medium mb-3">Errors Tell You What is Wrong</div>
+                            <div class="text-xs text-ink/60 space-y-2">
+                                <p><code class="text-red-500">Cannot read property 'x' of undefined</code> = You are accessing <code class="text-accent">.x</code> on something that does not exist</p>
+                                <p><code class="text-red-500">Module not found</code> = You need to install something or your import path is wrong</p>
+                                <p><code class="text-red-500">Unexpected token</code> = You have a syntax error (missing bracket, comma, etc.)</p>
                             </div>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border border-white/10 bg-surface p-4">
-                                <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                    <i data-lucide="map-pin" class="w-3 h-3"></i> LINE NUMBERS MATTER
+                            <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-3 h-3"></i> Line Numbers Matter
                                 </div>
-                                <p class="text-xs text-gray-400">
-                                    <code class="text-ice">Error at line 47</code> means go to line 47. Your code editor shows line numbers on the left. The bug is at or near that line.
+                                <p class="text-xs text-white/70">
+                                    <code class="text-accent">Error at line 47</code> means go to line 47. Your code editor shows line numbers on the left. The bug is at or near that line.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-surface p-4">
-                                <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                    <i data-lucide="folder" class="w-3 h-3"></i> FILE PATHS MATTER
+                            <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                    <i data-lucide="folder" class="w-3 h-3"></i> File Paths Matter
                                 </div>
-                                <p class="text-xs text-gray-400">
-                                    <code class="text-ice">/src/components/Button.js:47</code> tells you exactly which file. Click on it in your terminal (if supported) to jump there.
+                                <p class="text-xs text-white/70">
+                                    <code class="text-accent">/src/components/Button.js:47</code> tells you exactly which file. Click on it in your terminal (if supported) to jump there.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
                                     Before asking for help, read the error message out loud. Often, saying it makes you realize what it means. "Cannot find module './button'" - oh, the file is named 'Button' with a capital B.
                                 </p>
                             </div>
@@ -407,70 +406,70 @@
                 </div>
 
                 <!-- Mistake 6: Asking AI Vague Questions -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="message-circle" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="message-circle" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_06 // SEVERITY: MEDIUM</div>
-                                <h2 class="font-display text-2xl text-white">Asking AI vague questions</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 06 | Severity: Medium</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Asking AI vague questions</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this gets bad answers
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                AI can only help with what you tell it. "It doesn't work" gives AI nothing to work with. The more context you provide, the better the answer you'll get.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                AI can only help with what you tell it. "It does not work" gives AI nothing to work with. The more context you provide, the better the answer you will get.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
-                            <div class="border border-signal/30 bg-signal/5 p-4">
-                                <div class="text-xs text-signal font-mono mb-2 flex items-center gap-2">
-                                    <i data-lucide="x" class="w-3 h-3"></i> BAD QUESTION
+                            <div class="border border-red-300 bg-red-50 p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2 flex items-center gap-2">
+                                    <i data-lucide="x" class="w-3 h-3"></i> Bad Question
                                 </div>
-                                <p class="text-xs text-gray-500 italic">
-                                    "My code doesn't work, can you fix it?"
+                                <p class="text-xs text-ink/60 italic">
+                                    "My code does not work, can you fix it?"
                                 </p>
                             </div>
-                            <div class="border border-acid/30 bg-acid/5 p-4">
-                                <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                    <i data-lucide="check" class="w-3 h-3"></i> GOOD QUESTION
+                            <div class="border border-accent/30 bg-accent/5 p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Good Question
                                 </div>
-                                <p class="text-xs text-gray-500 italic">
-                                    "I'm getting 'TypeError: Cannot read property map of undefined' on line 23 of UserList.jsx when I try to render users from my API. Here's my code..."
+                                <p class="text-xs text-ink/60 italic">
+                                    "I am getting 'TypeError: Cannot read property map of undefined' on line 23 of UserList.jsx when I try to render users from my API. Here is my code..."
                                 </p>
                             </div>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-white font-mono mb-3">WHAT TO INCLUDE IN YOUR QUESTION</div>
-                            <div class="text-xs text-gray-400 space-y-2">
-                                <p><span class="text-acid">1.</span> <span class="text-white">The exact error message</span> - Copy and paste it</p>
-                                <p><span class="text-acid">2.</span> <span class="text-white">The relevant code</span> - Not your whole project, just the part that's breaking</p>
-                                <p><span class="text-acid">3.</span> <span class="text-white">What you expected</span> - "I expected it to show a list of users"</p>
-                                <p><span class="text-acid">4.</span> <span class="text-white">What actually happened</span> - "Instead I get a blank screen and this error"</p>
-                                <p><span class="text-acid">5.</span> <span class="text-white">What you've tried</span> - "I checked that the API returns data and it does"</p>
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-white font-medium mb-3">What to Include in Your Question</div>
+                            <div class="text-xs text-white/70 space-y-2">
+                                <p><span class="text-accent">1.</span> <span class="text-white font-medium">The exact error message</span> - Copy and paste it</p>
+                                <p><span class="text-accent">2.</span> <span class="text-white font-medium">The relevant code</span> - Not your whole project, just the part that is breaking</p>
+                                <p><span class="text-accent">3.</span> <span class="text-white font-medium">What you expected</span> - "I expected it to show a list of users"</p>
+                                <p><span class="text-accent">4.</span> <span class="text-white font-medium">What actually happened</span> - "Instead I get a blank screen and this error"</p>
+                                <p><span class="text-accent">5.</span> <span class="text-white font-medium">What you have tried</span> - "I checked that the API returns data and it does"</p>
                             </div>
                         </div>
 
-                        <div class="border-l-2 border-signal pl-4">
-                            <div class="text-xs text-signal font-mono mb-1">SPECIFY YOUR ENVIRONMENT</div>
-                            <p class="text-xs text-gray-400">
+                        <div class="border-l-4 border-red-400 pl-4">
+                            <div class="text-xs text-red-500 font-medium mb-1">Specify Your Environment</div>
+                            <p class="text-xs text-ink/60">
                                 Mention: What framework (React, Vue, Next.js)? What language version (Node 18, Python 3.11)? What OS? Browser console or terminal? These details matter.
                             </p>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
                                     Use Claude Code or Cursor to give AI direct access to your codebase. Then it can see the full context automatically. Just say "look at this file" and share the error.
                                 </p>
                             </div>
@@ -479,65 +478,65 @@
                 </div>
 
                 <!-- Mistake 7: Skipping the Docs -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="book-open" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="book-open" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_07 // SEVERITY: MEDIUM</div>
-                                <h2 class="font-display text-2xl text-white">Skipping the docs</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 07 | Severity: Medium</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Skipping the docs</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this causes problems
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Documentation exists because the tool creators know you'll have questions. Guessing how something works leads to subtle bugs that are hard to track down later.
+                            <p class="text-sm text-ink/60 leading-relaxed">
+                                Documentation exists because the tool creators know you will have questions. Guessing how something works leads to subtle bugs that are hard to track down later.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-3 gap-4">
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-signal font-mono mb-2">GUESSING VS READING</div>
-                                <p class="text-xs text-gray-500">
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-red-500 font-medium mb-2">Guessing vs Reading</div>
+                                <p class="text-xs text-ink/60">
                                     Guessing takes 5 minutes and leads to bugs. Reading docs takes 5 minutes and gives you the right answer. Choose wisely.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-acid font-mono mb-2">OFFICIAL DOCS FIRST</div>
-                                <p class="text-xs text-gray-500">
-                                    Random blog posts may be outdated. Start with official documentation. It's maintained by the people who made the tool.
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2">Official Docs First</div>
+                                <p class="text-xs text-ink/60">
+                                    Random blog posts may be outdated. Start with official documentation. It is maintained by the people who made the tool.
                                 </p>
                             </div>
-                            <div class="border border-white/10 bg-void/50 p-4">
-                                <div class="text-xs text-ice font-mono mb-2">README FILES</div>
-                                <p class="text-xs text-gray-500">
+                            <div class="border border-ink/10 bg-cream p-4 rounded">
+                                <div class="text-xs text-accent font-medium mb-2">README Files</div>
+                                <p class="text-xs text-ink/60">
                                     Every repo has a README for a reason. It tells you how to install, configure, and use the project. Read it first.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-white font-mono mb-3">THE DOCS READING ORDER</div>
-                            <div class="text-xs text-gray-400 space-y-2">
-                                <p><span class="text-acid">1.</span> <span class="text-white">Quick Start / Getting Started</span> - Get it running first</p>
-                                <p><span class="text-acid">2.</span> <span class="text-white">API Reference</span> - When you need specific function details</p>
-                                <p><span class="text-acid">3.</span> <span class="text-white">Examples / Tutorials</span> - See how pieces fit together</p>
-                                <p><span class="text-acid">4.</span> <span class="text-white">Troubleshooting / FAQ</span> - When something goes wrong</p>
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-white font-medium mb-3">The Docs Reading Order</div>
+                            <div class="text-xs text-white/70 space-y-2">
+                                <p><span class="text-accent">1.</span> <span class="text-white font-medium">Quick Start / Getting Started</span> - Get it running first</p>
+                                <p><span class="text-accent">2.</span> <span class="text-white font-medium">API Reference</span> - When you need specific function details</p>
+                                <p><span class="text-accent">3.</span> <span class="text-white font-medium">Examples / Tutorials</span> - See how pieces fit together</p>
+                                <p><span class="text-accent">4.</span> <span class="text-white font-medium">Troubleshooting / FAQ</span> - When something goes wrong</p>
                             </div>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Use the search function in docs. Press <code class="text-ice">Ctrl/Cmd + K</code> on most doc sites to search. Looking for "authentication"? Search it instead of scrolling through 50 pages.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Use the search function in docs. Press <code class="text-accent">Ctrl/Cmd + K</code> on most doc sites to search. Looking for "authentication"? Search it instead of scrolling through 50 pages.
                                 </p>
                             </div>
                         </div>
@@ -545,73 +544,73 @@
                 </div>
 
                 <!-- Mistake 8: Not Using Version Control -->
-                <div class="danger-card border border-white/10 bg-panel">
-                    <div class="p-6 border-b border-white/10 bg-surface">
+                <div class="danger-card deckle-card">
+                    <div class="p-6 border-b border-ink/10 bg-cream">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-signal/20 border border-signal/50 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="git-branch" class="w-6 h-6 text-signal"></i>
+                            <div class="w-12 h-12 bg-red-100 border border-red-300 flex items-center justify-center flex-shrink-0 rounded">
+                                <i data-lucide="git-branch" class="w-6 h-6 text-red-500"></i>
                             </div>
                             <div class="flex-1">
-                                <div class="text-xs text-signal font-mono mb-1 tracking-widest">MISTAKE_08 // SEVERITY: CRITICAL</div>
-                                <h2 class="font-display text-2xl text-white">Not using version control</h2>
+                                <div class="text-xs text-red-500 font-medium mb-1 tracking-wide">Mistake 08 | Severity: Critical</div>
+                                <h2 class="font-display text-2xl text-ink font-light italic">Not using version control</h2>
                             </div>
                         </div>
                     </div>
                     <div class="p-6 space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-signal uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
                                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Why this is dangerous
                             </h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">
+                            <p class="text-sm text-ink/60 leading-relaxed">
                                 Without git, one wrong delete and your work is gone forever. No undo. No recovery. Hours, days, or weeks of work - vanished. Git is your safety net.
                             </p>
                         </div>
 
-                        <div class="border border-signal/30 bg-signal/5 p-4">
-                            <div class="text-xs text-signal font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="skull" class="w-3 h-3"></i> "I LOST ALL MY CODE"
+                        <div class="border border-red-300 bg-red-50 p-4 rounded">
+                            <div class="text-xs text-red-500 font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="skull" class="w-3 h-3"></i> "I Lost All My Code"
                             </div>
-                            <p class="text-xs text-gray-500">
-                                This sentence is said thousands of times a day by people who didn't use git. Your laptop can die. Your hard drive can fail. Your cat can walk across the keyboard. Git protects you from all of it.
+                            <p class="text-xs text-ink/60">
+                                This sentence is said thousands of times a day by people who did not use git. Your laptop can die. Your hard drive can fail. Your cat can walk across the keyboard. Git protects you from all of it.
                             </p>
                         </div>
 
-                        <div class="border border-white/10 bg-surface p-4">
-                            <div class="text-xs text-acid font-mono mb-2 flex items-center gap-2">
-                                <i data-lucide="save" class="w-3 h-3"></i> COMMIT EARLY, COMMIT OFTEN
+                        <div class="border border-ink/10 bg-ink text-white p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="save" class="w-3 h-3"></i> Commit Early, Commit Often
                             </div>
-                            <pre class="text-xs text-gray-400 overflow-x-auto"><code><span class="syntax-comment"># Start every project with git</span>
-<span class="syntax-func">git</span> init
-<span class="syntax-func">git</span> add .
-<span class="syntax-func">git</span> commit -m <span class="syntax-string">"Initial commit"</span>
+                            <pre class="text-xs text-white/70 overflow-x-auto"><code><span class="text-white/50"># Start every project with git</span>
+git init
+git add .
+git commit -m "Initial commit"
 
-<span class="syntax-comment"># Commit after every working change</span>
-<span class="syntax-func">git</span> add .
-<span class="syntax-func">git</span> commit -m <span class="syntax-string">"Add user login form"</span>
+<span class="text-white/50"># Commit after every working change</span>
+git add .
+git commit -m "Add user login form"
 
-<span class="syntax-comment"># Push to GitHub for backup</span>
-<span class="syntax-func">git</span> push origin main</code></pre>
+<span class="text-white/50"># Push to GitHub for backup</span>
+git push origin main</code></pre>
                         </div>
 
-                        <div class="border border-white/10 bg-void/50 p-4">
-                            <div class="text-xs text-ice font-mono mb-2">BRANCHES ARE YOUR FRIEND</div>
-                            <p class="text-xs text-gray-500 mb-3">
-                                Want to try something risky? Create a branch. If it works, merge it. If it doesn't, delete the branch. Your main code stays safe.
+                        <div class="border border-ink/10 bg-cream p-4 rounded">
+                            <div class="text-xs text-accent font-medium mb-2">Branches Are Your Friend</div>
+                            <p class="text-xs text-ink/60 mb-3">
+                                Want to try something risky? Create a branch. If it works, merge it. If it does not, delete the branch. Your main code stays safe.
                             </p>
-                            <pre class="text-xs text-gray-400 overflow-x-auto"><code><span class="syntax-func">git</span> checkout -b <span class="syntax-string">experiment/new-feature</span>
-<span class="syntax-comment"># Try risky stuff here...</span>
-<span class="syntax-comment"># If it works:</span>
-<span class="syntax-func">git</span> checkout main && <span class="syntax-func">git</span> merge experiment/new-feature
-<span class="syntax-comment"># If it fails:</span>
-<span class="syntax-func">git</span> checkout main && <span class="syntax-func">git</span> branch -D experiment/new-feature</code></pre>
+                            <pre class="text-xs text-ink/60 bg-ink text-white/70 p-3 rounded overflow-x-auto"><code>git checkout -b experiment/new-feature
+<span class="text-white/50"># Try risky stuff here...</span>
+<span class="text-white/50"># If it works:</span>
+git checkout main && git merge experiment/new-feature
+<span class="text-white/50"># If it fails:</span>
+git checkout main && git branch -D experiment/new-feature</code></pre>
                         </div>
 
-                        <div class="bg-acid/10 border border-acid/30 p-4 flex gap-3">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-acid flex-shrink-0 mt-0.5"></i>
+                        <div class="bg-accent/10 border border-accent/30 p-4 flex gap-3 rounded">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <div class="text-xs font-bold text-acid mb-1">PRO TIP</div>
-                                <p class="text-xs text-gray-400">
-                                    Use GitHub Desktop or GitKraken if the command line feels intimidating. Visual git clients show you exactly what's happening. Once you're comfortable, the CLI is faster.
+                                <div class="text-xs font-bold text-accent mb-1">Pro Tip</div>
+                                <p class="text-xs text-ink/60">
+                                    Use GitHub Desktop or GitKraken if the command line feels intimidating. Visual git clients show you exactly what is happening. Once you are comfortable, the CLI is faster.
                                 </p>
                             </div>
                         </div>
@@ -621,21 +620,21 @@
             </div>
 
             <!-- Summary Card -->
-            <div class="mt-16 border border-signal/30 bg-signal/5 p-8">
+            <div class="mt-16 border border-red-300 bg-red-50 p-8 rounded-lg">
                 <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-signal text-black flex items-center justify-center flex-shrink-0">
+                    <div class="w-12 h-12 bg-red-500 text-white flex items-center justify-center flex-shrink-0 rounded">
                         <i data-lucide="shield-alert" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h3 class="font-display text-xl text-white mb-2">TL;DR - THE SURVIVAL CHECKLIST</h3>
-                        <div class="text-sm text-gray-400 space-y-2">
-                            <p><span class="text-signal">1.</span> Add <code class="text-ice">.env</code> to <code class="text-ice">.gitignore</code> before your first commit</p>
-                            <p><span class="text-signal">2.</span> Read error messages - they tell you what's wrong and where</p>
-                            <p><span class="text-signal">3.</span> Localhost is local - deploy to share with others</p>
-                            <p><span class="text-signal">4.</span> When in doubt, delete <code class="text-ice">node_modules</code> and reinstall</p>
-                            <p><span class="text-signal">5.</span> Give AI context - error messages, code, environment</p>
-                            <p><span class="text-signal">6.</span> Read the docs - especially the Getting Started guide</p>
-                            <p><span class="text-signal">7.</span> Commit early and often - git is your undo button</p>
+                        <h3 class="font-display text-xl text-ink font-light italic mb-2">TL;DR - The Survival Checklist</h3>
+                        <div class="text-sm text-ink/60 space-y-2">
+                            <p><span class="text-red-500 font-medium">1.</span> Add <code class="text-accent">.env</code> to <code class="text-accent">.gitignore</code> before your first commit</p>
+                            <p><span class="text-red-500 font-medium">2.</span> Read error messages - they tell you what is wrong and where</p>
+                            <p><span class="text-red-500 font-medium">3.</span> Localhost is local - deploy to share with others</p>
+                            <p><span class="text-red-500 font-medium">4.</span> When in doubt, delete <code class="text-accent">node_modules</code> and reinstall</p>
+                            <p><span class="text-red-500 font-medium">5.</span> Give AI context - error messages, code, environment</p>
+                            <p><span class="text-red-500 font-medium">6.</span> Read the docs - especially the Getting Started guide</p>
+                            <p><span class="text-red-500 font-medium">7.</span> Commit early and often - git is your undo button</p>
                         </div>
                     </div>
                 </div>
@@ -644,9 +643,9 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-void py-8">
-            <div class="max-w-7xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
-                <p>SYSTEM STATUS: DANGER_AWARENESS_ACTIVE // <a href="/" class="hover:text-acid transition-colors">RETURN_ROOT</a></p>
+        <footer class="border-t border-ink/10 bg-ink text-canvas py-8">
+            <div class="max-w-7xl mx-auto px-6 text-center text-xs text-canvas/60">
+                <p>System Status: Danger Awareness Active | <a href="/" class="hover:text-accent transition-colors">Return Home</a></p>
             </div>
         </footer>
 
