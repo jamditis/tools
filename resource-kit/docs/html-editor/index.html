@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML EDITOR // AMDITIS KIT</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Editor iframe styles */
+        #editor-frame {
+            background: white;
+            border: none;
+        }
+
+        /* Drop zone styling */
+        .drop-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #ccff00;
+            background: rgba(204, 255, 0, 0.05);
+        }
+
+        /* Toolbar button hover */
+        .toolbar-btn:hover:not(:disabled) {
+            background: rgba(204, 255, 0, 0.1);
+            border-color: #ccff00;
+        }
+
+        .toolbar-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased font-mono bg-void text-chrome h-full overflow-hidden">
+
+    <div class="crt-overlay"></div>
+    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex h-full flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-white/10 bg-panel/80 backdrop-blur-md p-4 flex justify-between items-center z-20">
+            <div class="flex items-center gap-4">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <div class="hidden sm:block">
+                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">HTML_EDITOR</h1>
+                        <p class="text-xs text-gray-500 tracking-[0.2em]">WYSIWYG_v1.0</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span id="file-name" class="text-xs text-gray-500 hidden sm:block mr-4">NO_FILE_LOADED</span>
+
+                <!-- Toolbar -->
+                <button id="upload-btn" class="toolbar-btn px-3 py-2 border border-white/20 text-xs font-mono hover:text-acid flex items-center gap-2 transition-all">
+                    <i data-lucide="upload" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">UPLOAD</span>
+                </button>
+
+                <button id="download-btn" class="toolbar-btn px-3 py-2 border border-white/20 text-xs font-mono hover:text-acid flex items-center gap-2 transition-all" disabled>
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">DOWNLOAD</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- Upload Zone (shown when no file loaded) -->
+            <div id="upload-zone" class="flex-1 flex items-center justify-center p-8">
+                <div class="drop-zone w-full max-w-2xl p-12 text-center rounded-lg cursor-pointer" id="drop-zone">
+                    <div class="mb-6">
+                        <i data-lucide="file-code" class="w-16 h-16 mx-auto text-gray-600"></i>
+                    </div>
+                    <h2 class="font-display text-2xl text-white mb-4">DROP HTML FILE HERE</h2>
+                    <p class="text-gray-500 text-sm mb-6">or click to browse your files</p>
+                    <div class="inline-flex items-center px-4 py-2 border border-acid/30 text-acid text-xs font-mono">
+                        SUPPORTED: .html, .htm
+                    </div>
+                    <input type="file" id="file-input" accept=".html,.htm" class="hidden">
+                </div>
+            </div>
+
+            <!-- Editor Zone (shown when file loaded) -->
+            <div id="editor-zone" class="flex-1 flex flex-col hidden">
+
+                <!-- Editing Toolbar -->
+                <div class="border-b border-white/10 bg-panel p-3 flex items-center gap-2 flex-wrap">
+                    <span class="text-xs text-gray-500 mr-2">FORMAT:</span>
+
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="bold" title="Bold">
+                        <i data-lucide="bold" class="w-4 h-4"></i>
+                    </button>
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="italic" title="Italic">
+                        <i data-lucide="italic" class="w-4 h-4"></i>
+                    </button>
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="underline" title="Underline">
+                        <i data-lucide="underline" class="w-4 h-4"></i>
+                    </button>
+
+                    <div class="w-px h-6 bg-white/10 mx-2"></div>
+
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="insertUnorderedList" title="Bullet List">
+                        <i data-lucide="list" class="w-4 h-4"></i>
+                    </button>
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="insertOrderedList" title="Numbered List">
+                        <i data-lucide="list-ordered" class="w-4 h-4"></i>
+                    </button>
+
+                    <div class="w-px h-6 bg-white/10 mx-2"></div>
+
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="undo" title="Undo">
+                        <i data-lucide="undo" class="w-4 h-4"></i>
+                    </button>
+                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="redo" title="Redo">
+                        <i data-lucide="redo" class="w-4 h-4"></i>
+                    </button>
+
+                    <div class="flex-1"></div>
+
+                    <span class="text-xs text-acid">Click any text to edit</span>
+                </div>
+
+                <!-- Editor Frame -->
+                <div class="flex-1 overflow-auto bg-white">
+                    <iframe id="editor-frame" class="w-full h-full"></iframe>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 bg-panel p-3 text-center">
+            <p class="text-xs text-gray-600">
+                Edit text directly in the preview. Changes are preserved when you download.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // DOM Elements
+        const uploadZone = document.getElementById('upload-zone');
+        const editorZone = document.getElementById('editor-zone');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const fileNameDisplay = document.getElementById('file-name');
+        const editorFrame = document.getElementById('editor-frame');
+        const formatBtns = document.querySelectorAll('.format-btn');
+
+        let currentFileName = '';
+        let originalHTML = '';
+
+        // File Upload Handlers
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
+                loadFile(file);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadFile(file);
+        });
+
+        // Load HTML file into editor
+        function loadFile(file) {
+            currentFileName = file.name;
+            fileNameDisplay.textContent = currentFileName;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalHTML = e.target.result;
+                setupEditor(originalHTML);
+                showEditor();
+            };
+            reader.readAsText(file);
+        }
+
+        // Setup the editor iframe
+        function setupEditor(html) {
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+
+            // Write the HTML content
+            doc.open();
+            doc.write(html);
+            doc.close();
+
+            // Make all text elements editable
+            doc.body.setAttribute('contenteditable', 'true');
+
+            // Add editing styles
+            const style = doc.createElement('style');
+            style.textContent = `
+                body {
+                    cursor: text;
+                }
+                *:focus {
+                    outline: 2px solid #ccff00 !important;
+                    outline-offset: 2px;
+                }
+                [contenteditable]:hover {
+                    background-color: rgba(204, 255, 0, 0.05);
+                }
+            `;
+            doc.head.appendChild(style);
+
+            // Enable design mode for full editing
+            doc.designMode = 'on';
+        }
+
+        // Show editor, hide upload zone
+        function showEditor() {
+            uploadZone.classList.add('hidden');
+            editorZone.classList.remove('hidden');
+            downloadBtn.disabled = false;
+        }
+
+        // Format button handlers
+        formatBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const command = btn.dataset.command;
+                const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+                doc.execCommand(command, false, null);
+                editorFrame.contentWindow.focus();
+            });
+        });
+
+        // Download edited HTML
+        downloadBtn.addEventListener('click', () => {
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+
+            // Turn off design mode temporarily to get clean HTML
+            doc.designMode = 'off';
+            doc.body.removeAttribute('contenteditable');
+
+            // Remove our editing styles
+            const styles = doc.querySelectorAll('style');
+            styles.forEach(style => {
+                if (style.textContent.includes('#ccff00')) {
+                    style.remove();
+                }
+            });
+
+            // Get the full HTML
+            let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+            // Re-enable editing
+            doc.body.setAttribute('contenteditable', 'true');
+            doc.designMode = 'on';
+
+            // Create download
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFileName.replace('.html', '-edited.html').replace('.htm', '-edited.htm');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Allow uploading a new file
+        uploadBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInput.click();
+        });
+    </script>
+</body>
+</html>
