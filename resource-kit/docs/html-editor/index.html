@@ -206,8 +206,8 @@
                         </div>
                     </div>
 
-                    <!-- CSS Files -->
-                    <div class="sidebar-section p-4">
+                    <!-- CSS Files (hidden if none) -->
+                    <div class="sidebar-section p-4" id="css-files-section" style="display: none;">
                         <div class="flex items-center gap-2 mb-4">
                             <i data-lucide="palette" class="w-3 h-3 text-accent"></i>
                             <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">Styles</span>
@@ -312,6 +312,7 @@
         const formatBtns = document.querySelectorAll('.format-btn');
         const htmlFilesList = document.getElementById('html-files-list');
         const cssFilesList = document.getElementById('css-files-list');
+        const cssFilesSection = document.getElementById('css-files-section');
         const otherFilesList = document.getElementById('other-files-list');
         const otherFilesSection = document.getElementById('other-files-section');
 
@@ -431,13 +432,18 @@
                 </button>
             `).join('') || '<p class="text-xs opacity-50 px-3">No HTML files</p>';
 
-            // CSS files
+            // CSS files (hide section if none)
             const cssFiles = getFilesByType('css');
-            cssFilesList.innerHTML = cssFiles.map(f => `
-                <div class="px-3 py-1 text-xs truncate opacity-60" title="${f}">
-                    ${getDisplayName(f)}
-                </div>
-            `).join('') || '<p class="opacity-50 px-3">No CSS files</p>';
+            if (cssFiles.length > 0) {
+                cssFilesSection.style.display = 'block';
+                cssFilesList.innerHTML = cssFiles.map(f => `
+                    <div class="px-3 py-1 text-xs truncate opacity-60" title="${f}">
+                        ${getDisplayName(f)}
+                    </div>
+                `).join('');
+            } else {
+                cssFilesSection.style.display = 'none';
+            }
 
             // Other files
             const otherFiles = getFilesByType('other');
@@ -496,13 +502,8 @@
             doc.designMode = 'off';
             doc.body.removeAttribute('contenteditable');
 
-            // Remove editing styles
-            const styles = doc.querySelectorAll('style');
-            styles.forEach(style => {
-                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
-                    style.remove();
-                }
-            });
+            // Remove editing styles (identified by data attribute)
+            doc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
 
             // Get the HTML
             let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
@@ -533,8 +534,9 @@
             // Make body editable
             doc.body.setAttribute('contenteditable', 'true');
 
-            // Add editing styles
+            // Add editing styles (marked with data attribute for safe removal)
             const style = doc.createElement('style');
+            style.setAttribute('data-amditis-editor', 'true');
             style.textContent = `
                 body {
                     cursor: text;
@@ -651,6 +653,7 @@
             const parser = new DOMParser();
             const tempDoc = parser.parseFromString(html, 'text/html');
 
+            // Restore external CSS links
             tempDoc.querySelectorAll('style[data-original-href]').forEach(style => {
                 const href = style.getAttribute('data-original-href');
                 const link = tempDoc.createElement('link');
@@ -659,12 +662,8 @@
                 style.parentNode.replaceChild(link, style);
             });
 
-            // Also remove the editor styles
-            tempDoc.querySelectorAll('style').forEach(style => {
-                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
-                    style.remove();
-                }
-            });
+            // Remove editor styles (identified by data attribute)
+            tempDoc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
 
             return '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
         }
@@ -673,14 +672,10 @@
         function downloadSingleFile() {
             const [filename, content] = [...projectFiles.entries()][0];
 
-            // Clean up editor styles
+            // Clean up editor styles (identified by data attribute)
             const parser = new DOMParser();
             const tempDoc = parser.parseFromString(content, 'text/html');
-            tempDoc.querySelectorAll('style').forEach(style => {
-                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
-                    style.remove();
-                }
-            });
+            tempDoc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
 
             const cleanHtml = '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
 
