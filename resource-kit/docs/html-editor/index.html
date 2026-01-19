@@ -10,9 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
+    <!-- Tailwind & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -32,7 +33,6 @@
                     animation: {
                         'page-in': 'pageIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'drift': 'drift 25s ease-in-out infinite',
-                        'ink-spread': 'inkSpread 0.6s ease-out forwards',
                     },
                     keyframes: {
                         pageIn: {
@@ -43,10 +43,6 @@
                             '0%, 100%': { transform: 'translate(0, 0)' },
                             '50%': { transform: 'translate(-1%, 1%)' },
                         },
-                        inkSpread: {
-                            '0%': { filter: 'blur(10px)', opacity: '0', transform: 'scale(0.95)' },
-                            '100%': { filter: 'blur(0)', opacity: '1', transform: 'scale(1)' },
-                        }
                     }
                 }
             }
@@ -112,18 +108,22 @@
             border: none;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #121212;
-            transition: width 0.3s ease;
+        .file-item {
+            transition: all 0.2s ease;
         }
-        .nav-link:hover::after {
-            width: 100%;
+
+        .file-item:hover {
+            padding-left: 1rem;
+            background: rgba(61, 75, 64, 0.05);
+        }
+
+        .file-item.active {
+            background: rgba(61, 75, 64, 0.1);
+            border-left: 2px solid #3d4b40;
+        }
+
+        .sidebar-section {
+            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
         }
     </style>
 </head>
@@ -137,7 +137,7 @@
     <div class="relative z-10 flex flex-col min-h-screen">
 
         <!-- Navigation -->
-        <nav class="flex justify-between items-center p-6 md:p-10 border-b border-ink/5 bg-canvas/80 backdrop-blur-md">
+        <nav class="flex justify-between items-center p-4 md:p-6 border-b border-ink/5 bg-canvas/80 backdrop-blur-md">
             <div class="flex items-center gap-4">
                 <a href="/" class="flex items-center gap-4 group">
                     <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
@@ -148,7 +148,7 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <span id="file-name" class="text-[10px] tracking-[0.2em] font-bold opacity-40 uppercase hidden md:block mr-4">No file loaded</span>
+                <span id="project-name" class="text-[10px] tracking-[0.2em] font-bold opacity-40 uppercase hidden md:block mr-4">No project loaded</span>
 
                 <button id="upload-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:text-accent">
                     <i data-lucide="upload" class="w-4 h-4"></i>
@@ -163,80 +163,132 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
+        <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
 
             <!-- Upload Zone (shown when no file loaded) -->
             <div id="upload-zone" class="flex-1 flex items-center justify-center p-8 animate-page-in">
-                <div class="drop-zone w-full max-w-2xl p-16 text-center cursor-pointer deckle-card" id="drop-zone">
+                <div class="drop-zone w-full max-w-2xl p-12 md:p-16 text-center cursor-pointer deckle-card" id="drop-zone">
                     <div class="mb-8">
-                        <i data-lucide="file-text" class="w-16 h-16 mx-auto text-ink/20"></i>
+                        <i data-lucide="folder-archive" class="w-16 h-16 mx-auto text-ink/20"></i>
                     </div>
-                    <h2 class="font-display text-4xl md:text-5xl font-light italic mb-6 text-ink">
-                        Drop your <span class="font-black">file.</span>
+                    <h2 class="font-display text-3xl md:text-5xl font-light italic mb-6 text-ink">
+                        Drop your <span class="font-black">project.</span>
                     </h2>
                     <p class="text-mist text-sm mb-8 max-w-md mx-auto">
-                        Upload an HTML file to begin editing. Click anywhere on the page to modify text directly.
+                        Upload a ZIP file with your HTML pages and CSS files, or a single HTML file. Edit text across all pages, then download the complete project.
                     </p>
-                    <div class="inline-block px-4 py-2 border border-ink/10">
-                        <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">Accepts .html, .htm</span>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div class="inline-block px-4 py-2 border border-ink/10">
+                            <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">.zip projects</span>
+                        </div>
+                        <div class="inline-block px-4 py-2 border border-ink/10">
+                            <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">.html files</span>
+                        </div>
                     </div>
-                    <input type="file" id="file-input" accept=".html,.htm" class="hidden">
+                    <input type="file" id="file-input" accept=".html,.htm,.zip" class="hidden">
                 </div>
             </div>
 
             <!-- Editor Zone (shown when file loaded) -->
-            <div id="editor-zone" class="flex-1 flex flex-col hidden">
+            <div id="editor-zone" class="flex-1 flex flex-col md:flex-row hidden">
 
-                <!-- Editing Toolbar -->
-                <div class="border-b border-ink/5 bg-canvas/90 backdrop-blur-sm p-4 flex items-center gap-3 flex-wrap">
-                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-mist mr-4">Format</span>
+                <!-- File Sidebar -->
+                <aside id="file-sidebar" class="w-full md:w-64 border-b md:border-b-0 md:border-r border-ink/5 bg-canvas/50 flex flex-col max-h-48 md:max-h-none overflow-hidden">
 
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="bold" title="Bold">
-                        <i data-lucide="bold" class="w-4 h-4"></i>
-                    </button>
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="italic" title="Italic">
-                        <i data-lucide="italic" class="w-4 h-4"></i>
-                    </button>
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="underline" title="Underline">
-                        <i data-lucide="underline" class="w-4 h-4"></i>
-                    </button>
-
-                    <div class="w-px h-6 bg-ink/10 mx-2"></div>
-
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertUnorderedList" title="Bullet List">
-                        <i data-lucide="list" class="w-4 h-4"></i>
-                    </button>
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertOrderedList" title="Numbered List">
-                        <i data-lucide="list-ordered" class="w-4 h-4"></i>
-                    </button>
-
-                    <div class="w-px h-6 bg-ink/10 mx-2"></div>
-
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="undo" title="Undo">
-                        <i data-lucide="undo" class="w-4 h-4"></i>
-                    </button>
-                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="redo" title="Redo">
-                        <i data-lucide="redo" class="w-4 h-4"></i>
-                    </button>
-
-                    <div class="flex-1"></div>
-
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 bg-accent animate-pulse"></div>
-                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-mist">Click text to edit</span>
+                    <!-- HTML Files -->
+                    <div class="sidebar-section p-4 flex-1 overflow-y-auto">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="file-code" class="w-3 h-3 text-accent"></i>
+                            <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">Pages</span>
+                        </div>
+                        <div id="html-files-list" class="space-y-1">
+                            <!-- HTML files will be listed here -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Editor Frame -->
-                <div class="flex-1 overflow-auto bg-white border-t border-ink/5">
-                    <iframe id="editor-frame" class="w-full h-full min-h-[600px]"></iframe>
+                    <!-- CSS Files -->
+                    <div class="sidebar-section p-4">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="palette" class="w-3 h-3 text-accent"></i>
+                            <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">Styles</span>
+                        </div>
+                        <div id="css-files-list" class="space-y-1 text-xs text-mist">
+                            <!-- CSS files will be listed here -->
+                        </div>
+                    </div>
+
+                    <!-- Other Files -->
+                    <div class="sidebar-section p-4" id="other-files-section" style="display: none;">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="file" class="w-3 h-3 text-mist"></i>
+                            <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">Other</span>
+                        </div>
+                        <div id="other-files-list" class="space-y-1 text-xs text-mist">
+                            <!-- Other files will be listed here -->
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Editor Panel -->
+                <div class="flex-1 flex flex-col min-h-0">
+
+                    <!-- Editing Toolbar -->
+                    <div class="border-b border-ink/5 bg-canvas/90 backdrop-blur-sm p-3 flex items-center gap-2 flex-wrap">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-mist mr-2">Format</span>
+
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="bold" title="Bold">
+                            <i data-lucide="bold" class="w-4 h-4"></i>
+                        </button>
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="italic" title="Italic">
+                            <i data-lucide="italic" class="w-4 h-4"></i>
+                        </button>
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="underline" title="Underline">
+                            <i data-lucide="underline" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="w-px h-6 bg-ink/10 mx-1"></div>
+
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertUnorderedList" title="Bullet List">
+                            <i data-lucide="list" class="w-4 h-4"></i>
+                        </button>
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertOrderedList" title="Numbered List">
+                            <i data-lucide="list-ordered" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="w-px h-6 bg-ink/10 mx-1"></div>
+
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="undo" title="Undo">
+                            <i data-lucide="undo" class="w-4 h-4"></i>
+                        </button>
+                        <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="redo" title="Redo">
+                            <i data-lucide="redo" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="flex-1"></div>
+
+                        <div class="hidden sm:flex items-center gap-2">
+                            <div class="w-2 h-2 bg-accent animate-pulse"></div>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-mist">Click text to edit</span>
+                        </div>
+                    </div>
+
+                    <!-- Current File Indicator -->
+                    <div class="px-4 py-2 bg-white/50 border-b border-ink/5 flex items-center gap-2">
+                        <i data-lucide="file-text" class="w-3 h-3 text-accent"></i>
+                        <span id="current-file-name" class="text-[10px] font-bold tracking-[0.2em] uppercase text-ink/60">No file selected</span>
+                    </div>
+
+                    <!-- Editor Frame -->
+                    <div class="flex-1 overflow-auto bg-white">
+                        <iframe id="editor-frame" class="w-full h-full min-h-[500px]"></iframe>
+                    </div>
                 </div>
             </div>
 
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-ink/5 bg-canvas p-6 text-center">
+        <footer class="border-t border-ink/5 bg-canvas p-4 text-center">
             <p class="text-[10px] font-bold tracking-[0.3em] uppercase text-ink/30">
                 Edit directly in preview — Download when finished
             </p>
@@ -254,15 +306,26 @@
         const fileInput = document.getElementById('file-input');
         const uploadBtn = document.getElementById('upload-btn');
         const downloadBtn = document.getElementById('download-btn');
-        const fileNameDisplay = document.getElementById('file-name');
+        const projectNameDisplay = document.getElementById('project-name');
+        const currentFileDisplay = document.getElementById('current-file-name');
         const editorFrame = document.getElementById('editor-frame');
         const formatBtns = document.querySelectorAll('.format-btn');
+        const htmlFilesList = document.getElementById('html-files-list');
+        const cssFilesList = document.getElementById('css-files-list');
+        const otherFilesList = document.getElementById('other-files-list');
+        const otherFilesSection = document.getElementById('other-files-section');
 
-        let currentFileName = '';
-        let originalHTML = '';
+        // Project State
+        let projectName = '';
+        let projectFiles = new Map(); // filename -> content
+        let currentFile = null;
+        let isZipProject = false;
 
         // File Upload Handlers
-        uploadBtn.addEventListener('click', () => fileInput.click());
+        uploadBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInput.click();
+        });
         dropZone.addEventListener('click', () => fileInput.click());
 
         // Drag and drop
@@ -279,40 +342,195 @@
             e.preventDefault();
             dropZone.classList.remove('drag-over');
             const file = e.dataTransfer.files[0];
-            if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
-                loadFile(file);
-            }
+            if (file) handleFileUpload(file);
         });
 
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) loadFile(file);
+            if (file) handleFileUpload(file);
         });
 
-        // Load HTML file into editor
-        function loadFile(file) {
-            currentFileName = file.name;
-            fileNameDisplay.textContent = currentFileName;
+        // Handle file upload (ZIP or HTML)
+        async function handleFileUpload(file) {
+            projectFiles.clear();
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                originalHTML = e.target.result;
-                setupEditor(originalHTML);
-                showEditor();
-            };
-            reader.readAsText(file);
+            if (file.name.endsWith('.zip')) {
+                isZipProject = true;
+                projectName = file.name.replace('.zip', '');
+                await loadZipFile(file);
+            } else if (file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+                isZipProject = false;
+                projectName = file.name;
+                await loadSingleFile(file);
+            }
+
+            projectNameDisplay.textContent = projectName;
+            renderFileList();
+            showEditor();
+
+            // Auto-select first HTML file
+            const htmlFiles = getFilesByType('html');
+            if (htmlFiles.length > 0) {
+                selectFile(htmlFiles[0]);
+            }
         }
 
-        // Setup the editor iframe
+        // Load ZIP file
+        async function loadZipFile(file) {
+            const zip = await JSZip.loadAsync(file);
+
+            for (const [filename, zipEntry] of Object.entries(zip.files)) {
+                if (!zipEntry.dir) {
+                    // Get the clean filename (remove folder prefixes if single root folder)
+                    let cleanName = filename;
+
+                    // Skip hidden files and folders
+                    if (cleanName.startsWith('.') || cleanName.includes('/.')) continue;
+                    if (cleanName.startsWith('__MACOSX')) continue;
+
+                    const content = await zipEntry.async('string');
+                    projectFiles.set(cleanName, content);
+                }
+            }
+        }
+
+        // Load single HTML file
+        async function loadSingleFile(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    projectFiles.set(file.name, e.target.result);
+                    resolve();
+                };
+                reader.readAsText(file);
+            });
+        }
+
+        // Get files by type
+        function getFilesByType(type) {
+            const files = [];
+            for (const [filename] of projectFiles) {
+                if (type === 'html' && (filename.endsWith('.html') || filename.endsWith('.htm'))) {
+                    files.push(filename);
+                } else if (type === 'css' && filename.endsWith('.css')) {
+                    files.push(filename);
+                } else if (type === 'other' && !filename.endsWith('.html') && !filename.endsWith('.htm') && !filename.endsWith('.css')) {
+                    files.push(filename);
+                }
+            }
+            return files.sort();
+        }
+
+        // Render file list in sidebar
+        function renderFileList() {
+            // HTML files
+            const htmlFiles = getFilesByType('html');
+            htmlFilesList.innerHTML = htmlFiles.map(f => `
+                <button class="file-item w-full text-left px-3 py-2 text-xs truncate" data-file="${f}">
+                    ${getDisplayName(f)}
+                </button>
+            `).join('') || '<p class="text-xs opacity-50 px-3">No HTML files</p>';
+
+            // CSS files
+            const cssFiles = getFilesByType('css');
+            cssFilesList.innerHTML = cssFiles.map(f => `
+                <div class="px-3 py-1 text-xs truncate opacity-60" title="${f}">
+                    ${getDisplayName(f)}
+                </div>
+            `).join('') || '<p class="opacity-50 px-3">No CSS files</p>';
+
+            // Other files
+            const otherFiles = getFilesByType('other');
+            if (otherFiles.length > 0) {
+                otherFilesSection.style.display = 'block';
+                otherFilesList.innerHTML = otherFiles.map(f => `
+                    <div class="px-3 py-1 text-xs truncate opacity-60" title="${f}">
+                        ${getDisplayName(f)}
+                    </div>
+                `).join('');
+            } else {
+                otherFilesSection.style.display = 'none';
+            }
+
+            // Add click handlers to HTML files
+            htmlFilesList.querySelectorAll('.file-item').forEach(btn => {
+                btn.addEventListener('click', () => selectFile(btn.dataset.file));
+            });
+
+            // Re-init icons
+            lucide.createIcons();
+        }
+
+        // Get display name (remove folder path for cleaner display)
+        function getDisplayName(filename) {
+            return filename.split('/').pop();
+        }
+
+        // Select and load a file into the editor
+        function selectFile(filename) {
+            // Save current file content before switching
+            if (currentFile) {
+                saveCurrentFile();
+            }
+
+            currentFile = filename;
+            currentFileDisplay.textContent = getDisplayName(filename);
+
+            // Update active state in sidebar
+            htmlFilesList.querySelectorAll('.file-item').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.file === filename);
+            });
+
+            // Load into editor
+            const content = projectFiles.get(filename);
+            setupEditor(content);
+        }
+
+        // Save current file content from editor
+        function saveCurrentFile() {
+            if (!currentFile) return;
+
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+
+            // Temporarily disable editing to get clean HTML
+            doc.designMode = 'off';
+            doc.body.removeAttribute('contenteditable');
+
+            // Remove editing styles
+            const styles = doc.querySelectorAll('style');
+            styles.forEach(style => {
+                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
+                    style.remove();
+                }
+            });
+
+            // Get the HTML
+            let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+            projectFiles.set(currentFile, html);
+
+            // Re-enable editing
+            doc.body.setAttribute('contenteditable', 'true');
+            doc.designMode = 'on';
+        }
+
+        // Setup the editor iframe with CSS injection
         function setupEditor(html) {
             const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
 
+            // Parse and potentially inject CSS files
+            let processedHtml = html;
+
+            // If this is a ZIP project, we might need to handle relative CSS paths
+            if (isZipProject) {
+                processedHtml = injectCssContent(html);
+            }
+
             // Write the HTML content
             doc.open();
-            doc.write(html);
+            doc.write(processedHtml);
             doc.close();
 
-            // Make all text elements editable
+            // Make body editable
             doc.body.setAttribute('contenteditable', 'true');
 
             // Add editing styles
@@ -331,8 +549,47 @@
             `;
             doc.head.appendChild(style);
 
-            // Enable design mode for full editing
+            // Enable design mode
             doc.designMode = 'on';
+        }
+
+        // Inject CSS content for relative paths in ZIP projects
+        function injectCssContent(html) {
+            // Find all <link rel="stylesheet"> tags and inject CSS inline if we have the file
+            const parser = new DOMParser();
+            const tempDoc = parser.parseFromString(html, 'text/html');
+
+            tempDoc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('//')) {
+                    // Try to find the CSS file in our project
+                    let cssContent = null;
+
+                    // Try exact match first
+                    if (projectFiles.has(href)) {
+                        cssContent = projectFiles.get(href);
+                    } else {
+                        // Try to find by filename only
+                        const cssFileName = href.split('/').pop();
+                        for (const [filename, content] of projectFiles) {
+                            if (filename.endsWith(cssFileName)) {
+                                cssContent = content;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (cssContent) {
+                        // Replace link with inline style
+                        const styleTag = tempDoc.createElement('style');
+                        styleTag.setAttribute('data-original-href', href);
+                        styleTag.textContent = cssContent;
+                        link.parentNode.replaceChild(styleTag, link);
+                    }
+                }
+            });
+
+            return '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
         }
 
         // Show editor, hide upload zone
@@ -352,46 +609,91 @@
             });
         });
 
-        // Download edited HTML
-        downloadBtn.addEventListener('click', () => {
-            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+        // Download edited project
+        downloadBtn.addEventListener('click', async () => {
+            // Save current file first
+            saveCurrentFile();
 
-            // Turn off design mode temporarily to get clean HTML
-            doc.designMode = 'off';
-            doc.body.removeAttribute('contenteditable');
+            if (isZipProject) {
+                await downloadAsZip();
+            } else {
+                downloadSingleFile();
+            }
+        });
 
-            // Remove our editing styles
-            const styles = doc.querySelectorAll('style');
-            styles.forEach(style => {
-                if (style.textContent.includes('#3d4b40')) {
-                    style.remove();
+        // Download as ZIP
+        async function downloadAsZip() {
+            const zip = new JSZip();
+
+            for (const [filename, content] of projectFiles) {
+                // For HTML files, we need to restore external CSS links
+                if (filename.endsWith('.html') || filename.endsWith('.htm')) {
+                    const restoredHtml = restoreCssLinks(content);
+                    zip.file(filename, restoredHtml);
+                } else {
+                    zip.file(filename, content);
                 }
-            });
+            }
 
-            // Get the full HTML
-            let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-
-            // Re-enable editing
-            doc.body.setAttribute('contenteditable', 'true');
-            doc.designMode = 'on';
-
-            // Create download
-            const blob = new Blob([html], { type: 'text/html' });
+            const blob = await zip.generateAsync({ type: 'blob' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = currentFileName.replace('.html', '-edited.html').replace('.htm', '-edited.htm');
+            a.download = projectName + '-edited.zip';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        });
+        }
 
-        // Allow uploading a new file
-        uploadBtn.addEventListener('click', () => {
-            fileInput.value = '';
-            fileInput.click();
-        });
+        // Restore CSS links from inline styles
+        function restoreCssLinks(html) {
+            const parser = new DOMParser();
+            const tempDoc = parser.parseFromString(html, 'text/html');
+
+            tempDoc.querySelectorAll('style[data-original-href]').forEach(style => {
+                const href = style.getAttribute('data-original-href');
+                const link = tempDoc.createElement('link');
+                link.setAttribute('rel', 'stylesheet');
+                link.setAttribute('href', href);
+                style.parentNode.replaceChild(link, style);
+            });
+
+            // Also remove the editor styles
+            tempDoc.querySelectorAll('style').forEach(style => {
+                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
+                    style.remove();
+                }
+            });
+
+            return '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
+        }
+
+        // Download single HTML file
+        function downloadSingleFile() {
+            const [filename, content] = [...projectFiles.entries()][0];
+
+            // Clean up editor styles
+            const parser = new DOMParser();
+            const tempDoc = parser.parseFromString(content, 'text/html');
+            tempDoc.querySelectorAll('style').forEach(style => {
+                if (style.textContent.includes('#3d4b40') && style.textContent.includes('contenteditable')) {
+                    style.remove();
+                }
+            });
+
+            const cleanHtml = '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
+
+            const blob = new Blob([cleanHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename.replace('.html', '-edited.html').replace('.htm', '-edited.htm');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
     </script>
 </body>
 </html>
