@@ -3,84 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMDITIS // SYSTEM_GUIDE</title>
+    <title>Amditis // System Guide</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    
+
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/assets/amditis-config.js"></script>
-    
+
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="flex min-h-screen relative z-10">
-        
+
         <!-- Sidebar -->
-        <aside class="w-64 border-r border-white/10 bg-void hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
-            <div class="p-6 border-b border-white/10">
+        <aside class="w-64 border-r border-ink/10 bg-canvas hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
+            <div class="p-6 border-b border-ink/10">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch">A</div>
+                    <div class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl">A</div>
                     <div>
-                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">AMDITIS</h1>
-                        <p class="text-xs text-gray-500 tracking-[0.2em]">KIT v2.5</p>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-ink">AMDITIS</h1>
+                        <p class="text-xs text-ink/50 tracking-[0.2em]">KIT v2.5</p>
                     </div>
                 </div>
             </div>
-            
+
             <nav class="p-6 space-y-1 text-sm">
-                <a href="#intro" class="block px-3 py-2 text-acid border-l-2 border-acid bg-white/5">INTRO</a>
-                <a href="#typography" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">TYPOGRAPHY</a>
-                <a href="#colors" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">COLORS</a>
-                <a href="#components" class="block px-3 py-2 text-gray-500 hover:text-white border-l-2 border-transparent hover:border-white/20 transition-all">COMPONENTS</a>
+                <a href="#intro" class="block px-3 py-2 text-accent border-l-2 border-accent bg-accent/5">Intro</a>
+                <a href="#typography" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Typography</a>
+                <a href="#colors" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Colors</a>
+                <a href="#components" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Components</a>
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-5xl mx-auto space-y-24">
-            
+
             <!-- Intro -->
-            <section id="intro" class="border-b border-white/10 pb-12">
-                <h2 class="font-display text-4xl md:text-6xl text-chrome mb-4 glitch-text" data-text="SYSTEM_GUIDE">SYSTEM_GUIDE</h2>
-                <p class="text-gray-400 max-w-2xl text-lg font-mono border-l-2 border-acid pl-4">
-                    The Amditis Design System. A high-contrast, data-dense aesthetic optimized for technical documentation and terminal-adjacent interfaces.
+            <section id="intro" class="border-b border-ink/10 pb-12">
+                <h2 class="font-display text-4xl md:text-6xl font-light italic text-ink mb-4">System Guide</h2>
+                <p class="text-ink/60 max-w-2xl text-lg border-l-2 border-accent pl-4">
+                    The Amditis Design System V2. A light editorial aesthetic optimized for technical documentation and archival interfaces.
                 </p>
             </section>
 
             <!-- Typography -->
             <section id="typography">
-                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
-                    <h3 class="font-display text-2xl text-ice">01 // TYPOGRAPHY</h3>
-                    <span class="text-xs text-gray-600 font-mono">FONTS & HIERARCHY</span>
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">01 // Typography</h3>
+                    <span class="text-xs text-ink/40">Fonts & hierarchy</span>
                 </div>
-                
+
                 <div class="space-y-12">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-white/10 pb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-ink/10 pb-8">
                         <div>
-                            <h4 class="text-white font-bold mb-2">Display font</h4>
-                            <p class="text-xs text-gray-500 font-mono">Chakra Petch</p>
+                            <h4 class="text-ink font-bold mb-2">Display font</h4>
+                            <p class="text-xs text-ink/50">Playfair Display</p>
                         </div>
                         <div class="md:col-span-2 space-y-4">
-                            <h1 class="font-display text-4xl font-bold text-white">Mission Critical</h1>
-                            <h2 class="font-display text-2xl font-bold text-white">System Status: Online</h2>
-                            <h3 class="font-display text-xl text-white">Sector 7G</h3>
+                            <h1 class="font-display text-4xl font-light italic text-ink">Mission Critical</h1>
+                            <h2 class="font-display text-2xl font-light italic text-ink">System Status: Online</h2>
+                            <h3 class="font-display text-xl text-ink">Sector 7G</h3>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div>
-                            <h4 class="text-white font-bold mb-2">Monospace</h4>
-                            <p class="text-xs text-gray-500 font-mono">Share Tech Mono</p>
+                            <h4 class="text-ink font-bold mb-2">Body font</h4>
+                            <p class="text-xs text-ink/50">Inter</p>
                         </div>
                         <div class="md:col-span-2">
-                            <p class="text-base text-gray-400 font-mono leading-relaxed max-w-xl">
-                                The quick brown fox jumps over the lazy dog. 
-                                System initialization complete. 
+                            <p class="text-base text-ink/60 leading-relaxed max-w-xl">
+                                The quick brown fox jumps over the lazy dog.
+                                System initialization complete.
                                 [0] Errors found.
                             </p>
                         </div>
@@ -90,96 +90,96 @@
 
             <!-- Colors -->
             <section id="colors">
-                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
-                    <h3 class="font-display text-2xl text-acid">02 // CHROMATICS</h3>
-                    <span class="text-xs text-gray-600 font-mono">PALETTE</span>
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">02 // Chromatics</h3>
+                    <span class="text-xs text-ink/40">Palette</span>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div>
-                        <div class="h-20 bg-void border border-white/10 mb-2"></div>
-                        <div class="font-bold text-white text-xs">VOID</div>
-                        <div class="text-xs text-gray-500">#050505</div>
+                        <div class="h-20 bg-canvas border border-ink/10 mb-2"></div>
+                        <div class="font-bold text-ink text-xs">Canvas</div>
+                        <div class="text-xs text-ink/50">#FAF8F5</div>
                     </div>
                     <div>
-                        <div class="h-20 bg-panel border border-white/10 mb-2"></div>
-                        <div class="font-bold text-white text-xs">PANEL</div>
-                        <div class="text-xs text-gray-500">#0A0A0A</div>
+                        <div class="h-20 bg-white border border-ink/10 mb-2"></div>
+                        <div class="font-bold text-ink text-xs">Paper</div>
+                        <div class="text-xs text-ink/50">#FFFFFF</div>
                     </div>
                     <div>
-                        <div class="h-20 bg-surface border border-white/10 mb-2"></div>
-                        <div class="font-bold text-white text-xs">SURFACE</div>
-                        <div class="text-xs text-gray-500">#111111</div>
+                        <div class="h-20 bg-ink/5 border border-ink/10 mb-2"></div>
+                        <div class="font-bold text-ink text-xs">Surface</div>
+                        <div class="text-xs text-ink/50">ink/5</div>
                     </div>
                     <div>
-                        <div class="h-20 bg-chrome border border-white/10 mb-2"></div>
-                        <div class="font-bold text-white text-xs">CHROME</div>
-                        <div class="text-xs text-gray-500">#E5E5E5</div>
+                        <div class="h-20 bg-ink border border-ink/10 mb-2"></div>
+                        <div class="font-bold text-ink text-xs">Ink</div>
+                        <div class="text-xs text-ink/50">#1A1A1A</div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
                     <div>
-                        <div class="h-20 bg-acid mb-2"></div>
-                        <div class="font-bold text-acid text-xs">ACID</div>
-                        <div class="text-xs text-gray-500">#CCFF00</div>
+                        <div class="h-20 bg-accent mb-2"></div>
+                        <div class="font-bold text-accent text-xs">Accent</div>
+                        <div class="text-xs text-ink/50">#B8860B</div>
                     </div>
                     <div>
-                        <div class="h-20 bg-signal mb-2"></div>
-                        <div class="font-bold text-signal text-xs">SIGNAL</div>
-                        <div class="text-xs text-gray-500">#FF2A2A</div>
+                        <div class="h-20 bg-red-600 mb-2"></div>
+                        <div class="font-bold text-red-600 text-xs">Signal</div>
+                        <div class="text-xs text-ink/50">#DC2626</div>
                     </div>
                     <div>
-                        <div class="h-20 bg-ice mb-2"></div>
-                        <div class="font-bold text-ice text-xs">ICE</div>
-                        <div class="text-xs text-gray-500">#00F0FF</div>
+                        <div class="h-20 bg-green-600 mb-2"></div>
+                        <div class="font-bold text-green-600 text-xs">Success</div>
+                        <div class="text-xs text-ink/50">#16A34A</div>
                     </div>
                 </div>
             </section>
 
             <!-- Components -->
             <section id="components">
-                <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-8">
-                    <h3 class="font-display text-2xl text-signal">03 // MODULES</h3>
-                    <span class="text-xs text-gray-600 font-mono">UI ELEMENTS</span>
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">03 // Modules</h3>
+                    <span class="text-xs text-ink/40">UI elements</span>
                 </div>
 
                 <div class="space-y-12">
-                    
+
                     <!-- Buttons -->
                     <div>
-                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase">Interactive triggers</h4>
-                        <div class="flex flex-wrap gap-4 p-8 border border-white/10 bg-panel bg-grid-pattern">
-                            <button class="px-6 py-2 bg-acid text-black font-bold font-mono text-sm hover:bg-white transition-colors clip-notch">
-                                EXECUTE
+                        <h4 class="text-xs text-ink/50 mb-4 uppercase">Interactive triggers</h4>
+                        <div class="flex flex-wrap gap-4 p-8 border border-ink/10 bg-ink/[0.02]">
+                            <button class="btn-primary">
+                                Execute
                             </button>
-                            <button class="px-6 py-2 border border-acid text-acid font-bold font-mono text-sm hover:bg-acid/10 transition-colors">
-                                [ SCAN ]
+                            <button class="btn-outline">
+                                Scan
                             </button>
-                            <button class="px-6 py-2 bg-signalDim border border-signal text-signal font-bold font-mono text-sm hover:bg-signal hover:text-black transition-colors uppercase">
-                                ABORT
+                            <button class="px-6 py-2 bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors uppercase">
+                                Abort
                             </button>
                         </div>
                     </div>
 
                     <!-- Cards -->
                     <div>
-                        <h4 class="text-xs text-gray-500 mb-4 font-mono uppercase">Data container</h4>
-                        <div class="w-full max-w-md border border-white/10 bg-panel relative group">
+                        <h4 class="text-xs text-ink/50 mb-4 uppercase">Data container</h4>
+                        <div class="w-full max-w-md deckle-card relative group">
                             <div class="absolute top-0 right-0 p-2 opacity-50">
-                                <i data-lucide="cpu" class="w-5 h-5 text-gray-600"></i>
+                                <i data-lucide="cpu" class="w-5 h-5 text-ink/40"></i>
                             </div>
                             <div class="p-6">
-                                <div class="text-xs text-acid font-mono mb-2">:: SYSTEM_CORE</div>
-                                <h3 class="text-xl text-white font-display font-bold mb-4">Processing Unit 01</h3>
-                                <div class="flex gap-4 text-xs font-mono text-gray-500">
-                                    <span class="flex items-center gap-1"><div class="w-1.5 h-1.5 bg-acid rounded-full"></div> ONLINE</span>
-                                    <span>LOAD: 45%</span>
+                                <div class="text-xs text-accent mb-2">:: System Core</div>
+                                <h3 class="text-xl text-ink font-display font-bold mb-4">Processing Unit 01</h3>
+                                <div class="flex gap-4 text-xs text-ink/50">
+                                    <span class="flex items-center gap-1"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Online</span>
+                                    <span>Load: 45%</span>
                                 </div>
                             </div>
-                            <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600">
+                            <div class="bg-ink/[0.03] px-6 py-2 border-t border-ink/10 flex justify-between items-center text-xs text-ink/40">
                                 <span>ID: 884-22</span>
-                                <span>REV: 2.1</span>
+                                <span>Rev: 2.1</span>
                             </div>
                         </div>
                     </div>
@@ -189,6 +189,15 @@
 
         </main>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-canvas py-8 relative z-10">
+        <div class="max-w-5xl mx-auto px-6 md:pl-72 text-center md:text-left">
+            <p class="text-canvas/60 text-sm">
+                Part of the <a href="/" class="text-canvas hover:text-accent transition-colors">Amditis Resource Kit</a> // CCM Resources
+            </p>
+        </div>
+    </footer>
 
     <script>
         lucide.createIcons();

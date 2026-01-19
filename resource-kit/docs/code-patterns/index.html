@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODE_PATTERNS // AMDITIS KIT</title>
+    <title>Code Patterns // Amditis Kit</title>
     <meta name="description" content="Advanced Claude Code patterns for building reliable AI-assisted workflows. Seven core lessons from 2000+ hours of LLM development.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
@@ -16,18 +21,32 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Page-specific enhancements */
-        .card-glow-acid:hover {
-            box-shadow: 0 0 30px rgba(204, 255, 0, 0.15);
+        body {
+            background-color: #ede6d4;
+            color: #121212;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
-        .card-glow-ice:hover {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+
+        .paper-overlay {
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
         }
-        .card-glow-signal:hover {
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.15);
+
+        .deckle-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
         }
-        .card-glow-white:hover {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+
+        .deckle-card:hover {
+            box-shadow: 0 20px 60px -10px rgba(18, 18, 18, 0.1);
         }
 
         /* Animated underline */
@@ -50,78 +69,85 @@
 
         /* Pulse animation for the status indicator */
         @keyframes pulse-glow {
-            0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
-            50% { opacity: 0.6; box-shadow: 0 0 15px currentColor; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         .pulse-status {
             animation: pulse-glow 2s ease-in-out infinite;
         }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-1%, 1%); }
+        }
+        .animate-drift {
+            animation: drift 25s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/5 bg-canvas/80 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                    <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome group-hover:text-acid transition-colors">CODE_PATTERNS</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">AMDITIS_KIT</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink group-hover:text-accent transition-colors">Code Patterns</div>
+                        <div class="text-xs text-mist tracking-[0.2em]">AMDITIS KIT</div>
                     </div>
                 </a>
-                <nav class="flex gap-4 md:gap-6 text-xs font-mono">
-                    <a href="/" class="text-gray-400 hover:text-acid transition-colors flex items-center gap-2">
+                <nav class="flex gap-4 md:gap-6 text-xs">
+                    <a href="/" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                        <span class="hidden sm:inline">[ MAIN_HUB ]</span>
+                        <span class="hidden sm:inline">Main Hub</span>
                     </a>
                 </nav>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <section class="py-16 md:py-24 px-6 text-center border-b border-white/10 relative overflow-hidden">
+        <section class="py-16 md:py-24 px-6 text-center border-b border-ink/5 relative overflow-hidden">
             <!-- Gradient glow -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-acid/5 blur-[100px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-signal/5 blur-[80px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
                 <!-- Status badge -->
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-acid/30 text-acid text-xs font-mono tracking-widest bg-acidDim">
-                    <span class="w-2 h-2 bg-acid rounded-full pulse-status"></span>
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-accent/30 text-accent text-xs tracking-widest bg-accent/5">
+                    <span class="w-2 h-2 bg-accent rounded-full pulse-status"></span>
                     MODE: ADVANCED
                 </div>
 
-                <!-- Glitch title -->
-                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight glitch-text" data-text="CLAUDE CODE PATTERNS">
-                    CLAUDE CODE PATTERNS
+                <!-- Title -->
+                <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-black italic mb-6 text-ink tracking-tight">
+                    Claude Code Patterns
                 </h1>
 
                 <!-- Tagline -->
-                <p class="text-gray-400 text-lg md:text-xl font-mono max-w-2xl mx-auto mb-8 leading-relaxed">
+                <p class="text-mist text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
                     Seven battle-tested patterns from 2000+ hours of LLM development. <br class="hidden sm:inline">
-                    <span class="text-signal">Master the feedback loops that make AI reliable.</span>
+                    <span class="text-accent font-medium">Master the feedback loops that make AI reliable.</span>
                 </p>
 
                 <!-- Terminal-style intro -->
-                <div class="max-w-xl mx-auto bg-panel border border-white/10 p-4 text-left text-sm">
-                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/5">
-                        <span class="w-3 h-3 rounded-full bg-signal"></span>
-                        <span class="w-3 h-3 rounded-full bg-acid"></span>
-                        <span class="w-3 h-3 rounded-full bg-ice"></span>
-                        <span class="text-xs text-gray-600 ml-2">patterns_init.sh</span>
+                <div class="max-w-xl mx-auto deckle-card p-4 text-left text-sm">
+                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-ink/5">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                        <span class="text-xs text-mist ml-2">patterns_init.sh</span>
                     </div>
-                    <code class="text-gray-500">
-                        <span class="text-acid">$</span> ./load_patterns --source=<span class="text-signal">production</span><br>
-                        <span class="text-gray-600"># Core philosophy: YOU own the failures</span><br>
-                        <span class="text-gray-600"># Either bad prompts or bad context</span><br>
-                        <span class="text-gray-600"># Fix the system, not the symptoms</span><br>
-                        <span class="text-acid">Ready.</span> <span class="text-white">Select your module below.</span>
+                    <code class="text-mist font-mono text-xs">
+                        <span class="text-accent">$</span> ./load_patterns --source=<span class="text-accent">production</span><br>
+                        <span class="text-mist/60"># Core philosophy: YOU own the failures</span><br>
+                        <span class="text-mist/60"># Either bad prompts or bad context</span><br>
+                        <span class="text-mist/60"># Fix the system, not the symptoms</span><br>
+                        <span class="text-accent">Ready.</span> <span class="text-ink">Select your module below.</span>
                     </code>
                 </div>
             </div>
@@ -131,20 +157,20 @@
         <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12 md:py-16">
 
             <!-- Core Philosophy -->
-            <section class="mb-16 border border-signal/30 bg-surface/50 p-6 md:p-8 relative">
-                <div class="absolute -top-3 left-6 bg-void px-3 text-xs text-signal font-mono">
-                    CORE_PRINCIPLE
+            <section class="mb-16 deckle-card border-l-4 border-l-accent p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-canvas px-3 text-xs text-accent font-bold uppercase tracking-wider">
+                    Core Principle
                 </div>
                 <div class="flex items-start gap-4">
-                    <div class="text-signal mt-1 hidden sm:block">
+                    <div class="text-accent mt-1 hidden sm:block">
                         <i data-lucide="alert-triangle" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <p class="text-gray-400 font-mono leading-relaxed mb-4">
-                            <span class="text-white">"Any issue in LLM-generated code is solely due to YOU, the user."</span>
+                        <p class="text-mist leading-relaxed mb-4">
+                            <span class="text-ink font-medium">"Any issue in LLM-generated code is solely due to YOU, the user."</span>
                             Problems trace back to two root causes: inadequate prompt engineering or insufficient context management.
                         </p>
-                        <p class="text-sm text-gray-600 font-mono">
+                        <p class="text-sm text-mist/70">
                             // The patterns below fix both. No more blaming the model.
                         </p>
                     </div>
@@ -153,77 +179,77 @@
 
             <!-- Primary Paths Section -->
             <section class="mb-16">
-                <div class="border-b border-white/10 pb-4 mb-8">
+                <div class="border-b border-ink/10 pb-4 mb-8">
                     <div class="flex items-end justify-between">
-                        <h2 class="font-display text-xl md:text-2xl text-white">// CORE_MODULES</h2>
-                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">START_HERE</span>
+                        <h2 class="font-display text-xl md:text-2xl text-ink italic">Core <span class="font-black">Modules</span></h2>
+                        <span class="text-xs text-mist hidden sm:inline">START HERE</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- LESSONS Card -->
-                    <a href="/code-patterns/lessons/" class="group block border border-white/10 bg-panel hover:border-acid transition-all duration-300 relative overflow-hidden card-glow-acid">
+                    <a href="/code-patterns/lessons/" class="group block deckle-card hover:border-accent/20 transition-all duration-300 relative overflow-hidden">
                         <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-acid/50 group-hover:border-acid transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-acid/50 group-hover:border-acid transition-colors"></div>
+                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/20 group-hover:border-accent/40 transition-colors"></div>
+                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/20 group-hover:border-accent/40 transition-colors"></div>
 
                         <!-- Icon -->
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-acid">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-60 transition-opacity text-accent">
                             <i data-lucide="graduation-cap" class="w-10 h-10"></i>
                         </div>
 
                         <div class="p-8 relative">
-                            <div class="text-xs text-acid font-mono mb-3 tracking-widest">:: MODULE_01</div>
-                            <h3 class="font-display text-2xl md:text-3xl text-white font-bold mb-4 group-hover:text-acid transition-colors">
-                                SEVEN LESSONS
+                            <div class="text-xs text-accent font-bold mb-3 tracking-widest uppercase">Module 01</div>
+                            <h3 class="font-display text-2xl md:text-3xl text-ink font-black italic mb-4 group-hover:text-accent transition-colors">
+                                Seven Lessons
                             </h3>
-                            <p class="text-gray-500 font-mono leading-relaxed mb-6">
+                            <p class="text-mist leading-relaxed mb-6">
                                 The complete pattern library. Error logging, commands-as-apps, hooks, context hygiene, subagent control, tool stacks, and prompt engineering.
                             </p>
                             <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">feedback loops</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">determinism</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">context</span>
-                                <span class="px-2 py-1 bg-acid/10 text-acid border border-acid/20">safety</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">feedback loops</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">determinism</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">context</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">safety</span>
                             </div>
                         </div>
 
-                        <div class="bg-surface px-8 py-3 border-t border-white/10 flex justify-between items-center text-sm font-mono text-gray-600 group-hover:text-acid transition-colors">
-                            <span>LOAD_LESSONS</span>
+                        <div class="bg-ink/5 px-8 py-3 border-t border-ink/5 flex justify-between items-center text-sm text-mist group-hover:text-accent transition-colors">
+                            <span>Load Lessons</span>
                             <span class="group-hover:translate-x-2 transition-transform">-></span>
                         </div>
                     </a>
 
                     <!-- QUICK REFERENCE Card -->
-                    <a href="/code-patterns/quick-reference/" class="group block border border-white/10 bg-panel hover:border-ice transition-all duration-300 relative overflow-hidden card-glow-ice">
+                    <a href="/code-patterns/quick-reference/" class="group block deckle-card hover:border-accent/20 transition-all duration-300 relative overflow-hidden">
                         <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-ice/50 group-hover:border-ice transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-ice/50 group-hover:border-ice transition-colors"></div>
+                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/20 group-hover:border-accent/40 transition-colors"></div>
+                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/20 group-hover:border-accent/40 transition-colors"></div>
 
                         <!-- Icon -->
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-ice">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-60 transition-opacity text-accent">
                             <i data-lucide="table" class="w-10 h-10"></i>
                         </div>
 
                         <div class="p-8 relative">
-                            <div class="text-xs text-ice font-mono mb-3 tracking-widest">:: MODULE_02</div>
-                            <h3 class="font-display text-2xl md:text-3xl text-white font-bold mb-4 group-hover:text-ice transition-colors">
-                                QUICK REFERENCE
+                            <div class="text-xs text-accent font-bold mb-3 tracking-widest uppercase">Module 02</div>
+                            <h3 class="font-display text-2xl md:text-3xl text-ink font-black italic mb-4 group-hover:text-accent transition-colors">
+                                Quick Reference
                             </h3>
-                            <p class="text-gray-500 font-mono leading-relaxed mb-6">
+                            <p class="text-mist leading-relaxed mb-6">
                                 Situation-action lookup tables. When Claude does something wrong, when context gets polluted, when you need reliable workflows.
                             </p>
                             <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">debugging</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">recovery</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">workflows</span>
-                                <span class="px-2 py-1 bg-ice/10 text-ice border border-ice/20">optimization</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">debugging</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">recovery</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">workflows</span>
+                                <span class="px-2 py-1 bg-accent/10 text-accent border border-accent/20">optimization</span>
                             </div>
                         </div>
 
-                        <div class="bg-surface px-8 py-3 border-t border-white/10 flex justify-between items-center text-sm font-mono text-gray-600 group-hover:text-ice transition-colors">
-                            <span>VIEW_TABLES</span>
+                        <div class="bg-ink/5 px-8 py-3 border-t border-ink/5 flex justify-between items-center text-sm text-mist group-hover:text-accent transition-colors">
+                            <span>View Tables</span>
                             <span class="group-hover:translate-x-2 transition-transform">-></span>
                         </div>
                     </a>
@@ -233,55 +259,55 @@
 
             <!-- Skills Section -->
             <section>
-                <div class="border-b border-white/10 pb-4 mb-8">
+                <div class="border-b border-ink/10 pb-4 mb-8">
                     <div class="flex items-end justify-between">
-                        <h2 class="font-display text-xl md:text-2xl text-white">// EXECUTABLE_SKILLS</h2>
-                        <span class="text-xs text-gray-600 font-mono hidden sm:inline">COPY_TO_PROJECT</span>
+                        <h2 class="font-display text-xl md:text-2xl text-ink italic">Executable <span class="font-black">Skills</span></h2>
+                        <span class="text-xs text-mist hidden sm:inline">COPY TO PROJECT</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                     <!-- /log_error Card -->
-                    <a href="/code-patterns/skills/#log-error" class="group block border border-white/10 bg-panel hover:border-signal transition-all duration-300 relative overflow-hidden card-glow-signal">
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-signal">
+                    <a href="/code-patterns/skills/#log-error" class="group block deckle-card hover:border-accent/20 transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-60 transition-opacity text-accent">
                             <i data-lucide="bug" class="w-8 h-8"></i>
                         </div>
 
                         <div class="p-6">
-                            <div class="text-xs text-signal font-mono mb-2 tracking-widest">:: SKILL</div>
-                            <h3 class="font-display text-xl text-white font-bold mb-3 group-hover:text-signal transition-colors">
+                            <div class="text-xs text-accent font-bold mb-2 tracking-widest uppercase">Skill</div>
+                            <h3 class="font-display text-xl text-ink font-black italic mb-3 group-hover:text-accent transition-colors">
                                 /log_error
                             </h3>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <p class="text-sm text-mist leading-relaxed">
                                 Systematic failure capture. Fork conversations, interview Claude about what went wrong, document the exact prompt that broke things.
                             </p>
                         </div>
 
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-signal transition-colors">
-                            <span>VIEW_SKILL</span>
+                        <div class="bg-ink/5 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-xs text-mist group-hover:text-accent transition-colors">
+                            <span>View Skill</span>
                             <span class="group-hover:translate-x-1 transition-transform">-></span>
                         </div>
                     </a>
 
                     <!-- /log_success Card -->
-                    <a href="/code-patterns/skills/#log-success" class="group block border border-white/10 bg-panel hover:border-acid transition-all duration-300 relative overflow-hidden card-glow-acid">
-                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-acid">
+                    <a href="/code-patterns/skills/#log-success" class="group block deckle-card hover:border-accent/20 transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-60 transition-opacity text-accent">
                             <i data-lucide="check-circle" class="w-8 h-8"></i>
                         </div>
 
                         <div class="p-6">
-                            <div class="text-xs text-acid font-mono mb-2 tracking-widest">:: SKILL</div>
-                            <h3 class="font-display text-xl text-white font-bold mb-3 group-hover:text-acid transition-colors">
+                            <div class="text-xs text-accent font-bold mb-2 tracking-widest uppercase">Skill</div>
+                            <h3 class="font-display text-xl text-ink font-black italic mb-3 group-hover:text-accent transition-colors">
                                 /log_success
                             </h3>
-                            <p class="text-sm text-gray-500 font-mono leading-relaxed">
+                            <p class="text-sm text-mist leading-relaxed">
                                 Capture what works. Document effective prompts, extract generalizable templates, build a library of reliable patterns.
                             </p>
                         </div>
 
-                        <div class="bg-surface px-6 py-2 border-t border-white/10 flex justify-between items-center text-xs font-mono text-gray-600 group-hover:text-acid transition-colors">
-                            <span>VIEW_SKILL</span>
+                        <div class="bg-ink/5 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-xs text-mist group-hover:text-accent transition-colors">
+                            <span>View Skill</span>
                             <span class="group-hover:translate-x-1 transition-transform">-></span>
                         </div>
                     </a>
@@ -290,20 +316,20 @@
             </section>
 
             <!-- Context Warning -->
-            <section class="mt-16 border border-white/10 bg-surface/50 p-6 md:p-8 relative">
-                <div class="absolute -top-3 left-6 bg-void px-3 text-xs text-gray-500 font-mono">
-                    PERFORMANCE_NOTE
+            <section class="mt-16 deckle-card border-l-4 border-l-accent/50 p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-canvas px-3 text-xs text-mist font-bold uppercase tracking-wider">
+                    Performance Note
                 </div>
                 <div class="flex items-start gap-4">
-                    <div class="text-ice mt-1 hidden sm:block">
+                    <div class="text-accent mt-1 hidden sm:block">
                         <i data-lucide="gauge" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <p class="text-gray-400 font-mono leading-relaxed mb-4">
-                            <span class="text-white">Models degrade ~50% at 50k tokens.</span>
+                        <p class="text-mist leading-relaxed mb-4">
+                            <span class="text-ink font-medium">Models degrade ~50% at 50k tokens.</span>
                             Context is finite. Every token must earn its place. These patterns help you stay lean and effective across long sessions.
                         </p>
-                        <p class="text-sm text-gray-600 font-mono">
+                        <p class="text-sm text-mist/70">
                             // Treat context like RAM. Clean it. Manage it. Respect its limits.
                         </p>
                     </div>
@@ -313,35 +339,35 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel/50 mt-auto">
+        <footer class="bg-ink text-canvas mt-auto">
             <div class="max-w-6xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
-                        <p class="text-gray-500 font-mono text-sm">
-                            <span class="text-signal">//</span> Build the feedback loops. <span class="text-acid">Make the model work for you.</span>
+                        <p class="text-canvas/70 text-sm">
+                            Build the feedback loops. <span class="text-canvas">Make the model work for you.</span>
                         </p>
                     </div>
-                    <div class="flex items-center gap-6 text-xs font-mono">
-                        <a href="/" class="text-gray-500 hover:text-acid transition-colors flex items-center gap-2">
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="home" class="w-3 h-3"></i>
-                            MAIN_HUB
+                            Main Hub
                         </a>
-                        <a href="/vibe-coding/" class="text-gray-500 hover:text-ice transition-colors flex items-center gap-2">
+                        <a href="/vibe-coding/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="terminal" class="w-3 h-3"></i>
-                            VIBE_CODING
+                            Vibe Coding
                         </a>
-                        <a href="/llm-advisor/" class="text-gray-500 hover:text-signal transition-colors flex items-center gap-2">
+                        <a href="/llm-advisor/" class="text-canvas/50 hover:text-canvas transition-colors flex items-center gap-2">
                             <i data-lucide="bot" class="w-3 h-3"></i>
-                            LLM_ADVISOR
+                            LLM Advisor
                         </a>
                     </div>
                 </div>
-                <div class="mt-6 pt-6 border-t border-white/5 text-center">
-                    <p class="text-xs text-gray-600 font-mono">
-                        AMDITIS_KIT v2.6 // Part of the <a href="/" class="text-gray-500 hover:text-acid transition-colors hover-line">CCM Resource Collection</a>
+                <div class="mt-6 pt-6 border-t border-canvas/10 text-center">
+                    <p class="text-xs text-canvas/40">
+                        Amditis Kit v2.6 // Part of the <a href="/" class="text-canvas/60 hover:text-canvas transition-colors hover-line">CCM Resource Collection</a>
                     </p>
-                    <p class="text-xs text-gray-700 font-mono mt-2">
-                        Source: <a href="https://github.com/jamditis/stash/tree/main/ai/claude-code-patterns" class="text-gray-600 hover:text-acid transition-colors hover-line" target="_blank" rel="noopener">Advanced Claude Code Patterns</a>
+                    <p class="text-xs text-canvas/30 mt-2">
+                        Source: <a href="https://github.com/jamditis/stash/tree/main/ai/claude-code-patterns" class="text-canvas/50 hover:text-canvas transition-colors hover-line" target="_blank" rel="noopener">Advanced Claude Code Patterns</a>
                     </p>
                 </div>
             </div>

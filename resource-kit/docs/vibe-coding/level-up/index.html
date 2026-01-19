@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVEL UP // AMDITIS KIT</title>
+    <title>Level Up | Amditis Kit</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
     <!-- CSS & Config -->
@@ -14,25 +14,25 @@
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <a href="/" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">A</a>
+                    <a href="/" class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl rounded hover:bg-ink transition-colors">A</a>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome">DATABASE // LEVEL_UP</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">SKILLS_V1.0</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink">Database | Level Up</div>
+                        <div class="text-xs text-ink/50 tracking-wide">Skills v1.0</div>
                     </div>
                 </div>
-                <a href="/" class="flex items-center gap-2 px-3 py-1 border border-white/20 text-xs text-gray-400 hover:border-acid hover:text-acid transition-colors">
-                    <i data-lucide="arrow-left" class="w-3 h-3"></i> RETURN
+                <a href="/" class="flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">
+                    <i data-lucide="arrow-left" class="w-3 h-3"></i> Return
                 </a>
             </div>
         </header>
@@ -42,30 +42,30 @@
 
             <!-- Hero -->
             <div class="max-w-3xl mx-auto mb-16 flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-2 px-3 py-1 border border-ice/30 bg-iceDim text-ice text-xs font-mono tracking-widest mb-6">
-                    <i data-lucide="trending-up" class="w-3 h-3"></i> NICE-TO-HAVE SKILLS
+                <div class="inline-flex items-center gap-2 px-3 py-1 border border-accent/30 bg-accent/5 text-accent text-xs font-medium tracking-wide rounded-full mb-6">
+                    <i data-lucide="trending-up" class="w-3 h-3"></i> Nice-to-Have Skills
                 </div>
-                <h1 class="font-display text-4xl md:text-5xl text-chrome mb-4 glitch-text" data-text="LEVEL_UP">LEVEL_UP</h1>
-                <p class="text-gray-500 text-sm mb-4 font-mono max-w-2xl">Skills that will make your vibe coding journey smoother. Not required to start, but they will save you headaches down the road.</p>
+                <h1 class="font-display text-4xl md:text-5xl font-light italic text-ink mb-4">Level Up</h1>
+                <p class="text-ink/60 text-sm mb-4 max-w-2xl">Skills that will make your vibe coding journey smoother. Not required to start, but they will save you headaches down the road.</p>
                 <div class="flex flex-wrap justify-center gap-2 text-xs">
-                    <span class="px-2 py-1 bg-surface border border-white/10 text-gray-400">8 TOPICS</span>
-                    <span class="px-2 py-1 bg-surface border border-white/10 text-gray-400">PRACTICAL EXAMPLES</span>
-                    <span class="px-2 py-1 bg-surface border border-white/10 text-ice">COPY-PASTE READY</span>
+                    <span class="px-2 py-1 bg-cream border border-ink/10 text-ink/60 rounded">8 Topics</span>
+                    <span class="px-2 py-1 bg-cream border border-ink/10 text-ink/60 rounded">Practical Examples</span>
+                    <span class="px-2 py-1 bg-cream border border-ink/10 text-accent rounded">Copy-Paste Ready</span>
                 </div>
             </div>
 
             <!-- Quick Nav -->
-            <div class="max-w-4xl mx-auto mb-16 p-4 bg-surface border border-white/10">
-                <div class="text-xs text-gray-500 mb-3 font-mono">JUMP_TO:</div>
+            <div class="max-w-4xl mx-auto mb-16 p-4 bg-cream border border-ink/10 rounded-lg">
+                <div class="text-xs text-ink/50 mb-3">Jump To:</div>
                 <div class="flex flex-wrap gap-2">
-                    <a href="#npm-legacy" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">npm --legacy-peer-deps</a>
-                    <a href="#gitignore" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">.gitignore</a>
-                    <a href="#git-commands" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">Git commands</a>
-                    <a href="#sql-basics" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">SQL basics</a>
-                    <a href="#auth-basics" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">Auth basics</a>
-                    <a href="#dev-jargon" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">Dev jargon</a>
-                    <a href="#reading-docs" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">Reading docs</a>
-                    <a href="#asking-ai" class="px-3 py-1.5 bg-panel border border-white/10 text-xs text-gray-400 hover:border-ice hover:text-ice transition-colors">Asking AI better</a>
+                    <a href="#npm-legacy" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">npm --legacy-peer-deps</a>
+                    <a href="#gitignore" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">.gitignore</a>
+                    <a href="#git-commands" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">Git commands</a>
+                    <a href="#sql-basics" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">SQL basics</a>
+                    <a href="#auth-basics" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">Auth basics</a>
+                    <a href="#dev-jargon" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">Dev jargon</a>
+                    <a href="#reading-docs" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">Reading docs</a>
+                    <a href="#asking-ai" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">Asking AI better</a>
                 </div>
             </div>
 
@@ -74,51 +74,51 @@
 
                 <!-- Topic 1: npm --legacy-peer-deps -->
                 <section id="npm-legacy" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="package" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">01 // DEPENDENCY_FIX</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">npm i --legacy-peer-deps</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">01 | Dependency Fix</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">npm i --legacy-peer-deps</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-ice/10 border border-ice/30 text-ice text-xs">ESSENTIAL</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Essential</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-ice text-sm font-bold mb-2 flex items-center gap-2">
-                                        <i data-lucide="help-circle" class="w-4 h-4"></i> WHEN_TO_USE
+                                    <h3 class="text-accent text-sm font-bold mb-2 flex items-center gap-2">
+                                        <i data-lucide="help-circle" class="w-4 h-4"></i> When to Use
                                     </h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed">When you run <code class="text-ice bg-ice/10 px-1">npm install</code> and get scary errors about "peer dependency conflicts" or "ERESOLVE unable to resolve dependency tree."</p>
+                                    <p class="text-ink/60 text-sm leading-relaxed">When you run <code class="text-accent bg-accent/10 px-1 rounded">npm install</code> and get scary errors about "peer dependency conflicts" or "ERESOLVE unable to resolve dependency tree."</p>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">WHAT_ARE_PEER_DEPS?</h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed">Peer dependencies are packages that say "I need package X, but YOU should install it." It is like a recipe saying "bring your own eggs." Sometimes two packages disagree on which version of eggs they want.</p>
+                                    <h3 class="text-ink text-sm font-bold mb-2">What Are Peer Deps?</h3>
+                                    <p class="text-ink/60 text-sm leading-relaxed">Peer dependencies are packages that say "I need package X, but YOU should install it." It is like a recipe saying "bring your own eggs." Sometimes two packages disagree on which version of eggs they want.</p>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">WHY_THIS_EXISTS</h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed"><span data-term="npm" class="term-link">npm</span> v7+ became stricter about <span data-term="dependencies" class="term-link">dependency</span> conflicts. Older tutorials and packages were written for npm v6 which was more lenient. The <span data-term="legacy-peer-deps" class="term-link">--legacy-peer-deps</span> flag tells npm to behave like the old version.</p>
+                                    <h3 class="text-ink text-sm font-bold mb-2">Why This Exists</h3>
+                                    <p class="text-ink/60 text-sm leading-relaxed"><span data-term="npm" class="term-link">npm</span> v7+ became stricter about <span data-term="dependencies" class="term-link">dependency</span> conflicts. Older tutorials and packages were written for npm v6 which was more lenient. The <span data-term="legacy-peer-deps" class="term-link">--legacy-peer-deps</span> flag tells npm to behave like the old version.</p>
                                 </div>
                             </div>
 
                             <div class="space-y-4">
-                                <div class="bg-[#050505] border border-white/10 p-4">
-                                    <div class="text-xs text-gray-600 mb-2 flex items-center justify-between">
-                                        <span>TERMINAL</span>
-                                        <button onclick="copyCode(this)" class="text-gray-500 hover:text-ice transition-colors">
+                                <div class="bg-ink text-white p-4 rounded-lg">
+                                    <div class="text-xs text-white/50 mb-2 flex items-center justify-between">
+                                        <span>Terminal</span>
+                                        <button onclick="copyCode(this)" class="text-white/50 hover:text-accent transition-colors">
                                             <i data-lucide="copy" class="w-3 h-3"></i>
                                         </button>
                                     </div>
-                                    <pre class="text-sm text-ice overflow-x-auto"><code># When normal install fails:
+                                    <pre class="text-sm text-accent overflow-x-auto"><code># When normal install fails:
 npm install
 
 # Try this instead:
@@ -128,22 +128,22 @@ npm install --legacy-peer-deps
 npm install react-router-dom --legacy-peer-deps</code></pre>
                                 </div>
 
-                                <div class="p-4 border border-signal/30 bg-signal/5">
+                                <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
+                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-signal text-xs font-bold mb-1">CAUTION</div>
-                                            <p class="text-gray-400 text-xs">This flag ignores version warnings. It usually works fine, but occasionally causes subtle bugs. If something acts weird later, dependency conflicts might be why.</p>
+                                            <div class="text-red-500 text-xs font-bold mb-1">Caution</div>
+                                            <p class="text-ink/60 text-xs">This flag ignores version warnings. It usually works fine, but occasionally causes subtle bugs. If something acts weird later, dependency conflicts might be why.</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="p-4 border border-acid/30 bg-acid/5">
+                                <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="lightbulb" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                        <i data-lucide="lightbulb" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-acid text-xs font-bold mb-1">PRO_TIP</div>
-                                            <p class="text-gray-400 text-xs">If you always need this flag, create a file called <code class="text-acid">.npmrc</code> in your project with: <code class="text-acid">legacy-peer-deps=true</code></p>
+                                            <div class="text-accent text-xs font-bold mb-1">Pro Tip</div>
+                                            <p class="text-ink/60 text-xs">If you always need this flag, create a file called <code class="text-accent">.npmrc</code> in your project with: <code class="text-accent">legacy-peer-deps=true</code></p>
                                         </div>
                                     </div>
                                 </div>
@@ -154,67 +154,67 @@ npm install react-router-dom --legacy-peer-deps</code></pre>
 
                 <!-- Topic 2: .gitignore -->
                 <section id="gitignore" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="eye-off" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">02 // FILE_EXCLUSION</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">.gitignore</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">02 | File Exclusion</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">.gitignore</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-ice/10 border border-ice/30 text-ice text-xs">SECURITY</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Security</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-ice text-sm font-bold mb-2 flex items-center gap-2">
-                                        <i data-lucide="shield" class="w-4 h-4"></i> WHAT_SHOULD_NEVER_BE_TRACKED
+                                    <h3 class="text-accent text-sm font-bold mb-2 flex items-center gap-2">
+                                        <i data-lucide="shield" class="w-4 h-4"></i> What Should Never Be Tracked
                                     </h3>
-                                    <ul class="text-gray-400 text-sm space-y-2">
+                                    <ul class="text-ink/60 text-sm space-y-2">
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="x" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">Secrets:</strong> API keys, passwords, tokens (.env files)</span>
+                                            <i data-lucide="x" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">Secrets:</strong> API keys, passwords, tokens (.env files)</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="x" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">Dependencies:</strong> node_modules (reinstall with npm install)</span>
+                                            <i data-lucide="x" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">Dependencies:</strong> node_modules (reinstall with npm install)</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="x" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">Build outputs:</strong> dist/, build/, .next/</span>
+                                            <i data-lucide="x" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">Build outputs:</strong> dist/, build/, .next/</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="x" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">OS junk:</strong> .DS_Store, Thumbs.db</span>
+                                            <i data-lucide="x" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">OS junk:</strong> .DS_Store, Thumbs.db</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="x" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">Editor files:</strong> .vscode/, .idea/</span>
+                                            <i data-lucide="x" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">Editor files:</strong> .vscode/, .idea/</span>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">HOW_TO_ADD_FILES</h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed">Create a file named <span data-term="gitignore" class="term-link">.gitignore</span> in your project root (the main folder of your project). Add one pattern per line. Files matching these patterns will be invisible to <span data-term="git" class="term-link">Git</span>.</p>
+                                    <h3 class="text-ink text-sm font-bold mb-2">How to Add Files</h3>
+                                    <p class="text-ink/60 text-sm leading-relaxed">Create a file named <span data-term="gitignore" class="term-link">.gitignore</span> in your project root (the main folder of your project). Add one pattern per line. Files matching these patterns will be invisible to <span data-term="git" class="term-link">Git</span>.</p>
                                 </div>
                             </div>
 
                             <div class="space-y-4">
-                                <div class="bg-[#050505] border border-white/10 p-4">
-                                    <div class="text-xs text-gray-600 mb-2 flex items-center justify-between">
-                                        <span>.gitignore // TEMPLATE</span>
-                                        <button onclick="copyCode(this)" class="text-gray-500 hover:text-ice transition-colors">
+                                <div class="bg-ink text-white p-4 rounded-lg">
+                                    <div class="text-xs text-white/50 mb-2 flex items-center justify-between">
+                                        <span>.gitignore | Template</span>
+                                        <button onclick="copyCode(this)" class="text-white/50 hover:text-accent transition-colors">
                                             <i data-lucide="copy" class="w-3 h-3"></i>
                                         </button>
                                     </div>
-                                    <pre class="text-sm text-ice overflow-x-auto"><code># Dependencies
+                                    <pre class="text-sm text-accent overflow-x-auto"><code># Dependencies
 node_modules/
 vendor/
 
@@ -248,12 +248,12 @@ npm-debug.log*
 .parcel-cache/</code></pre>
                                 </div>
 
-                                <div class="p-4 border border-signal/30 bg-signal/5">
+                                <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
+                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-signal text-xs font-bold mb-1">CRITICAL</div>
-                                            <p class="text-gray-400 text-xs">If you already committed a secret, adding it to .gitignore will NOT remove it from history. You will need to rotate that secret and treat it as compromised.</p>
+                                            <div class="text-red-500 text-xs font-bold mb-1">Critical</div>
+                                            <p class="text-ink/60 text-xs">If you already committed a secret, adding it to .gitignore will NOT remove it from history. You will need to rotate that secret and treat it as compromised.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -264,114 +264,114 @@ npm-debug.log*
 
                 <!-- Topic 3: Basic git commands -->
                 <section id="git-commands" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="git-branch" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">03 // VERSION_CONTROL</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">Basic Git commands</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">03 | Version Control</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">Basic Git Commands</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-acid/10 border border-acid/30 text-acid text-xs">CORE_SKILL</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Core Skill</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6">
                             <!-- Visual Workflow -->
-                            <div class="mb-6 p-4 bg-surface border border-white/10">
-                                <div class="text-xs text-gray-500 mb-3">VISUAL_WORKFLOW:</div>
+                            <div class="mb-6 p-4 bg-cream border border-ink/10 rounded-lg">
+                                <div class="text-xs text-ink/50 mb-3">Visual Workflow:</div>
                                 <div class="flex flex-wrap items-center justify-center gap-2 text-sm">
-                                    <div class="px-3 py-2 bg-[#050505] border border-ice/30 text-ice">clone</div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="px-3 py-2 bg-[#050505] border border-white/20 text-gray-400">make changes</div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="px-3 py-2 bg-[#050505] border border-acid/30 text-acid">add</div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="px-3 py-2 bg-[#050505] border border-acid/30 text-acid">commit</div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="px-3 py-2 bg-[#050505] border border-ice/30 text-ice">push</div>
+                                    <div class="px-3 py-2 bg-white border border-accent/30 text-accent rounded">clone</div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-ink/40"></i>
+                                    <div class="px-3 py-2 bg-white border border-ink/20 text-ink/60 rounded">make changes</div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-ink/40"></i>
+                                    <div class="px-3 py-2 bg-white border border-accent/30 text-accent rounded">add</div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-ink/40"></i>
+                                    <div class="px-3 py-2 bg-white border border-accent/30 text-accent rounded">commit</div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-ink/40"></i>
+                                    <div class="px-3 py-2 bg-white border border-accent/30 text-accent rounded">push</div>
                                 </div>
                                 <div class="text-center mt-3">
-                                    <span class="text-xs text-gray-500">Later: </span>
-                                    <span class="text-xs text-ice">pull</span>
-                                    <span class="text-xs text-gray-500"> to get updates from others</span>
+                                    <span class="text-xs text-ink/50">Later: </span>
+                                    <span class="text-xs text-accent">pull</span>
+                                    <span class="text-xs text-ink/50"> to get updates from others</span>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <!-- clone -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="download" class="w-4 h-4 text-ice"></i>
-                                        <span class="text-ice font-bold text-sm">git clone</span>
+                                        <i data-lucide="download" class="w-4 h-4 text-accent"></i>
+                                        <span class="text-accent font-bold text-sm">git clone</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">Download a project to your computer</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git clone https://github.com/user/repo.git</code>
+                                    <p class="text-white/60 text-xs mb-2">Download a project to your computer</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git clone https://github.com/user/repo.git</code>
                                 </div>
 
                                 <!-- pull -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="refresh-cw" class="w-4 h-4 text-ice"></i>
-                                        <span class="text-ice font-bold text-sm">git pull</span>
+                                        <i data-lucide="refresh-cw" class="w-4 h-4 text-accent"></i>
+                                        <span class="text-accent font-bold text-sm">git pull</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">Get the latest changes from GitHub</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git pull origin main</code>
+                                    <p class="text-white/60 text-xs mb-2">Get the latest changes from GitHub</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git pull origin main</code>
                                 </div>
 
                                 <!-- status -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="info" class="w-4 h-4 text-gray-400"></i>
-                                        <span class="text-gray-300 font-bold text-sm">git status</span>
+                                        <i data-lucide="info" class="w-4 h-4 text-white/60"></i>
+                                        <span class="text-white font-bold text-sm">git status</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">See what files have changed</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git status</code>
+                                    <p class="text-white/60 text-xs mb-2">See what files have changed</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git status</code>
                                 </div>
 
                                 <!-- add -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="plus" class="w-4 h-4 text-acid"></i>
-                                        <span class="text-acid font-bold text-sm">git add .</span>
+                                        <i data-lucide="plus" class="w-4 h-4 text-accent"></i>
+                                        <span class="text-accent font-bold text-sm">git add .</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">Stage all changes for commit</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git add .
+                                    <p class="text-white/60 text-xs mb-2">Stage all changes for commit</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git add .
 # or specific file:
 git add filename.js</code>
                                 </div>
 
                                 <!-- commit -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="save" class="w-4 h-4 text-acid"></i>
-                                        <span class="text-acid font-bold text-sm">git commit</span>
+                                        <i data-lucide="save" class="w-4 h-4 text-accent"></i>
+                                        <span class="text-accent font-bold text-sm">git commit</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">Save changes with a message</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git commit -m "Add login button"</code>
+                                    <p class="text-white/60 text-xs mb-2">Save changes with a message</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git commit -m "Add login button"</code>
                                 </div>
 
                                 <!-- push -->
-                                <div class="bg-[#050505] border border-white/10 p-4">
+                                <div class="bg-ink text-white p-4 rounded-lg">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <i data-lucide="upload" class="w-4 h-4 text-ice"></i>
-                                        <span class="text-ice font-bold text-sm">git push</span>
+                                        <i data-lucide="upload" class="w-4 h-4 text-accent"></i>
+                                        <span class="text-accent font-bold text-sm">git push</span>
                                     </div>
-                                    <p class="text-gray-500 text-xs mb-2">Upload commits to GitHub</p>
-                                    <code class="text-xs text-gray-400 block bg-panel p-2">git push origin main</code>
+                                    <p class="text-white/60 text-xs mb-2">Upload commits to GitHub</p>
+                                    <code class="text-xs text-white/70 block bg-white/10 p-2 rounded">git push origin main</code>
                                 </div>
                             </div>
 
-                            <div class="mt-4 p-4 border border-acid/30 bg-acid/5">
+                            <div class="mt-4 p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                 <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                    <i data-lucide="lightbulb" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                     <div>
-                                        <div class="text-acid text-xs font-bold mb-1">REMEMBER</div>
-                                        <p class="text-gray-400 text-xs">The typical flow: <span data-term="staging" class="term-link">git add .</span> then <span data-term="commit" class="term-link">git commit</span> then <span data-term="push-pull" class="term-link">git push</span>. Always pull before you start working to avoid <span data-term="conflict" class="term-link">conflicts</span>.</p>
+                                        <div class="text-accent text-xs font-bold mb-1">Remember</div>
+                                        <p class="text-ink/60 text-xs">The typical flow: <span data-term="staging" class="term-link">git add .</span> then <span data-term="commit" class="term-link">git commit</span> then <span data-term="push-pull" class="term-link">git push</span>. Always pull before you start working to avoid <span data-term="conflict" class="term-link">conflicts</span>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -381,65 +381,65 @@ git add filename.js</code>
 
                 <!-- Topic 4: DB schemas / SQL basics -->
                 <section id="sql-basics" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="database" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">04 // DATA_LAYER</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">DB schemas / SQL basics</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">04 | Data Layer</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">DB Schemas / SQL Basics</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-white/10 border border-white/20 text-gray-400 text-xs">SITUATIONAL</span>
+                            <span class="px-2 py-0.5 bg-ink/10 border border-ink/20 text-ink/60 text-xs rounded">Situational</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-ice text-sm font-bold mb-2 flex items-center gap-2">
-                                        <i data-lucide="layout" class="w-4 h-4"></i> WHAT_IS_A_SCHEMA?
+                                    <h3 class="text-accent text-sm font-bold mb-2 flex items-center gap-2">
+                                        <i data-lucide="layout" class="w-4 h-4"></i> What is a Schema?
                                     </h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed">A <span data-term="schema" class="term-link">schema</span> is the structure definition for your <span data-term="database" class="term-link">database</span>. It defines what tables exist, what columns each table has, and what type of data goes in each column (text, number, date, etc.).</p>
+                                    <p class="text-ink/60 text-sm leading-relaxed">A <span data-term="schema" class="term-link">schema</span> is the structure definition for your <span data-term="database" class="term-link">database</span>. It defines what tables exist, what columns each table has, and what type of data goes in each column (text, number, date, etc.).</p>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">WHEN_YOU_NEED_THIS</h3>
-                                    <ul class="text-gray-400 text-sm space-y-1">
+                                    <h3 class="text-ink text-sm font-bold mb-2">When You Need This</h3>
+                                    <ul class="text-ink/60 text-sm space-y-1">
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                            <i data-lucide="check" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                             <span>Building apps that store user data</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                            <i data-lucide="check" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                             <span>Querying existing databases for stories</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                            <i data-lucide="check" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                             <span>Working with government data dumps</span>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">TOOLS_THAT_HELP</h3>
-                                    <p class="text-gray-400 text-sm leading-relaxed mb-2"><span data-term="orm" class="term-link">ORMs</span> (Object-Relational Mappers) let you write database code without raw <span data-term="sql" class="term-link">SQL</span>:</p>
+                                    <h3 class="text-ink text-sm font-bold mb-2">Tools That Help</h3>
+                                    <p class="text-ink/60 text-sm leading-relaxed mb-2"><span data-term="orm" class="term-link">ORMs</span> (Object-Relational Mappers) let you write database code without raw <span data-term="sql" class="term-link">SQL</span>:</p>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="px-2 py-1 bg-surface border border-white/10 text-xs text-ice">Prisma</span>
-                                        <span class="px-2 py-1 bg-surface border border-white/10 text-xs text-gray-400">Drizzle</span>
-                                        <span class="px-2 py-1 bg-surface border border-white/10 text-xs text-gray-400">SQLAlchemy</span>
-                                        <span class="px-2 py-1 bg-surface border border-white/10 text-xs text-gray-400">Sequelize</span>
+                                        <span class="px-2 py-1 bg-cream border border-ink/10 text-xs text-accent rounded">Prisma</span>
+                                        <span class="px-2 py-1 bg-cream border border-ink/10 text-xs text-ink/60 rounded">Drizzle</span>
+                                        <span class="px-2 py-1 bg-cream border border-ink/10 text-xs text-ink/60 rounded">SQLAlchemy</span>
+                                        <span class="px-2 py-1 bg-cream border border-ink/10 text-xs text-ink/60 rounded">Sequelize</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="space-y-4">
-                                <div class="bg-[#050505] border border-white/10 p-4">
-                                    <div class="text-xs text-gray-600 mb-2">BASIC_SQL_COMMANDS:</div>
-                                    <pre class="text-sm text-ice overflow-x-auto"><code># Get data
+                                <div class="bg-ink text-white p-4 rounded-lg">
+                                    <div class="text-xs text-white/50 mb-2">Basic SQL Commands:</div>
+                                    <pre class="text-sm text-accent overflow-x-auto"><code># Get data
 SELECT * FROM articles WHERE year = 2024;
 
 # Get specific columns
@@ -463,12 +463,12 @@ FROM articles
 GROUP BY author;</code></pre>
                                 </div>
 
-                                <div class="p-4 border border-acid/30 bg-acid/5">
+                                <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="lightbulb" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                        <i data-lucide="lightbulb" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-acid text-xs font-bold mb-1">VIBE_CODER_TIP</div>
-                                            <p class="text-gray-400 text-xs">You do not need to memorize SQL. Describe what you want to the AI: "Get me all articles from 2024, grouped by author, showing how many each wrote." The AI will write the query.</p>
+                                            <div class="text-accent text-xs font-bold mb-1">Vibe Coder Tip</div>
+                                            <p class="text-ink/60 text-xs">You do not need to memorize SQL. Describe what you want to the AI: "Get me all articles from 2024, grouped by author, showing how many each wrote." The AI will write the query.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -479,40 +479,40 @@ GROUP BY author;</code></pre>
 
                 <!-- Topic 5: Auth basics -->
                 <section id="auth-basics" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="lock" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">05 // SECURITY_LAYER</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">Auth basics</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">05 | Security Layer</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">Auth Basics</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-signal/10 border border-signal/30 text-signal text-xs">USE_LIBRARIES</span>
+                            <span class="px-2 py-0.5 bg-red-100 border border-red-300 text-red-500 text-xs rounded">Use Libraries</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-ice text-sm font-bold mb-2 flex items-center gap-2">
-                                        <i data-lucide="users" class="w-4 h-4"></i> KEY_CONCEPTS_SIMPLIFIED
+                                    <h3 class="text-accent text-sm font-bold mb-2 flex items-center gap-2">
+                                        <i data-lucide="users" class="w-4 h-4"></i> Key Concepts Simplified
                                     </h3>
                                     <div class="space-y-3">
-                                        <div class="p-3 bg-surface border border-white/10">
-                                            <div class="text-white text-sm font-bold">Users</div>
-                                            <p class="text-gray-500 text-xs">Stored in database: email, hashed password (never plain text!), profile info</p>
+                                        <div class="p-3 bg-cream border border-ink/10 rounded">
+                                            <div class="text-ink text-sm font-bold">Users</div>
+                                            <p class="text-ink/60 text-xs">Stored in database: email, hashed password (never plain text!), profile info</p>
                                         </div>
-                                        <div class="p-3 bg-surface border border-white/10">
-                                            <div class="text-white text-sm font-bold">Sessions</div>
-                                            <p class="text-gray-500 text-xs">"You are logged in" state. Server remembers who you are between page loads.</p>
+                                        <div class="p-3 bg-cream border border-ink/10 rounded">
+                                            <div class="text-ink text-sm font-bold">Sessions</div>
+                                            <p class="text-ink/60 text-xs">"You are logged in" state. Server remembers who you are between page loads.</p>
                                         </div>
-                                        <div class="p-3 bg-surface border border-white/10">
-                                            <div class="text-white text-sm font-bold">Tokens</div>
-                                            <p class="text-gray-500 text-xs">A secret string that proves identity. Like a VIP wristband at an event.</p>
+                                        <div class="p-3 bg-cream border border-ink/10 rounded">
+                                            <div class="text-ink text-sm font-bold">Tokens</div>
+                                            <p class="text-ink/60 text-xs">A secret string that proves identity. Like a VIP wristband at an event.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -520,29 +520,29 @@ GROUP BY author;</code></pre>
 
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2"><span data-term="token-jwt" class="term-link">JWT</span>_VS_<span data-term="session" class="term-link">SESSION</span>_<span data-term="cookies" class="term-link">COOKIES</span></h3>
+                                    <h3 class="text-ink text-sm font-bold mb-2"><span data-term="token-jwt" class="term-link">JWT</span> vs <span data-term="session" class="term-link">Session</span> <span data-term="cookies" class="term-link">Cookies</span></h3>
                                     <div class="overflow-x-auto">
                                         <table class="w-full text-xs">
                                             <thead>
-                                                <tr class="border-b border-white/10">
-                                                    <th class="text-left py-2 text-gray-500">-</th>
-                                                    <th class="text-left py-2 text-ice">Session Cookies</th>
-                                                    <th class="text-left py-2 text-ice">JWT Tokens</th>
+                                                <tr class="border-b border-ink/10">
+                                                    <th class="text-left py-2 text-ink/50">-</th>
+                                                    <th class="text-left py-2 text-accent">Session Cookies</th>
+                                                    <th class="text-left py-2 text-accent">JWT Tokens</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="text-gray-400">
-                                                <tr class="border-b border-white/5">
-                                                    <td class="py-2 text-white">Storage</td>
+                                            <tbody class="text-ink/60">
+                                                <tr class="border-b border-ink/5">
+                                                    <td class="py-2 text-ink">Storage</td>
                                                     <td class="py-2">Server remembers</td>
                                                     <td class="py-2">Client carries proof</td>
                                                 </tr>
-                                                <tr class="border-b border-white/5">
-                                                    <td class="py-2 text-white">Good for</td>
+                                                <tr class="border-b border-ink/5">
+                                                    <td class="py-2 text-ink">Good for</td>
                                                     <td class="py-2">Traditional websites</td>
                                                     <td class="py-2">APIs, mobile apps</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="py-2 text-white">Complexity</td>
+                                                    <td class="py-2 text-ink">Complexity</td>
                                                     <td class="py-2">Simpler</td>
                                                     <td class="py-2">More flexible</td>
                                                 </tr>
@@ -551,27 +551,27 @@ GROUP BY author;</code></pre>
                                     </div>
                                 </div>
 
-                                <div class="p-4 border border-signal/30 bg-signal/5">
+                                <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="shield-alert" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
+                                        <i data-lucide="shield-alert" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-signal text-xs font-bold mb-1">WHY_AUTH_IS_TRICKY</div>
-                                            <p class="text-gray-400 text-xs">Security mistakes can expose user data. Password reset flows, session expiry, CSRF attacks, and more. One bug can compromise everything.</p>
+                                            <div class="text-red-500 text-xs font-bold mb-1">Why Auth is Tricky</div>
+                                            <p class="text-ink/60 text-xs">Security mistakes can expose user data. Password reset flows, session expiry, CSRF attacks, and more. One bug can compromise everything.</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="p-4 border border-acid/30 bg-acid/5">
+                                <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="check-circle" class="w-4 h-4 text-acid shrink-0 mt-0.5"></i>
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-acid text-xs font-bold mb-1">USE_AUTH_LIBRARIES</div>
-                                            <p class="text-gray-400 text-xs mb-2">Do NOT build auth from scratch. Use battle-tested solutions:</p>
+                                            <div class="text-accent text-xs font-bold mb-1">Use Auth Libraries</div>
+                                            <p class="text-ink/60 text-xs mb-2">Do NOT build auth from scratch. Use battle-tested solutions:</p>
                                             <div class="flex flex-wrap gap-2">
-                                                <span class="px-2 py-0.5 bg-acid/10 text-acid text-xs">Auth.js</span>
-                                                <span class="px-2 py-0.5 bg-acid/10 text-acid text-xs">Clerk</span>
-                                                <span class="px-2 py-0.5 bg-acid/10 text-acid text-xs">Supabase Auth</span>
-                                                <span class="px-2 py-0.5 bg-acid/10 text-acid text-xs">Firebase Auth</span>
+                                                <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded">Auth.js</span>
+                                                <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded">Clerk</span>
+                                                <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded">Supabase Auth</span>
+                                                <span class="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded">Firebase Auth</span>
                                             </div>
                                         </div>
                                     </div>
@@ -583,85 +583,85 @@ GROUP BY author;</code></pre>
 
                 <!-- Topic 6: Common dev jargon -->
                 <section id="dev-jargon" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="message-square" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">06 // VOCABULARY</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">Common dev jargon</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">06 | Vocabulary</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">Common Dev Jargon</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-ice/10 border border-ice/30 text-ice text-xs">REFERENCE</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Reference</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <!-- div -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1">&lt;div&gt;</div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Container / Box</div>
-                                    <p class="text-gray-400 text-sm">An invisible box that groups content together. Like a folder in a filing cabinet. Most HTML layouts are divs inside divs.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1">&lt;div&gt;</div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Container / Box</div>
+                                    <p class="text-white/70 text-sm">An invisible box that groups content together. Like a folder in a filing cabinet. Most HTML layouts are divs inside divs.</p>
                                 </div>
 
                                 <!-- component -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="component" class="term-link">Component</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Reusable Piece</div>
-                                    <p class="text-gray-400 text-sm">A self-contained piece of UI you can reuse. Build a Button component once, use it 100 times. Change it once, updates everywhere.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="component" class="term-link">Component</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Reusable Piece</div>
+                                    <p class="text-white/70 text-sm">A self-contained piece of UI you can reuse. Build a Button component once, use it 100 times. Change it once, updates everywhere.</p>
                                 </div>
 
                                 <!-- modal -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="modal" class="term-link">Modal</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Popup Dialog</div>
-                                    <p class="text-gray-400 text-sm">A popup box that appears on top of everything else, usually dimming the background. "Are you sure you want to delete?" is typically a modal.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="modal" class="term-link">Modal</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Popup Dialog</div>
+                                    <p class="text-white/70 text-sm">A popup box that appears on top of everything else, usually dimming the background. "Are you sure you want to delete?" is typically a modal.</p>
                                 </div>
 
                                 <!-- card -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="card" class="term-link">Card</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Content Container</div>
-                                    <p class="text-gray-400 text-sm">A visual container with borders/shadows that groups related content. Product listings, user profiles, and article previews are often cards.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="card" class="term-link">Card</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Content Container</div>
+                                    <p class="text-white/70 text-sm">A visual container with borders/shadows that groups related content. Product listings, user profiles, and article previews are often cards.</p>
                                 </div>
 
                                 <!-- props -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="props" class="term-link">Props</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Data Passed Down</div>
-                                    <p class="text-gray-400 text-sm">Data you pass to a <span data-term="component" class="term-link">component</span>. Like <span data-term="function" class="term-link">function</span> arguments. <code class="text-ice text-xs">&lt;Button color="blue"&gt;</code> - "color" is a prop with value "blue".</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="props" class="term-link">Props</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Data Passed Down</div>
+                                    <p class="text-white/70 text-sm">Data you pass to a <span data-term="component" class="term-link">component</span>. Like <span data-term="function" class="term-link">function</span> arguments. <code class="text-accent text-xs">&lt;Button color="blue"&gt;</code> - "color" is a prop with value "blue".</p>
                                 </div>
 
                                 <!-- state -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="state" class="term-link">State</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Data That Changes</div>
-                                    <p class="text-gray-400 text-sm">Data that can change and causes the UI to update. A counter value, whether a menu is open, form input values - all state.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="state" class="term-link">State</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Data That Changes</div>
+                                    <p class="text-white/70 text-sm">Data that can change and causes the UI to update. A counter value, whether a menu is open, form input values - all state.</p>
                                 </div>
 
                                 <!-- API -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="api" class="term-link">API</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Data Interface</div>
-                                    <p class="text-gray-400 text-sm">A way for programs to talk to each other. Your app asks an API for data, the API responds with a structured answer.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="api" class="term-link">API</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Data Interface</div>
+                                    <p class="text-white/70 text-sm">A way for programs to talk to each other. Your app asks an API for data, the API responds with a structured answer.</p>
                                 </div>
 
                                 <!-- endpoint -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="endpoint" class="term-link">Endpoint</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">API Address</div>
-                                    <p class="text-gray-400 text-sm">A specific URL in an API. <code class="text-ice text-xs">/api/users</code> might return users, <code class="text-ice text-xs">/api/articles</code> returns articles. Each is an endpoint.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="endpoint" class="term-link">Endpoint</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">API Address</div>
+                                    <p class="text-white/70 text-sm">A specific URL in an API. <code class="text-accent text-xs">/api/users</code> might return users, <code class="text-accent text-xs">/api/articles</code> returns articles. Each is an endpoint.</p>
                                 </div>
 
                                 <!-- callback -->
-                                <div class="bg-[#050505] border border-white/10 p-4 hover:border-ice/30 transition-colors">
-                                    <div class="text-ice font-bold text-lg mb-1"><span data-term="callback" class="term-link">Callback</span></div>
-                                    <div class="text-gray-500 text-xs uppercase tracking-wider mb-2">Function Passed In</div>
-                                    <p class="text-gray-400 text-sm">"Run this <span data-term="function" class="term-link">function</span> when something happens." onClick, onSubmit, onSuccess - these all take callbacks. It is code waiting to execute.</p>
+                                <div class="bg-ink text-white p-4 rounded-lg hover:ring-2 hover:ring-accent/30 transition-all">
+                                    <div class="text-accent font-bold text-lg mb-1"><span data-term="callback" class="term-link">Callback</span></div>
+                                    <div class="text-white/50 text-xs uppercase tracking-wider mb-2">Function Passed In</div>
+                                    <p class="text-white/70 text-sm">"Run this <span data-term="function" class="term-link">function</span> when something happens." onClick, onSubmit, onSuccess - these all take callbacks. It is code waiting to execute.</p>
                                 </div>
                             </div>
                         </div>
@@ -670,47 +670,47 @@ GROUP BY author;</code></pre>
 
                 <!-- Topic 7: Reading docs instead of guessing -->
                 <section id="reading-docs" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="book-open" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">07 // DOCUMENTATION</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">Reading docs instead of guessing</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">07 | Documentation</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">Reading Docs Instead of Guessing</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-acid/10 border border-acid/30 text-acid text-xs">SKILL_UNLOCK</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Skill Unlock</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <h3 class="text-ice text-sm font-bold mb-2 flex items-center gap-2">
-                                        <i data-lucide="map" class="w-4 h-4"></i> WHERE_TO_FIND_DOCS
+                                    <h3 class="text-accent text-sm font-bold mb-2 flex items-center gap-2">
+                                        <i data-lucide="map" class="w-4 h-4"></i> Where to Find Docs
                                     </h3>
-                                    <ul class="text-gray-400 text-sm space-y-2">
+                                    <ul class="text-ink/60 text-sm space-y-2">
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="external-link" class="w-4 h-4 text-ice shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">Official sites:</strong> docs.react.dev, nextjs.org/docs, tailwindcss.com/docs</span>
+                                            <i data-lucide="external-link" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">Official sites:</strong> docs.react.dev, nextjs.org/docs, tailwindcss.com/docs</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="github" class="w-4 h-4 text-gray-500 shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">GitHub README:</strong> Most packages have docs in their repo</span>
+                                            <i data-lucide="github" class="w-4 h-4 text-ink/50 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">GitHub README:</strong> Most packages have docs in their repo</span>
                                         </li>
                                         <li class="flex items-start gap-2">
-                                            <i data-lucide="package" class="w-4 h-4 text-gray-500 shrink-0 mt-0.5"></i>
-                                            <span><strong class="text-white">npm page:</strong> npmjs.com/package/[name] links to docs</span>
+                                            <i data-lucide="package" class="w-4 h-4 text-ink/50 shrink-0 mt-0.5"></i>
+                                            <span><strong class="text-ink">npm page:</strong> npmjs.com/package/[name] links to docs</span>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-white text-sm font-bold mb-2">HOW_TO_READ_THEM</h3>
-                                    <ol class="text-gray-400 text-sm space-y-2 list-decimal list-inside">
+                                    <h3 class="text-ink text-sm font-bold mb-2">How to Read Them</h3>
+                                    <ol class="text-ink/60 text-sm space-y-2 list-decimal list-inside">
                                         <li>Start with "Getting Started" or "Quick Start"</li>
                                         <li>Look for code examples - copy and modify them</li>
                                         <li>Use Ctrl+F to search for what you need</li>
@@ -721,44 +721,44 @@ GROUP BY author;</code></pre>
                             </div>
 
                             <div class="space-y-4">
-                                <div class="p-4 bg-surface border border-white/10">
-                                    <h3 class="text-ice text-sm font-bold mb-3">HIERARCHY_OF_TRUST</h3>
+                                <div class="p-4 bg-cream border border-ink/10 rounded-lg">
+                                    <h3 class="text-accent text-sm font-bold mb-3">Hierarchy of Trust</h3>
                                     <div class="space-y-2">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-6 h-6 bg-acid text-black flex items-center justify-center text-xs font-bold">1</div>
-                                            <span class="text-white text-sm">Official documentation</span>
+                                            <div class="w-6 h-6 bg-accent text-white flex items-center justify-center text-xs font-bold rounded">1</div>
+                                            <span class="text-ink text-sm">Official documentation</span>
                                         </div>
                                         <div class="flex items-center gap-3">
-                                            <div class="w-6 h-6 bg-ice/80 text-black flex items-center justify-center text-xs font-bold">2</div>
-                                            <span class="text-gray-300 text-sm">GitHub issues/discussions</span>
+                                            <div class="w-6 h-6 bg-accent/70 text-white flex items-center justify-center text-xs font-bold rounded">2</div>
+                                            <span class="text-ink/70 text-sm">GitHub issues/discussions</span>
                                         </div>
                                         <div class="flex items-center gap-3">
-                                            <div class="w-6 h-6 bg-gray-600 text-white flex items-center justify-center text-xs font-bold">3</div>
-                                            <span class="text-gray-400 text-sm">Stack Overflow (check the date!)</span>
+                                            <div class="w-6 h-6 bg-ink/40 text-white flex items-center justify-center text-xs font-bold rounded">3</div>
+                                            <span class="text-ink/60 text-sm">Stack Overflow (check the date!)</span>
                                         </div>
                                         <div class="flex items-center gap-3">
-                                            <div class="w-6 h-6 bg-gray-700 text-gray-400 flex items-center justify-center text-xs font-bold">4</div>
-                                            <span class="text-gray-500 text-sm">Random blog posts / tutorials</span>
+                                            <div class="w-6 h-6 bg-ink/20 text-ink/60 flex items-center justify-center text-xs font-bold rounded">4</div>
+                                            <span class="text-ink/50 text-sm">Random blog posts / tutorials</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="p-4 border border-ice/30 bg-ice/5">
+                                <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="clock" class="w-4 h-4 text-ice shrink-0 mt-0.5"></i>
+                                        <i data-lucide="clock" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-ice text-xs font-bold mb-1">WHEN_STACK_OVERFLOW_HELPS</div>
-                                            <p class="text-gray-400 text-xs">Great for specific error messages and edge cases. But always check the date - a 2019 answer for React might be completely outdated. Look for recent answers or comments saying "this still works in 2024."</p>
+                                            <div class="text-accent text-xs font-bold mb-1">When Stack Overflow Helps</div>
+                                            <p class="text-ink/60 text-xs">Great for specific error messages and edge cases. But always check the date - a 2019 answer for React might be completely outdated. Look for recent answers or comments saying "this still works in 2024."</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="p-4 border border-signal/30 bg-signal/5">
+                                <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
                                     <div class="flex items-start gap-2">
-                                        <i data-lucide="alert-circle" class="w-4 h-4 text-signal shrink-0 mt-0.5"></i>
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-red-500 shrink-0 mt-0.5"></i>
                                         <div>
-                                            <div class="text-signal text-xs font-bold mb-1">WARNING</div>
-                                            <p class="text-gray-400 text-xs">YouTube tutorials and Medium posts go stale fast. A "React tutorial" from 2021 might teach patterns that are now anti-patterns. Always cross-reference with official docs.</p>
+                                            <div class="text-red-500 text-xs font-bold mb-1">Warning</div>
+                                            <p class="text-ink/60 text-xs">YouTube tutorials and Medium posts go stale fast. A "React tutorial" from 2021 might teach patterns that are now anti-patterns. Always cross-reference with official docs.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -769,58 +769,58 @@ GROUP BY author;</code></pre>
 
                 <!-- Topic 8: Asking AI better questions -->
                 <section id="asking-ai" class="scroll-mt-24">
-                    <div class="border border-white/10 bg-panel overflow-hidden">
+                    <div class="deckle-card overflow-hidden">
                         <!-- Header -->
-                        <div class="p-6 border-b border-white/10 bg-surface flex items-start justify-between">
+                        <div class="p-6 border-b border-ink/10 bg-cream flex items-start justify-between">
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-ice/10 border border-ice/30 flex items-center justify-center text-ice shrink-0">
+                                <div class="w-12 h-12 bg-accent/10 border border-accent/30 flex items-center justify-center text-accent shrink-0 rounded">
                                     <i data-lucide="sparkles" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-ice font-mono mb-1 tracking-widest">08 // AI_PROMPTING</div>
-                                    <h2 class="font-display text-2xl text-white font-bold">Asking AI better questions</h2>
+                                    <div class="text-xs text-accent font-medium mb-1 tracking-wide">08 | AI Prompting</div>
+                                    <h2 class="font-display text-2xl text-ink font-light italic">Asking AI Better Questions</h2>
                                 </div>
                             </div>
-                            <span class="px-2 py-0.5 bg-acid/10 border border-acid/30 text-acid text-xs">MULTIPLIER</span>
+                            <span class="px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent text-xs rounded">Multiplier</span>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6">
                             <!-- The Formula -->
-                            <div class="mb-6 p-6 bg-ice/5 border border-ice/30">
-                                <h3 class="text-ice font-bold text-lg mb-4 text-center">THE_FORMULA</h3>
+                            <div class="mb-6 p-6 bg-accent/5 border border-accent/30 rounded-lg">
+                                <h3 class="text-accent font-bold text-lg mb-4 text-center">The Formula</h3>
                                 <div class="flex flex-wrap items-center justify-center gap-3 text-sm mb-4">
-                                    <div class="px-4 py-2 bg-panel border border-white/20 text-white">"I tried X"</div>
-                                    <span class="text-ice">+</span>
-                                    <div class="px-4 py-2 bg-panel border border-white/20 text-white">"Expected Y"</div>
-                                    <span class="text-ice">+</span>
-                                    <div class="px-4 py-2 bg-panel border border-white/20 text-white">"Got Z"</div>
+                                    <div class="px-4 py-2 bg-white border border-ink/20 text-ink rounded">"I tried X"</div>
+                                    <span class="text-accent">+</span>
+                                    <div class="px-4 py-2 bg-white border border-ink/20 text-ink rounded">"Expected Y"</div>
+                                    <span class="text-accent">+</span>
+                                    <div class="px-4 py-2 bg-white border border-ink/20 text-ink rounded">"Got Z"</div>
                                 </div>
-                                <p class="text-center text-gray-400 text-sm">This simple structure gives the AI everything it needs to help you debug.</p>
+                                <p class="text-center text-ink/60 text-sm">This simple structure gives the AI everything it needs to help you debug.</p>
                             </div>
 
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div class="space-y-4">
                                     <div>
-                                        <h3 class="text-ice text-sm font-bold mb-3 flex items-center gap-2">
-                                            <i data-lucide="check-circle" class="w-4 h-4"></i> INCLUDE_IN_YOUR_PROMPTS
+                                        <h3 class="text-accent text-sm font-bold mb-3 flex items-center gap-2">
+                                            <i data-lucide="check-circle" class="w-4 h-4"></i> Include in Your Prompts
                                         </h3>
                                         <div class="space-y-3">
-                                            <div class="p-3 bg-[#050505] border border-white/10">
-                                                <div class="text-acid text-xs font-bold mb-1">CONTEXT</div>
-                                                <p class="text-gray-400 text-xs">"I am building a Next.js 14 app with App Router and Tailwind..."</p>
+                                            <div class="p-3 bg-ink text-white rounded-lg">
+                                                <div class="text-accent text-xs font-bold mb-1">Context</div>
+                                                <p class="text-white/60 text-xs">"I am building a Next.js 14 app with App Router and Tailwind..."</p>
                                             </div>
-                                            <div class="p-3 bg-[#050505] border border-white/10">
-                                                <div class="text-acid text-xs font-bold mb-1">ERROR_MESSAGES</div>
-                                                <p class="text-gray-400 text-xs">Copy the full error. Do not paraphrase. Include stack traces.</p>
+                                            <div class="p-3 bg-ink text-white rounded-lg">
+                                                <div class="text-accent text-xs font-bold mb-1">Error Messages</div>
+                                                <p class="text-white/60 text-xs">Copy the full error. Do not paraphrase. Include stack traces.</p>
                                             </div>
-                                            <div class="p-3 bg-[#050505] border border-white/10">
-                                                <div class="text-acid text-xs font-bold mb-1">TECH_STACK</div>
-                                                <p class="text-gray-400 text-xs">"Using React 18, TypeScript, Prisma with PostgreSQL..."</p>
+                                            <div class="p-3 bg-ink text-white rounded-lg">
+                                                <div class="text-accent text-xs font-bold mb-1">Tech Stack</div>
+                                                <p class="text-white/60 text-xs">"Using React 18, TypeScript, Prisma with PostgreSQL..."</p>
                                             </div>
-                                            <div class="p-3 bg-[#050505] border border-white/10">
-                                                <div class="text-acid text-xs font-bold mb-1">WHAT_YOU_TRIED</div>
-                                                <p class="text-gray-400 text-xs">"I already tried clearing cache, reinstalling node_modules..."</p>
+                                            <div class="p-3 bg-ink text-white rounded-lg">
+                                                <div class="text-accent text-xs font-bold mb-1">What You Tried</div>
+                                                <p class="text-white/60 text-xs">"I already tried clearing cache, reinstalling node_modules..."</p>
                                             </div>
                                         </div>
                                     </div>
@@ -829,29 +829,29 @@ GROUP BY author;</code></pre>
                                 <div class="space-y-4">
                                     <!-- Bad vs Good Example -->
                                     <div class="space-y-3">
-                                        <div class="p-4 border border-signal/30 bg-signal/5">
+                                        <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
                                             <div class="flex items-center gap-2 mb-2">
-                                                <i data-lucide="x" class="w-4 h-4 text-signal"></i>
-                                                <span class="text-signal text-xs font-bold">BAD_PROMPT</span>
+                                                <i data-lucide="x" class="w-4 h-4 text-red-500"></i>
+                                                <span class="text-red-500 text-xs font-bold">Bad Prompt</span>
                                             </div>
-                                            <p class="text-gray-400 text-sm italic">"My code does not work. Can you fix it?"</p>
+                                            <p class="text-ink/60 text-sm italic">"My code does not work. Can you fix it?"</p>
                                         </div>
 
-                                        <div class="p-4 border border-acid/30 bg-acid/5">
+                                        <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                             <div class="flex items-center gap-2 mb-2">
-                                                <i data-lucide="check" class="w-4 h-4 text-acid"></i>
-                                                <span class="text-acid text-xs font-bold">GOOD_PROMPT</span>
+                                                <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                                <span class="text-accent text-xs font-bold">Good Prompt</span>
                                             </div>
-                                            <p class="text-gray-400 text-sm">"I am building a Next.js 14 app. When I click the submit button, I expect the form data to POST to /api/contact, but instead I get a 405 Method Not Allowed error. Here is my form component and API route: [code]. I tried adding method: 'POST' explicitly but same error."</p>
+                                            <p class="text-ink/60 text-sm">"I am building a Next.js 14 app. When I click the submit button, I expect the form data to POST to /api/contact, but instead I get a 405 Method Not Allowed error. Here is my form component and API route: [code]. I tried adding method: 'POST' explicitly but same error."</p>
                                         </div>
                                     </div>
 
-                                    <div class="p-4 border border-ice/30 bg-ice/5">
+                                    <div class="p-4 border border-accent/30 bg-accent/5 rounded-lg">
                                         <div class="flex items-start gap-2">
-                                            <i data-lucide="zap" class="w-4 h-4 text-ice shrink-0 mt-0.5"></i>
+                                            <i data-lucide="zap" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
                                             <div>
-                                                <div class="text-ice text-xs font-bold mb-1">POWER_MOVES</div>
-                                                <ul class="text-gray-400 text-xs space-y-1">
+                                                <div class="text-accent text-xs font-bold mb-1">Power Moves</div>
+                                                <ul class="text-ink/60 text-xs space-y-1">
                                                     <li>- Share your package.json versions</li>
                                                     <li>- Include relevant file structure</li>
                                                     <li>- Mention your OS (Mac/Windows/Linux)</li>
@@ -870,12 +870,12 @@ GROUP BY author;</code></pre>
 
             <!-- Bottom CTA -->
             <div class="mt-16 text-center">
-                <div class="inline-block p-8 bg-surface border border-white/10">
-                    <i data-lucide="rocket" class="w-8 h-8 text-ice mx-auto mb-4"></i>
-                    <h3 class="font-display text-xl text-white mb-2">Ready to level up?</h3>
-                    <p class="text-gray-500 text-sm mb-4 max-w-md">These skills are not required to start vibe coding, but learning them will make you faster and more confident.</p>
-                    <a href="/llm-advisor/vibe-coding/" class="inline-flex items-center gap-2 px-6 py-3 bg-ice text-black font-bold text-sm hover:bg-white transition-colors">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> BACK TO VIBE CODING GUIDE
+                <div class="inline-block p-8 bg-cream border border-ink/10 rounded-lg">
+                    <i data-lucide="rocket" class="w-8 h-8 text-accent mx-auto mb-4"></i>
+                    <h3 class="font-display text-xl text-ink font-light italic mb-2">Ready to Level Up?</h3>
+                    <p class="text-ink/60 text-sm mb-4 max-w-md">These skills are not required to start vibe coding, but learning them will make you faster and more confident.</p>
+                    <a href="/vibe-coding/" class="btn-primary inline-flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Vibe Coding Guide
                     </a>
                 </div>
             </div>
@@ -883,9 +883,9 @@ GROUP BY author;</code></pre>
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-void py-8">
-            <div class="max-w-7xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
-                <p>SYSTEM STATUS: ONLINE // <a href="/" class="hover:text-acid transition-colors">RETURN_ROOT</a></p>
+        <footer class="border-t border-ink/10 bg-ink text-canvas py-8">
+            <div class="max-w-7xl mx-auto px-6 text-center text-xs text-canvas/60">
+                <p>System Status: Online | <a href="/" class="hover:text-accent transition-colors">Return Home</a></p>
             </div>
         </footer>
 
@@ -901,7 +901,7 @@ GROUP BY author;</code></pre>
 
         // Copy code function
         function copyCode(button) {
-            const codeBlock = button.closest('.bg-\\[\\#050505\\]').querySelector('pre code, pre');
+            const codeBlock = button.closest('.bg-ink').querySelector('pre code, pre');
             const text = codeBlock.innerText;
 
             navigator.clipboard.writeText(text).then(() => {

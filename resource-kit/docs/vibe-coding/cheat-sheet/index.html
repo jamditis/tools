@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE CODER // CHEAT SHEET</title>
+    <title>Vibe Coder Cheat Sheet | Amditis Kit</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
     <!-- CSS & Config -->
@@ -24,13 +24,13 @@
             }
             .no-print { display: none !important; }
 
-            /* Print Overrides to flatten the cyber look into ink-friendly styles */
-            .bg-void, .bg-panel, .bg-surface { background: white !important; border: 1px solid #ddd !important; }
-            .text-chrome, .text-gray-400, .text-gray-500, .text-gray-600 { color: black !important; }
-            .text-acid, .text-signal, .text-ice { color: black !important; font-weight: bold !important; }
-            .border-white\/10, .border-white\/20, .border-white\/5 { border-color: #000 !important; }
-            .glitch-text::before, .glitch-text::after { display: none !important; }
-            .crt-overlay, .bg-grid-pattern { display: none !important; }
+            /* Print Overrides */
+            .bg-canvas, .bg-cream, .bg-white, .deckle-card { background: white !important; border: 1px solid #ddd !important; }
+            .text-ink, .text-ink\/60, .text-ink\/50, .text-ink\/40 { color: black !important; }
+            .text-accent { color: black !important; font-weight: bold !important; }
+            .border-ink\/10, .border-ink\/20, .border-accent\/30 { border-color: #000 !important; }
+            .paper-overlay { display: none !important; }
+            .animate-drift { display: none !important; }
 
             /* Compact layout for print */
             main { padding: 0 !important; }
@@ -46,36 +46,36 @@
         }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <!-- Print Button -->
     <div class="fixed top-4 right-4 z-50 no-print">
-        <button onclick="window.print()" class="px-4 py-2 bg-acid text-black font-bold text-xs clip-notch hover:bg-white transition-colors flex items-center gap-2">
-            <i data-lucide="printer" class="w-4 h-4"></i> PRINT_SHEET
+        <button onclick="window.print()" class="btn-primary flex items-center gap-2">
+            <i data-lucide="printer" class="w-4 h-4"></i> Print Sheet
         </button>
     </div>
 
     <div class="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-8">
 
-        <div class="max-w-[8.5in] w-full bg-panel border border-white/10 p-8 shadow-2xl relative overflow-hidden">
+        <div class="max-w-[8.5in] w-full deckle-card p-8 shadow-lg relative overflow-hidden">
             <!-- Decorative Corners -->
-            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-acid"></div>
-            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-acid"></div>
-            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-acid"></div>
-            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-acid"></div>
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent"></div>
 
             <!-- Header -->
-            <header class="flex justify-between items-end border-b-2 border-white/10 pb-4 mb-6">
+            <header class="flex justify-between items-end border-b-2 border-ink/10 pb-4 mb-6">
                 <div>
-                    <h1 class="font-display text-3xl text-white font-bold tracking-tight">VIBE CODER // CHEAT SHEET</h1>
-                    <p class="text-xs text-gray-500 tracking-[0.2em] mt-1">SURVIVAL GUIDE v1.0</p>
+                    <h1 class="font-display text-3xl text-ink font-light italic">Vibe Coder Cheat Sheet</h1>
+                    <p class="text-xs text-ink/50 mt-1">Survival Guide v1.0</p>
                 </div>
                 <div class="text-right hidden sm:block">
-                    <div class="text-acid font-bold text-xs">AMDITIS KIT</div>
-                    <div class="text-xs text-gray-600">CCM RESOURCES</div>
+                    <div class="text-accent font-medium text-xs">Amditis Kit</div>
+                    <div class="text-xs text-ink/40">CCM Resources</div>
                 </div>
             </header>
 
@@ -85,59 +85,59 @@
                 <div class="space-y-4">
                     <!-- .env Format -->
                     <div>
-                        <h3 class="text-acid font-bold text-sm border-b border-acid/30 pb-1 mb-2 flex items-center gap-2">
-                            <i data-lucide="file-key" class="w-4 h-4"></i> .ENV_FORMAT
+                        <h3 class="text-accent font-bold text-sm border-b border-accent/30 pb-1 mb-2 flex items-center gap-2">
+                            <i data-lucide="file-key" class="w-4 h-4"></i> .env Format
                         </h3>
-                        <div class="bg-[#050505] p-2 border border-white/10 text-xs font-mono text-gray-400 leading-relaxed">
-                            <span class="text-gray-600"># API Keys (no quotes!)</span><br>
-                            <span class="text-ice">OPENAI_API_KEY</span>=sk-abc123...<br>
-                            <span class="text-ice">DATABASE_URL</span>=postgres://...<br>
-                            <span class="text-ice">SECRET_KEY</span>=my_secret_value
+                        <div class="bg-ink text-white p-2 border border-ink/20 text-xs font-mono leading-relaxed rounded">
+                            <span class="text-white/50"># API Keys (no quotes!)</span><br>
+                            <span class="text-accent">OPENAI_API_KEY</span>=sk-abc123...<br>
+                            <span class="text-accent">DATABASE_URL</span>=postgres://...<br>
+                            <span class="text-accent">SECRET_KEY</span>=my_secret_value
                         </div>
                     </div>
 
                     <!-- npm Commands -->
                     <div>
-                        <h3 class="text-acid font-bold text-sm border-b border-acid/30 pb-1 mb-2 flex items-center gap-2">
-                            <i data-lucide="package" class="w-4 h-4"></i> NPM_COMMANDS
+                        <h3 class="text-accent font-bold text-sm border-b border-accent/30 pb-1 mb-2 flex items-center gap-2">
+                            <i data-lucide="package" class="w-4 h-4"></i> npm Commands
                         </h3>
                         <table class="w-full text-xs text-left">
-                            <tr class="border-b border-white/5">
-                                <td class="py-1.5 text-ice font-mono">npm install</td>
-                                <td class="py-1.5 text-right text-gray-400">Get dependencies</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1.5 text-accent font-mono">npm install</td>
+                                <td class="py-1.5 text-right text-ink/60">Get dependencies</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1.5 text-ice font-mono">npm run dev</td>
-                                <td class="py-1.5 text-right text-gray-400">Start dev server</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1.5 text-accent font-mono">npm run dev</td>
+                                <td class="py-1.5 text-right text-ink/60">Start dev server</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1.5 text-ice font-mono">npm run build</td>
-                                <td class="py-1.5 text-right text-gray-400">Create production</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1.5 text-accent font-mono">npm run build</td>
+                                <td class="py-1.5 text-right text-ink/60">Create production</td>
                             </tr>
                             <tr>
-                                <td class="py-1.5 text-ice font-mono">npm uninstall</td>
-                                <td class="py-1.5 text-right text-gray-400">Remove package</td>
+                                <td class="py-1.5 text-accent font-mono">npm uninstall</td>
+                                <td class="py-1.5 text-right text-ink/60">Remove package</td>
                             </tr>
                         </table>
                     </div>
 
                     <!-- NEVER DO -->
-                    <div class="bg-surface border border-signal/30 p-3">
-                        <h3 class="text-signal font-bold text-sm mb-2 flex items-center gap-2">
-                            <i data-lucide="skull" class="w-4 h-4"></i> NEVER_DO
+                    <div class="bg-red-50 border border-red-300 p-3 rounded">
+                        <h3 class="text-red-500 font-bold text-sm mb-2 flex items-center gap-2">
+                            <i data-lucide="skull" class="w-4 h-4"></i> Never Do
                         </h3>
                         <ul class="text-xs space-y-1.5">
                             <li class="flex items-start gap-2">
-                                <span class="text-signal">X</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git add .env</span> - exposes secrets!</span>
+                                <span class="text-red-500">X</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git add .env</span> - exposes secrets!</span>
                             </li>
                             <li class="flex items-start gap-2">
-                                <span class="text-signal">X</span>
-                                <span class="text-gray-400">Hardcode API keys in code files</span>
+                                <span class="text-red-500">X</span>
+                                <span class="text-ink/60">Hardcode API keys in code files</span>
                             </li>
                             <li class="flex items-start gap-2">
-                                <span class="text-signal">X</span>
-                                <span class="text-gray-400">Ignore terminal error messages</span>
+                                <span class="text-red-500">X</span>
+                                <span class="text-ink/60">Ignore terminal error messages</span>
                             </li>
                         </ul>
                     </div>
@@ -147,69 +147,69 @@
                 <div class="space-y-4">
                     <!-- Git Flow -->
                     <div>
-                        <h3 class="text-ice font-bold text-sm border-b border-ice/30 pb-1 mb-2 flex items-center gap-2">
-                            <i data-lucide="git-branch" class="w-4 h-4"></i> GIT_FLOW
+                        <h3 class="text-accent font-bold text-sm border-b border-accent/30 pb-1 mb-2 flex items-center gap-2">
+                            <i data-lucide="git-branch" class="w-4 h-4"></i> Git Flow
                         </h3>
                         <div class="space-y-2 text-xs">
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">1</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git clone [url]</span></span>
+                                <span class="text-accent font-bold w-4">1</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git clone [url]</span></span>
                             </div>
                             <div class="flex gap-2 items-center">
                                 <span class="w-4"></span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600"></i>
+                                <i data-lucide="chevron-down" class="w-3 h-3 text-ink/30"></i>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">2</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git pull</span> :: sync remote</span>
+                                <span class="text-accent font-bold w-4">2</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git pull</span> - sync remote</span>
                             </div>
                             <div class="flex gap-2 items-center">
                                 <span class="w-4"></span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600"></i>
+                                <i data-lucide="chevron-down" class="w-3 h-3 text-ink/30"></i>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">3</span>
-                                <span class="text-acid">(make your changes)</span>
+                                <span class="text-accent font-bold w-4">3</span>
+                                <span class="text-accent">(make your changes)</span>
                             </div>
                             <div class="flex gap-2 items-center">
                                 <span class="w-4"></span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600"></i>
+                                <i data-lucide="chevron-down" class="w-3 h-3 text-ink/30"></i>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">4</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git add .</span> :: stage all</span>
+                                <span class="text-accent font-bold w-4">4</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git add .</span> - stage all</span>
                             </div>
                             <div class="flex gap-2 items-center">
                                 <span class="w-4"></span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600"></i>
+                                <i data-lucide="chevron-down" class="w-3 h-3 text-ink/30"></i>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">5</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git commit -m "msg"</span></span>
+                                <span class="text-accent font-bold w-4">5</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git commit -m "msg"</span></span>
                             </div>
                             <div class="flex gap-2 items-center">
                                 <span class="w-4"></span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600"></i>
+                                <i data-lucide="chevron-down" class="w-3 h-3 text-ink/30"></i>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-ice font-bold w-4">6</span>
-                                <span class="text-gray-400"><span class="text-white font-mono">git push</span> :: upload</span>
+                                <span class="text-accent font-bold w-4">6</span>
+                                <span class="text-ink/60"><span class="text-ink font-mono">git push</span> - upload</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- .gitignore -->
                     <div>
-                        <h3 class="text-ice font-bold text-sm border-b border-ice/30 pb-1 mb-2 flex items-center gap-2">
-                            <i data-lucide="eye-off" class="w-4 h-4"></i> .GITIGNORE
+                        <h3 class="text-accent font-bold text-sm border-b border-accent/30 pb-1 mb-2 flex items-center gap-2">
+                            <i data-lucide="eye-off" class="w-4 h-4"></i> .gitignore
                         </h3>
-                        <div class="bg-[#050505] p-2 border border-white/10 text-xs font-mono leading-relaxed">
-                            <span class="text-gray-600"># Always ignore these:</span><br>
-                            <span class="text-signal">node_modules/</span><br>
-                            <span class="text-signal">.env</span><br>
-                            <span class="text-gray-400">.DS_Store</span><br>
-                            <span class="text-gray-400">dist/</span><br>
-                            <span class="text-gray-400">build/</span>
+                        <div class="bg-ink text-white p-2 border border-ink/20 text-xs font-mono leading-relaxed rounded">
+                            <span class="text-white/50"># Always ignore these:</span><br>
+                            <span class="text-red-400">node_modules/</span><br>
+                            <span class="text-red-400">.env</span><br>
+                            <span class="text-white/60">.DS_Store</span><br>
+                            <span class="text-white/60">dist/</span><br>
+                            <span class="text-white/60">build/</span>
                         </div>
                     </div>
                 </div>
@@ -218,64 +218,64 @@
                 <div class="space-y-4">
                     <!-- Definitions -->
                     <div>
-                        <h3 class="text-chrome font-bold text-sm border-b border-white/20 pb-1 mb-2 flex items-center gap-2">
-                            <i data-lucide="book-open" class="w-4 h-4"></i> DEV_JARGON
+                        <h3 class="text-ink font-bold text-sm border-b border-ink/20 pb-1 mb-2 flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Dev Jargon
                         </h3>
                         <table class="w-full text-xs text-left">
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">localhost</td>
-                                <td class="py-1 text-gray-400">= your computer</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">localhost</td>
+                                <td class="py-1 text-ink/60">= your computer</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">component</td>
-                                <td class="py-1 text-gray-400">= reusable UI piece</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">component</td>
+                                <td class="py-1 text-ink/60">= reusable UI piece</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">modal</td>
-                                <td class="py-1 text-gray-400">= popup dialog</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">modal</td>
+                                <td class="py-1 text-ink/60">= popup dialog</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">props</td>
-                                <td class="py-1 text-gray-400">= data passed down</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">props</td>
+                                <td class="py-1 text-ink/60">= data passed down</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">state</td>
-                                <td class="py-1 text-gray-400">= changeable data</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">state</td>
+                                <td class="py-1 text-ink/60">= changeable data</td>
                             </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-1 text-acid font-mono">API</td>
-                                <td class="py-1 text-gray-400">= data endpoint</td>
+                            <tr class="border-b border-ink/5">
+                                <td class="py-1 text-accent font-mono">API</td>
+                                <td class="py-1 text-ink/60">= data endpoint</td>
                             </tr>
                             <tr>
-                                <td class="py-1 text-acid font-mono">deploy</td>
-                                <td class="py-1 text-gray-400">= make live</td>
+                                <td class="py-1 text-accent font-mono">deploy</td>
+                                <td class="py-1 text-ink/60">= make live</td>
                             </tr>
                         </table>
                     </div>
 
                     <!-- Debug Protocol -->
-                    <div class="bg-surface border border-white/10 p-3">
-                        <h3 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
-                            <i data-lucide="bug" class="w-4 h-4 text-signal"></i> DEBUG_PROTOCOL
+                    <div class="bg-cream border border-ink/10 p-3 rounded">
+                        <h3 class="text-ink font-bold text-sm mb-2 flex items-center gap-2">
+                            <i data-lucide="bug" class="w-4 h-4 text-red-500"></i> Debug Protocol
                         </h3>
                         <div class="space-y-2 text-xs">
                             <div class="flex gap-2">
-                                <span class="text-signal font-bold">1</span>
-                                <span class="text-gray-400"><span class="text-white">Read</span> the error message</span>
+                                <span class="text-accent font-bold">1</span>
+                                <span class="text-ink/60"><span class="text-ink">Read</span> the error message</span>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-signal font-bold">2</span>
-                                <span class="text-gray-400">Copy the <span class="text-white">FULL</span> message</span>
+                                <span class="text-accent font-bold">2</span>
+                                <span class="text-ink/60">Copy the <span class="text-ink">FULL</span> message</span>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-signal font-bold">3</span>
-                                <span class="text-gray-400">Include <span class="text-white">context</span> for AI:</span>
+                                <span class="text-accent font-bold">3</span>
+                                <span class="text-ink/60">Include <span class="text-ink">context</span> for AI:</span>
                             </div>
                         </div>
-                        <div class="mt-2 bg-[#050505] p-2 border border-white/10 text-[10px] font-mono text-gray-500 leading-relaxed">
-                            "I ran <span class="text-ice">[command]</span>,<br>
-                            expected <span class="text-acid">[result]</span>,<br>
-                            got <span class="text-signal">[error]</span>"
+                        <div class="mt-2 bg-ink text-white p-2 border border-ink/20 text-[10px] font-mono leading-relaxed rounded">
+                            "I ran <span class="text-accent">[command]</span>,<br>
+                            expected <span class="text-accent">[result]</span>,<br>
+                            got <span class="text-red-400">[error]</span>"
                         </div>
                     </div>
                 </div>
@@ -283,9 +283,9 @@
             </div>
 
             <!-- Footer -->
-            <div class="mt-6 pt-4 border-t border-white/10 flex justify-between text-[8px] text-gray-600">
-                <div>AUTHOR: JOE AMDITIS</div>
-                <div>JAMDITIS.GITHUB.IO/TOOLS</div>
+            <div class="mt-6 pt-4 border-t border-ink/10 flex justify-between text-[8px] text-ink/40">
+                <div>Author: Joe Amditis</div>
+                <div>jamditis.github.io/tools</div>
             </div>
 
         </div>

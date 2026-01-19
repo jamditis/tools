@@ -2,34 +2,31 @@
  * @fileoverview LLM Advisor - Application-Specific Styles
  *
  * Custom styles and overrides specific to the LLM Tool Advisor application.
- * Extends the Yap theme with app-specific utilities and fixes.
+ * Updated for Amditis V2 light editorial theme.
  *
  * ## Contents
  *
- * 1. **Dark Mode Override** - Ensures dark theme persists regardless of JS state
+ * 1. **Theme Base** - V2 light theme base styling
  * 2. **Custom Scrollbar** - Thinner scrollbar variant for content areas
  * 3. **Fade Animation** - Entrance animation for dynamic content
  * 4. **Hidden Switch** - Keeps theme toggle logic without visual display
  *
  * @module LLMAdvisorStyles
- * @requires yap-theme.css
+ * @requires amditis-main.css
  * @see {@link app.js} Main application JavaScript
  */
 
 /* ==========================================================================
-   1. DARK MODE OVERRIDE
+   1. THEME BASE (V2 Light Theme)
    ========================================================================== */
 
 /**
- * Forces dark mode styling regardless of JavaScript-controlled theme state.
- *
- * Some UI frameworks add a `.dark` class to `<html>` for theme toggling.
- * This rule ensures our void background and text colors persist even if
- * JavaScript attempts to toggle themes.
+ * V2 light theme base styling.
+ * Uses CSS variables from amditis-main.css.
  */
-html.dark body {
-    background-color: var(--bg-void);
-    color: var(--text-primary);
+body {
+    background-color: var(--canvas, #ede6d4);
+    color: var(--ink, #121212);
 }
 
 /* ==========================================================================
@@ -41,16 +38,6 @@ html.dark body {
  *
  * A thinner, more subtle scrollbar variant for content containers.
  * Apply to elements with overflow-y: auto/scroll.
- *
- * Properties:
- * - 6px width (vs 8px default)
- * - Transparent track (blends with background)
- * - Rounded thumb
- *
- * @example
- * <div class="custom-scrollbar overflow-y-auto max-h-96">
- *   <!-- scrollable content -->
- * </div>
  */
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
@@ -61,12 +48,12 @@ html.dark body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--border-bright);
+    background: var(--clay, #d6cdb7);
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--text-dim);
+    background: var(--accent, #3d4b40);
 }
 
 /* ==========================================================================
@@ -95,11 +82,6 @@ html.dark body {
  *
  * Utility class to apply the fadeIn animation.
  * Uses forwards fill mode to maintain final state.
- *
- * @example
- * <div class="animate-fade-in">
- *   Content that fades in
- * </div>
  */
 .animate-fade-in {
     animation: fadeIn 0.3s ease-out forwards;
@@ -113,11 +95,7 @@ html.dark body {
  * .switch
  *
  * Hides the theme toggle switch visually while keeping it in the DOM.
- * This preserves any JavaScript logic that might depend on the element
- * while removing it from the visual layout.
- *
- * Note: The LLM Advisor uses a single dark theme, so the toggle is hidden.
- * If theme switching is needed in the future, remove this rule.
+ * The LLM Advisor uses a single light theme (V2), so the toggle is hidden.
  */
 .switch {
     display: none;

@@ -8,7 +8,7 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 
 ### Main components
 
-1. **Resource kit website** (`resource-kit/docs/`) - Interactive tools with Amditis dark theme
+1. **Resource kit website** (`resource-kit/docs/`) - Interactive tools with Amditis V2 light editorial theme
    - LLM Advisor - decision tree tool for selecting AI tools
    - Vibe coding guide - interactive glossary and tutorials
    - Quick reference cards and downloadable templates
@@ -39,27 +39,35 @@ templates/                    # Git root
 └── CLAUDE-RULES-*.md         # Claude Code memory templates
 ```
 
-## Amditis theme system
+## Amditis V2 theme system
 
-The site uses a custom dark theme called "Amditis" with these key classes:
+The site uses a light editorial/archival theme called "Amditis V2" with these key classes:
 
 **Backgrounds:**
-- `bg-void` - deepest black (#050505)
-- `bg-panel` - card/panel background (#0a0a0a)
-- `bg-surface` - interactive surface (#111111)
+- `bg-canvas` - cream page background (#ede6d4)
+- `deckle-card` - frosted glass card (rgba(255,255,255,0.3))
+- `deckle-card-solid` - solid white card (rgba(255,255,255,0.6))
 
 **Text:**
-- `text-chrome` - primary text (#e8e8e8)
-- `text-gray-400/500/600` - secondary text levels
+- `text-ink` - primary dark text (#121212)
+- `text-mist` - secondary/tertiary text (#6b6b6b)
 
 **Accents:**
-- `text-acid` / `bg-acid` - primary green accent (#c8ff00)
-- `text-ice` / `bg-ice` - blue accent (#00f0ff)
-- `text-signal` / `bg-signal` - red/warning (#ff3366)
+- `text-accent` / `bg-accent` - muted green accent (#3d4b40)
+- `text-clay` / `bg-clay` - neutral warm accent (#d6cdb7)
 
-**Borders:** Always use `border-white/10` or `border-white/5`
+**Borders:** Always use `border-ink/10` or `border-ink/5`
 
-**Important:** Never use light theme classes like `bg-light-*` or `dark:bg-dark-*` - this is a single dark theme.
+**Effects:**
+- `paper-overlay` - subtle paper texture overlay
+- `reveal-section` - scroll-triggered fade-in animation
+- `animate-drift` - slow ambient light movement
+
+**Typography:**
+- `font-display` - Fraunces serif for headings
+- `font-sans` - Plus Jakarta Sans for body text
+
+**Legacy compatibility:** Old V1 classes (bg-void, text-chrome, text-acid, etc.) are automatically mapped to V2 equivalents in amditis-main.css.
 
 ## Development workflow
 
@@ -108,7 +116,7 @@ Both LESSONS and CLAUDE-RULES templates are available for:
 
 ## Things to avoid
 
-- Using old theme class names (`bg-light-*`, `dark:bg-dark-*`, `bg-accent-*`)
+- Using dark theme patterns (crt-overlay, glitch-text, clip-notch) - use V2 light patterns instead
 - Attaching event listeners only to the main container (check if elements are outside it)
 - Deploying without checking GitHub Actions build status
 - Using Jekyll features (site uses static deployment, not Jekyll)

@@ -1,55 +1,40 @@
 /**
- * @fileoverview Amditis Theme - Tailwind CSS Configuration
+ * @fileoverview Amditis Theme V2 - Tailwind CSS Configuration
  *
- * This file extends Tailwind CSS with the Amditis design system, a dark
- * retrotech/cyberpunk aesthetic used throughout the CCM AI Tools Resource Kit.
+ * This file extends Tailwind CSS with the Amditis V2 design system, a light
+ * editorial/archival aesthetic used throughout the Amditis Resource Kit.
  *
  * ## Design Philosophy
  *
- * The Amditis theme draws inspiration from:
- * - CRT monitors and terminal interfaces
- * - Cyberpunk color palettes (acid green, signal red, ice blue)
- * - Minimalist dark UI with high contrast accents
+ * The Amditis V2 theme draws inspiration from:
+ * - Museum archives and institutional design
+ * - Editorial print layouts with material honesty
+ * - Parchment and paper textures with subtle warmth
  *
  * ## Color System
  *
- * The theme uses a layered darkness approach:
- * - `void` (#050505): Deepest black, used for page backgrounds
- * - `panel` (#0a0a0a): Slightly lighter, for card backgrounds
- * - `surface` (#111111): Interactive surfaces, inputs, buttons
- * - `chrome` (#e5e5e5): Primary text color
- *
- * Accent colors follow a semantic naming convention:
- * - `acid`: Primary accent (lime green) - success, highlights, CTAs
- * - `signal`: Warning/danger (red) - errors, alerts, important notices
- * - `ice`: Secondary accent (cyan) - links, info, secondary highlights
- *
- * Each accent has a "Dim" variant at 10% opacity for subtle backgrounds.
+ * The theme uses a warm, light-based approach:
+ * - `canvas` (#ede6d4): Cream page background
+ * - `ink` (#121212): Dark text color
+ * - `clay` (#d6cdb7): Neutral accent for borders/dividers
+ * - `mist` (#6b6b6b): Secondary/tertiary text
+ * - `accent` (#3d4b40): Muted green accent
  *
  * ## Typography
  *
- * - Display/Sans: "Chakra Petch" - A techy, angular display font
- * - Mono: "Share Tech Mono" - A clean monospace for code and labels
+ * - Display: "Fraunces" - Elegant serif for headings
+ * - Sans: "Plus Jakarta Sans" - Clean sans-serif for body text
  *
  * ## Animations
  *
- * Custom animations for interactive feedback:
- * - `pulse-fast`: Faster pulse for loading states
- * - `flash`: Binary on/off flash for attention
- * - `glitch`: Text glitch effect for hero elements
+ * Custom animations for refined interactions:
+ * - `page-in`: Staggered fade-in entrance
+ * - `drift`: Slow ambient light movement
+ * - `ink-spread`: Blur/scale hover effect
  *
- * @module AmditisConfig
+ * @module AmditisConfigV2
  * @requires Tailwind CSS CDN with Play CDN
  * @see {@link https://jamditis.github.io/tools/} Live implementation
- *
- * @example
- * // Usage in HTML (after Tailwind CDN):
- * <script src="assets/amditis-config.js"></script>
- *
- * // Then use custom classes:
- * <div class="bg-void text-chrome">
- *   <span class="text-acid">Highlighted text</span>
- * </div>
  */
 
 tailwind.config = {
@@ -60,15 +45,13 @@ tailwind.config = {
              * ---------------------------------------------------------------- */
 
             /**
-             * Custom font families for the Amditis theme.
-             * @property {string[]} display - Chakra Petch for headings and display text
-             * @property {string[]} mono - Share Tech Mono for code and labels
-             * @property {string[]} sans - Defaults to display font for consistency
+             * Custom font families for the Amditis V2 theme.
+             * @property {string[]} display - Fraunces for headings and display text
+             * @property {string[]} sans - Plus Jakarta Sans for body text
              */
             fontFamily: {
-                display: ['Chakra Petch', 'sans-serif'],
-                mono: ['Share Tech Mono', 'monospace'],
-                sans: ['Chakra Petch', 'sans-serif'],
+                display: ['Fraunces', 'serif'],
+                sans: ['Plus Jakarta Sans', 'sans-serif'],
             },
 
             /* ----------------------------------------------------------------
@@ -76,53 +59,30 @@ tailwind.config = {
              * ---------------------------------------------------------------- */
 
             /**
-             * Amditis dark theme color palette.
+             * Amditis V2 light editorial color palette.
              *
-             * Background layers (darkest to lightest):
-             * - void: Page background (#050505)
-             * - panel: Card/container backgrounds (#0a0a0a)
-             * - surface: Interactive elements (#111111)
+             * Background:
+             * - canvas: Cream page background (#ede6d4)
              *
              * Text:
-             * - chrome: Primary text (#e5e5e5)
+             * - ink: Primary dark text (#121212)
+             * - mist: Secondary text (#6b6b6b)
              *
              * Accents:
-             * - acid/acidDim: Primary lime green accent
-             * - signal/signalDim: Warning red accent
-             * - ice/iceDim: Info cyan accent
+             * - clay: Neutral warm accent (#d6cdb7)
+             * - accent: Muted green (#3d4b40)
              */
             colors: {
-                // Background layers
-                void: '#050505',      // Deepest black - page background
-                panel: '#0a0a0a',     // Card backgrounds
-                surface: '#111111',   // Interactive surfaces
+                // Background
+                canvas: '#ede6d4',     // Cream page background
 
-                // Text
-                chrome: '#e5e5e5',    // Primary text color
+                // Text colors
+                ink: '#121212',        // Primary dark text
+                mist: '#6b6b6b',       // Secondary/tertiary text
 
-                // Primary accent: Acid green (success, highlights, CTAs)
-                acid: '#ccff00',
-                acidDim: 'rgba(204, 255, 0, 0.1)',
-
-                // Warning accent: Signal red (errors, alerts)
-                signal: '#ff2a2a',
-                signalDim: 'rgba(255, 42, 42, 0.1)',
-
-                // Secondary accent: Ice blue (links, info)
-                ice: '#00f0ff',
-                iceDim: 'rgba(0, 240, 255, 0.1)',
-            },
-
-            /* ----------------------------------------------------------------
-             * BACKGROUND PATTERNS
-             * ---------------------------------------------------------------- */
-
-            /**
-             * Custom background patterns for visual texture.
-             */
-            backgroundImage: {
-                // Grid pattern for subtle texture (1px lines at #222)
-                'grid-pattern': "linear-gradient(to right, #222 1px, transparent 1px), linear-gradient(to bottom, #222 1px, transparent 1px)",
+                // Accents
+                clay: '#d6cdb7',       // Neutral warm accent
+                accent: '#3d4b40',     // Muted green accent
             },
 
             /* ----------------------------------------------------------------
@@ -131,14 +91,14 @@ tailwind.config = {
 
             /**
              * Custom animation presets.
-             * - pulse-fast: 1s pulse for loading indicators
-             * - flash: Binary flash for attention-grabbing elements
-             * - glitch: Text distortion effect for hero elements
+             * - page-in: Staggered entrance animation
+             * - drift: Slow ambient movement for backgrounds
+             * - ink-spread: Blur/scale effect for hover states
              */
             animation: {
-                'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'flash': 'flash 0.5s steps(1) infinite',
-                'glitch': 'glitch-anim 5s infinite linear alternate-reverse',
+                'page-in': 'pageIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                'drift': 'drift 25s ease-in-out infinite',
+                'ink-spread': 'inkSpread 0.6s ease-out forwards',
             },
 
             /* ----------------------------------------------------------------
@@ -150,12 +110,25 @@ tailwind.config = {
              */
             keyframes: {
                 /**
-                 * Flash animation - binary on/off at 50% threshold.
-                 * Creates a blinking effect for cursor or alert indicators.
+                 * Page-in animation - fade up entrance.
                  */
-                flash: {
-                    '0%, 50%': { opacity: '1' },
-                    '51%, 100%': { opacity: '0' },
+                pageIn: {
+                    '0%': { opacity: '0', transform: 'translateY(15px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                /**
+                 * Drift animation - slow ambient movement.
+                 */
+                drift: {
+                    '0%, 100%': { transform: 'translate(0, 0)' },
+                    '50%': { transform: 'translate(-1%, 1%)' },
+                },
+                /**
+                 * Ink spread animation - blur/scale reveal.
+                 */
+                inkSpread: {
+                    '0%': { filter: 'blur(10px)', opacity: '0', transform: 'scale(0.95)' },
+                    '100%': { filter: 'blur(0)', opacity: '1', transform: 'scale(1)' },
                 }
             }
         }

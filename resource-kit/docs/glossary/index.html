@@ -3,55 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLOSSARY // AMDITIS KIT</title>
+    <title>Glossary // Amditis Kit</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    
+
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/assets/amditis-config.js"></script>
-    
+
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased font-mono bg-void text-chrome">
+<body class="antialiased font-sans bg-canvas text-ink">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
-        
+
         <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/50 backdrop-blur-md sticky top-0 z-50">
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <a href="/" class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch hover:bg-white transition-colors">A</a>
+                    <a href="/" class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl hover:bg-ink transition-colors">A</a>
                     <div>
-                        <div class="font-display font-bold text-sm tracking-wider text-chrome">DATABASE // GLOSSARY</div>
-                        <div class="text-xs text-gray-500 tracking-[0.2em]">TERMS_V2.5</div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink">Database // Glossary</div>
+                        <div class="text-xs text-ink/50 tracking-[0.2em]">Terms v2.5</div>
                     </div>
                 </div>
-                <a href="/markdown/glossary.md" download class="hidden md:flex items-center gap-2 px-3 py-1 border border-white/20 text-xs text-gray-400 hover:border-acid hover:text-acid transition-colors">
-                    <i data-lucide="download" class="w-3 h-3"></i> DOWNLOAD.MD
+                <a href="/markdown/glossary.md" download class="hidden md:flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors">
+                    <i data-lucide="download" class="w-3 h-3"></i> Download.md
                 </a>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16">
-            
+
             <!-- Search Hero -->
             <div class="max-w-2xl mx-auto mb-16 text-center">
-                <h2 class="font-display text-4xl text-chrome mb-4 glitch-text" data-text="KNOWLEDGE_BASE">KNOWLEDGE_BASE</h2>
-                <p class="text-gray-500 text-sm mb-8 font-mono">Plain-english definitions for technical terms. Search or browse below.</p>
-                
+                <h2 class="font-display text-4xl font-light italic text-ink mb-4">Knowledge Base</h2>
+                <p class="text-ink/50 text-sm mb-8">Plain-english definitions for technical terms. Search or browse below.</p>
+
                 <div class="relative group">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-600 group-focus-within:text-acid transition-colors">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ink/40 group-focus-within:text-accent transition-colors">
                         <i data-lucide="search" class="w-5 h-5"></i>
                     </div>
-                    <input type="text" id="searchInput" class="w-full bg-surface border border-white/10 text-white pl-12 pr-4 py-4 font-mono text-sm focus:outline-none focus:border-acid focus:bg-white/5 transition-all clip-notch" placeholder="SEARCH_TERMS...">
+                    <input type="text" id="searchInput" class="w-full bg-white border border-ink/10 text-ink pl-12 pr-4 py-4 text-sm focus:outline-none focus:border-accent focus:bg-white transition-all rounded-sm" placeholder="Search terms...">
                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                        <span class="text-xs text-gray-700 font-mono group-focus-within:text-acid transition-colors">[INPUT]</span>
+                        <span class="text-xs text-ink/30 group-focus-within:text-accent transition-colors">[Input]</span>
                     </div>
                 </div>
             </div>
@@ -62,20 +62,20 @@
             </div>
 
             <!-- Empty State -->
-            <div id="emptyState" class="hidden text-center py-20 border border-dashed border-white/10 bg-surface/50">
-                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-4 text-gray-500">
+            <div id="emptyState" class="hidden text-center py-20 border border-dashed border-ink/10 bg-white/50 rounded-sm">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-ink/5 mb-4 text-ink/40">
                     <i data-lucide="database" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-display text-lg text-white mb-1">NO_MATCH_FOUND</h3>
-                <p class="text-xs text-gray-500 font-mono">Query returned 0 results. Refine search parameters.</p>
+                <h3 class="font-display text-lg text-ink mb-1">No match found</h3>
+                <p class="text-xs text-ink/50">Query returned 0 results. Refine search parameters.</p>
             </div>
 
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-void py-8">
-            <div class="max-w-7xl mx-auto px-6 text-center text-xs font-mono text-gray-600">
-                <p>SYSTEM STATUS: ONLINE // <a href="/" class="hover:text-acid transition-colors">RETURN_ROOT</a></p>
+        <footer class="bg-ink text-canvas py-8">
+            <div class="max-w-7xl mx-auto px-6 text-center text-xs text-canvas/60">
+                <p>System status: Online // <a href="/" class="hover:text-accent transition-colors">Return home</a></p>
             </div>
         </footer>
 
@@ -104,23 +104,23 @@
             let count = 0;
 
             terms.forEach(item => {
-                const match = item.term.toLowerCase().includes(query) || 
-                              item.short.toLowerCase().includes(query) || 
+                const match = item.term.toLowerCase().includes(query) ||
+                              item.short.toLowerCase().includes(query) ||
                               item.full.toLowerCase().includes(query);
-                
+
                 if (match) {
                     count++;
                     const card = document.createElement('div');
-                    card.className = 'border border-white/10 bg-panel hover:border-ice transition-colors group relative overflow-hidden flex flex-col h-full';
-                    
+                    card.className = 'deckle-card hover:border-accent transition-colors group relative overflow-hidden flex flex-col h-full';
+
                     // Header
                     let headerHtml = `
-                        <div class="p-6 border-b border-white/10 bg-surface flex justify-between items-start">
+                        <div class="p-6 border-b border-ink/10 bg-ink/[0.02] flex justify-between items-start">
                             <div>
-                                <div class="text-xs text-ice font-mono mb-1 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">TERM_DEF</div>
-                                <h3 class="font-display text-xl text-white font-bold tracking-wide group-hover:text-ice transition-colors">${item.term}</h3>
+                                <div class="text-xs text-accent mb-1 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Term</div>
+                                <h3 class="font-display text-xl text-ink font-bold tracking-wide group-hover:text-accent transition-colors">${item.term}</h3>
                             </div>
-                            <button onclick="copyDefinition('${item.key}')" class="text-gray-600 hover:text-white transition-colors" title="COPY_DATA">
+                            <button onclick="copyDefinition('${item.key}')" class="text-ink/40 hover:text-ink transition-colors" title="Copy data">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                             </button>
                         </div>
@@ -130,13 +130,13 @@
                     let bodyHtml = `
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="mb-4">
-                                <span class="inline-block px-2 py-0.5 border border-white/10 bg-white/5 text-xs font-mono text-gray-400 uppercase tracking-wider">
+                                <span class="inline-block px-2 py-0.5 border border-ink/10 bg-ink/[0.02] text-xs text-ink/60 uppercase tracking-wider">
                                     Synopsis
                                 </span>
-                                <p class="mt-2 text-sm font-bold text-white">${item.short}</p>
+                                <p class="mt-2 text-sm font-bold text-ink">${item.short}</p>
                             </div>
-                            <div class="mt-auto pt-4 border-t border-white/5">
-                                <p class="text-xs text-gray-500 leading-relaxed font-mono">${item.full}</p>
+                            <div class="mt-auto pt-4 border-t border-ink/5">
+                                <p class="text-xs text-ink/50 leading-relaxed">${item.full}</p>
                             </div>
                         </div>
                     `;
@@ -151,7 +151,7 @@
             } else {
                 emptyState.classList.add('hidden');
             }
-            
+
             // Re-init icons for new elements
             lucide.createIcons();
         }
@@ -159,7 +159,7 @@
         function copyDefinition(key) {
             const item = GLOSSARY[key];
             if (!item) return;
-            
+
             const text = `${item.term}\n\n${item.short}\n\n${item.full}`;
             navigator.clipboard.writeText(text).then(() => {
                 // Flash effect could be added here
