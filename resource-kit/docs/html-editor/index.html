@@ -1156,12 +1156,18 @@
 
                 // Check if response is OK before parsing
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    // Try to extract useful error message
+                    // Handle specific error codes with friendly messages
+                    if (response.status === 429) {
+                        throw new Error('Imgur rate limit reached. Please wait a few minutes and try again.');
+                    }
                     if (response.status === 503) {
                         throw new Error('Imgur is temporarily unavailable. Please try again in a moment.');
                     }
-                    throw new Error(`Upload failed (${response.status}): ${errorText.substring(0, 100)}`);
+                    if (response.status === 403) {
+                        throw new Error('Imgur blocked this request. Try a different browser or disable tracking protection.');
+                    }
+                    const errorText = await response.text();
+                    throw new Error(`Upload failed (${response.status})`);
                 }
 
                 // Parse JSON response
