@@ -412,17 +412,17 @@ async function loadAllData() {
          * @returns {string} Tailwind CSS classes for text and border colors
          *
          * @example
-         * getTrackColor('research')   // Returns 'text-ice border-ice'
-         * getTrackColor('invalid')    // Returns 'text-acid border-acid' (default)
+         * getTrackColor('research')   // Returns 'text-accent border-accent'
+         * getTrackColor('invalid')    // Returns 'text-accent border-accent' (default)
          */
         const getTrackColor = (track) => {
             const colors = {
-                'research': 'text-ice border-ice',
-                'content': 'text-acid border-acid',
-                'multimedia': 'text-signal border-signal',
-                'automation': 'text-white border-white'
+                'research': 'text-accent border-accent',
+                'content': 'text-accent border-accent',
+                'multimedia': 'text-accent border-accent',
+                'automation': 'text-ink border-ink'
             };
-            return colors[track] || 'text-acid border-acid';
+            return colors[track] || 'text-accent border-accent';
         };
 
         // -------------------------------------------------------------------------
@@ -530,25 +530,25 @@ async function loadAllData() {
                 const trackColor = getTrackColor(option.track || currentTrack);
 
                 return `
-                <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-surface border border-white/10 hover:border-acid hover:bg-panel"
+                <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-white/40 border border-ink/10 hover:border-accent hover:bg-white/60"
                         data-next="${option.next}"
                         data-text="${sanitizeHTML(option.text)}"
                         data-tools='${toolsJSON}'
                         data-track="${option.track || currentTrack}"
                         style="animation-delay: ${index * 50}ms">
                     <div class="flex items-center gap-4">
-                        <span class="text-xs font-mono text-gray-600 group-hover:text-acid transition-colors">0${index + 1}</span>
-                        <span class="font-display text-chrome group-hover:text-white transition-colors">${sanitizeHTML(option.text)}</span>
+                        <span class="text-xs font-mono text-mist group-hover:text-accent transition-colors">0${index + 1}</span>
+                        <span class="font-display text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-gray-600 group-hover:text-acid group-hover:translate-x-1 transition-all"><path d="m9 18 6-6-6-6"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-mist group-hover:text-accent group-hover:translate-x-1 transition-all"><path d="m9 18 6-6-6-6"/></svg>
                 </button>`;
             }).join('');
 
             // Render question header with step counter and options
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-acid mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-white tracking-wide">${sanitizeHTML(node.question)}</h2>
+                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">${sanitizeHTML(node.question)}</h2>
                 </div>
                 <div class="space-y-3">${optionsHTML}</div>`;
         }
@@ -570,33 +570,33 @@ async function loadAllData() {
         function renderRecommendationView() {
             // Generate HTML for each recommended tool card
             let toolsHTML = selectedTools.map((tool, index) => `
-                <div class="recommendation-card border border-white/10 bg-panel p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-acid"></div>
+                <div class="recommendation-card border border-ink/10 bg-white/40 p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
                     <div class="pl-4">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-8 h-8 bg-acid/20 border border-acid flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-acid"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
+                            <div class="w-8 h-8 bg-accent/20 border border-accent flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
                             </div>
-                            <h3 class="font-display text-xl text-white tracking-wide">${sanitizeHTML(tool.name)}</h3>
+                            <h3 class="font-display text-xl text-ink tracking-wide">${sanitizeHTML(tool.name)}</h3>
                         </div>
-                        <p class="text-sm text-gray-400 mb-6 leading-relaxed">${sanitizeHTML(tool.description)}</p>
+                        <p class="text-sm text-mist mb-6 leading-relaxed">${sanitizeHTML(tool.description)}</p>
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-mono text-acid mb-3 tracking-widest">RECOMMENDED_MODELS</h4>
+                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">RECOMMENDED_MODELS</h4>
                             <div class="flex flex-wrap gap-2">
                                 ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
                             </div>
                         </div>
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-mono text-ice mb-3 tracking-widest">SAMPLE_PROMPT</h4>
-                            <code class="block text-sm text-gray-300 whitespace-pre-wrap font-mono bg-void border border-white/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
+                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">SAMPLE_PROMPT</h4>
+                            <code class="block text-sm text-ink whitespace-pre-wrap font-mono bg-white/50 border border-ink/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
                         </div>
 
                         ${tool.tips ? `
                         <div>
-                            <h4 class="text-xs font-mono text-signal mb-3 tracking-widest">PRO_TIPS</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed border-l-2 border-signal/30 pl-4">${sanitizeHTML(tool.tips)}</p>
+                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">PRO_TIPS</h4>
+                            <p class="text-sm text-mist leading-relaxed border-l-2 border-accent/30 pl-4">${sanitizeHTML(tool.tips)}</p>
                         </div>` : ''}
                     </div>
                 </div>`).join('');
@@ -604,12 +604,12 @@ async function loadAllData() {
             // Render the complete recommendation view with header and restart button
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-acid mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-white tracking-wide">Recommended tools and approaches</h2>
+                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">Recommended tools and approaches</h2>
                 </div>
                 <div class="space-y-6">${toolsHTML}</div>
-                <div class="mt-8 pt-6 border-t border-white/10">
-                    <button id="restart-from-rec-btn" class="flex items-center gap-2 px-6 py-3 text-sm font-mono bg-surface border border-white/10 text-gray-400 hover:text-acid hover:border-acid transition-all">
+                <div class="mt-8 pt-6 border-t border-ink/10">
+                    <button id="restart-from-rec-btn" class="flex items-center gap-2 px-6 py-3 text-sm font-mono bg-white/40 border border-ink/10 text-mist hover:text-accent hover:border-accent transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         [ START_NEW_QUERY ]
                     </button>
@@ -765,10 +765,10 @@ async function loadAllData() {
         function renderComparisonModal() {
             // Render tool selection buttons
             const headerHTML = `
-                <h3 class="text-sm font-mono text-acid mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
+                <h3 class="text-sm font-mono text-accent mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
                 <div class="flex flex-wrap gap-2">
                     ${Object.keys(toolComparisonData).map(tool => `
-                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-panel ring-current' : 'bg-surface border border-white/10 text-gray-400 hover:text-white hover:border-white/30'}" data-tool="${tool}">${tool}</button>
+                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/40 border border-ink/10 text-mist hover:text-ink hover:border-ink/30'}" data-tool="${tool}">${tool}</button>
                     `).join('')}
                 </div>`;
 
@@ -787,15 +787,15 @@ async function loadAllData() {
                     <div class="overflow-x-auto mt-6">
                         <table class="min-w-full w-full text-left text-sm">
                             <thead>
-                                <tr class="border-b border-white/10">
-                                    <th class="py-3 font-mono text-xs text-gray-500 tracking-wider">FEATURE</th>
+                                <tr class="border-b border-ink/10">
+                                    <th class="py-3 font-mono text-xs text-mist tracking-wider">FEATURE</th>
                                     ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-400">
+                            <tbody class="text-mist">
                                 ${features.map(feature => `
-                                    <tr class="align-top border-b border-white/5">
-                                        <td class="py-4 font-medium text-chrome">${featureNames[feature]}</td>
+                                    <tr class="align-top border-b border-ink/5">
+                                        <td class="py-4 font-medium text-ink">${featureNames[feature]}</td>
                                         ${compareTools.map(tool => `<td class="py-4 pr-4">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
                                     </tr>
                                 `).join('')}
@@ -804,7 +804,7 @@ async function loadAllData() {
                     </div>`;
             } else {
                 // Show placeholder when no tools selected
-                tableHTML = `<div class="text-center p-8 bg-surface border border-white/10 mt-6"><p class="text-gray-500 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
+                tableHTML = `<div class="text-center p-8 bg-white/40 border border-ink/10 mt-6"><p class="text-mist font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
             }
             modalBody.innerHTML = headerHTML + tableHTML;
         }
@@ -825,7 +825,7 @@ async function loadAllData() {
          */
         function renderCaseStudiesModal() {
             modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => `
-                <div class="border border-white/10 overflow-hidden flex flex-col bg-panel">
+                <div class="border border-ink/10 overflow-hidden flex flex-col bg-white/40">
                     <div class="px-5 py-4 ${getPillClasses(study.tool)}">
                         <div class="flex justify-between items-start gap-2">
                             <h3 class="font-display font-bold text-lg leading-tight">${sanitizeHTML(study.title)}</h3>
@@ -834,23 +834,23 @@ async function loadAllData() {
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex-grow">
-                            <p class="text-sm mb-3 font-medium text-gray-500">${sanitizeHTML(study.journalist)}</p>
+                            <p class="text-sm mb-3 font-medium text-mist">${sanitizeHTML(study.journalist)}</p>
                             <div class="text-sm space-y-4">
                                 <div>
-                                    <h4 class="font-mono text-xs text-signal tracking-wider mb-2">CHALLENGE</h4>
-                                    <p class="text-gray-400">${sanitizeHTML(study.challenge)}</p>
+                                    <h4 class="font-mono text-xs text-accent tracking-wider mb-2">CHALLENGE</h4>
+                                    <p class="text-mist">${sanitizeHTML(study.challenge)}</p>
                                 </div>
                                 <div>
-                                    <h4 class="font-mono text-xs text-acid tracking-wider mb-2">KEY_TAKEAWAY</h4>
-                                    <p class="text-gray-400">${sanitizeHTML(study.tips)}</p>
+                                    <h4 class="font-mono text-xs text-accent tracking-wider mb-2">KEY_TAKEAWAY</h4>
+                                    <p class="text-mist">${sanitizeHTML(study.tips)}</p>
                                 </div>
                                 <div>
-                                    <h4 class="font-mono text-xs text-ice tracking-wider mb-2">WORDS_OF_WISDOM</h4>
-                                    <p class="border-l-2 pl-4 py-2 border-ice/30 bg-iceDim text-sm italic text-gray-300">"${sanitizeHTML(study.quote)}"</p>
+                                    <h4 class="font-mono text-xs text-accent tracking-wider mb-2">WORDS_OF_WISDOM</h4>
+                                    <p class="border-l-2 pl-4 py-2 border-accent/30 bg-accent/5 text-sm italic text-ink">"${sanitizeHTML(study.quote)}"</p>
                                 </div>
                             </div>
                         </div>
-                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-acid hover:underline">Learn more →</a></div>` : ''}
+                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Learn more →</a></div>` : ''}
                     </div>
                 </div>`).join('')}</div>`;
         }
@@ -871,7 +871,7 @@ async function loadAllData() {
         function renderBestPracticesModal() {
             const data = bestPracticesData.general;
             if (!data) {
-                modalBody.innerHTML = '<p class="text-gray-500">No best practices available.</p>';
+                modalBody.innerHTML = '<p class="text-mist">No best practices available.</p>';
                 return;
             }
 
@@ -891,11 +891,11 @@ async function loadAllData() {
                 if (tips) {
                     contentHTML += `
                         <div>
-                            <h3 class="font-display text-lg font-bold mb-4 text-white">${title}</h3>
+                            <h3 class="font-display text-lg font-bold mb-4 text-ink">${title}</h3>
                             <ul class="space-y-3 text-sm">
                                 ${tips.map((tip) => `
-                                    <li class="flex items-start text-gray-400">
-                                        <svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-acid" fill="currentColor" viewBox="0 0 20 20">
+                                    <li class="flex items-start text-mist">
+                                        <svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                         </svg>
                                         <span>${tip}</span>
@@ -927,16 +927,16 @@ async function loadAllData() {
             for (const [name, data] of Object.entries(modelInfoData)) {
                 const isHighlighted = name === highlightModel;
                 contentHTML += `
-                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-white/10 overflow-hidden flex flex-col bg-panel ${isHighlighted ? 'ring-2 ring-acid' : ''}">
+                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-ink/10 overflow-hidden flex flex-col bg-white/40 ${isHighlighted ? 'ring-2 ring-accent' : ''}">
                     <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-display font-bold text-lg">${sanitizeHTML(name)}</h3></div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex-grow">
-                            <p class="text-sm mb-4 text-gray-400">${sanitizeHTML(data.description)}</p>
-                            <h4 class="text-xs font-mono text-acid mb-3 tracking-wider">KEY_FEATURES</h4>
-                            <ul class="space-y-2 text-sm list-disc pl-5 text-gray-400">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
+                            <p class="text-sm mb-4 text-mist">${sanitizeHTML(data.description)}</p>
+                            <h4 class="text-xs font-mono text-accent mb-3 tracking-wider">KEY_FEATURES</h4>
+                            <ul class="space-y-2 text-sm list-disc pl-5 text-mist">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
                         </div>
                         <div class="mt-4 flex justify-end">
-                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-acid hover:underline">Visit website →</a>
+                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Visit website →</a>
                         </div>
                     </div>
                 </div>`;
@@ -964,9 +964,9 @@ async function loadAllData() {
          */
         function renderChangelogModal() {
             modalBody.innerHTML = changelogData.map(log => `
-                <div class="pb-6 mb-6 border-b border-white/10 last:border-b-0 last:mb-0 last:pb-0">
-                    <p class="text-sm font-mono text-acid mb-2">v${log.version}</p>
-                    <div class="text-sm text-gray-400">${log.notes}</div>
+                <div class="pb-6 mb-6 border-b border-ink/10 last:border-b-0 last:mb-0 last:pb-0">
+                    <p class="text-sm font-mono text-accent mb-2">v${log.version}</p>
+                    <div class="text-sm text-mist">${log.notes}</div>
                 </div>
             `).join('');
         }
@@ -992,7 +992,7 @@ async function loadAllData() {
 
             // Update progress bar
             progressBar.style.width = `${progress}%`;
-            progressBar.className = 'absolute top-0 left-0 h-full bg-acid transition-all duration-500';
+            progressBar.className = 'absolute top-0 left-0 h-full bg-accent transition-all duration-500';
 
             // Update back button state
             backBtn.disabled = history.length === 0;
@@ -1003,8 +1003,8 @@ async function loadAllData() {
             if (history.length > 0) {
                 breadcrumbContainer.classList.remove('hidden');
                 breadcrumbContainer.innerHTML = history
-                    .map(item => `<span class="text-gray-500 hover:text-acid transition-colors">${sanitizeHTML(item.selection)}</span>`)
-                    .join('<span class="text-gray-700 mx-2">/</span>');
+                    .map(item => `<span class="text-mist hover:text-accent transition-colors">${sanitizeHTML(item.selection)}</span>`)
+                    .join('<span class="text-mist/50 mx-2">/</span>');
             } else {
                 breadcrumbContainer.classList.add('hidden');
             }
@@ -1424,7 +1424,7 @@ loadAllData().then(success => {
         document.addEventListener('DOMContentLoaded', () => {
             const mainContent = document.querySelector('#main-content');
             if (mainContent) {
-                mainContent.innerHTML = '<div class="text-center p-8 border border-signal/30 bg-signalDim"><p class="text-signal font-mono">ERROR: Failed to load application data. Please refresh the page.</p></div>';
+                mainContent.innerHTML = '<div class="text-center p-8 border border-red-500/30 bg-red-50"><p class="text-red-600 font-mono">ERROR: Failed to load application data. Please refresh the page.</p></div>';
             }
         });
     }
