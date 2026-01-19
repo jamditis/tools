@@ -835,6 +835,15 @@
             doc.designMode = 'off';
             doc.body.removeAttribute('contenteditable');
 
+            // Unwrap images from their overlay wrappers
+            doc.querySelectorAll('.amditis-img-wrapper').forEach(wrapper => {
+                const img = wrapper.querySelector('img');
+                if (img) {
+                    wrapper.parentNode.insertBefore(img, wrapper);
+                }
+                wrapper.remove();
+            });
+
             // Remove editing styles (identified by data attribute)
             doc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
 
@@ -842,9 +851,12 @@
             let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
             projectFiles.set(currentFile, html);
 
-            // Re-enable editing
+            // Re-enable editing and re-add wrappers
             doc.body.setAttribute('contenteditable', 'true');
             doc.designMode = 'on';
+
+            // Re-setup image handlers after saving
+            setTimeout(() => setupImageClickHandlers(), 50);
         }
 
         // Setup the editor iframe with CSS injection
@@ -981,6 +993,21 @@
             URL.revokeObjectURL(url);
         }
 
+        // Clean up editor artifacts from HTML
+        function cleanEditorArtifacts(tempDoc) {
+            // Unwrap images from overlay wrappers
+            tempDoc.querySelectorAll('.amditis-img-wrapper').forEach(wrapper => {
+                const img = wrapper.querySelector('img');
+                if (img) {
+                    wrapper.parentNode.insertBefore(img, wrapper);
+                }
+                wrapper.remove();
+            });
+
+            // Remove editor styles
+            tempDoc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
+        }
+
         // Restore CSS links from inline styles
         function restoreCssLinks(html) {
             const parser = new DOMParser();
@@ -995,8 +1022,8 @@
                 style.parentNode.replaceChild(link, style);
             });
 
-            // Remove editor styles (identified by data attribute)
-            tempDoc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
+            // Clean up editor artifacts
+            cleanEditorArtifacts(tempDoc);
 
             return '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
         }
@@ -1005,10 +1032,11 @@
         function downloadSingleFile() {
             const [filename, content] = [...projectFiles.entries()][0];
 
-            // Clean up editor styles (identified by data attribute)
             const parser = new DOMParser();
             const tempDoc = parser.parseFromString(content, 'text/html');
-            tempDoc.querySelectorAll('style[data-amditis-editor]').forEach(style => style.remove());
+
+            // Clean up editor artifacts
+            cleanEditorArtifacts(tempDoc);
 
             const cleanHtml = '<!DOCTYPE html>\n' + tempDoc.documentElement.outerHTML;
 
@@ -1242,22 +1270,81 @@
             lucide.createIcons();
         }
 
-        // Setup click-to-replace on images in editor
+        // Setup hover overlay buttons on images in editor
         function setupImageClickHandlers() {
             const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
             if (!doc || !doc.body) return;
 
-            doc.querySelectorAll('img').forEach(img => {
-                img.style.cursor = 'pointer';
-                img.addEventListener('click', (e) => {
-                    // Only trigger if not dragging text
-                    if (e.detail === 2) { // Double click
-                        e.preventDefault();
-                        e.stopPropagation();
-                        targetImageElement = img;
-                        imageModalTitle.innerHTML = 'Replace <span class="font-black">Image</span>';
-                        openImageModal();
+            // Add styles for image overlay if not already added
+            if (!doc.getElementById('amditis-image-overlay-styles')) {
+                const style = doc.createElement('style');
+                style.id = 'amditis-image-overlay-styles';
+                style.setAttribute('data-amditis-editor', 'true');
+                style.textContent = `
+                    .amditis-img-wrapper {
+                        position: relative;
+                        display: inline-block;
                     }
+                    .amditis-img-wrapper img {
+                        display: block;
+                    }
+                    .amditis-img-overlay {
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                        background: rgba(18, 18, 18, 0.85);
+                        color: white;
+                        border: none;
+                        padding: 6px 12px;
+                        font-size: 10px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                        cursor: pointer;
+                        opacity: 0;
+                        transition: opacity 0.2s ease;
+                        font-family: system-ui, sans-serif;
+                        z-index: 1000;
+                    }
+                    .amditis-img-wrapper:hover .amditis-img-overlay {
+                        opacity: 1;
+                    }
+                    .amditis-img-overlay:hover {
+                        background: #3d4b40;
+                    }
+                `;
+                doc.head.appendChild(style);
+            }
+
+            // Wrap each image and add overlay button
+            doc.querySelectorAll('img').forEach((img, index) => {
+                // Skip if already wrapped
+                if (img.parentElement?.classList.contains('amditis-img-wrapper')) return;
+
+                // Create wrapper
+                const wrapper = doc.createElement('span');
+                wrapper.className = 'amditis-img-wrapper';
+                wrapper.setAttribute('contenteditable', 'false');
+
+                // Create replace button
+                const btn = doc.createElement('button');
+                btn.className = 'amditis-img-overlay';
+                btn.textContent = 'Replace';
+                btn.setAttribute('contenteditable', 'false');
+                btn.dataset.imgIndex = index;
+
+                // Wrap the image
+                img.parentNode.insertBefore(wrapper, img);
+                wrapper.appendChild(img);
+                wrapper.appendChild(btn);
+
+                // Button click handler
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    targetImageElement = img;
+                    imageModalTitle.innerHTML = 'Replace <span class="font-black">Image</span>';
+                    openImageModal();
                 });
             });
         }
