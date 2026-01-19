@@ -1,97 +1,184 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML EDITOR // AMDITIS KIT</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <title>HTML EDITOR // AMDITIS</title>
 
-    <!-- CSS & Config -->
-    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/assets/amditis-config.js"></script>
-
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        canvas: '#ede6d4',
+                        ink: '#121212',
+                        clay: '#d6cdb7',
+                        mist: '#6b6b6b',
+                        accent: '#3d4b40',
+                    },
+                    animation: {
+                        'page-in': 'pageIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'drift': 'drift 25s ease-in-out infinite',
+                        'ink-spread': 'inkSpread 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        pageIn: {
+                            '0%': { opacity: '0', transform: 'translateY(15px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        drift: {
+                            '0%, 100%': { transform: 'translate(0, 0)' },
+                            '50%': { transform: 'translate(-1%, 1%)' },
+                        },
+                        inkSpread: {
+                            '0%': { filter: 'blur(10px)', opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { filter: 'blur(0)', opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Editor iframe styles */
-        #editor-frame {
-            background: white;
-            border: none;
+        body {
+            background-color: #ede6d4;
+            color: #121212;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Drop zone styling */
+        .paper-overlay {
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        :focus-visible {
+            outline: 2px solid #3d4b40;
+            outline-offset: 4px;
+        }
+
         .drop-zone {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(18, 18, 18, 0.15);
             transition: all 0.3s ease;
         }
 
         .drop-zone.drag-over {
-            border-color: #ccff00;
-            background: rgba(204, 255, 0, 0.05);
+            border-color: #3d4b40;
+            background: rgba(61, 75, 64, 0.05);
         }
 
-        /* Toolbar button hover */
+        .toolbar-btn {
+            transition: all 0.3s ease;
+        }
+
         .toolbar-btn:hover:not(:disabled) {
-            background: rgba(204, 255, 0, 0.1);
-            border-color: #ccff00;
+            background: rgba(61, 75, 64, 0.1);
+            border-color: #3d4b40;
         }
 
         .toolbar-btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
+
+        .deckle-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(18, 18, 18, 0.05);
+            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+        }
+
+        #editor-frame {
+            background: white;
+            border: none;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #121212;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
-<body class="antialiased font-mono bg-void text-chrome h-full overflow-hidden">
+<body class="font-sans overflow-x-hidden min-h-screen flex flex-col">
 
-    <div class="crt-overlay"></div>
-    <div class="fixed inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-[0.07] pointer-events-none z-0"></div>
+    <div class="paper-overlay"></div>
 
-    <div class="relative z-10 flex h-full flex-col">
+    <!-- Soft Ambient Light -->
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
 
-        <!-- Header -->
-        <header class="border-b border-white/10 bg-panel/80 backdrop-blur-md p-4 flex justify-between items-center z-20">
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Navigation -->
+        <nav class="flex justify-between items-center p-6 md:p-10 border-b border-ink/5 bg-canvas/80 backdrop-blur-md">
             <div class="flex items-center gap-4">
-                <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 bg-acid text-black flex items-center justify-center font-bold font-display text-xl clip-notch group-hover:bg-white transition-colors">A</div>
+                <a href="/" class="flex items-center gap-4 group">
+                    <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
                     <div class="hidden sm:block">
-                        <h1 class="font-display font-bold text-lg tracking-wider text-chrome">HTML_EDITOR</h1>
-                        <p class="text-xs text-gray-500 tracking-[0.2em]">WYSIWYG_v1.0</p>
+                        <span class="text-[10px] tracking-[0.3em] font-bold opacity-50 uppercase">HTML Editor</span>
                     </div>
                 </a>
             </div>
 
-            <div class="flex items-center gap-2">
-                <span id="file-name" class="text-xs text-gray-500 hidden sm:block mr-4">NO_FILE_LOADED</span>
+            <div class="flex items-center gap-3">
+                <span id="file-name" class="text-[10px] tracking-[0.2em] font-bold opacity-40 uppercase hidden md:block mr-4">No file loaded</span>
 
-                <!-- Toolbar -->
-                <button id="upload-btn" class="toolbar-btn px-3 py-2 border border-white/20 text-xs font-mono hover:text-acid flex items-center gap-2 transition-all">
+                <button id="upload-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:text-accent">
                     <i data-lucide="upload" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">UPLOAD</span>
+                    <span class="hidden sm:inline">Upload</span>
                 </button>
 
-                <button id="download-btn" class="toolbar-btn px-3 py-2 border border-white/20 text-xs font-mono hover:text-acid flex items-center gap-2 transition-all" disabled>
+                <button id="download-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all" disabled>
                     <i data-lucide="download" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">DOWNLOAD</span>
+                    <span class="hidden sm:inline">Download</span>
                 </button>
             </div>
-        </header>
+        </nav>
 
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col overflow-hidden">
+        <main class="flex-1 flex flex-col">
 
             <!-- Upload Zone (shown when no file loaded) -->
-            <div id="upload-zone" class="flex-1 flex items-center justify-center p-8">
-                <div class="drop-zone w-full max-w-2xl p-12 text-center rounded-lg cursor-pointer" id="drop-zone">
-                    <div class="mb-6">
-                        <i data-lucide="file-code" class="w-16 h-16 mx-auto text-gray-600"></i>
+            <div id="upload-zone" class="flex-1 flex items-center justify-center p-8 animate-page-in">
+                <div class="drop-zone w-full max-w-2xl p-16 text-center cursor-pointer deckle-card" id="drop-zone">
+                    <div class="mb-8">
+                        <i data-lucide="file-text" class="w-16 h-16 mx-auto text-ink/20"></i>
                     </div>
-                    <h2 class="font-display text-2xl text-white mb-4">DROP HTML FILE HERE</h2>
-                    <p class="text-gray-500 text-sm mb-6">or click to browse your files</p>
-                    <div class="inline-flex items-center px-4 py-2 border border-acid/30 text-acid text-xs font-mono">
-                        SUPPORTED: .html, .htm
+                    <h2 class="font-display text-4xl md:text-5xl font-light italic mb-6 text-ink">
+                        Drop your <span class="font-black">file.</span>
+                    </h2>
+                    <p class="text-mist text-sm mb-8 max-w-md mx-auto">
+                        Upload an HTML file to begin editing. Click anywhere on the page to modify text directly.
+                    </p>
+                    <div class="inline-block px-4 py-2 border border-ink/10">
+                        <span class="text-[9px] font-bold tracking-[0.4em] uppercase opacity-50">Accepts .html, .htm</span>
                     </div>
                     <input type="file" id="file-input" accept=".html,.htm" class="hidden">
                 </div>
@@ -101,54 +188,57 @@
             <div id="editor-zone" class="flex-1 flex flex-col hidden">
 
                 <!-- Editing Toolbar -->
-                <div class="border-b border-white/10 bg-panel p-3 flex items-center gap-2 flex-wrap">
-                    <span class="text-xs text-gray-500 mr-2">FORMAT:</span>
+                <div class="border-b border-ink/5 bg-canvas/90 backdrop-blur-sm p-4 flex items-center gap-3 flex-wrap">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-mist mr-4">Format</span>
 
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="bold" title="Bold">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="bold" title="Bold">
                         <i data-lucide="bold" class="w-4 h-4"></i>
                     </button>
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="italic" title="Italic">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="italic" title="Italic">
                         <i data-lucide="italic" class="w-4 h-4"></i>
                     </button>
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="underline" title="Underline">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="underline" title="Underline">
                         <i data-lucide="underline" class="w-4 h-4"></i>
                     </button>
 
-                    <div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <div class="w-px h-6 bg-ink/10 mx-2"></div>
 
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="insertUnorderedList" title="Bullet List">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertUnorderedList" title="Bullet List">
                         <i data-lucide="list" class="w-4 h-4"></i>
                     </button>
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="insertOrderedList" title="Numbered List">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="insertOrderedList" title="Numbered List">
                         <i data-lucide="list-ordered" class="w-4 h-4"></i>
                     </button>
 
-                    <div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <div class="w-px h-6 bg-ink/10 mx-2"></div>
 
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="undo" title="Undo">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="undo" title="Undo">
                         <i data-lucide="undo" class="w-4 h-4"></i>
                     </button>
-                    <button class="format-btn toolbar-btn px-2 py-1 border border-white/10 text-xs" data-command="redo" title="Redo">
+                    <button class="format-btn toolbar-btn p-2 border border-ink/10" data-command="redo" title="Redo">
                         <i data-lucide="redo" class="w-4 h-4"></i>
                     </button>
 
                     <div class="flex-1"></div>
 
-                    <span class="text-xs text-acid">Click any text to edit</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-accent animate-pulse"></div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-mist">Click text to edit</span>
+                    </div>
                 </div>
 
                 <!-- Editor Frame -->
-                <div class="flex-1 overflow-auto bg-white">
-                    <iframe id="editor-frame" class="w-full h-full"></iframe>
+                <div class="flex-1 overflow-auto bg-white border-t border-ink/5">
+                    <iframe id="editor-frame" class="w-full h-full min-h-[600px]"></iframe>
                 </div>
             </div>
 
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 bg-panel p-3 text-center">
-            <p class="text-xs text-gray-600">
-                Edit text directly in the preview. Changes are preserved when you download.
+        <footer class="border-t border-ink/5 bg-canvas p-6 text-center">
+            <p class="text-[10px] font-bold tracking-[0.3em] uppercase text-ink/30">
+                Edit directly in preview — Download when finished
             </p>
         </footer>
     </div>
@@ -232,11 +322,11 @@
                     cursor: text;
                 }
                 *:focus {
-                    outline: 2px solid #ccff00 !important;
+                    outline: 2px solid #3d4b40 !important;
                     outline-offset: 2px;
                 }
                 [contenteditable]:hover {
-                    background-color: rgba(204, 255, 0, 0.05);
+                    background-color: rgba(61, 75, 64, 0.03);
                 }
             `;
             doc.head.appendChild(style);
@@ -273,7 +363,7 @@
             // Remove our editing styles
             const styles = doc.querySelectorAll('style');
             styles.forEach(style => {
-                if (style.textContent.includes('#ccff00')) {
+                if (style.textContent.includes('#3d4b40')) {
                     style.remove();
                 }
             });
