@@ -876,7 +876,20 @@
             doc.write(processedHtml);
             doc.close();
 
-            // Make body editable
+            // Make body editable (check for null body)
+            if (!doc.body) {
+                console.warn('Document body is null, waiting for load...');
+                editorFrame.onload = () => {
+                    const loadedDoc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+                    if (loadedDoc.body) {
+                        loadedDoc.body.setAttribute('contenteditable', 'true');
+                        loadedDoc.designMode = 'on';
+                        updateImagesList();
+                        setupImageClickHandlers();
+                    }
+                };
+                return;
+            }
             doc.body.setAttribute('contenteditable', 'true');
 
             // Add editing styles (marked with data attribute for safe removal)
@@ -1141,7 +1154,23 @@
 
                 setUploadProgress(70, 'Processing...');
 
-                const result = await response.json();
+                // Check if response is OK before parsing
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    // Try to extract useful error message
+                    if (response.status === 503) {
+                        throw new Error('Imgur is temporarily unavailable. Please try again in a moment.');
+                    }
+                    throw new Error(`Upload failed (${response.status}): ${errorText.substring(0, 100)}`);
+                }
+
+                // Parse JSON response
+                let result;
+                try {
+                    result = await response.json();
+                } catch (parseError) {
+                    throw new Error('Invalid response from Imgur. Please try again.');
+                }
 
                 if (!result.success) {
                     throw new Error(result.data?.error || 'Upload failed');
