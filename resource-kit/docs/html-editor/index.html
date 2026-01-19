@@ -191,6 +191,30 @@
                         <p class="text-[10px] text-mist/60 mt-4">
                             Fetches a snapshot of the page. Some sites may block this due to CORS restrictions.
                         </p>
+
+                        <!-- SingleFile Extension Tip -->
+                        <div class="mt-6 pt-6 border-t border-ink/5">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="puzzle" class="w-4 h-4 text-accent mt-0.5 flex-shrink-0"></i>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-wider text-ink/70 mb-2">Pro tip: Use SingleFile</p>
+                                    <p class="text-[10px] text-mist/70 mb-3">
+                                        For complex pages, install the <strong>SingleFile</strong> browser extension. It saves any page as a complete, self-contained HTML file with all images, CSS, and fonts embedded. Then upload that file here.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <a href="https://chromewebstore.google.com/detail/singlefile/mpiodijhokgodhhofbcjdecpffjipkle" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ink/5 hover:bg-ink/10 text-[9px] font-bold uppercase tracking-wider transition-colors">
+                                            <i data-lucide="chrome" class="w-3 h-3"></i> Chrome
+                                        </a>
+                                        <a href="https://addons.mozilla.org/en-US/firefox/addon/single-file/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ink/5 hover:bg-ink/10 text-[9px] font-bold uppercase tracking-wider transition-colors">
+                                            <i data-lucide="globe" class="w-3 h-3"></i> Firefox
+                                        </a>
+                                        <a href="https://microsoftedge.microsoft.com/addons/detail/singlefile/efnbkdcfmcmnhlkaijjjmhjjgladedno" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ink/5 hover:bg-ink/10 text-[9px] font-bold uppercase tracking-wider transition-colors">
+                                            <i data-lucide="globe" class="w-3 h-3"></i> Edge
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Divider -->
@@ -249,6 +273,22 @@
                         </div>
                         <div id="css-files-list" class="space-y-1 text-xs text-mist">
                             <!-- CSS files will be listed here -->
+                        </div>
+                    </div>
+
+                    <!-- Images Section -->
+                    <div class="sidebar-section p-4" id="images-section">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="image" class="w-3 h-3 text-accent"></i>
+                                <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-mist">Images</span>
+                            </div>
+                            <button id="add-image-btn" class="text-[9px] font-bold uppercase tracking-wider text-accent hover:text-ink transition-colors" title="Insert new image">
+                                + Add
+                            </button>
+                        </div>
+                        <div id="images-list" class="space-y-2 max-h-32 overflow-y-auto">
+                            <p class="text-[10px] opacity-50">No images yet</p>
                         </div>
                     </div>
 
@@ -330,6 +370,62 @@
         </footer>
     </div>
 
+    <!-- Image Upload Modal -->
+    <div id="image-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" id="image-modal-backdrop"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-canvas border border-ink/10 shadow-2xl w-full max-w-md animate-page-in">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-ink/5">
+                    <h3 class="font-display text-xl italic" id="image-modal-title">Upload <span class="font-black">Image</span></h3>
+                    <button id="image-modal-close" class="p-2 hover:bg-ink/5 transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6">
+                    <!-- Drop Zone for Image -->
+                    <div id="image-drop-zone" class="border-2 border-dashed border-ink/15 p-8 text-center cursor-pointer hover:border-accent hover:bg-accent/5 transition-all">
+                        <i data-lucide="image-plus" class="w-10 h-10 mx-auto text-ink/30 mb-4"></i>
+                        <p class="text-sm text-ink/70 mb-2">Drop image here or click to browse</p>
+                        <p class="text-[10px] text-mist">PNG, JPG, GIF, WebP (max 10MB)</p>
+                        <input type="file" id="image-file-input" accept="image/*" class="hidden">
+                    </div>
+
+                    <!-- Upload Progress -->
+                    <div id="image-upload-progress" class="mt-4 hidden">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 h-1 bg-ink/10 overflow-hidden">
+                                <div id="image-progress-bar" class="h-full bg-accent transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <span id="image-progress-text" class="text-[10px] font-bold text-mist">0%</span>
+                        </div>
+                        <p id="image-upload-status" class="text-[10px] text-mist mt-2">Uploading to Imgur...</p>
+                    </div>
+
+                    <!-- Preview -->
+                    <div id="image-preview-container" class="mt-4 hidden">
+                        <img id="image-preview" class="max-h-40 mx-auto border border-ink/10" alt="Preview">
+                    </div>
+
+                    <!-- Error Message -->
+                    <p id="image-error" class="text-[10px] text-red-600 mt-4 hidden"></p>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-6 pt-0 flex gap-3">
+                    <button id="image-cancel-btn" class="flex-1 px-4 py-3 border border-ink/10 text-[10px] font-bold uppercase tracking-widest hover:bg-ink/5 transition-colors">
+                        Cancel
+                    </button>
+                    <button id="image-upload-btn" class="flex-1 px-4 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-colors disabled:opacity-30" disabled>
+                        Upload & Insert
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
@@ -354,11 +450,35 @@
         const fetchBtn = document.getElementById('fetch-btn');
         const fetchStatus = document.getElementById('fetch-status');
 
+        // Image Modal Elements
+        const imageModal = document.getElementById('image-modal');
+        const imageModalBackdrop = document.getElementById('image-modal-backdrop');
+        const imageModalTitle = document.getElementById('image-modal-title');
+        const imageModalClose = document.getElementById('image-modal-close');
+        const imageDropZone = document.getElementById('image-drop-zone');
+        const imageFileInput = document.getElementById('image-file-input');
+        const imageUploadProgress = document.getElementById('image-upload-progress');
+        const imageProgressBar = document.getElementById('image-progress-bar');
+        const imageProgressText = document.getElementById('image-progress-text');
+        const imageUploadStatus = document.getElementById('image-upload-status');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const imageError = document.getElementById('image-error');
+        const imageCancelBtn = document.getElementById('image-cancel-btn');
+        const imageUploadBtn = document.getElementById('image-upload-btn');
+        const imagesList = document.getElementById('images-list');
+        const addImageBtn = document.getElementById('add-image-btn');
+
         // Project State
         let projectName = '';
         let projectFiles = new Map(); // filename -> content
         let currentFile = null;
         let isZipProject = false;
+
+        // Image State
+        let selectedImageFile = null;
+        let targetImageElement = null; // Image element to replace (null = insert new)
+        const IMGUR_CLIENT_ID = 'f9ae66a4705f252'; // Anonymous uploads client ID
 
         // File Upload Handlers
         uploadBtn.addEventListener('click', () => {
@@ -902,6 +1022,257 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
+
+        // ==========================================
+        // IMAGE MANAGEMENT
+        // ==========================================
+
+        // Open image modal for adding new image
+        addImageBtn.addEventListener('click', () => {
+            targetImageElement = null;
+            imageModalTitle.innerHTML = 'Add <span class="font-black">Image</span>';
+            openImageModal();
+        });
+
+        // Image modal controls
+        imageModalClose.addEventListener('click', closeImageModal);
+        imageModalBackdrop.addEventListener('click', closeImageModal);
+        imageCancelBtn.addEventListener('click', closeImageModal);
+        imageDropZone.addEventListener('click', () => imageFileInput.click());
+
+        // Image drop zone drag/drop
+        imageDropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageDropZone.classList.add('border-accent', 'bg-accent/5');
+        });
+        imageDropZone.addEventListener('dragleave', () => {
+            imageDropZone.classList.remove('border-accent', 'bg-accent/5');
+        });
+        imageDropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageDropZone.classList.remove('border-accent', 'bg-accent/5');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageSelection(file);
+            }
+        });
+
+        // Image file input
+        imageFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleImageSelection(file);
+        });
+
+        // Handle selected image file
+        function handleImageSelection(file) {
+            // Validate file size (10MB max for Imgur)
+            if (file.size > 10 * 1024 * 1024) {
+                showImageError('Image must be under 10MB');
+                return;
+            }
+
+            selectedImageFile = file;
+            imageError.classList.add('hidden');
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+
+            imageUploadBtn.disabled = false;
+        }
+
+        // Upload button click
+        imageUploadBtn.addEventListener('click', uploadImageToImgur);
+
+        // Upload image to Imgur
+        async function uploadImageToImgur() {
+            if (!selectedImageFile) return;
+
+            imageUploadBtn.disabled = true;
+            imageUploadProgress.classList.remove('hidden');
+            imageError.classList.add('hidden');
+            setUploadProgress(10, 'Preparing upload...');
+
+            try {
+                const formData = new FormData();
+                formData.append('image', selectedImageFile);
+
+                setUploadProgress(30, 'Uploading to Imgur...');
+
+                const response = await fetch('https://api.imgur.com/3/image', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Client-ID ${IMGUR_CLIENT_ID}`
+                    },
+                    body: formData
+                });
+
+                setUploadProgress(70, 'Processing...');
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.data?.error || 'Upload failed');
+                }
+
+                const imgurUrl = result.data.link;
+                setUploadProgress(100, 'Done!');
+
+                // Insert or replace image
+                setTimeout(() => {
+                    insertOrReplaceImage(imgurUrl);
+                    closeImageModal();
+                }, 500);
+
+            } catch (error) {
+                console.error('Imgur upload error:', error);
+                showImageError('Upload failed: ' + error.message);
+                imageUploadBtn.disabled = false;
+            }
+        }
+
+        // Insert new image or replace existing
+        function insertOrReplaceImage(imgurUrl) {
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+
+            if (targetImageElement) {
+                // Replace existing image
+                targetImageElement.src = imgurUrl;
+                targetImageElement.removeAttribute('srcset');
+                targetImageElement.removeAttribute('data-src');
+            } else {
+                // Insert new image at cursor or end of body
+                const img = doc.createElement('img');
+                img.src = imgurUrl;
+                img.alt = 'Uploaded image';
+                img.style.maxWidth = '100%';
+
+                const selection = editorFrame.contentWindow.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    range.insertNode(img);
+                } else {
+                    doc.body.appendChild(img);
+                }
+            }
+
+            // Refresh image list
+            updateImagesList();
+        }
+
+        // Set upload progress
+        function setUploadProgress(percent, status) {
+            imageProgressBar.style.width = percent + '%';
+            imageProgressText.textContent = percent + '%';
+            imageUploadStatus.textContent = status;
+        }
+
+        // Show image error
+        function showImageError(message) {
+            imageError.textContent = message;
+            imageError.classList.remove('hidden');
+            imageUploadProgress.classList.add('hidden');
+        }
+
+        // Open image modal
+        function openImageModal() {
+            selectedImageFile = null;
+            imageFileInput.value = '';
+            imagePreviewContainer.classList.add('hidden');
+            imageUploadProgress.classList.add('hidden');
+            imageError.classList.add('hidden');
+            imageUploadBtn.disabled = true;
+            imageModal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Close image modal
+        function closeImageModal() {
+            imageModal.classList.add('hidden');
+            targetImageElement = null;
+        }
+
+        // Update images list in sidebar
+        function updateImagesList() {
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+            if (!doc || !doc.body) {
+                imagesList.innerHTML = '<p class="text-[10px] opacity-50">Load a page first</p>';
+                return;
+            }
+
+            const images = doc.querySelectorAll('img');
+
+            if (images.length === 0) {
+                imagesList.innerHTML = '<p class="text-[10px] opacity-50">No images in page</p>';
+                return;
+            }
+
+            imagesList.innerHTML = [...images].map((img, index) => {
+                const src = img.src || img.getAttribute('data-src') || '';
+                const displaySrc = src.length > 30 ? '...' + src.slice(-27) : src;
+                const alt = img.alt || `Image ${index + 1}`;
+
+                return `
+                    <button class="image-list-item w-full flex items-center gap-2 p-2 hover:bg-accent/5 transition-colors text-left" data-index="${index}">
+                        <img src="${src}" alt="" class="w-8 h-8 object-cover bg-ink/5 flex-shrink-0" onerror="this.style.display='none'">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-[10px] font-medium truncate">${alt}</p>
+                            <p class="text-[9px] text-mist truncate">${displaySrc}</p>
+                        </div>
+                        <i data-lucide="replace" class="w-3 h-3 text-mist flex-shrink-0"></i>
+                    </button>
+                `;
+            }).join('');
+
+            // Add click handlers to replace images
+            imagesList.querySelectorAll('.image-list-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+                    targetImageElement = doc.querySelectorAll('img')[index];
+                    imageModalTitle.innerHTML = 'Replace <span class="font-black">Image</span>';
+                    openImageModal();
+                });
+            });
+
+            lucide.createIcons();
+        }
+
+        // Setup click-to-replace on images in editor
+        function setupImageClickHandlers() {
+            const doc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+            if (!doc || !doc.body) return;
+
+            doc.querySelectorAll('img').forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', (e) => {
+                    // Only trigger if not dragging text
+                    if (e.detail === 2) { // Double click
+                        e.preventDefault();
+                        e.stopPropagation();
+                        targetImageElement = img;
+                        imageModalTitle.innerHTML = 'Replace <span class="font-black">Image</span>';
+                        openImageModal();
+                    }
+                });
+            });
+        }
+
+        // Override setupEditor to also setup image handlers
+        const originalSetupEditor = setupEditor;
+        setupEditor = function(html) {
+            originalSetupEditor(html);
+
+            // Add slight delay to ensure DOM is ready
+            setTimeout(() => {
+                updateImagesList();
+                setupImageClickHandlers();
+            }, 100);
+        };
     </script>
 </body>
 </html>
