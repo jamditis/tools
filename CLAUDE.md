@@ -2,6 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Bug-fixing workflow
+
+When a bug is reported, don't immediately attempt to fix it. Instead:
+
+1. **Write a failing test first** that reproduces the bug
+2. **Launch subagents** to work on fixing the bug
+3. **Verify the fix** by running the test — a passing test proves the bug is fixed
+
+---
+
 ## Repository overview
 
 This repository (`tools`) contains the **Amditis Resource Kit** - a collection of AI tools and templates for journalists. It's hosted on GitHub Pages at https://jamditis.github.io/tools/
@@ -15,26 +25,30 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 
 2. **LESSONS templates** - Templates for documenting project learnings
 3. **CLAUDE-RULES templates** - Templates for Claude Code project memory files
+4. **Skills** (`skills/`) - Claude Code skills for development workflows
+   - `test-first-bugs` - Test-driven bug fixing workflow
+5. **Hooks** (`hooks/`) - Automated workflow checks
+   - `bug-report-detector` - Detects bug reports
+   - `enforce-test-first` - Enforces test-first workflow
 
 ## Project structure
 
 ```
-templates/                    # Git root
+tools/                        # Git root
 ├── .github/workflows/        # GitHub Actions (deploys to Pages)
 │   └── static.yml
 ├── resource-kit/
 │   └── docs/                 # ← GitHub Pages serves from here
 │       ├── index.html        # Main landing page
 │       ├── assets/           # Shared CSS, JS, images
-│       │   ├── amditis-main.css
-│       │   ├── amditis-config.js
-│       │   └── favicon.svg
 │       ├── llm-advisor/      # LLM tool selector app
-│       │   ├── index.html
-│       │   ├── app.js
-│       │   └── data/         # JSON data files
 │       ├── vibe-coding/      # Vibe coding guide
 │       └── downloads/        # Downloadable templates
+├── skills/                   # Claude Code skills
+│   └── test-first-bugs/      # Test-driven bug fixing
+├── hooks/                    # Automated workflow checks
+│   ├── bug-report-detector.md
+│   └── enforce-test-first.md
 ├── LESSONS-*.md              # Project retrospective templates
 └── CLAUDE-RULES-*.md         # Claude Code memory templates
 ```

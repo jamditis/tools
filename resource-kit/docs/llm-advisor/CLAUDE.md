@@ -2,6 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Bug-fixing workflow
+
+When a bug is reported, don't immediately attempt to fix it. Instead:
+
+1. **Write a failing test first** that reproduces the bug
+2. **Launch subagents** to work on fixing the bug
+3. **Verify the fix** by running the test — a passing test proves the bug is fixed
+
+---
+
 ## Project overview
 
 The LLM journalism tool advisor is a multi-file web application that helps journalists select appropriate AI/LLM tools for specific workflows. It features an interactive decision tree interface that guides users through questions about their journalism tasks and provides tailored recommendations for AI tools like Claude, Gemini, ChatGPT, and specialized services.
