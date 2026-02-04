@@ -42,6 +42,28 @@ Available in `resource-kit/docs/downloads/`:
 
 ---
 
+## Claude Code skills
+
+Reusable skills for Claude Code that extend its capabilities for specific workflows.
+
+| Skill | Description | Link |
+|-------|-------------|------|
+| [test-first-bugs](./skills/test-first-bugs/) | Test-driven bug fixing workflow | Local |
+| [pdf-design](./skills/pdf-design/) | PDF reports and proposals with interactive editing, brand system, budget tables | Local |
+| [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 30+ skills for journalism, media, and academia | External repo |
+
+### Installing skills
+
+```bash
+# Clone journalism skills collection
+git clone https://github.com/jamditis/claude-skills-journalism.git ~/.claude/skills/journalism-skills
+
+# Or copy individual skills
+cp -r skills/pdf-design ~/.claude/skills/
+```
+
+---
+
 ## LESSONS.md templates
 
 Templates for documenting project learnings, designed to carry forward wisdom without context bleed.

@@ -27,6 +27,7 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 3. **CLAUDE-RULES templates** - Templates for Claude Code project memory files
 4. **Skills** (`skills/`) - Claude Code skills for development workflows
    - `test-first-bugs` - Test-driven bug fixing workflow
+   - `pdf-design` - PDF reports/proposals with interactive editing, brand system
 5. **Hooks** (`hooks/`) - Automated workflow checks
    - `bug-report-detector` - Detects bug reports
    - `enforce-test-first` - Enforces test-first workflow
@@ -45,7 +46,8 @@ tools/                        # Git root
 │       ├── vibe-coding/      # Vibe coding guide
 │       └── downloads/        # Downloadable templates
 ├── skills/                   # Claude Code skills
-│   └── test-first-bugs/      # Test-driven bug fixing
+│   ├── test-first-bugs/      # Test-driven bug fixing
+│   └── pdf-design/           # PDF reports/proposals design system
 ├── hooks/                    # Automated workflow checks
 │   ├── bug-report-detector.md
 │   └── enforce-test-first.md
