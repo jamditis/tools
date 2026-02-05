@@ -52,7 +52,16 @@ Reusable skills for Claude Code that extend its capabilities for specific workfl
 | [pdf-design](./skills/pdf-design/) | PDF reports and proposals with interactive editing, brand system, budget tables | Local |
 | [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 30+ skills for journalism, media, and academia | External repo |
 
-### Installing skills
+### Installing plugins (recommended for PDF Playground)
+
+```bash
+claude plugin marketplace add https://github.com/jamditis/claude-skills-journalism
+claude plugin install pdf-playground@claude-skills-journalism
+```
+
+Then restart Claude Code. See the [PDF Playground setup guide](https://github.com/jamditis/claude-skills-journalism/tree/master/pdf-playground#readme) for detailed instructions and troubleshooting.
+
+### Installing skills (manual)
 
 ```bash
 # Clone journalism skills collection
