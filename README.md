@@ -6,34 +6,42 @@ A collection of AI tools, templates, and guides for journalists and developers. 
 
 Interactive tools and guides built with love and frustration by Joe Amditis.
 
-### Tools & guides
+### Guides
+
+| Page | Description |
+|------|-------------|
+| [Vibe coding guide](https://tools.amditis.tech/vibe-coding/) | Multi-page tutorial on AI-assisted development |
+| [Terminal setup guide](https://tools.amditis.tech/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
+| [Language guide](https://tools.amditis.tech/language-guide/) | How to write effective prompts |
+| [Style guide](https://tools.amditis.tech/style-guide/) | Writing style reference |
+| [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable cheat sheet for common AI prompts |
+| [Glossary](https://tools.amditis.tech/glossary/) | AI and development terminology |
+
+### Tools
 
 | Page | Description |
 |------|-------------|
 | [LLM Advisor](https://tools.amditis.tech/llm-advisor/) | Decision tree tool for selecting the right AI model for your task |
-| [Vibe coding guide](https://tools.amditis.tech/vibe-coding/) | Multi-page tutorial on AI-assisted development |
-| [Terminal setup guide](https://tools.amditis.tech/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
 | [Tool stacks](https://tools.amditis.tech/tool-stacks/) | IDEs, AI app builders, databases, deployment, and 14 tool categories |
-| [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable cheat sheet for common AI prompts |
-| [Glossary](https://tools.amditis.tech/glossary/) | AI and development terminology |
-| [Language guide](https://tools.amditis.tech/language-guide/) | How to write effective prompts |
+| [HTML editor](https://tools.amditis.tech/html-editor/) | Interactive HTML editor |
+| [Code patterns](https://tools.amditis.tech/code-patterns/) | Skills, lessons, and quick reference for Claude Code workflows |
 | [About](https://tools.amditis.tech/about/) | About the project and author |
 
 ### Vibe coding guide sections
 
-The vibe coding guide is a comprehensive multi-page resource:
+The vibe coding guide is a multi-page resource:
 
-- **Essentials** - Core concepts for AI-assisted development
-- **Level up** - Advanced techniques and patterns
-- **Common mistakes** - Pitfalls to avoid
-- **Cheat sheet** - Quick reference for common tasks
-- **Glossary** - Key terms and definitions
+- **Essentials** — Core concepts for AI-assisted development
+- **Level up** — Advanced techniques and patterns
+- **Common mistakes** — Pitfalls to avoid
+- **Cheat sheet** — Quick reference for common tasks
+- **Glossary** — Key terms and definitions
 
 ### Downloadable templates
 
 Available in `resource-kit/docs/downloads/`:
 
-- CLAUDE-RULES templates (14 project types)
+- CLAUDE-RULES templates (14 variants including frontend-aesthetics and writing-guidelines)
 - LESSONS-TEMPLATE.md
 - CLAUDE-CODE-QUICKREF.md
 - VIBE-CODING-CHECKLIST.md
@@ -131,7 +139,7 @@ Project memory files for Claude Code, providing context and guidelines for AI as
 
 ## Anime.js documentation
 
-Comprehensive documentation for the Anime.js animation library (v4):
+Full documentation for the Anime.js animation library (v4):
 
 | File | Content |
 |------|---------|
@@ -153,20 +161,28 @@ tools/
 │   └── docs/                    # GitHub Pages (served from here)
 │       ├── index.html           # Main landing page
 │       ├── about/               # About page
+│       ├── code-patterns/       # Skills, lessons, quick reference
 │       ├── glossary/            # AI terminology glossary
+│       ├── html-editor/         # Interactive HTML editor
 │       ├── language-guide/      # Prompt writing guide
 │       ├── llm-advisor/         # LLM tool selector app
 │       ├── llm-advisor-doc/     # Static LLM documentation
 │       ├── quick-reference-card/ # Printable cheat sheet
+│       ├── style-guide/         # Writing style reference
 │       ├── terminal-setup/      # Terminal configuration guide
 │       ├── tool-stacks/         # Development tools (14 categories)
-│       ├── vibe-coding/         # Vibe coding guide (5 pages)
+│       ├── vibe-coding/         # Vibe coding guide (5 sub-pages)
 │       ├── downloads/           # Downloadable templates
 │       └── assets/              # Shared CSS, JS, images
-├── LESSONS-*.md                 # Project retrospective templates
-├── CLAUDE-RULES-*.md            # Claude Code memory templates
+├── skills/                      # Claude Code skills
+│   ├── test-first-bugs/         # Test-driven bug fixing workflow
+│   └── pdf-design/              # PDF reports/proposals design system
+├── hooks/                       # Automated workflow hooks
+├── LESSONS-*.md                 # Project retrospective templates (12)
+├── CLAUDE-RULES-*.md            # Claude Code memory templates (12)
 ├── animejs-*.md                 # Animation library documentation
-├── mcp-servers/                 # MCP server configurations
+├── mcp-servers/                 # MCP server for LLM Advisor data
+├── context/                     # Reference documents and design archives
 ├── scripts/                     # Utility scripts
 └── .github/workflows/           # GitHub Actions (auto-deploy)
 ```
