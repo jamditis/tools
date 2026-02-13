@@ -1,0 +1,50 @@
+# AI Tools + Resources for Newsrooms
+
+> Practical guides, templates, and reference materials for journalists building tools with AI coding assistants. Created by Joe Amditis at the Center for Cooperative Media, Montclair State University.
+
+## Overview
+
+- URL: https://tools.amditis.tech
+- Author: Joe Amditis, Center for Cooperative Media
+- Version: AI Tools Kit v2.6
+- Audience: Journalists and newsroom staff learning to build with AI
+
+## Guides
+
+- Vibe coding guide: https://tools.amditis.tech/vibe-coding/ — Core methodology for shipping AI-assisted code, from zero to deployed project
+- Terminal setup: https://tools.amditis.tech/terminal-setup/ — Configuration guide for Claude Code, Gemini CLI, and Codex
+- Quick reference card: https://tools.amditis.tech/quick-reference-card/ — Printable one-page cheat sheet for AI coding commands
+- Language guide: https://tools.amditis.tech/language-guide/ — Python vs JavaScript vs R recommendations for journalists
+- Technical glossary: https://tools.amditis.tech/glossary/ — 40+ plain-language definitions of AI and coding terms
+- LLM selection guide: https://tools.amditis.tech/llm-advisor/ — Decision matrices for choosing the right AI coding assistant
+- Tool stacks: https://tools.amditis.tech/tool-stacks/ — Free and low-cost development resources for newsrooms
+- Code patterns: https://tools.amditis.tech/code-patterns/ — Seven reusable Claude Code approaches for common journalism tasks
+
+## Vibe coding sub-guides
+
+- Essentials: https://tools.amditis.tech/vibe-coding/essentials/
+- Level up: https://tools.amditis.tech/vibe-coding/level-up/
+- Common mistakes: https://tools.amditis.tech/vibe-coding/common-mistakes/
+- Cheat sheet: https://tools.amditis.tech/vibe-coding/cheat-sheet/
+- Glossary: https://tools.amditis.tech/vibe-coding/glossary/
+
+## Downloadable templates
+
+- CLAUDE-RULES templates for 12 project types (web apps, data pipelines, editorial tools, etc.)
+- LESSONS templates for project retrospectives
+- Vibe coding checklist (Markdown)
+- LLM comparison chart (Markdown)
+- Changelog template (Markdown)
+
+## Key concepts
+
+"Vibe coding" is the practice of using AI coding assistants (like Claude Code, Gemini CLI, or Codex) to build software by describing what you want in plain language. The AI writes the code, and you guide the process through iterative prompting. This approach makes software development accessible to journalists and other non-programmers.
+
+## About the author
+
+Joe Amditis is a journalist and technologist at the Center for Cooperative Media at Montclair State University. He builds tools and resources to help newsrooms adopt AI and collaborative journalism practices.
+
+## Related
+
+- Center for Cooperative Media: https://centerforcooperativemedia.org
+- Collaborative Journalism Summit: https://summit.collaborativejournalism.org

@@ -1,0 +1,26 @@
+# Robots.txt for CCM AI Tools Resource Kit
+# https://tools.amditis.tech
+
+User-agent: *
+Allow: /
+
+# AI search bots: welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://tools.amditis.tech/sitemap.xml
