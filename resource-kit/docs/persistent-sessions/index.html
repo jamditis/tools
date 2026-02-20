@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistent Claude Sessions // Amditis Kit</title>
+    <meta name="description" content="Keep Claude Code running while you switch devices, close your laptop, or step away. Set up persistent tmux sessions on a headless server with Cockpit.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .sidebar-nav { position: sticky; top: 100px; }
+        .sidebar-link { transition: all 0.2s ease; }
+        .sidebar-link:hover, .sidebar-link.active { color: #b8860b; border-left-color: #b8860b; }
+        .code-block { background: #1a1a1a; border: 1px solid rgba(26,26,26,0.2); }
+        .code-block:hover { border-color: rgba(184,134,11,0.3); }
+        .step-badge {
+            width: 2rem; height: 2rem; background: #b8860b; color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .kbd {
+            display: inline-flex; align-items: center;
+            background: #1e1e1e; color: #e0e0e0; border-radius: 0.25rem;
+            padding: 0.15rem 0.5rem; font-family: monospace; font-size: 0.78rem;
+            border: 1px solid #444; box-shadow: 0 2px 0 #111; white-space: nowrap;
+        }
+        .terminal-statusbar {
+            background: #0d1117; color: #8b949e;
+            padding: 0.3rem 0.8rem; font-family: monospace; font-size: 0.7rem;
+            display: flex; justify-content: space-between;
+            border-top: 1px solid #30363d; border-radius: 0 0 0.375rem 0.375rem;
+        }
+        .copy-btn { transition: color 0.2s ease; }
+    </style>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl hover:bg-ink transition-colors">A</a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink">Persistent Sessions</div>
+                        <div class="text-xs text-ink/50 tracking-[0.2em]">Server Setup Guide v1.0</div>
+                    </div>
+                </div>
+                <nav class="flex gap-4 text-xs">
+                    <a href="/terminal-setup/" class="hidden md:flex items-center gap-2 text-ink/60 hover:text-accent transition-colors">
+                        <i data-lucide="terminal" class="w-3 h-3"></i> Terminal Setup
+                    </a>
+                    <a href="/" class="flex items-center gap-2 px-3 py-1 border border-ink/20 text-ink/60 hover:border-accent hover:text-accent transition-colors">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i> <span class="hidden sm:inline">Return Home</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="py-12 md:py-20 px-6 text-center border-b border-ink/10 relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-accent/30 text-accent text-xs tracking-widest bg-accent/5">
+                    <i data-lucide="server" class="w-4 h-4"></i>
+                    System: Session Persistence
+                </div>
+
+                <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-light italic mb-4 text-ink tracking-tight">
+                    Persistent Claude Sessions
+                </h1>
+
+                <p class="text-ink/60 text-base md:text-lg max-w-2xl mx-auto mb-6 leading-relaxed">
+                    Keep <span class="text-accent font-bold">Claude Code</span> running while you switch devices, close your laptop, or walk away.
+                    <br class="hidden sm:inline">Start on your desktop. Check in from your phone. Pick up right where you left off.
+                </p>
+
+                <!-- Terminal preview -->
+                <div class="max-w-2xl mx-auto w-full text-left text-sm overflow-hidden rounded-md border border-ink/10">
+                    <div class="flex items-center gap-2 px-4 py-2 bg-[#1e1e1e]">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                        <span class="text-xs text-white/40 ml-2">dashboard.yourdomain.com — tmux: main</span>
+                    </div>
+                    <div class="bg-[#0d1117] p-4 font-mono text-xs text-white/70 leading-relaxed">
+                        <span class="text-green-400">$</span> claude<br>
+                        <span class="text-white/40"># Working on a long research task...</span><br>
+                        <span class="text-white/40"># Close the browser tab. Restart your PC.</span><br>
+                        <span class="text-white/40"># Open cockpit from your phone...</span><br><br>
+                        <span class="text-white/40"># .bashrc drops you into the same tmux session</span><br>
+                        <span class="text-green-400">$</span> <span class="text-white/40"># Claude is still running. Exactly where you left it.</span>
+                    </div>
+                    <div class="terminal-statusbar">
+                        <span style="color:#3fb950">[main]  1:claude*  2:logs  3:shell</span>
+                        <span>14:23  Feb 20</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content with sidebar -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12">
+            <div class="flex flex-col lg:flex-row gap-8">
+
+                <!-- Sidebar -->
+                <aside class="lg:w-64 shrink-0 hidden lg:block">
+                    <nav class="sidebar-nav space-y-1 text-sm">
+                        <div class="text-xs text-ink/50 mb-3 tracking-widest">// Sections</div>
+                        <a href="#the-problem" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">The problem</a>
+                        <a href="#the-solution" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">The solution</a>
+                        <a href="#setup" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Setup</a>
+                        <a href="#keybindings" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Key bindings</a>
+                        <a href="#window-layout" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Window layout</a>
+                        <a href="#scheduler" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Scheduled sessions</a>
+                        <a href="#pitfalls" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Common pitfalls</a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <div class="flex-1 space-y-16 min-w-0">
+
+                    <!-- The problem -->
+                    <section id="the-problem">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">The problem</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-4 leading-relaxed">If you run Claude Code in a browser-based terminal — like <a href="https://cockpit-project.org" target="_blank" class="text-accent hover:underline">Cockpit</a> — your session lives inside a WebSocket connection. When that connection drops, everything dies.</p>
+
+                        <p class="text-ink/70 mb-6 leading-relaxed">Close the browser tab. Lock your phone. Let your laptop sleep. Lose wifi for 30 seconds. Claude stops mid-task. Your context is gone. You start over.</p>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="deckle-card p-5">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i data-lucide="x-circle" class="w-5 h-5 text-red-500"></i>
+                                    <span class="font-bold text-sm">The timeout problem</span>
+                                </div>
+                                <p class="text-ink/60 text-sm">Cockpit terminates idle web sessions after <strong>15 minutes</strong> by default. If Claude is quietly running tools and you're not clicking in the UI, the session gets killed automatically.</p>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i data-lucide="x-circle" class="w-5 h-5 text-red-500"></i>
+                                    <span class="font-bold text-sm">The disconnect problem</span>
+                                </div>
+                                <p class="text-ink/60 text-sm">Without tmux, Claude is a child process of the browser terminal. Connection drops → shell dies → Claude dies. No recovery. No way to reconnect to the same session.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- The solution -->
+                    <section id="the-solution">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-accent text-white flex items-center justify-center">
+                                <i data-lucide="layers" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">The solution: tmux</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-4 leading-relaxed"><strong>tmux</strong> is a terminal multiplexer that runs on the server, not in your browser. Your Claude session lives inside tmux. The browser terminal is just a viewport — a window into a room that exists whether or not you're looking at it.</p>
+
+                        <div class="deckle-card p-6 mb-6">
+                            <div class="font-mono text-xs text-ink/60 leading-relaxed space-y-1">
+                                <div class="text-red-500 font-bold mb-2">// without tmux</div>
+                                <div>Browser → Cockpit WebSocket → bash → <span class="text-red-500">claude</span></div>
+                                <div class="text-ink/40">Tab closes → WebSocket dies → bash dies → Claude dies</div>
+                                <div class="mt-4 text-green-600 font-bold mb-2">// with tmux</div>
+                                <div>Browser → Cockpit WebSocket → <span class="text-green-600">tmux (server-side)</span></div>
+                                <div class="ml-8 text-ink/70">&#x2514;&#x2500; window 1: <span class="text-green-600 font-bold">claude</span> <span class="text-ink/40">(keeps running)</span></div>
+                                <div class="ml-8 text-ink/70">&#x2514;&#x2500; window 2: logs</div>
+                                <div class="ml-8 text-ink/70">&#x2514;&#x2500; window 3: shell</div>
+                                <div class="mt-2 text-ink/40">Tab closes → WebSocket dies → tmux keeps running</div>
+                                <div class="text-ink/40">Reconnect from any device → reattach → Claude still there</div>
+                            </div>
+                        </div>
+
+                        <p class="text-ink/70 leading-relaxed">You can attach to the same tmux session from desktop, laptop, and phone simultaneously. All see the same terminal, live.</p>
+                    </section>
+
+                    <!-- Setup -->
+                    <section id="setup">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="settings" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Setup</h2>
+                        </div>
+
+                        <!-- Step 1 -->
+                        <div class="flex gap-4 mb-10">
+                            <div class="step-badge mt-1">1</div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-3">Configure tmux</h3>
+                                <p class="text-ink/70 mb-4 text-sm leading-relaxed">Create <code class="bg-ink/5 px-1.5 py-0.5 rounded">~/.tmux.conf</code> on your server. Enables mouse support, readable status bar, 10k-line scrollback, and a built-in help popup at <span class="kbd">Ctrl+B H</span>.</p>
+
+                                <div class="code-block rounded-sm overflow-hidden mb-3">
+                                    <div class="flex justify-between items-center px-3 py-2 bg-white/5 border-b border-white/10">
+                                        <span class="text-white/40 text-xs font-mono">~/.tmux.conf</span>
+                                        <button class="copy-btn text-white/40 hover:text-yellow-600 text-xs flex items-center gap-1" onclick="copyCode(this)">copy</button>
+                                    </div>
+                                    <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80"><span class="text-white/40"># True color + mouse support</span>
+set -g default-terminal "screen-256color"
+set -g mouse on
+
+<span class="text-white/40"># Window numbering from 1, auto-renumber</span>
+set -g base-index 1
+set -g pane-base-index 1
+set-option -g renumber-windows on
+
+<span class="text-white/40"># More scrollback</span>
+set -g history-limit 10000
+
+<span class="text-white/40"># Status bar</span>
+set -g status-style "bg=#0d1117,fg=#8b949e"
+set -g status-left "#[fg=#3fb950,bold] [#S] "
+set -g status-right "#[fg=#484f58]Ctrl+B H for help  #[fg=#3fb950]%H:%M #[fg=#484f58]%b %d"
+set -g window-status-current-style "fg=#3fb950,bold"
+set -g pane-active-border-style "fg=#3fb950"
+
+<span class="text-white/40"># Ctrl+B H — quick reference popup (requires tmux 3.2+)</span>
+bind H display-popup -E -w 62 -h 26 "cat &lt;&lt; 'EOF'
+
+  tmux quick reference
+
+  Ctrl+B C       new window
+  Ctrl+B ,       rename window
+  Ctrl+B W       list all windows
+  Ctrl+B 1-9     switch to window
+  Ctrl+B N / P   next / previous window
+  Ctrl+B %       split left/right
+  Ctrl+B \"       split top/bottom
+  Ctrl+B arrows  move between panes
+  Ctrl+B Z       zoom pane (toggle)
+  Ctrl+B [       scroll mode (Q to exit)
+  Ctrl+B D       detach (session keeps running)
+  Ctrl+B H       this help
+
+EOF
+read -n1 -s -r -p '  press any key to close'"</code></pre>
+                                </div>
+                                <p class="text-ink/50 text-xs">Requires tmux 3.2+ for the popup. Check with <code class="bg-ink/5 px-1 rounded">tmux -V</code>. Remove the <code class="bg-ink/5 px-1 rounded">bind H</code> block for older versions.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex gap-4 mb-10">
+                            <div class="step-badge mt-1">2</div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-3">Auto-attach on terminal open</h3>
+                                <p class="text-ink/70 mb-4 text-sm leading-relaxed">Add this to <code class="bg-ink/5 px-1.5 py-0.5 rounded">~/.bashrc</code>. It detects the Cockpit environment via <code class="bg-ink/5 px-1.5 py-0.5 rounded">XDG_SESSION_TYPE=web</code> and attaches to (or creates) a tmux session named <code class="bg-ink/5 px-1.5 py-0.5 rounded">main</code>.</p>
+
+                                <div class="code-block rounded-sm overflow-hidden mb-4">
+                                    <div class="flex justify-between items-center px-3 py-2 bg-white/5 border-b border-white/10">
+                                        <span class="text-white/40 text-xs font-mono">~/.bashrc</span>
+                                        <button class="copy-btn text-white/40 hover:text-yellow-600 text-xs flex items-center gap-1" onclick="copyCode(this)">copy</button>
+                                    </div>
+                                    <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80"><span class="text-white/40"># Auto-attach to persistent tmux session in cockpit terminals.</span>
+<span class="text-white/40"># XDG_SESSION_TYPE=web is set by cockpit, not SSH or a physical console.</span>
+<span class="text-white/40"># new-session -A creates 'main' or attaches if it already exists.</span>
+if [ -z "$TMUX" ] &amp;&amp; [ "$XDG_SESSION_TYPE" = "web" ]; then
+    exec tmux new-session -A -s main
+fi</code></pre>
+                                </div>
+
+                                <div class="deckle-card p-4 text-sm">
+                                    <div class="flex items-start gap-3">
+                                        <i data-lucide="info" class="w-4 h-4 text-accent mt-0.5 shrink-0"></i>
+                                        <div>
+                                            <strong>Using SSH instead of Cockpit?</strong>
+                                            <p class="text-ink/60 mt-1">Replace the condition with <code class="bg-ink/5 px-1 rounded">[ -n "$SSH_TTY" ]</code>. This fires only for interactive SSH logins — not for automated <code class="bg-ink/5 px-1 rounded">ssh host "command"</code> calls that don't allocate a TTY.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex gap-4">
+                            <div class="step-badge mt-1">3</div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-3">Disable the Cockpit idle timeout</h3>
+                                <p class="text-ink/70 mb-4 text-sm leading-relaxed">Cockpit kills idle web sessions after 15 minutes — exactly long enough to time out while Claude is working quietly. Disable it:</p>
+
+                                <div class="code-block rounded-sm overflow-hidden mb-3">
+                                    <div class="flex justify-between items-center px-3 py-2 bg-white/5 border-b border-white/10">
+                                        <span class="text-white/40 text-xs font-mono">/etc/cockpit/cockpit.conf</span>
+                                        <button class="copy-btn text-white/40 hover:text-yellow-600 text-xs" onclick="copyCode(this)">copy</button>
+                                    </div>
+                                    <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80">[Session]
+IdleTimeout=0</code></pre>
+                                </div>
+
+                                <div class="code-block rounded-sm overflow-hidden">
+                                    <div class="px-3 py-2 bg-white/5 border-b border-white/10">
+                                        <span class="text-white/40 text-xs font-mono">terminal</span>
+                                    </div>
+                                    <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80">sudo systemctl restart cockpit.service</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Key bindings -->
+                    <section id="keybindings">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="keyboard" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Key bindings</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-6 text-sm leading-relaxed">All tmux commands use a prefix: press <span class="kbd">Ctrl+B</span>, release it, then press the next key. It's a sequence, not a chord. <span class="kbd">Ctrl+B H</span> shows a popup cheatsheet in your terminal.</p>
+
+                        <div class="space-y-4">
+                            <div class="deckle-card overflow-hidden">
+                                <div class="px-5 py-3 border-b border-ink/10 bg-ink/[0.02]">
+                                    <span class="font-bold text-sm">Windows</span>
+                                </div>
+                                <table class="w-full text-sm">
+                                    <tbody class="divide-y divide-ink/5">
+                                        <tr><td class="px-5 py-3 w-56"><span class="kbd">Ctrl+B</span> <span class="kbd">C</span></td><td class="px-5 py-3 text-ink/60">New window</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">,</span></td><td class="px-5 py-3 text-ink/60">Rename current window</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">W</span></td><td class="px-5 py-3 text-ink/60">List all windows (interactive picker)</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">1</span>–<span class="kbd">9</span></td><td class="px-5 py-3 text-ink/60">Switch to window by number</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">N</span> / <span class="kbd">P</span></td><td class="px-5 py-3 text-ink/60">Next / previous window</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="deckle-card overflow-hidden">
+                                <div class="px-5 py-3 border-b border-ink/10 bg-ink/[0.02]">
+                                    <span class="font-bold text-sm">Panes</span>
+                                </div>
+                                <table class="w-full text-sm">
+                                    <tbody class="divide-y divide-ink/5">
+                                        <tr><td class="px-5 py-3 w-56"><span class="kbd">Ctrl+B</span> <span class="kbd">%</span></td><td class="px-5 py-3 text-ink/60">Split left/right</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">"</span></td><td class="px-5 py-3 text-ink/60">Split top/bottom</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">&#x2191;&#x2193;&#x2190;&#x2192;</span></td><td class="px-5 py-3 text-ink/60">Move between panes</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">Z</span></td><td class="px-5 py-3 text-ink/60">Zoom pane to full screen (toggle)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="deckle-card overflow-hidden">
+                                <div class="px-5 py-3 border-b border-ink/10 bg-ink/[0.02]">
+                                    <span class="font-bold text-sm">Scroll &amp; session</span>
+                                </div>
+                                <table class="w-full text-sm">
+                                    <tbody class="divide-y divide-ink/5">
+                                        <tr><td class="px-5 py-3 w-56"><span class="kbd">Ctrl+B</span> <span class="kbd">[</span></td><td class="px-5 py-3 text-ink/60">Scroll mode — arrows or PgUp, press Q to exit</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">D</span></td><td class="px-5 py-3 text-ink/60">Detach — session keeps running on the server</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">H</span></td><td class="px-5 py-3 text-ink/60">Help popup (from this config)</td></tr>
+                                        <tr><td class="px-5 py-3"><span class="kbd">Ctrl+B</span> <span class="kbd">?</span></td><td class="px-5 py-3 text-ink/60">Full built-in keybinding list</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Window layout -->
+                    <section id="window-layout">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Suggested window layout</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-6 text-sm leading-relaxed">Name your windows with <span class="kbd">Ctrl+B ,</span> so the status bar tells you what's running at a glance.</p>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="deckle-card p-5">
+                                <div class="font-mono text-xs text-ink/40 mb-3 bg-ink/[0.03] px-3 py-1.5 rounded">[main] <span class="text-green-600 font-bold">1:claude*</span></div>
+                                <h3 class="font-bold mb-1">1: claude</h3>
+                                <p class="text-sm text-ink/60">Your active Claude Code session. This is where you work.</p>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="font-mono text-xs text-ink/40 mb-3 bg-ink/[0.03] px-3 py-1.5 rounded">[main] <span class="text-green-600 font-bold">2:logs*</span></div>
+                                <h3 class="font-bold mb-1">2: logs</h3>
+                                <p class="text-sm text-ink/60"><code class="bg-ink/5 px-1 rounded">journalctl -f</code> or <code class="bg-ink/5 px-1 rounded">tail -f</code> on scheduler or app logs.</p>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="font-mono text-xs text-ink/40 mb-3 bg-ink/[0.03] px-3 py-1.5 rounded">[main] <span class="text-green-600 font-bold">3:shell*</span></div>
+                                <h3 class="font-bold mb-1">3: shell</h3>
+                                <p class="text-sm text-ink/60">Free shell for quick commands, file checks, or builds.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Scheduler coexistence -->
+                    <section id="scheduler">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Coexisting with scheduled sessions</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-4 text-sm leading-relaxed">If you run automated Claude sessions on a cron schedule, they can conflict with your interactive session — competing for CPU and processing the same data. Add a guard to skip automated wakes when you're actively working:</p>
+
+                        <div class="code-block rounded-sm overflow-hidden">
+                            <div class="flex justify-between items-center px-3 py-2 bg-white/5 border-b border-white/10">
+                                <span class="text-white/40 text-xs font-mono">claude-scheduler.py</span>
+                                <button class="copy-btn text-white/40 hover:text-yellow-600 text-xs" onclick="copyCode(this)">copy</button>
+                            </div>
+                            <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80">def is_interactive_session_active():
+    <span class="text-white/40">"""Skip automated wakes when the user has an active Claude session."""</span>
+    result = subprocess.run(
+        ['tmux', 'has-session', '-t', 'main'], capture_output=True
+    )
+    if result.returncode != 0:
+        return False  <span class="text-white/40"># 'main' session doesn't exist</span>
+
+    result = subprocess.run(
+        ['tmux', 'list-panes', '-t', 'main', '-F', '#{pane_current_command}'],
+        capture_output=True, text=True
+    )
+    return 'claude' in result.stdout.lower()
+
+<span class="text-white/40"># In your run_task() function, before spawning:</span>
+if is_interactive_session_active():
+    print("Skipping: interactive Claude session is active")
+    return False</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- Pitfalls -->
+                    <section id="pitfalls">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="triangle-alert" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Common pitfalls</h2>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="deckle-card p-5">
+                                <div class="flex items-start gap-4">
+                                    <span class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded mt-0.5 shrink-0">Watch out</span>
+                                    <div>
+                                        <h3 class="font-bold mb-1">The first session after setup won't be in tmux</h3>
+                                        <p class="text-sm text-ink/60">The <code class="bg-ink/5 px-1 rounded">.bashrc</code> change only applies to new terminals. Close your current terminal and open a fresh one to get the auto-attach behavior.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="flex items-start gap-4">
+                                    <span class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded mt-0.5 shrink-0">Watch out</span>
+                                    <div>
+                                        <h3 class="font-bold mb-1">display-popup requires tmux 3.2+</h3>
+                                        <p class="text-sm text-ink/60">Check with <code class="bg-ink/5 px-1 rounded">tmux -V</code>. Remove the <code class="bg-ink/5 px-1 rounded">bind H display-popup ...</code> block for older versions and use <span class="kbd">Ctrl+B ?</span> instead.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="flex items-start gap-4">
+                                    <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2 py-0.5 rounded mt-0.5 shrink-0">Best practice</span>
+                                    <div>
+                                        <h3 class="font-bold mb-1">Name your windows</h3>
+                                        <p class="text-sm text-ink/60">Use <span class="kbd">Ctrl+B ,</span> to name each window. Without names, the status bar shows a row of identical <code class="bg-ink/5 px-1 rounded">bash</code> entries.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="deckle-card p-5">
+                                <div class="flex items-start gap-4">
+                                    <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2 py-0.5 rounded mt-0.5 shrink-0">Best practice</span>
+                                    <div>
+                                        <h3 class="font-bold mb-1">tmux survives disconnects, not reboots</h3>
+                                        <p class="text-sm text-ink/60">Sessions persist across browser drops and network hiccups — not server reboots. A Raspberry Pi or always-on VPS is ideal. A laptop you shut down is not.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-ink text-canvas mt-auto">
+            <div class="max-w-6xl mx-auto px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-canvas/60 text-sm">Part of the <a href="/" class="text-canvas hover:text-accent transition-colors">Amditis Resource Kit</a></p>
+                    <div class="flex items-center gap-6 text-xs">
+                        <a href="/" class="text-canvas/50 hover:text-accent transition-colors">Home</a>
+                        <a href="/terminal-setup/" class="text-canvas/50 hover:text-accent transition-colors">Terminal Setup</a>
+                        <a href="/glossary/" class="text-canvas/50 hover:text-accent transition-colors">Glossary</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const orig = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.color = '#b8860b';
+                setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
+            });
+        }
+
+        const sections = document.querySelectorAll('section[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (scrollY >= s.offsetTop - 150) current = s.id; });
+            sidebarLinks.forEach(l => {
+                l.classList.remove('active');
+                if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
