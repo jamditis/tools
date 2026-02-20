@@ -123,6 +123,7 @@
                         <a href="#keybindings" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Key bindings</a>
                         <a href="#window-layout" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Window layout</a>
                         <a href="#scheduler" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Scheduled sessions</a>
+                        <a href="#notifications" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Input notifications</a>
                         <a href="#pitfalls" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60">Common pitfalls</a>
                     </nav>
                 </aside>
@@ -434,6 +435,55 @@ IdleTimeout=0</code></pre>
 if is_interactive_session_active():
     print("Skipping: interactive Claude session is active")
     return False</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- Input notifications -->
+                    <section id="notifications">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center">
+                                <i data-lucide="bell" class="w-4 h-4"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-light italic">Getting notified when input is needed</h2>
+                        </div>
+
+                        <p class="text-ink/70 mb-4 text-sm leading-relaxed">tmux can highlight a tab when the process in it goes quiet — a reliable signal that something finished and is waiting for you. This uses <code class="bg-ink/5 px-1 rounded">monitor-silence</code>, which fires after a window produces no output for a set number of seconds.</p>
+
+                        <p class="text-ink/70 mb-2 text-sm font-medium">Add to <code class="bg-ink/5 px-1 rounded">~/.tmux.conf</code>:</p>
+
+                        <div class="code-block rounded-sm overflow-hidden mb-4">
+                            <div class="flex justify-between items-center px-3 py-2 bg-white/5 border-b border-white/10">
+                                <span class="text-white/40 text-xs font-mono">~/.tmux.conf</span>
+                                <button class="copy-btn text-white/40 hover:text-yellow-600 text-xs" onclick="copyCode(this)">copy</button>
+                            </div>
+                            <pre class="p-4 text-xs overflow-x-auto"><code class="text-white/80"><span class="text-white/40"># Light up tabs that have gone quiet (waiting for input)</span>
+set-window-option -g monitor-silence 20
+set -g visual-silence on
+<span class="text-white/40"># Also pass terminal bell alerts through</span>
+set -g monitor-bell on
+set -g visual-bell on
+set -g bell-action any
+
+<span class="text-white/40"># Show ~ in tab name when silent, ! on bell</span>
+set -g window-status-format "  #I:#W#{?window_silence_flag, ~,}#{?window_bell_flag, !,}  "</code></pre>
+                        </div>
+
+                        <div class="deckle-card p-4 mb-4">
+                            <h3 class="font-bold text-sm mb-2">How the indicators work</h3>
+                            <div class="space-y-2 text-sm text-ink/70">
+                                <div class="flex gap-3">
+                                    <code class="bg-ink/5 px-2 py-0.5 rounded shrink-0">2:claude ~</code>
+                                    <span>Window 2 has been silent for 20+ seconds — likely at a prompt or waiting for input</span>
+                                </div>
+                                <div class="flex gap-3">
+                                    <code class="bg-ink/5 px-2 py-0.5 rounded shrink-0">2:claude !</code>
+                                    <span>Window 2 rang the terminal bell — explicit program-triggered alert</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-ink/10 rounded p-4 bg-ink/[0.02]">
+                            <p class="text-sm text-ink/60"><strong class="text-ink/80">Why silence, not activity?</strong> <code class="bg-ink/5 px-1 rounded">monitor-activity</code> fires on every byte of output — too noisy when Claude is actively streaming. <code class="bg-ink/5 px-1 rounded">monitor-silence</code> fires only when output <em>stops</em>. While a session runs it produces continuous output; when it finishes or hits a prompt, it goes quiet. That's the signal you actually want.</p>
                         </div>
                     </section>
 
