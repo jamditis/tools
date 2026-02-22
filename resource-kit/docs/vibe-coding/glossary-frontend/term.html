@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Term | Frontend Glossary</title>
+    <meta name="description" id="page-description" content="">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .prose-section h2 {
+            font-family: var(--font-display, 'Fraunces', serif);
+            font-weight: 300;
+            font-style: italic;
+        }
+        .example-block {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+        }
+        .related-card {
+            transition: all 0.18s ease;
+        }
+        .related-card:hover {
+            border-color: var(--accent) !important;
+            transform: translateY(-1px);
+        }
+        .related-card:hover .related-name { color: var(--accent); }
+
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.1s linear;
+            width: 0%;
+        }
+
+        #not-found { display: none; }
+        #term-content { display: none; }
+    </style>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+<div id="progress-bar"></div>
+<div class="paper-overlay"></div>
+<div class="fixed top-[-15%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+<div class="relative z-10 flex min-h-screen flex-col">
+
+    <!-- Header -->
+    <header class="border-b border-ink/10 bg-canvas/60 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="/" class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl rounded hover:bg-ink transition-colors">A</a>
+                <div class="flex items-center gap-2 text-sm text-ink/60">
+                    <a href="/vibe-coding/glossary-frontend/" class="hover:text-accent transition-colors">Frontend Glossary</a>
+                    <i data-lucide="chevron-right" class="w-3 h-3 text-ink/30"></i>
+                    <span id="breadcrumb-term" class="text-ink font-medium truncate max-w-[180px]"></span>
+                </div>
+            </div>
+            <a href="/vibe-coding/glossary-frontend/" class="flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">
+                <i data-lucide="arrow-left" class="w-3 h-3"></i> All Terms
+            </a>
+        </div>
+    </header>
+
+    <!-- Not found -->
+    <div id="not-found" class="flex-1 flex items-center justify-center text-center p-12">
+        <div>
+            <i data-lucide="search-x" class="w-12 h-12 text-ink/20 mx-auto mb-4"></i>
+            <h2 class="font-display text-2xl font-light italic text-ink mb-2">Term not found</h2>
+            <p class="text-ink/50 text-sm mb-6">The term you're looking for doesn't exist in this glossary.</p>
+            <a href="/vibe-coding/glossary-frontend/" class="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm rounded hover:bg-ink transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Glossary
+            </a>
+        </div>
+    </div>
+
+    <!-- Term content -->
+    <div id="term-content" class="flex-1">
+
+        <!-- Hero -->
+        <section class="border-b border-ink/10 py-14 px-6 relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[220px] bg-accent/5 blur-[80px] rounded-full pointer-events-none"></div>
+            <div class="max-w-4xl mx-auto relative z-10">
+                <span id="hero-cat-badge" class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent/10 text-accent border border-accent/20 rounded text-xs font-medium mb-6"></span>
+                <h1 id="hero-title" class="font-display text-4xl sm:text-5xl font-light italic text-ink mb-4"></h1>
+                <p id="hero-tagline" class="text-ink/60 text-lg max-w-2xl leading-relaxed"></p>
+            </div>
+        </section>
+
+        <!-- Body -->
+        <main class="max-w-4xl mx-auto px-6 py-12 space-y-14">
+
+            <!-- Definition -->
+            <section class="reveal-section">
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Definition</h2>
+                <div id="definition-text" class="text-ink/80 leading-relaxed space-y-4 text-[0.97rem]"></div>
+            </section>
+
+            <!-- Analogy -->
+            <section id="analogy-section" class="reveal-section">
+                <div class="deckle-card p-6 flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-accent/10 border border-accent/20 rounded flex items-center justify-center text-accent">
+                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold tracking-widest text-accent uppercase mb-2">Real-world Analogy</div>
+                        <p id="analogy-text" class="text-ink/75 leading-relaxed text-sm"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples -->
+            <section id="examples-section" class="reveal-section">
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Examples</h2>
+                <div id="examples-list" class="space-y-6"></div>
+            </section>
+
+            <!-- Use Cases -->
+            <section id="usecases-section" class="reveal-section">
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Use Cases</h2>
+                <ul id="usecases-list" class="space-y-3"></ul>
+            </section>
+
+            <!-- Trade-offs -->
+            <section id="tradeoffs-section" class="reveal-section">
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Trade-offs</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="deckle-card p-5">
+                        <div class="text-xs font-semibold tracking-widest text-accent uppercase mb-4">Pros</div>
+                        <ul id="pros-list" class="space-y-2 text-sm text-ink/75"></ul>
+                    </div>
+                    <div class="deckle-card p-5">
+                        <div class="text-xs font-semibold tracking-widest text-amber-700 uppercase mb-4">Cons</div>
+                        <ul id="cons-list" class="space-y-2 text-sm text-ink/75"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Terms -->
+            <section id="related-section" class="reveal-section">
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Related Terms</h2>
+                <div id="related-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </section>
+
+            <!-- Nav -->
+            <div class="pt-6 border-t border-ink/10 flex items-center justify-between">
+                <a id="prev-link" href="#" class="hidden group flex items-center gap-2 text-sm text-ink/50 hover:text-accent transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                    <span id="prev-label"></span>
+                </a>
+                <a href="/vibe-coding/glossary-frontend/" class="text-xs text-ink/40 hover:text-accent transition-colors">↑ All Terms</a>
+                <a id="next-link" href="#" class="hidden group flex items-center gap-2 text-sm text-ink/50 hover:text-accent transition-colors">
+                    <span id="next-label"></span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-t border-ink/10 py-6 px-6 text-center text-xs text-ink/40">
+        <p>Amditis Resource Kit · <a href="/vibe-coding/" class="hover:text-accent transition-colors">Vibe Coding Guide</a></p>
+    </footer>
+</div>
+
+<script src="./data.js"></script>
+<script>
+(function() {
+    const params = new URLSearchParams(location.search);
+    const termId = params.get('t');
+    const term = TERMS.find(t => t.id === termId);
+
+    lucide.createIcons();
+
+    if (!term) {
+        document.getElementById('not-found').style.display = 'flex';
+        document.title = 'Not Found | Frontend Glossary';
+        return;
+    }
+
+    document.getElementById('term-content').style.display = 'block';
+
+    document.title = `${term.term} | Frontend Glossary`;
+    document.getElementById('page-description').content = term.tagline;
+    document.getElementById('breadcrumb-term').textContent = term.term;
+
+    const cat = GLOSSARY_META.categories.find(c => c.id === term.category);
+    const catLabel = cat ? cat.label : term.category;
+    const heroCat = document.getElementById('hero-cat-badge');
+    heroCat.innerHTML = `<i data-lucide="${cat ? cat.icon : 'tag'}" class="w-3 h-3"></i> ${catLabel}`;
+
+    document.getElementById('hero-title').textContent = term.term;
+    document.getElementById('hero-tagline').textContent = term.tagline;
+
+    const defEl = document.getElementById('definition-text');
+    (term.definition || '').split('\n\n').forEach(para => {
+        if (!para.trim()) return;
+        const p = document.createElement('p');
+        p.textContent = para.trim();
+        defEl.appendChild(p);
+    });
+
+    if (term.analogy) {
+        document.getElementById('analogy-text').textContent = term.analogy;
+    } else {
+        document.getElementById('analogy-section').style.display = 'none';
+    }
+
+    const exList = document.getElementById('examples-list');
+    if (term.examples && term.examples.length) {
+        term.examples.forEach((ex, i) => {
+            const block = document.createElement('div');
+            block.className = 'example-block';
+            block.innerHTML = `
+                <div class="text-xs font-semibold text-accent uppercase tracking-widest mb-2">Example ${i + 1}${ex.title ? ': ' + ex.title : ''}</div>
+                <p class="text-ink/75 text-sm leading-relaxed">${ex.text}</p>
+            `;
+            exList.appendChild(block);
+        });
+    } else {
+        document.getElementById('examples-section').style.display = 'none';
+    }
+
+    const ucList = document.getElementById('usecases-list');
+    if (term.useCases && term.useCases.length) {
+        term.useCases.forEach(uc => {
+            const li = document.createElement('li');
+            li.className = 'flex items-start gap-3 text-sm text-ink/75';
+            li.innerHTML = `<span class="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 text-accent flex items-center justify-center text-xs font-bold mt-0.5">→</span><span>${uc}</span>`;
+            ucList.appendChild(li);
+        });
+    } else {
+        document.getElementById('usecases-section').style.display = 'none';
+    }
+
+    const prosList = document.getElementById('pros-list');
+    const consList = document.getElementById('cons-list');
+    if (term.tradeoffs) {
+        (term.tradeoffs.pros || []).forEach(p => {
+            const li = document.createElement('li');
+            li.className = 'flex gap-1';
+            li.innerHTML = `<span class="text-accent font-bold flex-shrink-0">+</span><span>${p}</span>`;
+            prosList.appendChild(li);
+        });
+        (term.tradeoffs.cons || []).forEach(c => {
+            const li = document.createElement('li');
+            li.className = 'flex gap-1';
+            li.innerHTML = `<span class="text-amber-700 font-bold flex-shrink-0">−</span><span>${c}</span>`;
+            consList.appendChild(li);
+        });
+    } else {
+        document.getElementById('tradeoffs-section').style.display = 'none';
+    }
+
+    const relGrid = document.getElementById('related-grid');
+    if (term.related && term.related.length) {
+        term.related.forEach(relId => {
+            const relTerm = TERMS.find(t => t.id === relId);
+            if (!relTerm) return;
+            const relCat = GLOSSARY_META.categories.find(c => c.id === relTerm.category);
+            const card = document.createElement('a');
+            card.href = `./term.html?t=${relTerm.id}`;
+            card.className = 'related-card deckle-card block p-4 border border-ink/10 rounded';
+            card.innerHTML = `
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                    <span class="related-name font-display text-sm font-light italic text-ink transition-colors">${relTerm.term}</span>
+                    <i data-lucide="arrow-up-right" class="w-3 h-3 text-ink/30 flex-shrink-0 mt-0.5"></i>
+                </div>
+                <p class="text-[11px] text-ink/50 leading-snug mb-3">${relTerm.tagline}</p>
+                <span class="inline-block px-1.5 py-0.5 bg-accent/10 text-accent border border-accent/20 rounded text-[9px] font-medium">${relCat ? relCat.label : relTerm.category}</span>
+            `;
+            relGrid.appendChild(card);
+        });
+    } else {
+        document.getElementById('related-section').style.display = 'none';
+    }
+
+    const idx = TERMS.findIndex(t => t.id === termId);
+    if (idx > 0) {
+        const prev = TERMS[idx - 1];
+        const prevLink = document.getElementById('prev-link');
+        prevLink.href = `./term.html?t=${prev.id}`;
+        document.getElementById('prev-label').textContent = prev.term;
+        prevLink.classList.remove('hidden');
+        prevLink.classList.add('flex');
+    }
+    if (idx < TERMS.length - 1) {
+        const next = TERMS[idx + 1];
+        const nextLink = document.getElementById('next-link');
+        nextLink.href = `./term.html?t=${next.id}`;
+        document.getElementById('next-label').textContent = next.term;
+        nextLink.classList.remove('hidden');
+        nextLink.classList.add('flex');
+    }
+
+    lucide.createIcons();
+
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = `${(scrollTop / docHeight) * 100}%`;
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.style.opacity = '1';
+                e.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-section').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(el);
+    });
+})();
+</script>
+</body>
+</html>
