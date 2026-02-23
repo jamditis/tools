@@ -92,10 +92,13 @@
         <!-- Hero -->
         <section class="border-b border-ink/10 py-14 px-6 relative overflow-hidden">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[220px] bg-accent/5 blur-[80px] rounded-full pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto relative z-10">
-                <span id="hero-cat-badge" class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent/10 text-accent border border-accent/20 rounded text-xs font-medium mb-6"></span>
-                <h1 id="hero-title" class="font-display text-4xl sm:text-5xl font-light italic text-ink mb-4"></h1>
-                <p id="hero-tagline" class="text-ink/60 text-lg max-w-2xl leading-relaxed"></p>
+            <div class="max-w-4xl mx-auto relative z-10 flex flex-col sm:flex-row items-start gap-8">
+                <div class="flex-1">
+                    <span id="hero-cat-badge" class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent/10 text-accent border border-accent/20 rounded text-xs font-medium mb-6"></span>
+                    <h1 id="hero-title" class="font-display text-4xl sm:text-5xl font-light italic text-ink mb-4"></h1>
+                    <p id="hero-tagline" class="text-ink/60 text-lg max-w-2xl leading-relaxed"></p>
+                </div>
+                <div id="hero-svg" class="flex-shrink-0 w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] bg-white/40 border border-ink/10 rounded-lg flex items-center justify-center p-2 self-center sm:self-start"></div>
             </div>
         </section>
 
@@ -208,6 +211,13 @@
     // ── Hero ─────────────────────────────────────────────
     document.getElementById('hero-title').textContent = term.term;
     document.getElementById('hero-tagline').textContent = term.tagline;
+
+    // Render SVG animation
+    if (term.svg) {
+        document.getElementById('hero-svg').innerHTML = term.svg;
+    } else {
+        document.getElementById('hero-svg').style.display = 'none';
+    }
 
     // ── Definition ───────────────────────────────────────
     const defEl = document.getElementById('definition-text');
