@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Last updated: December 2025. The AI landscape changes fast—verify current pricing and capabilities.
+> Last updated: February 2026. The AI landscape changes fast—verify current pricing and capabilities.
 
 ---
 
@@ -8,18 +8,18 @@
 
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
-| Claude 4.5 Opus | Best for coding and writing | Slower | $$$ | Limited |
-| Claude 4.5 Sonnet | All-around tasks, best balance | Fast | $$ | Yes |
-| Gemini 3.0 Pro | Front-end design, large documents | Fast | $$ | Yes |
-| Codex (GPT 5.1) | OpenAI coding tasks | Fast | $$ | Limited |
-| GPT 5.1 | Deep research, complex reasoning | Slower | $$$ | Limited |
+| Claude Opus 4.6 | Best for coding and writing | Slower | $$$ | Limited |
+| Claude Sonnet 4.6 | All-around tasks, best balance | Fast | $$ | Yes |
+| Gemini 3.1 Pro | Front-end design, large documents | Fast | $$ | Yes |
+| Codex (GPT 5.2) | OpenAI coding tasks | Fast | $$ | Limited |
+| GPT 5.2 | Deep research, complex reasoning | Slower | $$$ | Limited |
 | GitHub Copilot | In-editor suggestions | Real-time | $10/mo | Students |
 
 ---
 
 ## Detailed breakdown
 
-### Claude 4.5 Opus
+### Claude Opus 4.6
 
 **Strengths:**
 - Best model for coding and writing by far
@@ -36,7 +36,7 @@
 
 ---
 
-### Claude 4.5 Sonnet
+### Claude Sonnet 4.6
 
 **Strengths:**
 - Great balance of speed and capability
@@ -45,14 +45,14 @@
 - Good at iterating on feedback
 
 **Weaknesses:**
-- Less capable on very complex tasks than Opus
+- Less capable on very complex tasks than Claude Opus 4.6
 - Better for brainstorming than production code
 
 **Best for:** Daily tasks, brainstorming, quick iterations
 
 ---
 
-### Gemini 3.0 Pro
+### Gemini 3.1 Pro
 
 **Strengths:**
 - Best for front-end design work
@@ -61,14 +61,14 @@
 - Good integration with Google products
 
 **Weaknesses:**
-- Not as strong for pure coding as Claude 4.5 Opus
+- Not as strong for pure coding as Claude Opus 4.6
 - May train on data unless opted out
 
 **Best for:** Front-end design, large document analysis, multimodal projects
 
 ---
 
-### Codex (GPT 5.1)
+### Codex (GPT 5.2)
 
 **Strengths:**
 - Specialized for coding tasks
@@ -83,7 +83,7 @@
 
 ---
 
-### GPT 5.1
+### GPT 5.2
 
 **Strengths:**
 - Top-tier reasoning for complex problems
@@ -115,7 +115,7 @@
 
 ---
 
-## Cost comparison (approximate, Dec 2025)
+## Cost comparison (approximate, Feb 2026)
 
 | Service | Pricing model | Typical monthly cost |
 |---------|---------------|---------------------|
@@ -137,13 +137,13 @@
 → **Claude Pro** (best for coding and writing)
 
 ### Regular coding work
-→ **Claude 4.5 Opus** + **GitHub Copilot** for in-editor
+→ **Claude Opus 4.6** + **GitHub Copilot** for in-editor
 
 ### Front-end design or large documents
-→ **Gemini 3.0 Pro** (best context window and multimodal)
+→ **Gemini 3.1 Pro** (best context window and multimodal)
 
 ### Building production tools for newsroom
-→ **Claude 4.5 Opus** for all coding tasks
+→ **Claude Opus 4.6** for all coding tasks
 
 ---
 

@@ -9,6 +9,8 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 - [ ] **Define a specific goal** — Write down exactly what "done" looks like in one sentence
 - [ ] **Gather your data** — Have sample files ready, know your data format
 - [ ] **Choose your LLM** — Pick one and stick with it for this session
+- [ ] **Install a CLI tool (if batch/file work)** — `npm install -g @anthropic-ai/claude-code` or `npm install -g @google/gemini-cli`
+- [ ] **Create a context file** — Add a CLAUDE.md or GEMINI.md with your beat basics
 - [ ] **Create project folder** — Clear name, organized structure
 - [ ] **Start a changelog** — Use the CHANGELOG-TEMPLATE.md file
 - [ ] **Test your environment** — Can you run "Hello World" in your language of choice?
@@ -64,14 +66,15 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 | File automation | Bash/Python |
 | Database queries | SQL |
 
-### Current best LLMs for coding (Dec 2025)
+### Current best LLMs for coding (Feb 2026)
 
 | Need | Recommendation |
 |------|----------------|
-| Coding and writing | Claude 4.5 Opus |
-| Front-end design, large docs | Gemini 3.0 Pro |
-| OpenAI coding tasks | Codex (GPT 5.1) |
-| Free, getting started | Claude.ai free tier |
+| Coding and writing | Claude Opus 4.6 |
+| Fast daily tasks | Claude Sonnet 4.6 |
+| Front-end design, large docs | Gemini 3.1 Pro |
+| OpenAI coding tasks | Codex (GPT 5.2) |
+| Free, getting started | Gemini CLI free tier |
 
 ---
 

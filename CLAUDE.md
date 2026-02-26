@@ -113,12 +113,12 @@ The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
 ## Model naming conventions
 
 Use these current names in all content:
-- **Claude 4.5 Opus** - best for coding and writing
-- **Claude 4.5 Sonnet** - fast chat model
-- **Gemini 3.0 Pro** - best for front-end design and large documents
-- **Gemini 3.0 Flash** - fast Gemini chat model
-- **Codex (GPT 5.1)** - OpenAI's coding model
-- **GPT 5.1** - OpenAI's reasoning model
+- **Claude Opus 4.6** - best for coding and writing
+- **Claude Sonnet 4.6** - fast chat model
+- **Gemini 3.1 Pro** - best for front-end design and large documents
+- **Gemini 3.1 Flash** - fast Gemini chat model
+- **Codex (GPT 5.2)** - OpenAI's coding model
+- **GPT 5.2** - OpenAI's reasoning model
 
 Never use outdated names like "Claude 4 Opus", "GPT-4o", or "Gemini 2.x"
 

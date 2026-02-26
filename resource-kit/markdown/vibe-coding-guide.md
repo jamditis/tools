@@ -3,17 +3,19 @@
 > A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.
 
 **Author:** Joe Amditis
-**Last updated:** December 2025
+**Last updated:** February 2026
 
 ---
 
 ## What is vibe coding?
 
-"Vibe coding" is a term coined by Andrej Karpathy to describe a new approach to software development where you describe what you want in natural language and let AI write the code. You're the project manager, not the programmer.
+Vibe coding is an approach to software development where you describe what you want in plain language and let an AI agent write and run the code. You direct the project; the agent handles the syntax, execution, and debugging.
 
-This isn't about replacing programming knowledge—it's about lowering the barrier to entry. Journalists can now build tools, automate workflows, and analyze data without spending years learning syntax.
+This works because modern AI tools — Claude Code, Gemini CLI, and Codex CLI — run directly on your computer. They read your files, write code, execute it, and report back, all inside a single conversation. You describe the task; the agent does it.
 
-> **Key insight:** You don't need to understand every line of code. You need to understand what you're trying to build and how to test if it works.
+For journalists, the benefit is direct: instead of pasting a city council transcript into a chat window and copying the summary by hand, you can describe a workflow to a CLI agent, and it builds the script, runs it against your files, and returns results — without you touching a browser.
+
+> **Key insight:** Your job is to be clear about what you want and to verify that the output is correct. The agent handles execution.
 
 ---
 
@@ -21,14 +23,17 @@ This isn't about replacing programming knowledge—it's about lowering the barri
 
 Before you write your first prompt, internalize these mental models:
 
-### Manager, not mechanic
-You're directing the project, not debugging semicolons. Focus on requirements, not implementation details.
+### Managing, not prompting
+You're delegating work to an agent, not typing clever prompts. Give clear instructions with context, review what comes back, and course-correct. The skill is judgment and specificity — the same skills that make a good editor or project manager.
+
+### Apps vs. harnesses
+Web chat tools (ChatGPT, Claude.ai, Gemini.com) are apps: easy to access, no setup, but context-limited, session-bound, and disconnected from your files. CLI tools (Claude Code, Gemini CLI, Codex CLI) are harnesses: they give AI access to your filesystem, let you script and automate, and persist context across sessions. Vibe coding starts in apps and graduates to harnesses.
 
 ### Start simple, build up
 Begin with a script that does one thing. Add complexity only when the simple version works.
 
 ### Project-based learning
-Learn by building things you actually need. Abstract exercises don't stick—real problems do.
+Learn by building things you actually need. Abstract exercises don't stick — real problems do.
 
 ### AI as tool, not crutch
 AI accelerates your work, but you still need to verify outputs and understand the logic.
@@ -37,25 +42,107 @@ AI accelerates your work, but you still need to verify outputs and understand th
 
 ## The workflow
 
-Here's the core loop for vibe coding:
+### Web-based (entry level)
 
-### 1. Define the scope
-Write down exactly what you want the tool to do. Be specific about inputs, outputs, and edge cases. The clearer your requirements, the better the AI's output.
+Start here if you have no terminal experience:
 
-### 2. Generate first draft
-Ask the AI to write the code. Include context about your environment (e.g., "I'm using Python 3.11 on Windows"). Don't worry about perfection—this is a starting point.
+1. **Define the scope** — Write down exactly what you want. Be specific about inputs, outputs, and edge cases.
+2. **Paste your request** — Open Claude.ai, ChatGPT, or Gemini. Include your environment if relevant ("I'm on Windows, using Python").
+3. **Test manually** — Copy the output, run it, see what happens.
+4. **Iterate** — Paste errors back to the AI and ask it to fix them.
+5. **Document** — Keep a CHANGELOG.md with what worked and what broke.
 
-### 3. Test and iterate
-Run the code. When it breaks (and it will), paste the error back to the AI. Each iteration teaches you something and improves the code.
+### CLI agent (current practice)
 
-### 4. Document what worked
-Keep a changelog. Write down what you built, what broke, and how you fixed it. This becomes your personal knowledge base.
+Once you have a terminal and one CLI tool installed:
+
+1. **Define the scope** — Same as above. Clarity matters more here, not less.
+2. **Launch your agent** — Open a terminal in your project folder. Type `claude` or `gemini` and press Enter.
+3. **Describe the task** — The agent reads your files, writes code, runs it, and reports back. You don't type shell commands; you describe what you want.
+4. **Review and course-correct** — Check the output. If it's wrong, say so in plain language. Stay in the session.
+5. **Document** — Ask the agent to update your changelog before you end the session.
+
+> **The key difference:** In the CLI workflow, the agent executes. You don't copy code, open a terminal, and run it yourself — the agent does that in one step.
+
+---
+
+## CLI tools for vibe coding
+
+CLI tools are harnesses: they give AI direct access to your files, terminal, and system. Once installed, you launch one with a single command and work in plain English from there.
+
+### The three main options
+
+| Tool | Install | Best for |
+|------|---------|----------|
+| **Claude Code** | `npm install -g @anthropic-ai/claude-code` | All coding tasks, large projects, debugging |
+| **Gemini CLI** | `npm install -g @google/gemini-cli` | Free tier (1,000 req/day), front-end work |
+| **Codex CLI** | `npm install -g @openai/codex` | OpenAI users |
+
+You only need Node.js (v20 or higher) installed first. Get it at nodejs.org.
+
+### When to use web vs. CLI
+
+| Task | Use |
+|------|-----|
+| Quick one-off question | Web chat |
+| Processing a file or folder | CLI agent |
+| Batch work (50+ documents) | CLI agent |
+| Building and running a script | CLI agent |
+| Automating a recurring task | CLI agent |
+
+> **Pro tip:** For simple questions, web chat is faster. For anything involving your actual files or more than one step, a CLI agent saves significant time.
+
+---
+
+## Context files
+
+Web chat forgets everything between sessions. Every time you open a new chat, you re-explain your beat, your style, your sources. CLI tools solve this with context files — markdown files the agent reads automatically when you start a session.
+
+### The file formats
+
+- `CLAUDE.md` — read by Claude Code
+- `GEMINI.md` — read by Gemini CLI
+- `AGENTS.md` — read by multiple tools
+
+Create the file in your project folder. The agent picks it up automatically.
+
+### What to put in a context file
+
+- **Beat knowledge:** key sources, regular meetings, local acronyms, terminology specific to your coverage area
+- **Style guide:** AP style preferences, publication-specific rules
+- **Source standards:** how you handle anonymous sources, what verification looks like for your newsroom
+- **Project status:** what you're working on, what's already done
+
+### The deletion test
+
+Before adding a line to your context file, ask: "If I deleted this, would the AI behave differently on my tasks?" If the answer is no, leave it out. Context files work because they contain information the AI doesn't already know.
+
+### Starter template
+
+~~~markdown
+# [Beat name] — context file
+
+## About this project
+[What this folder is for, one sentence]
+
+## Beat knowledge
+- Key sources: [names, roles, contact info]
+- Regular events: [city council schedule, press briefings, etc.]
+- Key terms: [local acronyms, specialized terminology]
+
+## Style
+- [AP style notes specific to your beat]
+- [Publication name and audience]
+
+## Current projects
+- [What I'm working on right now]
+~~~
 
 ---
 
 ## When to use each language
 
-Different languages excel at different tasks:
+> **Note:** In CLI agent mode, you often don't need to pick a language — describe the task and the agent selects the right tool. The table below is most useful for understanding what the agent writes or for learning the languages yourself.
 
 | Language | Best for | Examples |
 |----------|----------|----------|
@@ -92,14 +179,15 @@ Different languages excel at different tasks:
 
 ---
 
-## Best LLMs for coding (December 2025)
+## Best LLMs for coding (February 2026)
 
-| Model | Strengths | Best for |
-|-------|-----------|----------|
-| Claude 4.5 Opus | Best for coding and writing by far | All coding, large projects, debugging |
-| Gemini 3.0 Pro | Best for front-end design, large context | Front-end work, large documents |
-| Codex (GPT 5.1) | OpenAI's specialized coding model | OpenAI coding tasks |
-| Claude.ai (free) | Free tier, solid capabilities | Getting started, simple scripts |
+| Model | Strengths | Best for | CLI tool |
+|-------|-----------|----------|----------|
+| Claude Opus 4.6 | Best for coding and writing | All coding, large projects, debugging | Claude Code |
+| Claude Sonnet 4.6 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
+| Gemini 3.1 Pro | Front-end design, large context | Front-end work, large documents | Gemini CLI |
+| Codex (GPT 5.2) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
+| Claude.ai (free) | Free tier, solid capabilities | Getting started, simple scripts | Web only |
 
 ---
 
@@ -128,6 +216,13 @@ Before your first vibe coding session:
 - [ ] Create a CHANGELOG.md file to document progress
 - [ ] Test that your programming environment works (can you run "Hello World"?)
 - [ ] Set a time limit for the session
+
+### If using a CLI agent (recommended)
+
+- [ ] Install Node.js (v20 or higher) — nodejs.org
+- [ ] Install one CLI tool: `npm install -g @anthropic-ai/claude-code` or `npm install -g @google/gemini-cli`
+- [ ] Launch it from your project folder: type `claude` or `gemini` and press Enter
+- [ ] Create a context file (`CLAUDE.md`) with your beat basics before your first session
 
 ---
 
@@ -164,9 +259,11 @@ What I set out to accomplish today.
 
 ## Next steps
 
-- **Try it:** Pick a small, real problem and attempt to solve it with AI assistance
-- **Use the templates:** Download the changelog and checklist from this resource kit
-- **Join a community:** Find other journalists learning to code—the IRE and NICAR communities are great places to start
+- **Try it:** Pick a small, real problem. If you have a CLI tool installed, describe it in a session. If not, start with web chat.
+- **Build a context file:** Even a 10-line CLAUDE.md makes a noticeable difference. Write down your beat basics before your next session.
+- **Use the templates:** Download the changelog template and quick start checklist from this resource kit.
+- **Go further:** Once scripts are working, look into custom skills (reusable prompt templates for your beat), scheduled automation (scripts that run on a timer), and retrieval-augmented generation (having the agent search your own document archive).
+- **Join a community:** IRE and NICAR are the best communities for journalists learning to work with data and code.
 
 ---
 
