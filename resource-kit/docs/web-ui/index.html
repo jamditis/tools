@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signs of Taste in Web UI // Amditis Kit</title>
+    <meta name="description" content="18 principles that separate polished web interfaces from everything else. A checklist for shipping with taste.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .principle-card {
+            counter-increment: principle;
+        }
+        .principle-card::before {
+            content: counter(principle, decimal-leading-zero);
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            font-family: 'Fraunces', serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: rgba(18, 18, 18, 0.15);
+            letter-spacing: 0.05em;
+        }
+        .principle-grid {
+            counter-reset: principle;
+        }
+        .principle-card:hover::before {
+            color: rgba(61, 75, 64, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition-all duration-500">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="flex items-center gap-3 group">
+                        <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl group-hover:bg-accent transition-colors">A</div>
+                        <div>
+                            <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
+                            <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
+                        </div>
+                    </a>
+                </div>
+                <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
+                    <a href="/" class="nav-link text-mist hover:text-ink transition-colors">Home</a>
+                    <a href="/about/" class="nav-link text-mist hover:text-ink transition-colors">About</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="py-20 md:py-28 px-6 border-b border-ink/10 relative overflow-hidden reveal-section">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto relative z-10 animate-page-in">
+                <div class="inline-flex items-center px-4 py-1 mb-6 border border-ink/10 text-mist text-[10px] font-bold tracking-[0.4em] uppercase">
+                    Reference guide
+                </div>
+                <h1 class="font-display text-[10vw] md:text-[5.5vw] font-light leading-[0.9] tracking-tight mb-8 text-ink">
+                    Signs of taste<br><span class="italic font-black">in web UI.</span>
+                </h1>
+                <p class="text-ink/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-10">
+                    18 details that separate polished interfaces from everything else. None require a design degree. All require giving a damn.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-16 space-y-24">
+
+            <!-- Speed & Responsiveness -->
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">01 / Speed</h2>
+                    <span class="section-label">Feels instant</span>
+                </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">The fastest UI is one that never makes users wait. Perceived speed matters more than actual speed.</p>
+
+                <div class="principle-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Principle 1: 100ms interactions -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="zap" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">100ms interactions</h4>
+                        <p class="text-sm text-mist leading-relaxed">Every click, tap, and keystroke responds in under 100ms. Anything slower feels broken.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Optimistic UI, debounced writes, local-first state
+                        </div>
+                    </div>
+
+                    <!-- Principle 2: Skeleton loading -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="layout" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Skeleton loading states</h4>
+                        <p class="text-sm text-mist leading-relaxed">Show the shape of content before the content arrives. Never a blank screen or a spinner.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Placeholder blocks that match the real layout
+                        </div>
+                    </div>
+
+                    <!-- Principle 3: Persistent resumable state -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="save" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Persistent resumable state</h4>
+                        <p class="text-sm text-mist leading-relaxed">Close the tab. Reopen it tomorrow. Everything is exactly where you left it.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            URL state, localStorage, session restore
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Navigation & Structure -->
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">02 / Navigation</h2>
+                    <span class="section-label">Never lost</span>
+                </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Good navigation is invisible. Users reach any screen in seconds without thinking about where things are.</p>
+
+                <div class="principle-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Principle 4: No product tours -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="x-circle" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">No product tours</h4>
+                        <p class="text-sm text-mist leading-relaxed">If your UI needs a walkthrough, the UI is the problem. Good design teaches by being obvious.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Progressive disclosure over front-loaded tutorials
+                        </div>
+                    </div>
+
+                    <!-- Principle 5: 3-step navigation -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">3 clicks to anything</h4>
+                        <p class="text-sm text-mist leading-relaxed">Every screen reachable in three steps or fewer. Deep nesting is a sign of unclear hierarchy.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Flat IA, shortcut menus, breadcrumbs
+                        </div>
+                    </div>
+
+                    <!-- Principle 6: Clean URLs -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="link" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Clean URL slugs</h4>
+                        <p class="text-sm text-mist leading-relaxed"><code class="text-xs bg-ink/5 px-1.5 py-0.5">/settings</code> not <code class="text-xs bg-ink/5 px-1.5 py-0.5">/app/v2/settings?uid=8f3a</code>. Short, readable, shareable.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Human-readable paths, no UUIDs in URLs
+                        </div>
+                    </div>
+
+                    <!-- Principle 7: Cmd+K -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="command" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Cmd+K</h4>
+                        <p class="text-sm text-mist leading-relaxed">A universal command palette. Type what you want. Skip the menus entirely.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Fuzzy search, recent actions, keyboard-first
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Visual Design -->
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">03 / Visual</h2>
+                    <span class="section-label">Quiet confidence</span>
+                </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Taste in visual design means restraint. Every pixel earns its place or gets cut.</p>
+
+                <div class="principle-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Principle 8: 3 colors max -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="palette" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Three colors max</h4>
+                        <p class="text-sm text-mist leading-relaxed">One background, one text, one accent. More colors mean more decisions your users have to parse.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Constraint breeds clarity
+                        </div>
+                    </div>
+
+                    <!-- Principle 9: No visible scrollbars -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="monitor" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">No visible scrollbars</h4>
+                        <p class="text-sm text-mist leading-relaxed">Hide the chrome. Let the content breathe. Scrollbars are metadata, not decoration.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Auto-hiding scrollbars, overflow: overlay
+                        </div>
+                    </div>
+
+                    <!-- Principle 10: Optical alignment -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="eye" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Optical alignment</h4>
+                        <p class="text-sm text-mist leading-relaxed">Align to what looks right, not what the grid says. Play icons need 2px right nudge. Circles need to be slightly larger.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Human eyes beat pixel rulers
+                        </div>
+                    </div>
+
+                    <!-- Principle 11: L-to-R optimized -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="arrow-right" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">L-to-R reading flow</h4>
+                        <p class="text-sm text-mist leading-relaxed">Important content sits top-left. Actions land bottom-right. Follow the eye, don't fight it.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            F-pattern layout, Z-pattern for landing pages
+                        </div>
+                    </div>
+
+                    <!-- Principle 12: Copyable brand kit -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="image" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Copyable SVG logo + brand kit</h4>
+                        <p class="text-sm text-mist leading-relaxed">Ship a <code class="text-xs bg-ink/5 px-1.5 py-0.5">/brand</code> page. SVG logo, color codes, usage rules. One click to copy.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Respect the people who promote your product
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Interaction & Copy -->
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">04 / Interaction</h2>
+                    <span class="section-label">Respect the user</span>
+                </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Every interaction is a conversation. Polished UIs speak clearly, act honestly, and never waste a click.</p>
+
+                <div class="principle-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Principle 13: Larger hit targets -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="pointer" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Larger hit targets</h4>
+                        <p class="text-sm text-mist leading-relaxed">Minimum 44px touch targets. Generous padding on inputs. Make it easy to tap, not a test of precision.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            WCAG 2.5.8, Fitts's Law in practice
+                        </div>
+                    </div>
+
+                    <!-- Principle 14: Clipboard support -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="clipboard-copy" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Clipboard in, clipboard out</h4>
+                        <p class="text-sm text-mist leading-relaxed">Paste images from clipboard. Copy results with one click. Reduce friction between your app and everything else.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            navigator.clipboard API, paste event handlers
+                        </div>
+                    </div>
+
+                    <!-- Principle 15: Honest cancel -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="log-out" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Honest one-click cancel</h4>
+                        <p class="text-sm text-mist leading-relaxed">Cancel means cancel. Not "tell us why" then "are you sure" then "here's a discount." One click. Done.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            Dark patterns destroy trust permanently
+                        </div>
+                    </div>
+
+                    <!-- Principle 16: Reassurance about loss -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="shield-check" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Reassurance about loss</h4>
+                        <p class="text-sm text-mist leading-relaxed">Before any destructive action, tell users what they keep and what they lose. Show the diff, not just a warning.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5 text-xs text-ink/40">
+                            "Your data will be available for 30 days"
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Copy & Microcopy -->
+            <section class="reveal-section">
+                <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <h2 class="font-display text-4xl font-light italic">05 / Copy</h2>
+                    <span class="section-label">Say less</span>
+                </div>
+                <p class="text-sm text-mist mb-8 max-w-2xl">Interface writing is not marketing writing. Cut the filler. Use active voice. Trust the user to figure it out.</p>
+
+                <div class="principle-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Principle 17: Active voice, 7 words -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="type" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Active voice, 7 words max</h4>
+                        <p class="text-sm text-mist leading-relaxed">"Save changes" not "Your changes have been saved successfully." Every extra word dilutes meaning.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5">
+                            <div class="grid grid-cols-2 gap-4 text-xs">
+                                <div>
+                                    <div class="text-red-500/60 font-bold mb-1">Avoid</div>
+                                    <div class="text-ink/40">"Your file has been uploaded successfully to the server"</div>
+                                </div>
+                                <div>
+                                    <div class="text-accent font-bold mb-1">Better</div>
+                                    <div class="text-ink/40">"File uploaded"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Principle 18: Minimal tooltips -->
+                    <div class="principle-card deckle-card p-6 relative group hover:border-accent transition-all duration-300">
+                        <div class="mb-4">
+                            <i data-lucide="message-square" class="w-6 h-6 text-ink/30 group-hover:text-accent transition-colors"></i>
+                        </div>
+                        <h4 class="font-display text-lg text-ink font-bold mb-2 group-hover:text-accent transition-colors">Minimal tooltips</h4>
+                        <p class="text-sm text-mist leading-relaxed">Tooltips are a last resort, not a crutch. If every icon needs a tooltip, the icon is wrong.</p>
+                        <div class="mt-4 pt-3 border-t border-ink/5">
+                            <div class="grid grid-cols-2 gap-4 text-xs">
+                                <div>
+                                    <div class="text-red-500/60 font-bold mb-1">Avoid</div>
+                                    <div class="text-ink/40">Tooltip on every button explaining what it does</div>
+                                </div>
+                                <div>
+                                    <div class="text-accent font-bold mb-1">Better</div>
+                                    <div class="text-ink/40">Labels by default, tooltips only for power shortcuts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Manifesto / Summary -->
+            <section class="reveal-section border-t border-ink/10 pt-16">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="font-display text-3xl md:text-4xl font-light italic mb-6">The throughline</h2>
+                    <p class="text-ink/60 text-lg leading-relaxed mb-10">
+                        Every principle here points at the same thing: respect. Respect for the user's time, attention, and intelligence. Taste isn't a design skill. It's the decision to care about details no one asked for.
+                    </p>
+                    <div class="deckle-card p-8 text-left">
+                        <h3 class="font-display text-xl text-accent font-bold mb-4">The checklist</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-ink/70">
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Every interaction &lt; 100ms</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>No product tours</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Clean URL slugs, no UIDs</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Persistent resumable state</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Three colors max</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>No visible scrollbars</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>3 clicks to any screen</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Copyable SVG logo + brand kit</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Skeleton loading states</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Clipboard paste + copy</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Larger hit targets (44px+)</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Honest one-click cancel</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Cmd+K command palette</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Minimal tooltips</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Active voice, 7 words max</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Optical alignment over geometric</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>L-to-R reading flow</span>
+                            </label>
+                            <label class="flex items-start gap-3 py-1.5">
+                                <input type="checkbox" class="mt-1 accent-accent" />
+                                <span>Reassurance about loss</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-ink text-canvas py-20 relative z-10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col lg:flex-row justify-between items-start gap-16 mb-16">
+                    <div class="space-y-6">
+                        <h5 class="font-display text-4xl italic font-light tracking-tight text-canvas leading-tight">Ship with<br><span class="font-black">taste.</span></h5>
+                    </div>
+                    <div class="grid grid-cols-2 gap-16 md:gap-24">
+                        <div class="space-y-6">
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Core index</h6>
+                            <ul class="space-y-4 text-sm font-semibold tracking-wide">
+                                <li><a href="/vibe-coding/" class="hover:text-accent transition-colors">Vibe Coding</a></li>
+                                <li><a href="/llm-advisor/" class="hover:text-accent transition-colors">LLM Advisor</a></li>
+                                <li><a href="/code-patterns/" class="hover:text-accent transition-colors">Code Patterns</a></li>
+                            </ul>
+                        </div>
+                        <div class="space-y-6">
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Directives</h6>
+                            <ul class="space-y-4 text-sm font-semibold tracking-wide">
+                                <li><a href="/about/" class="hover:text-accent transition-colors">About</a></li>
+                                <li><a href="/style-guide/" class="hover:text-accent transition-colors">Style Guide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-canvas/5 gap-6">
+                    <div class="font-display text-2xl italic font-black">AMDITIS.</div>
+                    <div class="text-[10px] font-bold tracking-[0.3em] text-canvas/30 uppercase text-center md:text-right">
+                        <a href="https://centerforcooperativemedia.org" class="hover:text-canvas transition-colors">Center for Cooperative Media</a>
+                        <span class="mx-2">//</span>
+                        <a href="https://github.com/jamditis" class="hover:text-canvas transition-colors">Joe Amditis</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Nav Scroll Logic
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled-nav');
+            } else {
+                nav.classList.remove('scrolled-nav');
+            }
+        });
+
+        // Reveal Animation on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
