@@ -24,7 +24,7 @@ When a bug is reported, don't immediately attempt to fix it. Instead:
 
 ## Repository overview
 
-This repository (`tools`) contains the **Amditis Resource Kit** - a collection of AI tools and templates for journalists. It's hosted on GitHub Pages at https://jamditis.github.io/tools/
+This repository (`tools`) contains the **Amditis Resource Kit** - a collection of AI tools and templates for journalists. Deployed via Cloudflare Pages at https://tools-pages.pages.dev/resource-kit/docs/
 
 ### Main components
 
@@ -46,8 +46,9 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 
 ```
 tools/                        # Git root
-├── .github/workflows/        # GitHub Actions (deploys to Pages)
+├── .github/workflows/        # (disabled — GitHub Actions suspended)
 │   └── static.yml
+├── deploy.sh                 # Cloudflare Pages deploy script
 ├── resource-kit/
 │   └── docs/                 # ← GitHub Pages serves from here
 │       ├── index.html        # Main landing page
@@ -104,12 +105,9 @@ python -m http.server 8000
 # Open http://localhost:8000
 ```
 
-**After changes:** Commit and push to master - GitHub Actions auto-deploys to Pages.
+**After changes:** Run `bash deploy.sh` to deploy via Cloudflare Pages (direct upload, personal account). Handles files >25MB by staging with rsync.
 
-**Check deployment status:**
-```bash
-gh run list --limit 3
-```
+**Pages URL:** https://tools-pages.pages.dev
 
 ## LLM Advisor architecture
 
@@ -144,5 +142,5 @@ Both LESSONS and CLAUDE-RULES templates are available for:
 
 - Using dark theme patterns (crt-overlay, glitch-text, clip-notch) - use V2 light patterns instead
 - Attaching event listeners only to the main container (check if elements are outside it)
-- Deploying without checking GitHub Actions build status
+- Deploying without running `bash deploy.sh`
 - Using Jekyll features (site uses static deployment, not Jekyll)
