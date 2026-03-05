@@ -20,7 +20,7 @@ rsync -a --exclude='.git' --max-size=25M . "$STAGING/"
 # Clear wrangler account cache (prevents cross-account contamination)
 rm -f "$HOME/node_modules/.cache/wrangler/wrangler-account.json" "$HOME/node_modules/.cache/wrangler/pages.json" 2>/dev/null
 
-npx wrangler pages deploy "$STAGING" \
+npx wrangler pages deploy "$STAGING/resource-kit/docs" \
   --project-name=tools-pages \
   --branch=master \
   --commit-message="$COMMIT_MSG" --commit-dirty=true
