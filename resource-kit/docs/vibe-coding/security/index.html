@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 security rules | Vibe Coding Guide</title>
+    <meta name="description" content="Non-negotiable security checks for every vibe-coded app. From secrets management to DDoS protection — 30 rules grouped by category.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+    <!-- OG / social meta -->
+    <meta property="og:title" content="30 security rules for vibe coders">
+    <meta property="og:description" content="Non-negotiable security checks for every vibe-coded app. From secrets management to DDoS protection.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tools.amditis.tech/vibe-coding/security/">
+    <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="30 security rules for vibe coders">
+    <meta name="twitter:description" content="Non-negotiable security checks for every vibe-coded app. From secrets management to DDoS protection.">
+    <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png">
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(18, 18, 18, 0.06);
+        }
+        .rule-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .rule-num {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #2563eb;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+        .rule-num.critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.25);
+            color: #dc2626;
+        }
+        .category-bar {
+            position: relative;
+            overflow: hidden;
+        }
+        .category-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #2563eb;
+        }
+        .category-bar.red::before {
+            background: #dc2626;
+        }
+        .category-bar.amber::before {
+            background: #d97706;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #2563eb, #3b82f6);
+            transition: width 0.5s ease;
+            border-radius: 9999px;
+        }
+        /* Checkbox styling */
+        .rule-check {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1rem;
+            height: 1rem;
+            border: 1.5px solid rgba(37, 99, 235, 0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+            background: white;
+            transition: all 0.15s ease;
+        }
+        .rule-check:checked {
+            background: #2563eb;
+            border-color: #2563eb;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+            background-size: 10px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .rule-check:checked ~ .rule-body .rule-title {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .rule-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            flex: 1;
+            cursor: pointer;
+        }
+        .rule-label:has(.rule-check:checked) .rule-body {
+            opacity: 0.6;
+        }
+        .checked-item .rule-body {
+            opacity: 0.5;
+        }
+        .checked-item .rule-title {
+            text-decoration: line-through;
+        }
+        @keyframes pulse-blue {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .pulse-blue {
+            animation: pulse-blue 2.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-blue-500/3 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="w-8 h-8 bg-blue-600 text-white flex items-center justify-center font-bold font-display text-xl rounded hover:bg-ink transition-colors">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                    </a>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-blue-600">30 security rules</div>
+                        <div class="text-xs text-ink/50 tracking-wide">Vibe coding guide</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex items-center gap-2 text-xs text-blue-600 font-medium pulse-blue">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span id="header-progress">0 / 30 checked</span>
+                    </div>
+                    <a href="/vibe-coding/" class="flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">
+                        <i data-lucide="arrow-left" class="w-3 h-3"></i> Guide
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Progress bar (sticky below header) -->
+        <div class="sticky top-[57px] z-40 bg-canvas/80 backdrop-blur-sm border-b border-ink/5">
+            <div class="h-1 bg-ink/5">
+                <div id="progress-bar" class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <section class="border-b border-ink/10 bg-cream py-12">
+            <div class="max-w-3xl mx-auto px-6 flex flex-col items-center text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 border border-blue-300 bg-blue-50 text-blue-600 text-xs font-medium rounded-full mb-6">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    Security checklist
+                </div>
+                <h1 class="font-display text-4xl md:text-5xl font-light italic text-ink mb-4">30 security rules</h1>
+                <p class="text-ink/60 text-sm max-w-2xl mx-auto mb-6 leading-relaxed">
+                    These apply to every app you ship — whether it took you 2 hours or 2 months. Check them off as you go. The ones marked <span class="text-red-500 font-medium">critical</span> can cause serious harm if skipped.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 text-xs">
+                    <span class="px-2 py-1 bg-white border border-ink/10 text-ink/60 rounded">30 rules</span>
+                    <span class="px-2 py-1 bg-white border border-ink/10 text-ink/60 rounded">10 categories</span>
+                    <span class="px-2 py-1 bg-blue-50 border border-blue-200 text-blue-600 rounded">Track progress</span>
+                    <button onclick="resetAll()" class="px-2 py-1 bg-white border border-ink/10 text-ink/60 hover:border-red-300 hover:text-red-500 transition-colors rounded cursor-pointer">Reset all</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick nav -->
+        <div class="bg-cream border-b border-ink/10">
+            <div class="max-w-5xl mx-auto px-6 py-3">
+                <div class="flex flex-wrap gap-2">
+                    <a href="#auth" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Auth</a>
+                    <a href="#secrets" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Secrets</a>
+                    <a href="#dependencies" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Dependencies</a>
+                    <a href="#input" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Input & data</a>
+                    <a href="#network" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Network</a>
+                    <a href="#ratelimits" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Rate limits</a>
+                    <a href="#infra" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Infrastructure</a>
+                    <a href="#storage" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Storage & payments</a>
+                    <a href="#authz" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Authorization</a>
+                    <a href="#ops" class="px-3 py-1.5 bg-white border border-ink/10 text-xs text-ink/60 hover:border-blue-400 hover:text-blue-600 transition-colors rounded">Ops & compliance</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+
+            <div class="space-y-8">
+
+                <!-- Category 1: Authentication & sessions -->
+                <section id="auth" class="deckle-card overflow-hidden scroll-mt-28 category-bar red">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-red-100 border border-red-200 flex items-center justify-center rounded">
+                                <i data-lucide="lock" class="w-4 h-4 text-red-500"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-red-500 font-medium tracking-wide">Category 01</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Authentication & sessions</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 1–2</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">01</span>
+                            <label class="rule-label" for="rule-1">
+                                <input type="checkbox" id="rule-1" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Set session expiration (JWT max 7 days + refresh rotation)</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Long-lived tokens are a liability. If one is stolen, the attacker has access indefinitely. Refresh rotation issues a new token on every use, so a stolen token becomes invalid quickly — the next legitimate request replaces it.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">02</span>
+                            <label class="rule-label" for="rule-2">
+                                <input type="checkbox" id="rule-2" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Never use AI-built auth. Use Clerk, Supabase Auth, or Auth0</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Auth is the most security-critical part of your app and the hardest to get right. Purpose-built providers handle the edge cases AI-generated code misses: token revocation, MFA, brute force protection, session fixation, and PKCE flows.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 2: Secrets & keys -->
+                <section id="secrets" class="deckle-card overflow-hidden scroll-mt-28 category-bar red">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-red-100 border border-red-200 flex items-center justify-center rounded">
+                                <i data-lucide="key" class="w-4 h-4 text-red-500"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-red-500 font-medium tracking-wide">Category 02</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Secrets & keys</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 3–5</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">03</span>
+                            <label class="rule-label" for="rule-3">
+                                <input type="checkbox" id="rule-3" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Never paste API keys into AI chats. Use <code class="text-blue-600 text-xs">process.env</code></p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Chat sessions are logged and may be used for training. Even "private" conversations can be accessed. Reference environment variables in your code — share the code, not the values.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">04</span>
+                            <label class="rule-label" for="rule-4">
+                                <input type="checkbox" id="rule-4" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1"><code class="text-blue-600 text-xs">.gitignore</code> is your first file in every project, not the last</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">A secret committed to git lives in the history forever — even if you delete the file. Bots scan public repos continuously and will find it within minutes. Create <code class="text-blue-600 text-xs">.gitignore</code> before your first commit, not after you realize what you pushed.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">05</span>
+                            <label class="rule-label" for="rule-5">
+                                <input type="checkbox" id="rule-5" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Rotate secrets every 90 days minimum</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Keys that never change are more likely to be compromised without your knowing. Regular rotation limits the window of exposure for any leaked credential. Most providers let you pre-create a replacement before revoking the old one.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 3: Dependencies -->
+                <section id="dependencies" class="deckle-card overflow-hidden scroll-mt-28 category-bar amber">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-amber-100 border border-amber-200 flex items-center justify-center rounded">
+                                <i data-lucide="package" class="w-4 h-4 text-amber-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-amber-600 font-medium tracking-wide">Category 03</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Dependencies</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 6–8</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num">06</span>
+                            <label class="rule-label" for="rule-6">
+                                <input type="checkbox" id="rule-6" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Verify every package the AI suggests actually exists before installing</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">AI models hallucinate package names. Attackers create packages with plausible names (typosquatting) that execute malicious code on install. Check npmjs.com or PyPI directly before running any install command.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">07</span>
+                            <label class="rule-label" for="rule-7">
+                                <input type="checkbox" id="rule-7" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Always ask for newer, more secure package versions</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Older versions often have known vulnerabilities with public exploits. AI assistants sometimes suggest versions from their training data, which may be outdated. Explicitly ask for current versions, or check the package registry.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">08</span>
+                            <label class="rule-label" for="rule-8">
+                                <input type="checkbox" id="rule-8" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Run <code class="text-blue-600 text-xs">npm audit fix</code> right after building</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Dependency vulnerabilities accumulate silently as upstream packages receive patches. Run this every build to catch known CVEs before they reach production. For severe issues <code class="text-blue-600 text-xs">npm audit fix --force</code> handles them aggressively (check for breaking changes).</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 4: Input & database -->
+                <section id="input" class="deckle-card overflow-hidden scroll-mt-28 category-bar red">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-red-100 border border-red-200 flex items-center justify-center rounded">
+                                <i data-lucide="database" class="w-4 h-4 text-red-500"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-red-500 font-medium tracking-wide">Category 04</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Input & database security</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 9–10</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">09</span>
+                            <label class="rule-label" for="rule-9">
+                                <input type="checkbox" id="rule-9" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Sanitize every input. Use parameterized queries always</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">SQL injection is one of the most exploited vulnerabilities in existence. Never concatenate user input into SQL strings. Parameterized queries (also called prepared statements) separate code from data at the driver level — the database never interprets user input as SQL.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">10</span>
+                            <label class="rule-label" for="rule-10">
+                                <input type="checkbox" id="rule-10" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Enable Row-Level Security from day one</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Without RLS, a single misconfigured query can return another user's data. In Supabase and PostgreSQL, RLS enforces access policies at the database level — not just the application layer. If your app code has a bug, the database still holds the line.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 5: Network & code hygiene -->
+                <section id="network" class="deckle-card overflow-hidden scroll-mt-28 category-bar">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-100 border border-blue-200 flex items-center justify-center rounded">
+                                <i data-lucide="globe" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-blue-600 font-medium tracking-wide">Category 05</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Network & code hygiene</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 11–13</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num">11</span>
+                            <label class="rule-label" for="rule-11">
+                                <input type="checkbox" id="rule-11" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Remove all <code class="text-blue-600 text-xs">console.log</code> statements before shipping</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Logs can expose user data, API keys, internal state, and system paths to anyone with DevTools open. They also slow down production apps. Use a proper logging library that can be disabled by environment rather than deleting statements manually each time.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">12</span>
+                            <label class="rule-label" for="rule-12">
+                                <input type="checkbox" id="rule-12" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">CORS should only allow your production domain. Never wildcard</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">A wildcard CORS policy (<code class="text-blue-600 text-xs">*</code>) lets any website make authenticated requests to your API on behalf of your users. Lock it to your exact production domain — and add localhost only in development, never in production builds.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">13</span>
+                            <label class="rule-label" for="rule-13">
+                                <input type="checkbox" id="rule-13" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Validate all redirect URLs against an allow-list</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Open redirects let attackers create convincing phishing links using your domain: <code class="text-blue-600 text-xs">yourapp.com?redirect=evil.com</code>. If your app redirects based on a URL parameter, only allow a hardcoded set of known-safe destinations.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 6: Rate limiting -->
+                <section id="ratelimits" class="deckle-card overflow-hidden scroll-mt-28 category-bar amber">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-amber-100 border border-amber-200 flex items-center justify-center rounded">
+                                <i data-lucide="gauge" class="w-4 h-4 text-amber-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-amber-600 font-medium tracking-wide">Category 06</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Rate limiting</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 14–16</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num">14</span>
+                            <label class="rule-label" for="rule-14">
+                                <input type="checkbox" id="rule-14" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Apply auth + rate limits to every endpoint, including mobile APIs</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Mobile apps often talk to separate API endpoints that developers forget to protect. Unauthenticated or unlimited mobile endpoints are a common attack vector because they look like "internal" infrastructure but are just as exposed as your web API.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">15</span>
+                            <label class="rule-label" for="rule-15">
+                                <input type="checkbox" id="rule-15" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Rate limit everything from day one. 100 req/hour per IP is a start</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Without rate limits, a single bad actor can hammer your API, rack up your costs, or brute-force credentials. Retrofitting rate limits onto a production system is painful. Add them at the start with a library like <code class="text-blue-600 text-xs">express-rate-limit</code> or at the edge via Cloudflare.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">16</span>
+                            <label class="rule-label" for="rule-16">
+                                <input type="checkbox" id="rule-16" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Password reset routes get their own strict limit (3 per email/hour)</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Password reset endpoints are prime targets for account enumeration (figuring out which emails are registered) and spam attacks. A limit stricter than your general rate limit protects both user security and your email sender reputation.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 7: Infrastructure & costs -->
+                <section id="infra" class="deckle-card overflow-hidden scroll-mt-28 category-bar">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-100 border border-blue-200 flex items-center justify-center rounded">
+                                <i data-lucide="server" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-blue-600 font-medium tracking-wide">Category 07</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Infrastructure & costs</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 17–18</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num">17</span>
+                            <label class="rule-label" for="rule-17">
+                                <input type="checkbox" id="rule-17" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Cap AI API costs in your dashboard AND in your code</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">A prompt injection attack or runaway usage spike can generate massive bills overnight. Set hard limits in your provider's billing dashboard and add code-level guards (token counting, per-user quotas) to catch abuse before it reaches the billing ceiling.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">18</span>
+                            <label class="rule-label" for="rule-18">
+                                <input type="checkbox" id="rule-18" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Add DDoS protection via Cloudflare or Vercel edge config</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Volumetric attacks can take your app offline in seconds. Edge-level protection absorbs traffic before it reaches your servers. Cloudflare's free plan is sufficient for most small apps — enable it before you launch, not after your first outage.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 8: Storage, uploads & payments -->
+                <section id="storage" class="deckle-card overflow-hidden scroll-mt-28 category-bar amber">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-amber-100 border border-amber-200 flex items-center justify-center rounded">
+                                <i data-lucide="folder-lock" class="w-4 h-4 text-amber-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-amber-600 font-medium tracking-wide">Category 08</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Storage, uploads & payments</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 19–22</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">19</span>
+                            <label class="rule-label" for="rule-19">
+                                <input type="checkbox" id="rule-19" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Lock down storage buckets. Users should only access their own files</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Public or misconfigured buckets are one of the most common cloud security mistakes — responsible for major data breaches at companies of all sizes. Every file access should be scoped to the authenticated user who owns it, enforced by bucket policies or signed URLs.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">20</span>
+                            <label class="rule-label" for="rule-20">
+                                <input type="checkbox" id="rule-20" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Limit upload sizes and validate file type by signature, not extension</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Attackers rename malicious files to bypass extension checks. Read the actual file header bytes to determine type (e.g., <code class="text-blue-600 text-xs">file-type</code> in Node.js). Also cap file sizes — unlimited uploads are storage abuse waiting to happen.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">21</span>
+                            <label class="rule-label" for="rule-21">
+                                <input type="checkbox" id="rule-21" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Verify webhook signatures before processing any payment data</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Anyone can send a POST request to your webhook endpoint. Stripe, Paddle, and other payment providers sign their payloads with a secret key. Always verify the signature before processing — or attackers can fake payment events and trigger fulfillment without paying.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">22</span>
+                            <label class="rule-label" for="rule-22">
+                                <input type="checkbox" id="rule-22" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Use Resend or SendGrid with proper SPF/DKIM records</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Without SPF/DKIM, your emails land in spam or get blocked entirely. Worse, your domain can be spoofed. Purpose-built email providers handle authentication record setup. Verify deliverability with mail-tester.com before launch.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 9: Authorization & AI-assisted review -->
+                <section id="authz" class="deckle-card overflow-hidden scroll-mt-28 category-bar">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-100 border border-blue-200 flex items-center justify-center rounded">
+                                <i data-lucide="user-check" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-blue-600 font-medium tracking-wide">Category 09</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Authorization & AI-assisted review</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 23–25</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">23</span>
+                            <label class="rule-label" for="rule-23">
+                                <input type="checkbox" id="rule-23" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Check permissions server-side. UI-level checks are not security</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Hiding a button in the UI doesn't restrict access to the underlying API. Users can call your endpoints directly with curl or browser DevTools. All access control must be enforced on the server — the UI is just a convenience layer.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">24</span>
+                            <label class="rule-label" for="rule-24">
+                                <input type="checkbox" id="rule-24" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Ask the AI to act as a security engineer and review your code</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Prompt: <em class="text-ink/70">"Review this code for security vulnerabilities — act as a senior security engineer."</em> This mode surfaces SQL injection, exposed secrets, and auth bypasses that normal coding assistance doesn't flag. The framing matters.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">25</span>
+                            <label class="rule-label" for="rule-25">
+                                <input type="checkbox" id="rule-25" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Ask the AI to try and hack your app. It will find things you won't</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Prompt: <em class="text-ink/70">"Here is my authentication flow. Find ways to exploit it."</em> Adversarial prompting surfaces edge cases and attack paths that standard code review misses — race conditions, token leakage, privilege escalation paths.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Category 10: Ops & compliance -->
+                <section id="ops" class="deckle-card overflow-hidden scroll-mt-28 category-bar">
+                    <div class="p-5 bg-cream border-b border-ink/10 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 bg-blue-100 border border-blue-200 flex items-center justify-center rounded">
+                                <i data-lucide="clipboard-list" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-blue-600 font-medium tracking-wide">Category 10</div>
+                                <h2 class="font-display text-lg text-ink font-light italic">Operations & compliance</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs text-ink/40 hidden sm:inline">Rules 26–30</span>
+                    </div>
+                    <div class="px-6 py-4">
+
+                        <div class="rule-item">
+                            <span class="rule-num">26</span>
+                            <label class="rule-label" for="rule-26">
+                                <input type="checkbox" id="rule-26" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Log critical actions: deletions, role changes, payments, exports</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">An audit trail is how you investigate incidents, comply with regulations, and detect abuse. If you can't answer "who deleted this?" or "when did this role change?", you're missing the logs you'll need when something goes wrong — and something will.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num">27</span>
+                            <label class="rule-label" for="rule-27">
+                                <input type="checkbox" id="rule-27" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Build a real account deletion flow. GDPR fines are not fun</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">GDPR Article 17 gives users the right to erasure. A "delete account" button that hides the user record is not compliant. You need to actually purge or anonymize all their personal data — including backups and third-party systems you've shared data with.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">28</span>
+                            <label class="rule-label" for="rule-28">
+                                <input type="checkbox" id="rule-28" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Automate backups and test restoration. An untested backup is nothing</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Backups you've never restored may be corrupt, incomplete, or in the wrong format. Run a restoration drill on a schedule — before you need it. The worst time to discover your backup process is broken is during an incident.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">29</span>
+                            <label class="rule-label" for="rule-29">
+                                <input type="checkbox" id="rule-29" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Keep test and production environments completely separate</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">Shared credentials, databases, or infrastructure between environments means a test mistake can damage production data. Use completely separate accounts, API keys, and configs. An <code class="text-blue-600 text-xs">NODE_ENV</code> check is not the same as separate infrastructure.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="rule-item">
+                            <span class="rule-num critical">30</span>
+                            <label class="rule-label" for="rule-30">
+                                <input type="checkbox" id="rule-30" class="rule-check" onchange="saveProgress()">
+                                <div class="rule-body">
+                                    <p class="rule-title text-sm font-medium text-ink mb-1">Never let test webhooks touch real systems</p>
+                                    <p class="text-xs text-ink/55 leading-relaxed">A Stripe test event hitting your production webhook handler can trigger real fulfillment logic, send real emails, or corrupt real records. Use completely separate webhook endpoints per environment, or add a strict environment check at the top of every handler.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Summary / completion card -->
+            <div class="mt-16 deckle-card p-6 md:p-8 relative">
+                <div class="absolute -top-3 left-6 bg-canvas px-3 text-xs text-ink/50">
+                    Your progress
+                </div>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <div class="w-16 h-16 rounded-full border-4 border-blue-100 flex items-center justify-center flex-shrink-0 relative">
+                        <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 64 64">
+                            <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(37,99,235,0.1)" stroke-width="8"/>
+                            <circle id="progress-circle" cx="32" cy="32" r="28" fill="none" stroke="#2563eb" stroke-width="8"
+                                stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round"
+                                style="transition: stroke-dashoffset 0.5s ease"/>
+                        </svg>
+                        <span id="progress-num" class="text-sm font-bold text-blue-600 relative z-10">0</span>
+                    </div>
+                    <div>
+                        <p class="font-display text-xl text-ink font-light italic mb-1" id="completion-msg">Get started</p>
+                        <p class="text-sm text-ink/55 leading-relaxed">Check off rules as you apply them to your project. Progress is saved in your browser so you can pick up where you left off. Critical rules (marked in red) should be addressed first.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical rules quick ref -->
+            <div class="mt-8 border border-red-200 bg-red-50 p-6 rounded-lg">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-8 bg-red-500 text-white flex items-center justify-center rounded flex-shrink-0">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="font-display text-lg text-ink font-light italic">Critical rules — do these first</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-ink/60">
+                    <p><span class="text-red-500 font-medium">01</span> — Set session expiration with refresh rotation</p>
+                    <p><span class="text-red-500 font-medium">02</span> — Never use AI-built auth</p>
+                    <p><span class="text-red-500 font-medium">03</span> — No API keys in AI chats</p>
+                    <p><span class="text-red-500 font-medium">04</span> — .gitignore before first commit</p>
+                    <p><span class="text-red-500 font-medium">09</span> — Parameterized queries always</p>
+                    <p><span class="text-red-500 font-medium">10</span> — Row-Level Security from day one</p>
+                    <p><span class="text-red-500 font-medium">12</span> — No wildcard CORS</p>
+                    <p><span class="text-red-500 font-medium">19</span> — Lock down storage buckets</p>
+                    <p><span class="text-red-500 font-medium">21</span> — Verify webhook signatures</p>
+                    <p><span class="text-red-500 font-medium">23</span> — Server-side permission checks</p>
+                    <p><span class="text-red-500 font-medium">28</span> — Test your backup restoration</p>
+                    <p><span class="text-red-500 font-medium">29</span> — Separate test and prod environments</p>
+                    <p><span class="text-red-500 font-medium">30</span> — Test webhooks stay in test systems</p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-ink/10 bg-ink text-canvas py-8">
+            <div class="max-w-5xl mx-auto px-6 text-center text-xs text-canvas/60">
+                <p>30 rules | <a href="/vibe-coding/" class="hover:text-accent transition-colors">Vibe coding guide</a> | <a href="/vibe-coding/common-mistakes/" class="hover:text-accent transition-colors">Common mistakes</a> | <a href="/" class="hover:text-accent transition-colors">Main hub</a></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const TOTAL = 30;
+        const STORAGE_KEY = 'security-rules-progress';
+
+        function saveProgress() {
+            const checked = [];
+            for (let i = 1; i <= TOTAL; i++) {
+                if (document.getElementById('rule-' + i).checked) checked.push(i);
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
+            updateUI(checked.length);
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+            const checked = JSON.parse(saved);
+            checked.forEach(id => {
+                const el = document.getElementById('rule-' + id);
+                if (el) el.checked = true;
+            });
+            updateUI(checked.length);
+        }
+
+        function resetAll() {
+            for (let i = 1; i <= TOTAL; i++) {
+                const el = document.getElementById('rule-' + i);
+                if (el) el.checked = false;
+            }
+            localStorage.removeItem(STORAGE_KEY);
+            updateUI(0);
+        }
+
+        function updateUI(count) {
+            const pct = (count / TOTAL) * 100;
+
+            // Header counter
+            document.getElementById('header-progress').textContent = count + ' / ' + TOTAL + ' checked';
+
+            // Progress bar
+            document.getElementById('progress-bar').style.width = pct + '%';
+
+            // Circle
+            const circumference = 175.9;
+            const offset = circumference - (pct / 100) * circumference;
+            document.getElementById('progress-circle').style.strokeDashoffset = offset;
+            document.getElementById('progress-num').textContent = count;
+
+            // Completion message
+            const msg = document.getElementById('completion-msg');
+            if (count === 0) msg.textContent = 'Get started';
+            else if (count < 10) msg.textContent = 'Good start — keep going';
+            else if (count < 20) msg.textContent = 'Making progress';
+            else if (count < 30) msg.textContent = 'Almost there';
+            else msg.textContent = 'All 30 rules checked';
+        }
+
+        loadProgress();
+    </script>
+</body>
+</html>
