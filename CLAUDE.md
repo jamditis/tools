@@ -1,15 +1,5 @@
 # CLAUDE.md
 
-
-## GitHub Actions suspended (account-wide)
-
-GitHub Actions are disabled on the entire `jamditis` GitHub account until further notice. This means:
-- **No CI/CD pipelines will run** — builds, tests, deploys all fail silently
-- **GitHub Pages deploys won't work** — even "legacy" static deploys that used Actions under the hood
-- **No automated workflows** — PR checks, scheduled jobs, release automation are all dead
-
-**For any project that previously deployed via GitHub Actions or GitHub Pages, you must use an alternative** (manual deploy, Cloudflare Pages, Firebase Hosting, direct FTP, etc.). Do not create or rely on `.github/workflows/` files.
-
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Bug-fixing workflow
@@ -46,7 +36,7 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 
 ```
 tools/                        # Git root
-├── .github/workflows/        # (disabled — GitHub Actions suspended)
+├── .github/workflows/        # GitHub Pages deploy
 │   └── static.yml
 ├── deploy.sh                 # Cloudflare Pages deploy script
 ├── resource-kit/
