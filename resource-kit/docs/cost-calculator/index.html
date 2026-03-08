@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Max savings calculator // Amditis Kit</title>
+    <meta name="description" content="Calculate how much you'd pay for Claude API access vs the Max subscription plan. See your break-even point and monthly savings.">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:title" content="Claude Max savings calculator">
+    <meta property="og:description" content="See how much you're saving by using Claude Max instead of the API.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tools.amditis.tech/cost-calculator/">
+    <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Claude Max savings calculator">
+    <meta name="twitter:description" content="See how much you're saving by using Claude Max instead of the API.">
+    <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png">
+
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(18,18,18,0.15);
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3d4b40;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3d4b40;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+        .savings-bar {
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .code-block {
+            background: #1a1a1a;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+
+        <!-- Header -->
+        <header class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/" class="flex items-center gap-3 hover:opacity-70 transition-opacity">
+                    <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
+                    <div>
+                        <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
+                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
+                    </div>
+                </a>
+                <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
+                    <a href="/" class="text-mist hover:text-ink transition-colors">Home</a>
+                    <a href="/terminal-setup/" class="text-mist hover:text-ink transition-colors">Terminal setup</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Page header -->
+        <section class="py-16 px-6 border-b border-ink/10 reveal-section">
+            <div class="max-w-4xl mx-auto">
+                <div class="inline-flex items-center px-4 py-1 mb-6 border border-ink/10 text-mist text-[10px] font-bold tracking-[0.4em] uppercase">
+                    Decision tool
+                </div>
+                <h1 class="font-display text-5xl md:text-6xl font-light leading-tight tracking-tight mb-4 text-ink">
+                    Claude Max<br><span class="italic font-black">savings calculator</span>
+                </h1>
+                <p class="text-ink/70 text-lg font-light max-w-2xl leading-relaxed border-l-2 border-accent/20 pl-6">
+                    Claude Max gives unlimited usage for a flat monthly rate. This calculator shows what the same usage would cost at API rates — and how much you save.
+                </p>
+            </div>
+        </section>
+
+        <main class="flex-1 max-w-4xl mx-auto w-full px-6 py-12 space-y-10">
+
+            <!-- Controls -->
+            <div class="deckle-card-solid p-8 space-y-8 reveal-section">
+                <div>
+                    <h2 class="font-display text-2xl font-bold mb-1">Configure your usage</h2>
+                    <p class="text-sm text-mist">Adjust the sliders to match how you use Claude. Estimates assume prompt caching is active (which Claude Code uses automatically).</p>
+                </div>
+
+                <!-- Model -->
+                <div class="space-y-3">
+                    <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Model</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="setModel('opus')" id="btn-opus"
+                            class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            <div class="font-display font-bold text-sm text-ink">Claude Opus 4.6</div>
+                            <div class="text-xs text-mist mt-1">Best for complex coding</div>
+                            <div class="text-xs text-accent font-bold mt-2">$15 / $75 per M tokens</div>
+                        </button>
+                        <button onclick="setModel('sonnet')" id="btn-sonnet"
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            <div class="font-display font-bold text-sm text-ink">Claude Sonnet 4.6</div>
+                            <div class="text-xs text-mist mt-1">Fast, balanced</div>
+                            <div class="text-xs text-mist font-bold mt-2">$3 / $15 per M tokens</div>
+                        </button>
+                        <button onclick="setModel('haiku')" id="btn-haiku"
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            <div class="font-display font-bold text-sm text-ink">Claude Haiku 4.5</div>
+                            <div class="text-xs text-mist mt-1">Fastest, cheapest</div>
+                            <div class="text-xs text-mist font-bold mt-2">$0.80 / $4 per M tokens</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Max plan -->
+                <div class="space-y-3">
+                    <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Your Max plan</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="setPlan(100)" id="btn-plan-100"
+                            class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            <div class="font-display font-bold text-sm text-ink">Max 5x — $100/month</div>
+                            <div class="text-xs text-mist mt-1">5× more usage than Claude.ai Pro</div>
+                        </button>
+                        <button onclick="setPlan(200)" id="btn-plan-200"
+                            class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            <div class="font-display font-bold text-sm text-ink">Max 20x — $200/month</div>
+                            <div class="text-xs text-mist mt-1">20× more usage than Claude.ai Pro</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sessions per day -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Sessions per day</label>
+                        <span class="font-display font-bold text-ink" id="label-sessions">3</span>
+                    </div>
+                    <input type="range" min="1" max="20" value="3" id="slider-sessions" oninput="update()">
+                    <div class="flex justify-between text-[10px] text-mist">
+                        <span>1 (casual)</span>
+                        <span>10 (heavy)</span>
+                        <span>20 (all-day)</span>
+                    </div>
+                </div>
+
+                <!-- Avg input tokens per session -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Avg context per session</label>
+                        <span class="font-display font-bold text-ink" id="label-tokens">100K tokens</span>
+                    </div>
+                    <input type="range" min="10" max="500" value="100" step="10" id="slider-tokens" oninput="update()">
+                    <div class="flex justify-between text-[10px] text-mist">
+                        <span>10K (quick chat)</span>
+                        <span>100K (coding session)</span>
+                        <span>500K (long project)</span>
+                    </div>
+                </div>
+
+                <!-- Cache rate -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Cache hit rate</label>
+                        <span class="font-display font-bold text-ink" id="label-cache">70%</span>
+                    </div>
+                    <input type="range" min="0" max="95" value="70" id="slider-cache" oninput="update()">
+                    <div class="flex justify-between text-[10px] text-mist">
+                        <span>0% (no cache)</span>
+                        <span>70% (typical Claude Code)</span>
+                        <span>95% (large codebase)</span>
+                    </div>
+                    <p class="text-[10px] text-mist">Claude Code caches CLAUDE.md, MCP schemas, and system prompts automatically. Higher cache rate = cheaper API costs.</p>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-section">
+
+                <!-- API cost -->
+                <div class="deckle-card p-6 text-center">
+                    <div class="text-[10px] text-mist font-bold tracking-[0.3em] uppercase mb-3">API cost</div>
+                    <div class="font-display font-black text-4xl text-ink mb-1" id="result-api-cost">$0</div>
+                    <div class="text-xs text-mist">per month at API rates</div>
+                    <div class="mt-4 space-y-1 text-left" id="cost-breakdown"></div>
+                </div>
+
+                <!-- Max plan cost -->
+                <div class="deckle-card p-6 text-center">
+                    <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Max plan</div>
+                    <div class="font-display font-black text-4xl text-accent mb-1" id="result-plan-cost">$100</div>
+                    <div class="text-xs text-mist">flat monthly rate</div>
+                    <div class="mt-4 pt-4 border-t border-ink/5">
+                        <div class="text-[10px] text-mist">Unlimited sessions · No per-token billing</div>
+                    </div>
+                </div>
+
+                <!-- Savings -->
+                <div class="deckle-card p-6 text-center">
+                    <div class="text-[10px] font-bold tracking-[0.3em] uppercase mb-3" id="savings-label">Savings</div>
+                    <div class="font-display font-black text-4xl mb-1" id="result-savings">$0</div>
+                    <div class="text-xs text-mist" id="savings-sub">per month with Max</div>
+                </div>
+            </div>
+
+            <!-- Verdict -->
+            <div class="deckle-card-solid p-8 reveal-section">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-ink/10 bg-white/40">
+                        <i data-lucide="calculator" class="w-5 h-5 text-accent"></i>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-lg text-ink mb-2" id="verdict-title">Your usage</div>
+                        <p class="text-sm text-mist leading-relaxed" id="verdict-text">Adjust the sliders to see your estimate.</p>
+                    </div>
+                </div>
+
+                <!-- Bar breakdown -->
+                <div class="mt-6 space-y-2">
+                    <div class="flex justify-between text-[10px] text-mist font-bold uppercase tracking-widest">
+                        <span>API cost vs Max plan</span>
+                        <span id="bar-pct">0%</span>
+                    </div>
+                    <div class="h-2 bg-ink/10 rounded-full overflow-hidden">
+                        <div id="savings-bar-fill" class="savings-bar h-full bg-accent" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-mist">
+                        <span>$0 API cost</span>
+                        <span id="bar-max-label">$100 (Max)</span>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-6 pt-6 border-t border-ink/10 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <div class="text-[10px] text-mist uppercase tracking-widest mb-1">Break-even</div>
+                        <div class="font-display font-bold text-ink" id="stat-breakeven">—</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-mist uppercase tracking-widest mb-1">Cost per session</div>
+                        <div class="font-display font-bold text-ink" id="stat-per-session">—</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-mist uppercase tracking-widest mb-1">Sessions/month</div>
+                        <div class="font-display font-bold text-ink" id="stat-sessions">—</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-mist uppercase tracking-widest mb-1">Tokens/month</div>
+                        <div class="font-display font-bold text-ink" id="stat-tokens">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statusline tip -->
+            <div class="deckle-card p-8 reveal-section">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                    <h2 class="font-display text-2xl font-light italic">Track it live in your terminal</h2>
+                    <a href="/terminal-setup/" class="text-[10px] font-bold uppercase tracking-widest text-accent hover:text-ink transition-colors">Terminal setup guide &rarr;</a>
+                </div>
+                <p class="text-sm text-mist mb-6 max-w-2xl">Add this snippet to your Claude Code statusline command to see the estimated API cost update in real time as you work — so you know exactly what you're saving each session.</p>
+
+                <div class="code-block rounded p-4 relative group">
+                    <button onclick="copyCode()" class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white/10 hover:bg-white/20 rounded text-white" id="copy-btn">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <pre class="text-green-400 overflow-x-auto text-xs leading-relaxed" id="snippet-code"># In your statusline command (receives JSON via stdin):
+input=$(cat)
+model_id=$(echo "$input" | jq -r '.model.id // empty')
+total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+total_output=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
+cache_write=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
+cache_read=$(echo "$input"  | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
+
+# Pricing lookup (per million tokens: input / output / cache-write / cache-read)
+case "$model_id" in
+  *opus-4*)    ip=15;  op=75; cwp="18.75"; crp="1.5"  ;;
+  *sonnet-4*)  ip=3;   op=15; cwp="3.75";  crp="0.3"  ;;
+  *haiku-4*)   ip=0.8; op=4;  cwp="1.0";   crp="0.08" ;;
+  *)           ip=3;   op=15; cwp="3.75";  crp="0.3"  ;;
+esac
+
+cost=$(awk "BEGIN {printf \"%.2f\", ($total_input*$ip + $total_output*$op + \
+  $cache_write*$cwp + $cache_read*$crp)/1000000}")
+echo "~\$$cost"</pre>
+                </div>
+                <p class="text-xs text-mist mt-3">Paste this into your <code class="text-accent">~/.claude/statusline-command.sh</code>. Claude Code pipes JSON with cumulative token counts to the statusline command on every render.</p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-ink/10 py-8 px-6 mt-auto">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-mist">Claude Max savings calculator · <a href="/" class="hover:text-ink transition-colors">tools.amditis.tech</a></p>
+                <p class="text-xs text-mist">Pricing from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">anthropic.com/pricing</a> — verify for current rates</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const PRICING = {
+            opus:   { ip: 15,   op: 75,  cwp: 18.75, crp: 1.5,  label: 'Opus 4.6' },
+            sonnet: { ip: 3,    op: 15,  cwp: 3.75,  crp: 0.3,  label: 'Sonnet 4.6' },
+            haiku:  { ip: 0.8,  op: 4,   cwp: 1.0,   crp: 0.08, label: 'Haiku 4.5' },
+        };
+
+        let model = 'opus';
+        let planCost = 100;
+
+        function setModel(m) {
+            model = m;
+            document.querySelectorAll('.model-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-accent', 'bg-accent/10');
+                btn.classList.add('border', 'border-ink/10', 'bg-white/30');
+                const priceEl = btn.querySelector('.text-xs.font-bold');
+                if (priceEl) priceEl.className = 'text-xs text-mist font-bold mt-2';
+            });
+            const active = document.getElementById('btn-' + m);
+            active.classList.add('border-2', 'border-accent', 'bg-accent/10');
+            active.classList.remove('border', 'border-ink/10', 'bg-white/30');
+            const activePrice = active.querySelector('.text-xs.font-bold');
+            if (activePrice) activePrice.className = 'text-xs text-accent font-bold mt-2';
+            update();
+        }
+
+        function setPlan(cost) {
+            planCost = cost;
+            document.querySelectorAll('.plan-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-accent', 'bg-accent/10');
+                btn.classList.add('border', 'border-ink/10', 'bg-white/30');
+            });
+            const active = document.getElementById('btn-plan-' + cost);
+            active.classList.add('border-2', 'border-accent', 'bg-accent/10');
+            active.classList.remove('border', 'border-ink/10', 'bg-white/30');
+            document.getElementById('result-plan-cost').textContent = '$' + cost;
+            document.getElementById('bar-max-label').textContent = '$' + cost + ' (Max)';
+            update();
+        }
+
+        function fmt(n) {
+            if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'k';
+            return '$' + n.toFixed(2);
+        }
+
+        function fmtK(n) {
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return Math.round(n / 1000) + 'K';
+            return String(n);
+        }
+
+        function makeBreakdownRow(label, value) {
+            const row = document.createElement('div');
+            row.className = 'flex justify-between text-xs text-mist';
+            const lEl = document.createElement('span');
+            lEl.textContent = label;
+            const vEl = document.createElement('span');
+            vEl.textContent = value;
+            row.appendChild(lEl);
+            row.appendChild(vEl);
+            return row;
+        }
+
+        function update() {
+            const sessionsPerDay = parseInt(document.getElementById('slider-sessions').value, 10);
+            const tokensK = parseInt(document.getElementById('slider-tokens').value, 10);
+            const cacheRate = parseInt(document.getElementById('slider-cache').value, 10) / 100;
+            const p = PRICING[model];
+
+            document.getElementById('label-sessions').textContent = String(sessionsPerDay);
+            document.getElementById('label-tokens').textContent = tokensK + 'K tokens';
+            document.getElementById('label-cache').textContent = Math.round(cacheRate * 100) + '%';
+
+            const sessionsPerMonth = sessionsPerDay * 30;
+            const inputPerSession = tokensK * 1000;
+            const outputPerSession = inputPerSession * 0.15;
+
+            const cacheReadPerSession = inputPerSession * cacheRate;
+            const freshInputPerSession = inputPerSession * (1 - cacheRate);
+            const cacheWritePerSession = freshInputPerSession * 0.4;
+
+            const costPerSession = (
+                freshInputPerSession * p.ip +
+                outputPerSession * p.op +
+                cacheWritePerSession * p.cwp +
+                cacheReadPerSession * p.crp
+            ) / 1000000;
+
+            const monthlyApiCost = costPerSession * sessionsPerMonth;
+            const savings = monthlyApiCost - planCost;
+            const isSaving = savings > 0;
+
+            document.getElementById('result-api-cost').textContent = fmt(monthlyApiCost);
+            document.getElementById('result-savings').textContent = fmt(Math.abs(savings));
+            document.getElementById('savings-label').textContent = isSaving ? 'Monthly savings' : 'API cheaper by';
+            document.getElementById('savings-sub').textContent = isSaving
+                ? 'per month by using Max instead of API'
+                : 'per month — API may be better value';
+            document.getElementById('result-savings').className =
+                'font-display font-black text-4xl mb-1 ' + (isSaving ? 'text-accent' : 'text-ink');
+
+            // Cost breakdown (DOM, not innerHTML)
+            const breakdown = document.getElementById('cost-breakdown');
+            while (breakdown.firstChild) breakdown.removeChild(breakdown.firstChild);
+            breakdown.appendChild(makeBreakdownRow('Input tokens', '$' + (freshInputPerSession * p.ip / 1000000 * sessionsPerMonth).toFixed(2)));
+            breakdown.appendChild(makeBreakdownRow('Output tokens', '$' + (outputPerSession * p.op / 1000000 * sessionsPerMonth).toFixed(2)));
+            breakdown.appendChild(makeBreakdownRow('Cache (write/read)', '$' + ((cacheWritePerSession * p.cwp + cacheReadPerSession * p.crp) / 1000000 * sessionsPerMonth).toFixed(2)));
+
+            // Bar
+            const barPct = Math.min(100, (monthlyApiCost / planCost) * 100);
+            const barEl = document.getElementById('savings-bar-fill');
+            barEl.style.width = barPct + '%';
+            barEl.className = 'savings-bar h-full ' + (isSaving ? 'bg-accent' : 'bg-ink/40');
+            document.getElementById('bar-pct').textContent = Math.round(barPct) + '%';
+
+            // Stats
+            const breakEvenPerDay = planCost / costPerSession / 30;
+            document.getElementById('stat-breakeven').textContent = breakEvenPerDay.toFixed(1) + ' sessions/day';
+            document.getElementById('stat-per-session').textContent = fmt(costPerSession);
+            document.getElementById('stat-sessions').textContent = sessionsPerMonth.toLocaleString();
+            document.getElementById('stat-tokens').textContent = fmtK(inputPerSession * sessionsPerMonth);
+
+            // Verdict
+            let title, text;
+            if (monthlyApiCost < planCost * 0.5) {
+                title = 'API is likely more cost-effective';
+                text = 'At ' + sessionsPerDay + ' session' + (sessionsPerDay > 1 ? 's' : '') + '/day with ' + p.label + ', your API bill would be ~' + fmt(monthlyApiCost) + '/month — well below the $' + planCost + ' Max plan. You\'d need ' + breakEvenPerDay.toFixed(1) + ' sessions/day to break even. Unless your usage grows significantly, the API may be the better choice.';
+            } else if (monthlyApiCost < planCost) {
+                title = 'Close to break-even';
+                text = 'You\'re within striking distance of the Max plan cost. At ' + sessionsPerDay + ' sessions/day, your API bill would be ~' + fmt(monthlyApiCost) + '/month vs $' + planCost + ' for Max. The simplicity of flat-rate billing is worth considering — no surprise bills, no counting tokens.';
+            } else if (monthlyApiCost < planCost * 2) {
+                title = 'Max plan saves you money';
+                text = 'With ' + sessionsPerDay + ' sessions/day, you\'d spend ~' + fmt(monthlyApiCost) + '/month on the API. Max saves you ~' + fmt(savings) + '/month. That\'s ' + fmt(savings * 12) + '/year back in your pocket.';
+            } else {
+                title = 'Max plan pays for itself many times over';
+                text = 'At ' + sessionsPerDay + ' sessions/day, API costs would be ~' + fmt(monthlyApiCost) + '/month — ' + (monthlyApiCost / planCost).toFixed(1) + '× the Max plan price. Max pays for itself and then some. You\'re saving ~' + fmt(savings) + '/month (' + fmt(savings * 12) + '/year).';
+            }
+            document.getElementById('verdict-title').textContent = title;
+            document.getElementById('verdict-text').textContent = text;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('snippet-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.querySelector('i').setAttribute('data-lucide', 'check');
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.querySelector('i').setAttribute('data-lucide', 'copy');
+                    lucide.createIcons();
+                }, 1500);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            update();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
