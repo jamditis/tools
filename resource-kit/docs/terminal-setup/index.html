@@ -864,23 +864,506 @@ node --version</code></pre>
                     <section id="status-line" class="mb-12 scroll-mt-24">
                         <div class="border-b border-ink/10 pb-4 mb-6">
                             <div class="flex items-end justify-between">
-                                <h2 class="font-display text-xl md:text-2xl font-light italic text-ink">// Status Line Config</h2>
+                                <h2 class="font-display text-xl md:text-2xl font-light italic text-ink">// Status line config</h2>
                                 <span class="text-xs text-ink/40 hidden sm:inline">Optional enhancement</span>
                             </div>
                         </div>
 
-                        <div class="deckle-card p-6">
-                            <p class="text-ink/70 text-sm mb-6">
-                                A custom status line shows git status, token usage, and project info at a glance.
-                                This is optional but recommended for AI-assisted development.
-                            </p>
+                        <div class="space-y-4">
 
-                            <div class="bg-accent/10 border border-accent/30 p-4 rounded-sm">
-                                <p class="text-ink/70 text-sm">
-                                    <i data-lucide="info" class="w-4 h-4 inline text-accent"></i>
-                                    See the <a href="/vibe-coding/" class="text-accent hover:underline">Vibe Coding Guide</a> for detailed status line configuration.
+                            <!-- Preview -->
+                            <div class="deckle-card p-6">
+                                <p class="text-ink/70 text-sm mb-4">
+                                    A custom status line shows your model, context usage, git status, MCP servers, and active skills at a glance.
+                                    Color-coded for fast scanning: the context bar shifts from green to yellow to red as you approach the limit.
                                 </p>
+
+                                <div class="code-block rounded-sm overflow-hidden mb-4">
+                                    <div class="bg-ink/80 px-4 py-2 border-b border-white/10">
+                                        <span class="text-xs text-white/50">Preview</span>
+                                    </div>
+                                    <pre class="p-4 text-sm overflow-x-auto"><code><span style="color:#6bdf6b">Opus 4.6</span> <span style="color:#666">|</span> <span style="color:#6bdf6b">[####------] 42%</span> <span style="color:#666">/ 200K</span> <span style="color:#666">|</span> <span style="color:#5fcfcf">my-project</span> <span style="color:#d4d46b">(main +2 [3M 1?])</span> <span style="color:#666">|</span> <span style="color:#d47fd4">my-session</span>
+<span style="color:#666">MCPs:</span> <span style="color:#e05050">browser, calendar, drive, gmail</span> <span style="color:#666">|</span> <span style="color:#5f8fbf">Explanatory</span> <span style="color:#666">|</span> <span style="color:#666">skills:</span> frontend-design</code></pre>
+                                </div>
+
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#6bdf6b"></span><span class="text-ink/60">Model</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#5fcfcf"></span><span class="text-ink/60">Project</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#d4d46b"></span><span class="text-ink/60">Git branch</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#d47fd4"></span><span class="text-ink/60">Session</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#e05050"></span><span class="text-ink/60">MCPs</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#5f8fbf"></span><span class="text-ink/60">Output style</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#888"></span><span class="text-ink/60">Labels / pipes</span></div>
+                                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-gradient-to-r" style="background:linear-gradient(90deg,#6bdf6b,#d4d46b,#e05050)"></span><span class="text-ink/60">Context bar</span></div>
+                                </div>
                             </div>
+
+                            <!-- Step 1: Statusline script -->
+                            <div class="deckle-card p-6">
+                                <h3 class="text-ink font-bold mb-1 flex items-center gap-2">
+                                    <span class="text-accent text-xs font-mono">01</span> Create the statusline script
+                                </h3>
+                                <p class="text-ink/60 text-sm mb-4">This script receives JSON from Claude Code on stdin and outputs the formatted status line.</p>
+
+                                <!-- Tabs for Mac/Windows -->
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="sl-mac">
+                                        Mac / Linux
+                                    </button>
+                                    <button class="tab-btn px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="sl-win">
+                                        Windows
+                                    </button>
+                                </div>
+
+                                <div id="sl-mac" class="tab-content active">
+                                    <p class="text-ink/50 text-xs mb-2">Save as <code class="text-accent">~/.claude/statusline-command.sh</code> and run <code class="text-accent">chmod +x</code></p>
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">statusline-command.sh</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto" style="max-height:400px"><code class="text-white/80">#!/bin/bash
+
+# ANSI color codes
+G='\033[32m'   # green
+Y='\033[33m'   # yellow
+C='\033[36m'   # cyan
+R='\033[31m'   # red
+M='\033[35m'   # magenta
+B='\033[34m'   # blue
+D='\033[90m'   # dim gray
+N='\033[0m'    # reset
+
+# Read JSON input from stdin
+input=$(cat)
+
+# Extract fields from JSON
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // empty')
+model_name=$(echo "$input" | jq -r '.model.display_name // empty')
+used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+window_size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
+session_name=$(echo "$input" | jq -r '.session_name // empty')
+output_style=$(echo "$input" | jq -r '.output_style.name // empty')
+session_id=$(echo "$input" | jq -r '.session_id // empty')
+
+# Shorten model name
+case "$model_name" in
+    "Claude Opus 4.6"*)    short_model="Opus 4.6" ;;
+    "Claude Opus 4.5"*)    short_model="Opus 4.5" ;;
+    "Claude Opus 4"*)      short_model="Opus 4" ;;
+    "Claude Sonnet 4.6"*)  short_model="Sonnet 4.6" ;;
+    "Claude Sonnet 4.5"*)  short_model="Sonnet 4.5" ;;
+    "Claude Sonnet 4"*)    short_model="Sonnet 4" ;;
+    "Claude Haiku 4.5"*)   short_model="Haiku 4.5" ;;
+    "Claude Haiku 4"*)     short_model="Haiku 4" ;;
+    *)                     short_model="$model_name" ;;
+esac
+
+# Project name: strip home prefix, then strip projects/
+if [[ "$cwd" == "$HOME"* ]]; then
+    project_name="~${cwd#$HOME}"
+else
+    project_name="$cwd"
+fi
+project_name="${project_name#'~/projects/'}"
+
+# Git info
+git_part=""
+if [ -n "$cwd" ] &amp;&amp; git -C "$cwd" rev-parse --git-dir &gt;/dev/null 2&gt;&amp;1; then
+    branch=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref HEAD 2&gt;/dev/null)
+
+    staged=$(git -C "$cwd" --no-optional-locks diff --cached --name-only 2&gt;/dev/null | wc -l | tr -d ' ')
+    unstaged=$(git -C "$cwd" --no-optional-locks diff --name-only 2&gt;/dev/null | wc -l | tr -d ' ')
+    untracked=$(git -C "$cwd" --no-optional-locks ls-files --others --exclude-standard 2&gt;/dev/null | wc -l | tr -d ' ')
+
+    sync_part=""
+    upstream=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref @{upstream} 2&gt;/dev/null)
+    if [ -n "$upstream" ]; then
+        ahead_behind=$(git -C "$cwd" --no-optional-locks rev-list --left-right --count "${upstream}...HEAD" 2&gt;/dev/null)
+        behind=$(echo "$ahead_behind" | cut -f1)
+        ahead=$(echo "$ahead_behind" | cut -f2)
+        [ "${behind:-0}" -gt 0 ] &amp;&amp; sync_part="${sync_part}-${behind}"
+        [ "${ahead:-0}" -gt 0 ] &amp;&amp; sync_part="${sync_part}+${ahead}"
+    fi
+
+    dirty=""
+    [ "${staged:-0}" -gt 0 ]    &amp;&amp; dirty="${dirty}${staged}S"
+    [ "${unstaged:-0}" -gt 0 ]  &amp;&amp; dirty="${dirty} ${unstaged}M"
+    [ "${untracked:-0}" -gt 0 ] &amp;&amp; dirty="${dirty} ${untracked}?"
+    dirty=$(echo "$dirty" | xargs)
+
+    git_part="$branch"
+    [ -n "$sync_part" ] &amp;&amp; git_part="${git_part} ${sync_part}"
+    [ -n "$dirty" ]     &amp;&amp; git_part="${git_part} [${dirty}]"
+fi
+
+# Context bar with color based on usage level
+context_part=""
+if [ -n "$used_pct" ]; then
+    filled=$(awk "BEGIN {printf \"%d\", int($used_pct / 10 + 0.5)}")
+    [ "$filled" -gt 10 ] &amp;&amp; filled=10
+    empty=$((10 - filled))
+    bar=""
+    for ((i=0; i&lt;filled; i++)); do bar="${bar}#"; done
+    for ((i=0; i&lt;empty;  i++)); do bar="${bar}-"; done
+
+    if [ "$used_pct" -lt 50 ]; then
+        bar_color="$G"
+    elif [ "$used_pct" -lt 75 ]; then
+        bar_color="$Y"
+    else
+        bar_color="$R"
+    fi
+
+    ctx_k=""
+    if [ "${window_size:-0}" -gt 0 ]; then
+        ctx_k=$(awk "BEGIN {printf \"%dK\", $window_size / 1000}")
+    fi
+
+    if [ -n "$ctx_k" ]; then
+        context_part="${bar_color}[${bar}] ${used_pct}%${N} ${D}/ ${ctx_k}${N}"
+    else
+        context_part="${bar_color}[${bar}] ${used_pct}%${N}"
+    fi
+fi
+
+# MCP servers from settings.json
+mcp_servers=$(jq -r '.mcpServers | keys | join(", ")' ~/.claude/settings.json 2&gt;/dev/null)
+
+# Active skills: read from hook-tracked file
+active_skills=""
+if [ -n "$session_id" ]; then
+    skills_file="/tmp/claude-skills-${session_id}"
+    if [ -f "$skills_file" ]; then
+        active_skills=$(sort -u "$skills_file" | tr '\n' ', ' | sed 's/,$//' | sed 's/,/, /g')
+    fi
+fi
+
+# --- Line 1: model | context | project (git) | session ---
+line1="${G}${short_model}${N}"
+[ -n "$context_part" ] &amp;&amp; line1="${line1} ${D}|${N} ${context_part}"
+if [ -n "$git_part" ]; then
+    line1="${line1} ${D}|${N} ${C}${project_name}${N} ${Y}(${git_part})${N}"
+else
+    line1="${line1} ${D}|${N} ${C}${project_name}${N}"
+fi
+[ -n "$session_name" ] &amp;&amp; line1="${line1} ${D}|${N} ${M}${session_name}${N}"
+
+# --- Line 2: MCPs | output style | active skills ---
+line2_parts=()
+[ -n "$mcp_servers" ] &amp;&amp; line2_parts+=("${D}MCPs:${N} ${R}${mcp_servers}${N}")
+if [ -n "$output_style" ] &amp;&amp; [ "$output_style" != "Normal" ] &amp;&amp; [ "$output_style" != "null" ]; then
+    line2_parts+=("${B}${output_style}${N}")
+fi
+if [ -n "$active_skills" ]; then
+    line2_parts+=("${D}skills:${N} ${active_skills}")
+fi
+
+line2=""
+for part in "${line2_parts[@]}"; do
+    [ -n "$line2" ] &amp;&amp; line2="${line2} ${D}|${N} "
+    line2="${line2}${part}"
+done
+
+if [ -n "$line2" ]; then
+    printf "%b\n%b" "$line1" "$line2"
+else
+    printf "%b" "$line1"
+fi</code></pre>
+                                    </div>
+                                </div>
+
+                                <div id="sl-win" class="tab-content">
+                                    <p class="text-ink/50 text-xs mb-2">Save as <code class="text-accent">C:\Users\&lt;you&gt;\.claude\statusline-command.ps1</code></p>
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">statusline-command.ps1</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto" style="max-height:400px"><code class="text-white/80"># statusline-command.ps1 -- Claude Code statusline for Windows
+
+$jsonInput = [Console]::In.ReadToEnd()
+$data = $jsonInput | ConvertFrom-Json
+
+$e = [char]27
+$G = "$e[32m"; $Y = "$e[33m"; $C = "$e[36m"; $R = "$e[31m"
+$M = "$e[35m"; $B = "$e[34m"; $D = "$e[90m"; $N = "$e[0m"
+
+$cwd = $data.workspace.current_dir
+$modelName = $data.model.display_name
+$usedPct = $data.context_window.used_percentage
+$windowSize = $data.context_window.context_window_size
+$sessionName = $data.session_name
+$outputStyle = $data.output_style.name
+$sessionId = $data.session_id
+
+$shortModel = switch -Wildcard ($modelName) {
+    "Claude Opus 4.6*"   { "Opus 4.6"; break }
+    "Claude Opus 4.5*"   { "Opus 4.5"; break }
+    "Claude Opus 4*"     { "Opus 4"; break }
+    "Claude Sonnet 4.6*" { "Sonnet 4.6"; break }
+    "Claude Sonnet 4.5*" { "Sonnet 4.5"; break }
+    "Claude Sonnet 4*"   { "Sonnet 4"; break }
+    "Claude Haiku 4.5*"  { "Haiku 4.5"; break }
+    "Claude Haiku 4*"    { "Haiku 4"; break }
+    "Opus 4.6*"          { "Opus 4.6"; break }
+    "Sonnet 4.6*"        { "Sonnet 4.6"; break }
+    default              { $modelName }
+}
+
+$projectName = $cwd
+$home = $env:USERPROFILE
+if ($projectName -and $home -and $projectName.StartsWith($home)) {
+    $projectName = "~" + $projectName.Substring($home.Length)
+}
+$projectName = $projectName -replace '^~[\\/][Pp]rojects[\\/]', ''
+
+$gitPart = ""
+try {
+    $null = git -C $cwd rev-parse --git-dir 2&gt;$null
+    if ($LASTEXITCODE -eq 0) {
+        $branch = git -C $cwd --no-optional-locks rev-parse --abbrev-ref HEAD 2&gt;$null
+        $staged = @(git -C $cwd --no-optional-locks diff --cached --name-only 2&gt;$null).Count
+        $unstaged = @(git -C $cwd --no-optional-locks diff --name-only 2&gt;$null).Count
+        $untracked = @(git -C $cwd --no-optional-locks ls-files --others --exclude-standard 2&gt;$null).Count
+
+        $syncPart = ""
+        $upstream = git -C $cwd --no-optional-locks rev-parse --abbrev-ref '@{upstream}' 2&gt;$null
+        if ($LASTEXITCODE -eq 0 -and $upstream) {
+            $ab = git -C $cwd --no-optional-locks rev-list --left-right --count "$upstream...HEAD" 2&gt;$null
+            if ($ab) {
+                $parts = $ab -split '\t'
+                if ([int]$parts[0] -gt 0) { $syncPart += "-$($parts[0])" }
+                if ([int]$parts[1] -gt 0) { $syncPart += "+$($parts[1])" }
+            }
+        }
+
+        $dirty = ""
+        if ($staged -gt 0) { $dirty += "${staged}S" }
+        if ($unstaged -gt 0) { if ($dirty) { $dirty += " " }; $dirty += "${unstaged}M" }
+        if ($untracked -gt 0) { if ($dirty) { $dirty += " " }; $dirty += "${untracked}?" }
+
+        $gitPart = $branch
+        if ($syncPart) { $gitPart += " $syncPart" }
+        if ($dirty) { $gitPart += " [$dirty]" }
+    }
+} catch {}
+
+$contextPart = ""
+if ($null -ne $usedPct) {
+    $filled = [Math]::Round($usedPct / 10)
+    if ($filled -gt 10) { $filled = 10 }
+    $bar = ('#' * $filled) + ('-' * (10 - $filled))
+    if ($usedPct -lt 50) { $barColor = $G }
+    elseif ($usedPct -lt 75) { $barColor = $Y }
+    else { $barColor = $R }
+    $ctxK = if ($windowSize -gt 0) { [Math]::Floor($windowSize / 1000).ToString() + "K" } else { "" }
+    if ($ctxK) { $contextPart = "${barColor}[${bar}] ${usedPct}%${N} ${D}/ ${ctxK}${N}" }
+    else { $contextPart = "${barColor}[${bar}] ${usedPct}%${N}" }
+}
+
+$mcpServers = ""
+$sp = Join-Path $env:USERPROFILE ".claude\settings.json"
+if (Test-Path $sp) {
+    try {
+        $s = Get-Content $sp -Raw | ConvertFrom-Json
+        if ($s.mcpServers) { $mcpServers = ($s.mcpServers.PSObject.Properties.Name | Sort-Object) -join ", " }
+    } catch {}
+}
+
+$activeSkills = ""
+if ($sessionId) {
+    $sf = Join-Path $env:TEMP "claude-skills-$sessionId"
+    if (Test-Path $sf) { $activeSkills = (Get-Content $sf | Sort-Object -Unique) -join ", " }
+}
+
+$line1 = "${G}${shortModel}${N}"
+if ($contextPart) { $line1 += " ${D}|${N} $contextPart" }
+if ($gitPart) { $line1 += " ${D}|${N} ${C}${projectName}${N} ${Y}(${gitPart})${N}" }
+else { $line1 += " ${D}|${N} ${C}${projectName}${N}" }
+if ($sessionName) { $line1 += " ${D}|${N} ${M}${sessionName}${N}" }
+
+$line2Parts = @()
+if ($mcpServers) { $line2Parts += "${D}MCPs:${N} ${R}$mcpServers${N}" }
+if ($outputStyle -and $outputStyle -ne "Normal") { $line2Parts += "${B}$outputStyle${N}" }
+if ($activeSkills) { $line2Parts += "${D}skills:${N} $activeSkills" }
+$line2 = $line2Parts -join " ${D}|${N} "
+
+if ($line2) { [Console]::Out.Write("$line1`n$line2") }
+else { [Console]::Out.Write($line1) }</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Skill tracking hook -->
+                            <div class="deckle-card p-6">
+                                <h3 class="text-ink font-bold mb-1 flex items-center gap-2">
+                                    <span class="text-accent text-xs font-mono">02</span> Add the skill tracking hook
+                                </h3>
+                                <p class="text-ink/60 text-sm mb-4">This hook runs after each skill invocation and records the skill name so the statusline can display it.</p>
+
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="hook-mac">
+                                        Mac / Linux
+                                    </button>
+                                    <button class="tab-btn px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="hook-win">
+                                        Windows
+                                    </button>
+                                </div>
+
+                                <div id="hook-mac" class="tab-content active">
+                                    <p class="text-ink/50 text-xs mb-2">Save as <code class="text-accent">~/.claude/hooks/track-active-skill.sh</code> and <code class="text-accent">chmod +x</code></p>
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">track-active-skill.sh</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">#!/bin/bash
+input=$(cat)
+skill=$(echo "$input" | jq -r '.tool_input.skill // empty')
+session_id=$(echo "$input" | jq -r '.session_id // empty')
+
+if [ -n "$skill" ] &amp;&amp; [ -n "$session_id" ]; then
+    file="/tmp/claude-skills-${session_id}"
+    grep -qxF "$skill" "$file" 2&gt;/dev/null || echo "$skill" &gt;&gt; "$file"
+fi
+exit 0</code></pre>
+                                    </div>
+                                </div>
+
+                                <div id="hook-win" class="tab-content">
+                                    <p class="text-ink/50 text-xs mb-2">Save as <code class="text-accent">C:\Users\&lt;you&gt;\.claude\hooks\track-active-skill.ps1</code></p>
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">track-active-skill.ps1</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">$jsonInput = [Console]::In.ReadToEnd()
+$data = $jsonInput | ConvertFrom-Json
+$skill = $data.tool_input.skill
+$sessionId = $data.session_id
+
+if ($skill -and $sessionId) {
+    $file = Join-Path $env:TEMP "claude-skills-$sessionId"
+    $existing = @()
+    if (Test-Path $file) { $existing = @(Get-Content $file) }
+    if ($skill -notin $existing) { Add-Content -Path $file -Value $skill }
+}
+exit 0</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Settings.json -->
+                            <div class="deckle-card p-6">
+                                <h3 class="text-ink font-bold mb-1 flex items-center gap-2">
+                                    <span class="text-accent text-xs font-mono">03</span> Wire it up in settings.json
+                                </h3>
+                                <p class="text-ink/60 text-sm mb-4">Add these entries to your <code class="text-accent">~/.claude/settings.json</code>. If you already have a <code class="text-accent">PostToolUse</code> hooks array, add the Skill matcher before existing entries.</p>
+
+                                <div class="flex gap-2 mb-4">
+                                    <button class="tab-btn active px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="cfg-mac">
+                                        Mac / Linux
+                                    </button>
+                                    <button class="tab-btn px-4 py-2 text-xs border border-ink/20 text-ink/60" data-tab="cfg-win">
+                                        Windows
+                                    </button>
+                                </div>
+
+                                <div id="cfg-mac" class="tab-content active">
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">~/.claude/settings.json</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">{
+  "statusLine": {
+    "type": "command",
+    "command": "/home/YOU/.claude/statusline-command.sh"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [{
+          "type": "command",
+          "command": "/home/YOU/.claude/hooks/track-active-skill.sh"
+        }]
+      }
+    ]
+  }
+}</code></pre>
+                                    </div>
+                                </div>
+
+                                <div id="cfg-win" class="tab-content">
+                                    <div class="code-block rounded-sm overflow-hidden">
+                                        <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                            <span class="text-xs text-white/50">C:\Users\YOU\.claude\settings.json</span>
+                                            <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">{
+  "statusLine": {
+    "type": "command",
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\YOU\\.claude\\statusline-command.ps1"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [{
+          "type": "command",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\YOU\\.claude\\hooks\\track-active-skill.ps1"
+        }]
+      }
+    ]
+  }
+}</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="bg-accent/10 border border-accent/30 p-4 rounded-sm mt-4">
+                                    <p class="text-ink/70 text-sm">
+                                        <i data-lucide="info" class="w-4 h-4 inline text-accent"></i>
+                                        Replace <code class="text-accent">YOU</code> with your username. The bash script requires <code class="text-accent">jq</code> &mdash; install with <code class="text-accent">brew install jq</code> (Mac) or <code class="text-accent">sudo apt install jq</code> (Linux). Windows uses built-in PowerShell JSON parsing.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- What each element shows -->
+                            <div class="deckle-card p-6">
+                                <h3 class="text-ink font-bold mb-3 flex items-center gap-2">
+                                    <span class="text-accent text-xs font-mono">04</span> Reading the status line
+                                </h3>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex gap-3">
+                                        <code class="text-accent whitespace-nowrap text-xs pt-0.5">Line 1</code>
+                                        <p class="text-ink/60">Model name, context window bar (color shifts as usage grows), project directory with git branch and dirty file counts (<code class="text-accent">S</code>=staged, <code class="text-accent">M</code>=modified, <code class="text-accent">?</code>=untracked), and session name.</p>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <code class="text-accent whitespace-nowrap text-xs pt-0.5">Line 2</code>
+                                        <p class="text-ink/60">Connected MCP servers, active output style (hidden when set to Normal), and skills invoked during the current session.</p>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <code class="text-accent whitespace-nowrap text-xs pt-0.5">Git sync</code>
+                                        <p class="text-ink/60"><code class="text-accent">+3</code> = 3 commits ahead of remote, <code class="text-accent">-1</code> = 1 behind. Shown next to the branch name when applicable.</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </section>
 
