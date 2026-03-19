@@ -23,10 +23,9 @@
   // ---------------------------------------------------------------------------
 
   var THEME = {
-    buttonBg: '#3d4b40',
-    buttonColor: '#ffffff',
-    buttonBorder: '1px solid #3d4b40',
-    buttonRadius: '0.5rem',
+    // Trigger styled as nav link — colors derived from existing nav at runtime
+    triggerColor: '#6b6b6b',      // mist — matches nav link default
+    triggerHoverColor: '#121212',  // ink — matches nav link hover
     panelBg: '#ffffff',
     panelColor: '#121212',
     panelBorder: '1px solid #d6cdb7',
@@ -255,7 +254,12 @@
     var iconEl = createIconSpan(ICONS.chatBubble);
     setStyle(iconEl, { color: 'currentColor', width: '12px', height: '12px' });
     var iconSvg = iconEl.querySelector('svg');
-    if (iconSvg) { iconSvg.setAttribute('width', '12'); iconSvg.setAttribute('height', '12'); }
+    if (iconSvg) {
+      iconSvg.setAttribute('width', '12');
+      iconSvg.setAttribute('height', '12');
+      iconSvg.setAttribute('aria-hidden', 'true');
+      iconSvg.setAttribute('focusable', 'false');
+    }
     button.appendChild(iconEl);
 
     var labelSpan = document.createElement('span');
@@ -269,7 +273,7 @@
       alignItems: 'center',
       gap: '0.25rem',
       background: 'none',
-      color: '#6b6b6b',
+      color: THEME.triggerColor,
       border: 'none',
       padding: '0',
       fontSize: 'inherit',
@@ -282,8 +286,10 @@
       whiteSpace: 'nowrap'
     });
 
-    button.addEventListener('mouseenter', function () { button.style.color = '#121212'; });
-    button.addEventListener('mouseleave', function () { button.style.color = '#6b6b6b'; });
+    button.addEventListener('mouseenter', function () { button.style.color = THEME.triggerHoverColor; });
+    button.addEventListener('mouseleave', function () { button.style.color = THEME.triggerColor; });
+    button.addEventListener('focus', function () { button.style.color = THEME.triggerHoverColor; });
+    button.addEventListener('blur', function () { button.style.color = THEME.triggerColor; });
 
     // Dropdown panel
     var panel = document.createElement('div');
@@ -377,6 +383,13 @@
     var headerNav = document.querySelector('header nav');
     if (headerNav) {
       headerNav.appendChild(container);
+      // Derive trigger color from a sibling nav link if available
+      var siblingLink = headerNav.querySelector('a');
+      if (siblingLink) {
+        var computed = window.getComputedStyle(siblingLink);
+        button.style.color = computed.color;
+        THEME.triggerColor = computed.color;
+      }
     } else {
       // Fallback: find the last flex child in the header (right side)
       var header = document.querySelector('header, nav[role="navigation"]');
