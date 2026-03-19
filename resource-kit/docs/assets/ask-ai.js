@@ -243,7 +243,8 @@
     container.setAttribute('data-ask-ai', 'true');
     setStyle(container, {
       position: 'relative',
-      display: 'inline-block',
+      display: 'flex',
+      alignItems: 'center',
       fontFamily: THEME.fontFamily
     });
 
@@ -268,8 +269,8 @@
       color: THEME.buttonColor,
       border: 'none',
       borderRadius: '50%',
-      width: '2rem',
-      height: '2rem',
+      width: '1.5rem',
+      height: '1.5rem',
       padding: '0',
       cursor: 'pointer',
       transition: 'opacity 0.15s ease, transform 0.15s ease',
