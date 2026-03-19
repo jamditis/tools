@@ -242,9 +242,7 @@
     var container = document.createElement('div');
     container.setAttribute('data-ask-ai', 'true');
     setStyle(container, {
-      position: 'relative',
-      lineHeight: '0',
-      fontSize: '0'
+      position: 'relative'
     });
 
     // Trigger button
@@ -253,31 +251,39 @@
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-haspopup', 'dialog');
 
-    // Chat bubble icon — white on dark bg for visibility
+    // Style as a nav link to match ABOUT/HOME — same font, size, color, with a small icon
     var iconEl = createIconSpan(ICONS.chatBubble);
-    iconEl.style.color = '#ffffff';
+    setStyle(iconEl, { color: 'currentColor', width: '12px', height: '12px' });
+    var iconSvg = iconEl.querySelector('svg');
+    if (iconSvg) { iconSvg.setAttribute('width', '12'); iconSvg.setAttribute('height', '12'); }
     button.appendChild(iconEl);
+
+    var labelSpan = document.createElement('span');
+    labelSpan.textContent = 'Ask AI';
+    button.appendChild(labelSpan);
+
     button.title = 'Ask an AI about this page';
 
     setStyle(button, {
       display: 'inline-flex',
       alignItems: 'center',
-      justifyContent: 'center',
-      alignSelf: 'center',
-      background: THEME.buttonBg,
-      color: THEME.buttonColor,
+      gap: '0.25rem',
+      background: 'none',
+      color: '#6b6b6b',
       border: 'none',
-      borderRadius: '50%',
-      width: '1.5rem',
-      height: '1.5rem',
       padding: '0',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+      fontFamily: 'inherit',
+      letterSpacing: 'inherit',
+      textTransform: 'inherit',
       cursor: 'pointer',
-      transition: 'opacity 0.15s ease, transform 0.15s ease',
-      flexShrink: '0'
+      transition: 'color 0.15s ease',
+      whiteSpace: 'nowrap'
     });
 
-    button.addEventListener('mouseenter', function () { button.style.opacity = '0.85'; button.style.transform = 'scale(1.1)'; });
-    button.addEventListener('mouseleave', function () { button.style.opacity = '1'; button.style.transform = 'scale(1)'; });
+    button.addEventListener('mouseenter', function () { button.style.color = '#121212'; });
+    button.addEventListener('mouseleave', function () { button.style.color = '#6b6b6b'; });
 
     // Dropdown panel
     var panel = document.createElement('div');
@@ -370,8 +376,6 @@
     // On tools pages: header > div.flex > nav (nav is the right side)
     var headerNav = document.querySelector('header nav');
     if (headerNav) {
-      // Ensure vertical centering when mixing text links and the icon button
-      headerNav.style.alignItems = 'center';
       headerNav.appendChild(container);
     } else {
       // Fallback: find the last flex child in the header (right side)
