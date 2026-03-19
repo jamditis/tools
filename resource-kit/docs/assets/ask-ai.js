@@ -59,9 +59,7 @@
 
   function getPrompt() {
     var title = getPageTitle();
-    var hostname = window.location.hostname;
-    var url = window.location.href;
-    return 'I\'m reading about "' + title + '" on ' + hostname + '.\n\nURL: ' + url + '\n\nCan you explain the key concepts and help me apply them?';
+    return 'I\'m learning about "' + title + '" — can you explain the key concepts and help me understand how to apply them?';
   }
 
   function getSlug() {
