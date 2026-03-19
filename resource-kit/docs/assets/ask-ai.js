@@ -389,23 +389,12 @@
       isOpen = true;
       panel.style.display = 'block';
       button.setAttribute('aria-expanded', 'true');
-      // Reposition if it overflows the right edge of the viewport
-      requestAnimationFrame(function () {
-        var rect = panel.getBoundingClientRect();
-        if (rect.right > window.innerWidth - 8) {
-          panel.style.left = 'auto';
-          panel.style.right = '0';
-        }
-      });
     }
 
     function closeDropdown() {
       isOpen = false;
       panel.style.display = 'none';
       button.setAttribute('aria-expanded', 'false');
-      // Reset positioning for next open
-      panel.style.left = '0';
-      panel.style.right = 'auto';
     }
 
     button.addEventListener('click', function (e) {
