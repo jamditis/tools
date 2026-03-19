@@ -243,9 +243,8 @@
     container.setAttribute('data-ask-ai', 'true');
     setStyle(container, {
       position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      fontFamily: THEME.fontFamily
+      lineHeight: '0',
+      fontSize: '0'
     });
 
     // Trigger button
