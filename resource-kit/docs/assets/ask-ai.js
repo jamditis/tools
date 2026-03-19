@@ -251,8 +251,10 @@
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-haspopup', 'dialog');
 
-    // Chat bubble icon — clearly communicates "ask a question"
-    button.appendChild(createIconSpan(ICONS.chatBubble));
+    // Chat bubble icon — white on dark bg for visibility
+    var iconEl = createIconSpan(ICONS.chatBubble);
+    iconEl.style.color = '#ffffff';
+    button.appendChild(iconEl);
     button.title = 'Ask an AI about this page';
 
     setStyle(button, {
@@ -362,18 +364,18 @@
     container.appendChild(button);
     container.appendChild(panel);
 
-    // Inject into the header nav alongside existing nav links
+    // Inject into the right side of the header nav.
+    // On tools pages: header > div.flex > nav (nav is the right side)
     var headerNav = document.querySelector('header nav');
     if (headerNav) {
       headerNav.appendChild(container);
     } else {
-      // Fallback: append to the header's inner flex row
-      var header = document.querySelector('header');
+      // Fallback: find the last flex child in the header (right side)
+      var header = document.querySelector('header, nav[role="navigation"]');
       if (header) {
-        var headerFlex = header.querySelector('[class*="flex"]');
-        if (headerFlex) {
-          headerFlex.appendChild(container);
-        }
+        var flexChildren = header.querySelectorAll(':scope > [class*="flex"]');
+        var target = flexChildren.length ? flexChildren[flexChildren.length - 1] : header;
+        target.appendChild(container);
       }
     }
 
