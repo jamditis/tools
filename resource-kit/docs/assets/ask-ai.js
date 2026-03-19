@@ -251,14 +251,15 @@
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-haspopup', 'dialog');
 
-    // Sparkle icon (static SVG constant defined in ICONS above — no user input)
-    button.appendChild(createIconSpan(ICONS.sparkle));
+    // Chat bubble icon — clearly communicates "ask a question"
+    button.appendChild(createIconSpan(ICONS.chatBubble));
     button.title = 'Ask an AI about this page';
 
     setStyle(button, {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
+      alignSelf: 'center',
       background: THEME.buttonBg,
       color: THEME.buttonColor,
       border: 'none',
