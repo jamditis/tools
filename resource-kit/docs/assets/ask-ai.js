@@ -59,6 +59,7 @@
   }
 
   function getPageContext() {
+    var root = document.querySelector('main') || document.body;
     var parts = [];
 
     // Meta description
@@ -67,8 +68,8 @@
       parts.push(meta.content.trim());
     }
 
-    // Section headings (h2s) as outline
-    var headings = document.querySelectorAll('main h2, main h3');
+    // Section headings as outline
+    var headings = root.querySelectorAll('h2, h3');
     if (headings.length) {
       var outline = [];
       for (var i = 0; i < headings.length && i < 10; i++) {
@@ -80,8 +81,8 @@
       }
     }
 
-    // First paragraph of main content
-    var firstP = document.querySelector('main p');
+    // First paragraph of content
+    var firstP = root.querySelector('p');
     if (firstP && firstP.textContent.trim()) {
       var pText = firstP.textContent.trim();
       if (pText.length > 400) pText = pText.substring(0, 400) + '...';
@@ -94,7 +95,7 @@
   function getPrompt() {
     var title = getPageTitle();
     var context = getPageContext();
-    var prompt = 'I\'m learning about "' + title + '."';
+    var prompt = 'I\'m learning about "' + title + '".';
     if (context) {
       prompt += '\n\nHere\'s what the page covers:\n\n' + context;
     }
@@ -389,8 +390,14 @@
     container.appendChild(panel);
     wrapper.appendChild(container);
 
-    // Inject as first child of <main> (or <body> fallback)
-    mainEl.insertBefore(wrapper, mainEl.firstChild);
+    // Inject after a direct-child <header> inside <main> if present,
+    // otherwise as the first child of the injection target
+    var inMainHeader = hasMain && mainEl.querySelector(':scope > header');
+    if (inMainHeader) {
+      inMainHeader.parentNode.insertBefore(wrapper, inMainHeader.nextSibling);
+    } else {
+      mainEl.insertBefore(wrapper, mainEl.firstChild);
+    }
 
     // -----------------------------------------------------------------------
     // INTERACTION LOGIC
