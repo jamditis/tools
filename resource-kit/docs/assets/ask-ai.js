@@ -371,6 +371,8 @@
     // On tools pages: header > div.flex > nav (nav is the right side)
     var headerNav = document.querySelector('header nav');
     if (headerNav) {
+      // Ensure vertical centering when mixing text links and the icon button
+      headerNav.style.alignItems = 'center';
       headerNav.appendChild(container);
     } else {
       // Fallback: find the last flex child in the header (right side)
