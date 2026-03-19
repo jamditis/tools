@@ -232,39 +232,17 @@
     var mainEl = document.querySelector('main') || document.body;
     if (!mainEl) return;
 
-    // Outer wrapper — inherits layout from <main> when available,
-    // provides its own max-width/padding when falling back to <body>
     var hasMain = !!document.querySelector('main');
-    var wrapper = document.createElement('div');
-    wrapper.setAttribute('data-ask-ai', 'true');
-    if (hasMain) {
-      setStyle(wrapper, {
-        paddingTop: '0.75rem',
-        paddingBottom: '0',
-        position: 'relative',
-        zIndex: '40',
-        fontFamily: THEME.fontFamily
-      });
-    } else {
-      setStyle(wrapper, {
-        maxWidth: '64rem',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingLeft: '1.5rem',
-        paddingRight: '1.5rem',
-        paddingTop: '0.75rem',
-        paddingBottom: '0',
-        position: 'relative',
-        zIndex: '40',
-        fontFamily: THEME.fontFamily
-      });
-    }
 
     // Container for the button + dropdown (inline-block so it sizes to content)
+    // No wrapper div — the container is appended directly into an existing layout row
+
     var container = document.createElement('div');
+    container.setAttribute('data-ask-ai', 'true');
     setStyle(container, {
       position: 'relative',
-      display: 'inline-block'
+      display: 'inline-block',
+      fontFamily: THEME.fontFamily
     });
 
     // Trigger button
@@ -388,15 +366,33 @@
 
     container.appendChild(button);
     container.appendChild(panel);
-    wrapper.appendChild(container);
 
-    // Inject after a direct-child <header> inside <main> if present,
-    // otherwise as the first child of the injection target
-    var inMainHeader = hasMain && mainEl.querySelector(':scope > header');
-    if (inMainHeader) {
-      inMainHeader.parentNode.insertBefore(wrapper, inMainHeader.nextSibling);
+    // Inject inline into an existing layout row so the button feels like
+    // an accent element, not its own section. Priority:
+    // 1. First section-header flex row inside <main> (index pages)
+    // 2. First flex justify-between row with an h2 inside <main> (subpages)
+    // 3. The nav/header bar's inner flex container (universal fallback)
+    var target = mainEl.querySelector('.section-header');
+    if (!target) {
+      var flexRows = mainEl.querySelectorAll('[class*="flex"][class*="justify-between"]');
+      for (var i = 0; i < flexRows.length; i++) {
+        if (flexRows[i].querySelector('h2')) {
+          target = flexRows[i];
+          break;
+        }
+      }
+    }
+    if (!target) {
+      // Fallback: append to the header/nav bar's inner flex row
+      var header = document.querySelector('header, nav');
+      if (header) {
+        target = header.querySelector('[class*="flex"][class*="justify-between"], [class*="flex"][class*="items-center"]');
+      }
+    }
+    if (target) {
+      target.appendChild(container);
     } else {
-      mainEl.insertBefore(wrapper, mainEl.firstChild);
+      mainEl.insertBefore(container, mainEl.firstChild);
     }
 
     // -----------------------------------------------------------------------
