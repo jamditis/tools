@@ -7,7 +7,8 @@
  * Turndown.js.
  *
  * Usage: Include this script on any page. It auto-initializes on
- * DOMContentLoaded and injects itself after the last <header> element.
+ * DOMContentLoaded and injects itself after the last <header> element,
+ * or as the first child of <main> if no <header> is found.
  *
  * All styles are inline. No external CSS required.
  *
@@ -82,23 +83,28 @@
   // TURNDOWN LOADER + MARKDOWN DOWNLOAD
   // ---------------------------------------------------------------------------
 
-  var turndownLoaded = false;
+  var turndownPromise = null;
 
   function loadTurndown(callback) {
-    if (turndownLoaded && typeof TurndownService !== 'undefined') {
+    if (typeof TurndownService !== 'undefined') {
       callback();
       return;
     }
-    var script = document.createElement('script');
-    script.src = 'https://unpkg.com/turndown/dist/turndown.js';
-    script.onload = function () {
-      turndownLoaded = true;
-      callback();
-    };
-    script.onerror = function () {
+    if (!turndownPromise) {
+      turndownPromise = new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        script.src = 'https://unpkg.com/turndown@7.2.0/dist/turndown.js';
+        script.onload = resolve;
+        script.onerror = function () {
+          turndownPromise = null; // allow retry on failure
+          reject(new Error('Failed to load Turndown'));
+        };
+        document.head.appendChild(script);
+      });
+    }
+    turndownPromise.then(callback).catch(function () {
       alert('Failed to load markdown converter. Please try again.');
-    };
-    document.head.appendChild(script);
+    });
   }
 
   function downloadMarkdown() {
@@ -129,22 +135,22 @@
     {
       label: 'Ask Claude',
       icon: ICONS.sparkle,
-      action: function () {
-        window.open('https://claude.ai/new?q=' + encodeURIComponent(getPrompt()), '_blank');
+      href: function () {
+        return 'https://claude.ai/new?q=' + encodeURIComponent(getPrompt());
       }
     },
     {
       label: 'Ask ChatGPT',
       icon: ICONS.chatBubble,
-      action: function () {
-        window.open('https://chatgpt.com/?q=' + encodeURIComponent(getPrompt()), '_blank');
+      href: function () {
+        return 'https://chatgpt.com/?q=' + encodeURIComponent(getPrompt());
       }
     },
     {
       label: 'Ask Gemini',
       icon: ICONS.diamond,
-      action: function () {
-        window.open('https://gemini.google.com/app?q=' + encodeURIComponent(getPrompt()), '_blank');
+      href: function () {
+        return 'https://gemini.google.com/app?q=' + encodeURIComponent(getPrompt());
       }
     },
     {
@@ -180,10 +186,11 @@
   // ---------------------------------------------------------------------------
 
   function init() {
-    // Find the last <header> on the page
+    // Find injection point: after last <header>, or first child of <main>
     var headers = document.querySelectorAll('header');
-    if (!headers.length) return;
-    var lastHeader = headers[headers.length - 1];
+    var lastHeader = headers.length ? headers[headers.length - 1] : null;
+    var mainEl = document.querySelector('main');
+    if (!lastHeader && !mainEl) return;
 
     // Outer wrapper (max-width container with auto margins)
     var wrapper = document.createElement('div');
@@ -211,7 +218,7 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-haspopup', 'true');
+    button.setAttribute('aria-haspopup', 'dialog');
 
     var buttonLabel = document.createTextNode('Ask an AI about this ');
     button.appendChild(buttonLabel);
@@ -244,7 +251,8 @@
 
     // Dropdown panel
     var panel = document.createElement('div');
-    panel.setAttribute('role', 'menu');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Ask an AI about this page');
     setStyle(panel, {
       position: 'absolute',
       top: 'calc(100% + 0.375rem)',
@@ -263,9 +271,28 @@
 
     // Build menu items
     ITEMS.forEach(function (item) {
-      var menuItem = document.createElement('button');
-      menuItem.type = 'button';
-      menuItem.setAttribute('role', 'menuitem');
+      var menuItem;
+
+      if (item.href) {
+        // AI link items use <a> with noopener noreferrer for tabnabbing protection
+        menuItem = document.createElement('a');
+        menuItem.href = item.href();
+        menuItem.target = '_blank';
+        menuItem.rel = 'noopener noreferrer';
+        menuItem.addEventListener('click', function () {
+          // Update href with current page context right before navigation
+          menuItem.href = item.href();
+          closeDropdown();
+        });
+      } else {
+        // Non-link items (e.g. download) use <button>
+        menuItem = document.createElement('button');
+        menuItem.type = 'button';
+        menuItem.addEventListener('click', function () {
+          closeDropdown();
+          item.action();
+        });
+      }
 
       // Icon
       menuItem.appendChild(createIconSpan(item.icon));
@@ -292,6 +319,7 @@
         textAlign: 'left',
         lineHeight: '1.4',
         whiteSpace: 'nowrap',
+        textDecoration: 'none',
         transition: 'background 0.12s ease'
       });
 
@@ -302,11 +330,6 @@
         menuItem.style.background = 'transparent';
       });
 
-      menuItem.addEventListener('click', function () {
-        closeDropdown();
-        item.action();
-      });
-
       panel.appendChild(menuItem);
     });
 
@@ -314,11 +337,15 @@
     container.appendChild(panel);
     wrapper.appendChild(container);
 
-    // Inject after the last header
-    if (lastHeader.nextSibling) {
-      lastHeader.parentNode.insertBefore(wrapper, lastHeader.nextSibling);
+    // Inject after the last header, or as first child of <main>
+    if (lastHeader) {
+      if (lastHeader.nextSibling) {
+        lastHeader.parentNode.insertBefore(wrapper, lastHeader.nextSibling);
+      } else {
+        lastHeader.parentNode.appendChild(wrapper);
+      }
     } else {
-      lastHeader.parentNode.appendChild(wrapper);
+      mainEl.insertBefore(wrapper, mainEl.firstChild);
     }
 
     // -----------------------------------------------------------------------
