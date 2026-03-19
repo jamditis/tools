@@ -7,7 +7,8 @@
  * Turndown.js.
  *
  * Usage: Include this script on any page. It auto-initializes on
- * DOMContentLoaded and injects itself as the first child of <main>.
+ * DOMContentLoaded and injects itself as the first child of <main>,
+ * falling back to <body> if no <main> element exists.
  *
  * All styles are inline. No external CSS required.
  *
@@ -57,9 +58,48 @@
     return (h1 && h1.textContent.trim()) || document.title || 'this page';
   }
 
+  function getPageContext() {
+    var parts = [];
+
+    // Meta description
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta && meta.content) {
+      parts.push(meta.content.trim());
+    }
+
+    // Section headings (h2s) as outline
+    var headings = document.querySelectorAll('main h2, main h3');
+    if (headings.length) {
+      var outline = [];
+      for (var i = 0; i < headings.length && i < 10; i++) {
+        var text = headings[i].textContent.trim();
+        if (text) outline.push('- ' + text);
+      }
+      if (outline.length) {
+        parts.push('Sections covered:\n' + outline.join('\n'));
+      }
+    }
+
+    // First paragraph of main content
+    var firstP = document.querySelector('main p');
+    if (firstP && firstP.textContent.trim()) {
+      var pText = firstP.textContent.trim();
+      if (pText.length > 400) pText = pText.substring(0, 400) + '...';
+      parts.push('Intro: ' + pText);
+    }
+
+    return parts.join('\n\n');
+  }
+
   function getPrompt() {
     var title = getPageTitle();
-    return 'I\'m learning about "' + title + '" — can you explain the key concepts and help me understand how to apply them?';
+    var context = getPageContext();
+    var prompt = 'I\'m learning about "' + title + '."';
+    if (context) {
+      prompt += '\n\nHere\'s what the page covers:\n\n' + context;
+    }
+    prompt += '\n\nCan you explain the key concepts and help me understand how to apply them?';
+    return prompt;
   }
 
   function getSlug() {
@@ -106,8 +146,12 @@
 
   function downloadMarkdown() {
     loadTurndown(function () {
-      var mainEl = document.querySelector('main');
-      var html = mainEl ? mainEl.innerHTML : document.body.innerHTML;
+      var source = document.querySelector('main') || document.body;
+      var clone = source.cloneNode(true);
+      // Remove the ask-ai widget from the clone so it doesn't appear in the download
+      var widget = clone.querySelector('[data-ask-ai]');
+      if (widget) widget.remove();
+      var html = clone.innerHTML;
       var td = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
       var md = td.turndown(html);
       var title = getPageTitle();
@@ -187,20 +231,33 @@
     var mainEl = document.querySelector('main') || document.body;
     if (!mainEl) return;
 
-    // Outer wrapper (max-width container with auto margins)
+    // Outer wrapper — inherits layout from <main> when available,
+    // provides its own max-width/padding when falling back to <body>
+    var hasMain = !!document.querySelector('main');
     var wrapper = document.createElement('div');
-    setStyle(wrapper, {
-      maxWidth: '64rem',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      paddingLeft: '1.5rem',
-      paddingRight: '1.5rem',
-      paddingTop: '0.75rem',
-      paddingBottom: '0',
-      position: 'relative',
-      zIndex: '40',
-      fontFamily: THEME.fontFamily
-    });
+    wrapper.setAttribute('data-ask-ai', 'true');
+    if (hasMain) {
+      setStyle(wrapper, {
+        paddingTop: '0.75rem',
+        paddingBottom: '0',
+        position: 'relative',
+        zIndex: '40',
+        fontFamily: THEME.fontFamily
+      });
+    } else {
+      setStyle(wrapper, {
+        maxWidth: '64rem',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '1.5rem',
+        paddingRight: '1.5rem',
+        paddingTop: '0.75rem',
+        paddingBottom: '0',
+        position: 'relative',
+        zIndex: '40',
+        fontFamily: THEME.fontFamily
+      });
+    }
 
     // Container for the button + dropdown (inline-block so it sizes to content)
     var container = document.createElement('div');
@@ -332,7 +389,7 @@
     container.appendChild(panel);
     wrapper.appendChild(container);
 
-    // Inject as first child of <main>
+    // Inject as first child of <main> (or <body> fallback)
     mainEl.insertBefore(wrapper, mainEl.firstChild);
 
     // -----------------------------------------------------------------------
