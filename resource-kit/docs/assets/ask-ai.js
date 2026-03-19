@@ -7,8 +7,7 @@
  * Turndown.js.
  *
  * Usage: Include this script on any page. It auto-initializes on
- * DOMContentLoaded and injects itself after the last <header> element,
- * or as the first child of <main> if no <header> is found.
+ * DOMContentLoaded and injects itself as the first child of <main>.
  *
  * All styles are inline. No external CSS required.
  *
@@ -186,11 +185,9 @@
   // ---------------------------------------------------------------------------
 
   function init() {
-    // Find injection point: after last <header>, or first child of <main>
-    var headers = document.querySelectorAll('header');
-    var lastHeader = headers.length ? headers[headers.length - 1] : null;
-    var mainEl = document.querySelector('main');
-    if (!lastHeader && !mainEl) return;
+    // Find injection point: first child of <main>, or first child of <body> as fallback
+    var mainEl = document.querySelector('main') || document.body;
+    if (!mainEl) return;
 
     // Outer wrapper (max-width container with auto margins)
     var wrapper = document.createElement('div');
@@ -337,16 +334,8 @@
     container.appendChild(panel);
     wrapper.appendChild(container);
 
-    // Inject after the last header, or as first child of <main>
-    if (lastHeader) {
-      if (lastHeader.nextSibling) {
-        lastHeader.parentNode.insertBefore(wrapper, lastHeader.nextSibling);
-      } else {
-        lastHeader.parentNode.appendChild(wrapper);
-      }
-    } else {
-      mainEl.insertBefore(wrapper, mainEl.firstChild);
-    }
+    // Inject as first child of <main>
+    mainEl.insertBefore(wrapper, mainEl.firstChild);
 
     // -----------------------------------------------------------------------
     // INTERACTION LOGIC
