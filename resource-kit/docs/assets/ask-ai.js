@@ -251,34 +251,28 @@
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-haspopup', 'dialog');
 
-    var buttonLabel = document.createTextNode('Ask an AI about this ');
-    button.appendChild(buttonLabel);
-    // Chevron icon (static SVG constant)
-    var chevronSpan = document.createElement('span');
-    chevronSpan.style.display = 'inline-flex';
-    chevronSpan.innerHTML = ICONS.chevronDown;
-    button.appendChild(chevronSpan);
+    // Sparkle icon (static SVG constant defined in ICONS above — no user input)
+    button.appendChild(createIconSpan(ICONS.sparkle));
+    button.title = 'Ask an AI about this page';
 
     setStyle(button, {
       display: 'inline-flex',
       alignItems: 'center',
-      gap: '0.5rem',
+      justifyContent: 'center',
       background: THEME.buttonBg,
       color: THEME.buttonColor,
-      border: THEME.buttonBorder,
-      borderRadius: THEME.buttonRadius,
-      padding: '0.5rem 1rem',
-      fontSize: '0.8125rem',
-      fontWeight: '600',
-      fontFamily: THEME.fontFamily,
+      border: 'none',
+      borderRadius: '50%',
+      width: '2rem',
+      height: '2rem',
+      padding: '0',
       cursor: 'pointer',
-      lineHeight: '1.4',
-      whiteSpace: 'nowrap',
-      transition: 'opacity 0.15s ease'
+      transition: 'opacity 0.15s ease, transform 0.15s ease',
+      flexShrink: '0'
     });
 
-    button.addEventListener('mouseenter', function () { button.style.opacity = '0.85'; });
-    button.addEventListener('mouseleave', function () { button.style.opacity = '1'; });
+    button.addEventListener('mouseenter', function () { button.style.opacity = '0.85'; button.style.transform = 'scale(1.1)'; });
+    button.addEventListener('mouseleave', function () { button.style.opacity = '1'; button.style.transform = 'scale(1)'; });
 
     // Dropdown panel
     var panel = document.createElement('div');
@@ -287,7 +281,7 @@
     setStyle(panel, {
       position: 'absolute',
       top: 'calc(100% + 0.375rem)',
-      left: '0',
+      right: '0',
       minWidth: '13rem',
       background: THEME.panelBg,
       color: THEME.panelColor,
@@ -367,32 +361,19 @@
     container.appendChild(button);
     container.appendChild(panel);
 
-    // Inject inline into an existing layout row so the button feels like
-    // an accent element, not its own section. Priority:
-    // 1. First section-header flex row inside <main> (index pages)
-    // 2. First flex justify-between row with an h2 inside <main> (subpages)
-    // 3. The nav/header bar's inner flex container (universal fallback)
-    var target = mainEl.querySelector('.section-header');
-    if (!target) {
-      var flexRows = mainEl.querySelectorAll('[class*="flex"][class*="justify-between"]');
-      for (var i = 0; i < flexRows.length; i++) {
-        if (flexRows[i].querySelector('h2')) {
-          target = flexRows[i];
-          break;
+    // Inject into the header nav alongside existing nav links
+    var headerNav = document.querySelector('header nav');
+    if (headerNav) {
+      headerNav.appendChild(container);
+    } else {
+      // Fallback: append to the header's inner flex row
+      var header = document.querySelector('header');
+      if (header) {
+        var headerFlex = header.querySelector('[class*="flex"]');
+        if (headerFlex) {
+          headerFlex.appendChild(container);
         }
       }
-    }
-    if (!target) {
-      // Fallback: append to the header/nav bar's inner flex row
-      var header = document.querySelector('header, nav');
-      if (header) {
-        target = header.querySelector('[class*="flex"][class*="justify-between"], [class*="flex"][class*="items-center"]');
-      }
-    }
-    if (target) {
-      target.appendChild(container);
-    } else {
-      mainEl.insertBefore(container, mainEl.firstChild);
     }
 
     // -----------------------------------------------------------------------
