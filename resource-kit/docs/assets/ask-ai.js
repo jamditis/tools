@@ -189,10 +189,12 @@
       }
     },
     {
-      label: 'Ask Gemini',
+      label: 'Ask Gemini (copies prompt)',
       icon: ICONS.diamond,
-      href: function () {
-        return 'https://gemini.google.com/app?q=' + encodeURIComponent(getPrompt());
+      action: function () {
+        navigator.clipboard.writeText(getPrompt()).then(function () {
+          window.open('https://gemini.google.com/app', '_blank', 'noopener,noreferrer');
+        });
       }
     },
     {
