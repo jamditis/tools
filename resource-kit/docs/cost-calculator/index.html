@@ -479,6 +479,13 @@ echo "~\$$cost"</pre>
         document.addEventListener('DOMContentLoaded', () => {
             update();
             lucide.createIcons();
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-section').forEach(s => observer.observe(s));
         });
     </script>
 </body>
