@@ -1549,10 +1549,10 @@ const TERMS = [
     category: "performance",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .block { animation: pulse 1s ease-in-out infinite alternate; }
+    .svg-block { animation: pulse 1s ease-in-out infinite alternate; }
     @keyframes pulse { from { opacity: 1; } to { opacity: 0.3; } }
   </style>
-  <rect x="15" y="45" width="90" height="30" rx="4" fill="#3d4b40" class="block"/>
+  <rect x="15" y="45" width="90" height="30" rx="4" fill="#3d4b40" class="svg-block"/>
   <text x="60" y="65" font-size="9" fill="white" text-anchor="middle">BLOCKED</text>
   <rect x="5" y="10" width="30" height="20" rx="3" fill="#3d4b40" opacity="0.4"/>
   <text x="20" y="24" font-size="7" fill="white" text-anchor="middle">HTML</text>
@@ -1969,12 +1969,12 @@ const TERMS = [
     category: "performance",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .block { animation: shift 1.5s ease-in-out infinite alternate; }
+    .svg-shift { animation: shift 1.5s ease-in-out infinite alternate; }
     @keyframes shift { from { transform: translateY(0); } to { transform: translateY(20px); } }
   </style>
   <rect x="15" y="20" width="90" height="15" rx="3" fill="#3d4b40" opacity="0.5"/>
   <rect x="15" y="42" width="60" height="12" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="15" y="60" width="90" height="20" rx="3" fill="#3d4b40" class="block"/>
+  <rect x="15" y="60" width="90" height="20" rx="3" fill="#3d4b40" class="svg-shift"/>
   <rect x="15" y="88" width="70" height="12" rx="3" fill="#3d4b40" opacity="0.3"/>
   <line x1="112" y1="60" x2="112" y2="80" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#arr2)"/>
   <text x="60" y="112" font-size="7" fill="#3d4b40" text-anchor="middle">unexpected shift</text>
