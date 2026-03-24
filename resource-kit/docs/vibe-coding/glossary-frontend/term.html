@@ -218,7 +218,7 @@
 
 <script src="./data.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(location.search);
     const termId = params.get('t');
     const term = TERMS.find(t => t.id === termId);
@@ -396,7 +396,7 @@
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(el);
     });
-})();
+});
 </script>
 </body>
 </html>
