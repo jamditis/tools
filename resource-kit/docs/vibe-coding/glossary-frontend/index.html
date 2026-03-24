@@ -35,7 +35,7 @@
             color: var(--accent);
         }
         .cat-tab {
-            transition: all 0.18s ease;
+            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
             white-space: nowrap;
         }
         .cat-tab.active {
@@ -159,13 +159,15 @@
 <script>
 (function() {
     const tabContainer = document.getElementById('cat-tabs');
+    const tabFrag = document.createDocumentFragment();
     GLOSSARY_META.categories.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'cat-tab px-4 py-1.5 border border-ink/20 rounded text-xs font-medium';
         btn.dataset.cat = cat.id;
         btn.textContent = cat.label;
-        tabContainer.appendChild(btn);
+        tabFrag.appendChild(btn);
     });
+    tabContainer.appendChild(tabFrag);
 
     const grid = document.getElementById('terms-grid');
     const catColors = {};
@@ -193,7 +195,9 @@
         return card;
     }
 
-    TERMS.forEach(t => grid.appendChild(termCard(t)));
+    const gridFrag = document.createDocumentFragment();
+    TERMS.forEach(t => gridFrag.appendChild(termCard(t)));
+    grid.appendChild(gridFrag);
 
     document.getElementById('term-count-badge').textContent = `${TERMS.length} Terms`;
     lucide.createIcons();
