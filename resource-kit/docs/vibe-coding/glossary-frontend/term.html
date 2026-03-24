@@ -44,24 +44,46 @@
             transform: translateX(20px);
         }
 
-        /* In beginner mode: show analogy first, hide tradeoffs */
+        /* In beginner mode: analogy first, hide technical sections */
         body.beginner-mode main {
             display: flex;
             flex-direction: column;
+            gap: 3.5rem;
         }
+        body.beginner-mode main > * { margin-top: 0 !important; }
         body.beginner-mode #analogy-section   { order: -1; }
         body.beginner-mode #definition-section { order: 0; }
-        body.beginner-mode #examples-section  { order: 1; }
-        body.beginner-mode #usecases-section  { order: 2; }
+        body.beginner-mode #examples-section  { display: none !important; }
+        body.beginner-mode #usecases-section  { order: 1; }
         body.beginner-mode #tradeoffs-section { display: none !important; }
-        body.beginner-mode #related-section   { order: 3; }
-        body.beginner-mode .term-nav-row       { order: 4; }
+        body.beginner-mode #related-section   { order: 2; }
+        body.beginner-mode .term-nav-row       { order: 3; }
 
-        /* Analogy card gets accent border in beginner mode */
+        /* Analogy card is the star in beginner mode */
         body.beginner-mode #analogy-section .deckle-card {
             border: 1px solid rgba(61,75,64,0.35);
             box-shadow: 0 0 0 3px rgba(61,75,64,0.07);
+            padding: 1.75rem;
         }
+        body.beginner-mode #analogy-section .deckle-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Visual cue that beginner mode is active */
+        .beginner-banner {
+            display: none;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background: rgba(61,75,64,0.06);
+            border-bottom: 1px solid rgba(61,75,64,0.12);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        body.beginner-mode .beginner-banner { display: block; }
 
         #progress-bar {
             position: fixed;
@@ -139,6 +161,8 @@
                 <div id="hero-svg" class="flex-shrink-0 w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] bg-white/40 border border-ink/10 rounded-lg flex items-center justify-center p-2 self-center sm:self-start"></div>
             </div>
         </section>
+
+        <div class="beginner-banner">Simplified view — technical details hidden</div>
 
         <!-- Body -->
         <main class="max-w-4xl mx-auto px-6 py-12 space-y-14">
