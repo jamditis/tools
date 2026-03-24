@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const termId = params.get('t');
     const term = TERMS.find(t => t.id === termId);
 
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     if (!term) {
         document.getElementById('not-found').style.display = 'flex';
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ── Re-init icons after DOM manipulation ─────────────
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     // ── Scroll progress bar ──────────────────────────────
     const bar = document.getElementById('progress-bar');

@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     grid.appendChild(gridFrag);
 
     document.getElementById('term-count-badge').textContent = `${TERMS.length} Terms`;
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
     requestAnimationFrame(() => document.body.classList.remove('loading'));
 
     let activeCategory = 'all';

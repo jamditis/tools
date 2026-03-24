@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const termId = params.get('t');
     const term = TERMS.find(t => t.id === termId);
 
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     if (!term) {
         document.getElementById('not-found').style.display = 'flex';
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextLink.classList.add('flex');
     }
 
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     const bar = document.getElementById('progress-bar');
     window.addEventListener('scroll', () => {
