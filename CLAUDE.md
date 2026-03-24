@@ -97,8 +97,10 @@ python -m http.server 8000
 
 **After changes:** Push to `master` — GitHub Actions workflow (`.github/workflows/static.yml`) deploys `resource-kit/docs/` automatically.
 
-**Live URL:** https://tools.amditis.tech (GitHub Pages via Cloudflare proxy)
-**Fallback:** `bash deploy.sh` still works for Cloudflare Pages direct upload if needed.
+**Live URL:** https://tools.amditis.tech
+**DNS:** Cloudflare CNAME `tools.amditis.tech` → `jamditis.github.io` (proxied, orange cloud)
+**Deploy:** GitHub Actions (`static.yml`) uploads `resource-kit/docs/` as a Pages artifact on push to master
+**Fallback:** `bash deploy.sh` deploys to Cloudflare Pages (`tools-pages.pages.dev`) — only use if GitHub Pages is down
 
 ## LLM Advisor architecture
 
@@ -129,9 +131,35 @@ Both LESSONS and CLAUDE-RULES templates are available for:
 
 **Journalism/publishing:** digital-archive, event-website, content-pipeline, editorial-tool, research-project, publication
 
+## Glossary pages
+
+Two interactive glossaries under `resource-kit/docs/vibe-coding/`:
+
+| Glossary | Index | Term page | Data |
+|----------|-------|-----------|------|
+| Frontend | `glossary-frontend/index.html` | `glossary-frontend/term.html` | `glossary-frontend/data.js` (~300KB) |
+| Database | `glossary-database/index.html` | `glossary-database/term.html` | `glossary-database/data.js` |
+
+**Architecture:** Zero-build, Tailwind CDN + Lucide icons. `data.js` exports `TERMS` array and `GLOSSARY_META` object. Index pages build card grids dynamically; term pages render a single term from the `?t=` query param.
+
+**Init pattern:** All glossary inline scripts are wrapped in `DOMContentLoaded` so they work regardless of whether the Lucide script tag has `defer`. A `body.loading` class suppresses CSS transitions during init to prevent layout shift, removed via `requestAnimationFrame` after `lucide.createIcons()`.
+
+**Beginner mode (term pages only):** Toggle in the header. Persists via localStorage key `glossary-beginner-mode`. When active:
+- Analogy section moves to top (most beginner-friendly content)
+- Examples and trade-offs sections are hidden (too technical)
+- Banner appears: "Simplified view — technical details hidden"
+- Analogy card gets larger padding and font size
+
+**SVG thumbnails in data.js:** Some terms have inline SVG illustrations with `<style>` tags. SVG styles are NOT scoped — they leak into the entire document. Never use generic class names (like `block`, `container`, `item`) in SVG styles. Use prefixed names like `svg-block`, `svg-shift`.
+
+**Filtering:** Category tabs toggle `.term-hidden` class on cards. The `.term-hidden` rule uses `!important` because Tailwind CDN injects `.block { display: block }` later in the cascade and would otherwise override `display: none`.
+
 ## Things to avoid
 
 - Using dark theme patterns (crt-overlay, glitch-text, clip-notch) - use V2 light patterns instead
 - Attaching event listeners only to the main container (check if elements are outside it)
 - Deploying without pushing to master (GitHub Actions handles it)
 - Using Jekyll features (site uses static deployment, not Jekyll)
+- **`transition: all`** on any element — scope to specific properties (`transform`, `box-shadow`, `border-color`, etc.). `all` catches layout changes from DOM mutations (Lucide icon injection, Tailwind CDN processing) and animates them visibly
+- **Generic class names in SVG `<style>` tags** — SVG styles leak into the document. A `.block` rule inside an SVG will apply to every Tailwind `block` element on the page
+- **Inline scripts that depend on `defer`'d libraries** — wrap in `DOMContentLoaded` instead of assuming load order. Guard `lucide.createIcons()` with try/catch
