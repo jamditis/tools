@@ -61,6 +61,7 @@
         @media (max-width: 640px) {
             .tab-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
+        body.loading * { transition: none !important; }
     </style>
 </head>
 <body class="antialiased font-sans bg-canvas text-ink">
@@ -157,7 +158,8 @@
 
 <script src="./data.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('loading');
     // ── Build category tabs ──────────────────────────────
     const tabContainer = document.getElementById('cat-tabs');
     const tabFrag = document.createDocumentFragment();
@@ -205,7 +207,8 @@
     document.getElementById('term-count-badge').textContent = `${TERMS.length} Terms`;
 
     // Init lucide icons
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
+    requestAnimationFrame(() => document.body.classList.remove('loading'));
 
     // ── Filtering logic ──────────────────────────────────
     let activeCategory = 'all';
@@ -287,7 +290,7 @@
         }
     });
 
-})();
+});
 </script>
 </body>
 </html>

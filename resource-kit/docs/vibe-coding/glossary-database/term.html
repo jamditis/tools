@@ -181,13 +181,13 @@
 
 <script src="./data.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // ── Read term ID from URL ────────────────────────────
     const params = new URLSearchParams(location.search);
     const termId = params.get('t');
     const term = TERMS.find(t => t.id === termId);
 
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     if (!term) {
         document.getElementById('not-found').style.display = 'flex';
@@ -329,7 +329,7 @@
     }
 
     // ── Re-init icons after DOM manipulation ─────────────
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
 
     // ── Scroll progress bar ──────────────────────────────
     const bar = document.getElementById('progress-bar');
@@ -356,7 +356,7 @@
         observer.observe(el);
     });
 
-})();
+});
 </script>
 </body>
 </html>

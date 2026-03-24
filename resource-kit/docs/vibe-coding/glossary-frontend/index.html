@@ -61,6 +61,7 @@
         @media (max-width: 640px) {
             .tab-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
+        body.loading * { transition: none !important; }
     </style>
 </head>
 <body class="antialiased font-sans bg-canvas text-ink">
@@ -157,7 +158,8 @@
 
 <script src="./data.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('loading');
     const tabContainer = document.getElementById('cat-tabs');
     const tabFrag = document.createDocumentFragment();
     GLOSSARY_META.categories.forEach(cat => {
@@ -200,7 +202,8 @@
     grid.appendChild(gridFrag);
 
     document.getElementById('term-count-badge').textContent = `${TERMS.length} Terms`;
-    lucide.createIcons();
+    try { lucide.createIcons(); } catch (e) {}
+    requestAnimationFrame(() => document.body.classList.remove('loading'));
 
     let activeCategory = 'all';
     let searchQuery = '';
@@ -272,7 +275,7 @@
             searchInput.focus();
         }
     });
-})();
+});
 </script>
 </body>
 </html>
