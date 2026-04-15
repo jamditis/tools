@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal setup // Amditis Kit</title>
-    <meta name="description" content="Complete guide to setting up your terminal for Claude Code, Gemini CLI, and Codex. Includes status line configuration for all platforms.">
+    <meta name="description" content="Complete guide to setting up your terminal for Claude Code, Gemini CLI, Codex, and Copilot CLI. Includes status line configuration for all platforms.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tools.amditis.tech/terminal-setup/" />
     <meta property="og:title" content="Terminal setup | Amditis AI journalism tools" />
-    <meta property="og:description" content="How to set up your terminal and install Claude Code, Gemini CLI, and related tools." />
+    <meta property="og:description" content="How to set up your terminal and install Claude Code, Gemini CLI, Codex, and Copilot CLI." />
     <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Terminal setup | Amditis AI journalism tools" />
-    <meta name="twitter:description" content="How to set up your terminal and install Claude Code, Gemini CLI, and related tools." />
+    <meta name="twitter:description" content="How to set up your terminal and install Claude Code, Gemini CLI, Codex, and Copilot CLI." />
     <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png" />
 
     <!-- CSS & Config -->
@@ -172,7 +172,7 @@
 
                 <!-- Tagline -->
                 <p class="text-ink/60 text-base md:text-lg max-w-2xl mx-auto mb-6 leading-relaxed">
-                    Configure your terminal for <span class="text-accent font-bold">Claude Code</span>, <span class="text-accent font-bold">Gemini CLI</span>, and <span class="text-ink font-bold">Codex</span>.
+                    Configure your terminal for <span class="text-accent font-bold">Claude Code</span>, <span class="text-accent font-bold">Gemini CLI</span>, <span class="text-ink font-bold">Codex</span>, and <span class="text-ink font-bold">Copilot CLI</span>.
                     <br class="hidden sm:inline">Includes status line configuration and platform-specific setup.
                 </p>
 
@@ -218,6 +218,9 @@
                         </a>
                         <a href="#codex-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
                             Codex CLI
+                        </a>
+                        <a href="#copilot-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
+                            Copilot CLI
                         </a>
                         <a href="#status-line" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
                             Status line config
@@ -874,6 +877,48 @@ node --version</code></pre>
                             </div>
 
                             <p class="text-ink/60 text-sm">Run <code class="text-accent">codex</code> in your project folder to start.</p>
+                        </div>
+                    </section>
+
+                    <!-- Copilot CLI Section -->
+                    <section id="copilot-cli" class="mb-12 scroll-mt-24">
+                        <div class="border-b border-ink/10 pb-4 mb-6">
+                            <div class="flex items-end justify-between">
+                                <h2 class="font-display text-xl md:text-2xl font-light italic text-ink flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-sm bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-sm">GH</div>
+                                    // Copilot CLI
+                                </h2>
+                                <span class="text-xs px-2 py-1 border rounded-sm" style="background:rgba(100,116,139,0.1);border-color:rgba(100,116,139,0.3);color:#475569">GitHub</span>
+                            </div>
+                        </div>
+
+                        <div class="deckle-card p-6">
+                            <p class="text-ink/70 text-sm mb-6">
+                                <strong class="text-ink">GitHub Copilot CLI</strong> is GitHub's agentic terminal tool. It signs in with your existing Copilot subscription (Pro, Business, or Enterprise) and can read your repo, run commands, and delegate longer tasks to GitHub's cloud "Coding Agent" via <code class="text-accent">/delegate</code>.
+                            </p>
+
+                            <div class="code-block rounded-sm overflow-hidden mb-4">
+                                <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                    <span class="text-xs text-white/50">Installation</span>
+                                    <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                        <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                    </button>
+                                </div>
+                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">npm install -g @github/copilot</code></pre>
+                            </div>
+
+                            <p class="text-ink/60 text-sm mb-3">Export your GitHub token so the CLI can authenticate:</p>
+                            <div class="code-block rounded-sm overflow-hidden mb-4">
+                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">export GITHUB_TOKEN=$(gh auth token)
+copilot</code></pre>
+                            </div>
+
+                            <div class="bg-accent/5 border border-accent/20 p-4 rounded-sm">
+                                <p class="text-ink/70 text-sm">
+                                    <i data-lucide="info" class="w-4 h-4 inline text-accent"></i>
+                                    <strong class="text-ink">When to use it:</strong> Copilot CLI is great as a second-opinion reviewer (<code class="text-accent">copilot -p "review this diff" --yolo -s</code>) and for delegating longer work to GitHub's cloud agent without tying up your local session.
+                                </p>
+                            </div>
                         </div>
                     </section>
 
