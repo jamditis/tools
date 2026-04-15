@@ -70,7 +70,7 @@
           {
             "name": "Claude Code for rapid development",
             "description": "Use Claude Code's terminal-based workflow for quick iteration on scripts and single-file tools. It can read files, run code, and fix errors autonomously.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I need to build a Python script that [DESCRIBE TASK]. The script should: 1. [REQUIREMENT 1] 2. [REQUIREMENT 2] 3. [REQUIREMENT 3]. Please create the script, test it with sample data, and fix any errors that occur.",
             "tips": "Claude Code excels at rapid iteration. Let it run your code, see errors, and fix them automatically. Use the /plan command first if you're unsure about the approach."
           }
@@ -83,7 +83,7 @@
           {
             "name": "Claude Code with plan mode",
             "description": "For complex projects, use Claude Code's /plan command to design the architecture before writing code. Claude will explore your codebase, create a plan, and wait for your approval.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I'm building a [PROJECT TYPE] that needs to [MAIN GOAL]. Before we start coding, please explore the codebase, understand the existing patterns, and create a detailed implementation plan. Use /plan to enter plan mode.",
             "tips": "Plan mode is essential for multi-file projects. It prevents Claude from diving in without understanding the big picture. Review and approve the plan before implementation begins."
           }
@@ -101,7 +101,7 @@
           {
             "name": "Claude Code with background tasks",
             "description": "Automate repetitive file processing with Claude Code. Use background tasks (Ctrl+B) to run long processes while you continue working on other things.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I need to automate processing [NUMBER] files in [FOLDER]. For each file: 1. [OPERATION 1] 2. [OPERATION 2]. Create a script that handles errors gracefully and logs progress. Run it in the background so I can continue working.",
             "tips": "Use Claude Code's background task feature for long-running automation. Press Ctrl+B to background tasks. Create hooks to validate outputs automatically."
           }
@@ -114,7 +114,7 @@
           {
             "name": "Claude Code hooks for automation",
             "description": "Set up automated quality checks using Claude Code hooks. Hooks can run validation, tests, or notifications at key moments in your development process.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I want to set up automation that [DESCRIBES TRIGGER AND ACTION]. Create a Claude Code hook that runs [WHEN] and performs [WHAT]. The hook should be placed in .claude/hooks/ and include proper error handling.",
             "tips": "Use PreToolUse hooks to validate before changes, PostToolUse hooks to test after changes, and SessionStart hooks to set up your environment automatically."
           }
@@ -132,7 +132,7 @@
           {
             "name": "Claude Code for front-end development",
             "description": "Build interactive web tools with Claude Code. It can create HTML/CSS/JavaScript, run a local server, and let you preview changes in real-time.",
-            "tools": ["Claude Code (Claude Opus 4.6)", "Gemini 3.1 Pro"],
+            "tools": ["Claude Opus 4.6", "Gemini 3.1 Pro"],
             "prompt": "I need to build an interactive [TOOL TYPE] for [AUDIENCE]. It should: 1. [FEATURE 1] 2. [FEATURE 2]. Create the HTML, CSS, and JavaScript. Start a local development server so I can preview it.",
             "tips": "Claude Code can start a local server automatically. Ask it to iterate on the design based on your feedback. Use Gemini 3.1 Pro's Canvas feature for visual layout work."
           }
@@ -145,9 +145,9 @@
           {
             "name": "Claude Code CLI development",
             "description": "Build command-line tools with Claude Code. It understands argument parsing, stdin/stdout, and can test your CLI tool as it builds it.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I need a command-line tool that [DESCRIBES FUNCTION]. It should accept these arguments: [LIST ARGS]. Include --help documentation and handle errors gracefully. Test it with sample inputs.",
-            "tips": "Claude Code is ideal for CLI tools because it can test them directly in the terminal. Ask it to create comprehensive --help documentation."
+            "tips": "Claude Code is ideal for CLI tools because it can test them directly in the terminal. Ask it to create thorough --help documentation."
           }
         ]
       }
@@ -163,7 +163,7 @@
           {
             "name": "CLAUDE.md project configuration",
             "description": "Create a CLAUDE.md memory file that teaches Claude Code about your project's architecture, conventions, and workflows. This persists across sessions.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "Help me create a CLAUDE.md file for this project. Explore the codebase and document: 1. Project architecture and structure 2. Coding conventions and patterns 3. Common commands and workflows 4. Things to avoid 5. Important file locations",
             "tips": "A well-written CLAUDE.md dramatically improves Claude Code's effectiveness. Include specific examples of good patterns from your codebase."
           }
@@ -176,7 +176,7 @@
           {
             "name": "Claude Code skills",
             "description": "Create custom skills that teach Claude Code specialized knowledge for your newsroom's specific needs. Skills are reusable prompt templates.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "I frequently need to [DESCRIBE REPEATED TASK]. Create a skill in .claude/skills/ that I can invoke to handle this. The skill should include: 1. Clear instructions 2. Examples 3. Validation steps",
             "tips": "Skills hot-reload in Claude Code v2.1—just save the file and it's available immediately. Use forked context (context: fork) for skills that spawn parallel sub-agents."
           }
@@ -189,7 +189,7 @@
           {
             "name": "Claude Code hooks",
             "description": "Set up hooks that run automatically during your Claude Code sessions—validating changes, running tests, or checking conventions.",
-            "tools": ["Claude Code (Claude Opus 4.6)"],
+            "tools": ["Claude Opus 4.6"],
             "prompt": "Help me set up Claude Code hooks for this project. I need: 1. A SessionStart hook to check my environment 2. PostToolUse hooks to validate edits 3. A Stop hook to remind me about next steps. Place them in .claude/hooks/",
             "tips": "Hooks can use 'once: true' to run only once per session. PreToolUse hooks can block changes that violate your conventions."
           }
@@ -232,7 +232,7 @@
               "Claude Sonnet 4.6",
               "Gemini 3.1 Flash"
             ],
-            "prompt": "Act as a research assistant. Create a comprehensive briefing document on [TOPIC]. The document should be structured with the following sections: 1. Executive Summary, 2. Historical Context, 3. Key Stakeholders, 4. Current State of Affairs, 5. Major Debates and Controversies. The target audience is a journalist needing to get up to speed quickly.",
+            "prompt": "Act as a research assistant. Create a concise briefing document on [TOPIC] in 5 short sections, with 2 to 4 bullet points per section. Use the following sections: 1. Executive summary, 2. Historical context, 3. Key stakeholders, 4. Current state of affairs, 5. Major debates and controversies. The target audience is a journalist needing to get up to speed quickly.",
             "tips": "The faster models are great starting points. After the initial summary, ask follow-up questions to drill down into specific areas of interest. Always verify the information."
           }
         ]
@@ -286,7 +286,7 @@
               "GPT 5.4 (Deep Research)",
               "Grok 3 (DeepSearch)"
             ],
-            "prompt": "I am beginning an investigative report on [COMPLEX TOPIC]. I need a comprehensive research plan. First, think step-by-step to create a rubric for what a world-class research plan would contain. Then, use that rubric to provide: 1. A list of 10 keywords and search phrases. 2. A list of potential source types (e.g., academic journals, government reports). 3. Three potential narrative arcs for the story. 4. A list of key ethical considerations.",
+            "prompt": "I am beginning an investigative report on [COMPLEX TOPIC]. I need a full research plan. First, think step-by-step to create a rubric for what a world-class research plan would contain. Then, use that rubric to provide: 1. A list of 10 keywords and search phrases. 2. A list of potential source types (e.g., academic journals, government reports). 3. Three potential narrative arcs for the story. 4. A list of key ethical considerations.",
             "tips": "In ChatGPT, use the GPT 5.4 model and explicitly trigger the 'Deep Research' feature which is more thorough. In Grok 3, use the 'DeepSearch' function for a similar, exhaustive search. This is for lead generation—all findings must be independently verified."
           }
         ]

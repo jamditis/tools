@@ -13,7 +13,7 @@
       "Get the AI to Be More (or Less) Proactive. You can tell the model to be more thorough and take more steps on its own, or you can tell it to be quick and only do the bare minimum. A simple instruction like 'Be as thorough as possible' or 'Provide a brief answer' can make a big difference."
     ],
     "workflowIntegration": [
-      "Use 'deep research' for comprehensive reports. This feature (available in all major systems) is far more powerful than a simple web search and provides better citations.",
+      "Use 'deep research' for long-form reports. This feature (available in all major systems) is far more powerful than a simple web search and provides better citations.",
       "Use voice mode for mobile productivity. The killer feature is screen/camera sharing—point your phone at something to have the AI see and discuss it with you in real-time.",
       "Check the AI's 'thinking'. If you get a strange result, use the 'show thinking' or similar feature to see the steps the model took. This can help you spot errors in its logic.",
       "Use a changelog to maintain context across sessions. This is especially helpful for complex, multi-day projects. You can find a <a href='https://drive.google.com/file/d/1apf8wb_xiYisbyLNGtDIiMCTlj5iuIYt/view?usp=sharing' target='_blank' rel='noopener noreferrer' class='underline'>changelog template here</a> that you can upload to the LLM at the start of your conversation."
