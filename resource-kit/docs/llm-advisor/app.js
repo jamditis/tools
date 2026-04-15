@@ -378,7 +378,7 @@ async function loadAllData() {
                  'Gemini': 'bg-[#369a8b] text-white',       // Google teal
                  'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
                  'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT 5.2': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GPT 5.4': 'bg-slate-500 text-white',      // OpenAI neutral
                  'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
                  'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
                  'GPT': 'bg-slate-500 text-white',          // OpenAI neutral

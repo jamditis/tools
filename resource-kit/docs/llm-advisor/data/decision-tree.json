@@ -246,11 +246,11 @@
             "description": "For complex or specialized topics that require careful reasoning, you must switch to a powerful 'work' model.",
             "tools": [
               "Claude Opus 4.6",
-              "GPT 5.2",
+              "GPT 5.4",
               "Gemini 3.1 Pro"
             ],
             "prompt": "You are a subject matter expert in [NICHE FIELD]. I am a journalist writing an investigative piece on [SPECIFIC NICHE TOPIC]. Explain it to me as you would a colleague. Please detail key terminology, a timeline of major developments, the most influential figures or organizations, and three potential, non-obvious story angles worth exploring. I need you to think critically and not just summarize.",
-            "tips": "Switching to the 'work' tier of models (Opus, GPT 5.2, Pro) is crucial for high-stakes, complex topics. Always fact-check specialized information with a human expert."
+            "tips": "Switching to the 'work' tier of models (Opus, GPT 5.4, Pro) is crucial for high-stakes, complex topics. Always fact-check specialized information with a human expert."
           }
         ]
       }
@@ -283,11 +283,11 @@
             "name": "Investigative research tools",
             "description": "Use specialized research modes to find and synthesize information from the web.",
             "tools": [
-              "GPT 5.2 (Deep Research)",
+              "GPT 5.4 (Deep Research)",
               "Grok 3 (DeepSearch)"
             ],
             "prompt": "I am beginning an investigative report on [COMPLEX TOPIC]. I need a comprehensive research plan. First, think step-by-step to create a rubric for what a world-class research plan would contain. Then, use that rubric to provide: 1. A list of 10 keywords and search phrases. 2. A list of potential source types (e.g., academic journals, government reports). 3. Three potential narrative arcs for the story. 4. A list of key ethical considerations.",
-            "tips": "In ChatGPT, use the GPT 5.2 model and explicitly trigger the 'Deep Research' feature which is more thorough. In Grok 3, use the 'DeepSearch' function for a similar, exhaustive search. This is for lead generation—all findings must be independently verified."
+            "tips": "In ChatGPT, use the GPT 5.4 model and explicitly trigger the 'Deep Research' feature which is more thorough. In Grok 3, use the 'DeepSearch' function for a similar, exhaustive search. This is for lead generation—all findings must be independently verified."
           }
         ]
       }
@@ -342,10 +342,10 @@
             "tools": [
               "Claude Opus 4.6",
               "Gemini 3.1 Pro",
-              "GPT 5.2"
+              "GPT 5.4"
             ],
             "prompt": "I have uploaded a [DOCUMENT TYPE]. Act as a policy analyst. Provide the following: 1. A one-paragraph executive summary. 2. A bulleted list of the top 5 most impactful conclusions. 3. A table extracting all statistics, data points, and their corresponding sources mentioned in the document. 4. A list of any jargon or acronyms and their definitions.",
-            "tips": "Use a powerful 'work' tier model (Opus, Pro, or GPT 5.2) if you have a very large document or a whole folder of them for the best summarization and analysis."
+            "tips": "Use a powerful 'work' tier model (Opus, Pro, or GPT 5.4) if you have a very large document or a whole folder of them for the best summarization and analysis."
           }
         ]
       },
@@ -372,12 +372,12 @@
             "name": "Data file analysis",
             "description": "Analyze structured data from files like CSVs or spreadsheets to find trends and create charts.",
             "tools": [
-              "GPT 5.2",
+              "GPT 5.4",
               "Gemini 3.1 Pro",
               "Claude Opus 4.6"
             ],
             "prompt": "I have uploaded a CSV file containing [DATASET DESCRIPTION]. Act as a data journalist. Analyze this data to find the three most newsworthy insights. For each insight, explain why it is significant, generate a corresponding data visualization (e.g., bar chart), and provide the Python code you used for the analysis.",
-            "tips": "Use Gemini 3.1 Pro's 'Canvas' or GPT 5.2's code interpreter to perform the analysis and create the chart directly. Use Claude Opus 4.6 for its top-tier ability to generate clean code for you to run yourself."
+            "tips": "Use Gemini 3.1 Pro's 'Canvas' or GPT 5.4's code interpreter to perform the analysis and create the chart directly. Use Claude Opus 4.6 for its top-tier ability to generate clean code for you to run yourself."
           }
         ]
       }
@@ -484,11 +484,11 @@
             "name": "Expert interview preparation",
             "description": "Generate insightful questions for subject matter experts.",
             "tools": [
-              "GPT 5.2",
+              "GPT 5.4",
               "Claude Opus 4.6"
             ],
             "prompt": "I am interviewing [PERSON], an expert in [FIELD]. I have pasted their biography and three of their recent articles below. First, summarize their main arguments and known positions on [TOPIC]. Second, based on this research, generate 15 critical, open-ended questions that go beyond simple clarification and challenge them to elaborate on their views. Avoid questions they have likely been asked before. RESEARCH MATERIAL: [PASTE BIO AND ARTICLES]",
-            "tips": "Pro-tip workflow: Use a web-connected model like Gemini 3.1 Flash to compile a dossier on your subject. Then, paste that complete dossier into a reasoning model like GPT 5.2 or Claude Opus 4.6 to craft truly unique and effective questions."
+            "tips": "Pro-tip workflow: Use a web-connected model like Gemini 3.1 Flash to compile a dossier on your subject. Then, paste that complete dossier into a reasoning model like GPT 5.4 or Claude Opus 4.6 to craft truly unique and effective questions."
           }
         ]
       },
@@ -538,10 +538,10 @@
             "description": "Analyze structured data files to find trends and create charts directly within the chat interface.",
             "tools": [
               "Gemini 3.1 Pro (Canvas)",
-              "GPT 5.2"
+              "GPT 5.4"
             ],
             "prompt": "I've uploaded a dataset about [TOPIC]. Act as a data journalist. Your task is to: 1. Perform an exploratory data analysis to understand the dataset. 2. Identify the three most statistically significant and newsworthy insights. 3. For each insight, explain it in a single paragraph. 4. Generate a clean, well-labeled data visualization for each of the three insights.",
-            "tips": "Gemini 3.1 Pro or GPT 5.2 are the best tools for this because they have powerful, built-in data analysis and visualization capabilities (sometimes called 'code interpreter' functionality). You can upload a file and have it work directly on the data."
+            "tips": "Gemini 3.1 Pro or GPT 5.4 are the best tools for this because they have powerful, built-in data analysis and visualization capabilities (sometimes called 'code interpreter' functionality). You can upload a file and have it work directly on the data."
           }
         ]
       },
@@ -574,10 +574,10 @@
             "description": "Generate and debug code for data analysis, visualization, or web scraping.",
             "tools": [
               "Claude Opus 4.6",
-              "GPT 5.2"
+              "GPT 5.4"
             ],
             "prompt": "You are an expert Python developer specializing in data journalism. Write a well-commented Python script that uses the 'pandas' and 'matplotlib' libraries. The script should: 1. Load the dataset from 'data.csv'. 2. Clean the data by removing rows with missing values in the '[COLUMN_NAME]' column. 3. Calculate the average of '[COLUMN_A]' grouped by '[COLUMN_B]'. 4. Create and save a bar chart of the result, titled 'Average [A] by [B]'.",
-            "tips": "Claude Opus 4.6 is widely considered the best for generating clean, well-explained code. For more complex projects involving multiple files or directories, GPT 5.2's advanced capabilities make it a top-tier choice. You can also paste your own broken code and ask for a fix."
+            "tips": "Claude Opus 4.6 is widely considered the best for generating clean, well-explained code. For more complex projects involving multiple files or directories, GPT 5.4's advanced capabilities make it a top-tier choice. You can also paste your own broken code and ask for a fix."
           }
         ]
       },
@@ -681,7 +681,7 @@
             "name": "Expert source finder",
             "description": "Identify potential experts, organizations, and individuals to interview for a story.",
             "tools": [
-              "GPT 5.2 (w/ Deep Research)",
+              "GPT 5.4 (w/ Deep Research)",
               "Perplexity"
             ],
             "prompt": "I am writing an article on [TOPIC] and need to find diverse, expert sources. Please identify five potential experts, ensuring they represent a range of perspectives (e.g., academic, industry, activist). For each expert, provide: their name, current affiliation, a brief summary of their known stance on the topic, and a link to their professional profile or contact page.",
@@ -775,7 +775,7 @@
             "description": "Use voice mode for brainstorming, practicing interviews, or working while away from your keyboard.",
             "tools": [
               "Gemini 3.1 Flash",
-              "GPT 5.2"
+              "GPT 5.4"
             ],
             "prompt": "Activate voice mode and have a natural conversation. For example: 'Let's brainstorm some ideas for a podcast about the local food scene.' or 'Pretend you are [PERSON], I'm going to ask you some practice interview questions.'",
             "tips": "ChatGPT and Gemini have the best voice modes. Their killer feature is multimodality: you can point your phone's camera at something (a document, a broken appliance) and the AI will see it and talk about it with you."
