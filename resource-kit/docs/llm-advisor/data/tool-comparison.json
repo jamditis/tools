@@ -1,10 +1,10 @@
 {
-  "Claude 4.5 Opus": {
+  "Claude Opus 4.6": {
     "strengths": [
       "Best for coding and writing by far",
       "Most 'human-like' and nuanced outputs",
       "Does not train on user data by default",
-      "Unmatched code generation quality"
+      "Unmatched code generation quality on agentic tasks"
     ],
     "weaknesses": [
       "Slower than 'chat' models",
@@ -17,28 +17,46 @@
     ],
     "pricing": "Requires paid subscription"
   },
-  "Claude 4.5 Sonnet": {
+  "Claude Sonnet 4.6": {
     "strengths": [
       "Very fast and conversational",
-      "Best for expressive writing and brainstorming"
+      "Best for expressive writing and brainstorming",
+      "Near-Opus quality on most agentic coding tasks at a fraction of the cost"
     ],
     "weaknesses": [
-      "Not as powerful or accurate as Opus",
+      "Not as powerful or accurate as Opus on the hardest problems",
       "Cannot create images or video"
     ],
     "bestFor": [
       "Quick brainstorming",
       "Summarizing text",
-      "Creative writing"
+      "Creative writing",
+      "Day-to-day coding"
     ],
     "pricing": "Free tier available; included in paid plan"
   },
-  "Gemini 3.0 Pro": {
+  "Claude Haiku 4.5": {
+    "strengths": [
+      "Fastest Claude model",
+      "Near-frontier performance for high-volume, cheap tasks",
+      "Great for batch processing and quick edits"
+    ],
+    "weaknesses": [
+      "Less capable than Sonnet or Opus on complex reasoning"
+    ],
+    "bestFor": [
+      "Bulk classification and extraction",
+      "Quick Q&A",
+      "High-volume automations"
+    ],
+    "pricing": "Included in paid plan; lowest per-token cost in the Claude family"
+  },
+  "Gemini 3.1 Pro": {
     "strengths": [
       "Excellent for serious work & data analysis",
       "Industry-leading context window for large documents",
-      "Improved reasoning and directness over 2.5",
-      "Better multimodal synthesis",
+      "Improved reasoning and directness over 3.0",
+      "Strong multimodal synthesis",
       "Can create video (Veo 3)"
     ],
     "weaknesses": [
@@ -49,14 +67,15 @@
       "Investigative research",
       "Analyzing large datasets",
       "Summarizing document collections",
-      "Complex multimodal tasks"
+      "Complex multimodal tasks",
+      "Front-end design"
     ],
     "pricing": "Requires paid subscription"
   },
-  "Gemini 3.0 Flash": {
+  "Gemini 3.1 Flash": {
     "strengths": [
       "Very fast 'chat' model",
-      "Improved directness and efficiency over 2.5",
+      "Improved directness and efficiency over 3.0",
       "Excellent voice mode with multimodal input (camera)",
       "Better at following structured prompts"
     ],
@@ -72,14 +91,30 @@
     ],
     "pricing": "Free tier available; included in paid plan"
   },
-  "Gemini 3.0 (Veo)": {
+  "Gemini 3.1 Flash-Lite": {
+    "strengths": [
+      "Cheapest tier in the Gemini family",
+      "Fast and efficient for high-volume agentic calls",
+      "Long context window retained"
+    ],
+    "weaknesses": [
+      "Lower quality than Flash on complex reasoning",
+      "Newer, less battle-tested"
+    ],
+    "bestFor": [
+      "High-volume automations",
+      "Cost-sensitive workflows",
+      "Background tasks"
+    ],
+    "pricing": "Lowest-cost Gemini tier"
+  },
+  "Gemini 3.1 (Veo)": {
     "strengths": [
       "Text-to-video generation",
       "Photorealistic short clips",
-      "Only LLM with native video generation"
+      "Native video generation inside the Gemini family"
     ],
     "weaknesses": [
-      "Experimental feature",
       "Best for abstract/conceptual content",
       "Cannot create long-form video"
     ],
@@ -98,7 +133,7 @@
     "weaknesses": [
       "Slower than 'chat' models",
       "May train on data unless opted out",
-      "Superseded by Gemini 3.0 Pro"
+      "Superseded by Gemini 3.1 Pro"
     ],
     "bestFor": [
       "Investigative research",
@@ -115,7 +150,7 @@
     "weaknesses": [
       "Not as powerful as Pro",
       "More likely to hallucinate than Pro",
-      "Superseded by Gemini 3.0 Flash"
+      "Superseded by Gemini 3.1 Flash"
     ],
     "bestFor": [
       "Voice conversations",
@@ -124,7 +159,7 @@
     ],
     "pricing": "Free tier available; included in paid plan"
   },
-  "GPT 5.1": {
+  "GPT 5.4": {
     "strengths": [
       "Top-tier reasoning for complex problems",
       "Highly steerable for specific tasks",
@@ -141,11 +176,12 @@
     ],
     "pricing": "Requires paid subscription"
   },
-  "Codex (GPT 5.1)": {
+  "Codex (GPT 5.4)": {
     "strengths": [
       "Specialized for coding tasks",
-      "Excellent at multi-file projects",
-      "Strong debugging and refactoring"
+      "State of the art on SWE-Bench Pro and long-horizon refactors",
+      "Strong debugging and multi-file reasoning",
+      "Works well in Windows environments and with vision-to-code"
     ],
     "weaknesses": [
       "Less versatile for non-coding tasks",
@@ -154,7 +190,24 @@
     "bestFor": [
       "All OpenAI coding tasks",
       "Multi-file projects",
+      "Long-horizon refactors",
       "Code debugging"
+    ],
+    "pricing": "Requires paid subscription"
+  },
+  "GPT 5.3": {
+    "strengths": [
+      "Previous OpenAI flagship, still current and fully supported",
+      "Same API family as 5.4 with slightly different cost/latency profile",
+      "Strong reasoning at a lower price point than 5.4"
+    ],
+    "weaknesses": [
+      "Superseded by 5.4 on the hardest benchmarks"
+    ],
+    "bestFor": [
+      "Cost-sensitive reasoning tasks",
+      "When 5.4 isn't available in your region or plan",
+      "Drop-in replacement for older 5.x code"
     ],
     "pricing": "Requires paid subscription"
   },
@@ -165,7 +218,7 @@
       "Excellent at rendering text in images"
     ],
     "weaknesses": [
-      "Newer model, style may be less consistent than established rivals",
+      "Style may be less consistent than established rivals",
       "Requires descriptive prompts for best results"
     ],
     "bestFor": [
@@ -225,21 +278,55 @@
     ],
     "pricing": "Free tier, with paid Pro plan"
   },
-  "Open Source Models": {
+  "GLM-5.1 (open source)": {
     "strengths": [
-      "Extremely fast and lightweight",
-      "Can run on local hardware for privacy",
-      "Fully open-source and free"
+      "Best open-weight model for agentic coding as of April 2026",
+      "MIT licensed — self-hostable with no usage restrictions",
+      "Pitched for long-horizon autonomous engineering sessions"
     ],
     "weaknesses": [
-      "Less powerful than larger models for deep analysis",
-      "Requires technical setup to run locally"
+      "Requires serious hardware to run the full model locally",
+      "Ecosystem less mature than frontier providers"
     ],
     "bestFor": [
-      "Quick code checks",
-      "Real-time applications",
-      "Privacy-focused workflows"
+      "Privacy-sensitive coding workflows",
+      "Local or air-gapped agentic coding",
+      "Newsrooms that need to keep source material off third-party servers"
     ],
-    "pricing": "Open-source (free)"
+    "pricing": "Free; self-hosted or via providers like Z.ai"
+  },
+  "Qwen3-Coder (open source)": {
+    "strengths": [
+      "Strong coding benchmark scores for its size",
+      "Open weights with multiple sizes (from laptop-friendly to data-center)",
+      "Long context for whole-repo reasoning"
+    ],
+    "weaknesses": [
+      "Trails frontier providers on the hardest tasks",
+      "Best variants still need serious GPUs"
+    ],
+    "bestFor": [
+      "Local code assistance",
+      "IDE autocomplete and refactoring",
+      "Newsrooms experimenting with self-hosted AI"
+    ],
+    "pricing": "Free; self-hosted or via Alibaba Cloud"
+  },
+  "DeepSeek V4 (open source)": {
+    "strengths": [
+      "Frontier-tier coding performance at a fraction of the cost",
+      "81% on SWE-Bench Verified",
+      "Open weights"
+    ],
+    "weaknesses": [
+      "Chinese data practices are a concern for some newsrooms",
+      "Less turnkey than closed providers"
+    ],
+    "bestFor": [
+      "Cost-sensitive coding at scale",
+      "Batch processing pipelines",
+      "Research and experimentation"
+    ],
+    "pricing": "Free via self-hosting; very low cost via DeepSeek API"
   }
 }

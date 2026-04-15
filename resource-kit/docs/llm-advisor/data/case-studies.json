@@ -1,9 +1,9 @@
 [
   {
     "title": "Building the Amditis resource kit with Claude Code",
-    "tool": "Claude Code (Claude 4.5 Opus)",
+    "tool": "Claude Opus 4.6",
     "journalist": "Center for Cooperative Media",
-    "challenge": "Creating a comprehensive, interactive resource kit for journalists learning AI tools required building multiple web pages, interactive decision trees, and maintaining consistent theming across dozens of files.",
+    "challenge": "Creating a complete, interactive resource kit for journalists learning AI tools required building multiple web pages, interactive decision trees, and maintaining consistent theming across dozens of files.",
     "solution": "Used Claude Code with custom skills and hooks to build the entire resource kit. Created specialized skills for the Amditis theme, JSON data management, and content validation. Set up hooks to automatically validate model names and theme classes after each edit.",
     "quote": "Claude Code's ability to read the entire codebase, understand our custom theme system, and maintain consistency across files made it possible to build this resource kit in a fraction of the time.",
     "outcome": "Complete resource kit with 8 interactive pages, 18 downloadable templates, and a decision tree covering 6 journalism workflows—all built with consistent styling and automated quality checks.",
@@ -12,7 +12,7 @@
   },
   {
     "title": "Automating newsroom data pipelines with Claude Code hooks",
-    "tool": "Claude Code (Claude 4.5 Opus)",
+    "tool": "Claude Opus 4.6",
     "journalist": "Data Journalism Team",
     "challenge": "A newsroom needed to process daily data feeds, validate incoming data, and generate alerts when anomalies were detected—but the manual process was error-prone and time-consuming.",
     "solution": "Implemented a Claude Code workflow with PostToolUse hooks that automatically validate data after each processing step. Created a SessionStart hook that checks for new data files and a forked-context skill that runs parallel validation across multiple data sources.",
@@ -23,7 +23,7 @@
   },
   {
     "title": "Rapid prototyping interactive graphics with Claude Code",
-    "tool": "Claude Code (Claude 4.5 Opus)",
+    "tool": "Claude Opus 4.6",
     "journalist": "Graphics Team",
     "challenge": "Creating interactive data visualizations for breaking news requires fast iteration, but the traditional design-develop-test cycle was too slow for deadline-driven journalism.",
     "solution": "Used Claude Code's ability to run a local server and iterate on HTML/CSS/JavaScript in real-time. Created skills for common chart types and the newsroom's design system. Plan mode helped architect complex multi-chart projects before diving into code.",
@@ -34,10 +34,10 @@
   },
   {
     "title": "Improving infographic accessibility with AI alt text",
-    "tool": "Gemini 3.0 Pro",
+    "tool": "Gemini 3.1 Pro",
     "journalist": "Clare Spencer, Generative AI in the Newsroom",
     "challenge": "The Austrian Press Agency (APA) needed to provide descriptive alt text for thousands of infographics to comply with new EU accessibility laws, but doing so manually was too time-consuming and expensive.",
-    "solution": "The team used Gemini 3.0 Pro's vision capabilities to build a tool that automatically generates alt text. The prompt instructs the AI to describe the infographic's theme, highlight the most important data points, and cite the source, turning a confusing jumble of numbers into a clear narrative.",
+    "solution": "The team used Gemini 3.1 Pro's vision capabilities to build a tool that automatically generates alt text. The prompt instructs the AI to describe the infographic's theme, highlight the most important data points, and cite the source, turning a confusing jumble of numbers into a clear narrative.",
     "quote": "\"We realised quite early in the project that accessibility improvements benefit not only people with special needs but basically everyone... whenever the alt text generator was not able to explain correctly what happens in the infographics, it was mostly not the problem of the alt text generator but the problem of the infographic.\"",
     "tips": "AI can be a powerful tool for accessibility. By automating tedious but crucial tasks like writing alt text, newsrooms can make their content accessible to a wider audience without overburdening their staff.",
     "sourceUrl": "https://generative-ai-newsroom.com/improving-the-accessibility-of-infographics-with-ai-generated-alt-text-f56aa3aef661"
@@ -78,7 +78,7 @@
     "tool": "ChatGPT",
     "journalist": "Simon Galperin, The Jersey Bee",
     "challenge": "Producing daily curated newsletters for 12 different communities with only a small team of part-time staff members.",
-    "solution": "Implemented a comprehensive workflow combining Airtable, Zapier, ChatGPT Assistants via the OpenAI API, WordPress, and Mailchimp to curate thousands of news items annually across multiple platforms.",
+    "solution": "Implemented an end-to-end workflow combining Airtable, Zapier, ChatGPT Assistants via the OpenAI API, WordPress, and Mailchimp to curate thousands of news items annually across multiple platforms.",
     "outcome": "Successfully scaled operations to serve 12 communities with consistent, high-quality local news content distributed across email newsletters, website updates, and social media.",
     "quote": "AI tools are most effective when integrated into existing, well-defined processes. Automation works best for repetitive tasks, freeing up human resources for higher-level editorial work.",
     "tips": "Maintain a balance of AI assistance and human oversight. Carefully integrate technologies into existing workflows to create a scalable model for producing localized news content.",

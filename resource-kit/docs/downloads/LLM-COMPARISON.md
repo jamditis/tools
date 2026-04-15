@@ -11,8 +11,8 @@
 | Claude Opus 4.6 | Best for coding and writing | Slower | $$$ | Limited |
 | Claude Sonnet 4.6 | All-around tasks, best balance | Fast | $$ | Yes |
 | Gemini 3.1 Pro | Front-end design, large documents | Fast | $$ | Yes |
-| Codex (GPT 5.2) | OpenAI coding tasks | Fast | $$ | Limited |
-| GPT 5.2 | Deep research, complex reasoning | Slower | $$$ | Limited |
+| Codex (GPT 5.4) | OpenAI coding tasks | Fast | $$ | Limited |
+| GPT 5.4 | Deep research, complex reasoning | Slower | $$$ | Limited |
 | GitHub Copilot | In-editor suggestions | Real-time | $10/mo | Students |
 
 ---
@@ -68,7 +68,7 @@
 
 ---
 
-### Codex (GPT 5.2)
+### Codex (GPT 5.4)
 
 **Strengths:**
 - Specialized for coding tasks
@@ -83,7 +83,7 @@
 
 ---
 
-### GPT 5.2
+### GPT 5.4
 
 **Strengths:**
 - Top-tier reasoning for complex problems
