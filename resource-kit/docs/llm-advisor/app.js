@@ -364,11 +364,11 @@ async function loadAllData() {
          * appropriate brand colors. Falls back to neutral gray for unknown tools.
          *
          * @function getPillClasses
-         * @param {string} tool - The tool name (may include version, e.g., "Claude 4.5 Opus")
+         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 4.6")
          * @returns {string} Tailwind CSS classes for background and text color
          *
          * @example
-         * getPillClasses('Claude 4.5 Opus')  // Returns 'bg-[#d9843b] text-white'
+         * getPillClasses('Claude Opus 4.6')  // Returns 'bg-[#d9843b] text-white'
          * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
          */
         const getPillClasses = (tool) => {
@@ -378,7 +378,9 @@ async function loadAllData() {
                  'Gemini': 'bg-[#369a8b] text-white',       // Google teal
                  'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
                  'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT 5.1': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GPT 5.2': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
+                 'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
                  'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
                  'Grok': 'bg-blue-500 text-white',          // xAI blue
                  'DeepSeek': 'bg-[#615EFC] text-white',     // DeepSeek purple
@@ -1041,7 +1043,7 @@ async function loadAllData() {
          *
          * @example
          * showModal('Tool comparison', renderComparisonModal);
-         * showModal('Model information', renderModelInfoModal, 'Claude 4.5 Opus');
+         * showModal('Model information', renderModelInfoModal, 'Claude Opus 4.6');
          */
         function showModal(title, renderFunction, ...args) {
             modalTitle.textContent = title;

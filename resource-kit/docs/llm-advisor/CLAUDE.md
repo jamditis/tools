@@ -52,7 +52,7 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 - `tool-comparison.json`: Comparison data for major AI tools
 - `case-studies.json`: Real-world examples from newsrooms
 - `best-practices.json`: General AI usage guidelines (includes Gemini 3 advanced techniques)
-- `model-info.json`: Detailed information about specific AI models/tools (includes Gemini 3.0 and 2.5 legacy)
+- `model-info.json`: Detailed information about specific AI models/tools (includes Claude 4.6, Gemini 3.1, GPT 5.2, and Gemini 2.5 legacy)
 - `changelog.json`: Version history and updates
 
 ## Development workflow
