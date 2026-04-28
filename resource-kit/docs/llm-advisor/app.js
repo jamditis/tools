@@ -770,7 +770,7 @@ async function loadAllData() {
                 <h3 class="text-sm font-mono text-accent mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
                 <div class="flex flex-wrap gap-2">
                     ${Object.keys(toolComparisonData).map(tool => `
-                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/40 border border-ink/10 text-mist hover:text-ink hover:border-ink/30'}" data-tool="${tool}">${tool}</button>
+                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/80 border border-ink/15 text-ink/75 hover:text-ink hover:border-ink/40'}" data-tool="${tool}">${tool}</button>
                     `).join('')}
                 </div>`;
 
@@ -794,11 +794,11 @@ async function loadAllData() {
                                     ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}
                                 </tr>
                             </thead>
-                            <tbody class="text-mist">
+                            <tbody>
                                 ${features.map(feature => `
                                     <tr class="align-top border-b border-ink/5">
-                                        <td class="py-4 font-medium text-ink">${featureNames[feature]}</td>
-                                        ${compareTools.map(tool => `<td class="py-4 pr-4">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
+                                        <td class="py-4 pr-4 font-medium text-ink whitespace-nowrap">${featureNames[feature]}</td>
+                                        ${compareTools.map(tool => `<td class="py-4 pr-4 text-ink/85">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -806,7 +806,7 @@ async function loadAllData() {
                     </div>`;
             } else {
                 // Show placeholder when no tools selected
-                tableHTML = `<div class="text-center p-8 bg-white/40 border border-ink/10 mt-6"><p class="text-mist font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
+                tableHTML = `<div class="text-center p-8 bg-white/70 border border-ink/15 mt-6"><p class="text-ink/70 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
             }
             modalBody.innerHTML = headerHTML + tableHTML;
         }
