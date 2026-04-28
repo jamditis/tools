@@ -770,7 +770,7 @@ async function loadAllData() {
                 <h3 class="text-sm font-mono text-accent mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
                 <div class="flex flex-wrap gap-2">
                     ${Object.keys(toolComparisonData).map(tool => `
-                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/80 border border-ink/15 text-ink/75 hover:text-ink hover:border-ink/40'}" data-tool="${tool}">${tool}</button>
+                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/80 border border-ink/15 text-ink/75 hover:text-ink hover:border-ink/40'}" data-tool="${escapeAttr(tool)}">${sanitizeHTML(tool)}</button>
                     `).join('')}
                 </div>`;
 
@@ -791,7 +791,7 @@ async function loadAllData() {
                             <thead>
                                 <tr class="border-b border-ink/10">
                                     <th class="py-3 font-mono text-xs text-mist tracking-wider">FEATURE</th>
-                                    ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${tool}</span></th>`).join('')}
+                                    ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${sanitizeHTML(tool)}</span></th>`).join('')}
                                 </tr>
                             </thead>
                             <tbody>
