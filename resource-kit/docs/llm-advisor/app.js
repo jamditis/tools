@@ -453,19 +453,23 @@ async function loadAllData() {
         };
 
         /**
-         * Escapes quotes in a string for safe use in HTML attributes.
+         * Escapes & and quotes for safe round-trip through an HTML attribute.
          *
-         * Used specifically for data attributes that may contain JSON or
-         * user-provided strings with quotes.
+         * & must be escaped first; otherwise a literal substring like "&quot;"
+         * in the input would be decoded back to a quote when the browser parses
+         * the attribute, breaking dataset round-trips and downstream lookups.
          *
          * @function escapeAttr
          * @param {string} str - The string to escape
-         * @returns {string} The string with quotes replaced by HTML entities
+         * @returns {string} The string with &, ', and " replaced by entities
          *
          * @example
-         * escapeAttr('Say "hello"')  // Returns 'Say &quot;hello&quot;'
+         * escapeAttr('Say "hello" & goodbye')  // 'Say &quot;hello&quot; &amp; goodbye'
          */
-        const escapeAttr = (str) => str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+        const escapeAttr = (str) => str
+            .replace(/&/g, "&amp;")
+            .replace(/'/g, "&apos;")
+            .replace(/"/g, "&quot;");
 
         // -------------------------------------------------------------------------
         // RENDERING FUNCTIONS
