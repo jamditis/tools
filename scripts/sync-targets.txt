@@ -1,0 +1,16 @@
+# Repos subscribed to ~/.claude/copilot-globals.md.
+# One absolute path per line. Lines starting with # are ignored.
+# Tilde expansion is supported.
+#
+# To subscribe a new repo:
+#   1. Add its path here
+#   2. Run scripts/sync-copilot-globals.py
+#   3. In that repo, slim .github/copilot-instructions.md by removing the
+#      "Global rules to flag" section (now lives in
+#      .github/instructions/globals.instructions.md)
+#   4. Open a PR with both files in the same commit
+#
+# After ~/.claude/copilot-globals.md changes, run from anywhere:
+#   ~/projects/tools/scripts/sync-copilot-globals.py
+
+~/projects/tools

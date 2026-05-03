@@ -102,6 +102,30 @@ python -m http.server 8000
 **Deploy:** GitHub Actions (`static.yml`) uploads `resource-kit/docs/` as a Pages artifact on push to master
 **Fallback:** `bash deploy.sh` deploys to Cloudflare Pages (`tools-pages.pages.dev`) — only use if GitHub Pages is down
 
+## Copilot review globals (cross-repo sync)
+
+This repo hosts the script that distributes Joe's user-level review rules to every subscribed repo as a path-scoped Copilot instructions file.
+
+**Source of truth:** `~/.claude/copilot-globals.md` (writing style, banned words, no AI-attribution, code-quality basics). Hand-edit there when a rule changes.
+
+**Sync target:** each subscribed repo's `.github/instructions/globals.instructions.md`. Copilot's PR review bot reads these files in addition to `.github/copilot-instructions.md` (with `applyTo` glob and `excludeAgent` opt-out support, per the GitHub Copilot path-specific instructions docs).
+
+**Why:** Each Copilot-readable file has roughly a 4,000-char silent-truncation cap. Restating ~1,700 chars of globals in every project's `copilot-instructions.md` was pushing several past the cap (rosen-frontend, class, houseofjawn-bot at 3995 / 3993 / 3992 chars at the time of #59). Hoisting globals into a separate path-scoped file frees that space for project-specific bug classes.
+
+**Subscribed repos:** listed in `scripts/sync-targets.txt` (one absolute path per line, `#` for comments, `~` expansion supported).
+
+**After editing the source:**
+
+```bash
+~/projects/tools/scripts/sync-copilot-globals.py             # write to all subscribed repos
+~/projects/tools/scripts/sync-copilot-globals.py --dry-run   # preview without writing
+~/projects/tools/scripts/sync-copilot-globals.py --only tools  # filter to one repo by name
+```
+
+Each subscribed repo should commit its `.github/instructions/globals.instructions.md` (the file is generated but committed so Copilot can read it without runtime sync). When a repo first subscribes, also slim its `.github/copilot-instructions.md` by removing the now-redundant "Global rules to flag" section.
+
+This setup does **not** modify any project's `CLAUDE.md`. CLAUDE.md remains the single source of truth for primary coding assistants and is not bound by the 4k Copilot-read cap.
+
 ## LLM Advisor architecture
 
 The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
