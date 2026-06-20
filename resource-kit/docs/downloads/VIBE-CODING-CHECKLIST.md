@@ -70,10 +70,10 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
 | Need | Recommendation |
 |------|----------------|
-| Coding and writing | Claude Opus 4.6 |
+| Coding and writing | Claude Opus 4.8 |
 | Fast daily tasks | Claude Sonnet 4.6 |
 | Front-end design, large docs | Gemini 3.1 Pro |
-| OpenAI coding tasks | Codex (GPT 5.4) |
+| OpenAI coding tasks | Codex (GPT 5.5) |
 | Free, getting started | Gemini CLI free tier |
 
 ---

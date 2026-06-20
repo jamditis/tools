@@ -755,7 +755,7 @@ node --version</code></pre>
                         <div class="space-y-4">
                             <div class="deckle-card p-6">
                                 <p class="text-ink/70 text-sm mb-6">
-                                    <strong class="text-ink">Claude Code</strong> is Anthropic's CLI tool, powered by Claude Opus 4.6 by default.
+                                    <strong class="text-ink">Claude Code</strong> is Anthropic's CLI tool, powered by Claude. The default model depends on your plan — typically Claude Sonnet 4.6, with the more capable Claude Opus 4.8 on Max plans or via /model.
                                     It can read your codebase, make changes, run commands, and help you ship code faster.
                                 </p>
 
@@ -862,7 +862,7 @@ node --version</code></pre>
 
                         <div class="deckle-card p-6">
                             <p class="text-ink/70 text-sm mb-6">
-                                <strong class="text-ink">Codex CLI</strong> is OpenAI's coding assistant, powered by GPT 5.4 by default.
+                                <strong class="text-ink">Codex CLI</strong> is OpenAI's coding assistant, powered by GPT 5.5 by default.
                                 Sign in with your ChatGPT Plus/Pro account, or use an OpenAI API key.
                             </p>
 
@@ -1011,6 +1011,7 @@ session_id=$(echo "$input" | jq -r '.session_id // empty')
 
 # Shorten model name
 case "$model_name" in
+    "Claude Opus 4.8"*)    short_model="Opus 4.8" ;;
     "Claude Opus 4.6"*)    short_model="Opus 4.6" ;;
     "Claude Opus 4.5"*)    short_model="Opus 4.5" ;;
     "Claude Opus 4"*)      short_model="Opus 4" ;;
@@ -1163,6 +1164,7 @@ $outputStyle = $data.output_style.name
 $sessionId = $data.session_id
 
 $shortModel = switch -Wildcard ($modelName) {
+    "Claude Opus 4.8*"   { "Opus 4.8"; break }
     "Claude Opus 4.6*"   { "Opus 4.6"; break }
     "Claude Opus 4.5*"   { "Opus 4.5"; break }
     "Claude Opus 4*"     { "Opus 4"; break }
@@ -1171,6 +1173,7 @@ $shortModel = switch -Wildcard ($modelName) {
     "Claude Sonnet 4*"   { "Sonnet 4"; break }
     "Claude Haiku 4.5*"  { "Haiku 4.5"; break }
     "Claude Haiku 4*"    { "Haiku 4"; break }
+    "Opus 4.8*"          { "Opus 4.8"; break }
     "Opus 4.6*"          { "Opus 4.6"; break }
     "Sonnet 4.6*"        { "Sonnet 4.6"; break }
     default              { $modelName }

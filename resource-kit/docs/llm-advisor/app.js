@@ -364,11 +364,11 @@ async function loadAllData() {
          * appropriate brand colors. Falls back to neutral gray for unknown tools.
          *
          * @function getPillClasses
-         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 4.6")
+         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 4.8")
          * @returns {string} Tailwind CSS classes for background and text color
          *
          * @example
-         * getPillClasses('Claude Opus 4.6')  // Returns 'bg-[#d9843b] text-white'
+         * getPillClasses('Claude Opus 4.8')  // Returns 'bg-[#d9843b] text-white'
          * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
          */
         const getPillClasses = (tool) => {
@@ -378,7 +378,7 @@ async function loadAllData() {
                  'Gemini': 'bg-[#369a8b] text-white',       // Google teal
                  'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
                  'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT 5.4': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GPT 5.5': 'bg-slate-500 text-white',      // OpenAI neutral
                  'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
                  'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
                  'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
@@ -952,7 +952,7 @@ async function loadAllData() {
 
             // Scroll to highlighted model after render
             if (highlightModel) {
-                const cardElement = document.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`);
+                const cardElement = document.getElementById(`model-card-${highlightModel.replace(/\s+/g, '-')}`);
                 if (cardElement) {
                     setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
                 }
@@ -1047,7 +1047,7 @@ async function loadAllData() {
          *
          * @example
          * showModal('Tool comparison', renderComparisonModal);
-         * showModal('Model information', renderModelInfoModal, 'Claude Opus 4.6');
+         * showModal('Model information', renderModelInfoModal, 'Claude Opus 4.8');
          */
         function showModal(title, renderFunction, ...args) {
             modalTitle.textContent = title;

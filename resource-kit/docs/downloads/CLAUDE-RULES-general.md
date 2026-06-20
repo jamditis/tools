@@ -5,7 +5,7 @@
 >
 > **What is this?** CLAUDE.md is a memory file that gives Claude Code persistent context about your project. It's automatically read at the start of every conversation, so Claude understands your codebase, conventions, and preferences without you having to re-explain them.
 >
-> **Official docs:** https://docs.anthropic.com/en/docs/claude-code
+> **Official docs:** https://code.claude.com/docs/en/memory
 
 ## Project overview
 

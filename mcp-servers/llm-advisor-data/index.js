@@ -32,12 +32,12 @@ const FILES = {
 
 // Model name validation
 const VALID_MODELS = [
-  "Claude 4.5 Opus",
-  "Claude 4.5 Sonnet",
-  "Gemini 3.0 Pro",
-  "Gemini 3.0 Flash",
-  "GPT 5.1",
-  "Codex (GPT 5.1)",
+  "Claude Opus 4.8",
+  "Claude Sonnet 4.6",
+  "Gemini 3.1 Pro",
+  "Gemini 3.1 Flash",
+  "GPT 5.5",
+  "Codex (GPT 5.5)",
 ];
 
 // Create server instance

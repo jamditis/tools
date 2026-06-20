@@ -1,5 +1,5 @@
 {
-  "Claude Opus 4.6": {
+  "Claude Opus 4.8": {
     "description": "Anthropic's most powerful 'work' model. It is by far the best model for coding and writing, excelling at complex reasoning, detailed analysis, and nuanced content creation.",
     "features": [
       "Best-in-class for writing, editing, and coding",
@@ -87,8 +87,8 @@
     ],
     "link": "https://gemini.google.com/"
   },
-  "GPT 5.4": {
-    "description": "OpenAI's current flagship 'work' model for deep reasoning and complex tasks. Use it for multi-step logical deduction and investigative research. Released on top of GPT 5.3, which also remains available.",
+  "GPT 5.5": {
+    "description": "OpenAI's current flagship 'work' model for deep reasoning and complex tasks. Use it for multi-step logical deduction and investigative research. Released on top of GPT 5.4, which also remains available.",
     "features": [
       "Top-tier reasoning for complex problems",
       "Highly steerable for specific tasks",
@@ -96,17 +96,17 @@
     ],
     "link": "https://openai.com/chatgpt/"
   },
-  "GPT 5.3": {
-    "description": "OpenAI's previous flagship, still fully supported. A good drop-in option when 5.4 isn't available in your region or plan, or when cost/latency matter more than absolute peak quality.",
+  "GPT 5.4": {
+    "description": "OpenAI's previous flagship, still fully supported. A good drop-in option when 5.5 isn't available in your region or plan, or when cost/latency matter more than absolute peak quality.",
     "features": [
       "Strong general reasoning",
-      "Same API family as 5.4",
-      "Slightly cheaper / faster than 5.4 in practice"
+      "Same API family as 5.5",
+      "Slightly cheaper / faster than 5.5 in practice"
     ],
     "link": "https://openai.com/chatgpt/"
   },
-  "Codex (GPT 5.4)": {
-    "description": "OpenAI's specialized coding model powered by GPT 5.4. This is the recommended OpenAI tool for all coding tasks, offering superior code generation, debugging, and project scaffolding.",
+  "Codex (GPT 5.5)": {
+    "description": "OpenAI's specialized coding model powered by GPT 5.5. This is the recommended OpenAI tool for all coding tasks, offering superior code generation, debugging, and project scaffolding.",
     "features": [
       "Specialized for coding tasks",
       "Excellent at multi-file projects",
@@ -141,7 +141,7 @@
       "'DeepSearch' mode for current events",
       "Useful for tracking online narratives"
     ],
-    "link": "https://grok.x.ai/"
+    "link": "https://grok.com/"
   },
   "Perplexity": {
     "description": "An AI-powered search engine that provides direct answers to queries with citations. It's designed for research and finding information, functioning as a 'conversational search engine'.",

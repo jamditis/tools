@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Last updated: February 2026. The AI landscape changes fast—verify current pricing and capabilities.
+> Last updated: April 2026. The AI landscape changes fast—verify current pricing and capabilities.
 
 ---
 
@@ -8,18 +8,18 @@
 
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
-| Claude Opus 4.6 | Best for coding and writing | Slower | $$$ | Limited |
+| Claude Opus 4.8 | Best for coding and writing | Slower | $$$ | Limited |
 | Claude Sonnet 4.6 | All-around tasks, best balance | Fast | $$ | Yes |
 | Gemini 3.1 Pro | Front-end design, large documents | Fast | $$ | Yes |
-| Codex (GPT 5.4) | OpenAI coding tasks | Fast | $$ | Limited |
-| GPT 5.4 | Deep research, complex reasoning | Slower | $$$ | Limited |
+| Codex (GPT 5.5) | OpenAI coding tasks | Fast | $$ | Limited |
+| GPT 5.5 | Deep research, complex reasoning | Slower | $$$ | Limited |
 | GitHub Copilot | In-editor suggestions | Real-time | $10/mo | Students |
 
 ---
 
 ## Detailed breakdown
 
-### Claude Opus 4.6
+### Claude Opus 4.8
 
 **Strengths:**
 - Best model for coding and writing by far
@@ -45,7 +45,7 @@
 - Good at iterating on feedback
 
 **Weaknesses:**
-- Less capable on very complex tasks than Claude Opus 4.6
+- Less capable on very complex tasks than Claude Opus 4.8
 - Better for brainstorming than production code
 
 **Best for:** Daily tasks, brainstorming, quick iterations
@@ -61,14 +61,14 @@
 - Good integration with Google products
 
 **Weaknesses:**
-- Not as strong for pure coding as Claude Opus 4.6
+- Not as strong for pure coding as Claude Opus 4.8
 - May train on data unless opted out
 
 **Best for:** Front-end design, large document analysis, multimodal projects
 
 ---
 
-### Codex (GPT 5.4)
+### Codex (GPT 5.5)
 
 **Strengths:**
 - Specialized for coding tasks
@@ -83,7 +83,7 @@
 
 ---
 
-### GPT 5.4
+### GPT 5.5
 
 **Strengths:**
 - Top-tier reasoning for complex problems
@@ -115,7 +115,7 @@
 
 ---
 
-## Cost comparison (approximate, Feb 2026)
+## Cost comparison (approximate, April 2026)
 
 | Service | Pricing model | Typical monthly cost |
 |---------|---------------|---------------------|
@@ -137,13 +137,13 @@
 → **Claude Pro** (best for coding and writing)
 
 ### Regular coding work
-→ **Claude Opus 4.6** + **GitHub Copilot** for in-editor
+→ **Claude Opus 4.8** + **GitHub Copilot** for in-editor
 
 ### Front-end design or large documents
 → **Gemini 3.1 Pro** (best context window and multimodal)
 
 ### Building production tools for newsroom
-→ **Claude Opus 4.6** for all coding tasks
+→ **Claude Opus 4.8** for all coding tasks
 
 ---
 

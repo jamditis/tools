@@ -277,8 +277,8 @@ Each reports back independently.
 ## Resources
 
 - [Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Amditis Resource Kit](https://jamditis.github.io/tools/)
+- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
+- [Amditis Resource Kit](https://tools.amditis.tech/)
 
 ---
 

@@ -53,7 +53,7 @@ Return a consolidated audit report:
 - ✅ All model names current
   OR
 - ⚠️ Found 3 outdated references:
-  - file.json:42 - "GPT-4o" → "GPT 5.1"
+  - file.json:42 - "GPT-4o" → "GPT 5.5"
 
 ### External Links
 - ✅ All 15 links valid
@@ -65,7 +65,7 @@ Return a consolidated audit report:
 - ✅ All references valid
   OR
 - ⚠️ Found inconsistencies:
-  - "Claude Opus" vs "Claude 4.5 Opus" mismatch
+  - "Claude Opus" vs "Claude Opus 4.8" mismatch
 ```
 
 ## Usage

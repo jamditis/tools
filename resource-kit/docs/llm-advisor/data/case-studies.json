@@ -8,7 +8,7 @@
     "quote": "Claude Code's ability to read the entire codebase, understand our custom theme system, and maintain consistency across files made it possible to build this resource kit in a fraction of the time.",
     "outcome": "Complete resource kit with 8 interactive pages, 18 downloadable templates, and a decision tree covering 6 journalism workflows—all built with consistent styling and automated quality checks.",
     "tips": "Use CLAUDE.md to teach Claude Code your project's conventions upfront. Create skills for repeated tasks like theming and validation. Hooks prevent mistakes before they happen.",
-    "sourceUrl": "https://jamditis.github.io/tools/"
+    "sourceUrl": "https://tools.amditis.tech/"
   },
   {
     "title": "Automating newsroom data pipelines with Claude Code hooks",
