@@ -8,9 +8,9 @@
 
 | Need | Model | Notes |
 |------|-------|-------|
-| Coding/writing | Claude Opus 4.6 | Best by far |
+| Coding/writing | Claude Opus 4.8 | Best by far |
 | Front-end design | Gemini 3.1 Pro | Best context window |
-| OpenAI coding | Codex (GPT 5.4) | Specialized for code |
+| OpenAI coding | Codex (GPT 5.5) | Specialized for code |
 | Free option | Claude.ai free | Limited but capable |
 | In-editor | GitHub Copilot | $10/mo, real-time |
 

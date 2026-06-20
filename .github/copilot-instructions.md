@@ -17,7 +17,7 @@ These are Joe's user-level conventions from `~/.claude/CLAUDE.md`, restated here
 - **`transition: all`** on any element. Scope to specific properties (`transform`, `box-shadow`, `border-color`). `all` animates layout changes triggered by Lucide icon injection and Tailwind CDN processing.
 - **Inline scripts that assume `defer`'d library load order.** Wrap in `DOMContentLoaded` and guard `lucide.createIcons()` with try/catch.
 - **No build step.** Flag any PR that adds npm, a bundler, Jekyll features, or a transpiler. JS must stay vanilla ES5-compatible.
-- **Outdated AI model names.** Current names: Claude Opus 4.6, Claude Sonnet 4.6, Gemini 3.1 Pro, Gemini 3.1 Flash, Codex (GPT 5.2), GPT 5.2. Flag "Claude 4 Opus", "GPT-4o", "Gemini 2.x", and similar.
+- **Outdated AI model names.** Current names: Claude Opus 4.8, Claude Sonnet 4.6, Gemini 3.1 Pro, Gemini 3.1 Flash, Codex (GPT 5.5), GPT 5.5. Flag "Claude 4 Opus", "GPT-4o", "Gemini 2.x", and similar.
 - **Theme drift.** The site uses the Amditis V2 light editorial theme. Flag dark-theme patterns (`crt-overlay`, `glitch-text`, `clip-notch`) and colors outside the V2 palette (canvas `#ede6d4`, ink `#121212`, accent `#3d4b40`, clay `#d6cdb7`).
 - **External links missing `rel="noopener noreferrer"`** when paired with `target="_blank"`.
 - **Inline event handlers** (`onclick`, `onload`). Use `addEventListener` instead.

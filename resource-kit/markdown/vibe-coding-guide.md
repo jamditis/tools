@@ -183,10 +183,10 @@ Before adding a line to your context file, ask: "If I deleted this, would the AI
 
 | Model | Strengths | Best for | CLI tool |
 |-------|-----------|----------|----------|
-| Claude Opus 4.6 | Best for coding and writing | All coding, large projects, debugging | Claude Code |
+| Claude Opus 4.8 | Best for coding and writing | All coding, large projects, debugging | Claude Code |
 | Claude Sonnet 4.6 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
 | Gemini 3.1 Pro | Front-end design, large context | Front-end work, large documents | Gemini CLI |
-| Codex (GPT 5.4) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
+| Codex (GPT 5.5) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
 | Claude.ai (free) | Free tier, solid capabilities | Getting started, simple scripts | Web only |
 
 ---

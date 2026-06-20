@@ -1,5 +1,5 @@
 {
-  "Claude Opus 4.6": {
+  "Claude Opus 4.8": {
     "strengths": [
       "Best for coding and writing by far",
       "Most 'human-like' and nuanced outputs",
@@ -159,7 +159,7 @@
     ],
     "pricing": "Free tier available; included in paid plan"
   },
-  "GPT 5.4": {
+  "GPT 5.5": {
     "strengths": [
       "Top-tier reasoning for complex problems",
       "Highly steerable for specific tasks",
@@ -176,7 +176,7 @@
     ],
     "pricing": "Requires paid subscription"
   },
-  "Codex (GPT 5.4)": {
+  "Codex (GPT 5.5)": {
     "strengths": [
       "Specialized for coding tasks",
       "State of the art on SWE-Bench Pro and long-horizon refactors",
@@ -195,18 +195,18 @@
     ],
     "pricing": "Requires paid subscription"
   },
-  "GPT 5.3": {
+  "GPT 5.4": {
     "strengths": [
       "Previous OpenAI flagship, still current and fully supported",
-      "Same API family as 5.4 with slightly different cost/latency profile",
-      "Strong reasoning at a lower price point than 5.4"
+      "Same API family as 5.5 with slightly different cost/latency profile",
+      "Strong reasoning at a lower price point than 5.5"
     ],
     "weaknesses": [
-      "Superseded by 5.4 on the hardest benchmarks"
+      "Superseded by 5.5 on the hardest benchmarks"
     ],
     "bestFor": [
       "Cost-sensitive reasoning tasks",
-      "When 5.4 isn't available in your region or plan",
+      "When 5.5 isn't available in your region or plan",
       "Drop-in replacement for older 5.x code"
     ],
     "pricing": "Requires paid subscription"

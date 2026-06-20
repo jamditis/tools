@@ -58,7 +58,7 @@ Answer the questions below to find the best LLM for your project. Each recommend
 - Balance of speed and capability
 
 ### Complex (multi-step, debugging intensive)
-- Use: **Claude Opus 4.6** for coding/writing
+- Use: **Claude Opus 4.8** for coding/writing
 - Use: **Gemini 3.1 Pro** for front-end design and large documents
 - Best reasoning for complex problems
 
@@ -87,9 +87,9 @@ Answer the questions below to find the best LLM for your project. Each recommend
 
 | If you need... | Use this |
 |----------------|----------|
-| Best coding and writing | Claude Opus 4.6 |
+| Best coding and writing | Claude Opus 4.8 |
 | Front-end design | Gemini 3.1 Pro |
-| OpenAI coding | Codex (GPT 5.4) |
+| OpenAI coding | Codex (GPT 5.5) |
 | Free option | Claude.ai free tier |
 | In-editor suggestions | GitHub Copilot |
 | Large document analysis | Gemini 3.1 Pro |
@@ -98,7 +98,7 @@ Answer the questions below to find the best LLM for your project. Each recommend
 
 ## Model comparison (June 2026)
 
-### Claude Opus 4.6
+### Claude Opus 4.8
 - **Strengths:** Best model for coding and writing by far, excellent reasoning
 - **Weaknesses:** Slower response times
 - **Best for:** All coding tasks, large projects, long-form writing
@@ -106,11 +106,11 @@ Answer the questions below to find the best LLM for your project. Each recommend
 
 ### Gemini 3.1 Pro
 - **Strengths:** Best for front-end design, industry-leading context window
-- **Weaknesses:** Not as strong for pure coding as Claude Opus 4.6
+- **Weaknesses:** Not as strong for pure coding as Claude Opus 4.8
 - **Best for:** Front-end work, large document analysis, multimodal projects
 - **Access:** Gemini Advanced ($20/mo)
 
-### Codex (GPT 5.4)
+### Codex (GPT 5.5)
 - **Strengths:** OpenAI's specialized coding model, excellent multi-file projects
 - **Weaknesses:** Less versatile for non-coding tasks
 - **Best for:** All OpenAI coding work, multi-file projects

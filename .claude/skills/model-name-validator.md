@@ -17,18 +17,18 @@ AI model names change constantly. Use current names consistently across all cont
 
 ## Core concept
 
-**Model names are foreign keys.** Every reference must match exactly. "Claude 4.5 Opus" ≠ "Claude Opus 4.5" ≠ "Claude 4.5 opus". One typo breaks the comparison modal.
+**Model names are foreign keys.** Every reference must match exactly. "Claude Opus 4.8" ≠ "Claude 4.8 Opus" ≠ "claude opus 4.8". One typo breaks the comparison modal.
 
-## Current naming (December 2025)
+## Current naming (June 2026)
 
 | Company | Correct Name | Never Use |
 |---------|-------------|-----------|
-| Anthropic | **Claude 4.5 Opus** | Claude 4 Opus, Claude Opus, Opus |
-| Anthropic | **Claude 4.5 Sonnet** | Claude 4 Sonnet, Claude Sonnet |
-| Google | **Gemini 3.0 Pro** | Gemini 2.x, Gemini Pro, Gemini Advanced |
-| Google | **Gemini 3.0 Flash** | Gemini 2.x Flash, Gemini Flash |
-| OpenAI | **Codex (GPT 5.1)** | Codex CLI, just "Codex" |
-| OpenAI | **GPT 5.1** | GPT-4, GPT-4o, GPT-4 Turbo, ChatGPT |
+| Anthropic | **Claude Opus 4.8** | Claude 4 Opus, Claude 4.5 Opus, Claude Opus 4.6, Claude Opus, Opus |
+| Anthropic | **Claude Sonnet 4.6** | Claude 4 Sonnet, Claude 4.5 Sonnet, Claude Sonnet |
+| Google | **Gemini 3.1 Pro** | Gemini 2.x, Gemini 3.0, Gemini Pro, Gemini Advanced |
+| Google | **Gemini 3.1 Flash** | Gemini 2.x Flash, Gemini 3.0 Flash, Gemini Flash |
+| OpenAI | **Codex (GPT 5.5)** | Codex CLI, just "Codex" |
+| OpenAI | **GPT 5.5** | GPT-4, GPT-4o, GPT 5.1, GPT 5.2, ChatGPT |
 | xAI | **Grok** | Grok 2, Grok-2 |
 | DeepSeek | **DeepSeek** | DeepSeek V2, DeepSeek-V3 |
 | Mistral | **Mistral** | Mistral Large, Mixtral |
@@ -40,13 +40,13 @@ AI model names change constantly. Use current names consistently across all cont
 ## Writing conventions
 
 **First mention:** Full name
-> Claude 4.5 Opus is best for complex coding tasks.
+> Claude Opus 4.8 is best for complex coding tasks.
 
 **Subsequent:** Can shorten
 > Claude excels at context. Opus handles long documents.
 
 **With parenthetical:** Only when clarifying
-> Codex (GPT 5.1) is OpenAI's coding-focused model.
+> Codex (GPT 5.5) is OpenAI's coding-focused model.
 
 **Never abbreviate to:** C4O, C4S, G3P, GPT (alone)
 
@@ -72,7 +72,7 @@ When updating model names, check ALL:
 
 ## Update procedure
 
-When a model version changes (e.g., Gemini 2.5 → Gemini 3.0):
+When a model version changes (e.g., Gemini 3.0 → Gemini 3.1):
 
 ```bash
 # 1. Update source of truth
@@ -114,12 +114,12 @@ caseStudies.forEach((study, i) => {
 
 | Mistake | Correct |
 |---------|---------|
-| "Claude 4 Opus" | Claude 4.5 Opus |
-| "GPT-4o" | GPT 5.1 |
-| "Gemini Pro" | Gemini 3.0 Pro |
-| "ChatGPT" | GPT 5.1 |
-| "Claude" (in data files) | Claude 4.5 Opus or Claude 4.5 Sonnet |
-| "Anthropic Claude" | Claude 4.5 Opus |
+| "Claude 4 Opus" | Claude Opus 4.8 |
+| "GPT-4o" | GPT 5.5 |
+| "Gemini Pro" | Gemini 3.1 Pro |
+| "ChatGPT" | GPT 5.5 |
+| "Claude" (in data files) | Claude Opus 4.8 or Claude Sonnet 4.6 |
+| "Anthropic Claude" | Claude Opus 4.8 |
 
 ## When new models release
 
@@ -133,9 +133,9 @@ caseStudies.forEach((study, i) => {
 ## Version history tracking
 
 Old versions become "never use":
-- Gemini 2.5 Pro → Gemini 3.0 Pro
-- GPT-4o → GPT 5.1
-- Claude 4 Opus → Claude 4.5 Opus
+- Gemini 3.0 Pro → Gemini 3.1 Pro
+- GPT-4o → GPT 5.5
+- Claude 4 Opus → Claude Opus 4.8
 
 Old names only appear in historical changelog entries.
 

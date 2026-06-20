@@ -8,7 +8,7 @@ hooks:
       # Only check relevant files
       if [[ "$FILE" == *.json ]] || [[ "$FILE" == *.html ]] || [[ "$FILE" == *.md ]]; then
         # Check for outdated model names
-        OUTDATED=$(grep -nE "Claude 4 Opus|Claude 3|GPT-4o|GPT-4|Gemini 2\.|Gemini 1\." "$FILE" 2>/dev/null || true)
+        OUTDATED=$(grep -nE "Claude 4 Opus|Claude 3|Claude 4\.5 Opus|Claude 4\.5 Sonnet|GPT-4o|GPT-4|GPT 5\.1|GPT 5\.2|Gemini 3\.0|Gemini 2\.|Gemini 1\." "$FILE" 2>/dev/null || true)
 
         if [ -n "$OUTDATED" ]; then
           echo ""
@@ -17,11 +17,11 @@ hooks:
           echo "$OUTDATED"
           echo ""
           echo "📋 Current names to use:"
-          echo "   • Claude 4.5 Opus"
-          echo "   • Claude 4.5 Sonnet"
-          echo "   • Gemini 3.0 Pro"
-          echo "   • Gemini 3.0 Flash"
-          echo "   • GPT 5.1 / Codex (GPT 5.1)"
+          echo "   • Claude Opus 4.8"
+          echo "   • Claude Sonnet 4.6"
+          echo "   • Gemini 3.1 Pro"
+          echo "   • Gemini 3.1 Flash"
+          echo "   • GPT 5.5 / Codex (GPT 5.5)"
           echo ""
         fi
       fi
@@ -35,12 +35,12 @@ Automatically checks edited files for outdated AI model names.
 
 | Model | Correct Name |
 |-------|-------------|
-| Claude best | Claude 4.5 Opus |
-| Claude fast | Claude 4.5 Sonnet |
-| Gemini best | Gemini 3.0 Pro |
-| Gemini fast | Gemini 3.0 Flash |
-| OpenAI code | Codex (GPT 5.1) |
-| OpenAI chat | GPT 5.1 |
+| Claude best | Claude Opus 4.8 |
+| Claude fast | Claude Sonnet 4.6 |
+| Gemini best | Gemini 3.1 Pro |
+| Gemini fast | Gemini 3.1 Flash |
+| OpenAI code | Codex (GPT 5.5) |
+| OpenAI chat | GPT 5.5 |
 
 ## Outdated Names (flagged)
 

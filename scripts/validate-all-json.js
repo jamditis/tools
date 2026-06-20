@@ -20,24 +20,23 @@ const DATA_DIR = path.join(
   "../resource-kit/docs/llm-advisor/data"
 );
 
-// Valid model names (current as of Jan 2026)
+// Valid model names (current as of June 2026)
 const VALID_MODELS = [
-  "Claude 4.5 Opus",
-  "Claude 4.5 Sonnet",
-  "Gemini 3.0 Pro",
-  "Gemini 3.0 Flash",
-  "GPT 5.1",
-  "Codex (GPT 5.1)",
+  "Claude Opus 4.8",
+  "Claude Sonnet 4.6",
+  "Gemini 3.1 Pro",
+  "Gemini 3.1 Flash",
+  "GPT 5.5",
+  "Codex (GPT 5.5)",
 ];
 
 // Outdated model name patterns
 const OUTDATED_PATTERNS = [
-  { pattern: /Claude 4 Opus/gi, replacement: "Claude 4.5 Opus" },
-  { pattern: /Claude 3\.?5?/gi, replacement: "Claude 4.5" },
-  { pattern: /GPT-4o/gi, replacement: "GPT 5.1" },
-  { pattern: /GPT-4/gi, replacement: "GPT 5.1" },
-  { pattern: /Gemini 2\.\d/gi, replacement: "Gemini 3.0" },
-  { pattern: /Gemini 1\.\d/gi, replacement: "Gemini 3.0" },
+  { pattern: /Claude 4 Opus/gi, replacement: "Claude Opus 4.8" },
+  { pattern: /GPT-4o/gi, replacement: "GPT 5.5" },
+  { pattern: /GPT-4/gi, replacement: "GPT 5.5" },
+  { pattern: /Gemini 2\.\d/gi, replacement: "Gemini 3.1" },
+  { pattern: /Gemini 1\.\d/gi, replacement: "Gemini 3.1" },
 ];
 
 // File schemas

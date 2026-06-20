@@ -76,7 +76,7 @@ project-root/
 
 ## AI/ML components
 
-- **Model(s):** [GPT 5.4, Claude, custom, etc.]
+- **Model(s):** [GPT 5.5, Claude, custom, etc.]
 - **Prompts:** [Location and versioning]
 - **Confidence thresholds:** [When to flag for review]
 - **Cost management:** [API limits, caching]

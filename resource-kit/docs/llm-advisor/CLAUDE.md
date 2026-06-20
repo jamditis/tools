@@ -42,7 +42,7 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 - `tool-comparison.json`: Comparison data for major AI tools
 - `case-studies.json`: Real-world examples from newsrooms
 - `best-practices.json`: General AI usage guidelines (includes Gemini 3 advanced techniques)
-- `model-info.json`: Detailed information about specific AI models/tools (includes Claude 4.6, Gemini 3.1, GPT 5.4, and Gemini 2.5 legacy)
+- `model-info.json`: Detailed information about specific AI models/tools (includes Claude Opus 4.8, Gemini 3.1, GPT 5.5, and Gemini 2.5 legacy)
 - `changelog.json`: Version history and updates
 
 ## Development workflow
@@ -90,7 +90,7 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 **Color coding:** AI tools have consistent color-coded pill buttons defined in `getPillClasses()` function:
 - Claude: Orange (#d9843b)
 - Gemini/Nano Banana: Teal (#369a8b)
-- ChatGPT/GPT 5.4/Codex: Slate gray
+- ChatGPT/GPT 5.5/Codex: Slate gray
 - Other tools: Various distinctive colors
 
 **Modal system:** Uses a single universal modal (`#universal-modal`) that dynamically updates content based on the type of information being displayed.
