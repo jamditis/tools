@@ -553,7 +553,7 @@
             "name": "Cost-effective complex reasoning",
             "description": "Use highly efficient models for complex mathematical or logical analysis.",
             "tools": [
-              "DeepSeek V4"
+              "DeepSeek V4 (open source)"
             ],
             "prompt": "I have a complex dataset on [TOPIC]. I need to perform a [SPECIFIC STATISTICAL ANALYSIS, e.g., multiple regression analysis] to determine the relationship between [VARIABLE 1] and [VARIABLE 2]. Provide the results, an interpretation of their statistical significance, and any caveats about the methodology.",
             "tips": "When your newsroom is facing budget constraints but needs to perform serious data analysis, DeepSeek V4 offers analytical power comparable to top-tier models at a fraction of the API cost. It's a specialist tool for when you need math, not prose."
@@ -590,7 +590,7 @@
             "description": "For when you need a quick script or a code snippet without waiting.",
             "tools": [
               "Codestral",
-              "Qwen3-Coder"
+              "Qwen3-Coder (open source)"
             ],
             "prompt": "Write a javascript bookmarklet that allows me to select text on a page and automatically perform a Google search for that selected text in a new tab.",
             "tips": "These smaller, open-source models are incredibly fast. For simple, everyday coding tasks, they can provide an answer almost instantly. They can also be run locally on your own machine using tools like Ollama for ultimate privacy and speed."
