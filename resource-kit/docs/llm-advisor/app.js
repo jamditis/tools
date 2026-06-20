@@ -952,7 +952,7 @@ async function loadAllData() {
 
             // Scroll to highlighted model after render
             if (highlightModel) {
-                const cardElement = document.querySelector(`#model-card-${highlightModel.replace(/\s+/g, '-')}`);
+                const cardElement = document.getElementById(`model-card-${highlightModel.replace(/\s+/g, '-')}`);
                 if (cardElement) {
                     setTimeout(() => cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
                 }
