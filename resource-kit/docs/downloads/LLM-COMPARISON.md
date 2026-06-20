@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Last updated: February 2026. The AI landscape changes fast—verify current pricing and capabilities.
+> Last updated: April 2026. The AI landscape changes fast—verify current pricing and capabilities.
 
 ---
 
@@ -115,7 +115,7 @@
 
 ---
 
-## Cost comparison (approximate, Feb 2026)
+## Cost comparison (approximate, April 2026)
 
 | Service | Pricing model | Typical monthly cost |
 |---------|---------------|---------------------|

@@ -90,7 +90,7 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 **Color coding:** AI tools have consistent color-coded pill buttons defined in `getPillClasses()` function:
 - Claude: Orange (#d9843b)
 - Gemini/Nano Banana: Teal (#369a8b)
-- ChatGPT/GPT-4o/GPT-5: Slate gray
+- ChatGPT/GPT 5.4/Codex: Slate gray
 - Other tools: Various distinctive colors
 
 **Modal system:** Uses a single universal modal (`#universal-modal`) that dynamically updates content based on the type of information being displayed.

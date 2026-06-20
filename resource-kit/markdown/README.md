@@ -19,10 +19,10 @@ Practical guides, templates, and reference materials for journalists learning to
 
 ### Downloadable templates
 
-- [Changelog template](../downloads/CHANGELOG-TEMPLATE.md) — Document each coding session
-- [Quick start checklist](../downloads/VIBE-CODING-CHECKLIST.md) — Pre-flight checklist for vibe coding
-- [LLM comparison chart](../downloads/LLM-COMPARISON.md) — Current models and their strengths
-- [Lessons learned template](../downloads/LESSONS-TEMPLATE.md) — Document project insights
+- [Changelog template](../docs/downloads/CHANGELOG-TEMPLATE.md) — Document each coding session
+- [Quick start checklist](../docs/downloads/VIBE-CODING-CHECKLIST.md) — Pre-flight checklist for vibe coding
+- [LLM comparison chart](../docs/downloads/LLM-COMPARISON.md) — Current models and their strengths
+- [Lessons learned template](../docs/downloads/LESSONS-TEMPLATE.md) — Document project insights
 
 ### Quick reference
 

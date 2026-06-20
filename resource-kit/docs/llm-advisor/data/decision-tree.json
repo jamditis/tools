@@ -553,10 +553,10 @@
             "name": "Cost-effective complex reasoning",
             "description": "Use highly efficient models for complex mathematical or logical analysis.",
             "tools": [
-              "DeepSeek R1"
+              "DeepSeek V4"
             ],
             "prompt": "I have a complex dataset on [TOPIC]. I need to perform a [SPECIFIC STATISTICAL ANALYSIS, e.g., multiple regression analysis] to determine the relationship between [VARIABLE 1] and [VARIABLE 2]. Provide the results, an interpretation of their statistical significance, and any caveats about the methodology.",
-            "tips": "When your newsroom is facing budget constraints but needs to perform serious data analysis, DeepSeek R1 offers analytical power comparable to top-tier models at a fraction of the API cost. It's a specialist tool for when you need math, not prose."
+            "tips": "When your newsroom is facing budget constraints but needs to perform serious data analysis, DeepSeek V4 offers analytical power comparable to top-tier models at a fraction of the API cost. It's a specialist tool for when you need math, not prose."
           }
         ]
       }
@@ -589,8 +589,8 @@
             "name": "Fast and lightweight code generation",
             "description": "For when you need a quick script or a code snippet without waiting.",
             "tools": [
-              "Mistral Small 3",
-              "Qwen 2.5"
+              "Codestral",
+              "Qwen3-Coder"
             ],
             "prompt": "Write a javascript bookmarklet that allows me to select text on a page and automatically perform a Google search for that selected text in a new tab.",
             "tips": "These smaller, open-source models are incredibly fast. For simple, everyday coding tasks, they can provide an answer almost instantly. They can also be run locally on your own machine using tools like Ollama for ultimate privacy and speed."
@@ -722,7 +722,7 @@
             "name": "AI image generation",
             "description": "Create conceptual images or illustrations for articles when photography isn't an option.",
             "tools": [
-              "DALL-E 3 (in ChatGPT)",
+              "GPT Image (in ChatGPT)",
               "Gemini (Nano Banana)"
             ],
             "prompt": "A photorealistic close-up portrait of an elderly journalist, with deep, thoughtful wrinkles and a curious expression. They are reviewing notes in a rustic, sun-drenched office. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the texture of the paper. Captured with an 85mm portrait lens, resulting in a soft, blurred background. The overall mood is serene and wise.",

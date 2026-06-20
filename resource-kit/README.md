@@ -2,7 +2,7 @@
 
 A resource kit for journalists learning to build tools with AI assistance. Created by the [Center for Cooperative Media](https://centerforcooperativemedia.org).
 
-**[View the live site →](https://jamditis.github.io/tools/)**
+**[View the live site →](https://tools.amditis.tech/)**
 
 ---
 
@@ -12,11 +12,11 @@ A resource kit for journalists learning to build tools with AI assistance. Creat
 
 | Resource | Description |
 |----------|-------------|
-| [Vibe coding guide](https://jamditis.github.io/tools/llm-advisor/vibe-coding.html) | Practical intro to building software with AI. Learn to manage projects, not memorize syntax. |
-| [LLM advisor tool](https://jamditis.github.io/tools/llm-advisor/) | Interactive decision tree for choosing the right AI model for your project. |
-| [Quick reference card](https://jamditis.github.io/tools/docs/quick-reference-card.html) | Printable one-page cheat sheet with essential info and common pitfalls. |
-| [Language guide](https://jamditis.github.io/tools/docs/language-guide.html) | When to use Python vs JavaScript vs R for common journalism tasks. |
-| [Technical glossary](https://jamditis.github.io/tools/docs/glossary.html) | Plain-language definitions of 40+ technical terms. |
+| [Vibe coding guide](https://tools.amditis.tech/llm-advisor/vibe-coding/) | Practical intro to building software with AI. Learn to manage projects, not memorize syntax. |
+| [LLM advisor tool](https://tools.amditis.tech/llm-advisor/) | Interactive decision tree for choosing the right AI model for your project. |
+| [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable one-page cheat sheet with essential info and common pitfalls. |
+| [Language guide](https://tools.amditis.tech/language-guide/) | When to use Python vs JavaScript vs R for common journalism tasks. |
+| [Technical glossary](https://tools.amditis.tech/glossary/) | Plain-language definitions of 40+ technical terms. |
 
 ### Downloadable templates
 

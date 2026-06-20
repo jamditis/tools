@@ -4,13 +4,13 @@
 
 ---
 
-## Best LLMs for coding (Dec 2025)
+## Best LLMs for coding (June 2026)
 
 | Need | Model | Notes |
 |------|-------|-------|
-| Coding/writing | Claude 4.5 Opus | Best by far |
-| Front-end design | Gemini 3.0 Pro | Best context window |
-| OpenAI coding | Codex (GPT 5.1) | Specialized for code |
+| Coding/writing | Claude Opus 4.6 | Best by far |
+| Front-end design | Gemini 3.1 Pro | Best context window |
+| OpenAI coding | Codex (GPT 5.4) | Specialized for code |
 | Free option | Claude.ai free | Limited but capable |
 | In-editor | GitHub Copilot | $10/mo, real-time |
 

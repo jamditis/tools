@@ -118,8 +118,8 @@ Use these current names in all content:
 - **Claude Sonnet 4.6** - fast chat model
 - **Gemini 3.1 Pro** - best for front-end design and large documents
 - **Gemini 3.1 Flash** - fast Gemini chat model
-- **Codex (GPT 5.2)** - OpenAI's coding model
-- **GPT 5.2** - OpenAI's reasoning model
+- **Codex (GPT 5.4)** - OpenAI's coding model
+- **GPT 5.4** - OpenAI's reasoning model
 
 Never use outdated names like "Claude 4 Opus", "GPT-4o", or "Gemini 2.x"
 

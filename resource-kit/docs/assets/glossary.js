@@ -136,7 +136,7 @@ const GLOSSARY = {
   "llm": {
     term: "LLM",
     short: "AI that understands and generates text",
-    full: "Stands for 'Large Language Model.' These are AI systems (like Claude, ChatGPT, GPT-4) trained on massive amounts of text. They can understand questions, write code, explain concepts, and have conversations. The 'large' refers to billions of parameters."
+    full: "Stands for 'Large Language Model.' These are AI systems (like Claude, ChatGPT, and Gemini) trained on massive amounts of text. They can understand questions, write code, explain concepts, and have conversations. The 'large' refers to billions of parameters."
   },
   "prompt": {
     term: "Prompt",
