@@ -1,7 +1,7 @@
 [
   {
     "title": "Building the Amditis resource kit with Claude Code",
-    "tool": "Claude Opus 4.6",
+    "tool": "Claude Opus 4.8",
     "journalist": "Center for Cooperative Media",
     "challenge": "Creating a complete, interactive resource kit for journalists learning AI tools required building multiple web pages, interactive decision trees, and maintaining consistent theming across dozens of files.",
     "solution": "Used Claude Code with custom skills and hooks to build the entire resource kit. Created specialized skills for the Amditis theme, JSON data management, and content validation. Set up hooks to automatically validate model names and theme classes after each edit.",
@@ -12,7 +12,7 @@
   },
   {
     "title": "Automating newsroom data pipelines with Claude Code hooks",
-    "tool": "Claude Opus 4.6",
+    "tool": "Claude Opus 4.8",
     "journalist": "Data Journalism Team",
     "challenge": "A newsroom needed to process daily data feeds, validate incoming data, and generate alerts when anomalies were detected—but the manual process was error-prone and time-consuming.",
     "solution": "Implemented a Claude Code workflow with PostToolUse hooks that automatically validate data after each processing step. Created a SessionStart hook that checks for new data files and a forked-context skill that runs parallel validation across multiple data sources.",
@@ -23,7 +23,7 @@
   },
   {
     "title": "Rapid prototyping interactive graphics with Claude Code",
-    "tool": "Claude Opus 4.6",
+    "tool": "Claude Opus 4.8",
     "journalist": "Graphics Team",
     "challenge": "Creating interactive data visualizations for breaking news requires fast iteration, but the traditional design-develop-test cycle was too slow for deadline-driven journalism.",
     "solution": "Used Claude Code's ability to run a local server and iterate on HTML/CSS/JavaScript in real-time. Created skills for common chart types and the newsroom's design system. Plan mode helped architect complex multi-chart projects before diving into code.",
