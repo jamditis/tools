@@ -154,6 +154,33 @@ Two interactive glossaries under `resource-kit/docs/vibe-coding/`:
 
 **Filtering:** Category tabs toggle `.term-hidden` class on cards. The `.term-hidden` rule uses `!important` because Tailwind CDN injects `.block { display: block }` later in the cascade and would otherwise override `display: none`.
 
+## Copilot review instructions (`.github/copilot-instructions.md`)
+
+GitHub Copilot's PR review bot reads two files per repo — `.github/copilot-instructions.md` and the repo's `CLAUDE.md` — each with a roughly 4,000-character cap. Content past the cap is silently truncated, so an oversized file loses its tail with no warning.
+
+The bot is a bug finder, not a style linter. It flags code defects, not English-prose conventions, so a copilot-instructions file should carry only rules the bot can act on and nothing it will ignore.
+
+Keep (bot-enforceable):
+
+- AI-authorship attribution bans in commits, PR bodies, and committed docs.
+- favicon `<link>` plus full OG/Twitter meta tags on new public-facing HTML pages.
+- code-pattern bug classes specific to the repo (no `innerHTML`, version-string-on-import, build-step bans, and the like).
+
+Drop (not bot-enforceable — enforce elsewhere):
+
+- sentence case, banned words, and other prose-style globals. These belong to `~/.claude/CLAUDE.md` (Claude's own behavior), to CI or pre-commit hooks for the hard cases (banned words, emoji-in-code), and to `stop-and-check.py` for editorial copy — not to the review bot.
+
+Restating roughly 1,700 characters of prose-style globals in every repo was the original cause of three files reaching the 4k cap (`rosen-frontend`, `class`, `houseofjawn-bot`); all three are migrated and well under cap.
+
+Template (two sections):
+
+1. `## Global rules to flag` — the narrow, bot-enforceable user-level rules above, with a one-line note that they are restated from `~/.claude/CLAUDE.md` because the bot does not read user-level files.
+2. `## Project-specific bug classes to flag` — a numbered list of this repo's own defect patterns, where the file earns its keep.
+
+See `rosen-frontend/.github/copilot-instructions.md` for the reference layout. Keep each file well under 4,000 characters; if a repo's project bug classes grow, that budget is for them, not for re-restated globals.
+
+Background: `tools` issue #59, and `MEMORY.md` → `reference_copilot_pr_review_reading_scope.md` for the underlying constraint.
+
 ## Things to avoid
 
 - Using dark theme patterns (crt-overlay, glitch-text, clip-notch) - use V2 light patterns instead
