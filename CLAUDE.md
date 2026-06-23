@@ -102,6 +102,14 @@ python -m http.server 8000
 **Deploy:** GitHub Actions (`static.yml`) uploads `resource-kit/docs/` as a Pages artifact on push to master
 **Fallback:** `bash deploy.sh` deploys to Cloudflare Pages (`tools-pages.pages.dev`) — only use if GitHub Pages is down
 
+## Custom-domain HTTPS (Cloudflare-fronted)
+
+`tools.amditis.tech` is a GitHub Pages site fronted by Cloudflare's proxy (orange cloud). HTTPS is served by Cloudflare's edge cert, not by GitHub's own Let's Encrypt cert: `dig tools.amditis.tech` returns Cloudflare IPs (`104.21.x` / `172.67.x`), not Pages' `185.199.108.x`, and responses carry `server: cloudflare`.
+
+Because of that, `gh api repos/jamditis/tools/pages` shows GitHub's own cert as un-provisioned. It read `bad_authz` historically and reads `null` now (GitHub stopped retrying and dropped the tracking record). GitHub's HTTP-01 ACME challenge expects `http://tools.amditis.tech/.well-known/acme-challenge/<token>` to reach Pages directly, but it lands on Cloudflare's edge, so issuance can never complete. This is cosmetic: HTTPS, the HTTP→HTTPS redirect, and Cloudflare's caching and DDoS protection all work. The old `expires_at: 2026-04-15` passed with no user-visible breakage, confirming GitHub's cert was never serving traffic.
+
+Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHub status is ever wanted, gray-cloud the DNS record (DNS only, no proxy) for about 10 minutes so GitHub can complete ACME, then re-enable the proxy — trading Cloudflare's edge features for the cleaner status. Keep Cloudflare's SSL mode at "Full (strict)". Background: issue #61.
+
 ## LLM Advisor architecture
 
 The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
