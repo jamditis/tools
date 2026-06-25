@@ -108,7 +108,14 @@ python -m http.server 8000
 
 Because of that, `gh api repos/jamditis/tools/pages` shows GitHub's own cert as un-provisioned. It read `bad_authz` historically and reads `null` now (GitHub stopped retrying and dropped the tracking record). GitHub's HTTP-01 ACME challenge expects `http://tools.amditis.tech/.well-known/acme-challenge/<token>` to reach Pages directly, but it lands on Cloudflare's edge, so issuance can never complete. This is cosmetic: HTTPS, the HTTP→HTTPS redirect, and Cloudflare's caching and DDoS protection all work. The old `expires_at: 2026-04-15` passed with no user-visible breakage, confirming GitHub's cert was never serving traffic.
 
-Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHub status is ever wanted, gray-cloud the DNS record (DNS only, no proxy) for about 10 minutes so GitHub can complete ACME, then re-enable the proxy — trading Cloudflare's edge features for the cleaner status. Keep Cloudflare's SSL mode at "Full (strict)". Background: issue #61.
+Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHub status is ever wanted:
+
+1. Gray-cloud the DNS record in Cloudflare (DNS only, no proxy) so GitHub's HTTP-01 ACME challenge reaches Pages directly instead of Cloudflare's edge.
+2. In repo Settings > Pages, remove the custom domain, save, then re-enter `tools.amditis.tech` and save. This step is required, not optional: GitHub only starts cert provisioning when the custom domain is set or changed, and it already dropped the tracking record (`https_certificate: null`), so gray-clouding alone never restarts a job. Re-adding the domain is what re-fires ACME.
+3. Wait about 10 minutes, then confirm issuance with `gh api repos/jamditis/tools/pages --jq .https_certificate.state` (it should move off `null` to `approved`).
+4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Keep Cloudflare's SSL mode at "Full (strict)" throughout.
+
+Background: issue #61.
 
 ## LLM Advisor architecture
 
