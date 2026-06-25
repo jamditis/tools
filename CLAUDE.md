@@ -102,6 +102,21 @@ python -m http.server 8000
 **Deploy:** GitHub Actions (`static.yml`) uploads `resource-kit/docs/` as a Pages artifact on push to master
 **Fallback:** `bash deploy.sh` deploys to Cloudflare Pages (`tools-pages.pages.dev`) — only use if GitHub Pages is down
 
+## Custom-domain HTTPS (Cloudflare-fronted)
+
+`tools.amditis.tech` is a GitHub Pages site fronted by Cloudflare's proxy (orange cloud). HTTPS is served by Cloudflare's edge cert, not by GitHub's own Let's Encrypt cert: `dig tools.amditis.tech` returns Cloudflare IPs (`104.21.x` / `172.67.x`), not Pages' `185.199.108.x`, and responses carry `server: cloudflare`.
+
+Because of that, `gh api repos/jamditis/tools/pages` shows GitHub's own cert as un-provisioned. It read `bad_authz` historically and reads `null` now (GitHub stopped retrying and dropped the tracking record). GitHub's HTTP-01 ACME challenge expects `http://tools.amditis.tech/.well-known/acme-challenge/<token>` to reach Pages directly, but it lands on Cloudflare's edge, so issuance can never complete. This is cosmetic: HTTPS, the HTTP→HTTPS redirect, and Cloudflare's caching and DDoS protection all work. The old `expires_at: 2026-04-15` passed with no user-visible breakage, confirming GitHub's cert was never serving traffic.
+
+Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHub status is ever wanted:
+
+1. Gray-cloud the DNS record in Cloudflare (DNS only, no proxy) so GitHub's HTTP-01 ACME challenge reaches Pages directly instead of Cloudflare's edge.
+2. In repo Settings > Pages, remove the custom domain, save, then re-enter `tools.amditis.tech` and save. This step is required, not optional: GitHub only starts cert provisioning when the custom domain is set or changed, and it already dropped the tracking record (`https_certificate: null`), so gray-clouding alone never restarts a job. Re-adding the domain is what re-fires ACME.
+3. Wait about 10 minutes, then confirm issuance with `gh api repos/jamditis/tools/pages --jq .https_certificate.state` (it should move off `null` to `approved`).
+4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Keep Cloudflare's SSL mode at "Full (strict)" throughout.
+
+Background: issue #61.
+
 ## LLM Advisor architecture
 
 The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
