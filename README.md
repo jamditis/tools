@@ -58,7 +58,7 @@ Reusable skills for Claude Code that extend its capabilities for specific workfl
 |-------|-------------|------|
 | [test-first-bugs](./skills/test-first-bugs/) | Test-driven bug fixing workflow | Local |
 | [pdf-design](./skills/pdf-design/) | PDF reports and proposals with interactive editing, brand system, budget tables | Local |
-| [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 30+ skills for journalism, media, and academia | External repo |
+| [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 50+ skills for journalism, media, and academia | External repo |
 
 ### Installing plugins (recommended for PDF Playground)
 
