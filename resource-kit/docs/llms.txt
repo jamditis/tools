@@ -28,6 +28,14 @@
 - Cheat sheet: https://tools.amditis.tech/vibe-coding/cheat-sheet/
 - Glossary: https://tools.amditis.tech/vibe-coding/glossary/
 
+## Browser extensions
+
+Chrome and Edge extensions built by Joe Amditis. Each installs from the Chrome Web Store and works in both Chrome and Edge, since Edge adds Chrome Web Store extensions directly.
+
+- LinkSweepr: https://tools.amditis.tech/linksweepr/ — Keeps the domains you choose out of your browsing history, automatically and on-device. Local-only, no network requests.
+- SocialSnag: https://tools.amditis.tech/socialsnag/ — Right-click to download full-resolution images and videos from Instagram, Twitter/X, Facebook, and Bluesky.
+- PocketLink: https://tools.amditis.tech/pocketlink/ — Turns the current page into a Bit.ly shortlink and copies it to your clipboard in one click.
+
 ## Downloadable templates
 
 - CLAUDE-RULES templates for 12 project types (web apps, data pipelines, editorial tools, etc.)

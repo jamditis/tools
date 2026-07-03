@@ -27,6 +27,16 @@ Interactive tools and guides built with love and frustration by Joe Amditis.
 | [Code patterns](https://tools.amditis.tech/code-patterns/) | Skills, lessons, and quick reference for Claude Code workflows |
 | [About](https://tools.amditis.tech/about/) | About the project and author |
 
+### Browser extensions
+
+Chrome and Edge extensions. Each installs from the Chrome Web Store and works in both browsers, since Edge adds Chrome Web Store extensions directly.
+
+| Extension | Description |
+|-----------|-------------|
+| [LinkSweepr](https://tools.amditis.tech/linksweepr/) | Keeps the domains you choose out of your browsing history, automatically and on-device |
+| [SocialSnag](https://tools.amditis.tech/socialsnag/) | Right-click to download full-resolution images and videos from Instagram, Twitter/X, Facebook, and Bluesky |
+| [PocketLink](https://tools.amditis.tech/pocketlink/) | Turns the current page into a Bit.ly shortlink and copies it to your clipboard in one click |
+
 ### Vibe coding guide sections
 
 The vibe coding guide is a multi-page resource:

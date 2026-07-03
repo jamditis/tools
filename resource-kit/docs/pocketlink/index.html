@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketLink // Amditis Kit</title>
+    <meta name="description" content="PocketLink is a Chrome and Edge extension that turns the current page into a Bit.ly shortlink and copies it to your clipboard in one click.">
+    <link rel="canonical" href="https://tools.amditis.tech/pocketlink/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tools.amditis.tech/pocketlink/" />
+    <meta property="og:title" content="PocketLink | One-click Bit.ly shortlinks in your browser" />
+    <meta property="og:description" content="Turn the current page into a Bit.ly shortlink and copy it to your clipboard in one click, from the toolbar or the right-click menu." />
+    <meta property="og:image" content="https://tools.amditis.tech/assets/og-pocketlink.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PocketLink | One-click Bit.ly shortlinks in your browser" />
+    <meta name="twitter:description" content="Turn the current page into a Bit.ly shortlink and copy it to your clipboard in one click." />
+    <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-pocketlink.png" />
+
+    <!-- CSS & Config -->
+    <link rel="stylesheet" href="/assets/amditis-main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/amditis-config.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
+<script src="/assets/ask-ai.js" defer></script>
+</head>
+<body class="antialiased font-sans bg-canvas text-ink">
+
+    <div class="paper-overlay"></div>
+    <div class="fixed top-[-15%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[140px] animate-drift pointer-events-none z-0"></div>
+
+    <div class="flex min-h-screen relative z-10">
+
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-ink/10 bg-canvas hidden md:block fixed inset-y-0 left-0 overflow-y-auto z-50">
+            <div class="p-6 border-b border-ink/10">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl group-hover:bg-ink transition-colors">A</div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wider text-ink">AMDITIS</h1>
+                        <p class="text-xs text-ink/50 tracking-[0.2em]">KIT v2.6</p>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="p-6 space-y-1 text-sm">
+                <a href="/" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Dashboard</a>
+                <a href="#overview" class="block px-3 py-2 text-accent border-l-2 border-accent bg-accent/5">Overview</a>
+                <a href="#features" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Features</a>
+                <a href="#setup" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Setup</a>
+                <a href="#privacy" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Privacy</a>
+                <a href="#install" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Install</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-64 flex-1 p-8 md:p-12 lg:p-16 max-w-5xl mx-auto space-y-24">
+
+            <!-- Hero -->
+            <section id="overview" class="border-b border-ink/10 pb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="h-px flex-1 bg-ink/10"></div>
+                    <span class="text-xs text-ink/50 uppercase tracking-widest">Browser extension</span>
+                    <div class="h-px flex-1 bg-ink/10"></div>
+                </div>
+                <h2 class="font-display text-4xl md:text-6xl font-light italic text-ink mb-8">PocketLink</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-ink/70 text-lg leading-relaxed">
+                            Shortlinks right where you need them. One click turns the page you are on into a Bit.ly shortlink
+                            and copies it straight to your clipboard, so you can paste it into a post, a message, or a story
+                            without leaving the tab.
+                        </p>
+                        <p class="text-ink/70 leading-relaxed">
+                            Trigger it from the toolbar or a right-click menu, and pick how much it does on its own: copy
+                            automatically, review each link first, or fall back to a manual step only when it needs one. Your
+                            Bit.ly token stays on your device.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 text-xs text-ink/50">
+                            <span class="flex items-center gap-2"><i data-lucide="chrome" class="w-3 h-3"></i> Chrome &amp; Edge</span>
+                            <span class="flex items-center gap-2"><i data-lucide="tag" class="w-3 h-3"></i> Version 1.1.2</span>
+                            <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3"></i> Manifest V3</span>
+                            <span class="flex items-center gap-2"><i data-lucide="github" class="w-3 h-3"></i> Open source</span>
+                        </div>
+                    </div>
+                    <div class="deckle-card p-6 relative">
+                        <div class="absolute top-0 right-0 p-2 opacity-50">
+                            <i data-lucide="link" class="w-5 h-5 text-accent"></i>
+                        </div>
+                        <h3 class="text-lg font-display text-ink mb-4">Get PocketLink</h3>
+                        <p class="text-sm text-ink/60 leading-relaxed mb-5">
+                            Live on the Chrome Web Store, and installable on Microsoft Edge from the same listing. You will
+                            need a free Bit.ly access token to start shortening.
+                        </p>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://chromewebstore.google.com/detail/pocketlink/fiiplgpcffalbfmbafflbokkghnkcadm" target="_blank" rel="noopener noreferrer" class="btn-outline text-xs inline-flex items-center gap-2 justify-center">
+                                <i data-lucide="download" class="w-3 h-3"></i> Install from Chrome Web Store
+                            </a>
+                            <a href="https://github.com/jamditis/pocketlink" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:text-ink transition-colors inline-flex items-center gap-2 justify-center">Source on GitHub &nearr;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section id="features">
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">01 // Features</h3>
+                    <span class="text-xs text-ink/40">What it does</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="deckle-card p-6 hover:border-accent transition-colors group">
+                        <i data-lucide="toggle-right" class="w-6 h-6 text-ink/40 mb-4 group-hover:text-accent transition-colors"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">Three interaction modes</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed">Auto-copy creates and copies the link in one action. Manual shows it in the popup for you to review. Hybrid copies automatically and falls back to a manual step only if it needs to.</p>
+                    </div>
+                    <div class="deckle-card p-6 hover:border-accent transition-colors group">
+                        <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-ink/40 mb-4 group-hover:text-accent transition-colors"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">Right-click to shorten</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed">A Create shortlink option sits in the context menu, so you can shorten the current page without opening the popup at all.</p>
+                    </div>
+                    <div class="deckle-card p-6 hover:border-accent transition-colors group">
+                        <i data-lucide="clipboard-check" class="w-6 h-6 text-ink/40 mb-4 group-hover:text-accent transition-colors"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">Reliable clipboard copy</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed">Uses Chrome's offscreen API to copy the link cleanly, with a fallback path so the copy still lands when the primary method is unavailable.</p>
+                    </div>
+                    <div class="deckle-card p-6 hover:border-accent transition-colors group">
+                        <i data-lucide="key-round" class="w-6 h-6 text-ink/40 mb-4 group-hover:text-accent transition-colors"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">Your token, your device</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed">Your Bit.ly access token is stored in Chrome's sync storage and sent only to Bit.ly to create links, never to any other server.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Setup -->
+            <section id="setup">
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">02 // Setup</h3>
+                    <span class="text-xs text-ink/40">One-time step</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-accent text-accent flex items-center justify-center font-bold text-sm group-hover:bg-accent group-hover:text-white transition-colors">01</div>
+                            <div class="w-px h-full bg-ink/10 mt-2"></div>
+                        </div>
+                        <div class="pb-8">
+                            <h4 class="text-ink font-bold font-display text-lg mb-2">Get a Bit.ly access token</h4>
+                            <p class="text-sm text-ink/50">Create a free Bit.ly account and generate a personal access token from your account settings.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-ink/30 text-ink/50 flex items-center justify-center font-bold text-sm group-hover:border-accent group-hover:text-accent transition-colors">02</div>
+                            <div class="w-px h-full bg-ink/10 mt-2"></div>
+                        </div>
+                        <div class="pb-8">
+                            <h4 class="text-ink font-bold font-display text-lg mb-2">Paste it into settings</h4>
+                            <p class="text-sm text-ink/50">Open PocketLink's options, paste the token once, and it is saved to your browser's sync storage.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 group">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 border border-ink/30 text-ink/50 flex items-center justify-center font-bold text-sm group-hover:border-accent group-hover:text-accent transition-colors">03</div>
+                            <div class="w-px h-full bg-ink/10 mt-2 opacity-0"></div>
+                        </div>
+                        <div>
+                            <h4 class="text-ink font-bold font-display text-lg mb-2">Shorten anything</h4>
+                            <p class="text-sm text-ink/50">From then on, one click on the toolbar icon or the right-click menu shortens the current page and copies the link.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy -->
+            <section id="privacy">
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">03 // Privacy</h3>
+                    <span class="text-xs text-ink/40">Minimal by design</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-4">
+                        <p class="text-ink/70 leading-relaxed">
+                            PocketLink asks for the minimum it needs to do its job. It reads the address of the current tab
+                            only when you ask it to shorten that page, and it contacts the Bit.ly API only to create the link.
+                        </p>
+                        <p class="text-ink/70 leading-relaxed">
+                            It does not track your browsing, run analytics, or send your data anywhere other than Bit.ly. Your
+                            access token stays in your browser.
+                        </p>
+                    </div>
+                    <div class="deckle-card p-6">
+                        <h4 class="text-ink font-bold font-display mb-4">What it stores</h4>
+                        <ul class="space-y-3 text-xs text-ink/60 leading-relaxed">
+                            <li><span class="text-accent font-bold">Bit.ly token</span> &mdash; kept in Chrome's sync storage so it follows your browser profile, used only to authenticate with Bit.ly.</li>
+                            <li><span class="text-accent font-bold">Preferences</span> &mdash; your chosen interaction mode, stored locally.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Install -->
+            <section id="install">
+                <div class="flex items-end justify-between border-b border-ink/10 pb-4 mb-8">
+                    <h3 class="font-display text-2xl font-light italic text-accent">04 // Install</h3>
+                    <span class="text-xs text-ink/40">Two ways in</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="deckle-card p-6">
+                        <i data-lucide="store" class="w-6 h-6 text-ink/40 mb-4"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">From the store</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed mb-4">Add it in one click in Chrome. On Edge, the same Chrome Web Store listing installs directly, after a one-time prompt to allow extensions from other stores.</p>
+                        <a href="https://chromewebstore.google.com/detail/pocketlink/fiiplgpcffalbfmbafflbokkghnkcadm" target="_blank" rel="noopener noreferrer" class="btn-outline text-xs inline-flex items-center gap-2">Chrome Web Store &nearr;</a>
+                    </div>
+                    <div class="deckle-card p-6">
+                        <i data-lucide="github" class="w-6 h-6 text-ink/40 mb-4"></i>
+                        <h4 class="text-ink font-bold font-display mb-2">From source</h4>
+                        <p class="text-xs text-ink/50 leading-relaxed mb-4">Clone the repository and load the unpacked folder from chrome://extensions or edge://extensions with developer mode on. The full source is on GitHub.</p>
+                        <a href="https://github.com/jamditis/pocketlink" target="_blank" rel="noopener noreferrer" class="btn-outline text-xs inline-flex items-center gap-2">View on GitHub &nearr;</a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-canvas py-8 relative z-10">
+        <div class="max-w-5xl mx-auto px-6 md:pl-72 text-center md:text-left">
+            <p class="text-canvas/60 text-sm">
+                Part of the <a href="/" class="text-canvas hover:text-accent transition-colors">Amditis Resource Kit</a> // CCM Resources
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
