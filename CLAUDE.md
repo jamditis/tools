@@ -194,6 +194,8 @@ Template (two sections):
 
 See `rosen-frontend/.github/copilot-instructions.md` for the reference layout. Keep each file well under 4,000 characters; if a repo's project bug classes grow, that budget is for them, not for re-restated globals.
 
+`scripts/check-copilot-instructions.sh` enforces the cap so the sweep is not manual: it prints each repo's `.github/copilot-instructions.md` size, warns near the cap, exits non-zero on any file over it, and advises where a file still restates prose-style globals the bot ignores. Run it with no arguments to scan every repo under `~/projects`, or pass repo roots for a specific set (passing explicit roots also avoids counting incidental worktree clones, which carry their own copy of the file). `scripts/check-copilot-instructions.test.sh` covers it.
+
 Background: `tools` issue #59, and `MEMORY.md` → `reference_copilot_pr_review_reading_scope.md` for the underlying constraint.
 
 ## Things to avoid
