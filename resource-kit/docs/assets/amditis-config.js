@@ -35,6 +35,11 @@
  * @module AmditisConfigV2
  * @requires Tailwind CSS CDN with Play CDN
  * @see {@link https://jamditis.github.io/tools/} Live implementation
+ *
+ * The static content pages no longer use this: they ship the precompiled
+ * stylesheet from ../tailwind-build. If you change the palette here, mirror it in
+ * resource-kit/tailwind-build/tailwind.config.js and rebuild, or the migrated
+ * pages drift from the pages still on the CDN.
  */
 
 tailwind.config = {

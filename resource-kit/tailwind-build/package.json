@@ -1,0 +1,11 @@
+{
+  "name": "tools-tailwind-build",
+  "private": true,
+  "description": "Precompiled Tailwind stylesheet for the tools.amditis.tech resource kit",
+  "scripts": {
+    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../docs/assets/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
