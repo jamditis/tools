@@ -25,4 +25,7 @@ test("pdf-design publishes no maintainer-specific credential or upload wiring", 
   assert.match(skill, /connected Google Drive (tool|integration)/i);
   assert.match(skill, /Do not read or parse raw OAuth token files/i);
   assert.match(skill, /--blink-settings=scriptEnabled=false/);
+  assert.match(skill, /dedicated snap-accessible report workspace/i);
+  assert.match(skill, /preserv(?:e|ing) their relative paths/i);
+  assert.match(skill, /Do not copy an unrelated project tree/i);
 });

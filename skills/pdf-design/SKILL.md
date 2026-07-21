@@ -33,23 +33,27 @@ During a design session, use these commands:
 - Keep local generation and preview separate from remote upload. Generate locally unless the user explicitly requests an upload.
 - Never include credentials, private context, or unrelated local files in a document or upload.
 - Ask before using remote fonts, images, or stylesheets in sensitive documents; prefer bundled or local assets.
+- Use a dedicated snap-accessible report workspace. Keep the HTML and every approved local asset together there, preserving their relative paths.
+- Resolve asset paths beneath that workspace and reject symlink escapes. Do not copy an unrelated project tree into the workspace or follow links outside it.
 
 ---
 
 ## Quick start
 
 ```bash
-# Copy template to start new report
-cp ~/.claude/plugins/pdf-design/templates/democracy-day-proposal.html ./new-report.html
+# Start the report inside a dedicated snap-accessible workspace
+REPORT_DIR="$HOME/snap/chromium/common/pdf-work/new-report"
+mkdir -p "$REPORT_DIR"
+cp "$HOME/.claude/plugins/pdf-design/templates/democracy-day-proposal.html" \
+  "$REPORT_DIR/report.html"
+# Copy only approved files referenced by report.html into REPORT_DIR,
+# preserving their relative paths (for example, assets/logo.svg -> assets/logo.svg).
 
-# Generate PDF (must use snap-accessible path)
-mkdir -p ~/snap/chromium/common/pdf-work
-cp new-report.html ~/snap/chromium/common/pdf-work/
 chromium-browser --headless --disable-gpu \
   --blink-settings=scriptEnabled=false \
-  --print-to-pdf="$HOME/snap/chromium/common/pdf-work/output.pdf" \
+  --print-to-pdf="$REPORT_DIR/output.pdf" \
   --no-pdf-header-footer \
-  "file://$HOME/snap/chromium/common/pdf-work/new-report.html"
+  "file://$REPORT_DIR/report.html"
 ```
 
 ## Document types
@@ -189,16 +193,21 @@ h1, h2, h3 {
 ## PDF generation
 
 ### Chromium (snap-confined)
+
+Create or stage the report in its dedicated snap-accessible workspace before
+rendering. Put `template.html` and each approved relative asset under
+`$REPORT_DIR` with the same layout the HTML references. Do not copy an unrelated
+project tree just to make its assets visible.
+
 ```bash
-# Must use ~/snap/chromium/common/ path
-mkdir -p ~/snap/chromium/common/pdf-work
-cp template.html ~/snap/chromium/common/pdf-work/
+REPORT_DIR="$HOME/snap/chromium/common/pdf-work/my-report"
+test -f "$REPORT_DIR/template.html"
 chromium-browser --headless --disable-gpu \
   --blink-settings=scriptEnabled=false \
-  --print-to-pdf="$HOME/snap/chromium/common/pdf-work/output.pdf" \
+  --print-to-pdf="$REPORT_DIR/output.pdf" \
   --no-pdf-header-footer \
-  "file://$HOME/snap/chromium/common/pdf-work/template.html"
-cp ~/snap/chromium/common/pdf-work/output.pdf ./
+  "file://$REPORT_DIR/template.html"
+cp "$REPORT_DIR/output.pdf" ./output.pdf
 ```
 
 ### Preview pages
@@ -212,14 +221,14 @@ pdfinfo output.pdf | grep Pages
 
 ### HTML preview
 ```bash
-mkdir -p "$HOME/snap/chromium/common/pdf-work"
-cp template.html "$HOME/snap/chromium/common/pdf-work/template.html"
+REPORT_DIR="$HOME/snap/chromium/common/pdf-work/my-report"
+test -f "$REPORT_DIR/template.html"
 chromium-browser --headless --disable-gpu \
   --blink-settings=scriptEnabled=false \
-  --screenshot="$HOME/snap/chromium/common/pdf-work/preview.png" \
+  --screenshot="$REPORT_DIR/preview.png" \
   --window-size=1275,1650 \
-  "file://$HOME/snap/chromium/common/pdf-work/template.html"
-cp "$HOME/snap/chromium/common/pdf-work/preview.png" ./preview.png
+  "file://$REPORT_DIR/template.html"
+cp "$REPORT_DIR/preview.png" ./preview.png
 ```
 
 ---
