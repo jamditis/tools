@@ -35,9 +35,10 @@ Still on the Play CDN, deliberately, are the pages a static build cannot cover
 without extra work, because it only ships the classes it sees at build time:
 
 - Class names built at runtime by string interpolation (`bg-${color}`), which the
-  glob scan cannot see: `llm-advisor/index.html`, `llm-advisor/ai-showcase/index.html`,
-  and `terminal-setup/index.html`. Migrating these needs a `safelist` (or a per-page
-  class inventory) that captures the interpolated classes, verified page by page.
+  glob scan cannot see: `llm-advisor/ai-showcase/index.html`, whose cards build
+  their hover and accent classes from a data array. Migrating it needs a `safelist`
+  (or a per-page class inventory) that captures the interpolated classes, verified
+  page by page.
 - Pages carrying their own inline `tailwind.config`: `html-editor/index.html` and
   `llm-advisor/vibe-coding/index.html`. Migrating these needs their `theme.extend`
   merged into `tailwind.config.js` (watch for palette-name collisions between pages).
