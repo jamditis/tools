@@ -28,18 +28,19 @@ Keep the two in sync until every page is migrated, then retire the runtime confi
 
 ## Migration status
 
-Migrated to the precompiled stylesheet: 15 static content pages, whose Tailwind
-classes all resolve from the HTML and JS the build scans.
+Migrated to the precompiled stylesheet: every static content page whose Tailwind
+classes all resolve as literals from the HTML and JS the build scans.
 
-Still on the Play CDN, deliberately: pages that generate Tailwind class names at
-runtime (dynamic DOM built in JS, some by string interpolation), and the two pages
-that carry their own inline `tailwind.config`. A static build only ships the classes
-it sees at build time, so migrating these safely needs one of:
+Still on the Play CDN, deliberately, are the pages a static build cannot cover
+without extra work, because it only ships the classes it sees at build time:
 
-- a `safelist` (or a per-page class inventory) that captures the interpolated
-  classes the JS scan cannot, verified page by page, or
-- for the inline-config pages, merging their `theme.extend` into
-  `tailwind.config.js` (watch for palette-name collisions between pages).
+- Class names built at runtime by string interpolation (`bg-${color}`), which the
+  glob scan cannot see: `llm-advisor/index.html`, `llm-advisor/ai-showcase/index.html`,
+  and `terminal-setup/index.html`. Migrating these needs a `safelist` (or a per-page
+  class inventory) that captures the interpolated classes, verified page by page.
+- Pages carrying their own inline `tailwind.config`: `html-editor/index.html` and
+  `llm-advisor/vibe-coding/index.html`. Migrating these needs their `theme.extend`
+  merged into `tailwind.config.js` (watch for palette-name collisions between pages).
 
 The remaining pages are tracked in jamditis/tools#78, so the split stays on the
 record and the production warning gets fully retired.
