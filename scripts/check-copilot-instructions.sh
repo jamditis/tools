@@ -82,24 +82,58 @@ PROSE_EXCLUDE='intentional|omit|exclud|not enforce|bot ignores|style linter|not 
 # git directory, which still collapses worktrees, and a directory that is not a repo at
 # all falls back to its own path so it is never merged with anything else.
 repo_identity() {
-  local repo="$1" url common
-  if url="$(git -C "$repo" remote get-url origin 2>/dev/null)" && [[ -n "$url" ]]; then
-    # Normalize so git@github.com:owner/repo.git and https://github.com/owner/repo
-    # resolve to the same identity.
-    url="${url%.git}"
-    url="${url#*://}"
-    url="${url#git@}"
-    url="${url/:/\/}"
-    printf 'origin:%s' "$(printf '%s' "$url" | tr '[:upper:]' '[:lower:]')"
+  local repo="$1" abs toplevel url host common
+
+  abs="$(cd "$repo" 2>/dev/null && pwd -P)" || abs=""
+
+  # A directory that merely SITS INSIDE a checkout must not borrow that checkout's
+  # identity. `git -C` searches upward, so both `remote get-url origin` and
+  # `--git-common-dir` answer for the enclosing repo, and two unrelated
+  # subdirectories would fold into one row. Only a directory that is itself a
+  # worktree root gets a git identity; that still includes linked worktrees and
+  # clones, which are exactly what we want folded. Everything else is its own path.
+  toplevel="$(git -C "$repo" rev-parse --show-toplevel 2>/dev/null)" || toplevel=""
+  if [[ -z "$abs" || -z "$toplevel" || "$toplevel" != "$abs" ]]; then
+    printf 'path:%s' "${abs:-$repo}"
     return
   fi
-  if common="$(cd "$repo" 2>/dev/null && git rev-parse --git-common-dir 2>/dev/null)" &&
-    [[ -n "$common" ]]; then
-    [[ "$common" != /* ]] && common="$repo/$common"
+
+  if url="$(git -C "$repo" remote get-url origin 2>/dev/null)" && [[ -n "$url" ]]; then
+    url="${url%.git}"
+    if [[ "$url" == *://* ]]; then
+      # A real URL: host[:port]/path. Keep it as written apart from the scheme and
+      # any userinfo -- rewriting a colon here would mangle a port into a path
+      # segment.
+      url="${url#*://}"
+      url="${url#*@}"
+    else
+      # scp form, `[user@]host:owner/repo`, where the single colon separates host
+      # from path and does convert to a slash.
+      url="${url#*@}"
+      url="${url/:/\/}"
+    fi
+    # Case-fold only where case genuinely does not distinguish repos. GitHub
+    # owner/repo is case-insensitive, so git@github.com:Owner/Repo and
+    # https://github.com/owner/repo are one repo. Lowercasing every origin would
+    # instead merge distinct repos on a case-sensitive host.
+    host="${url%%/*}"
+    [[ "${host,,}" == "github.com" ]] && url="${url,,}"
+    printf 'origin:%s' "$url"
+    return
+  fi
+
+  if common="$(git -C "$repo" rev-parse --git-common-dir 2>/dev/null)" && [[ -n "$common" ]]; then
+    # The same main worktree answers `.git` from inside itself and an absolute path
+    # from a linked worktree, and a trailing slash or relative argument leaves a
+    # third spelling. They have to be canonicalized or the fold silently stops
+    # working for exactly the no-origin worktrees this branch exists to catch.
+    [[ "$common" != /* ]] && common="$abs/$common"
+    common="$(cd "$common" 2>/dev/null && pwd -P)" || common="$abs/.git"
     printf 'gitdir:%s' "$common"
     return
   fi
-  printf 'path:%s' "$(cd "$repo" 2>/dev/null && pwd -P || printf '%s' "$repo")"
+
+  printf 'path:%s' "$abs"
 }
 
 # Collect every file first, then report one row per upstream repo. Reporting inside the

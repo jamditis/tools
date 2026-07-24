@@ -149,6 +149,50 @@ out="$("$guard" "$tmp/dupA" "$tmp/dupB" 2>&1)"
 check "identical advisory is not printed twice" \
   test "$(grep -c 'advisory: prose-style rule' <<<"$out")" -eq 1
 
+echo "=== a plain directory inside a checkout does not borrow its origin ==="
+# `git -C` searches upward, so a directory that is merely nested in a repo answers
+# with the PARENT's origin and common git dir. Without a worktree-root check, two
+# unrelated subdirectories fold into one row and one of the files stops being counted.
+mkrepo nested 200 https://github.com/example/nested.git
+mkfile nested/inner1 200
+mkfile nested/inner2 200
+out="$("$guard" "$tmp/nested/inner1" "$tmp/nested/inner2" 2>&1)"
+check "nested plain directories are not folded by the parent's origin" \
+  grep -q "checked 2 repo(s)" <<<"$out"
+
+echo "=== a no-origin worktree folds even when the path is spelled differently ==="
+# `--git-common-dir` answers `.git` from inside the main worktree but an absolute
+# path from a linked one, and a trailing slash leaves a third spelling. Unless the
+# key is canonicalized, the fold quietly stops working for the no-origin case.
+mkrepo slashed 200
+git -C "$tmp/slashed" worktree add -q "$tmp/slashed-wt" -b wt >/dev/null 2>&1
+out="$("$guard" "$tmp/slashed/" "$tmp/slashed-wt" 2>&1)"
+check "trailing slash still folds the worktree" grep -q "checked 1 repo(s)" <<<"$out"
+
+echo "=== distinct non-GitHub origins are not merged by case folding ==="
+# GitHub owner/repo is case-insensitive, so folding case there is correct. Applying
+# it to every host merges repos that a case-sensitive server keeps separate.
+mkrepo caseA 200 https://git.example.com/Org/Repo.git
+mkrepo caseB 200 https://git.example.com/org/repo.git
+out="$("$guard" "$tmp/caseA" "$tmp/caseB" 2>&1)"
+check "case-distinct non-GitHub origins stay two repos" grep -q "checked 2 repo(s)" <<<"$out"
+
+echo "=== GitHub origins still fold across case and URL form ==="
+# The counterpart: the case folding that finding removes for other hosts must
+# survive for GitHub, or the original dedup regresses.
+mkrepo ghA 200 git@github.com:Example/Shared.git
+mkrepo ghB 200 https://github.com/example/shared
+out="$("$guard" "$tmp/ghA" "$tmp/ghB" 2>&1)"
+check "GitHub case and scp form still fold" grep -q "checked 1 repo(s)" <<<"$out"
+
+echo "=== an SSH URL with a port keeps the port out of the path ==="
+# Stripping the scheme then rewriting the first colon turns host:2222/org/repo into
+# host/2222/org/repo. Same-repo URLs written both ways must still agree.
+mkrepo portA 200 "ssh://git@git.example.com:2222/org/repo.git"
+mkrepo portB 200 "ssh://git@git.example.com:2222/org/repo"
+out="$("$guard" "$tmp/portA" "$tmp/portB" 2>&1)"
+check "a ported SSH origin folds with its .git-suffixed twin" grep -q "checked 1 repo(s)" <<<"$out"
+
 echo
 echo "=== $pass passed, $fail failed ==="
 [[ $fail -eq 0 ]]
