@@ -3,7 +3,9 @@
 > Choose the right AI coding assistant for your journalism project.
 
 **Author:** Joe Amditis
-**Last updated:** June 2026
+**Verified:** July 24, 2026
+
+Model names, access, prices, and privacy terms change quickly. Verify the current provider documentation before production use.
 
 ---
 
@@ -19,31 +21,31 @@ Answer the questions below to find the best LLM for your project. Each recommend
 *Cleaning spreadsheets, merging datasets, statistical analysis*
 
 → Best for: **Python scripts**
-→ Recommended LLM: **Claude Sonnet 4.6** or **Gemini 3.1 Flash**
+→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.6 Flash**
 
 ### Web scraping
 *Extracting data from websites, automating downloads*
 
 → Best for: **Python with BeautifulSoup or Playwright**
-→ Recommended LLM: **Claude Sonnet 4.6** (handles complex DOM structures well)
+→ Recommended LLM: **Claude Sonnet 5** (handles complex DOM structures well)
 
 ### Interactive visualization
 *Charts, maps, interactive graphics for stories*
 
 → Best for: **JavaScript with D3.js or Observable**
-→ Recommended LLM: **Claude Sonnet 4.6** or **Gemini 3.1 Flash**
+→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.6 Flash**
 
 ### File automation
 *Batch renaming, format conversion, organization*
 
 → Best for: **Bash or Python**
-→ Recommended LLM: **Gemini 3.1 Flash** (fast iterations for simple scripts)
+→ Recommended LLM: **Gemini 3.6 Flash** (fast iterations for simple scripts)
 
 ### Database work
 *SQL queries, data extraction, reporting*
 
 → Best for: **SQL**
-→ Recommended LLM: **Claude Sonnet 4.6** (excellent at complex queries)
+→ Recommended LLM: **Claude Sonnet 5** (excellent at complex queries)
 
 ---
 
@@ -54,32 +56,19 @@ Answer the questions below to find the best LLM for your project. Each recommend
 - Fast iteration more important than depth
 
 ### Medium (multiple files, some logic)
-- Use: **Claude Sonnet 4.6** or **Gemini 3.1 Flash**
+- Use: **Claude Sonnet 5** or **Gemini 3.6 Flash**
 - Balance of speed and capability
 
 ### Complex (multi-step, debugging intensive)
-- Use: **Claude Opus 4.8** for coding/writing
-- Use: **Gemini 3.1 Pro** for front-end design and large documents
-- Best reasoning for complex problems
+- Use: **Claude Fable 5** or **Claude Opus 4.8** for difficult Anthropic workflows
+- Use: **GPT-5.6 Sol** for complex OpenAI agent work
+- Use: **Gemini 3.1 Pro** for preview multimodal reasoning, or **Gemini 3.6 Flash** for a stable option
 
 ---
 
 ## Question 3: What's your budget?
 
-### Free
-| Option | Limits | Best for |
-|--------|--------|----------|
-| Claude.ai free | Message limits | Learning, simple scripts |
-| ChatGPT free | Gemini 3.1 Flash mini | Quick questions |
-| GitHub Copilot (free for verified students/educators) | Full access | In-editor coding |
-
-### Paid
-| Option | Cost | Best for |
-|--------|------|----------|
-| Claude Pro | $20/mo | Heavy daily use |
-| ChatGPT Plus | $20/mo | Gemini 3.1 Flash access |
-| GitHub Copilot | $10/mo | Real-time coding |
-| Claude API | Pay per use | Automation, batch processing |
+Free tiers, subscriptions, and API rates change frequently and differ by region. Check the current plan page for Claude, ChatGPT, Gemini, GitHub Copilot, or your chosen hosted open-model provider before budgeting.
 
 ---
 
@@ -87,40 +76,41 @@ Answer the questions below to find the best LLM for your project. Each recommend
 
 | If you need... | Use this |
 |----------------|----------|
-| Best coding and writing | Claude Opus 4.8 |
-| Front-end design | Gemini 3.1 Pro |
-| OpenAI coding | Codex (GPT 5.5) |
-| Free option | Claude.ai free tier |
-| In-editor suggestions | GitHub Copilot |
-| Large document analysis | Gemini 3.1 Pro |
+| Maximum-capability Anthropic work | Claude Fable 5 |
+| Balanced Anthropic coding | Claude Sonnet 5 |
+| Stable multimodal agents | Gemini 3.6 Flash |
+| OpenAI coding | Codex (GPT-5.6 Sol) |
+| Open-weight long-horizon agents | GLM-5.2 |
+| Efficient local coding | Qwen3.6-35B-A3B |
 
 ---
 
-## Model comparison (June 2026)
+## Model comparison
 
-### Claude Opus 4.8
-- **Strengths:** Best model for coding and writing by far, excellent reasoning
+### Claude Fable 5 and Claude Opus 4.8
+- **Strengths:** High-capability long-running agents, coding, writing, and complex reasoning
 - **Weaknesses:** Slower response times
-- **Best for:** All coding tasks, large projects, long-form writing
-- **Access:** Claude Pro ($20/mo) or API
+- **Best for:** Difficult repository work, complex research, long-form writing
+- **Access:** Check the current Anthropic plan and model matrix
 
-### Gemini 3.1 Pro
-- **Strengths:** Best for front-end design, industry-leading context window
-- **Weaknesses:** Not as strong for pure coding as Claude Opus 4.8
-- **Best for:** Front-end work, large document analysis, multimodal projects
-- **Access:** Gemini Advanced ($20/mo)
+### Gemini 3.6 Flash and Gemini 3.1 Pro
+- **Strengths:** Strong multimodal input, long context, and tool use
+- **Weaknesses:** Gemini 3.1 Pro is a preview model whose lifecycle can change
+- **Best for:** Agentic multimodal work and large-document analysis
+- **Access:** Check the current Google model page
 
-### Codex (GPT 5.5)
+### Codex (GPT-5.6 Sol)
 - **Strengths:** OpenAI's specialized coding model, excellent multi-file projects
 - **Weaknesses:** Less versatile for non-coding tasks
 - **Best for:** All OpenAI coding work, multi-file projects
-- **Access:** OpenAI subscription
+- **Access:** Check current Codex and OpenAI plan support
 
-### GitHub Copilot
-- **Strengths:** Real-time suggestions, integrated in VS Code/editors
-- **Weaknesses:** Not conversational, limited context
-- **Best for:** Line-by-line coding, autocomplete, small functions
-- **Access:** $10/mo (free for students/educators)
+### Open-weight options
+- **GLM-5.2:** Long-horizon, one-million-token agent workflows
+- **DeepSeek V4 Pro/Flash:** Long-context coding and tools
+- **Qwen3.6-35B-A3B:** Efficient local agentic coding
+- **Kimi K2.5:** Multimodal and coordinated multi-agent workflows
+- **Access:** Open weights do not mean free operation; budget for hardware or hosted inference
 
 ---
 
@@ -159,7 +149,7 @@ LLMs make mistakes. Always:
 Try a different model. Each has different training data and approaches.
 
 **Too slow?**
-Drop from Opus to Sonnet, or use Gemini 3.1 Flash for quick tasks.
+Drop from Opus to Sonnet, or use Gemini 3.6 Flash for quick tasks.
 
 **Too expensive?**
 Use free tiers for exploration, paid for production code.

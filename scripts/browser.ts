@@ -1083,8 +1083,10 @@ async function cmdCloseContext(): Promise<void> {
 
 async function cmdAccessibilitySnapshot(options?: { root?: string }): Promise<void> {
   const page = await ensurePage();
-  const root = options?.root ? await page.$(options.root) : undefined;
-  const snapshot = await page.accessibility.snapshot({ root: root || undefined });
+  const snapshot = await page
+    .locator(options?.root || 'html')
+    .first()
+    .ariaSnapshot();
   success('Accessibility snapshot', { snapshot });
 }
 

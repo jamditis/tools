@@ -4,6 +4,9 @@ A resource kit for journalists learning to build tools with AI assistance. Creat
 
 **[View the live site →](https://tools.amditis.tech/)**
 
+Current-facing model, agent, harness, and router guidance was verified July 24,
+2026. Re-check the linked provider documentation before production use.
+
 ---
 
 ## What's inside
@@ -68,11 +71,32 @@ Journalism & publishing:
 
 ```
 resource-kit/
-├── docs/               # Main pages (index, about, glossary, etc.)
-├── llm-advisor/        # Interactive LLM selection tool
-├── downloads/          # Markdown templates for download
-├── assets/             # CSS and config files
+├── docs/               # Deployable static site
+│   ├── llm-advisor/    # Interactive LLM selection tool
+│   ├── downloads/      # Downloadable Markdown templates
+│   └── assets/         # Shared compiled CSS and static assets
+├── tailwind-build/     # Tailwind 3 build and migration tests
 └── markdown/           # Source markdown files
+```
+
+## Validation
+
+Run the model freshness test and JSON validator from the repository root:
+
+```bash
+cd scripts
+npm install
+npm test
+cd ..
+node scripts/validate-all-json.js
+```
+
+Rebuild and verify shared CSS whenever a migrated page changes:
+
+```bash
+cd resource-kit/tailwind-build
+npm install
+npm test
 ```
 
 ---

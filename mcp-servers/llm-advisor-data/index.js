@@ -16,11 +16,18 @@
 
 const { Server } = require("@modelcontextprotocol/sdk/server/index.js");
 const { StdioServerTransport } = require("@modelcontextprotocol/sdk/server/stdio.js");
+const {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} = require("@modelcontextprotocol/sdk/types.js");
 const fs = require("fs").promises;
 const path = require("path");
+const { JsonFileStore } = require("./storage.js");
 
 // Data file paths
-const DATA_DIR = path.join(__dirname, "../../resource-kit/docs/llm-advisor/data");
+const DATA_DIR = process.env.LLM_ADVISOR_DATA_DIR
+  ? path.resolve(process.env.LLM_ADVISOR_DATA_DIR)
+  : path.join(__dirname, "../../resource-kit/docs/llm-advisor/data");
 const FILES = {
   decisionTree: path.join(DATA_DIR, "decision-tree.json"),
   caseStudies: path.join(DATA_DIR, "case-studies.json"),
@@ -29,16 +36,6 @@ const FILES = {
   bestPractices: path.join(DATA_DIR, "best-practices.json"),
   changelog: path.join(DATA_DIR, "changelog.json"),
 };
-
-// Model name validation
-const VALID_MODELS = [
-  "Claude Opus 4.8",
-  "Claude Sonnet 4.6",
-  "Gemini 3.1 Pro",
-  "Gemini 3.1 Flash",
-  "GPT 5.5",
-  "Codex (GPT 5.5)",
-];
 
 // Create server instance
 const server = new Server(
@@ -59,24 +56,198 @@ async function readJsonFile(filePath) {
   return JSON.parse(content);
 }
 
-// Helper: Write JSON file with pretty formatting
-async function writeJsonFile(filePath, data) {
-  const content = JSON.stringify(data, null, 2);
-  await fs.writeFile(filePath, content, "utf8");
+const jsonStore = new JsonFileStore();
+
+function validateRecord(data, name) {
+  if (!data || Array.isArray(data) || typeof data !== "object") {
+    throw new Error(`${name} must be a JSON object`);
+  }
+}
+
+function isAsciiLetter(character) {
+  return (
+    (character >= "A" && character <= "Z") ||
+    (character >= "a" && character <= "z")
+  );
+}
+
+function isHtmlWhitespace(character) {
+  return (
+    character === " " ||
+    character === "\t" ||
+    character === "\n" ||
+    character === "\f" ||
+    character === "\r"
+  );
+}
+
+function containsHtmlMarkup(value) {
+  for (
+    let start = value.indexOf("<");
+    start !== -1;
+    start = value.indexOf("<", start + 1)
+  ) {
+    let cursor = start + 1;
+    if (value[cursor] === "/") {
+      cursor += 1;
+    }
+
+    const opener = value[cursor];
+    if (opener === "!" || opener === "?") {
+      if (value.indexOf(">", cursor + 1) !== -1) {
+        return true;
+      }
+      continue;
+    }
+    if (!isAsciiLetter(opener)) {
+      continue;
+    }
+
+    for (cursor += 1; cursor < value.length; cursor += 1) {
+      const character = value[cursor];
+      if (character === ">") {
+        return true;
+      }
+      if (character !== "=") {
+        continue;
+      }
+
+      let attributeValueStart = cursor + 1;
+      while (isHtmlWhitespace(value[attributeValueStart])) {
+        attributeValueStart += 1;
+      }
+      const quote = value[attributeValueStart];
+      if (quote !== '"' && quote !== "'") {
+        continue;
+      }
+
+      const quoteEnd = value.indexOf(quote, attributeValueStart + 1);
+      if (quoteEnd === -1) {
+        break;
+      }
+      cursor = quoteEnd;
+    }
+  }
+
+  return false;
+}
+
+function validatePlainText(value, name) {
+  if (typeof value !== "string" || containsHtmlMarkup(value)) {
+    throw new Error(`${name} must be plain text without HTML markup`);
+  }
+}
+
+function validateHttpUrl(value, name, { allowEmpty = false } = {}) {
+  if (allowEmpty && value === "") {
+    return;
+  }
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error(`${name} must be an absolute HTTP(S) URL`);
+  }
+
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error(`${name} must be an absolute HTTP(S) URL`);
+  }
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    throw new Error(`${name} must use HTTP or HTTPS`);
+  }
+}
+
+function validateDecisionTree(data) {
+  validateRecord(data, "Decision tree");
+  for (const [nodeId, node] of Object.entries(data)) {
+    validateRecord(node, `Decision node ${nodeId}`);
+    if (typeof node.question !== "string" || !Array.isArray(node.options)) {
+      throw new Error(
+        `Decision node ${nodeId} must have a question and options array`
+      );
+    }
+  }
+}
+
+function validateCaseStudies(data) {
+  if (!Array.isArray(data)) {
+    throw new Error("Case studies must be a JSON array");
+  }
+  for (const [index, study] of data.entries()) {
+    validateRecord(study, `Case study ${index}`);
+    for (const field of ["title", "tool", "journalist", "challenge", "solution"]) {
+      if (typeof study[field] !== "string" || !study[field].trim()) {
+        throw new Error(`Case study ${index} must have a non-empty ${field}`);
+      }
+    }
+    validateHttpUrl(study.sourceUrl || "", `Case study ${index} sourceUrl`, {
+      allowEmpty: true,
+    });
+  }
+}
+
+function validateModelInfo(data) {
+  validateRecord(data, "Model info");
+  for (const [name, model] of Object.entries(data)) {
+    validateRecord(model, `Model ${name}`);
+    if (
+      typeof model.description !== "string" ||
+      !Array.isArray(model.features) ||
+      typeof model.link !== "string"
+    ) {
+      throw new Error(
+        `Model ${name} must have a description, features array, and link`
+      );
+    }
+    validateHttpUrl(model.link, `Model ${name} link`);
+  }
+}
+
+function validateChangelog(data) {
+  if (!Array.isArray(data)) {
+    throw new Error("Changelog must be a JSON array");
+  }
+  for (const [index, entry] of data.entries()) {
+    validateRecord(entry, `Changelog entry ${index}`);
+    if (
+      typeof entry.version !== "string" ||
+      typeof entry.notes !== "string"
+    ) {
+      throw new Error(
+        `Changelog entry ${index} must have string version and notes fields`
+      );
+    }
+  }
+}
+
+// Load model names only when a tool needs them. Keeping startup independent
+// from catalog health leaves validate_all_json available to diagnose and repair
+// malformed or missing data files.
+async function getValidModels() {
+  const models = await readJsonFile(FILES.modelInfo);
+  validateModelInfo(models);
+  return Object.keys(models);
 }
 
 // Helper: Validate model names
-function validateModelName(name) {
-  if (!VALID_MODELS.includes(name)) {
+async function validateModelName(name) {
+  const validModels = await getValidModels();
+  if (!validModels.includes(name)) {
     throw new Error(
-      `Invalid model name: "${name}". Valid names: ${VALID_MODELS.join(", ")}`
+      `Invalid model name: "${name}". Valid names: ${validModels.join(", ")}`
     );
   }
   return true;
 }
 
 // Define tools
-server.setRequestHandler("tools/list", async () => {
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  const validModels = await getValidModels().catch(() => []);
+  const modelNameDescription =
+    validModels.length > 0
+      ? `Model name (one of: ${validModels.join(", ")})`
+      : "Model name from model-info.json (catalog currently unavailable)";
+
   return {
     tools: [
       {
@@ -140,9 +311,13 @@ server.setRequestHandler("tools/list", async () => {
               type: "string",
               description: "Case study title",
             },
-            organization: {
+            tool: {
               type: "string",
-              description: "News organization name",
+              description: "Primary AI tool used",
+            },
+            journalist: {
+              type: "string",
+              description: "Journalist or news organization",
             },
             challenge: {
               type: "string",
@@ -152,17 +327,24 @@ server.setRequestHandler("tools/list", async () => {
               type: "string",
               description: "How they solved it with AI",
             },
-            tools: {
-              type: "array",
-              description: "AI tools used",
-              items: { type: "string" },
-            },
             outcome: {
               type: "string",
               description: "Results achieved",
             },
+            quote: {
+              type: "string",
+              description: "Optional representative quote",
+            },
+            tips: {
+              type: "string",
+              description: "Optional practical tips",
+            },
+            sourceUrl: {
+              type: "string",
+              description: "Public source URL",
+            },
           },
-          required: ["title", "organization", "challenge", "solution"],
+          required: ["title", "tool", "journalist", "challenge", "solution"],
         },
       },
       {
@@ -173,7 +355,7 @@ server.setRequestHandler("tools/list", async () => {
           properties: {
             modelName: {
               type: "string",
-              description: `Model name (one of: ${VALID_MODELS.join(", ")})`,
+              description: modelNameDescription,
             },
             updates: {
               type: "object",
@@ -209,17 +391,13 @@ server.setRequestHandler("tools/list", async () => {
               type: "string",
               description: "Version number (e.g., '2.1.0')",
             },
-            date: {
+            notes: {
               type: "string",
-              description: "Release date (YYYY-MM-DD)",
-            },
-            changes: {
-              type: "array",
-              description: "Array of change descriptions",
-              items: { type: "string" },
+              description:
+                "Plain-text changelog notes; comparison operators such as >= are allowed",
             },
           },
-          required: ["version", "changes"],
+          required: ["version", "notes"],
         },
       },
     ],
@@ -227,7 +405,7 @@ server.setRequestHandler("tools/list", async () => {
 });
 
 // Handle tool calls
-server.setRequestHandler("tools/call", async (request) => {
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
 
   try {
@@ -266,15 +444,20 @@ server.setRequestHandler("tools/call", async (request) => {
       }
 
       case "add_decision_node": {
-        const tree = await readJsonFile(FILES.decisionTree);
-        if (tree[args.nodeId]) {
-          throw new Error(`Node already exists: ${args.nodeId}`);
-        }
-        tree[args.nodeId] = {
-          question: args.question,
-          options: args.options,
-        };
-        await writeJsonFile(FILES.decisionTree, tree);
+        await jsonStore.mutate(
+          FILES.decisionTree,
+          validateDecisionTree,
+          (tree) => {
+            if (tree[args.nodeId]) {
+              throw new Error(`Node already exists: ${args.nodeId}`);
+            }
+            tree[args.nodeId] = {
+              question: args.question,
+              options: args.options,
+            };
+            return tree;
+          }
+        );
         return {
           content: [
             {
@@ -286,37 +469,45 @@ server.setRequestHandler("tools/call", async (request) => {
       }
 
       case "add_case_study": {
-        const studies = await readJsonFile(FILES.caseStudies);
         const newStudy = {
-          id: `case-${Date.now()}`,
           title: args.title,
-          organization: args.organization,
+          tool: args.tool,
+          journalist: args.journalist,
           challenge: args.challenge,
           solution: args.solution,
-          tools: args.tools || [],
+          quote: args.quote || "",
           outcome: args.outcome || "",
-          dateAdded: new Date().toISOString().split("T")[0],
+          tips: args.tips || "",
+          sourceUrl: args.sourceUrl || "",
         };
-        studies.push(newStudy);
-        await writeJsonFile(FILES.caseStudies, studies);
+        await jsonStore.mutate(
+          FILES.caseStudies,
+          validateCaseStudies,
+          (studies) => {
+            studies.push(newStudy);
+            return studies;
+          }
+        );
         return {
           content: [
             {
               type: "text",
-              text: `Added case study: "${args.title}" (ID: ${newStudy.id})`,
+              text: `Added case study: "${args.title}"`,
             },
           ],
         };
       }
 
       case "update_model_info": {
-        validateModelName(args.modelName);
-        const models = await readJsonFile(FILES.modelInfo);
-        if (!models[args.modelName]) {
-          models[args.modelName] = {};
-        }
-        Object.assign(models[args.modelName], args.updates);
-        await writeJsonFile(FILES.modelInfo, models);
+        await validateModelName(args.modelName);
+        await jsonStore.mutate(FILES.modelInfo, validateModelInfo, (models) => {
+          if (!models[args.modelName]) {
+            models[args.modelName] = {};
+          }
+          validateRecord(args.updates, "Model updates");
+          Object.assign(models[args.modelName], args.updates);
+          return models;
+        });
         return {
           content: [
             {
@@ -349,16 +540,16 @@ server.setRequestHandler("tools/call", async (request) => {
 
       case "check_model_names": {
         const outdatedPatterns = [
-          /Claude 4 Opus/g,
-          /Claude 3/g,
-          /GPT-4o/g,
-          /GPT-4/g,
-          /Gemini 2\./g,
-          /Gemini 1\./g,
+          /\bGPT[ -]?5\.5\b/g,
+          /\b(?:Claude )?Sonnet 4\.6\b/g,
+          /\bGLM-5\.1\b/g,
+          /\bGrok 3\b/g,
+          /\bDeepSeek R2\b/g,
         ];
         const issues = [];
 
         for (const [name, filePath] of Object.entries(FILES)) {
+          if (name === "caseStudies" || name === "changelog") continue;
           try {
             const content = await fs.readFile(filePath, "utf8");
             for (const pattern of outdatedPatterns) {
@@ -386,14 +577,15 @@ server.setRequestHandler("tools/call", async (request) => {
       }
 
       case "add_changelog_entry": {
-        const changelog = await readJsonFile(FILES.changelog);
+        validatePlainText(args.notes, "Changelog notes");
         const entry = {
           version: args.version,
-          date: args.date || new Date().toISOString().split("T")[0],
-          changes: args.changes,
+          notes: args.notes,
         };
-        changelog.unshift(entry);
-        await writeJsonFile(FILES.changelog, changelog);
+        await jsonStore.mutate(FILES.changelog, validateChangelog, (changelog) => {
+          changelog.unshift(entry);
+          return changelog;
+        });
         return {
           content: [
             {

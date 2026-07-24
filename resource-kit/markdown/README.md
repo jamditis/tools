@@ -56,4 +56,4 @@ Found an error or have a suggestion? Reach out to [Joe Amditis](https://joeamdit
 
 ---
 
-*Last updated: December 2025*
+*Verified July 24, 2026. Model and agent guidance should be checked against the linked provider documentation before production use.*

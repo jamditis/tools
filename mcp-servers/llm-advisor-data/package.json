@@ -3,13 +3,25 @@
   "version": "1.0.0",
   "description": "MCP server for managing LLM Advisor JSON data files",
   "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node --test"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "proper-lockfile": "4.1.2"
   },
-  "keywords": ["mcp", "claude-code", "llm-advisor"],
+  "overrides": {
+    "@hono/node-server": "^2.0.5"
+  },
+  "keywords": [
+    "mcp",
+    "claude-code",
+    "llm-advisor"
+  ],
   "author": "Amditis Resource Kit",
   "license": "MIT"
 }

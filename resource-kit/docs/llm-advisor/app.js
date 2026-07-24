@@ -378,7 +378,7 @@ async function loadAllData() {
                  'Gemini': 'bg-[#369a8b] text-white',       // Google teal
                  'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
                  'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT 5.5': 'bg-slate-500 text-white',      // OpenAI neutral
+                 'GPT-5.6 Sol': 'bg-slate-500 text-white',      // OpenAI neutral
                  'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
                  'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
                  'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
@@ -470,6 +470,70 @@ async function loadAllData() {
             .replace(/&/g, "&amp;")
             .replace(/'/g, "&apos;")
             .replace(/"/g, "&quot;");
+
+        /**
+         * Returns a normalized absolute HTTP(S) URL or an empty string.
+         *
+         * @function safeHttpUrl
+         * @param {unknown} value - Candidate URL from a data file
+         * @returns {string} A safe absolute URL, or an empty string
+         */
+        const safeHttpUrl = (value) => {
+            if (typeof value !== 'string') return '';
+            try {
+                const url = new URL(value);
+                return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+            } catch {
+                return '';
+            }
+        };
+
+        /**
+         * Keeps legacy changelog formatting while removing executable markup.
+         *
+         * @function sanitizeRichHTML
+         * @param {unknown} value - Candidate changelog HTML
+         * @returns {string} HTML limited to the changelog display allowlist
+         */
+        const sanitizeRichHTML = (value) => {
+            if (typeof value !== 'string') return '';
+            const container = document.createElement('div');
+            container.innerHTML = value;
+            const allowedTags = new Set(['A', 'EM', 'H3', 'H4', 'LI', 'P', 'STRONG', 'U', 'UL']);
+            const presentationClasses = {
+                A: 'text-accent underline',
+                EM: 'italic',
+                H3: 'font-display text-xl font-bold mb-4 text-ink',
+                H4: 'font-display text-base font-bold mt-4 mb-2 text-ink',
+                LI: 'text-mist leading-relaxed',
+                P: 'mb-3 text-mist leading-relaxed',
+                STRONG: 'font-semibold text-ink',
+                U: 'underline',
+                UL: 'list-disc pl-5 space-y-1 mb-3',
+            };
+
+            for (const element of [...container.querySelectorAll('*')]) {
+                if (!allowedTags.has(element.tagName)) {
+                    element.replaceWith(document.createTextNode(element.textContent || ''));
+                    continue;
+                }
+
+                const href = element.tagName === 'A' ? safeHttpUrl(element.getAttribute('href')) : '';
+                for (const attribute of [...element.attributes]) {
+                    element.removeAttribute(attribute.name);
+                }
+                element.setAttribute('class', presentationClasses[element.tagName]);
+                if (element.tagName === 'A' && href) {
+                    element.setAttribute('href', href);
+                    element.setAttribute('target', '_blank');
+                    element.setAttribute('rel', 'noopener noreferrer');
+                } else if (element.tagName === 'A') {
+                    element.replaceWith(...element.childNodes);
+                }
+            }
+
+            return container.innerHTML;
+        };
 
         // -------------------------------------------------------------------------
         // RENDERING FUNCTIONS
@@ -827,10 +891,12 @@ async function loadAllData() {
          * - Optional source link
          *
          * @function renderCaseStudiesModal
-         * @returns {void}
+        * @returns {void}
          */
         function renderCaseStudiesModal() {
-            modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => `
+            modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => {
+                const sourceUrl = safeHttpUrl(study.sourceUrl);
+                return `
                 <div class="border border-ink/10 overflow-hidden flex flex-col bg-white/40">
                     <div class="px-5 py-4 ${getPillClasses(study.tool)}">
                         <div class="flex justify-between items-start gap-2">
@@ -856,9 +922,10 @@ async function loadAllData() {
                                 </div>
                             </div>
                         </div>
-                        ${study.sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${study.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Learn more →</a></div>` : ''}
+                        ${sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${escapeAttr(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Learn more →</a></div>` : ''}
                     </div>
-                </div>`).join('')}</div>`;
+                </div>`;
+            }).join('')}</div>`;
         }
 
         /**
@@ -887,6 +954,7 @@ async function loadAllData() {
             const sections = {
                 'Core principles': data.corePrinciples,
                 'Effective prompting is a conversation': data.promptingTechniques,
+                'Agent workflows': data.agentWorkflows,
                 'Workflow integration': data.workflowIntegration,
                 'Prompting for images': data.imagePrompting,
                 'Ethical guidelines & privacy': data.ethicalGuidelines
@@ -932,6 +1000,7 @@ async function loadAllData() {
             // Generate card for each model
             for (const [name, data] of Object.entries(modelInfoData)) {
                 const isHighlighted = name === highlightModel;
+                const modelUrl = safeHttpUrl(data.link);
                 contentHTML += `
                 <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-ink/10 overflow-hidden flex flex-col bg-white/40 ${isHighlighted ? 'ring-2 ring-accent' : ''}">
                     <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-display font-bold text-lg">${sanitizeHTML(name)}</h3></div>
@@ -941,9 +1010,9 @@ async function loadAllData() {
                             <h4 class="text-xs font-mono text-accent mb-3 tracking-wider">KEY_FEATURES</h4>
                             <ul class="space-y-2 text-sm list-disc pl-5 text-mist">${data.features.map(feature => `<li>${sanitizeHTML(feature)}</li>`).join('')}</ul>
                         </div>
-                        <div class="mt-4 flex justify-end">
-                            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Visit website →</a>
-                        </div>
+                        ${modelUrl ? `<div class="mt-4 flex justify-end">
+                            <a href="${escapeAttr(modelUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Visit website →</a>
+                        </div>` : ''}
                     </div>
                 </div>`;
             }
@@ -971,8 +1040,8 @@ async function loadAllData() {
         function renderChangelogModal() {
             modalBody.innerHTML = changelogData.map(log => `
                 <div class="pb-6 mb-6 border-b border-ink/10 last:border-b-0 last:mb-0 last:pb-0">
-                    <p class="text-sm font-mono text-accent mb-2">v${log.version}</p>
-                    <div class="text-sm text-mist">${log.notes}</div>
+                    <p class="text-sm font-mono text-accent mb-2">v${sanitizeHTML(log.version)}</p>
+                    <div class="text-sm text-mist">${sanitizeRichHTML(log.notes)}</div>
                 </div>
             `).join('');
         }

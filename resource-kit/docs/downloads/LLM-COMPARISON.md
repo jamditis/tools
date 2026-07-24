@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Last updated: April 2026. The AI landscape changes fast—verify current pricing and capabilities.
+> Verified July 24, 2026. The AI landscape changes fast—verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
 
 ---
 
@@ -8,12 +8,16 @@
 
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
-| Claude Opus 4.8 | Best for coding and writing | Slower | $$$ | Limited |
-| Claude Sonnet 4.6 | All-around tasks, best balance | Fast | $$ | Yes |
-| Gemini 3.1 Pro | Front-end design, large documents | Fast | $$ | Yes |
-| Codex (GPT 5.5) | OpenAI coding tasks | Fast | $$ | Limited |
-| GPT 5.5 | Deep research, complex reasoning | Slower | $$$ | Limited |
-| GitHub Copilot | In-editor suggestions | Real-time | $10/mo | Students |
+| Claude Fable 5 | Maximum-capability long-running agents | Slower | Higher | Check plan |
+| Claude Opus 4.8 | Complex agentic coding and writing | Slower | Higher | Check plan |
+| Claude Sonnet 5 | Balanced day-to-day agents | Fast | Medium | Check plan |
+| Gemini 3.6 Flash | Stable agentic and multimodal work | Fast | Lower | Check plan |
+| Gemini 3.1 Pro (preview) | Difficult multimodal reasoning | Slower | Medium | Check plan |
+| Codex (GPT-5.6 Sol) | OpenAI repository work | Varies | Check plan | Check plan |
+| GLM-5.2 (open) | Long-horizon open-weight agents | Varies | Hosting | Self-host |
+| DeepSeek V4 Pro/Flash (open) | Long-context coding and tools | Varies | Hosting/API | Self-host |
+| Qwen3.6-35B-A3B (open) | Efficient local agentic coding | Varies | Hosting | Self-host |
+| Kimi K2.5 (open) | Multimodal and multi-agent workflows | Varies | Hosting | Self-host |
 
 ---
 
@@ -22,7 +26,7 @@
 ### Claude Opus 4.8
 
 **Strengths:**
-- Best model for coding and writing by far
+- Strong complex reasoning and agentic coding
 - Excellent code architecture decisions
 - Thorough debugging—explains *why* things break
 - Long context window for large codebases
@@ -36,7 +40,7 @@
 
 ---
 
-### Claude Sonnet 4.6
+### Claude Sonnet 5
 
 **Strengths:**
 - Great balance of speed and capability
@@ -68,7 +72,7 @@
 
 ---
 
-### Codex (GPT 5.5)
+### Codex (GPT-5.6 Sol)
 
 **Strengths:**
 - Specialized for coding tasks
@@ -83,7 +87,7 @@
 
 ---
 
-### GPT 5.5
+### GPT-5.6 Sol
 
 **Strengths:**
 - Top-tier reasoning for complex problems
@@ -115,16 +119,9 @@
 
 ---
 
-## Cost comparison (approximate, April 2026)
+## Cost comparison
 
-| Service | Pricing model | Typical monthly cost |
-|---------|---------------|---------------------|
-| Claude Pro | Subscription | $20/month |
-| Claude API | Per token | Varies ($5-50+ based on usage) |
-| ChatGPT Plus | Subscription | $20/month |
-| OpenAI API | Per token | Varies |
-| GitHub Copilot | Subscription | $10/month |
-| Gemini Advanced | Subscription | $20/month |
+Pricing and plan access change too quickly for a durable static table. Check each provider's official pricing page immediately before budgeting or deployment.
 
 ---
 

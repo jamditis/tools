@@ -3,7 +3,7 @@
  *
  * This stylesheet provides custom utility classes and visual effects for the
  * Amditis V2 editorial/archival theme. It complements the Tailwind configuration
- * in amditis-config.js with CSS-only features.
+ * in the precompiled Tailwind configuration with CSS-only features.
  *
  * ## Sections
  *
@@ -21,7 +21,7 @@
  * 12. **Legacy Compatibility** - Mappings from V1 classes
  *
  * @module AmditisCSSV2
- * @requires amditis-config.js (Tailwind extension)
+ * @requires tailwind.css (precompiled Tailwind utilities)
  * @see {@link https://jamditis.github.io/tools/} Live implementation
  */
 

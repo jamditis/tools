@@ -100,36 +100,39 @@ Instructions for Claude when this skill is invoked.
 [Include examples of expected behavior]
 ```
 
-### Hooks (.claude/hooks/)
+### Hooks (`.claude/settings.json`)
 
-Scripts that run at specific moments.
+Define hooks under the `hooks` key in `~/.claude/settings.json`,
+`.claude/settings.json`, or `.claude/settings.local.json`. Hook scripts may live
+in `.claude/hooks/`, but Claude Code does not discover that directory by itself.
 
-```yaml
----
-hooks:
-  - type: PreToolUse    # Before tool runs
-    tool: Edit          # Which tool to watch
-    command: |          # Script to run
-      echo "About to edit: $CLAUDE_TOOL_INPUT_FILE_PATH"
-
-  - type: PostToolUse   # After tool runs
-    tool: [Edit, Write]
-    once: true          # Run only once per session
-    command: |
-      npm test          # Run tests after edits
-
-  - type: SessionStart  # When session begins
-    command: |
-      echo "Welcome to the project!"
-      git status
-
-  - type: Stop          # When session ends
-    command: |
-      echo "Remember to commit your changes!"
----
-
-# Hook Documentation
-[Explain what this hook does]
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-command.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
 ---
@@ -143,36 +146,30 @@ hooks:
 | `PostToolUse` | After a tool completes |
 | `Stop` | When session ends |
 
-### Hook Environment Variables
+### Hook input and enforcement
 
-```bash
-$CLAUDE_TOOL_INPUT_FILE_PATH    # File being edited
-$CLAUDE_TOOL_INPUT_NEW_STRING   # New content (Edit)
-$CLAUDE_TOOL_INPUT_OLD_STRING   # Old content (Edit)
-$CLAUDE_TOOL_INPUT_COMMAND      # Command (Bash)
-```
+Command hooks receive JSON on stdin, including `session_id`, `cwd`,
+`tool_name`, and `tool_input`. Parse the relevant field with `jq` or a real JSON
+parser. Exit `0` to continue; for blocking events such as `PreToolUse`, exit `2`
+with a message on stderr to block. Use structured JSON when you need allow,
+deny, ask, or modified-input behavior.
 
 ---
 
 ## Agent Configuration
 
-Define specialized agents in `.claude/settings.local.json`:
+Define each specialized agent in `.claude/agents/<name>.md`:
 
-```json
-{
-  "agents": {
-    "json-editor": {
-      "description": "Focused on JSON data files",
-      "tools": ["Read", "Glob", "Grep", "Edit", "Write"],
-      "disallowedTools": ["Bash", "Task"]
-    },
-    "content-reviewer": {
-      "description": "Read-only review",
-      "tools": ["Read", "Glob", "Grep"],
-      "disallowedTools": ["Edit", "Write", "Bash"]
-    }
-  }
-}
+```markdown
+---
+name: json-editor
+description: Focused JSON editor for bounded catalog changes
+tools: Read, Glob, Grep, Edit, Write
+disallowedTools: Bash, Task
+model: inherit
+---
+
+Edit only the requested JSON. Validate syntax and relevant cross-references.
 ```
 
 Use with: `claude --agent json-editor`
@@ -201,16 +198,16 @@ BashOutput tool with task ID
 
 1. Enter plan mode: `/plan`
 2. Claude explores codebase
-3. Claude writes plan to plan.md
+3. Claude records a reviewable plan
 4. Review and provide feedback
 5. Approve to begin implementation
-6. Exit with `ExitPlanMode`
+6. Approve implementation through the plan-mode permission flow
 
 ---
 
 ## MCP Server Integration
 
-Add to `.claude/settings.local.json`:
+Add the server to the project-level `.mcp.json`:
 
 ```json
 {
@@ -219,14 +216,14 @@ Add to `.claude/settings.local.json`:
       "command": "node",
       "args": ["./mcp-servers/my-server/index.js"]
     }
-  },
-  "permissions": {
-    "allow": ["mcp__my-server__*"]
   }
 }
 ```
 
-Wildcard `mcp__server__*` allows all tools from that server.
+Keep permission rules in `.claude/settings.json` or
+`.claude/settings.local.json`. Prefer the smallest tool allowlist that supports
+the task; a wildcard such as `mcp__my-server__*` grants every tool from that
+server.
 
 ---
 
@@ -267,7 +264,8 @@ Each reports back independently.
 ## Quick Debug Checklist
 
 - [ ] Is CLAUDE.md in project root?
-- [ ] Are hooks in .claude/hooks/?
+- [ ] Are hooks configured under `hooks` in a settings JSON file?
+- [ ] Do referenced hook scripts exist and have execute permission?
 - [ ] Are skills in .claude/skills/?
 - [ ] Is settings.local.json valid JSON?
 - [ ] Did you restart Claude after config changes?
@@ -282,4 +280,4 @@ Each reports back independently.
 
 ---
 
-*Claude Code v2.1 | January 2026*
+*Verified July 24, 2026 against Claude Code v2.1 documentation.*

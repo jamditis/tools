@@ -4,13 +4,16 @@
   "description": "Full-featured Playwright CLI tool for browser automation",
   "type": "module",
   "scripts": {
-    "browser": "npx tsx browser.ts"
+    "browser": "tsx browser.ts",
+    "test": "node --test ai-content-freshness.test.js browser.test.js",
+    "typecheck": "tsc --noEmit browser.ts --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck"
   },
   "dependencies": {
-    "playwright": "^1.40.0"
+    "playwright": "^1.61.1"
   },
   "devDependencies": {
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.0"
+    "@types/node": "^26.1.1",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3"
   }
 }

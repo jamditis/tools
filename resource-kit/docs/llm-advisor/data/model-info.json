@@ -1,23 +1,22 @@
 {
   "Claude Opus 4.8": {
-    "description": "Anthropic's most powerful 'work' model. It is by far the best model for coding and writing, excelling at complex reasoning, detailed analysis, and nuanced content creation.",
+    "description": "Anthropic's high-capability model for complex agentic coding, enterprise workflows, and careful long-form work. Prefer it when quality matters more than latency.",
     "features": [
-      "Best-in-class for writing, editing, and coding",
-      "Does not train on user data by default",
-      "Strong ethical guardrails",
-      "Unmatched code generation quality"
+      "Strong complex reasoning and agentic coding",
+      "Suited to long-running, high-stakes workflows",
+      "Good for detailed writing and editing"
     ],
-    "link": "https://www.anthropic.com/claude"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
   },
-  "Claude Sonnet 4.6": {
-    "description": "Anthropic's fast 'chat' model. It's designed for quick, conversational interactions, brainstorming, and everyday tasks. It is the default model in the Claude interface and hits near-Opus quality on most agentic coding tasks at a fraction of the cost.",
+  "Claude Sonnet 5": {
+    "description": "Anthropic's speed-and-intelligence option for day-to-day agents, coding, writing, and interactive work. Product defaults vary, so select a model alias or exact ID when reproducibility matters.",
     "features": [
       "Very fast and conversational",
       "Best for expressive writing and brainstorming",
       "Strong for day-to-day coding",
-      "Included in the free tier"
+      "Strong latency-to-quality balance"
     ],
-    "link": "https://www.anthropic.com/claude"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
   },
   "Claude Haiku 4.5": {
     "description": "Anthropic's fastest and cheapest model. Haiku 4.5 delivers near-frontier performance for high-volume, cost-sensitive tasks like classification, extraction, and quick Q&A.",
@@ -26,49 +25,56 @@
       "Lowest per-token cost in the Claude family",
       "Great for batch processing and high-volume workflows"
     ],
-    "link": "https://www.anthropic.com/claude"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+  },
+  "Claude Fable 5": {
+    "description": "Anthropic's most capable broadly released model for long-running agents and difficult work. Use it when you need maximum capability and can accept higher latency and cost.",
+    "features": [
+      "Designed for long-running agentic workflows",
+      "Highest-capability Claude option in the current catalog",
+      "Useful for difficult research, coding, and synthesis"
+    ],
+    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
   },
   "Gemini 3.1 Pro": {
-    "description": "Google's latest powerful 'work' model. Gemini 3.1 Pro features improved reasoning, directness, and multimodal coherence compared to 2.5. It maintains the massive context window while being more efficient and less verbose by default.",
+    "description": "Google's preview reasoning model for difficult multimodal and long-context work. Preview status can change, so check the model lifecycle page before production use.",
     "features": [
       "Industry-leading 1M+ token context window",
       "Improved reasoning and directness over 2.5",
       "Better multimodal synthesis (text, images, audio, video)",
-      "Built-in 'Canvas' for data analysis & visualization",
-      "More efficient, less verbose outputs",
-      "Can create video with the Veo 3 model"
+      "Strong multimodal synthesis",
+      "Preview model: verify availability before deployment"
     ],
-    "link": "https://gemini.google.com/"
+    "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Gemini 3.1 Flash-Lite": {
+  "Gemini 3.5 Flash-Lite": {
     "description": "Google's cheapest Gemini tier. Flash-Lite retains a long context window and runs even faster than Flash, making it a natural fit for high-volume agentic calls and cost-sensitive background automations.",
     "features": [
       "Lowest-cost Gemini tier",
       "Very fast for high-volume automations",
       "Long context window retained"
     ],
-    "link": "https://gemini.google.com/"
+    "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Gemini 3.1 Flash": {
-    "description": "Google's latest fast 'chat' model. Gemini 3.1 Flash is more direct and efficient than 2.5 Flash, with improved multimodal capabilities and an excellent voice mode that can use your phone's camera for real-time input.",
+  "Gemini 3.6 Flash": {
+    "description": "Google's current stable agentic and multimodal Flash model. It is the practical default when latency, throughput, and tool use matter more than maximum reasoning depth.",
     "features": [
       "Very fast for conversational tasks",
       "Improved directness and efficiency over 2.5",
-      "Excellent multimodal voice mode with camera support",
-      "Better at following structured prompts",
-      "Good for quick questions and brainstorming"
+      "Strong multimodal input and tool use",
+      "Good for interactive agents and high-throughput workflows"
     ],
-    "link": "https://gemini.google.com/"
+    "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Gemini 3.1 (Veo)": {
-    "description": "Google's video generation capability, available exclusively in Gemini 3.1. Veo can create short, photorealistic video clips from text descriptions. This is an experimental feature accessed through the Gemini interface.",
+  "Veo 3.1": {
+    "description": "Google's current Veo video-generation family. Availability and supported controls vary by product and API, so confirm the exact model and terms before production use.",
     "features": [
       "Text-to-video generation",
       "Photorealistic short clips",
-      "Experimental feature in Gemini 3.1",
+      "Native video and audio generation options",
       "Best for conceptual/abstract visuals"
     ],
-    "link": "https://gemini.google.com/"
+    "link": "https://ai.google.dev/gemini-api/docs/video"
   },
   "Gemini 2.5 Pro (legacy)": {
     "description": "Google's previous-generation 'work' model. While still capable, Gemini 3.1 Pro is recommended for new work due to its improved reasoning and efficiency.",
@@ -79,7 +85,7 @@
     "link": "https://gemini.google.com/"
   },
   "Gemini 2.5 Flash (legacy)": {
-    "description": "Google's previous-generation fast 'chat' model. Gemini 3.1 Flash is recommended for new work due to better directness and efficiency.",
+    "description": "Google's previous-generation fast 'chat' model. Gemini 3.6 Flash is recommended for new work due to better directness and efficiency.",
     "features": [
       "Very fast for conversational tasks",
       "Excellent multimodal voice mode",
@@ -87,43 +93,43 @@
     ],
     "link": "https://gemini.google.com/"
   },
-  "GPT 5.5": {
-    "description": "OpenAI's current flagship 'work' model for deep reasoning and complex tasks. Use it for multi-step logical deduction and investigative research. Released on top of GPT 5.4, which also remains available.",
+  "GPT-5.6 Sol": {
+    "description": "OpenAI's recommended flagship for complex reasoning and agentic work. The GPT-5.6 alias resolves to Sol; pin an exact snapshot only when reproducibility is more important than automatic upgrades.",
     "features": [
       "Top-tier reasoning for complex problems",
       "Highly steerable for specific tasks",
-      "Powers the 'Deep Research' feature"
+      "1.05M-token context and up to 128K output tokens"
     ],
-    "link": "https://openai.com/chatgpt/"
+    "link": "https://developers.openai.com/api/docs/guides/latest-model"
   },
   "GPT 5.4": {
-    "description": "OpenAI's previous flagship, still fully supported. A good drop-in option when 5.5 isn't available in your region or plan, or when cost/latency matter more than absolute peak quality.",
+    "description": "An older supported OpenAI flagship. Prefer GPT-5.6 Sol for new complex agent work, or GPT-5.6 Terra/Luna when latency and cost matter more.",
     "features": [
       "Strong general reasoning",
-      "Same API family as 5.5",
-      "Slightly cheaper / faster than 5.5 in practice"
+      "Earlier GPT-5 generation",
+      "Useful where an existing integration is already qualified"
     ],
-    "link": "https://openai.com/chatgpt/"
+    "link": "https://developers.openai.com/api/docs/models"
   },
-  "Codex (GPT 5.5)": {
-    "description": "OpenAI's specialized coding model powered by GPT 5.5. This is the recommended OpenAI tool for all coding tasks, offering superior code generation, debugging, and project scaffolding.",
+  "Codex (GPT-5.6 Sol)": {
+    "description": "OpenAI's coding-agent experience using GPT-5.6 Sol for complex repository work. Use explicit approval boundaries, relevant tool subsets, bounded concurrency, tests, and exact-head review gates.",
     "features": [
       "Specialized for coding tasks",
       "Excellent at multi-file projects",
       "Strong debugging and refactoring capabilities",
-      "Better code quality than general-purpose models"
+      "Designed for long-horizon agentic engineering"
     ],
-    "link": "https://openai.com/codex/"
+    "link": "https://developers.openai.com/codex/"
   },
-  "Gemini (Nano Banana)": {
-    "description": "Google's latest, fastest, and most efficient image model, also known as Gemini 2.5 Flash Image. Its native multimodal architecture allows for powerful conversational editing, multi-image composition, and accurate text rendering.",
+  "Nano Banana 2": {
+    "description": "Google's current all-around image model, exposed as Gemini 3.1 Flash Image. Use Nano Banana 2 Lite for lower latency and cost, or Nano Banana Pro for the most complex image work.",
     "features": [
       "Text-to-image from narrative descriptions",
       "Image editing with text prompts",
       "Iterative, conversational refinement",
       "Renders text clearly in images"
     ],
-    "link": "https://aistudio.google.com/prompts/new_chat?model=gemini-2.5-flash-image-preview"
+    "link": "https://ai.google.dev/gemini-api/docs/image-generation"
   },
   "NotebookLM": {
     "description": "Google's research and writing assistant that is grounded in your chosen source documents. It helps you get summaries, ask questions, and generate ideas based only on the material you provide, reducing hallucinations.",
@@ -134,14 +140,14 @@
     ],
     "link": "https://notebooklm.google.com/"
   },
-  "Grok 3": {
-    "description": "Developed by xAI, Grok is the only major LLM with real-time integration with a social media platform (X/Twitter), making it an indispensable tool for monitoring breaking news.",
+  "Grok 4.5": {
+    "description": "xAI's current frontier model. Current web or X information requires enabling the Web Search or X Search tool; the base model is not automatically real-time.",
     "features": [
-      "Real-time X/Twitter data integration",
-      "'DeepSearch' mode for current events",
+      "Optional Web Search and X Search tools",
+      "Useful for research when sources are independently verified",
       "Useful for tracking online narratives"
     ],
-    "link": "https://grok.com/"
+    "link": "https://docs.x.ai/docs/models"
   },
   "Perplexity": {
     "description": "An AI-powered search engine that provides direct answers to queries with citations. It's designed for research and finding information, functioning as a 'conversational search engine'.",
@@ -157,40 +163,50 @@
     "features": [
       "Self-hostable for full privacy",
       "Can run on local hardware (via Ollama, LM Studio, vLLM)",
-      "Frontier-tier options for coding now exist (GLM-5.1, DeepSeek V4, Qwen3-Coder)",
+      "Current options include GLM-5.2, DeepSeek V4, Qwen3.6-35B-A3B, and Kimi K2.5",
       "No per-token costs once running locally"
     ],
     "link": "https://ollama.com/"
   },
-  "GLM-5.1 (open source)": {
-    "description": "Z.ai's GLM-5.1 is the best open-weight model for agentic coding as of April 2026. MIT-licensed and pitched for long-horizon autonomous engineering sessions, it is the strongest self-hostable option for newsrooms that need to keep code and source material off third-party servers.",
+  "GLM-5.2 (open source)": {
+    "description": "Z.ai's MIT-licensed open-weight model for long-horizon agentic work, with a one-million-token context option. Hardware and provider behavior vary, so benchmark it on your own workload.",
     "features": [
-      "Best open-weight agentic coding as of April 2026",
+      "Current open-weight option for long-horizon agents",
       "MIT licensed — no usage restrictions",
       "Self-hostable or available via Z.ai",
       "Designed for long-horizon autonomous tasks"
     ],
-    "link": "https://github.com/zai-org/GLM-5"
+    "link": "https://huggingface.co/zai-org/GLM-5.2"
   },
-  "Qwen3-Coder (open source)": {
-    "description": "Alibaba's Qwen3-Coder is an open-weight family of coding models with multiple sizes, from laptop-friendly variants to data-center giants. Strong benchmark scores, long context for whole-repo reasoning, and a liberal license make it a practical choice for self-hosted IDE assistance.",
+  "Qwen3.6-35B-A3B (open source)": {
+    "description": "Alibaba's open-weight mixture-of-experts model with 35B total and about 3B active parameters. It is a practical efficiency-oriented option for local agentic coding and general tool use.",
     "features": [
-      "Multiple sizes from laptop to data center",
+      "35B total parameters with about 3B active",
       "Long context for whole-repo reasoning",
       "Open weights with a liberal license",
       "Good for IDE autocomplete and refactoring"
     ],
-    "link": "https://github.com/QwenLM/Qwen3-Coder"
+    "link": "https://qwen.ai/blog?id=qwen3.6-35b-a3b"
   },
   "DeepSeek V4 (open source)": {
-    "description": "DeepSeek V4 is an open-weight frontier-tier coding model with 81% on SWE-Bench Verified — on par with closed providers but at a fraction of the cost. Open weights let you self-host for privacy, and the DeepSeek API is one of the cheapest ways to get frontier coding performance.",
+    "description": "DeepSeek V4 Pro and Flash are MIT-licensed open-weight models with one-million-token context. Choose Pro for maximum capability or Flash for lower latency, and migrate away from deprecated deepseek-chat and deepseek-reasoner aliases.",
     "features": [
-      "Frontier-tier coding performance",
-      "81% on SWE-Bench Verified",
-      "Open weights with a very low-cost API",
-      "Strong reasoning sibling (DeepSeek R2)"
+      "Pro and Flash variants",
+      "One-million-token context",
+      "Open weights and hosted API options",
+      "Strong coding and tool-use capabilities"
     ],
-    "link": "https://huggingface.co/deepseek-ai"
+    "link": "https://api-docs.deepseek.com/news/news260424/"
+  },
+  "Kimi K2.5 (open source)": {
+    "description": "Moonshot AI's open-weight multimodal mixture-of-experts model for agentic coding and visual work. It supports long context and coordinated multi-agent workflows, but the full model requires substantial hardware.",
+    "features": [
+      "Multimodal agentic coding",
+      "One trillion total parameters with 32B active",
+      "256K-token context",
+      "Modified MIT license"
+    ],
+    "link": "https://github.com/MoonshotAI/Kimi-K2.5"
   },
   "ElevenLabs": {
     "description": "A specialized AI tool for high-quality, realistic voice synthesis. It's the industry leader for generating voiceovers, podcast audio, and other narrated content.",

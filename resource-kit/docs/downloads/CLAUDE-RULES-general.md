@@ -48,7 +48,9 @@
 ```
 project-root/
 ├── .claude/           # Claude Code configuration
-│   ├── settings.local.json  # Permissions and agents
+│   ├── settings.json        # Shared permissions and hooks
+│   ├── settings.local.json  # Personal, gitignored overrides
+│   ├── agents/              # Specialized subagent definitions
 │   ├── skills/        # Custom skill definitions
 │   └── hooks/         # Automation hooks
 ├── [dir/]             # [what it contains]
@@ -104,30 +106,38 @@ context: fork  # Optional: for parallel sub-agents
 [Instructions for Claude when this skill is invoked]
 ```
 
-### Recommended Hooks
+### Recommended hooks
 
-Create in `.claude/hooks/` for automation:
+Configure hooks in `.claude/settings.json` for shared automation. Scripts may
+live under `.claude/hooks/`, but they are not auto-discovered.
 
-```yaml
----
-hooks:
-  - type: SessionStart
-    once: true
-    command: |
-      echo "Welcome to [Project Name]"
-      # Check environment, show status
-
-  - type: PostToolUse
-    tool: Edit
-    command: |
-      # Validate edits, run tests
-      npm test
-
-  - type: Stop
-    command: |
-      # Remind about next steps
-      echo "Remember to commit your changes!"
----
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git status --short"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
 ### Session Naming Convention
@@ -140,25 +150,21 @@ Use `/rename` to name sessions for this project:
 
 ### Agent Configurations
 
-Define in `.claude/settings.local.json`:
+Define specialized agents as `.claude/agents/<name>.md` files:
 
-```json
-{
-  "agents": {
-    "[project]-dev": {
-      "description": "Full development access",
-      "tools": ["Read", "Glob", "Grep", "Edit", "Write", "Bash"]
-    },
-    "[project]-review": {
-      "description": "Read-only code review",
-      "tools": ["Read", "Glob", "Grep"],
-      "disallowedTools": ["Edit", "Write", "Bash"]
-    }
-  }
-}
+```markdown
+---
+name: [project]-review
+description: Read-only review for this project
+tools: Read, Glob, Grep
+disallowedTools: Edit, Write, Bash
+model: inherit
+---
+
+Review the requested change and report concrete findings with file references.
 ```
 
 ---
 
 *Be specific. "Use 2-space indentation" beats "Format code properly."*
-*Updated for Claude Code v2.1 - January 2026*
+*Verified July 24, 2026 against Claude Code v2.1 documentation.*

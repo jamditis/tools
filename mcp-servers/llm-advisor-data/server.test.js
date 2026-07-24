@@ -1,0 +1,184 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs").promises;
+const os = require("node:os");
+const path = require("node:path");
+const test = require("node:test");
+
+const { Client } = require("@modelcontextprotocol/sdk/client/index.js");
+const {
+  StdioClientTransport,
+} = require("@modelcontextprotocol/sdk/client/stdio.js");
+
+test("validation remains available when model-info.json is malformed", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-malformed-")
+  );
+  await fs.writeFile(
+    path.join(dataDirectory, "model-info.json"),
+    '{"broken":',
+    "utf8"
+  );
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: {
+      ...process.env,
+      LLM_ADVISOR_DATA_DIR: dataDirectory,
+    },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+
+  await client.connect(transport);
+  const listed = await client.listTools();
+  assert.ok(listed.tools.some((tool) => tool.name === "validate_all_json"));
+
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+  assert.equal(result.isError, undefined);
+  assert.match(result.content[0].text, /❌ modelInfo:/);
+});
+
+test("MCP writes reject unsafe browser-bound content", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-unsafe-url-")
+  );
+  const sourceDirectory = path.join(
+    __dirname,
+    "../../resource-kit/docs/llm-advisor/data"
+  );
+  for (const filename of [
+    "decision-tree.json",
+    "case-studies.json",
+    "model-info.json",
+    "tool-comparison.json",
+    "best-practices.json",
+    "changelog.json",
+  ]) {
+    await fs.copyFile(
+      path.join(sourceDirectory, filename),
+      path.join(dataDirectory, filename)
+    );
+  }
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: {
+      ...process.env,
+      LLM_ADVISOR_DATA_DIR: dataDirectory,
+    },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+
+  await client.connect(transport);
+  const result = await client.callTool({
+    name: "add_case_study",
+    arguments: {
+      title: "Unsafe case",
+      tool: "Example",
+      journalist: "Example newsroom",
+      challenge: "Test boundary validation",
+      solution: "Reject unsafe data",
+      sourceUrl: 'javascript:alert("stored-xss")',
+    },
+  });
+
+  assert.equal(result.isError, true);
+  assert.match(result.content[0].text, /sourceUrl must use HTTP or HTTPS/);
+  const stored = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "case-studies.json"), "utf8")
+  );
+  assert.equal(stored.some((study) => study.title === "Unsafe case"), false);
+
+  for (const [version, notes] of [
+    ["unsafe", '<img src=x onerror="alert(1)">'],
+    ["unsafe-solidus-svg", "<svg/onload=alert(1)>"],
+    ["unsafe-solidus-img", "<img/src=x onerror=alert(1)>"],
+    [
+      "unsafe-quoted-less-than",
+      '<img/src=x onerror=alert(1) data-note="<">',
+    ],
+    [
+      "unsafe-quoted-greater-than",
+      '<svg/onload=alert(1) data-note=">">',
+    ],
+    ["unsafe-closing-tag", "</div>"],
+    ["unsafe-comment", "<!-- comment -->"],
+    ["unsafe-declaration", "<!DOCTYPE html>"],
+    ["unsafe-processing-instruction", '<?xml version="1.0"?>'],
+  ]) {
+    const changelogResult = await client.callTool({
+      name: "add_changelog_entry",
+      arguments: { version, notes },
+    });
+    assert.equal(changelogResult.isError, true);
+    assert.match(
+      changelogResult.content[0].text,
+      /Changelog notes must be plain text without HTML markup/
+    );
+  }
+  const changelog = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "changelog.json"), "utf8")
+  );
+  assert.equal(
+    changelog.some((entry) => entry.version.startsWith("unsafe")),
+    false
+  );
+
+  const comparisonTextResult = await client.callTool({
+    name: "add_changelog_entry",
+    arguments: {
+      version: "comparison-text",
+      notes: "Requires Node >=20 and confirms that 2 < 3.",
+    },
+  });
+  assert.equal(comparisonTextResult.isError, undefined);
+  const updatedChangelog = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "changelog.json"), "utf8")
+  );
+  assert.equal(
+    updatedChangelog.some(
+      (entry) =>
+        entry.version === "comparison-text" &&
+        entry.notes === "Requires Node >=20 and confirms that 2 < 3."
+    ),
+    true
+  );
+
+  const adjacentComparisonResult = await client.callTool({
+    name: "add_changelog_entry",
+    arguments: {
+      version: "adjacent-comparison-text",
+      notes: "Use x<y when comparing adjacent values.",
+    },
+  });
+  assert.equal(adjacentComparisonResult.isError, undefined);
+  const finalChangelog = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "changelog.json"), "utf8")
+  );
+  assert.equal(
+    finalChangelog.some(
+      (entry) =>
+        entry.version === "adjacent-comparison-text" &&
+        entry.notes === "Use x<y when comparing adjacent values."
+    ),
+    true
+  );
+});

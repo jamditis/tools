@@ -3,7 +3,7 @@
 > A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.
 
 **Author:** Joe Amditis
-**Last updated:** February 2026
+**Verified:** July 24, 2026
 
 ---
 
@@ -75,10 +75,12 @@ CLI tools are harnesses: they give AI direct access to your files, terminal, and
 | Tool | Install | Best for |
 |------|---------|----------|
 | **Claude Code** | `npm install -g @anthropic-ai/claude-code` | All coding tasks, large projects, debugging |
-| **Gemini CLI** | `npm install -g @google/gemini-cli` | Free tier (1,000 req/day), front-end work |
+| **Gemini CLI** | `npm install -g @google/gemini-cli` | Enterprise, API, Cloud, and open-source Google workflows |
 | **Codex CLI** | `npm install -g @openai/codex` | OpenAI users |
 
 You only need Node.js (v20 or higher) installed first. Get it at nodejs.org.
+
+Google transitioned consumer Gemini CLI users to Antigravity CLI on June 18, 2026. Gemini CLI remains available for enterprise, API, Cloud, and open-source use. Defaults and account access change; check the current product documentation.
 
 ### When to use web vs. CLI
 
@@ -179,15 +181,16 @@ Before adding a line to your context file, ask: "If I deleted this, would the AI
 
 ---
 
-## Best LLMs for coding (June 2026)
+## Current agent model starting points
 
 | Model | Strengths | Best for | CLI tool |
 |-------|-----------|----------|----------|
-| Claude Opus 4.8 | Best for coding and writing | All coding, large projects, debugging | Claude Code |
-| Claude Sonnet 4.6 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
-| Gemini 3.1 Pro | Front-end design, large context | Front-end work, large documents | Gemini CLI |
-| Codex (GPT 5.5) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
-| Claude.ai (free) | Free tier, solid capabilities | Getting started, simple scripts | Web only |
+| Claude Fable 5 | Maximum capability for long-running agents | Difficult agentic work | Claude Code |
+| Claude Opus 4.8 | Complex coding and writing | Large projects, debugging | Claude Code |
+| Claude Sonnet 5 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
+| Gemini 3.6 Flash | Stable, fast, multimodal | Tool-using agents and large documents | Gemini/Antigravity CLI |
+| Codex (GPT-5.6 Sol) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
+| GLM-5.2 | Open weights, long context | Self-hosted long-horizon agents | Multiple harnesses |
 
 ---
 
