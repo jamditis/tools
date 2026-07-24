@@ -17,6 +17,14 @@
 # before it eats the cap budget. The advisory never changes the exit code; only the
 # hard cap does.
 #
+# Counts are per repo, not per directory scanned. ~/projects holds worktrees sharing one
+# .git and separate clones of the same upstream, so one over-cap file used to be reported
+# once per checkout: the summary read as nine over-cap repos when there was one file to
+# fix (tools#77). Checkouts are folded by their origin URL and reported as one row, with
+# the largest file in the group shown so a stale sibling cannot hide a truncating one.
+# The advisory scan still reads every checkout, since folding the count must not fold the
+# coverage.
+#
 # Usage:
 #   scripts/check-copilot-instructions.sh [REPO_DIR ...]
 #
@@ -24,7 +32,7 @@
 # repo roots to check a specific set. Exit code is 0 when every file is under the
 # cap, 1 when any file is over it.
 #
-# Background: tools/CLAUDE.md "Copilot review instructions", tools issue #59.
+# Background: tools/CLAUDE.md "Copilot review instructions", tools issues #59 and #77.
 
 set -euo pipefail
 
@@ -65,16 +73,113 @@ fi
 PROSE_MARKERS='sentence case|banned word|title case|emoji'
 PROSE_EXCLUDE='intentional|omit|exclud|not enforce|bot ignores|style linter|not read'
 
-checked=0 over=0 near=0 advisories=0
-printf '%-30s %8s  %s\n' "REPO" "CHARS" "STATUS"
-printf '%-30s %8s  %s\n' "----" "-----" "------"
+# The upstream repo a checkout points at, so the same repo seen through several local
+# checkouts is counted once. The default scan walks ~/projects, which holds worktrees
+# sharing one .git and separate clones of the same upstream; counting each as its own
+# repo made the summary line read as nine over-cap repos when there was one over-cap
+# file (tools#77). The origin URL collapses both cases, since worktrees and clones of a
+# repo all point at the same remote. A checkout with no origin falls back to its shared
+# git directory, which still collapses worktrees, and a directory that is not a repo at
+# all falls back to its own path so it is never merged with anything else.
+repo_identity() {
+  local repo="$1" abs toplevel url host common
+
+  abs="$(cd "$repo" 2>/dev/null && pwd -P)" || abs=""
+
+  # A directory that merely SITS INSIDE a checkout must not borrow that checkout's
+  # identity. `git -C` searches upward, so both `remote get-url origin` and
+  # `--git-common-dir` answer for the enclosing repo, and two unrelated
+  # subdirectories would fold into one row. Only a directory that is itself a
+  # worktree root gets a git identity; that still includes linked worktrees and
+  # clones, which are exactly what we want folded. Everything else is its own path.
+  toplevel="$(git -C "$repo" rev-parse --show-toplevel 2>/dev/null)" || toplevel=""
+  if [[ -z "$abs" || -z "$toplevel" || "$toplevel" != "$abs" ]]; then
+    printf 'path:%s' "${abs:-$repo}"
+    return
+  fi
+
+  if url="$(git -C "$repo" remote get-url origin 2>/dev/null)" && [[ -n "$url" ]]; then
+    url="${url%.git}"
+    if [[ "$url" == *://* ]]; then
+      # A real URL: host[:port]/path. Keep it as written apart from the scheme and
+      # any userinfo -- rewriting a colon here would mangle a port into a path
+      # segment.
+      url="${url#*://}"
+      url="${url#*@}"
+    else
+      # scp form, `[user@]host:owner/repo`, where the single colon separates host
+      # from path and does convert to a slash.
+      url="${url#*@}"
+      url="${url/:/\/}"
+    fi
+    # Case-fold only where case genuinely does not distinguish repos. GitHub
+    # owner/repo is case-insensitive, so git@github.com:Owner/Repo and
+    # https://github.com/owner/repo are one repo. Lowercasing every origin would
+    # instead merge distinct repos on a case-sensitive host.
+    host="${url%%/*}"
+    [[ "${host,,}" == "github.com" ]] && url="${url,,}"
+    printf 'origin:%s' "$url"
+    return
+  fi
+
+  if common="$(git -C "$repo" rev-parse --git-common-dir 2>/dev/null)" && [[ -n "$common" ]]; then
+    # The same main worktree answers `.git` from inside itself and an absolute path
+    # from a linked worktree, and a trailing slash or relative argument leaves a
+    # third spelling. They have to be canonicalized or the fold silently stops
+    # working for exactly the no-origin worktrees this branch exists to catch.
+    [[ "$common" != /* ]] && common="$abs/$common"
+    common="$(cd "$common" 2>/dev/null && pwd -P)" || common="$abs/.git"
+    printf 'gitdir:%s' "$common"
+    return
+  fi
+
+  printf 'path:%s' "$abs"
+}
+
+# Collect every file first, then report one row per upstream repo. Reporting inside the
+# scan loop is what produced the duplicate rows.
+declare -A group_name group_chars group_files group_count group_paths
+order=()
 
 for repo in "${repos[@]}"; do
   file="$repo/.github/copilot-instructions.md"
   [[ -f "$file" ]] || continue
-  checked=$((checked + 1))
   name="$(basename "$repo")"
   chars="$(wc -c <"$file" | tr -d ' ')"
+  key="$(repo_identity "$repo")"
+
+  if [[ -z "${group_count[$key]:-}" ]]; then
+    order+=("$key")
+    group_count[$key]=1
+    group_name[$key]="$name"
+    group_chars[$key]="$chars"
+    group_files[$key]="$file"
+    group_paths[$key]="$name"
+    continue
+  fi
+  group_count[$key]=$((group_count[$key] + 1))
+  group_paths[$key]="${group_paths[$key]}, $name"
+  # Every checkout stays in the list, because the advisory scan below reads all of them.
+  # Folding the count must not fold the coverage: a sibling on a different commit can
+  # restate prose-style globals the representative file does not.
+  group_files[$key]="${group_files[$key]}"$'\n'"$file"
+  # Checkouts of one repo can sit at different commits, so report the largest file in
+  # the group. That is the one that would truncate, and hiding it behind a smaller
+  # sibling would turn the dedup into a way to miss a real over-cap file.
+  if [[ "$chars" -gt "${group_chars[$key]}" ]]; then
+    group_chars[$key]="$chars"
+    group_name[$key]="$name"
+  fi
+done
+
+checked=0 over=0 near=0 advisories=0 duplicates=0
+printf '%-30s %8s  %s\n' "REPO" "CHARS" "STATUS"
+printf '%-30s %8s  %s\n' "----" "-----" "------"
+
+for key in "${order[@]}"; do
+  checked=$((checked + 1))
+  name="${group_name[$key]}"
+  chars="${group_chars[$key]}"
 
   if [[ "$chars" -gt "$CAP" ]]; then
     status="OVER CAP (+$((chars - CAP)) past $CAP -- tail is being truncated)"
@@ -87,8 +192,23 @@ for repo in "${repos[@]}"; do
   fi
   printf '%-30s %8s  %s\n' "$name" "$chars" "$status"
 
-  # Advisory: prose-style-globals restatement, excluding the "omit these" notes.
-  hits="$(grep -inE "$PROSE_MARKERS" "$file" | grep -ivE "$PROSE_EXCLUDE" || true)"
+  if [[ "${group_count[$key]}" -gt 1 ]]; then
+    duplicates=$((duplicates + group_count[$key] - 1))
+    printf '  same repo in %s local checkouts: %s\n' \
+      "${group_count[$key]}" "${group_paths[$key]}"
+  fi
+
+  # Advisory: prose-style-globals restatement, excluding the "omit these" notes. Every
+  # checkout in the group is scanned so a sibling on a different commit is still caught,
+  # and identical findings are collapsed so the folded checkouts do not restore the
+  # duplicate output this change removed.
+  hits=""
+  while IFS= read -r checkout; do
+    [[ -n "$checkout" ]] || continue
+    found="$(grep -inE "$PROSE_MARKERS" "$checkout" | grep -ivE "$PROSE_EXCLUDE" || true)"
+    [[ -n "$found" ]] && hits="${hits}${found}"$'\n'
+  done <<<"${group_files[$key]}"
+  hits="$(printf '%s' "$hits" | sort -u | sed '/^$/d')"
   if [[ -n "$hits" ]]; then
     advisories=$((advisories + 1))
     while IFS= read -r line; do
@@ -103,9 +223,13 @@ if [[ "$checked" -eq 0 ]]; then
   exit 0
 fi
 
-echo "checked $checked file(s): $over over cap, $near near cap, $advisories with prose-globals advisories"
+summary="checked $checked repo(s): $over over cap, $near near cap, $advisories with prose-globals advisories"
+if [[ "$duplicates" -gt 0 ]]; then
+  summary="$summary ($duplicates duplicate checkout(s) folded in)"
+fi
+echo "$summary"
 if [[ "$over" -gt 0 ]]; then
-  echo "FAIL: $over file(s) over the ${CAP}-char cap are losing their tail to silent truncation" >&2
+  echo "FAIL: $over repo(s) over the ${CAP}-char cap are losing their tail to silent truncation" >&2
   exit 1
 fi
 echo "OK: every file is under the ${CAP}-char cap"
