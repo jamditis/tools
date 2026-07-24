@@ -48,6 +48,52 @@ test("validation remains available when model-info.json is malformed", async (t)
   assert.match(result.content[0].text, /❌ modelInfo:/);
 });
 
+test("validation reports a syntactically valid model catalog with an invalid schema", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-invalid-schema-")
+  );
+  await fs.writeFile(
+    path.join(dataDirectory, "model-info.json"),
+    JSON.stringify({
+      Broken: {
+        description: "Invalid catalog entry",
+        features: [],
+        link: "javascript:alert(1)",
+      },
+    }),
+    "utf8"
+  );
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: {
+      ...process.env,
+      LLM_ADVISOR_DATA_DIR: dataDirectory,
+    },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+
+  await client.connect(transport);
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+
+  assert.equal(result.isError, undefined);
+  assert.match(
+    result.content[0].text,
+    /❌ modelInfo: Model Broken link must use HTTP or HTTPS/
+  );
+});
+
 test("MCP writes reject unsafe browser-bound content", async (t) => {
   const dataDirectory = await fs.mkdtemp(
     path.join(os.tmpdir(), "llm-advisor-unsafe-url-")

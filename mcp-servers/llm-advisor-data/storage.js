@@ -61,11 +61,18 @@ class JsonFileStore {
 
     try {
       handle = await this.fs.open(temporaryPath, "wx", mode);
+      await handle.chmod(mode);
       await handle.writeFile(`${JSON.stringify(data, null, 2)}\n`, "utf8");
       await handle.sync();
       await handle.close();
       handle = undefined;
       await this.fs.rename(temporaryPath, filePath);
+      const directoryHandle = await this.fs.open(directory, "r");
+      try {
+        await directoryHandle.sync();
+      } finally {
+        await directoryHandle.close();
+      }
     } catch (error) {
       if (handle) {
         await handle.close().catch(() => {});

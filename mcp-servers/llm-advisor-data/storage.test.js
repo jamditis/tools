@@ -127,6 +127,60 @@ test("separate processes preserve concurrent updates", async (t) => {
   assert.deepEqual(new Set(stored.items), new Set(["first", "second"]));
 });
 
+test("atomic replacement preserves the original mode under a restrictive umask", async (t) => {
+  const { directory, filePath } = await makeState({ items: [] });
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  await fs.chmod(filePath, 0o644);
+  const store = new JsonFileStore();
+  const previousUmask = process.umask(0o077);
+
+  try {
+    await store.mutate(filePath, validateItems, (data) => {
+      data.items.push("published");
+      return data;
+    });
+  } finally {
+    process.umask(previousUmask);
+  }
+
+  const mode = (await fs.stat(filePath)).mode & 0o777;
+  assert.equal(mode, 0o644);
+});
+
+test("atomic replacement syncs the parent directory after rename", async (t) => {
+  const { directory, filePath } = await makeState({ items: [] });
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  const events = [];
+  const tracingFs = {
+    ...fs,
+    open: async (target, ...args) => {
+      const handle = await fs.open(target, ...args);
+      if (target !== directory) {
+        return handle;
+      }
+      return {
+        sync: async () => {
+          events.push("directory-sync");
+          await handle.sync();
+        },
+        close: () => handle.close(),
+      };
+    },
+    rename: async (...args) => {
+      await fs.rename(...args);
+      events.push("rename");
+    },
+  };
+  const store = new JsonFileStore({ fsApi: tracingFs });
+
+  await store.mutate(filePath, validateItems, (data) => {
+    data.items.push("published");
+    return data;
+  });
+
+  assert.deepEqual(events, ["rename", "directory-sync"]);
+});
+
 test("a failed atomic replacement leaves the prior JSON readable", async (t) => {
   const { directory, filePath } = await makeState({ items: ["prior"] });
   t.after(() => fs.rm(directory, { recursive: true, force: true }));

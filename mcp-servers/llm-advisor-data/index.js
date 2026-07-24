@@ -220,6 +220,15 @@ function validateChangelog(data) {
   }
 }
 
+const FILE_VALIDATORS = {
+  decisionTree: validateDecisionTree,
+  caseStudies: validateCaseStudies,
+  modelInfo: validateModelInfo,
+  toolComparison: (data) => validateRecord(data, "Tool comparison"),
+  bestPractices: (data) => validateRecord(data, "Best practices"),
+  changelog: validateChangelog,
+};
+
 // Load model names only when a tool needs them. Keeping startup independent
 // from catalog health leaves validate_all_json available to diagnose and repair
 // malformed or missing data files.
@@ -522,7 +531,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const results = [];
         for (const [name, filePath] of Object.entries(FILES)) {
           try {
-            await readJsonFile(filePath);
+            const data = await readJsonFile(filePath);
+            FILE_VALIDATORS[name](data);
             results.push(`✅ ${name}: valid`);
           } catch (e) {
             results.push(`❌ ${name}: ${e.message}`);
