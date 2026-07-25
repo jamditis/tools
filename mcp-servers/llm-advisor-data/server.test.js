@@ -415,3 +415,62 @@ test("a terminal recommendation missing its model list is rejected", async (t) =
   assert.equal(result.isError, true);
   assert.match(result.content[0].text, /must list at least one tool/);
 });
+
+// The catalog only reaches a schema-invalid state by being broken, which is when
+// the repair matters. Running the full validator before the mutation blocked the
+// one tool that could fix it, so a bad link had to be edited by hand.
+test("a model entry with an unsafe link can be repaired through update_model_info", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-repair-model-")
+  );
+  await copyCatalog(dataDirectory);
+  await fs.writeFile(
+    path.join(dataDirectory, "model-info.json"),
+    JSON.stringify({
+      Broken: {
+        description: "Invalid catalog entry",
+        features: [],
+        link: "javascript:alert(1)",
+      },
+    }),
+    "utf8"
+  );
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: { ...process.env, LLM_ADVISOR_DATA_DIR: dataDirectory },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+  await client.connect(transport);
+
+  const repaired = await client.callTool({
+    name: "update_model_info",
+    arguments: {
+      modelName: "Broken",
+      updates: { link: "https://example.com/broken" },
+    },
+  });
+
+  assert.equal(repaired.isError, undefined);
+  const stored = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "model-info.json"), "utf8")
+  );
+  assert.equal(stored.Broken.link, "https://example.com/broken");
+
+  // A name that is not in the catalog must still be refused, now from the
+  // document read under the lock rather than a separate unlocked read.
+  const unknown = await client.callTool({
+    name: "update_model_info",
+    arguments: { modelName: "Nonexistent", updates: { description: "x" } },
+  });
+  assert.equal(unknown.isError, true);
+  assert.match(unknown.content[0].text, /Invalid model name/);
+});

@@ -330,17 +330,6 @@ async function getValidModels() {
   return Object.keys(models);
 }
 
-// Helper: Validate model names
-async function validateModelName(name) {
-  const validModels = await getValidModels();
-  if (!validModels.includes(name)) {
-    throw new Error(
-      `Invalid model name: "${name}". Valid names: ${validModels.join(", ")}`
-    );
-  }
-  return true;
-}
-
 // Define tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   const validModels = await getValidModels().catch(() => []);
@@ -622,18 +611,25 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       case "update_model_info": {
-        await validateModelName(args.modelName);
         await jsonStore.mutate(
           FILES.modelInfo,
           { accept: validateModelInfoShape, publish: validateModelInfo },
           (models) => {
-          if (!models[args.modelName]) {
-            models[args.modelName] = {};
+            // Checked here rather than before the mutation so that a catalog the
+            // full validator rejects can still be repaired through this tool, and
+            // so the name list comes from the document read under the lock.
+            if (!Object.prototype.hasOwnProperty.call(models, args.modelName)) {
+              throw new Error(
+                `Invalid model name: "${args.modelName}". Valid names: ${Object.keys(
+                  models
+                ).join(", ")}`
+              );
+            }
+            validateRecord(args.updates, "Model updates");
+            Object.assign(models[args.modelName], args.updates);
+            return models;
           }
-          validateRecord(args.updates, "Model updates");
-          Object.assign(models[args.modelName], args.updates);
-          return models;
-        });
+        );
         return {
           content: [
             {
