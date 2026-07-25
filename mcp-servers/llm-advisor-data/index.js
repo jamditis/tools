@@ -64,6 +64,21 @@ function validateRecord(data, name) {
   }
 }
 
+// JSON.parse produces an own "__proto__" key, and copying it with Object.assign
+// runs the Object.prototype setter, which repoints the target's prototype rather
+// than adding a field. Refusing these keys keeps a merge from moving data
+// somewhere JSON.stringify will not write it.
+const PROTOTYPE_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+
+function validateMergeableRecord(data, name) {
+  validateRecord(data, name);
+  for (const key of Object.keys(data)) {
+    if (PROTOTYPE_KEYS.has(key)) {
+      throw new Error(`${name} must not contain the key "${key}"`);
+    }
+  }
+}
+
 function isAsciiLetter(character) {
   return (
     (character >= "A" && character <= "Z") ||
@@ -278,6 +293,16 @@ function validateModelInfo(data) {
   validateModelInfoShape(data);
   for (const [name, model] of Object.entries(data)) {
     validateRecord(model, `Model ${name}`);
+    // Own properties only. JSON.stringify writes own properties, so a field
+    // reachable through the prototype would satisfy the checks below and then
+    // vanish on write, publishing an empty entry while reporting success.
+    for (const field of ["description", "features", "link"]) {
+      if (!Object.prototype.hasOwnProperty.call(model, field)) {
+        throw new Error(
+          `Model ${name} must have a description, features array, and link`
+        );
+      }
+    }
     if (
       typeof model.description !== "string" ||
       !Array.isArray(model.features) ||
@@ -560,7 +585,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           FILES.decisionTree,
           { accept: validateDecisionTreeShape, publish: validateDecisionTree },
           (tree) => {
-            if (tree[args.nodeId]) {
+            // Assigning "__proto__" here would repoint the tree's prototype
+            // rather than add a node. The truthy check below happens to catch it
+            // and "constructor" too, but reports them as already existing, so
+            // refuse them by name and test existence on own keys only.
+            if (PROTOTYPE_KEYS.has(args.nodeId)) {
+              throw new Error(`Node id must not be "${args.nodeId}"`);
+            }
+            if (Object.prototype.hasOwnProperty.call(tree, args.nodeId)) {
               throw new Error(`Node already exists: ${args.nodeId}`);
             }
             tree[args.nodeId] = {
@@ -625,7 +657,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 ).join(", ")}`
               );
             }
-            validateRecord(args.updates, "Model updates");
+            validateMergeableRecord(args.updates, "Model updates");
+            // The name exists but the entry may be null, a primitive or an array,
+            // which is the corrupt state a repair has to overwrite. Object.assign
+            // throws on a null target and discards the result for a primitive one,
+            // so replace the entry before merging rather than merging into it.
+            const entry = models[args.modelName];
+            if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+              models[args.modelName] = {};
+            }
             Object.assign(models[args.modelName], args.updates);
             return models;
           }

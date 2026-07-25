@@ -474,3 +474,183 @@ test("a model entry with an unsafe link can be repaired through update_model_inf
   assert.equal(unknown.isError, true);
   assert.match(unknown.content[0].text, /Invalid model name/);
 });
+
+// JSON.parse creates an own "__proto__" key, and Object.assign copying it runs the
+// Object.prototype setter, which repoints the entry's prototype instead of adding
+// a field. The validator then reads the fields through that prototype and passes,
+// while JSON.stringify writes only own properties, so the catalog would publish an
+// empty entry and report success.
+test("update_model_info rejects prototype keys instead of publishing an empty entry", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-proto-")
+  );
+  await copyCatalog(dataDirectory);
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: { ...process.env, LLM_ADVISOR_DATA_DIR: dataDirectory },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+  await client.connect(transport);
+
+  const before = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "model-info.json"), "utf8")
+  );
+  const modelName = Object.keys(before)[0];
+
+  const result = await client.callTool({
+    name: "update_model_info",
+    arguments: {
+      modelName,
+      updates: JSON.parse(
+        '{"__proto__":{"description":"polluted","features":[],"link":"https://example.com"}}'
+      ),
+    },
+  });
+
+  assert.equal(result.isError, true);
+  const after = JSON.parse(
+    await fs.readFile(path.join(dataDirectory, "model-info.json"), "utf8")
+  );
+  assert.deepEqual(after, before);
+});
+
+// Object.assign throws on a null target and silently discards the result for a
+// primitive one, so a corrupt entry was the one shape this tool could not repair.
+for (const [label, corrupt] of [
+  ["null", null],
+  ["a primitive", "not an object"],
+  ["an array", ["not", "an", "object"]],
+]) {
+  test(`a model entry that is ${label} can be replaced through update_model_info`, async (t) => {
+    const dataDirectory = await fs.mkdtemp(
+      path.join(os.tmpdir(), "llm-advisor-corrupt-")
+    );
+    await copyCatalog(dataDirectory);
+    await fs.writeFile(
+      path.join(dataDirectory, "model-info.json"),
+      JSON.stringify({ Broken: corrupt }),
+      "utf8"
+    );
+    t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+    const transport = new StdioClientTransport({
+      command: process.execPath,
+      args: [path.join(__dirname, "index.js")],
+      cwd: __dirname,
+      env: { ...process.env, LLM_ADVISOR_DATA_DIR: dataDirectory },
+      stderr: "pipe",
+    });
+    const client = new Client(
+      { name: "llm-advisor-data-test", version: "1.0.0" },
+      { capabilities: {} }
+    );
+    t.after(() => client.close());
+    await client.connect(transport);
+
+    const repaired = await client.callTool({
+      name: "update_model_info",
+      arguments: {
+        modelName: "Broken",
+        updates: {
+          description: "Repaired entry",
+          features: ["one"],
+          link: "https://example.com/repaired",
+        },
+      },
+    });
+
+    assert.equal(repaired.isError, undefined);
+    const stored = JSON.parse(
+      await fs.readFile(path.join(dataDirectory, "model-info.json"), "utf8")
+    );
+    assert.deepEqual(stored.Broken, {
+      description: "Repaired entry",
+      features: ["one"],
+      link: "https://example.com/repaired",
+    });
+  });
+}
+
+// The boundary of the repair path, asserted so it is a known contract rather than
+// a surprise: publish validation covers the whole catalog, so a single repair
+// cannot land while a different entry is still corrupt. Never publishing an
+// invalid document wins over repairability here.
+test("a repair is refused while another entry is still corrupt", async (t) => {
+  const dataDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "llm-advisor-corrupt-pair-")
+  );
+  await copyCatalog(dataDirectory);
+  await fs.writeFile(
+    path.join(dataDirectory, "model-info.json"),
+    JSON.stringify({ Broken: null, AlsoBroken: null }),
+    "utf8"
+  );
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: { ...process.env, LLM_ADVISOR_DATA_DIR: dataDirectory },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+  await client.connect(transport);
+
+  const result = await client.callTool({
+    name: "update_model_info",
+    arguments: {
+      modelName: "Broken",
+      updates: {
+        description: "Repaired entry",
+        features: ["one"],
+        link: "https://example.com/repaired",
+      },
+    },
+  });
+
+  assert.equal(result.isError, true);
+  assert.match(result.content[0].text, /Model AlsoBroken must be a JSON object/);
+});
+
+// Assigning "__proto__" as a node id would repoint the tree's prototype instead
+// of adding a node. The truthy existence check caught that by accident and blamed
+// a collision, so the refusal is explicit and reports the real reason.
+test("add_decision_node refuses prototype keys as node ids", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-node-proto-");
+
+  for (const nodeId of ["__proto__", "constructor", "prototype"]) {
+    const result = await client.callTool({
+      name: "add_decision_node",
+      arguments: {
+        nodeId,
+        question: "Should this exist?",
+        options: [{ text: "Back", next: "start" }],
+      },
+    });
+    assert.equal(result.isError, true, `${nodeId} must be refused`);
+    assert.match(result.content[0].text, /Node id must not be/);
+  }
+
+  const validation = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+  assert.doesNotMatch(
+    validation.content[0].text,
+    new RegExp(`${FAILURE_MARK} decisionTree`)
+  );
+});
