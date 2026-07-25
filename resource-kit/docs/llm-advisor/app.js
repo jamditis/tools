@@ -499,9 +499,10 @@ async function loadAllData() {
             if (typeof value !== 'string') return '';
             const container = document.createElement('div');
             container.innerHTML = value;
-            const allowedTags = new Set(['A', 'EM', 'H3', 'H4', 'LI', 'P', 'STRONG', 'U', 'UL']);
+            const allowedTags = new Set(['A', 'CODE', 'EM', 'H3', 'H4', 'LI', 'P', 'STRONG', 'U', 'UL']);
             const presentationClasses = {
                 A: 'text-accent underline',
+                CODE: 'font-mono text-ink bg-white/50 border border-ink/10 px-1',
                 EM: 'italic',
                 H3: 'font-display text-xl font-bold mb-4 text-ink',
                 H4: 'font-display text-base font-bold mt-4 mb-2 text-ink',
@@ -972,7 +973,7 @@ async function loadAllData() {
                                         <svg class="w-4 h-4 mr-3 mt-1 flex-shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                         </svg>
-                                        <span>${tip}</span>
+                                        <span>${sanitizeRichHTML(tip)}</span>
                                     </li>
                                 `).join('')}
                             </ul>
