@@ -5,9 +5,36 @@ const path = require("node:path");
 const test = require("node:test");
 
 const { Client } = require("@modelcontextprotocol/sdk/client/index.js");
+
 const {
   StdioClientTransport,
 } = require("@modelcontextprotocol/sdk/client/stdio.js");
+
+// validate_all_json marks each failure with U+274C. Writing the escape keeps a
+// literal emoji out of source while still matching what the server emits.
+const FAILURE_MARK = "\u274C";
+
+const CATALOG_FILES = [
+  "decision-tree.json",
+  "case-studies.json",
+  "model-info.json",
+  "tool-comparison.json",
+  "best-practices.json",
+  "changelog.json",
+];
+
+async function copyCatalog(dataDirectory) {
+  const sourceDirectory = path.join(
+    __dirname,
+    "../../resource-kit/docs/llm-advisor/data"
+  );
+  for (const filename of CATALOG_FILES) {
+    await fs.copyFile(
+      path.join(sourceDirectory, filename),
+      path.join(dataDirectory, filename)
+    );
+  }
+}
 
 test("validation remains available when model-info.json is malformed", async (t) => {
   const dataDirectory = await fs.mkdtemp(
@@ -45,7 +72,7 @@ test("validation remains available when model-info.json is malformed", async (t)
     arguments: {},
   });
   assert.equal(result.isError, undefined);
-  assert.match(result.content[0].text, /❌ modelInfo:/);
+  assert.match(result.content[0].text, new RegExp(`${FAILURE_MARK} modelInfo:`));
 });
 
 test("validation reports a syntactically valid model catalog with an invalid schema", async (t) => {
@@ -90,7 +117,7 @@ test("validation reports a syntactically valid model catalog with an invalid sch
   assert.equal(result.isError, undefined);
   assert.match(
     result.content[0].text,
-    /❌ modelInfo: Model Broken link must use HTTP or HTTPS/
+    new RegExp(`${FAILURE_MARK} modelInfo: Model Broken link must use HTTP or HTTPS`)
   );
 });
 
@@ -98,23 +125,7 @@ test("MCP writes reject unsafe browser-bound content", async (t) => {
   const dataDirectory = await fs.mkdtemp(
     path.join(os.tmpdir(), "llm-advisor-unsafe-url-")
   );
-  const sourceDirectory = path.join(
-    __dirname,
-    "../../resource-kit/docs/llm-advisor/data"
-  );
-  for (const filename of [
-    "decision-tree.json",
-    "case-studies.json",
-    "model-info.json",
-    "tool-comparison.json",
-    "best-practices.json",
-    "changelog.json",
-  ]) {
-    await fs.copyFile(
-      path.join(sourceDirectory, filename),
-      path.join(dataDirectory, filename)
-    );
-  }
+  await copyCatalog(dataDirectory);
   t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
 
   const transport = new StdioClientTransport({
@@ -227,4 +238,180 @@ test("MCP writes reject unsafe browser-bound content", async (t) => {
     ),
     true
   );
+});
+
+// Omit decisionTree to exercise the shipped catalog unchanged.
+async function makeCatalogWithDecisionTree(t, prefix, decisionTree) {
+  const dataDirectory = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
+  await copyCatalog(dataDirectory);
+  if (decisionTree !== undefined) {
+    await fs.writeFile(
+      path.join(dataDirectory, "decision-tree.json"),
+      JSON.stringify(decisionTree),
+      "utf8"
+    );
+  }
+  t.after(() => fs.rm(dataDirectory, { recursive: true, force: true }));
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: [path.join(__dirname, "index.js")],
+    cwd: __dirname,
+    env: {
+      ...process.env,
+      LLM_ADVISOR_DATA_DIR: dataDirectory,
+    },
+    stderr: "pipe",
+  });
+  const client = new Client(
+    { name: "llm-advisor-data-test", version: "1.0.0" },
+    { capabilities: {} }
+  );
+  t.after(() => client.close());
+  await client.connect(transport);
+  return client;
+}
+
+test("validation rejects a decision tree with no start node", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-no-start-", {
+    tools: {
+      question: "Which tool fits?",
+      options: [{ text: "Stay here", next: "tools" }],
+    },
+  });
+
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+
+  assert.equal(result.isError, undefined);
+  assert.match(result.content[0].text, new RegExp(`${FAILURE_MARK} decisionTree: .*start`));
+});
+
+test("validation rejects a decision tree option pointing at a missing node", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-dangling-", {
+    start: {
+      question: "Where do you want to begin?",
+      options: [{ text: "Go nowhere", next: "no_such_node" }],
+    },
+  });
+
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+
+  assert.equal(result.isError, undefined);
+  assert.match(result.content[0].text, new RegExp(`${FAILURE_MARK} decisionTree: .*no_such_node`));
+});
+
+// A catalog only reaches this state by being broken, which is exactly when the
+// repair has to be possible. Validating the graph on the way in would reject the
+// tree before the node that resolves its dangling edge could be added.
+test("a node can be added to a tree whose edges do not yet resolve", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-repair-", {
+    start: {
+      question: "Where do you want to begin?",
+      options: [{ text: "Go to research", next: "research" }],
+    },
+  });
+
+  const added = await client.callTool({
+    name: "add_decision_node",
+    arguments: {
+      nodeId: "research",
+      question: "What kind of research?",
+      options: [{ text: "Back to the start", next: "start" }],
+    },
+  });
+
+  assert.equal(added.isError, undefined);
+
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+
+  assert.doesNotMatch(result.content[0].text, new RegExp(`${FAILURE_MARK} decisionTree`));
+});
+
+// The shipped catalog routes 38 terminal options to "recommendation", which is
+// itself a node with no options. Validating that target as an ordinary node keeps
+// the graph check honest without special-casing the name.
+test("validation accepts the shipped decision tree", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-shipped-");
+
+  const result = await client.callTool({
+    name: "validate_all_json",
+    arguments: {},
+  });
+
+  assert.equal(result.isError, undefined);
+  assert.doesNotMatch(result.content[0].text, new RegExp(`${FAILURE_MARK} decisionTree`));
+});
+
+const TERMINAL_OPTION = {
+  text: "Finish here",
+  next: "recommendation",
+  tools: [
+    {
+      name: "Example approach",
+      description: "What this approach is for.",
+      tools: ["Claude Sonnet 5"],
+      prompt: "Draft a plan for [TASK].",
+    },
+  ],
+};
+
+test("a node whose option ends at the recommendation view can be added", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-terminal-");
+
+  const result = await client.callTool({
+    name: "add_decision_node",
+    arguments: {
+      nodeId: "verification_probe",
+      question: "Does a terminal option publish?",
+      options: [TERMINAL_OPTION],
+    },
+  });
+
+  assert.equal(result.isError, undefined);
+});
+
+test("a terminal option carrying no recommendations is rejected", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-no-tools-");
+
+  const result = await client.callTool({
+    name: "add_decision_node",
+    arguments: {
+      nodeId: "empty_terminal",
+      question: "Does an empty terminal option publish?",
+      options: [{ text: "Finish here", next: "recommendation" }],
+    },
+  });
+
+  assert.equal(result.isError, true);
+  assert.match(result.content[0].text, /must list at least one recommendation/);
+});
+
+test("a terminal recommendation missing its model list is rejected", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-no-models-");
+
+  const result = await client.callTool({
+    name: "add_decision_node",
+    arguments: {
+      nodeId: "modelless_terminal",
+      question: "Does a recommendation with no models publish?",
+      options: [
+        {
+          ...TERMINAL_OPTION,
+          tools: [{ ...TERMINAL_OPTION.tools[0], tools: [] }],
+        },
+      ],
+    },
+  });
+
+  assert.equal(result.isError, true);
+  assert.match(result.content[0].text, /must list at least one tool/);
 });

@@ -13,6 +13,8 @@ function validateItems(data) {
   }
 }
 
+const itemValidators = { accept: validateItems, publish: validateItems };
+
 async function makeState(initial) {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), "llm-advisor-data-"));
   const filePath = path.join(directory, "state.json");
@@ -29,7 +31,7 @@ function mutateInChild(filePath, item, delay) {
       }
     };
     new JsonFileStore()
-      .mutate(process.env.TEST_STATE_FILE, validate, async (data) => {
+      .mutate(process.env.TEST_STATE_FILE, { accept: validate, publish: validate }, async (data) => {
         await new Promise((resolve) =>
           setTimeout(resolve, Number(process.env.TEST_DELAY))
         );
@@ -75,12 +77,12 @@ test("concurrent mutations preserve both updates", async (t) => {
   const store = new JsonFileStore();
 
   await Promise.all([
-    store.mutate(filePath, validateItems, async (data) => {
+    store.mutate(filePath, itemValidators, async (data) => {
       await new Promise((resolve) => setTimeout(resolve, 25));
       data.items.push("first");
       return data;
     }),
-    store.mutate(filePath, validateItems, (data) => {
+    store.mutate(filePath, itemValidators, (data) => {
       data.items.push("second");
       return data;
     }),
@@ -97,12 +99,12 @@ test("separate store instances preserve concurrent updates", async (t) => {
   const secondStore = new JsonFileStore();
 
   await Promise.all([
-    firstStore.mutate(filePath, validateItems, async (data) => {
+    firstStore.mutate(filePath, itemValidators, async (data) => {
       await new Promise((resolve) => setTimeout(resolve, 25));
       data.items.push("first");
       return data;
     }),
-    secondStore.mutate(filePath, validateItems, (data) => {
+    secondStore.mutate(filePath, itemValidators, (data) => {
       data.items.push("second");
       return data;
     }),
@@ -135,7 +137,7 @@ test("atomic replacement preserves the original mode under a restrictive umask",
   const previousUmask = process.umask(0o077);
 
   try {
-    await store.mutate(filePath, validateItems, (data) => {
+    await store.mutate(filePath, itemValidators, (data) => {
       data.items.push("published");
       return data;
     });
@@ -173,7 +175,7 @@ test("atomic replacement syncs the parent directory after rename", async (t) => 
   };
   const store = new JsonFileStore({ fsApi: tracingFs });
 
-  await store.mutate(filePath, validateItems, (data) => {
+  await store.mutate(filePath, itemValidators, (data) => {
     data.items.push("published");
     return data;
   });
@@ -193,7 +195,7 @@ test("a failed atomic replacement leaves the prior JSON readable", async (t) => 
   const store = new JsonFileStore({ fsApi: failingFs });
 
   await assert.rejects(
-    store.mutate(filePath, validateItems, (data) => {
+    store.mutate(filePath, itemValidators, (data) => {
       data.items.push("unpublished");
       return data;
     }),
@@ -211,8 +213,82 @@ test("invalid resulting data is rejected before publication", async (t) => {
   const store = new JsonFileStore();
 
   await assert.rejects(
-    store.mutate(filePath, validateItems, () => ({ items: "invalid" })),
+    store.mutate(filePath, itemValidators, () => ({ items: "invalid" })),
     /items must be an array/
+  );
+
+  const stored = JSON.parse(await fs.readFile(filePath, "utf8"));
+  assert.deepEqual(stored.items, ["prior"]);
+});
+
+test("a parent directory that cannot be synced does not fail a published mutation", async (t) => {
+  const { directory, filePath } = await makeState({ items: [] });
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  const unsyncableFs = {
+    ...fs,
+    open: async (target, ...args) => {
+      if (target === directory) {
+        const error = new Error("directory fsync unsupported");
+        error.code = "EINVAL";
+        throw error;
+      }
+      return fs.open(target, ...args);
+    },
+  };
+  const store = new JsonFileStore({ fsApi: unsyncableFs });
+
+  await store.mutate(filePath, itemValidators, (data) => {
+    data.items.push("published");
+    return data;
+  });
+
+  const stored = JSON.parse(await fs.readFile(filePath, "utf8"));
+  assert.deepEqual(stored.items, ["published"]);
+  assert.deepEqual(await fs.readdir(directory), ["state.json"]);
+});
+
+test("a lock that cannot be released does not fail a published mutation", async (t) => {
+  const { directory, filePath } = await makeState({ items: [] });
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  const lockApi = {
+    lock: async () => async () => {
+      throw new Error("lock is already released by someone else");
+    },
+  };
+  const errors = [];
+  const originalError = console.error;
+  console.error = (message) => errors.push(message);
+  t.after(() => {
+    console.error = originalError;
+  });
+  const store = new JsonFileStore({ lockApi });
+
+  await store.mutate(filePath, itemValidators, (data) => {
+    data.items.push("published");
+    return data;
+  });
+
+  const stored = JSON.parse(await fs.readFile(filePath, "utf8"));
+  assert.deepEqual(stored.items, ["published"]);
+  assert.equal(errors.length, 1);
+  assert.match(errors[0], /lock release failed/);
+});
+
+test("a lock that cannot be released still surfaces the error that stopped a mutation", async (t) => {
+  const { directory, filePath } = await makeState({ items: ["prior"] });
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  const lockApi = {
+    lock: async () => async () => {
+      throw new Error("lock is already released by someone else");
+    },
+  };
+  const store = new JsonFileStore({ lockApi });
+
+  await assert.rejects(
+    store.mutate(filePath, itemValidators, () => {
+      throw new Error("mutator refused the change");
+    }),
+    /mutator refused the change/
   );
 
   const stored = JSON.parse(await fs.readFile(filePath, "utf8"));

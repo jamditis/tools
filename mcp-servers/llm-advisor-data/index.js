@@ -157,7 +157,43 @@ function validateHttpUrl(value, name, { allowEmpty = false } = {}) {
   }
 }
 
-function validateDecisionTree(data) {
+// The node an option reaches to end the walk and show its recommendations.
+const RECOMMENDATION_NODE = "recommendation";
+
+// A terminal option carries the recommendations the advisor renders when the walk
+// ends. renderRecommendationView reads name, description and prompt, and calls
+// .map on tools, so an entry missing tools throws and one missing the others
+// renders the string "undefined". tips is guarded by a ternary there, so it stays
+// optional here.
+function validateRecommendation(recommendation, name) {
+  validateRecord(recommendation, name);
+  for (const field of ["name", "description", "prompt"]) {
+    if (
+      typeof recommendation[field] !== "string" ||
+      recommendation[field].length === 0
+    ) {
+      throw new Error(`${name} must have a non-empty ${field}`);
+    }
+  }
+  if (
+    !Array.isArray(recommendation.tools) ||
+    recommendation.tools.length === 0
+  ) {
+    throw new Error(`${name} must list at least one tool`);
+  }
+  for (const [index, tool] of recommendation.tools.entries()) {
+    if (typeof tool !== "string" || tool.length === 0) {
+      throw new Error(`${name} tool ${index} must be a non-empty string`);
+    }
+  }
+}
+
+// Shape validators check only what a mutator structurally depends on, and run
+// against the document being edited. The matching full validator runs against
+// the result. Enforcing every rule on the way in would make these tools refuse
+// to run precisely when validate_all_json has found a problem worth repairing:
+// a tree with a dangling edge could not accept the node that resolves it.
+function validateDecisionTreeShape(data) {
   validateRecord(data, "Decision tree");
   for (const [nodeId, node] of Object.entries(data)) {
     validateRecord(node, `Decision node ${nodeId}`);
@@ -169,10 +205,58 @@ function validateDecisionTree(data) {
   }
 }
 
-function validateCaseStudies(data) {
+// The advisor enters the tree at "start" and dereferences each option's "next"
+// as it walks. Checking node shape alone would accept a catalog that is valid
+// node by node but has no entry point or a broken edge, which loads here and
+// crashes in the browser. Validating the graph keeps that state out of the data.
+function validateDecisionTree(data) {
+  validateDecisionTreeShape(data);
+
+  if (!Object.prototype.hasOwnProperty.call(data, "start")) {
+    throw new Error(
+      'Decision tree must have a "start" node, the entry point the advisor loads first'
+    );
+  }
+
+  for (const [nodeId, node] of Object.entries(data)) {
+    for (const [index, option] of node.options.entries()) {
+      validateRecord(option, `Decision node ${nodeId} option ${index}`);
+      if (typeof option.next !== "string" || option.next.length === 0) {
+        throw new Error(
+          `Decision node ${nodeId} option ${index} must have a next node id`
+        );
+      }
+      if (!Object.prototype.hasOwnProperty.call(data, option.next)) {
+        throw new Error(
+          `Decision node ${nodeId} option ${index} points at missing node ${option.next}`
+        );
+      }
+      if (option.next !== RECOMMENDATION_NODE) {
+        continue;
+      }
+      if (!Array.isArray(option.tools) || option.tools.length === 0) {
+        throw new Error(
+          `Decision node ${nodeId} option ${index} ends the walk and must list at least one recommendation`
+        );
+      }
+      for (const [toolIndex, recommendation] of option.tools.entries()) {
+        validateRecommendation(
+          recommendation,
+          `Decision node ${nodeId} option ${index} recommendation ${toolIndex}`
+        );
+      }
+    }
+  }
+}
+
+function validateCaseStudiesShape(data) {
   if (!Array.isArray(data)) {
     throw new Error("Case studies must be a JSON array");
   }
+}
+
+function validateCaseStudies(data) {
+  validateCaseStudiesShape(data);
   for (const [index, study] of data.entries()) {
     validateRecord(study, `Case study ${index}`);
     for (const field of ["title", "tool", "journalist", "challenge", "solution"]) {
@@ -186,8 +270,12 @@ function validateCaseStudies(data) {
   }
 }
 
-function validateModelInfo(data) {
+function validateModelInfoShape(data) {
   validateRecord(data, "Model info");
+}
+
+function validateModelInfo(data) {
+  validateModelInfoShape(data);
   for (const [name, model] of Object.entries(data)) {
     validateRecord(model, `Model ${name}`);
     if (
@@ -203,10 +291,14 @@ function validateModelInfo(data) {
   }
 }
 
-function validateChangelog(data) {
+function validateChangelogShape(data) {
   if (!Array.isArray(data)) {
     throw new Error("Changelog must be a JSON array");
   }
+}
+
+function validateChangelog(data) {
+  validateChangelogShape(data);
   for (const [index, entry] of data.entries()) {
     validateRecord(entry, `Changelog entry ${index}`);
     if (
@@ -297,13 +389,35 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             },
             options: {
               type: "array",
-              description: "Array of option objects with text and next fields",
+              description:
+                'Array of option objects. An option whose next is "recommendation" ends the walk and must carry a non-empty tools array of recommendations.',
               items: {
                 type: "object",
                 properties: {
                   text: { type: "string" },
                   next: { type: "string" },
+                  tools: {
+                    type: "array",
+                    description:
+                      'Recommendations rendered when next is "recommendation"',
+                    items: {
+                      type: "object",
+                      properties: {
+                        name: { type: "string" },
+                        description: { type: "string" },
+                        tools: {
+                          type: "array",
+                          description: "Model names to suggest",
+                          items: { type: "string" },
+                        },
+                        prompt: { type: "string" },
+                        tips: { type: "string" },
+                      },
+                      required: ["name", "description", "tools", "prompt"],
+                    },
+                  },
                 },
+                required: ["text", "next"],
               },
             },
           },
@@ -455,7 +569,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "add_decision_node": {
         await jsonStore.mutate(
           FILES.decisionTree,
-          validateDecisionTree,
+          { accept: validateDecisionTreeShape, publish: validateDecisionTree },
           (tree) => {
             if (tree[args.nodeId]) {
               throw new Error(`Node already exists: ${args.nodeId}`);
@@ -491,7 +605,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
         await jsonStore.mutate(
           FILES.caseStudies,
-          validateCaseStudies,
+          { accept: validateCaseStudiesShape, publish: validateCaseStudies },
           (studies) => {
             studies.push(newStudy);
             return studies;
@@ -509,7 +623,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "update_model_info": {
         await validateModelName(args.modelName);
-        await jsonStore.mutate(FILES.modelInfo, validateModelInfo, (models) => {
+        await jsonStore.mutate(
+          FILES.modelInfo,
+          { accept: validateModelInfoShape, publish: validateModelInfo },
+          (models) => {
           if (!models[args.modelName]) {
             models[args.modelName] = {};
           }
@@ -592,7 +709,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           version: args.version,
           notes: args.notes,
         };
-        await jsonStore.mutate(FILES.changelog, validateChangelog, (changelog) => {
+        await jsonStore.mutate(
+          FILES.changelog,
+          { accept: validateChangelogShape, publish: validateChangelog },
+          (changelog) => {
           changelog.unshift(entry);
           return changelog;
         });
