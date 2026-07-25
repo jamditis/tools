@@ -3,9 +3,10 @@
   "private": true,
   "description": "Precompiled Tailwind stylesheet for the tools.amditis.tech resource kit",
   "scripts": {
-    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../docs/assets/tailwind.css --minify"
+    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../docs/assets/tailwind.css --minify",
+    "test": "npm run build && node --test test-migration.js"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.19"
   }
 }

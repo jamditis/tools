@@ -128,15 +128,22 @@ The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
 
 ## Model naming conventions
 
-Use these current names in all content:
-- **Claude Opus 4.8** - best for coding and writing
-- **Claude Sonnet 4.6** - fast chat model
-- **Gemini 3.1 Pro** - best for front-end design and large documents
-- **Gemini 3.1 Flash** - fast Gemini chat model
-- **Codex (GPT 5.5)** - OpenAI's coding model
-- **GPT 5.5** - OpenAI's reasoning model
+Current-facing guidance was verified July 24, 2026. Use the catalog in
+`resource-kit/docs/llm-advisor/data/model-info.json` as the local source of
+truth, then verify official provider documentation before changing it. Keep
+historical case studies, changelog entries, plans, and the frozen archive
+unchanged.
 
-Never use outdated names like "Claude 4 Opus", "GPT-4o", or "Gemini 2.x"
+Current starting points include:
+- **Claude Fable 5** - maximum-capability long-running agents
+- **Claude Opus 4.8 / Claude Sonnet 5 / Claude Haiku 4.5** - capability, balance, and throughput tiers
+- **GPT-5.6 Sol** - OpenAI flagship; Codex uses it for complex repository work
+- **Gemini 3.6 Flash** - stable agentic and multimodal work
+- **Gemini 3.1 Pro** - preview reasoning model
+- **GLM-5.2, DeepSeek V4 Pro/Flash, Qwen3.6-35B-A3B, and Kimi K2.5** - current open-weight options
+
+Run `cd scripts && npm test` and `node scripts/validate-all-json.js` after
+editing active AI guidance.
 
 ## Template categories
 
@@ -155,7 +162,7 @@ Two interactive glossaries under `resource-kit/docs/vibe-coding/`:
 | Frontend | `glossary-frontend/index.html` | `glossary-frontend/term.html` | `glossary-frontend/data.js` (~300KB) |
 | Database | `glossary-database/index.html` | `glossary-database/term.html` | `glossary-database/data.js` |
 
-**Architecture:** Zero-build, Tailwind CDN + Lucide icons. `data.js` exports `TERMS` array and `GLOSSARY_META` object. Index pages build card grids dynamically; term pages render a single term from the `?t=` query param.
+**Architecture:** Static HTML with compiled Tailwind CSS + Lucide icons. `data.js` exports `TERMS` array and `GLOSSARY_META` object. Index pages build card grids dynamically; term pages render a single term from the `?t=` query param.
 
 **Init pattern:** All glossary inline scripts are wrapped in `DOMContentLoaded` so they work regardless of whether the Lucide script tag has `defer`. A `body.loading` class suppresses CSS transitions during init to prevent layout shift, removed via `requestAnimationFrame` after `lucide.createIcons()`.
 
@@ -167,7 +174,7 @@ Two interactive glossaries under `resource-kit/docs/vibe-coding/`:
 
 **SVG thumbnails in data.js:** Some terms have inline SVG illustrations with `<style>` tags. SVG styles are NOT scoped — they leak into the entire document. Never use generic class names (like `block`, `container`, `item`) in SVG styles. Use prefixed names like `svg-block`, `svg-shift`.
 
-**Filtering:** Category tabs toggle `.term-hidden` class on cards. The `.term-hidden` rule uses `!important` because Tailwind CDN injects `.block { display: block }` later in the cascade and would otherwise override `display: none`.
+**Filtering:** Category tabs toggle `.term-hidden` class on cards. The `.term-hidden` rule uses `!important` so the compiled `.block { display: block }` utility cannot override `display: none`.
 
 ## Copilot review instructions (`.github/copilot-instructions.md`)
 
@@ -204,6 +211,6 @@ Background: `tools` issue #59, and `MEMORY.md` → `reference_copilot_pr_review_
 - Attaching event listeners only to the main container (check if elements are outside it)
 - Deploying without pushing to master (GitHub Actions handles it)
 - Using Jekyll features (site uses static deployment, not Jekyll)
-- **`transition: all`** on any element — scope to specific properties (`transform`, `box-shadow`, `border-color`, etc.). `all` catches layout changes from DOM mutations (Lucide icon injection, Tailwind CDN processing) and animates them visibly
+- **`transition: all`** on any element — scope to specific properties (`transform`, `box-shadow`, `border-color`, etc.). `all` catches layout changes from DOM mutations (including Lucide icon injection) and animates them visibly
 - **Generic class names in SVG `<style>` tags** — SVG styles leak into the document. A `.block` rule inside an SVG will apply to every Tailwind `block` element on the page
 - **Inline scripts that depend on `defer`'d libraries** — wrap in `DOMContentLoaded` instead of assuming load order. Guard `lucide.createIcons()` with try/catch

@@ -21,27 +21,20 @@ migrated page's classes change, or the live page silently loses styles.
 
 ## Theme
 
-`tailwind.config.js` mirrors the Amditis V2 design system that the pages loaded at
-runtime from `docs/assets/amditis-config.js` (the `canvas`/`ink`/`accent` palette,
-the Fraunces and Plus Jakarta Sans fonts, and the drift and page-in animations).
-Keep the two in sync until every page is migrated, then retire the runtime config.
+`tailwind.config.js` contains the shared Amditis V2 design system and namespaced
+tokens for pages with distinct palettes or typography. The namespaced font
+families keep the vibe-coding guide's Space Grotesk, Merriweather, and JetBrains
+Mono stack from changing the rest of the site.
+
+This build intentionally remains on the latest Tailwind 3 release. Tailwind 4
+changes configuration and migration behavior; upgrading it should be a separate
+tested change rather than an automatic dependency bump against the current
+JavaScript config and legacy HTML surfaces.
 
 ## Migration status
 
-Migrated to the precompiled stylesheet: every static content page whose Tailwind
-classes all resolve as literals from the HTML and JS the build scans.
-
-Still on the Play CDN, deliberately, are the pages a static build cannot cover
-without extra work, because it only ships the classes it sees at build time:
-
-- Class names built at runtime by string interpolation (`bg-${color}`), which the
-  glob scan cannot see: `llm-advisor/ai-showcase/index.html`, whose cards build
-  their hover and accent classes from a data array. Migrating it needs a `safelist`
-  (or a per-page class inventory) that captures the interpolated classes, verified
-  page by page.
-- Pages carrying their own inline `tailwind.config`: `html-editor/index.html` and
-  `llm-advisor/vibe-coding/index.html`. Migrating these needs their `theme.extend`
-  merged into `tailwind.config.js` (watch for palette-name collisions between pages).
-
-The remaining pages are tracked in jamditis/tools#78, so the split stays on the
-record and the production warning gets fully retired.
+Every active resource-kit page now uses the precompiled stylesheet. The
+AI-showcase card variants built through string interpolation are listed in the
+config safelist, and `npm test` checks those selectors in the generated CSS.
+The no-index historical snapshot under `llm-advisor/archive/` retains its frozen
+runtime build as an archival record.

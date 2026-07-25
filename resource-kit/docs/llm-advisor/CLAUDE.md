@@ -7,8 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 When a bug is reported, don't immediately attempt to fix it. Instead:
 
 1. **Write a failing test first** that reproduces the bug
-2. **Launch subagents** to work on fixing the bug
-3. **Verify the fix** by running the test — a passing test proves the bug is fixed
+2. **Implement the smallest fix** that addresses the reproduced behavior
+3. **Verify the fix** with the focused test and the broader relevant suite
 
 ---
 
@@ -25,10 +25,10 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 - `data/` - Six JSON files containing all content data
 
 **Core technologies:**
-- Tailwind CSS (loaded via CDN) for styling
+- Compiled Tailwind CSS from `resource-kit/docs/assets/tailwind.css`
 - Vanilla JavaScript for all functionality
 - JSON files for content data storage
-- No build process or compilation required
+- Tailwind build and migration checks live in `resource-kit/tailwind-build/`
 
 **Key components:**
 - Decision tree engine that maps user journeys through journalism workflows
@@ -42,7 +42,7 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 - `tool-comparison.json`: Comparison data for major AI tools
 - `case-studies.json`: Real-world examples from newsrooms
 - `best-practices.json`: General AI usage guidelines (includes Gemini 3 advanced techniques)
-- `model-info.json`: Detailed information about specific AI models/tools (includes Claude Opus 4.8, Gemini 3.1, GPT 5.5, and Gemini 2.5 legacy)
+- `model-info.json`: Detailed information about current model families, tools, and explicitly labeled legacy entries
 - `changelog.json`: Version history and updates
 
 ## Development workflow
@@ -56,6 +56,9 @@ Since the application uses the Fetch API to load JSON data, you need to run a lo
 Then open `http://localhost:8000` in your browser.
 
 **Testing:**
+- Run `node scripts/validate-all-json.js`
+- Run `cd scripts && npm test`
+- Run `cd resource-kit/tailwind-build && npm test`
 - Test in both light and dark modes using the theme toggle
 - Verify all decision tree paths lead to appropriate recommendations
 - Check modal functionality (case studies, best practices, tool comparison, changelog)
@@ -76,8 +79,8 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 6. **Recording changes:** Add new version entry to `data/changelog.json` array
 
 **Updating styles:**
-- Modify `styles.css` for custom styling changes
-- Tailwind classes can be used directly in `index.html`
+- Modify `styles.css` for application-specific styling
+- Add Tailwind classes in HTML, then rebuild the shared stylesheet from `resource-kit/tailwind-build/`
 
 **Updating functionality:**
 - Modify `app.js` for behavior changes
@@ -90,7 +93,7 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 **Color coding:** AI tools have consistent color-coded pill buttons defined in `getPillClasses()` function:
 - Claude: Orange (#d9843b)
 - Gemini/Nano Banana: Teal (#369a8b)
-- ChatGPT/GPT 5.5/Codex: Slate gray
+- ChatGPT/GPT-5.6 Sol/Codex: Slate gray
 - Other tools: Various distinctive colors
 
 **Modal system:** Uses a single universal modal (`#universal-modal`) that dynamically updates content based on the type of information being displayed.
@@ -102,6 +105,8 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 ## Reference materials
 
 `gemini-3-prompting-guide.md` contains best practices for prompting Gemini 3, useful context when updating AI-related recommendations or guidance.
+
+Current-facing model guidance was verified July 24, 2026. Re-check official provider model, lifecycle, and pricing pages before changing recommendations. Historical case studies and changelog entries should retain the names that were accurate when written.
 
 ## Brand guidelines
 

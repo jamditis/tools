@@ -66,15 +66,17 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 | File automation | Bash/Python |
 | Database queries | SQL |
 
-### Current best LLMs for coding (Feb 2026)
+### Current agent model starting points
+
+> Verified July 24, 2026. Check vendor model, lifecycle, plan, and pricing pages before production use.
 
 | Need | Recommendation |
 |------|----------------|
-| Coding and writing | Claude Opus 4.8 |
-| Fast daily tasks | Claude Sonnet 4.6 |
-| Front-end design, large docs | Gemini 3.1 Pro |
-| OpenAI coding tasks | Codex (GPT 5.5) |
-| Free, getting started | Gemini CLI free tier |
+| Maximum-capability Anthropic work | Claude Fable 5 |
+| Balanced daily agents | Claude Sonnet 5 |
+| Stable multimodal agents | Gemini 3.6 Flash |
+| OpenAI coding tasks | Codex (GPT-5.6 Sol) |
+| Open-weight long-horizon agents | GLM-5.2 |
 
 ---
 

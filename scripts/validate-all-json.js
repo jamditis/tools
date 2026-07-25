@@ -12,35 +12,25 @@
  * Usage: node scripts/validate-all-json.js &
  */
 
-const fs = require("fs").promises;
-const path = require("path");
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const DATA_DIR = path.join(
   __dirname,
   "../resource-kit/docs/llm-advisor/data"
 );
 
-// Valid model names (current as of June 2026)
-const VALID_MODELS = [
-  "Claude Opus 4.8",
-  "Claude Sonnet 4.6",
-  "Gemini 3.1 Pro",
-  "Gemini 3.1 Flash",
-  "GPT 5.5",
-  "Codex (GPT 5.5)",
-];
-
-// Outdated model name patterns
+// Known stale claims in active guidance. Historical case studies and changelog
+// entries are intentionally excluded from this check.
 const OUTDATED_PATTERNS = [
-  { pattern: /Claude 4 Opus/gi, replacement: "Claude Opus 4.8" },
-  { pattern: /Claude Opus 4\.6/gi, replacement: "Claude Opus 4.8" },
-  { pattern: /GPT-4o/gi, replacement: "GPT 5.5" },
-  { pattern: /GPT-4/gi, replacement: "GPT 5.5" },
-  { pattern: /GPT 5\.1/gi, replacement: "GPT 5.5" },
-  { pattern: /GPT 5\.2/gi, replacement: "GPT 5.5" },
-  { pattern: /Gemini 3\.0/gi, replacement: "Gemini 3.1" },
-  { pattern: /Gemini 2\.\d/gi, replacement: "Gemini 3.1" },
-  { pattern: /Gemini 1\.\d/gi, replacement: "Gemini 3.1" },
+  { pattern: /\bGPT[ -]?5\.5\b/gi, replacement: "GPT-5.6 Sol" },
+  { pattern: /\b(?:Claude )?Sonnet 4\.6\b/gi, replacement: "Claude Sonnet 5" },
+  { pattern: /\bGLM-5\.1\b/gi, replacement: "GLM-5.2" },
+  { pattern: /\bGrok 3\b/gi, replacement: "Grok 4.5" },
+  { pattern: /\bDeepSeek R2\b/gi, replacement: "DeepSeek V4 Pro or Flash" },
 ];
 
 // File schemas
@@ -51,20 +41,20 @@ const SCHEMAS = {
   },
   "case-studies.json": {
     isArray: true,
-    itemRequired: ["title", "organization", "challenge", "solution"],
+    itemRequired: ["title", "tool", "journalist", "challenge", "solution"],
   },
   "model-info.json": {
     isObject: true,
   },
   "tool-comparison.json": {
-    isArray: true,
+    isObject: true,
   },
   "best-practices.json": {
-    isArray: true,
+    isObject: true,
   },
   "changelog.json": {
     isArray: true,
-    itemRequired: ["version", "changes"],
+    itemRequired: ["version", "notes"],
   },
 };
 
@@ -106,7 +96,10 @@ async function validateFile(filename, schema) {
       results.errors.push(`Expected array, got ${typeof data}`);
     }
 
-    if (schema.isObject && typeof data !== "object") {
+    if (
+      schema.isObject &&
+      (typeof data !== "object" || data === null || Array.isArray(data))
+    ) {
       results.valid = false;
       results.errors.push(`Expected object, got ${typeof data}`);
     }
@@ -122,12 +115,15 @@ async function validateFile(filename, schema) {
     }
 
     // Check for outdated model names
-    for (const { pattern, replacement } of OUTDATED_PATTERNS) {
-      const matches = content.match(pattern);
-      if (matches) {
-        results.warnings.push(
-          `Outdated model name: "${matches[0]}" → "${replacement}"`
-        );
+    if (!["case-studies.json", "changelog.json"].includes(filename)) {
+      for (const { pattern, replacement } of OUTDATED_PATTERNS) {
+        const matches = content.match(pattern);
+        if (matches) {
+          results.valid = false;
+          results.errors.push(
+            `Outdated model name: "${matches[0]}" → "${replacement}"`
+          );
+        }
       }
     }
 

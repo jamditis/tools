@@ -4,15 +4,18 @@
 
 ---
 
-## Best LLMs for coding (June 2026)
+## Current agent starting points
+
+> Verified July 24, 2026. Check vendor model and pricing pages before production use.
 
 | Need | Model | Notes |
 |------|-------|-------|
-| Coding/writing | Claude Opus 4.8 | Best by far |
-| Front-end design | Gemini 3.1 Pro | Best context window |
-| OpenAI coding | Codex (GPT 5.5) | Specialized for code |
-| Free option | Claude.ai free | Limited but capable |
-| In-editor | GitHub Copilot | $10/mo, real-time |
+| Maximum-capability Anthropic work | Claude Fable 5 | Long-running difficult agents |
+| Balanced Anthropic coding | Claude Sonnet 5 | Daily speed-quality choice |
+| Stable multimodal agents | Gemini 3.6 Flash | Fast tool-using workflows |
+| OpenAI coding | Codex (GPT-5.6 Sol) | Specialized for code |
+| Open-weight long-horizon agents | GLM-5.2 | Hosting and hardware required |
+| Efficient local agentic coding | Qwen3.6-35B-A3B | About 3B active parameters |
 
 ---
 

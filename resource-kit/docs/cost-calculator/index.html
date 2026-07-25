@@ -115,16 +115,22 @@
                 <!-- Model -->
                 <div class="space-y-3">
                     <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Model</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <button onclick="setModel('fable')" id="btn-fable"
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            <div class="font-display font-bold text-sm text-ink">Claude Fable 5</div>
+                            <div class="text-xs text-mist mt-1">Long-running agents</div>
+                            <div class="text-xs text-mist font-bold mt-2">$10 / $50 per M tokens</div>
+                        </button>
                         <button onclick="setModel('opus')" id="btn-opus"
                             class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
                             <div class="font-display font-bold text-sm text-ink">Claude Opus 4.8</div>
                             <div class="text-xs text-mist mt-1">Best for complex coding</div>
-                            <div class="text-xs text-accent font-bold mt-2">$15 / $75 per M tokens</div>
+                            <div class="text-xs text-accent font-bold mt-2">$5 / $25 per M tokens</div>
                         </button>
                         <button onclick="setModel('sonnet')" id="btn-sonnet"
                             class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
-                            <div class="font-display font-bold text-sm text-ink">Claude Sonnet 4.6</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Sonnet 5</div>
                             <div class="text-xs text-mist mt-1">Fast, balanced</div>
                             <div class="text-xs text-mist font-bold mt-2">$3 / $15 per M tokens</div>
                         </button>
@@ -132,7 +138,7 @@
                             class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Haiku 4.5</div>
                             <div class="text-xs text-mist mt-1">Fastest, cheapest</div>
-                            <div class="text-xs text-mist font-bold mt-2">$0.80 / $4 per M tokens</div>
+                            <div class="text-xs text-mist font-bold mt-2">$1 / $5 per M tokens</div>
                         </button>
                     </div>
                 </div>
@@ -297,10 +303,11 @@ cache_read=$(echo "$input"  | jq -r '.context_window.current_usage.cache_read_in
 
 # Pricing lookup (per million tokens: input / output / cache-write / cache-read)
 case "$model_id" in
-  *opus-4*)    ip=15;  op=75; cwp="18.75"; crp="1.5"  ;;
-  *sonnet-4*)  ip=3;   op=15; cwp="3.75";  crp="0.3"  ;;
-  *haiku-4*)   ip=0.8; op=4;  cwp="1.0";   crp="0.08" ;;
-  *)           ip=3;   op=15; cwp="3.75";  crp="0.3"  ;;
+  *fable-5*)                                 ip=10; op=50; cwp="12.50"; crp="1.0" ;;
+  *opus-5*|*opus-4-8*|*opus-4-7*|*opus-4-6*) ip=5; op=25; cwp="6.25"; crp="0.5" ;;
+  *sonnet-5*|*sonnet-4-6*)                   ip=3; op=15; cwp="3.75"; crp="0.3" ;;
+  *haiku-4-5*)                               ip=1; op=5;  cwp="1.25"; crp="0.1" ;;
+  *)                                         ip=3; op=15; cwp="3.75"; crp="0.3" ;;
 esac
 
 cost=$(awk "BEGIN {printf \"%.2f\", ($total_input*$ip + $total_output*$op + \
@@ -316,15 +323,16 @@ echo "~\$$cost"</pre>
         <footer class="border-t border-ink/10 py-8 px-6 mt-auto">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-xs text-mist">Claude Max savings calculator · <a href="/" class="hover:text-ink transition-colors">tools.amditis.tech</a></p>
-                <p class="text-xs text-mist">Pricing from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">anthropic.com/pricing</a> — verify for current rates</p>
+                <p class="text-xs text-mist">Verified July 24, 2026 from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Anthropic pricing</a>. Sonnet 5 has introductory $2/$10 rates through August 31, 2026; this calculator uses the ongoing $3/$15 rates so long-term estimates do not understate cost.</p>
             </div>
         </footer>
     </div>
 
     <script>
         const PRICING = {
+            fable:  { ip: 10,   op: 50,  cwp: 12.5,  crp: 1.0,  label: 'Fable 5' },
             opus:   { ip: 5,    op: 25,  cwp: 6.25,  crp: 0.5,  label: 'Opus 4.8' },
-            sonnet: { ip: 3,    op: 15,  cwp: 3.75,  crp: 0.3,  label: 'Sonnet 4.6' },
+            sonnet: { ip: 3,    op: 15,  cwp: 3.75,  crp: 0.3,  label: 'Sonnet 5' },
             haiku:  { ip: 1,    op: 5,   cwp: 1.25,  crp: 0.1,  label: 'Haiku 4.5' },
         };
 

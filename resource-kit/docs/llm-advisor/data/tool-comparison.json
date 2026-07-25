@@ -1,10 +1,9 @@
 {
   "Claude Opus 4.8": {
     "strengths": [
-      "Best for coding and writing by far",
-      "Most 'human-like' and nuanced outputs",
-      "Does not train on user data by default",
-      "Unmatched code generation quality on agentic tasks"
+      "Strong complex reasoning and agentic coding",
+      "Well suited to long-running, high-stakes workflows",
+      "Detailed writing and editing"
     ],
     "weaknesses": [
       "Slower than 'chat' models",
@@ -15,13 +14,13 @@
       "Long-form writing",
       "Developmental editing"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Check current Anthropic plan or API pricing"
   },
-  "Claude Sonnet 4.6": {
+  "Claude Sonnet 5": {
     "strengths": [
       "Very fast and conversational",
       "Best for expressive writing and brainstorming",
-      "Near-Opus quality on most agentic coding tasks at a fraction of the cost"
+      "Strong latency-to-quality balance for agentic coding"
     ],
     "weaknesses": [
       "Not as powerful or accurate as Opus on the hardest problems",
@@ -33,7 +32,7 @@
       "Creative writing",
       "Day-to-day coding"
     ],
-    "pricing": "Free tier available; included in paid plan"
+    "pricing": "Check current Anthropic plan or API pricing"
   },
   "Claude Haiku 4.5": {
     "strengths": [
@@ -49,7 +48,24 @@
       "Quick Q&A",
       "High-volume automations"
     ],
-    "pricing": "Included in paid plan; lowest per-token cost in the Claude family"
+    "pricing": "Lowest-cost Claude API tier; check current pricing"
+  },
+  "Claude Fable 5": {
+    "strengths": [
+      "Anthropic's highest-capability broadly released model",
+      "Designed for long-running agentic workflows",
+      "Strong on difficult research, coding, and synthesis"
+    ],
+    "weaknesses": [
+      "Higher latency and cost than Sonnet or Haiku",
+      "Overkill for routine work"
+    ],
+    "bestFor": [
+      "Maximum-capability agentic work",
+      "Difficult repository changes",
+      "Complex research and synthesis"
+    ],
+    "pricing": "Check current Anthropic API pricing"
   },
   "Gemini 3.1 Pro": {
     "strengths": [
@@ -57,11 +73,11 @@
       "Industry-leading context window for large documents",
       "Improved reasoning and directness over 3.0",
       "Strong multimodal synthesis",
-      "Can create video (Veo 3)"
+      "Can integrate with current Veo video-generation products"
     ],
     "weaknesses": [
       "Slower than 'chat' models",
-      "May train on data unless opted out"
+      "Preview lifecycle and availability can change"
     ],
     "bestFor": [
       "Investigative research",
@@ -70,14 +86,14 @@
       "Complex multimodal tasks",
       "Front-end design"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Check current Google model and plan pricing"
   },
-  "Gemini 3.1 Flash": {
+  "Gemini 3.6 Flash": {
     "strengths": [
       "Very fast 'chat' model",
       "Improved directness and efficiency over 3.0",
-      "Excellent voice mode with multimodal input (camera)",
-      "Better at following structured prompts"
+      "Strong multimodal input and tool use",
+      "Good for interactive agents"
     ],
     "weaknesses": [
       "Not as powerful as Pro",
@@ -89,9 +105,9 @@
       "Using camera input",
       "Structured prompt workflows"
     ],
-    "pricing": "Free tier available; included in paid plan"
+    "pricing": "Check current Google API or consumer-plan pricing"
   },
-  "Gemini 3.1 Flash-Lite": {
+  "Gemini 3.5 Flash-Lite": {
     "strengths": [
       "Cheapest tier in the Gemini family",
       "Fast and efficient for high-volume agentic calls",
@@ -106,9 +122,9 @@
       "Cost-sensitive workflows",
       "Background tasks"
     ],
-    "pricing": "Lowest-cost Gemini tier"
+    "pricing": "Check current Google API pricing"
   },
-  "Gemini 3.1 (Veo)": {
+  "Veo 3.1": {
     "strengths": [
       "Text-to-video generation",
       "Photorealistic short clips",
@@ -123,7 +139,7 @@
       "Social media video content",
       "Abstract visual storytelling"
     ],
-    "pricing": "Requires Gemini Advanced subscription"
+    "pricing": "Check current Google product and API availability"
   },
   "Gemini 2.5 Pro (legacy)": {
     "strengths": [
@@ -140,7 +156,7 @@
       "Analyzing large datasets",
       "Summarizing document collections"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Legacy model; check current availability"
   },
   "Gemini 2.5 Flash (legacy)": {
     "strengths": [
@@ -150,16 +166,16 @@
     "weaknesses": [
       "Not as powerful as Pro",
       "More likely to hallucinate than Pro",
-      "Superseded by Gemini 3.1 Flash"
+      "Superseded by Gemini 3.6 Flash"
     ],
     "bestFor": [
       "Voice conversations",
       "Quick questions",
       "Using camera input"
     ],
-    "pricing": "Free tier available; included in paid plan"
+    "pricing": "Legacy model; check current availability"
   },
-  "GPT 5.5": {
+  "GPT-5.6 Sol": {
     "strengths": [
       "Top-tier reasoning for complex problems",
       "Highly steerable for specific tasks",
@@ -174,12 +190,12 @@
       "Investigative deep research",
       "Complex reasoning tasks"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Check current OpenAI plan or API pricing"
   },
-  "Codex (GPT 5.5)": {
+  "Codex (GPT-5.6 Sol)": {
     "strengths": [
       "Specialized for coding tasks",
-      "State of the art on SWE-Bench Pro and long-horizon refactors",
+      "Built for long-horizon repository work",
       "Strong debugging and multi-file reasoning",
       "Works well in Windows environments and with vision-to-code"
     ],
@@ -193,25 +209,25 @@
       "Long-horizon refactors",
       "Code debugging"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Check current Codex plan or API pricing"
   },
   "GPT 5.4": {
     "strengths": [
       "Previous OpenAI flagship, still current and fully supported",
-      "Same API family as 5.5 with slightly different cost/latency profile",
-      "Strong reasoning at a lower price point than 5.5"
+      "Earlier supported GPT-5 generation",
+      "Useful for already-qualified integrations"
     ],
     "weaknesses": [
-      "Superseded by 5.5 on the hardest benchmarks"
+      "Superseded by GPT-5.6 for new complex agent work"
     ],
     "bestFor": [
       "Cost-sensitive reasoning tasks",
-      "When 5.5 isn't available in your region or plan",
+      "Existing integrations that already target GPT-5.4",
       "Drop-in replacement for older 5.x code"
     ],
-    "pricing": "Requires paid subscription"
+    "pricing": "Check current OpenAI API pricing"
   },
-  "Gemini (Nano Banana)": {
+  "Nano Banana 2": {
     "strengths": [
       "Fast and efficient image generation",
       "Conversational editing and refinement",
@@ -226,12 +242,12 @@
       "Logos with text",
       "Iterative image editing"
     ],
-    "pricing": "Included with Gemini Advanced"
+    "pricing": "Check current Google API or consumer-plan pricing"
   },
-  "Grok 3": {
+  "Grok 4.5": {
     "strengths": [
-      "Direct, real-time X/Twitter integration",
-      "Excellent for breaking news and social media trends"
+      "Optional Web Search and X Search tools",
+      "Useful for source-finding when claims are independently verified"
     ],
     "weaknesses": [
       "Less polished for general writing tasks",
@@ -242,7 +258,7 @@
       "Social media analysis",
       "Finding sources during breaking news"
     ],
-    "pricing": "Included with X Premium subscription"
+    "pricing": "Check current xAI API or Grok plan pricing"
   },
   "NotebookLM": {
     "strengths": [
@@ -278,9 +294,9 @@
     ],
     "pricing": "Free tier, with paid Pro plan"
   },
-  "GLM-5.1 (open source)": {
+  "GLM-5.2 (open source)": {
     "strengths": [
-      "Best open-weight model for agentic coding as of April 2026",
+      "Current MIT-licensed option for long-horizon agents",
       "MIT licensed — self-hostable with no usage restrictions",
       "Pitched for long-horizon autonomous engineering sessions"
     ],
@@ -293,12 +309,12 @@
       "Local or air-gapped agentic coding",
       "Newsrooms that need to keep source material off third-party servers"
     ],
-    "pricing": "Free; self-hosted or via providers like Z.ai"
+    "pricing": "Open weights; hosting and inference still cost money"
   },
-  "Qwen3-Coder (open source)": {
+  "Qwen3.6-35B-A3B (open source)": {
     "strengths": [
       "Strong coding benchmark scores for its size",
-      "Open weights with multiple sizes (from laptop-friendly to data-center)",
+      "35B total parameters with about 3B active",
       "Long context for whole-repo reasoning"
     ],
     "weaknesses": [
@@ -310,13 +326,13 @@
       "IDE autocomplete and refactoring",
       "Newsrooms experimenting with self-hosted AI"
     ],
-    "pricing": "Free; self-hosted or via Alibaba Cloud"
+    "pricing": "Open weights; hosting and inference still cost money"
   },
   "DeepSeek V4 (open source)": {
     "strengths": [
-      "Frontier-tier coding performance at a fraction of the cost",
-      "81% on SWE-Bench Verified",
-      "Open weights"
+      "Pro and Flash variants",
+      "One-million-token context",
+      "MIT-licensed open weights"
     ],
     "weaknesses": [
       "Chinese data practices are a concern for some newsrooms",
@@ -327,6 +343,23 @@
       "Batch processing pipelines",
       "Research and experimentation"
     ],
-    "pricing": "Free via self-hosting; very low cost via DeepSeek API"
+    "pricing": "Open weights; check current hosted API pricing"
+  },
+  "Kimi K2.5 (open source)": {
+    "strengths": [
+      "Multimodal agentic coding",
+      "256K-token context",
+      "Coordinated multi-agent workflow support"
+    ],
+    "weaknesses": [
+      "Full model requires substantial hardware",
+      "Modified MIT license requires review for your use case"
+    ],
+    "bestFor": [
+      "Visual and coding agents",
+      "Long-context open-weight experimentation",
+      "Multi-agent research workflows"
+    ],
+    "pricing": "Open weights; hosting and inference still cost money"
   }
 }

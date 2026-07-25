@@ -2,6 +2,11 @@
 
 A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted at **https://tools.amditis.tech/**
 
+Current-facing model, agent, harness, and routing guidance was verified July
+24, 2026. Because provider catalogs and plan access change quickly, the site
+links to official model pages and tells readers to re-check availability,
+pricing, privacy terms, and tool requirements before production use.
+
 ## Resource kit website
 
 Interactive tools and guides built with love and frustration by Joe Amditis.
@@ -218,6 +223,28 @@ Or ask Claude Code:
 cd resource-kit/docs
 python -m http.server 8000
 # Open http://localhost:8000
+```
+
+### Validation
+
+```bash
+# Current-model guidance and JSON integrity
+cd scripts
+npm install
+npm test
+cd ..
+node scripts/validate-all-json.js
+
+# Compiled Tailwind coverage
+cd resource-kit/tailwind-build
+npm install
+npm test
+
+# Atomic LLM Advisor MCP data writes
+# Requires Node.js 20 or newer
+cd ../../mcp-servers/llm-advisor-data
+npm install
+npm test
 ```
 
 ### Deployment

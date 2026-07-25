@@ -10,16 +10,20 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Vibe coding starter guide for newsrooms">
-    <meta property="og:description" content="A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.">
-    <meta property="og:image" content="vibe-coding.png">
-    <meta property="og:type" content="article">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:image" content="vibe-coding.png">
-    <meta property="twitter:title" content="Vibe coding starter guide for newsrooms">
+    <meta property="og:title" content="Vibe coding starter guide for newsrooms" />
+    <meta property="og:description" content="A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tools.amditis.tech/llm-advisor/vibe-coding/" />
+    <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vibe coding starter guide for newsrooms" />
+    <meta name="twitter:description" content="A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax." />
+    <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png" />
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/tailwind.css">
     
     <!-- Fonts: Space Grotesk (Headings), Merriweather (Body), JetBrains Mono (Code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,39 +36,7 @@
     <!-- Glossary styles -->
     <link rel="stylesheet" href="/assets/glossary.css">
 
-    <!-- Custom Configuration & Styles -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
-                        serif: ['Merriweather', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        'news-bg': '#0a0a0c',
-                        'news-paper': '#e4e4e7',
-                        'news-gray': '#27272a',
-                        'accent-green': '#00dc82',
-                        'accent-blue': '#3b82f6',
-                        'accent-pink': '#f43f5e',
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Page-specific styles -->
     <style>
         /* Glossary CSS variable overrides for this theme */
         :root {
@@ -146,11 +118,11 @@
     </style>
 <script src="/assets/ask-ai.js" defer></script>
 </head>
-<body class="antialiased min-h-screen flex flex-col md:flex-row relative selection:bg-accent-green selection:text-black">
+<body class="font-vibe-sans antialiased min-h-screen flex flex-col md:flex-row relative selection:bg-accent-green selection:text-black">
 
     <!-- Mobile Header -->
     <div class="md:hidden fixed top-0 left-0 w-full bg-news-bg/90 backdrop-blur-md border-b border-news-gray z-50 p-4 flex justify-between items-center">
-        <span class="font-sans font-bold text-lg tracking-tight text-accent-green">VIBE CODING</span>
+        <span class="font-vibe-sans font-bold text-lg tracking-tight text-accent-green">VIBE CODING</span>
         <button id="menu-toggle" class="text-white focus:outline-none">
             <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
@@ -159,12 +131,12 @@
     <!-- Sidebar Navigation (Desktop Sticky / Mobile Drawer) -->
     <nav id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 md:w-72 bg-[#0f0f11] border-r border-news-gray z-40 transition-transform duration-300 ease-in-out overflow-y-auto p-6 md:p-8">
         <div class="hidden md:block mb-10">
-            <div class="font-mono text-xs text-accent-green mb-1 opacity-70">GUIDE v1.0</div>
-            <h1 class="font-sans font-bold text-2xl leading-tight">Vibe coding starter guide</h1>
-            <p class="font-serif italic text-sm text-gray-400 mt-2">For newsrooms</p>
+            <div class="font-vibe-mono text-xs text-accent-green mb-1 opacity-70">GUIDE v1.0</div>
+            <h1 class="font-vibe-sans font-bold text-2xl leading-tight">Vibe coding starter guide</h1>
+            <p class="font-vibe-serif italic text-sm text-gray-400 mt-2">For newsrooms</p>
         </div>
 
-        <ul class="space-y-1 font-sans text-sm">
+        <ul class="space-y-1 font-vibe-sans text-sm">
             <li><a href="#intro" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">What is ‘vibe coding’?</a></li>
             <li><a href="#mindset" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Mindset shifts</a></li>
             <li><a href="#scripts" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Useful scripts</a></li>
@@ -176,10 +148,10 @@
             <li><a href="#checklist" class="nav-link block py-2 px-3 rounded hover:bg-white/5 text-gray-400 hover:text-white transition-colors border-l-2 border-transparent hover:border-accent-green">Quick start</a></li>
         </ul>
 
-        <div class="mt-10 pt-6 border-t border-white/10 text-xs text-gray-500 font-mono">
+        <div class="mt-10 pt-6 border-t border-white/10 text-xs text-gray-500 font-vibe-mono">
             <p>By <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
             <p class="mt-1"><a href="https://centerforcooperativemedia.org/">Center for Cooperative Media</a></p>
-            <p class="mt-4 opacity-50">Last updated: Nov 2025</p>
+            <p class="mt-4 opacity-50">Verified July 24, 2026</p>
         </div>
     </nav>
 
@@ -188,23 +160,23 @@
         
         <!-- Intro Header Mobile Only -->
         <div class="md:hidden mb-8 animate-fade-in-up">
-            <div class="font-mono text-xs text-accent-green mb-1">GUIDE v1.0</div>
-            <h1 class="font-sans font-bold text-3xl leading-tight mb-2">Vibe coding starter guide</h1>
-            <p class="font-serif italic text-gray-400">For journalists and non-developers by Joe Amditis.</p>
+            <div class="font-vibe-mono text-xs text-accent-green mb-1">GUIDE v1.0</div>
+            <h1 class="font-vibe-sans font-bold text-3xl leading-tight mb-2">Vibe coding starter guide</h1>
+            <p class="font-vibe-serif italic text-gray-400">For journalists and non-developers by Joe Amditis.</p>
         </div>
 
         <!-- Section: Intro -->
         <section id="intro" class="mb-20 animate-fade-in-up" style="animation-delay: 0.1s;">
-            <h2 class="font-sans text-3xl md:text-4xl font-bold mb-6 text-white relative inline-block">
+            <h2 class="font-vibe-sans text-3xl md:text-4xl font-bold mb-6 text-white relative inline-block">
                 What is ‘vibe coding’?
                 <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-accent-green rounded-full"></span>
             </h2>
-            <div class="font-serif text-lg md:text-xl leading-relaxed text-gray-300 space-y-4">
+            <div class="font-vibe-serif text-lg md:text-xl leading-relaxed text-gray-300 space-y-4">
                 <p>
                     <span class="text-white font-bold">"<span class="term" data-term="vibe-coding">Vibe coding</span>"</span> is when you use <span class="term" data-term="llm">LLMs</span> to write code by describing what you want in plain language. You don't need to be a developer—you need to be a good project manager who can clearly articulate requirements and give feedback.
                 </p>
                 <div class="bg-[#121214] border-l-4 border-accent-green p-6 my-6 rounded-r-lg">
-                    <p class="font-sans text-white font-medium">Key principle</p>
+                    <p class="font-vibe-sans text-white font-medium">Key principle</p>
                     <p class="text-gray-400 mt-1">Code often either works or it doesn't, making it (somewhat) safer from hallucinations than other LLM uses.</p>
                 </div>
             </div>
@@ -212,7 +184,7 @@
 
         <!-- Section: Mindset -->
         <section id="mindset" class="mb-20 animate-fade-in-up" style="animation-delay: 0.2s;">
-            <h2 class="font-sans text-2xl md:text-3xl font-bold mb-8 text-white">Essential mindset shifts</h2>
+            <h2 class="font-vibe-sans text-2xl md:text-3xl font-bold mb-8 text-white">Essential mindset shifts</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Card 1 -->
@@ -220,8 +192,8 @@
                     <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
                         <i data-lucide="user-cog" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="font-sans font-bold text-xl mb-2">Manager, not mechanic</h3>
-                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                    <h3 class="font-vibe-sans font-bold text-xl mb-2">Manager, not mechanic</h3>
+                    <p class="font-vibe-serif text-gray-400 text-sm leading-relaxed">
                         Think like a project coordinator. Your job is to clearly describe what you want, provide direct feedback, and organize information. Learn enough to "have a conversation with a mechanic" but don't try to fix the car yourself.
                     </p>
                 </div>
@@ -231,8 +203,8 @@
                     <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400 mb-4">
                         <i data-lucide="trending-up" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="font-sans font-bold text-xl mb-2">Start simple, build up</h3>
-                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                    <h3 class="font-vibe-sans font-bold text-xl mb-2">Start simple, build up</h3>
+                    <p class="font-vibe-serif text-gray-400 text-sm leading-relaxed">
                         1. Google Sheets formulas (instant verification)<br>
                         2. HTML/CSS for static pages<br>
                         3. Interactive dashboards and apps<br>
@@ -245,8 +217,8 @@
                     <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 mb-4">
                         <i data-lucide="hammer" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="font-sans font-bold text-xl mb-2">Project-based learning</h3>
-                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                    <h3 class="font-vibe-sans font-bold text-xl mb-2">Project-based learning</h3>
+                    <p class="font-vibe-serif text-gray-400 text-sm leading-relaxed">
                         Abstract tutorials don't stick. Look for real problems to solve. Build things you actually need for work. Learn infrastructure (FTP, Git) only as they become necessary.
                     </p>
                 </div>
@@ -256,15 +228,15 @@
                     <div class="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4">
                         <i data-lucide="anchor" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="font-sans font-bold text-xl mb-2">AI as tool, not dependency</h3>
-                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                    <h3 class="font-vibe-sans font-bold text-xl mb-2">AI as tool, not dependency</h3>
+                    <p class="font-vibe-serif text-gray-400 text-sm leading-relaxed">
                         Use LLMs to write code, but the result should run independently. No API keys required for users. Privacy, reliability, and sustainability are the goals.
                     </p>
                 </div>
             </div>
 
             <div class="mt-8 p-6 border border-dashed border-gray-700 rounded-lg bg-gray-900/30">
-                <h4 class="font-mono font-bold text-accent-green mb-4 text-sm uppercase tracking-wider">The "vibe" check</h4>
+                <h4 class="font-vibe-mono font-bold text-accent-green mb-4 text-sm uppercase tracking-wider">The "vibe" check</h4>
                 <ul class="space-y-3 text-sm">
                     <li class="flex items-start gap-3">
                         <i data-lucide="check" class="w-5 h-5 text-green-500 shrink-0"></i>
@@ -276,7 +248,7 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0"></i>
-                        <span class="text-gray-400 line-through decoration-gray-600">Build a tool that requires GPT 5.5 <span class="term" data-term="api">API</span> calls every time someone uses it.</span>
+                        <span class="text-gray-400 line-through decoration-gray-600">Build a tool that requires GPT-5.6 Sol <span class="term" data-term="api">API</span> calls every time someone uses it.</span>
                     </li>
                 </ul>
             </div>
@@ -284,19 +256,19 @@
 
         <!-- Section: Scripts -->
         <section id="scripts" class="mb-20">
-            <h2 class="font-sans text-3xl font-bold mb-4 text-white">Useful scripts for journalists</h2>
-            <p class="font-serif text-gray-400 mb-8">Your first projects. Start here before building full applications.</p>
+            <h2 class="font-vibe-sans text-3xl font-bold mb-4 text-white">Useful scripts for journalists</h2>
+            <p class="font-vibe-serif text-gray-400 mb-8">Your first projects. Start here before building full applications.</p>
 
             <div class="space-y-12">
                 
                 <!-- Python -->
                 <div class="group">
                     <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
-                        <h3 class="text-xl font-bold text-yellow-400 font-mono">Python</h3>
-                        <span class="text-xs text-gray-500 font-mono uppercase">Data cleaning & processing</span>
+                        <h3 class="text-xl font-bold text-yellow-400 font-vibe-mono">Python</h3>
+                        <span class="text-xs text-gray-500 font-vibe-mono uppercase">Data cleaning & processing</span>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                        <div class="text-sm text-gray-300 space-y-2 font-vibe-serif">
                             <p><strong class="text-white">Use cases:</strong> Remove duplicates, merge <span class="term" data-term="csv">CSVs</span>, convert formats, text analysis, <span class="term" data-term="web-scraping">web scraping</span>, file management.</p>
                             <ul class="list-disc list-inside marker:text-yellow-500 pl-2 space-y-1 opacity-80">
                                 <li>Count word frequency in transcripts</li>
@@ -312,7 +284,7 @@
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="python-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a Python script that:
+                            <pre id="python-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a Python script that:
 1. Reads all CSV files in a folder
 2. Combines them into one spreadsheet
 3. Removes duplicate rows based on email address
@@ -327,11 +299,11 @@ Include comments explaining each step."</pre>
                 <!-- R Script -->
                 <div class="group">
                     <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
-                        <h3 class="text-xl font-bold text-blue-400 font-mono">R Scripts</h3>
-                        <span class="text-xs text-gray-500 font-mono uppercase">Statistical analysis</span>
+                        <h3 class="text-xl font-bold text-blue-400 font-vibe-mono">R Scripts</h3>
+                        <span class="text-xs text-gray-500 font-vibe-mono uppercase">Statistical analysis</span>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                        <div class="text-sm text-gray-300 space-y-2 font-vibe-serif">
                             <p><strong class="text-white">Use cases:</strong> Significance testing, correlation matrices, confidence intervals, publication-ready charts (<span class="term" data-term="ggplot2">ggplot2</span>).</p>
                         </div>
                         <div class="code-window">
@@ -341,7 +313,7 @@ Include comments explaining each step."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="r-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write an R script using ggplot2 that:
+                            <pre id="r-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write an R script using ggplot2 that:
 1. Loads survey_data.csv
 2. Calculates response percentages by demographic group
 3. Creates a clean bar chart with error bars
@@ -355,11 +327,11 @@ Use accessible colors and large labels."</pre>
                 <!-- Bash -->
                 <div class="group">
                     <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
-                        <h3 class="text-xl font-bold text-green-400 font-mono">Bash/Shell</h3>
-                        <span class="text-xs text-gray-500 font-mono uppercase">Automation</span>
+                        <h3 class="text-xl font-bold text-green-400 font-vibe-mono">Bash/Shell</h3>
+                        <span class="text-xs text-gray-500 font-vibe-mono uppercase">Automation</span>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                        <div class="text-sm text-gray-300 space-y-2 font-vibe-serif">
                             <p><strong class="text-white">Use cases:</strong> Automated backups, batch processing, scheduled downloads, folder monitoring via <span class="term" data-term="cron">cron jobs</span>.</p>
                         </div>
                         <div class="code-window">
@@ -369,7 +341,7 @@ Use accessible colors and large labels."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="bash-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a bash script that:
+                            <pre id="bash-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a bash script that:
 1. Checks if today is Monday
 2. If yes, downloads the latest file from [URL]
 3. Saves it to the /reports folder with today's date
@@ -383,11 +355,11 @@ Make it simple enough to run as a cron job."</pre>
                 <!-- JavaScript -->
                 <div class="group">
                     <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
-                        <h3 class="text-xl font-bold text-purple-400 font-mono">JavaScript</h3>
-                        <span class="text-xs text-gray-500 font-mono uppercase">Web tools & automation</span>
+                        <h3 class="text-xl font-bold text-purple-400 font-vibe-mono">JavaScript</h3>
+                        <span class="text-xs text-gray-500 font-vibe-mono uppercase">Web tools & automation</span>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                        <div class="text-sm text-gray-300 space-y-2 font-vibe-serif">
                             <p><strong class="text-white">Use cases:</strong> Bookmarklets, browser automation, scraping current pages, data parsing (<span class="term" data-term="json">JSON</span>).</p>
                         </div>
                         <div class="code-window">
@@ -397,7 +369,7 @@ Make it simple enough to run as a cron job."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="js-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a browser bookmarklet that:
+                            <pre id="js-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a browser bookmarklet that:
 1. Finds all email addresses on the current page
 2. Copies them to clipboard as a comma-separated list
 3. Shows a count of how many were found
@@ -410,11 +382,11 @@ Keep it simple and safe to run on any page."</pre>
                  <!-- SQL -->
                  <div class="group">
                     <div class="flex items-baseline gap-3 mb-4 border-b border-white/10 pb-2">
-                        <h3 class="text-xl font-bold text-pink-400 font-mono">SQL</h3>
-                        <span class="text-xs text-gray-500 font-mono uppercase">Databases</span>
+                        <h3 class="text-xl font-bold text-pink-400 font-vibe-mono">SQL</h3>
+                        <span class="text-xs text-gray-500 font-vibe-mono uppercase">Databases</span>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="text-sm text-gray-300 space-y-2 font-serif">
+                        <div class="text-sm text-gray-300 space-y-2 font-vibe-serif">
                             <p><strong class="text-white">Use cases:</strong> Extracting records, joining tables, finding duplicates, calculating aggregates.</p>
                         </div>
                         <div class="code-window">
@@ -424,7 +396,7 @@ Keep it simple and safe to run on any page."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="sql-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-mono">"Write a SQL query that:
+                            <pre id="sql-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a SQL query that:
 1. Finds all articles published in 2024
 2. Groups them by author
 3. Counts how many each author wrote
@@ -441,10 +413,10 @@ Use standard SQL syntax that works in SQLite."</pre>
 
         <!-- Section: Comparison Table -->
         <section id="comparison" class="mb-20">
-            <h2 class="font-sans text-2xl font-bold mb-6 text-white">When to use each language</h2>
+            <h2 class="font-vibe-sans text-2xl font-bold mb-6 text-white">When to use each language</h2>
             <div class="overflow-x-auto border border-white/10 rounded-lg">
-                <table class="w-full text-left text-sm font-sans">
-                    <thead class="bg-white/5 text-gray-300 uppercase font-mono text-xs">
+                <table class="w-full text-left text-sm font-vibe-sans">
+                    <thead class="bg-white/5 text-gray-300 uppercase font-vibe-mono text-xs">
                         <tr>
                             <th class="px-6 py-4">Need</th>
                             <th class="px-6 py-4">Best tool</th>
@@ -454,32 +426,32 @@ Use standard SQL syntax that works in SQLite."</pre>
                     <tbody class="divide-y divide-white/5 text-gray-400">
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">Quick data cleaning</td>
-                            <td class="px-6 py-3 text-yellow-400 font-mono"><span class="term" data-term="python">Python</span> (<span class="term" data-term="pandas">pandas</span>)</td>
+                            <td class="px-6 py-3 text-yellow-400 font-vibe-mono"><span class="term" data-term="python">Python</span> (<span class="term" data-term="pandas">pandas</span>)</td>
                             <td class="px-6 py-3">Easiest to read, massive libraries</td>
                         </tr>
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">Statistical analysis</td>
-                            <td class="px-6 py-3 text-blue-400 font-mono"><span class="term" data-term="r">R</span></td>
+                            <td class="px-6 py-3 text-blue-400 font-vibe-mono"><span class="term" data-term="r">R</span></td>
                             <td class="px-6 py-3">Built for stats, best visualizations</td>
                         </tr>
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">File/folder automation</td>
-                            <td class="px-6 py-3 text-green-400 font-mono"><span class="term" data-term="bash">Bash</span>/Shell</td>
+                            <td class="px-6 py-3 text-green-400 font-vibe-mono"><span class="term" data-term="bash">Bash</span>/Shell</td>
                             <td class="px-6 py-3">Native to Unix systems, fast</td>
                         </tr>
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">Web page interaction</td>
-                            <td class="px-6 py-3 text-purple-400 font-mono"><span class="term" data-term="javascript">JavaScript</span></td>
+                            <td class="px-6 py-3 text-purple-400 font-vibe-mono"><span class="term" data-term="javascript">JavaScript</span></td>
                             <td class="px-6 py-3">Runs in browser, no installation</td>
                         </tr>
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">Database queries</td>
-                            <td class="px-6 py-3 text-pink-400 font-mono"><span class="term" data-term="sql">SQL</span></td>
+                            <td class="px-6 py-3 text-pink-400 font-vibe-mono"><span class="term" data-term="sql">SQL</span></td>
                             <td class="px-6 py-3">Designed for structured data</td>
                         </tr>
                         <tr class="hover:bg-white/5 transition-colors">
                             <td class="px-6 py-3 text-white">Cross-platform scripts</td>
-                            <td class="px-6 py-3 text-yellow-400 font-mono">Python</td>
+                            <td class="px-6 py-3 text-yellow-400 font-vibe-mono">Python</td>
                             <td class="px-6 py-3">Works on Mac/Windows/Linux</td>
                         </tr>
                     </tbody>
@@ -490,7 +462,7 @@ Use standard SQL syntax that works in SQLite."</pre>
         <!-- Section: Progression & LLMs -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
             <section id="progression">
-                <h2 class="font-sans text-2xl font-bold mb-6 text-white">The "scripts to full apps" progression</h2>
+                <h2 class="font-vibe-sans text-2xl font-bold mb-6 text-white">The "scripts to full apps" progression</h2>
                 <ol class="relative border-l border-gray-700 ml-3 space-y-8">
                     <li class="mb-10 ml-6">
                         <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
@@ -531,38 +503,50 @@ Use standard SQL syntax that works in SQLite."</pre>
             </section>
 
             <section id="llms">
-                <h2 class="font-sans text-2xl font-bold mb-6 text-white">Best LLMs for coding (April 2026)</h2>
+                <h2 class="font-vibe-sans text-2xl font-bold mb-2 text-white">Current agent models and harnesses</h2>
+                <p class="text-xs text-gray-500 mb-6 font-vibe-mono">Verified July 24, 2026. Re-check provider docs before production use.</p>
                 <div class="space-y-6">
                     <div>
-                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Frontier (closed)</h4>
-                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
-                            <li><strong class="text-white">Claude Opus 4.8 (Anthropic):</strong> Best for hardest agentic coding and long-form writing.</li>
-                            <li><strong class="text-white">Claude Sonnet 4.6 (Anthropic):</strong> Near-Opus quality at a fraction of the cost — the daily driver.</li>
-                            <li><strong class="text-white">Codex / GPT 5.5 (OpenAI):</strong> State of the art on long-horizon refactors; strong with vision-to-code.</li>
-                            <li><strong class="text-white">Gemini 3.1 Pro (Google):</strong> Excellent for front-end design, large documents, and multimodal work.</li>
+                        <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Frontier (closed)</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
+                            <li><strong class="text-white">Claude Fable 5 (Anthropic):</strong> Maximum-capability option for long-running agents and difficult work.</li>
+                            <li><strong class="text-white">Claude Opus 4.8 / Sonnet 5:</strong> Use Opus for complex agentic work; Sonnet for the daily speed-quality balance.</li>
+                            <li><strong class="text-white">GPT-5.6 Sol (OpenAI):</strong> Recommended OpenAI flagship for complex reasoning and agentic repository work.</li>
+                            <li><strong class="text-white">Gemini 3.6 Flash (Google):</strong> Stable, fast agentic and multimodal option; Gemini 3.1 Pro remains a preview reasoning choice.</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Open source / self-hostable</h4>
-                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
-                            <li><strong class="text-white">GLM-5.1 (Z.ai):</strong> Best open-weight agentic coding. MIT license.</li>
-                            <li><strong class="text-white">DeepSeek V4:</strong> Frontier-tier at a fraction of the cost. Strong SWE-bench scores.</li>
-                            <li><strong class="text-white">Qwen3-Coder (Alibaba):</strong> Multiple sizes from laptop-friendly to data-center. Long context.</li>
-                            <li><strong class="text-white">Codestral (Mistral):</strong> Fast code completion and fill-in-the-middle. Apache 2.0.</li>
+                        <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Open source / self-hostable</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
+                            <li><strong class="text-white">GLM-5.2 (Z.ai):</strong> MIT-licensed, one-million-token option for long-horizon agents.</li>
+                            <li><strong class="text-white">DeepSeek V4 Pro / Flash:</strong> MIT-licensed one-million-token models; old chat/reasoner aliases are deprecated.</li>
+                            <li><strong class="text-white">Qwen3.6-35B-A3B:</strong> Efficient mixture-of-experts option for local agentic coding.</li>
+                            <li><strong class="text-white">Kimi K2.5:</strong> Open-weight multimodal agent with a 256K context and coordinated multi-agent workflows.</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Agent CLIs</h4>
-                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
+                        <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Agent CLIs</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
                             <li><strong class="text-white">Claude Code:</strong> Autonomous coding with <span class="term" data-term="cli">CLI</span> planning mode.</li>
-                            <li><strong class="text-white">Gemini CLI:</strong> Google's agentic CLI, free tier available.</li>
+                            <li><strong class="text-white">Antigravity CLI:</strong> Google's consumer successor to Gemini CLI as of June 18, 2026.</li>
+                            <li><strong class="text-white">Gemini CLI:</strong> Remains available for enterprise, API, Cloud, and open-source workflows.</li>
                             <li><strong class="text-white">Codex CLI:</strong> OpenAI's coding agent, signs in with ChatGPT Plus/Pro.</li>
                             <li><strong class="text-white">Copilot CLI:</strong> GitHub's CLI agent, uses Copilot subscription.</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-accent-green font-mono text-xs uppercase tracking-wide mb-2">Quick experiments</h4>
-                        <ul class="space-y-2 text-sm text-gray-300 font-serif">
+                        <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Build or route your own agent</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
+                            <li><strong class="text-white">OpenAI Agents SDK:</strong> Lightweight loop, handoffs, guardrails, sessions, human approval, tracing, sandboxing, and MCP.</li>
+                            <li><strong class="text-white">Claude Agent SDK:</strong> Reuse Claude Code's agent loop, hooks, MCP tools, and subagents.</li>
+                            <li><strong class="text-white">Google ADK:</strong> Model-agnostic, code-first multi-agent framework with confirmation, evaluation, and deployment tools.</li>
+                            <li><strong class="text-white">LangGraph:</strong> Low-level durable state and human-in-the-loop control for long-running workflows.</li>
+                            <li><strong class="text-white">LiteLLM Router / OpenRouter:</strong> Add retries, fallbacks, provider selection, and cost/latency routing. Treat hosted routing as an additional privacy and reliability boundary.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Quick experiments</h4>
+                        <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
                             <li><strong class="text-white">ChatGPT:</strong> Web-based with Code Interpreter.</li>
                             <li><strong class="text-white">Cursor / Replit:</strong> Browser-based environments.</li>
                         </ul>
@@ -573,13 +557,13 @@ Use standard SQL syntax that works in SQLite."</pre>
 
         <!-- Section: Workflow -->
         <section id="workflow" class="mb-20 bg-white/5 p-8 rounded-2xl">
-            <h2 class="font-sans text-2xl md:text-3xl font-bold mb-8 text-white text-center">The workflow</h2>
+            <h2 class="font-vibe-sans text-2xl md:text-3xl font-bold mb-8 text-white text-center">The workflow</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="relative">
                     <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">01</div>
                     <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 1: Setup</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                    <ul class="text-sm text-gray-400 space-y-2 font-vibe-serif">
                         <li>Create project folder.</li>
                         <li>Write PRD with AI help (planning mode).</li>
                         <li>Set up Version Control (<span class="term" data-term="git">GitHub</span>).</li>
@@ -589,7 +573,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                 <div class="relative">
                     <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">02</div>
                     <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 2: Build</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                    <ul class="text-sm text-gray-400 space-y-2 font-vibe-serif">
                         <li>Break into small steps.</li>
                         <li>Test each piece before moving on.</li>
                         <li>Update <span class="term" data-term="changelog">changelog</span> after every feature.</li>
@@ -599,7 +583,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                 <div class="relative">
                     <div class="text-5xl font-bold text-white/5 absolute -top-6 -left-4 select-none">03</div>
                     <h3 class="text-xl font-bold text-white mb-3 relative z-10">Phase 3: Debug</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 font-serif">
+                    <ul class="text-sm text-gray-400 space-y-2 font-vibe-serif">
                         <li>Take screenshots of errors.</li>
                         <li>Copy console error messages.</li>
                         <li>Paste into <span class="term" data-term="llm">LLM</span> with context.</li>
@@ -613,13 +597,13 @@ Use standard SQL syntax that works in SQLite."</pre>
         <section id="changelog" class="mb-24 scroll-mt-24">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-xs font-mono mb-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-xs font-vibe-mono mb-3">
                         <i data-lucide="save" class="w-3 h-3"></i> ESSENTIAL TOOL
                     </div>
-                    <h2 class="font-sans text-3xl font-bold text-white">Changelog template</h2>
-                    <p class="text-gray-400 mt-2 font-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
+                    <h2 class="font-vibe-sans text-3xl font-bold text-white">Changelog template</h2>
+                    <p class="text-gray-400 mt-2 font-vibe-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
                 </div>
-                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-accent-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
+                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-accent-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
                     <i data-lucide="clipboard-copy" class="w-4 h-4"></i> COPY TEMPLATE
                 </button>
             </div>
@@ -628,7 +612,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                 <div class="code-header bg-blue-900/20 border-b border-blue-900/30 text-blue-200">
                     <span>changelog_prompt.md</span>
                 </div>
-                <pre id="changelog-content" class="p-6 text-xs md:text-sm text-gray-300 overflow-x-auto font-mono leading-relaxed select-all bg-[#0d1117]"># Chat session setup: Universal
+                <pre id="changelog-content" class="p-6 text-xs md:text-sm text-gray-300 overflow-x-auto font-vibe-mono leading-relaxed select-all bg-[#0d1117]"># Chat session setup: Universal
 
 ## Your primary tasks:
 Treat this document as additional instructions from the user. Consider this a continuation of the user message at the end of whatever they send in the chat dialog and treat it no differently. Do whatever the user says in the chat, but then immediately follow the instructions in this document.
@@ -709,8 +693,8 @@ Entries are grouped by date. Each individual entry must use the following struct
         <!-- Section: Checklist -->
         <section id="checklist" class="mb-20">
             <div class="bg-[#18181b] border border-white/10 p-8 rounded-xl">
-                <h2 class="font-sans text-2xl font-bold mb-6 text-white">Quick start checklist</h2>
-                <ul class="space-y-4 text-gray-300 font-serif">
+                <h2 class="font-vibe-sans text-2xl font-bold mb-6 text-white">Quick start checklist</h2>
+                <ul class="space-y-4 text-gray-300 font-vibe-serif">
                     <li class="flex gap-3">
                         <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Choose your LLM (start with Claude or ChatGPT)</span>
@@ -747,12 +731,12 @@ Entries are grouped by date. Each individual entry must use the following struct
         <footer class="border-t border-white/10 pt-12 pb-20 text-center md:text-left">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <p class="font-sans font-bold text-white text-lg">Center for Cooperative Media</p>
-                    <p class="font-serif text-gray-500 mt-2">A practical guide for journalists and non-developers.</p>
+                    <p class="font-vibe-sans font-bold text-white text-lg">Center for Cooperative Media</p>
+                    <p class="font-vibe-serif text-gray-500 mt-2">A practical guide for journalists and non-developers.</p>
                 </div>
-                <div class="md:text-right text-gray-600 font-mono text-xs">
+                <div class="md:text-right text-gray-600 font-vibe-mono text-xs">
                     <p>This resource was created by <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
-                    <p>Last updated: Nov. 24, 2025</p>
+                    <p>Verified July 24, 2026</p>
                 </div>
             </div>
         </footer>

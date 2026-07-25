@@ -262,7 +262,7 @@
                                 <tr>
                                     <td class="situation-cell">Need to block dangerous operations</td>
                                     <td class="action-cell text-mist">
-                                        Create pre-execution hooks in <code class="text-accent font-mono">.claude/hooks/</code> -> pattern match blocked commands
+                                        Register a <code class="text-accent font-mono">PreToolUse</code> hook in <code class="text-accent font-mono">.claude/settings.json</code> -> call a policy script from <code class="text-accent font-mono">.claude/hooks/</code>
                                     </td>
                                 </tr>
                                 <tr>
