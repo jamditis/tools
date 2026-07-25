@@ -136,18 +136,30 @@ test("the copyable Claude cost estimator matches the displayed prices", async ()
     "utf8"
   );
 
+  // Each arm lists every current model id at that price tier. A session on an id
+  // no arm names falls through to the Sonnet default and understates its cost,
+  // so a new model has to be added here rather than left to the fallback.
   assert.match(
     calculator,
-    /\*opus-4-8\*\)\s+ip=5;\s*op=25;\s*cwp="6\.25";\s*crp="0\.5"/
+    /\*fable-5\*\)\s+ip=10;\s*op=50;\s*cwp="12\.50";\s*crp="1\.0"/
   );
   assert.match(
     calculator,
-    /\*sonnet-5\*\)\s+ip=3;\s*op=15;\s*cwp="3\.75";\s*crp="0\.3"/
+    /\*opus-5\*\|\*opus-4-8\*\|\*opus-4-7\*\|\*opus-4-6\*\)\s+ip=5;\s*op=25;\s*cwp="6\.25";\s*crp="0\.5"/
+  );
+  assert.match(
+    calculator,
+    /\*sonnet-5\*\|\*sonnet-4-6\*\)\s+ip=3;\s*op=15;\s*cwp="3\.75";\s*crp="0\.3"/
   );
   assert.match(
     calculator,
     /\*haiku-4-5\*\)\s+ip=1;\s*op=5;\s*cwp="1\.25";\s*crp="0\.1"/
   );
+  // The snippet is only correct if the page offers the same tiers, so the
+  // Fable arm has to be reachable from the UI and the in-page pricing table.
+  assert.match(calculator, /Claude Fable 5/);
+  assert.match(calculator, /\$10 \/ \$50 per M tokens/);
+  assert.match(calculator, /fable:\s*\{\s*ip:\s*10,\s*op:\s*50,/);
   assert.doesNotMatch(calculator, /\bip=15;\s*op=75\b/);
   assert.doesNotMatch(calculator, /\bip=0\.8;\s*op=4\b/);
 });
