@@ -16,7 +16,7 @@
       "Start with a single agent and a narrow tool set. Add subagents only when work can be split into independent, bounded tasks and the coordination cost is justified.",
       "Treat tool results as untrusted input. Validate schemas, constrain paths and URLs, defend against prompt injection, and require human approval for irreversible or external actions.",
       "Make long runs restartable. Persist checkpoints, use idempotent writes, set finite retry budgets, and surface partial or failed results instead of silently returning incomplete data.",
-      "Evaluate the real outcome. Test the deployed response path, exact artifact, or live data state—not just whether an agent reported success."
+      "Evaluate the real outcome. Test the deployed response path, exact artifact, or live data state, not only whether an agent reported success."
     ],
     "workflowIntegration": [
       "Use a provider's research mode when it fits the task, but open and verify every material citation. A polished report is not evidence that its sources support its claims.",

@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Verified July 24, 2026. The AI landscape changes fast—verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
+> Verified July 24, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
 
 ---
 

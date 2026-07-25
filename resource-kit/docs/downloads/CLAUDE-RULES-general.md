@@ -88,9 +88,9 @@ project-root/
 
 ---
 
-## Claude Code v2.1 Configuration
+## Claude Code v2.1 configuration
 
-### Recommended Skills
+### Recommended skills
 
 Create in `.claude/skills/` for repeated tasks:
 
@@ -101,7 +101,7 @@ description: [What this skill does]
 context: fork  # Optional: for parallel sub-agents
 ---
 
-# [Skill Name]
+# [Skill name]
 
 [Instructions for Claude when this skill is invoked]
 ```
@@ -140,7 +140,7 @@ live under `.claude/hooks/`, but they are not auto-discovered.
 }
 ```
 
-### Session Naming Convention
+### Session naming convention
 
 Use `/rename` to name sessions for this project:
 
@@ -148,7 +148,7 @@ Use `/rename` to name sessions for this project:
 - `[project]-bugfix-[issue]` - Bug fixes
 - `[project]-refactor` - Refactoring work
 
-### Agent Configurations
+### Agent configurations
 
 Define specialized agents as `.claude/agents/<name>.md` files:
 
