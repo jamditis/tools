@@ -119,15 +119,18 @@ Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHu
 
 The `amditis.tech` zone runs SSL mode `Full`, which encrypts the Cloudflare-to-origin leg without checking that the origin cert matches the hostname. That last part is what makes it work here, so `Full (strict)` is not a drop-in upgrade:
 
-- Connecting to a Pages IP with SNI `tools.amditis.tech` returns a cert for `CN=*.github.io`. It chains cleanly (`Verify return code: 0`), but a `*.github.io` wildcard does not cover `tools.amditis.tech`, so strict rejects the name mismatch and every visitor gets HTTP 526 instead of the site. Check it before changing anything:
+- Connecting to a Pages IP with SNI `tools.amditis.tech` returns a cert for `CN=*.github.io`, carrying SANs for `*.github.com`, `*.github.io`, `*.githubusercontent.com` and those three apexes. None of them cover `tools.amditis.tech`, so strict rejects the name and every visitor gets HTTP 526 instead of the site. Let openssl make that call rather than eyeballing the subject — a SAN can cover a hostname the CN does not, and `s_client` skips hostname verification unless asked for it:
 
   ```bash
-  openssl s_client -connect 185.199.108.153:443 -servername tools.amditis.tech </dev/null 2>/dev/null | openssl x509 -noout -subject
+  openssl s_client -connect 185.199.108.153:443 -servername tools.amditis.tech \
+    -verify_hostname tools.amditis.tech </dev/null 2>/dev/null | grep "Verify return code"
   ```
+
+  Today that prints `62 (hostname mismatch)`, which is the 526 in advance. `0 (ok)` means strict would pass for this hostname. To confirm the command itself discriminates, run it with `jamditis.github.io` in both places — that prints `0 (ok)`.
 
 - The mode is a zone setting rather than a per-hostname one, so it is not tools' alone to change. Of the zone's 33 proxied records, 26 are cloudflared tunnel CNAMEs that pull no third-party origin. Of the remaining 7: `tools`, `system`, and `mooc` all CNAME to `jamditis.github.io` and share the mismatch above, so they break together; `ccm` (Firebase) and `codiac` (Cloudflare Pages) point at third-party origins and each need the same check; `codex` and `upload.social` are `AAAA` records on the `100::` discard prefix, so they have no origin to validate and strict does not affect them.
 
-Strict only becomes safe for this hostname *after* step 3 above confirms GitHub issued a real cert for `tools.amditis.tech`, and only once `ccm` and `codiac` have passed the same check. Until then `Full` is the correct setting.
+Because the switch is zone-wide, strict only becomes safe once *every* proxied hostname with a third-party origin passes that check — not just this one. `tools`, `system`, and `mooc` fail it identically today, so each needs a real GitHub cert per step 3 above; `ccm` and `codiac` need the same verification against their own origins. Provisioning `tools` alone and flipping the switch would leave `system` and `mooc` serving 526. Until all five pass, `Full` is the correct setting.
 
 Background: issue #61.
 
