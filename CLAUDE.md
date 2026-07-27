@@ -113,7 +113,21 @@ Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHu
 1. Gray-cloud the DNS record in Cloudflare (DNS only, no proxy) so GitHub's HTTP-01 ACME challenge reaches Pages directly instead of Cloudflare's edge.
 2. In repo Settings > Pages, remove the custom domain, save, then re-enter `tools.amditis.tech` and save. This step is required, not optional: GitHub only starts cert provisioning when the custom domain is set or changed, and it already dropped the tracking record (`https_certificate: null`), so gray-clouding alone never restarts a job. Re-adding the domain is what re-fires ACME.
 3. Wait about 10 minutes, then confirm issuance with `gh api repos/jamditis/tools/pages --jq .https_certificate.state` (it should move off `null` to `approved`).
-4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Keep Cloudflare's SSL mode at "Full (strict)" throughout.
+4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Leave the zone's SSL mode on "Full" — do not set "Full (strict)". See below.
+
+### Do not switch the zone to Full (strict)
+
+The `amditis.tech` zone runs SSL mode `Full`, which encrypts the Cloudflare-to-origin leg without checking that the origin cert matches the hostname. That last part is what makes it work here, so `Full (strict)` is not a drop-in upgrade:
+
+- Connecting to a Pages IP with SNI `tools.amditis.tech` returns a cert for `CN=*.github.io`. It chains cleanly (`Verify return code: 0`), but a `*.github.io` wildcard does not cover `tools.amditis.tech`, so strict rejects the name mismatch and every visitor gets HTTP 526 instead of the site. Check it before changing anything:
+
+  ```bash
+  openssl s_client -connect 185.199.108.153:443 -servername tools.amditis.tech </dev/null 2>/dev/null | openssl x509 -noout -subject
+  ```
+
+- The mode is a zone setting rather than a per-hostname one, so it is not tools' alone to change. Of the zone's 33 proxied records, 26 are cloudflared tunnel CNAMEs that pull no third-party origin. Of the remaining 7: `tools`, `system`, and `mooc` all CNAME to `jamditis.github.io` and share the mismatch above, so they break together; `ccm` (Firebase) and `codiac` (Cloudflare Pages) point at third-party origins and each need the same check; `codex` and `upload.social` are `AAAA` records on the `100::` discard prefix, so they have no origin to validate and strict does not affect them.
+
+Strict only becomes safe for this hostname *after* step 3 above confirms GitHub issued a real cert for `tools.amditis.tech`, and only once `ccm` and `codiac` have passed the same check. Until then `Full` is the correct setting.
 
 Background: issue #61.
 
