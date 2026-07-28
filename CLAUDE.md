@@ -113,7 +113,28 @@ Leave it as-is for a docs site. To restore a GitHub-issued cert if a clean GitHu
 1. Gray-cloud the DNS record in Cloudflare (DNS only, no proxy) so GitHub's HTTP-01 ACME challenge reaches Pages directly instead of Cloudflare's edge.
 2. In repo Settings > Pages, remove the custom domain, save, then re-enter `tools.amditis.tech` and save. This step is required, not optional: GitHub only starts cert provisioning when the custom domain is set or changed, and it already dropped the tracking record (`https_certificate: null`), so gray-clouding alone never restarts a job. Re-adding the domain is what re-fires ACME.
 3. Wait about 10 minutes, then confirm issuance with `gh api repos/jamditis/tools/pages --jq .https_certificate.state` (it should move off `null` to `approved`).
-4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Keep Cloudflare's SSL mode at "Full (strict)" throughout.
+4. Re-enable the Cloudflare proxy (orange cloud) to get the edge caching and DDoS protection back. Leave the zone's SSL mode on "Full" — do not set "Full (strict)". See below.
+
+### Do not switch the zone to Full (strict)
+
+The `amditis.tech` zone runs SSL mode `Full`, which encrypts the Cloudflare-to-origin leg without checking that the origin cert matches the hostname. That last part is what makes it work here, so `Full (strict)` is not a drop-in upgrade:
+
+- Connecting to a Pages IP with SNI `tools.amditis.tech` returns a cert for `CN=*.github.io`, carrying SANs for `*.github.com`, `*.github.io`, `*.githubusercontent.com` and those three apexes. None of them cover `tools.amditis.tech`, so strict rejects the name and every visitor gets HTTP 526 instead of the site. Let openssl make that call rather than eyeballing the subject — a SAN can cover a hostname the CN does not, and `s_client` skips hostname verification unless asked for it:
+
+  ```bash
+  openssl s_client -connect 185.199.108.153:443 -servername tools.amditis.tech \
+    -verify_hostname tools.amditis.tech </dev/null 2>/dev/null | grep "Verify return code"
+  ```
+
+  Today that prints `62 (hostname mismatch)`, which is the 526 in advance. `0 (ok)` means strict would pass for this hostname. To confirm the command itself discriminates, run it with `jamditis.github.io` in both places — that prints `0 (ok)`.
+
+- The mode is the zone's default rather than a per-hostname setting, so it is not tools' alone to change. Of the zone's 33 proxied records, 26 are cloudflared tunnel CNAMEs that pull no third-party origin. Of the remaining 7: `tools`, `system`, and `mooc` all CNAME to `jamditis.github.io` and share the mismatch above, so they break together; `ccm` (Firebase) and `codiac` (Cloudflare Pages) point at third-party origins and each need the same check; `codex` and `upload.social` are `AAAA` records on the `100::` discard prefix, so they have no origin to validate and strict does not affect them.
+
+Changing that default is therefore only safe once *every* proxied hostname with a third-party origin passes the check — not just this one. `tools`, `system`, and `mooc` fail it identically today, so each needs a real GitHub cert per step 3 above; `ccm` and `codiac` need the same verification against their own origins. Provisioning `tools` alone and flipping the default would leave `system` and `mooc` serving 526. Until all five pass, `Full` is the correct default.
+
+A staged migration is possible, because a Configuration Rule can override the SSL mode for matching hostnames and so scope an exception to the default. That would mean setting the default to `Full (strict)` and adding a rule that holds the `jamditis.github.io` hosts at `Full` until they have real certs, rather than waiting on all five. Confirm the SSL setting is actually offered before planning around it — `amditis.tech` is on the Free plan, where the Configuration Rules allowance is small, and the personal API token cannot read the ruleset phase (`GET /zones/<zone>/rulesets/phases/http_config_settings/entrypoint` returns `request is not authorized`), so check in the dashboard under Rules > Configuration Rules or with a token scoped for it.
+
+The zone-wide route is still the recommendation here: it has nothing to maintain, while the override adds a rule that silently stops protecting the moment someone edits or reorders it, on the leg between Cloudflare and the origin where nobody is watching.
 
 Background: issue #61.
 
