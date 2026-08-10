@@ -1,27 +1,35 @@
 #!/usr/bin/env bash
-# check-copilot-instructions.sh -- guard every repo's .github/copilot-instructions.md
-# against the ~4,000-character silent-truncation cap the Copilot PR review bot enforces.
+# check-copilot-instructions.sh -- keep every repo's .github/copilot-instructions.md
+# inside a 4,000-character cap.
 #
-# Copilot's PR review bot reads .github/copilot-instructions.md with a roughly
-# 4,000-char cap and silently drops anything past it (tools#59). Three files once
-# reached that cap by restating ~1,700 chars of prose-style globals the bot cannot
-# enforce anyway; the fix was to keep each file to bot-enforceable rules plus the
-# repo's own bug classes, well under cap. Holding that line has meant a manual
-# `wc -c` sweep. This turns that sweep into one repeatable check: it prints each
-# file's size, warns when a file creeps toward the cap, and exits non-zero if any
-# file is over it, so a growing bug-class list cannot push a repo back into silent
-# truncation unnoticed.
+# The cap is a house budget, and saying so is the point: this check used to describe
+# it as a platform limit the Copilot review bot enforces by silently dropping the
+# tail. Nobody could source that. GitHub documents no size, character, or token limit
+# for .github/copilot-instructions.md, and nothing in its docs describes truncation.
+# The one length constraint GitHub does publish sits in the onboarding prompt it tells
+# you to paste to have Copilot generate the file: "Instructions must be no longer than
+# 2 pages." Four thousand characters sits comfortably inside two pages, so the number
+# survives its original justification, and tighter than the only published constraint
+# is the right direction to be wrong in (tools#71).
+#
+# It earns its keep either way. Three files once reached 4,000 by restating ~1,700
+# chars of prose-style globals the bot cannot enforce anyway; the fix was to keep each
+# file to bot-enforceable rules plus the repo's own bug classes. Holding that line has
+# meant a manual `wc -c` sweep. This turns that sweep into one repeatable check: it
+# prints each file's size, warns when a file creeps toward the cap, and exits non-zero
+# if any file is over it, so a growing bug-class list cannot quietly push a repo back
+# past the budget.
 #
 # It also runs an advisory scan for the prose-style globals (sentence case, banned
 # words) that the bot ignores, so a file that starts restating them again is flagged
-# before it eats the cap budget. The advisory never changes the exit code; only the
-# hard cap does.
+# before it eats the budget. The advisory never changes the exit code; only the hard
+# cap does.
 #
 # Counts are per repo, not per directory scanned. ~/projects holds worktrees sharing one
 # .git and separate clones of the same upstream, so one over-cap file used to be reported
 # once per checkout: the summary read as nine over-cap repos when there was one file to
 # fix (tools#77). Checkouts are folded by their origin URL and reported as one row, with
-# the largest file in the group shown so a stale sibling cannot hide a truncating one.
+# the largest file in the group shown so a stale sibling cannot hide an over-cap one.
 # The advisory scan still reads every checkout, since folding the count must not fold the
 # coverage.
 #
@@ -32,11 +40,11 @@
 # repo roots to check a specific set. Exit code is 0 when every file is under the
 # cap, 1 when any file is over it.
 #
-# Background: tools/CLAUDE.md "Copilot review instructions", tools issues #59 and #77.
+# Background: tools/CLAUDE.md "Copilot review instructions", tools issues #59, #71, #77.
 
 set -euo pipefail
 
-CAP=4000    # the bot's silent-truncation ceiling
+CAP=4000    # comfortably inside the two pages GitHub's own onboarding prompt asks for
 WARN=3600   # "well under 4,000" headroom: flag a file creeping toward the cap
 
 usage() {
@@ -164,7 +172,7 @@ for repo in "${repos[@]}"; do
   # restate prose-style globals the representative file does not.
   group_files[$key]="${group_files[$key]}"$'\n'"$file"
   # Checkouts of one repo can sit at different commits, so report the largest file in
-  # the group. That is the one that would truncate, and hiding it behind a smaller
+  # the group. That is the one that breaches the budget, and hiding it behind a smaller
   # sibling would turn the dedup into a way to miss a real over-cap file.
   if [[ "$chars" -gt "${group_chars[$key]}" ]]; then
     group_chars[$key]="$chars"
@@ -182,7 +190,7 @@ for key in "${order[@]}"; do
   chars="${group_chars[$key]}"
 
   if [[ "$chars" -gt "$CAP" ]]; then
-    status="OVER CAP (+$((chars - CAP)) past $CAP -- tail is being truncated)"
+    status="OVER CAP (+$((chars - CAP)) past $CAP)"
     over=$((over + 1))
   elif [[ "$chars" -ge "$WARN" ]]; then
     status="near cap ($((CAP - chars)) left)"
@@ -229,7 +237,9 @@ if [[ "$duplicates" -gt 0 ]]; then
 fi
 echo "$summary"
 if [[ "$over" -gt 0 ]]; then
-  echo "FAIL: $over repo(s) over the ${CAP}-char cap are losing their tail to silent truncation" >&2
+  echo "FAIL: $over repo(s) over the ${CAP}-char cap." >&2
+  echo "Trim the project bug-class list, or move a section into" >&2
+  echo ".github/instructions/<name>.instructions.md with an applyTo glob." >&2
   exit 1
 fi
 echo "OK: every file is under the ${CAP}-char cap"

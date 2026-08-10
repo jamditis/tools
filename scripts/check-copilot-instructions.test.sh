@@ -47,6 +47,11 @@ echo "=== an over-cap file fails the gate (exit 1) ==="
 out="$("$guard" "$tmp/under" "$tmp/over" 2>&1)"; rc=$?
 check "exit 1 when a file is over cap" test "$rc" -eq 1
 check "labels the over-cap file" grep -q "OVER CAP" <<<"$out"
+# The failure says what to do about it. It also must not go back to explaining the cap
+# as silent truncation: that mechanism was never sourced, and asserting it is what sent
+# three earlier passes trimming files to satisfy a limit nobody could point at (#71).
+check "the failure names the remedy" grep -q ".github/instructions/" <<<"$out"
+check "the failure does not claim truncation" test -z "$(grep -i 'truncat' <<<"$out" || true)"
 
 echo "=== a file exactly at the 4000-char cap is not over (guards the -gt boundary) ==="
 # Written byte-exact, not via mkfile (which prepends a header). A file of exactly CAP
@@ -117,7 +122,7 @@ check "two plain directories stay two repos" grep -q "checked 2 repo(s)" <<<"$ou
 
 echo "=== the largest checkout wins, so a stale clone cannot hide an over-cap file ==="
 # Checkouts of one repo can sit at different commits. Reporting the smaller one would
-# turn the dedup into a way to miss the file that is actually truncating.
+# turn the dedup into a way to miss the file that is actually over the cap.
 mkrepo staleA 200 https://github.com/example/drift.git
 mkrepo staleB 4200 https://github.com/example/drift.git
 out="$("$guard" "$tmp/staleA" "$tmp/staleB" 2>&1)"; rc=$?
