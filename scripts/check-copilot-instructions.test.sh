@@ -21,7 +21,7 @@ echo "=== the guard documents GitHub's current length guidance accurately ==="
 check "mentions GitHub's approximately 1,000-line best practice" \
   grep -Eq 'about 1,000 lines|approximately 1,000 lines' "$guard"
 check "does not call the two-page onboarding prompt the only published guidance" \
-  test -z "$(grep -Ei 'one length (constraint|guideline).*publish|only published (constraint|guideline)' "$guard" || true)"
+  test -z "$(tr '\n' ' ' <"$guard" | grep -Eio 'one length (constraint|guideline|guidance)[^.]*publish|only published (constraint|guideline|guidance)' || true)"
 
 mkfile() { # mkfile <repo> <char-count> <extra-line>
   local repo="$tmp/$1" n="$2" extra="${3:-}"
