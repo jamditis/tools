@@ -17,6 +17,12 @@ no() { echo "  [FAIL] $1"; fail=$((fail + 1)); }
 # record pass/fail by its exit status. Keeps assertions out of the A && B || C idiom.
 check() { local desc="$1"; shift; if "$@"; then ok "$desc"; else no "$desc"; fi; }
 
+echo "=== the guard documents GitHub's current length guidance accurately ==="
+check "mentions GitHub's approximately 1,000-line best practice" \
+  grep -Eq 'about 1,000 lines|approximately 1,000 lines' "$guard"
+check "does not call the two-page onboarding prompt the only published guidance" \
+  test -z "$(grep -Ei 'one length (constraint|guideline).*publish|only published (constraint|guideline)' "$guard" || true)"
+
 mkfile() { # mkfile <repo> <char-count> <extra-line>
   local repo="$tmp/$1" n="$2" extra="${3:-}"
   mkdir -p "$repo/.github"

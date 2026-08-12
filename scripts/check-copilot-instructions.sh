@@ -4,13 +4,13 @@
 #
 # The cap is a house budget, and saying so is the point: this check used to describe
 # it as a platform limit the Copilot review bot enforces by silently dropping the
-# tail. Nobody could source that. GitHub documents no size, character, or token limit
-# for .github/copilot-instructions.md, and nothing in its docs describes truncation.
-# The one length constraint GitHub does publish sits in the onboarding prompt it tells
-# you to paste to have Copilot generate the file: "Instructions must be no longer than
-# 2 pages." Four thousand characters sits comfortably inside two pages, so the number
-# survives its original justification, and tighter than the only published constraint
-# is the right direction to be wrong in (tools#71).
+# tail. Nobody could source that. GitHub documents no hard size, character, or token
+# limit for .github/copilot-instructions.md, and nothing in its docs describes
+# truncation. It does publish length guidance: its code-review guidance recommends
+# limiting any single instruction file to about 1,000 lines, while its onboarding
+# prompt asks for generated instructions no longer than two pages. Four thousand
+# characters sits comfortably inside both recommendations, so it remains a deliberately
+# conservative house budget rather than a claim about platform behavior (tools#71).
 #
 # It earns its keep either way. Three files once reached 4,000 by restating ~1,700
 # chars of prose-style globals the bot cannot enforce anyway; the fix was to keep each
@@ -44,7 +44,7 @@
 
 set -euo pipefail
 
-CAP=4000    # comfortably inside the two pages GitHub's own onboarding prompt asks for
+CAP=4000    # conservative house budget inside GitHub's published length guidance
 WARN=3600   # "well under 4,000" headroom: flag a file creeping toward the cap
 
 usage() {
