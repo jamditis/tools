@@ -5,11 +5,11 @@
 # The cap is a house budget, and saying so is the point: this check used to describe
 # it as a platform limit the Copilot review bot enforces by silently dropping the
 # tail. Nobody could source that. GitHub documents no hard size, character, or token
-# limit for .github/copilot-instructions.md, and nothing in its docs describes
-# truncation. It does publish length guidance: its code-review guidance recommends
-# limiting any single instruction file to about 1,000 lines, while its onboarding
-# prompt asks for generated instructions no longer than two pages. Four thousand
-# characters sits comfortably inside both recommendations, so it remains a deliberately
+# limit for .github/copilot-instructions.md and no truncation threshold or mechanism.
+# It does warn that shorter instruction files are more likely to be fully processed,
+# recommends limiting any single file to about 1,000 lines, and asks for generated
+# onboarding instructions no longer than two pages. Four thousand characters sits
+# comfortably inside both length recommendations, so it remains a deliberately
 # conservative house budget rather than a claim about platform behavior (tools#71).
 #
 # It earns its keep either way. Three files once reached 4,000 by restating ~1,700

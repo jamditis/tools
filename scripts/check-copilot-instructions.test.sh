@@ -20,6 +20,8 @@ check() { local desc="$1"; shift; if "$@"; then ok "$desc"; else no "$desc"; fi;
 echo "=== the guard documents GitHub's current length guidance accurately ==="
 check "mentions GitHub's approximately 1,000-line best practice" \
   grep -Eq 'about 1,000 lines|approximately 1,000 lines' "$guard"
+check "acknowledges GitHub's incomplete-processing warning" \
+  grep -q 'more likely to be fully processed' "$guard"
 check "does not call the two-page onboarding prompt the only published guidance" \
   test -z "$(tr '\n' ' ' <"$guard" | grep -Eio 'one length (constraint|guideline|guidance)[^.]*publish|only published (constraint|guideline|guidance)' || true)"
 
