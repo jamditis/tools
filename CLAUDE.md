@@ -199,7 +199,13 @@ Two interactive glossaries under `resource-kit/docs/vibe-coding/`:
 
 ## Copilot review instructions (`.github/copilot-instructions.md`)
 
-GitHub Copilot's PR review bot reads two files per repo — `.github/copilot-instructions.md` and the repo's `CLAUDE.md` — each with a roughly 4,000-character cap. Content past the cap is silently truncated, so an oversized file loses its tail with no warning.
+GitHub Copilot's PR review bot reads `.github/copilot-instructions.md`. Keep it under 4,000 characters; `scripts/check-copilot-instructions.sh` enforces that across every repo under `~/projects`.
+
+Earlier notes here said the bot also reads the repo's `CLAUDE.md`. That is not documented and the docs point the other way: GitHub's [custom instructions support table](https://docs.github.com/en/copilot/reference/custom-instructions-support) gives Copilot code review on GitHub.com four inputs, and the agent-instructions one is `AGENTS.md` alone. `CLAUDE.md` and `GEMINI.md` appear for the Copilot cloud agent and Copilot CLI, not for code review. The claim's one citation here was a memory doc that is not on disk, so it is dropped rather than budgeted for.
+
+That 4,000 is a house budget, and calling it a platform limit was wrong. GitHub publishes no hard size, character, or token limit for the file and documents no truncation threshold or mechanism. It does warn that shorter instruction files are more likely to be fully processed, recommends limiting any single instruction file to about 1,000 lines, and asks for generated onboarding instructions no longer than two pages. The 4,000-character house budget sits comfortably inside both length recommendations. Earlier notes here and in tools issues #59, #64, and #71 described it as a silent-truncation cap the bot enforces. Nobody could source that mechanism or threshold, so treat a file over the budget as risking incomplete processing without asserting how or where processing stops.
+
+A repo that genuinely needs more guidance than the budget holds has somewhere to put it. The same table gives that code-review row path-specific instructions, `.github/instructions/**/*.instructions.md`, so rules moved into one with an `applyTo` glob stay in review, scoped to the files they apply to. The check does not count those files, so moving text into one satisfies the guard without reducing how much the bot reads. Use it to scope rules, not to duck the budget.
 
 The bot is a bug finder, not a style linter. It flags code defects, not English-prose conventions, so a copilot-instructions file should carry only rules the bot can act on and nothing it will ignore.
 
@@ -224,7 +230,7 @@ See `rosen-frontend/.github/copilot-instructions.md` for the reference layout. K
 
 `scripts/check-copilot-instructions.sh` enforces the cap so the sweep is not manual: it prints each repo's `.github/copilot-instructions.md` size, warns near the cap, exits non-zero on any file over it, and advises where a file still restates prose-style globals the bot ignores. Run it with no arguments to scan every repo under `~/projects`, or pass repo roots for a specific set (passing explicit roots also avoids counting incidental worktree clones, which carry their own copy of the file). `scripts/check-copilot-instructions.test.sh` covers it.
 
-Background: `tools` issue #59, and `MEMORY.md` → `reference_copilot_pr_review_reading_scope.md` for the underlying constraint.
+Background: `tools` issues #59 and #71, and GitHub's custom instructions support table for what the review bot actually reads.
 
 ## Things to avoid
 
