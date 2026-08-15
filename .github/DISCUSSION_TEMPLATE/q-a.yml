@@ -1,0 +1,41 @@
+title: "[Help] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for Resource Kit help. Use Issues for confirmed bugs and bounded implementation work.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Tool or guide
+      options:
+        - LLM Advisor
+        - Vibe coding guide
+        - Downloadable template
+        - Developer skill or hook
+        - Public site
+        - Other Resource Kit content
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Give the browser, operating system, agent, or CLI version when relevant.
+      placeholder: "Firefox 146 on macOS 27"
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Explain your goal, what happened, and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: What you tried
+      description: Include relevant steps and sanitized output. Remove credentials and private data.
+    validations:
+      required: true

@@ -1,0 +1,43 @@
+title: "[Idea] "
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - LLM Advisor or model coverage
+        - Prompting or agent workflow guidance
+        - Vibe coding guide
+        - Downloadable template
+        - Developer skill or hook
+        - Accessibility or public-site experience
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: User need
+      description: Describe the real journalism, research, teaching, or development need.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the smallest useful addition or improvement.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Official sources
+      description: For model or product updates, provide the official source, exact identifier, and publication date.
+    validations:
+      required: false
+  - type: checkboxes
+    id: catalog
+    attributes:
+      label: Catalog check
+      options:
+        - label: I checked the current Resource Kit and source register before proposing this change.
+          required: true
