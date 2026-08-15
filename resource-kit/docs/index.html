@@ -409,7 +409,7 @@
                     </a>
 
                     <!-- Journalism Skills -->
-                    <a href="https://jamditis.github.io/claude-skills-journalism/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
+                    <a href="https://skills.amditis.tech/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
                             <i data-lucide="newspaper" class="w-6 h-6"></i>
                         </div>
@@ -417,11 +417,12 @@
                             <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Claude skills</div>
                             <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Journalism skills</h4>
                             <p class="text-sm text-mist leading-relaxed">
-                                31 Claude Code skills and 11 hooks for journalists, researchers, and media professionals. Source verification, FOIA, fact-checking, and more.
+                                62 agent skills, 12 plugins, and 17 hooks for journalists, researchers, and media professionals. Claude and Codex support included.
                             </p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">31 Skills</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">11 Hooks</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">62 Skills</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">12 Plugins</span>
+                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">17 Hooks</span>
                             </div>
                         </div>
                         <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
@@ -652,6 +653,17 @@
 
                 <div class="space-y-4 relative z-10">
 
+                    <a href="downloads/AI-MODEL-SOURCE-REGISTER.md" class="template-card border border-ink/10 bg-white/30 p-4 flex items-center justify-between hover:bg-white/40 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="database" class="w-5 h-5 text-accent"></i>
+                            <div>
+                                <span class="text-sm font-display font-bold text-ink">AI-MODEL-SOURCE-REGISTER.md</span>
+                                <p class="text-xs text-mist mt-1">Verified model names, status, licenses, primary sources, and prompting notes</p>
+                            </div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-accent"></i>
+                    </a>
+
                     <!-- Vibe Coding Checklist -->
                     <div class="template-card border border-ink/10 bg-white/30">
                         <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/20 transition-colors" onclick="toggleTemplate('checklist')">
@@ -741,14 +753,19 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
 ### Current LLM starting points for coding
 
-> Verified July 24, 2026. Model names, availability, and pricing change quickly; check the linked provider documentation before production use.
+> Verified August 15, 2026. Model names, availability, and pricing change quickly; check the linked provider documentation before production use.
 
 | Need | Recommendation |
 |------|----------------|
 | Maximum-capability Anthropic work | Claude Fable 5 |
+| Advanced Anthropic coding and reasoning | Claude Opus 5 |
 | Balanced Anthropic coding | Claude Sonnet 5 |
-| Stable, fast multimodal agents | Gemini 3.6 Flash |
+| Current Google coding and agents | Gemini 3.7 Flash |
 | OpenAI coding tasks | Codex (GPT-5.6 Sol) |
+| Balanced OpenAI agents | GPT-5.6 Terra |
+| High-throughput OpenAI tasks | GPT-5.6 Luna |
+| Highest hosted Qwen evaluation | Qwen 3.8 Max preview |
+| Stable hosted Qwen agents | Qwen 3.7 Plus |
 | Open-weight, long-horizon agents | GLM-5.2 |
 
 ---
@@ -780,7 +797,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                         <div class="template-content hidden border-t border-ink/10" id="content-comparison">
                             <pre class="p-4 text-xs text-mist overflow-x-auto max-h-96 overflow-y-auto" id="raw-comparison"># LLM comparison chart for journalism projects
 
-> Verified July 24, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities.
+> Verified August 15, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities.
 
 ---
 
@@ -789,17 +806,27 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
 | Claude Fable 5 | Maximum-capability long-running agents | Slower | $$$ | Check current plan |
-| Claude Opus 4.8 | Complex agentic coding and writing | Slower | $$$ | Check current plan |
+| Claude Opus 5 | Complex agentic coding and writing | Slower | $$$ | Check current plan |
 | Claude Sonnet 5 | All-around tasks, best balance | Fast | $$ | Yes |
 | Claude Haiku 4.5 | Fast, cheap, high-volume tasks | Fastest | $ | Limited |
 | Gemini 3.1 Pro (preview) | Difficult multimodal reasoning | Slower | $$ | Check current plan |
-| Gemini 3.6 Flash | Stable agentic and multimodal work | Fast | $ | Check current plan |
+| Gemini 3.7 Flash | Current coding and agent workhorse | Fast | $ | Check current plan |
+| Gemini 3.6 Flash | Previous stable Flash tier | Fast | $ | Check current plan |
+| Gemini 3.5 Flash | Earlier stable Flash tier | Fast | $$ | Check current plan |
 | Codex (GPT-5.6 Sol) | OpenAI coding tasks, long-horizon refactors | Fast | $$ | Limited |
 | GPT-5.6 Sol | Deep research, complex reasoning | Slower | $$$ | Limited |
+| GPT-5.6 Terra | Balanced agents, coding, and knowledge work | Fast | $$ | Check current plan |
+| GPT-5.6 Luna | High-throughput routine work | Fastest | $ | Check current plan |
+| Qwen 3.8 Max (preview) | Highest hosted Qwen evaluation tier | Varies | $$ | Check current plan |
+| Qwen 3.7 Plus | Stable hosted long-context and multimodal agents | Varies | $$ | Check current plan |
 | GLM-5.2 (open) | Long-horizon open-weight agents | Varies | Hosting* | Self-host |
 | DeepSeek V4 Pro/Flash (open) | Long-context coding and tools | Varies | Hosting/API* | Self-host |
 | Qwen3.6-35B-A3B (open) | Efficient local agentic coding | Varies | Hosting* | Self-host |
-| Kimi K2.5 (open) | Multimodal and multi-agent workflows | Varies | Hosting* | Self-host |
+| Kimi K3 (open) | Long-horizon coding and multimodal knowledge work | Varies | Hosting* | Self-host |
+| MiniMax M3 | Open-weight multimodal coding and agents | Varies | Hosting* | Self-host or API |
+| Mistral Medium 3.5 / Small 4 (open) | Private multimodal and efficient agents | Varies | Hosting/API* | Self-host |
+| Step-3.7-Flash / MiMo-V2-Flash / Hy3 (open) | Efficient agent and coding evaluations | Varies | Hosting* | Self-host |
+| Command A+ / Nemotron 3 Ultra / Llama 4 (open) | Enterprise orchestration and deployment options | Varies | Hosting* | Self-host |
 
 \* Open-weight models are free to use, but you pay for hosting, hardware, or inference infrastructure.
 
@@ -952,7 +979,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                     </div>
                     <div class="grid grid-cols-2 gap-16 md:gap-24">
                         <div class="space-y-6">
-                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Core index</h6>
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/80 uppercase">Core index</h6>
                             <ul class="space-y-4 text-sm font-semibold tracking-wide">
                                 <li><a href="/vibe-coding/" class="hover:text-accent transition-colors">Vibe Coding</a></li>
                                 <li><a href="/llm-advisor/" class="hover:text-accent transition-colors">LLM Advisor</a></li>
@@ -960,7 +987,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                             </ul>
                         </div>
                         <div class="space-y-6">
-                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/20 uppercase">Directives</h6>
+                            <h6 class="text-[10px] font-bold tracking-[0.5em] text-canvas/80 uppercase">Directives</h6>
                             <ul class="space-y-4 text-sm font-semibold tracking-wide">
                                 <li><a href="/about/" class="hover:text-accent transition-colors">About</a></li>
                                 <li><a href="/style-guide/" class="hover:text-accent transition-colors">Style Guide</a></li>
@@ -970,7 +997,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                 </div>
                 <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-canvas/5 gap-6">
                     <div class="font-display text-2xl italic font-black">AMDITIS.</div>
-                    <div class="text-[10px] font-bold tracking-[0.3em] text-canvas/30 uppercase text-center md:text-right">
+                    <div class="text-[10px] font-bold tracking-[0.3em] text-canvas/80 uppercase text-center md:text-right">
                         <a href="https://centerforcooperativemedia.org" class="hover:text-canvas transition-colors">Center for Cooperative Media</a>
                         <span class="mx-2">//</span>
                         <a href="https://github.com/jamditis" class="hover:text-canvas transition-colors">Joe Amditis</a>
@@ -982,22 +1009,22 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
                     .support-strip{display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
                     .support-strip a{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:2rem;font-size:.8rem;font-weight:600;text-decoration:none;color:#fff;transition:transform .15s,box-shadow .15s}
                     .support-strip a:hover{transform:translateY(-1px)}
-                    .support-strip .s-venmo{background:#008CFF}.support-strip .s-venmo:hover{box-shadow:0 4px 14px rgba(0,140,255,.4)}
+                    .support-strip .s-venmo{background:#006bbf}.support-strip .s-venmo:hover{box-shadow:0 4px 14px rgba(0,107,191,.4)}
                     .support-strip .s-paypal{background:#003087}.support-strip .s-paypal:hover{box-shadow:0 4px 14px rgba(0,48,135,.4)}
                     .support-strip .s-github{background:#333}.support-strip .s-github:hover{box-shadow:0 4px 14px rgba(51,51,51,.4)}
                     .support-strip svg{width:16px;height:16px;fill:currentColor}
                   </style>
                   <div class="support-strip">
-                    <a href="https://venmo.com/jamditis" class="s-venmo" target="_blank" rel="noopener">
-                      <svg viewBox="0 0 24 24"><path d="M19.5 1.5c.9 1.5 1.3 3 1.3 4.9 0 6.1-5.2 14-9.4 19.6H4.4L1.5 2.1l6.2-.6 1.7 13.4c1.5-2.5 3.4-6.4 3.4-9.1 0-1.8-.3-3-.8-4z"/></svg>
+                    <a href="https://venmo.com/jamditis" class="s-venmo" target="_blank" rel="noopener noreferrer">
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19.5 1.5c.9 1.5 1.3 3 1.3 4.9 0 6.1-5.2 14-9.4 19.6H4.4L1.5 2.1l6.2-.6 1.7 13.4c1.5-2.5 3.4-6.4 3.4-9.1 0-1.8-.3-3-.8-4z"/></svg>
                       Venmo
                     </a>
-                    <a href="https://paypal.me/jamditis" class="s-paypal" target="_blank" rel="noopener">
-                      <svg viewBox="0 0 24 24"><path d="M7.02 21.5L7.8 17h-2L8.6 2.5h5.4c2.6 0 4.4 1.8 4 4.4-.6 3.4-3.2 5.1-6.2 5.1H9.7l-1 5.5H6.6zm10-15.1c.3-2-1-3.4-3.4-3.4h-1L11.4 10h1.2c2.2 0 4-1.2 4.4-3.6zm-1.6 8.1c.3-2-1-3.4-3.4-3.4h-1L9.8 18h1.2c2.2 0 4-1.2 4.4-3.5z"/></svg>
+                    <a href="https://paypal.me/jamditis" class="s-paypal" target="_blank" rel="noopener noreferrer">
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M7.02 21.5L7.8 17h-2L8.6 2.5h5.4c2.6 0 4.4 1.8 4 4.4-.6 3.4-3.2 5.1-6.2 5.1H9.7l-1 5.5H6.6zm10-15.1c.3-2-1-3.4-3.4-3.4h-1L11.4 10h1.2c2.2 0 4-1.2 4.4-3.6zm-1.6 8.1c.3-2-1-3.4-3.4-3.4h-1L9.8 18h1.2c2.2 0 4-1.2 4.4-3.5z"/></svg>
                       PayPal
                     </a>
-                    <a href="https://github.com/sponsors/jamditis" class="s-github" target="_blank" rel="noopener">
-                      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    <a href="https://github.com/sponsors/jamditis" class="s-github" target="_blank" rel="noopener noreferrer">
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                       Sponsor
                     </a>
                   </div>

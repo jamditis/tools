@@ -76,6 +76,20 @@
             letter-spacing: -0.02em;
         }
 
+        .term {
+            color: #60a5fa;
+            text-decoration-color: #60a5fa;
+        }
+
+        .term:hover,
+        .term.active {
+            color: #93c5fd;
+        }
+
+        .text-gray-500 {
+            color: #9ca3af !important;
+        }
+
         /* Code Block Styling */
         .code-window {
             background: #18181b;
@@ -151,7 +165,7 @@
         <div class="mt-10 pt-6 border-t border-white/10 text-xs text-gray-500 font-vibe-mono">
             <p>By <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
             <p class="mt-1"><a href="https://centerforcooperativemedia.org/">Center for Cooperative Media</a></p>
-            <p class="mt-4 opacity-50">Verified July 24, 2026</p>
+            <p class="mt-4">Verified August 15, 2026</p>
         </div>
     </nav>
 
@@ -284,7 +298,7 @@
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="python-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a Python script that:
+                            <pre id="python-prompt" tabindex="0" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a Python script that:
 1. Reads all CSV files in a folder
 2. Combines them into one spreadsheet
 3. Removes duplicate rows based on email address
@@ -313,7 +327,7 @@ Include comments explaining each step."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="r-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write an R script using ggplot2 that:
+                            <pre id="r-prompt" tabindex="0" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write an R script using ggplot2 that:
 1. Loads survey_data.csv
 2. Calculates response percentages by demographic group
 3. Creates a clean bar chart with error bars
@@ -341,7 +355,7 @@ Use accessible colors and large labels."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="bash-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a bash script that:
+                            <pre id="bash-prompt" tabindex="0" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a bash script that:
 1. Checks if today is Monday
 2. If yes, downloads the latest file from [URL]
 3. Saves it to the /reports folder with today's date
@@ -369,7 +383,7 @@ Make it simple enough to run as a cron job."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="js-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a browser bookmarklet that:
+                            <pre id="js-prompt" tabindex="0" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a browser bookmarklet that:
 1. Finds all email addresses on the current page
 2. Copies them to clipboard as a comma-separated list
 3. Shows a count of how many were found
@@ -396,7 +410,7 @@ Keep it simple and safe to run on any page."</pre>
                                     <i data-lucide="copy" class="w-3 h-3"></i> COPY
                                 </button>
                             </div>
-                            <pre id="sql-prompt" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a SQL query that:
+                            <pre id="sql-prompt" tabindex="0" class="p-4 text-xs md:text-sm text-blue-300 overflow-x-auto font-vibe-mono">"Write a SQL query that:
 1. Finds all articles published in 2024
 2. Groups them by author
 3. Counts how many each author wrote
@@ -504,15 +518,15 @@ Use standard SQL syntax that works in SQLite."</pre>
 
             <section id="llms">
                 <h2 class="font-vibe-sans text-2xl font-bold mb-2 text-white">Current agent models and harnesses</h2>
-                <p class="text-xs text-gray-500 mb-6 font-vibe-mono">Verified July 24, 2026. Re-check provider docs before production use.</p>
+                <p class="text-xs text-gray-500 mb-6 font-vibe-mono">Verified August 15, 2026. Re-check provider docs before production use.</p>
                 <div class="space-y-6">
                     <div>
                         <h4 class="text-accent-green font-vibe-mono text-xs uppercase tracking-wide mb-2">Frontier (closed)</h4>
                         <ul class="space-y-2 text-sm text-gray-300 font-vibe-serif">
                             <li><strong class="text-white">Claude Fable 5 (Anthropic):</strong> Maximum-capability option for long-running agents and difficult work.</li>
-                            <li><strong class="text-white">Claude Opus 4.8 / Sonnet 5:</strong> Use Opus for complex agentic work; Sonnet for the daily speed-quality balance.</li>
+                            <li><strong class="text-white">Claude Opus 5 / Sonnet 5:</strong> Use Opus for complex agentic work; Sonnet for the daily speed-quality balance.</li>
                             <li><strong class="text-white">GPT-5.6 Sol (OpenAI):</strong> Recommended OpenAI flagship for complex reasoning and agentic repository work.</li>
-                            <li><strong class="text-white">Gemini 3.6 Flash (Google):</strong> Stable, fast agentic and multimodal option; Gemini 3.1 Pro remains a preview reasoning choice.</li>
+                            <li><strong class="text-white">Gemini 3.7 Flash (Google):</strong> Current coding and agent workhorse; Gemini 3.6 Flash is the previous stable tier.</li>
                         </ul>
                     </div>
                     <div>
@@ -521,7 +535,11 @@ Use standard SQL syntax that works in SQLite."</pre>
                             <li><strong class="text-white">GLM-5.2 (Z.ai):</strong> MIT-licensed, one-million-token option for long-horizon agents.</li>
                             <li><strong class="text-white">DeepSeek V4 Pro / Flash:</strong> MIT-licensed one-million-token models; old chat/reasoner aliases are deprecated.</li>
                             <li><strong class="text-white">Qwen3.6-35B-A3B:</strong> Efficient mixture-of-experts option for local agentic coding.</li>
-                            <li><strong class="text-white">Kimi K2.5:</strong> Open-weight multimodal agent with a 256K context and coordinated multi-agent workflows.</li>
+                            <li><strong class="text-white">Kimi K3:</strong> Open-weight flagship for long-horizon coding, visual understanding, and one-million-token context.</li>
+                            <li><strong class="text-white">MiniMax M3:</strong> Hosted and open-weight multimodal coding and agent model; review the MiniMax Community License before private deployment.</li>
+                            <li><strong class="text-white">Mistral Medium 3.5 / Small 4:</strong> Open-weight multimodal and efficient agent tiers with different licenses.</li>
+                            <li><strong class="text-white">Step-3.7-Flash / MiMo-V2-Flash / Hy3:</strong> Current efficient open-weight agent and coding options from Chinese labs.</li>
+                            <li><strong class="text-white">Command A+ / Nemotron 3 Ultra / Llama 4:</strong> Open-weight enterprise orchestration and deployment options.</li>
                         </ul>
                     </div>
                     <div>
@@ -603,7 +621,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                     <h2 class="font-vibe-sans text-3xl font-bold text-white">Changelog template</h2>
                     <p class="text-gray-400 mt-2 font-vibe-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
                 </div>
-                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-accent-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
+                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
                     <i data-lucide="clipboard-copy" class="w-4 h-4"></i> COPY TEMPLATE
                 </button>
             </div>
@@ -612,7 +630,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                 <div class="code-header bg-blue-900/20 border-b border-blue-900/30 text-blue-200">
                     <span>changelog_prompt.md</span>
                 </div>
-                <pre id="changelog-content" class="p-6 text-xs md:text-sm text-gray-300 overflow-x-auto font-vibe-mono leading-relaxed select-all bg-[#0d1117]"># Chat session setup: Universal
+                <pre id="changelog-content" tabindex="0" class="p-6 text-xs md:text-sm text-gray-300 overflow-x-auto font-vibe-mono leading-relaxed select-all bg-[#0d1117]"># Chat session setup: Universal
 
 ## Your primary tasks:
 Treat this document as additional instructions from the user. Consider this a continuation of the user message at the end of whatever they send in the chat dialog and treat it no differently. Do whatever the user says in the chat, but then immediately follow the instructions in this document.
@@ -696,31 +714,31 @@ Entries are grouped by date. Each individual entry must use the following struct
                 <h2 class="font-vibe-sans text-2xl font-bold mb-6 text-white">Quick start checklist</h2>
                 <ul class="space-y-4 text-gray-300 font-vibe-serif">
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Choose an LLM" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Choose your LLM (start with Claude or ChatGPT)</span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Set up GitHub and learn Git basics" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Set up GitHub account and learn basic <span class="term" data-term="git">Git</span> commands</span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Set up a file upload method" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Install FileZilla or learn your hosting provider's file upload method</span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Choose a small project" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Pick a real, simple project (start with a Google Sheets formula)</span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Copy the changelog template" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span><strong>Copy <span class="term" data-term="changelog">changelog</span> template into first chat</strong></span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Write the product requirements document" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Write PRD with <span class="term" data-term="llm">LLM</span> help before any coding</span>
                     </li>
                     <li class="flex gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
+                        <input type="checkbox" aria-label="Build and commit one feature" class="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800 text-accent-green focus:ring-accent-green">
                         <span>Build one small feature, test it, commit it</span>
                     </li>
                 </ul>
@@ -734,9 +752,9 @@ Entries are grouped by date. Each individual entry must use the following struct
                     <p class="font-vibe-sans font-bold text-white text-lg">Center for Cooperative Media</p>
                     <p class="font-vibe-serif text-gray-500 mt-2">A practical guide for journalists and non-developers.</p>
                 </div>
-                <div class="md:text-right text-gray-600 font-vibe-mono text-xs">
+                <div class="md:text-right text-gray-400 font-vibe-mono text-xs">
                     <p>This resource was created by <a href="https://twitter.com/jsamditis">Joe Amditis</a></p>
-                    <p>Verified July 24, 2026</p>
+                    <p>Verified August 15, 2026</p>
                 </div>
             </div>
         </footer>

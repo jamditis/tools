@@ -3,7 +3,7 @@
 > Choose the right AI coding assistant for your journalism project.
 
 **Author:** Joe Amditis
-**Verified:** July 24, 2026
+**Verified:** August 15, 2026
 
 Model names, access, prices, and privacy terms change quickly. Verify the current provider documentation before production use.
 
@@ -21,7 +21,7 @@ Answer the questions below to find the best LLM for your project. Each recommend
 *Cleaning spreadsheets, merging datasets, statistical analysis*
 
 → Best for: **Python scripts**
-→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.6 Flash**
+→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.7 Flash**
 
 ### Web scraping
 *Extracting data from websites, automating downloads*
@@ -33,13 +33,13 @@ Answer the questions below to find the best LLM for your project. Each recommend
 *Charts, maps, interactive graphics for stories*
 
 → Best for: **JavaScript with D3.js or Observable**
-→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.6 Flash**
+→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.7 Flash**
 
 ### File automation
 *Batch renaming, format conversion, organization*
 
 → Best for: **Bash or Python**
-→ Recommended LLM: **Gemini 3.6 Flash** (fast iterations for simple scripts)
+→ Recommended LLM: **Gemini 3.7 Flash** (fast iterations for simple scripts)
 
 ### Database work
 *SQL queries, data extraction, reporting*
@@ -56,13 +56,13 @@ Answer the questions below to find the best LLM for your project. Each recommend
 - Fast iteration more important than depth
 
 ### Medium (multiple files, some logic)
-- Use: **Claude Sonnet 5** or **Gemini 3.6 Flash**
+- Use: **Claude Sonnet 5** or **Gemini 3.7 Flash**
 - Balance of speed and capability
 
 ### Complex (multi-step, debugging intensive)
-- Use: **Claude Fable 5** or **Claude Opus 4.8** for difficult Anthropic workflows
+- Use: **Claude Fable 5** or **Claude Opus 5** for difficult Anthropic workflows
 - Use: **GPT-5.6 Sol** for complex OpenAI agent work
-- Use: **Gemini 3.1 Pro** for preview multimodal reasoning, or **Gemini 3.6 Flash** for a stable option
+- Use: **Gemini 3.1 Pro** for preview multimodal reasoning, or **Gemini 3.7 Flash** for a stable option
 
 ---
 
@@ -77,23 +77,26 @@ Free tiers, subscriptions, and API rates change frequently and differ by region.
 | If you need... | Use this |
 |----------------|----------|
 | Maximum-capability Anthropic work | Claude Fable 5 |
+| Advanced Anthropic coding and reasoning | Claude Opus 5 |
 | Balanced Anthropic coding | Claude Sonnet 5 |
-| Stable multimodal agents | Gemini 3.6 Flash |
+| Current Google coding and agents | Gemini 3.7 Flash |
 | OpenAI coding | Codex (GPT-5.6 Sol) |
 | Open-weight long-horizon agents | GLM-5.2 |
 | Efficient local coding | Qwen3.6-35B-A3B |
+| Highest hosted Qwen evaluation | Qwen 3.8 Max preview |
+| Stable hosted Qwen agents | Qwen 3.7 Plus |
 
 ---
 
 ## Model comparison
 
-### Claude Fable 5 and Claude Opus 4.8
+### Claude Fable 5 and Claude Opus 5
 - **Strengths:** High-capability long-running agents, coding, writing, and complex reasoning
 - **Weaknesses:** Slower response times
 - **Best for:** Difficult repository work, complex research, long-form writing
 - **Access:** Check the current Anthropic plan and model matrix
 
-### Gemini 3.6 Flash and Gemini 3.1 Pro
+### Gemini 3.7 Flash and Gemini 3.1 Pro
 - **Strengths:** Strong multimodal input, long context, and tool use
 - **Weaknesses:** Gemini 3.1 Pro is a preview model whose lifecycle can change
 - **Best for:** Agentic multimodal work and large-document analysis
@@ -109,7 +112,7 @@ Free tiers, subscriptions, and API rates change frequently and differ by region.
 - **GLM-5.2:** Long-horizon, one-million-token agent workflows
 - **DeepSeek V4 Pro/Flash:** Long-context coding and tools
 - **Qwen3.6-35B-A3B:** Efficient local agentic coding
-- **Kimi K2.5:** Multimodal and coordinated multi-agent workflows
+- **Kimi K3:** Long-horizon coding, visual understanding, and end-to-end knowledge work
 - **Access:** Open weights do not mean free operation; budget for hardware or hosted inference
 
 ---
@@ -149,7 +152,7 @@ LLMs make mistakes. Always:
 Try a different model. Each has different training data and approaches.
 
 **Too slow?**
-Drop from Opus to Sonnet, or use Gemini 3.6 Flash for quick tasks.
+Drop from Opus to Sonnet, or use Gemini 3.7 Flash for quick tasks.
 
 **Too expensive?**
 Use free tiers for exploration, paid for production code.

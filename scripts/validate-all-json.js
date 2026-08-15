@@ -31,6 +31,7 @@ const OUTDATED_PATTERNS = [
   { pattern: /\bGLM-5\.1\b/gi, replacement: "GLM-5.2" },
   { pattern: /\bGrok 3\b/gi, replacement: "Grok 4.5" },
   { pattern: /\bDeepSeek R2\b/gi, replacement: "DeepSeek V4 Pro or Flash" },
+  { pattern: /\bKimi K2\.5\b/gi, replacement: "Kimi K3" },
 ];
 
 // File schemas

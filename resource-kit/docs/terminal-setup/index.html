@@ -57,6 +57,13 @@
             border: none;
         }
 
+        .code-block code { color: #f4f4f5 !important; }
+        .code-block code .text-white\/40,
+        [style*="color:#666"] { color: #a3a3a3 !important; }
+
+        .text-ink\/50,
+        .text-ink\/40 { color: #555555 !important; }
+
         .code-block:hover {
             border-color: rgba(184, 134, 11, 0.3);
         }
@@ -68,8 +75,8 @@
 
         .tab-btn.active {
             background: rgba(184, 134, 11, 0.1);
-            border-color: #b8860b;
-            color: #b8860b;
+            border-color: #6f5000;
+            color: #6f5000;
         }
 
         .tab-content {
@@ -81,9 +88,9 @@
         }
 
         /* Tool badge colors */
-        .badge-claude { background: rgba(255, 107, 53, 0.1); border-color: rgba(255, 107, 53, 0.3); color: #ff6b35; }
-        .badge-gemini { background: rgba(66, 133, 244, 0.1); border-color: rgba(66, 133, 244, 0.3); color: #4285f4; }
-        .badge-codex { background: rgba(16, 163, 127, 0.1); border-color: rgba(16, 163, 127, 0.3); color: #10a37f; }
+        .badge-claude { background: rgba(138, 47, 8, 0.08); border-color: rgba(138, 47, 8, 0.45); color: #8a2f08; }
+        .badge-gemini { background: rgba(23, 78, 166, 0.08); border-color: rgba(23, 78, 166, 0.4); color: #174ea6; }
+        .badge-codex { background: rgba(0, 107, 84, 0.08); border-color: rgba(0, 107, 84, 0.4); color: #006b54; }
 
         /* Definition tooltip */
         .def-trigger {
@@ -174,7 +181,7 @@
                     Configure your terminal for <span class="text-accent font-bold">Claude Code</span>, <span class="text-accent font-bold">Gemini CLI</span>, <span class="text-ink font-bold">Codex</span>, and <span class="text-ink font-bold">Copilot CLI</span>.
                     <br class="hidden sm:inline">Includes status line configuration and platform-specific setup.
                 </p>
-                <p class="text-xs text-ink/50 mb-6">Verified July 24, 2026. CLI installers, defaults, aliases, and plan access change frequently; check each vendor's current documentation.</p>
+                <p class="text-xs text-ink/50 mb-6">Verified August 15, 2026. CLI installers, defaults, aliases, and plan access change frequently; check each vendor's current documentation.</p>
 
                 <!-- Terminal-style preview -->
                 <div class="max-w-2xl mx-auto deckle-card text-left text-sm overflow-hidden">
@@ -941,7 +948,7 @@ node --version</code></pre>
                                     <div class="bg-ink/80 px-4 py-2 border-b border-white/10">
                                         <span class="text-xs text-white/50">Preview</span>
                                     </div>
-                                    <pre class="p-4 text-sm overflow-x-auto"><code><span style="color:#6bdf6b">Opus 4.6</span> <span style="color:#666">|</span> <span style="color:#6bdf6b">[####------] 42%</span> <span style="color:#666">/ 200K</span> <span style="color:#666">|</span> <span style="color:#5fcfcf">my-project</span> <span style="color:#d4d46b">(main +2 [3M 1?])</span> <span style="color:#666">|</span> <span style="color:#d47fd4">my-session</span>
+                                    <pre class="p-4 text-sm overflow-x-auto"><code><span style="color:#6bdf6b">Opus 5</span> <span style="color:#666">|</span> <span style="color:#6bdf6b">[####------] 42%</span> <span style="color:#666">/ 200K</span> <span style="color:#666">|</span> <span style="color:#5fcfcf">my-project</span> <span style="color:#d4d46b">(main +2 [3M 1?])</span> <span style="color:#666">|</span> <span style="color:#d47fd4">my-session</span>
 <span style="color:#666">MCPs:</span> <span style="color:#e05050">browser, calendar, drive, gmail</span> <span style="color:#666">|</span> <span style="color:#5f8fbf">Explanatory</span> <span style="color:#666">|</span> <span style="color:#666">skills:</span> frontend-design</code></pre>
                                 </div>
 
@@ -1009,6 +1016,8 @@ session_id=$(echo "$input" | jq -r '.session_id // empty')
 
 # Shorten model name
 case "$model_name" in
+    "Claude Fable 5"*)     short_model="Fable 5" ;;
+    "Claude Opus 5"*)      short_model="Opus 5" ;;
     "Claude Opus 4.8"*)    short_model="Opus 4.8" ;;
     "Claude Opus 4.6"*)    short_model="Opus 4.6" ;;
     "Claude Opus 4.5"*)    short_model="Opus 4.5" ;;
@@ -1162,6 +1171,8 @@ $outputStyle = $data.output_style.name
 $sessionId = $data.session_id
 
 $shortModel = switch -Wildcard ($modelName) {
+    "Claude Fable 5*"    { "Fable 5"; break }
+    "Claude Opus 5*"     { "Opus 5"; break }
     "Claude Opus 4.8*"   { "Opus 4.8"; break }
     "Claude Opus 4.6*"   { "Opus 4.6"; break }
     "Claude Opus 4.5*"   { "Opus 4.5"; break }
@@ -1171,6 +1182,8 @@ $shortModel = switch -Wildcard ($modelName) {
     "Claude Sonnet 4*"   { "Sonnet 4"; break }
     "Claude Haiku 4.5*"  { "Haiku 4.5"; break }
     "Claude Haiku 4*"    { "Haiku 4"; break }
+    "Fable 5*"           { "Fable 5"; break }
+    "Opus 5*"            { "Opus 5"; break }
     "Opus 4.8*"          { "Opus 4.8"; break }
     "Opus 4.6*"          { "Opus 4.6"; break }
     "Sonnet 5*"        { "Sonnet 5"; break }
@@ -1452,7 +1465,7 @@ exit 0</code></pre>
                             <div class="deckle-card p-6">
                                 <h3 class="text-ink font-bold mb-2">Permission errors on Mac/Linux</h3>
                                 <p class="text-ink/60 text-sm mb-3">
-                                    Don't use <code class="text-red-500">sudo npm install -g</code>. Instead, fix npm permissions or use nvm.
+                                    Don't use <code class="text-red-700">sudo npm install -g</code>. Instead, fix npm permissions or use nvm.
                                 </p>
                             </div>
 
@@ -1493,6 +1506,10 @@ exit 0</code></pre>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        document.querySelectorAll('.code-block pre').forEach(pre => {
+            pre.tabIndex = 0;
+        });
 
         // Accordion functionality
         document.querySelectorAll('.accordion-trigger').forEach(trigger => {

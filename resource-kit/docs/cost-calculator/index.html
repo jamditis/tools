@@ -124,7 +124,7 @@
                         </button>
                         <button onclick="setModel('opus')" id="btn-opus"
                             class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
-                            <div class="font-display font-bold text-sm text-ink">Claude Opus 4.8</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Opus 5</div>
                             <div class="text-xs text-mist mt-1">Best for complex coding</div>
                             <div class="text-xs text-accent font-bold mt-2">$5 / $25 per M tokens</div>
                         </button>
@@ -163,7 +163,7 @@
                 <!-- Sessions per day -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Sessions per day</label>
+                        <label for="slider-sessions" class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Sessions per day</label>
                         <span class="font-display font-bold text-ink" id="label-sessions">3</span>
                     </div>
                     <input type="range" min="1" max="20" value="3" id="slider-sessions" oninput="update()">
@@ -177,7 +177,7 @@
                 <!-- Avg input tokens per session -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Avg context per session</label>
+                        <label for="slider-tokens" class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Avg context per session</label>
                         <span class="font-display font-bold text-ink" id="label-tokens">100K tokens</span>
                     </div>
                     <input type="range" min="10" max="500" value="100" step="10" id="slider-tokens" oninput="update()">
@@ -191,7 +191,7 @@
                 <!-- Cache rate -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Cache hit rate</label>
+                        <label for="slider-cache" class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Cache hit rate</label>
                         <span class="font-display font-bold text-ink" id="label-cache">70%</span>
                     </div>
                     <input type="range" min="0" max="95" value="70" id="slider-cache" oninput="update()">
@@ -290,10 +290,10 @@
                 <p class="text-sm text-mist mb-6 max-w-2xl">Add this snippet to your Claude Code statusline command to see the estimated API cost update in real time as you work — so you know exactly what you're saving each session.</p>
 
                 <div class="code-block rounded p-4 relative group">
-                    <button onclick="copyCode()" class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white/10 hover:bg-white/20 rounded text-white" id="copy-btn">
+                    <button onclick="copyCode()" class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white/10 hover:bg-white/20 rounded text-white" id="copy-btn" aria-label="Copy statusline code">
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                     </button>
-                    <pre class="text-green-400 overflow-x-auto text-xs leading-relaxed" id="snippet-code"># In your statusline command (receives JSON via stdin):
+                    <pre class="text-green-400 overflow-x-auto text-xs leading-relaxed" id="snippet-code" tabindex="0"># In your statusline command (receives JSON via stdin):
 input=$(cat)
 model_id=$(echo "$input" | jq -r '.model.id // empty')
 total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
@@ -323,7 +323,7 @@ echo "~\$$cost"</pre>
         <footer class="border-t border-ink/10 py-8 px-6 mt-auto">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-xs text-mist">Claude Max savings calculator · <a href="/" class="hover:text-ink transition-colors">tools.amditis.tech</a></p>
-                <p class="text-xs text-mist">Verified July 24, 2026 from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Anthropic pricing</a>. Sonnet 5 has introductory $2/$10 rates through August 31, 2026; this calculator uses the ongoing $3/$15 rates so long-term estimates do not understate cost.</p>
+                <p class="text-xs text-mist">Verified August 15, 2026 from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Anthropic pricing</a>. Sonnet 5 has introductory $2/$10 rates through August 31, 2026; this calculator uses the ongoing $3/$15 rates so long-term estimates do not understate cost.</p>
             </div>
         </footer>
     </div>
@@ -331,7 +331,7 @@ echo "~\$$cost"</pre>
     <script>
         const PRICING = {
             fable:  { ip: 10,   op: 50,  cwp: 12.5,  crp: 1.0,  label: 'Fable 5' },
-            opus:   { ip: 5,    op: 25,  cwp: 6.25,  crp: 0.5,  label: 'Opus 4.8' },
+            opus:   { ip: 5,    op: 25,  cwp: 6.25,  crp: 0.5,  label: 'Claude Opus 5' },
             sonnet: { ip: 3,    op: 15,  cwp: 3.75,  crp: 0.3,  label: 'Sonnet 5' },
             haiku:  { ip: 1,    op: 5,   cwp: 1.25,  crp: 0.1,  label: 'Haiku 4.5' },
         };

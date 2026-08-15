@@ -67,7 +67,7 @@ The site uses a light editorial/archival theme called "Amditis V2" with these ke
 
 **Text:**
 - `text-ink` - primary dark text (#121212)
-- `text-mist` - secondary/tertiary text (#6b6b6b)
+- `text-mist` - secondary/tertiary text (#555555)
 
 **Accents:**
 - `text-accent` / `bg-accent` - muted green accent (#3d4b40)
@@ -149,19 +149,21 @@ The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
 
 ## Model naming conventions
 
-Current-facing guidance was verified July 24, 2026. Use the catalog in
+Current-facing guidance was verified August 15, 2026. Use the catalog in
 `resource-kit/docs/llm-advisor/data/model-info.json` as the local source of
 truth, then verify official provider documentation before changing it. Keep
 historical case studies, changelog entries, plans, and the frozen archive
 unchanged.
 
 Current starting points include:
-- **Claude Fable 5** - maximum-capability long-running agents
-- **Claude Opus 4.8 / Claude Sonnet 5 / Claude Haiku 4.5** - capability, balance, and throughput tiers
-- **GPT-5.6 Sol** - OpenAI flagship; Codex uses it for complex repository work
-- **Gemini 3.6 Flash** - stable agentic and multimodal work
+- **Claude Fable 5 / Claude Opus 5 / Claude Sonnet 5 / Claude Haiku 4.5** - maximum, advanced, balance, and throughput tiers
+- **GPT-5.6 Sol / Terra / Luna** - OpenAI capability, balance, and throughput tiers; Codex uses Sol for complex repository work
+- **Gemini 3.7 Flash** - current coding and agent workhorse
+- **Gemini 3.6 Flash and 3.5 Flash / Flash-Lite** - previous stable and low-cost tiers
 - **Gemini 3.1 Pro** - preview reasoning model
-- **GLM-5.2, DeepSeek V4 Pro/Flash, Qwen3.6-35B-A3B, and Kimi K2.5** - current open-weight options
+- **Qwen 3.8 Max preview / Qwen 3.7 Plus** - newest preview and stable hosted Qwen tiers
+- **Kimi K3, GLM-5.2, DeepSeek V4, Qwen, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4** - tracked open-weight families
+- **MiniMax M3, ERNIE 5.1, and ByteDance Seed2.0** - tracked hosted Chinese-lab models
 
 Run `cd scripts && npm test` and `node scripts/validate-all-json.js` after
 editing active AI guidance.

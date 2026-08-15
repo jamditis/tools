@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Verified July 24, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
+> Verified August 15, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
 
 ---
 
@@ -9,21 +9,31 @@
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
 | Claude Fable 5 | Maximum-capability long-running agents | Slower | Higher | Check plan |
-| Claude Opus 4.8 | Complex agentic coding and writing | Slower | Higher | Check plan |
+| Claude Opus 5 | Complex agentic coding and writing | Slower | Higher | Check plan |
 | Claude Sonnet 5 | Balanced day-to-day agents | Fast | Medium | Check plan |
-| Gemini 3.6 Flash | Stable agentic and multimodal work | Fast | Lower | Check plan |
+| Gemini 3.7 Flash | Current coding and agent workhorse | Fast | Lower | Check plan |
+| Gemini 3.6 Flash | Previous stable Flash tier | Fast | Lower | Check plan |
+| Gemini 3.5 Flash | Earlier stable Flash tier | Fast | Medium | Check plan |
 | Gemini 3.1 Pro (preview) | Difficult multimodal reasoning | Slower | Medium | Check plan |
 | Codex (GPT-5.6 Sol) | OpenAI repository work | Varies | Check plan | Check plan |
+| GPT-5.6 Terra | Balanced OpenAI agents and coding | Fast | Medium | Check plan |
+| GPT-5.6 Luna | High-throughput routine work | Fastest | Lower | Check plan |
+| Qwen 3.8 Max (preview) | Highest hosted Qwen evaluation tier | Varies | Check plan | Check plan |
+| Qwen 3.7 Plus | Stable hosted long-context agents | Varies | Check plan | Check plan |
 | GLM-5.2 (open) | Long-horizon open-weight agents | Varies | Hosting | Self-host |
 | DeepSeek V4 Pro/Flash (open) | Long-context coding and tools | Varies | Hosting/API | Self-host |
 | Qwen3.6-35B-A3B (open) | Efficient local agentic coding | Varies | Hosting | Self-host |
-| Kimi K2.5 (open) | Multimodal and multi-agent workflows | Varies | Hosting | Self-host |
+| Kimi K3 (open) | Long-horizon coding and multimodal knowledge work | Varies | Hosting | Self-host |
+| MiniMax M3 | Open-weight multimodal coding and agents | Varies | Hosting | Self-host or API |
+| Mistral Medium 3.5 / Small 4 (open) | Private multimodal and efficient agents | Varies | Hosting/API | Self-host |
+| Step-3.7-Flash / MiMo-V2-Flash / Hy3 (open) | Efficient agent and coding evaluations | Varies | Hosting | Self-host |
+| Command A+ / Nemotron 3 Ultra / Llama 4 (open) | Enterprise orchestration and deployment options | Varies | Hosting | Self-host |
 
 ---
 
 ## Detailed breakdown
 
-### Claude Opus 4.8
+### Claude Opus 5
 
 **Strengths:**
 - Strong complex reasoning and agentic coding
@@ -49,7 +59,7 @@
 - Good at iterating on feedback
 
 **Weaknesses:**
-- Less capable on very complex tasks than Claude Opus 4.8
+- Less capable on very complex tasks than Claude Opus 5
 - Better for brainstorming than production code
 
 **Best for:** Daily tasks, brainstorming, quick iterations
@@ -65,7 +75,7 @@
 - Good integration with Google products
 
 **Weaknesses:**
-- Not as strong for pure coding as Claude Opus 4.8
+- Not as strong for pure coding as Claude Opus 5
 - May train on data unless opted out
 
 **Best for:** Front-end design, large document analysis, multimodal projects
@@ -134,13 +144,13 @@ Pricing and plan access change too quickly for a durable static table. Check eac
 → **Claude Pro** (best for coding and writing)
 
 ### Regular coding work
-→ **Claude Opus 4.8** + **GitHub Copilot** for in-editor
+→ **Claude Opus 5** + **GitHub Copilot** for in-editor
 
 ### Front-end design or large documents
 → **Gemini 3.1 Pro** (best context window and multimodal)
 
 ### Building production tools for newsroom
-→ **Claude Opus 4.8** for all coding tasks
+→ **Claude Opus 5** for all coding tasks
 
 ---
 

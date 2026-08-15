@@ -68,14 +68,19 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
 ### Current agent model starting points
 
-> Verified July 24, 2026. Check vendor model, lifecycle, plan, and pricing pages before production use.
+> Verified August 15, 2026. Check vendor model, lifecycle, plan, and pricing pages before production use.
 
 | Need | Recommendation |
 |------|----------------|
 | Maximum-capability Anthropic work | Claude Fable 5 |
+| Advanced Anthropic coding and reasoning | Claude Opus 5 |
 | Balanced daily agents | Claude Sonnet 5 |
-| Stable multimodal agents | Gemini 3.6 Flash |
+| Current Google coding and agents | Gemini 3.7 Flash |
 | OpenAI coding tasks | Codex (GPT-5.6 Sol) |
+| Balanced OpenAI agents | GPT-5.6 Terra |
+| High-throughput OpenAI tasks | GPT-5.6 Luna |
+| Highest hosted Qwen evaluation | Qwen 3.8 Max preview |
+| Stable hosted Qwen agents | Qwen 3.7 Plus |
 | Open-weight long-horizon agents | GLM-5.2 |
 
 ---

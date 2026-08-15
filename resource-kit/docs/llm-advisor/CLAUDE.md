@@ -93,7 +93,7 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 **Color coding:** AI tools have consistent color-coded pill buttons defined in `getPillClasses()` function:
 - Claude: Orange (#d9843b)
 - Gemini/Nano Banana: Teal (#369a8b)
-- ChatGPT/GPT-5.6 Sol/Codex: Slate gray
+- ChatGPT/GPT-5.6 Sol, Terra, and Luna/Codex: Slate gray
 - Other tools: Various distinctive colors
 
 **Modal system:** Uses a single universal modal (`#universal-modal`) that dynamically updates content based on the type of information being displayed.
@@ -106,7 +106,7 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 
 `gemini-3-prompting-guide.md` contains best practices for prompting Gemini 3, useful context when updating AI-related recommendations or guidance.
 
-Current-facing model guidance was verified July 24, 2026. Re-check official provider model, lifecycle, and pricing pages before changing recommendations. Historical case studies and changelog entries should retain the names that were accurate when written.
+Current-facing model guidance was verified August 15, 2026. Re-check official provider model, lifecycle, and pricing pages before changing recommendations. Historical case studies and changelog entries should retain the names that were accurate when written.
 
 ## Brand guidelines
 

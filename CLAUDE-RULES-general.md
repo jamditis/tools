@@ -167,4 +167,4 @@ Review the requested change and report concrete findings with file references.
 ---
 
 *Be specific. "Use 2-space indentation" beats "Format code properly."*
-*Verified July 24, 2026 against Claude Code v2.1 documentation.*
+*Verified August 15, 2026 against Claude Code v2.1 documentation and CLI 2.1.233.*
