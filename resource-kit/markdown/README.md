@@ -56,4 +56,6 @@ Found an error or have a suggestion? Reach out to [Joe Amditis](https://joeamdit
 
 ---
 
-*Verified July 24, 2026. Model and agent guidance should be checked against the linked provider documentation before production use.*
+*Verified August 15, 2026. Model and agent guidance should be checked against the linked provider documentation before production use.*
+
+Use the [AI model source register](../docs/downloads/AI-MODEL-SOURCE-REGISTER.md) for the current provider, license, lifecycle, and prompting sources behind these recommendations.

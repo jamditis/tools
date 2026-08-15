@@ -33,7 +33,7 @@ module.exports = {
       colors: {
         canvas: '#ede6d4',
         ink: '#121212',
-        mist: '#6b6b6b',
+        mist: '#555555',
         clay: '#d6cdb7',
         accent: '#3d4b40',
         'news-bg': '#0a0a0c',

@@ -280,4 +280,4 @@ Each reports back independently.
 
 ---
 
-*Verified July 24, 2026 against Claude Code v2.1 documentation.*
+*Verified August 15, 2026 against Claude Code v2.1 documentation and CLI 2.1.233.*

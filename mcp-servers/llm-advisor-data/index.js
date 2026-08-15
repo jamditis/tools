@@ -708,6 +708,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           /\bGLM-5\.1\b/g,
           /\bGrok 3\b/g,
           /\bDeepSeek R2\b/g,
+          /\bKimi K2\.5\b/g,
         ];
         const issues = [];
 

@@ -364,11 +364,11 @@ async function loadAllData() {
          * appropriate brand colors. Falls back to neutral gray for unknown tools.
          *
          * @function getPillClasses
-         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 4.8")
+         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 5")
          * @returns {string} Tailwind CSS classes for background and text color
          *
          * @example
-         * getPillClasses('Claude Opus 4.8')  // Returns 'bg-[#d9843b] text-white'
+         * getPillClasses('Claude Opus 5')  // Returns 'bg-[#d9843b] text-white'
          * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
          */
         const getPillClasses = (tool) => {
@@ -381,6 +381,14 @@ async function loadAllData() {
                  'GPT-5.6 Sol': 'bg-slate-500 text-white',      // OpenAI neutral
                  'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
                  'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
+                 'Kimi': 'bg-orange-500 text-white',        // Open-weight Kimi family
+                 'MiniMax': 'bg-orange-500 text-white',     // Open-weight MiniMax family
+                 'Step-': 'bg-orange-500 text-white',       // Open-weight StepFun family
+                 'MiMo': 'bg-orange-500 text-white',        // Open-weight Xiaomi family
+                 'Tencent Hy3': 'bg-orange-500 text-white', // Open-weight Tencent family
+                 'Command A+': 'bg-orange-500 text-white',  // Open-weight Cohere family
+                 'Nemotron': 'bg-orange-500 text-white',    // Open-weight NVIDIA family
+                 'Llama 4': 'bg-orange-500 text-white',     // Open-weight Meta family
                  'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
                  'Grok': 'bg-blue-500 text-white',          // xAI blue
                  'DeepSeek': 'bg-[#615EFC] text-white',     // DeepSeek purple
@@ -391,7 +399,8 @@ async function loadAllData() {
                  'NotebookLM': 'bg-slate-600 text-white',   // Google NotebookLM
                  'Custom AI': 'bg-gray-500 text-gray-100',  // Generic custom
                  'RAG-enabled': 'bg-gray-500 text-white',   // RAG systems
-                 'Open Source': 'bg-orange-500 text-white'  // Open source models
+                 'Open Source': 'bg-orange-500 text-white', // Legacy open-source label
+                 'open weights': 'bg-orange-500 text-white' // Generic open-weight label
              };
 
              // Find the first matching key using partial string match
@@ -1117,7 +1126,7 @@ async function loadAllData() {
          *
          * @example
          * showModal('Tool comparison', renderComparisonModal);
-         * showModal('Model information', renderModelInfoModal, 'Claude Opus 4.8');
+         * showModal('Model information', renderModelInfoModal, 'Claude Opus 5');
          */
         function showModal(title, renderFunction, ...args) {
             modalTitle.textContent = title;

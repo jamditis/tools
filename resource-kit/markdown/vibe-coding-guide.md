@@ -3,7 +3,7 @@
 > A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.
 
 **Author:** Joe Amditis
-**Verified:** July 24, 2026
+**Verified:** August 15, 2026
 
 ---
 
@@ -186,9 +186,9 @@ Before adding a line to your context file, ask: "If I deleted this, would the AI
 | Model | Strengths | Best for | CLI tool |
 |-------|-----------|----------|----------|
 | Claude Fable 5 | Maximum capability for long-running agents | Difficult agentic work | Claude Code |
-| Claude Opus 4.8 | Complex coding and writing | Large projects, debugging | Claude Code |
+| Claude Opus 5 | Complex coding and writing | Large projects, debugging | Claude Code |
 | Claude Sonnet 5 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
-| Gemini 3.6 Flash | Stable, fast, multimodal | Tool-using agents and large documents | Gemini/Antigravity CLI |
+| Gemini 3.7 Flash | Stable, fast, multimodal | Tool-using agents and large documents | Gemini/Antigravity CLI |
 | Codex (GPT-5.6 Sol) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
 | GLM-5.2 | Open weights, long context | Self-hosted long-horizon agents | Multiple harnesses |
 

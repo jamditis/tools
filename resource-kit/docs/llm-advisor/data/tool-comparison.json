@@ -1,4 +1,21 @@
 {
+  "Claude Opus 5": {
+    "strengths": [
+      "Deep reasoning and long-horizon agentic coding",
+      "One-million-token context window",
+      "Thinking enabled by default"
+    ],
+    "weaknesses": [
+      "Higher cost and latency than Sonnet or Haiku",
+      "Overkill for routine work"
+    ],
+    "bestFor": [
+      "Complex repository work",
+      "Deep analysis",
+      "Long-running enterprise agents"
+    ],
+    "pricing": "$5 input and $25 output per million tokens; verify current pricing"
+  },
   "Claude Opus 4.8": {
     "strengths": [
       "Strong complex reasoning and agentic coding",
@@ -88,12 +105,29 @@
     ],
     "pricing": "Check current Google model and plan pricing"
   },
+  "Gemini 3.7 Flash": {
+    "strengths": [
+      "Google's current Flash workhorse",
+      "Strong coding and agent performance",
+      "Fast multimodal input and tool use"
+    ],
+    "weaknesses": [
+      "New release with limited production history",
+      "Rollout and regional availability can vary"
+    ],
+    "bestFor": [
+      "Interactive coding agents",
+      "High-throughput multimodal workflows",
+      "Google platform integrations"
+    ],
+    "pricing": "Introductory pricing applies through 2026; verify current Google API pricing"
+  },
   "Gemini 3.6 Flash": {
     "strengths": [
       "Very fast 'chat' model",
       "Improved directness and efficiency over 3.0",
       "Strong multimodal input and tool use",
-      "Good for interactive agents"
+      "Qualified previous-generation production option"
     ],
     "weaknesses": [
       "Not as powerful as Pro",
@@ -106,6 +140,23 @@
       "Structured prompt workflows"
     ],
     "pricing": "Check current Google API or consumer-plan pricing"
+  },
+  "Gemini 3.5 Flash": {
+    "strengths": [
+      "Earlier stable Gemini Flash tier",
+      "Strong sustained agentic and coding performance",
+      "Advanced multimodal reasoning"
+    ],
+    "weaknesses": [
+      "Older than Gemini 3.7 Flash",
+      "Gemini 3.1 Pro can still be stronger for some preview-only reasoning work"
+    ],
+    "bestFor": [
+      "Sustained agentic work",
+      "Complex coding",
+      "Production multimodal reasoning"
+    ],
+    "pricing": "Check current Google API pricing"
   },
   "Gemini 3.5 Flash-Lite": {
     "strengths": [
@@ -166,7 +217,7 @@
     "weaknesses": [
       "Not as powerful as Pro",
       "More likely to hallucinate than Pro",
-      "Superseded by Gemini 3.6 Flash"
+      "Superseded by Gemini 3.7 Flash"
     ],
     "bestFor": [
       "Voice conversations",
@@ -191,6 +242,38 @@
       "Complex reasoning tasks"
     ],
     "pricing": "Check current OpenAI plan or API pricing"
+  },
+  "GPT-5.6 Terra": {
+    "strengths": [
+      "Balanced GPT-5.6 capability, latency, and cost",
+      "Strong for everyday agents and coding",
+      "Faster and less costly than Sol"
+    ],
+    "weaknesses": [
+      "Less capable than Sol on the hardest work"
+    ],
+    "bestFor": [
+      "Daily agent workflows",
+      "Routine coding and analysis",
+      "Interactive knowledge work"
+    ],
+    "pricing": "Check current OpenAI API pricing"
+  },
+  "GPT-5.6 Luna": {
+    "strengths": [
+      "Fastest and most economical GPT-5.6 tier",
+      "Responsive for routine work",
+      "Good fit for high-throughput applications"
+    ],
+    "weaknesses": [
+      "Lower capability than Terra or Sol on complex reasoning"
+    ],
+    "bestFor": [
+      "Classification and extraction",
+      "High-volume routine tasks",
+      "Low-latency applications"
+    ],
+    "pricing": "Check current OpenAI API pricing"
   },
   "Codex (GPT-5.6 Sol)": {
     "strengths": [
@@ -258,7 +341,7 @@
       "Social media analysis",
       "Finding sources during breaking news"
     ],
-    "pricing": "Check current xAI API or Grok plan pricing"
+    "pricing": "Check current SpaceXAI API or Grok plan pricing"
   },
   "NotebookLM": {
     "strengths": [
@@ -294,7 +377,7 @@
     ],
     "pricing": "Free tier, with paid Pro plan"
   },
-  "GLM-5.2 (open source)": {
+  "GLM-5.2 (open weights)": {
     "strengths": [
       "Current MIT-licensed option for long-horizon agents",
       "MIT licensed — self-hostable with no usage restrictions",
@@ -311,7 +394,41 @@
     ],
     "pricing": "Open weights; hosting and inference still cost money"
   },
-  "Qwen3.6-35B-A3B (open source)": {
+  "Qwen 3.7 Plus": {
+    "strengths": [
+      "Current hosted Qwen Plus tier",
+      "One-million-token context",
+      "Multimodal input and tool use"
+    ],
+    "weaknesses": [
+      "Hosted service terms and regional availability vary",
+      "Moving aliases can change without a pinned snapshot"
+    ],
+    "bestFor": [
+      "Long-context agents",
+      "Multimodal knowledge work",
+      "Alibaba Cloud integrations"
+    ],
+    "pricing": "Check current Alibaba Cloud Model Studio pricing"
+  },
+  "Qwen 3.8 Max (preview)": {
+    "strengths": [
+      "Newest high-capability hosted Qwen tier",
+      "Reasoning and agent workflows",
+      "Available through Alibaba Cloud Model Studio"
+    ],
+    "weaknesses": [
+      "Preview lifecycle can change",
+      "Token Plan and regional availability vary"
+    ],
+    "bestFor": [
+      "Qwen capability evaluations",
+      "Difficult hosted reasoning tasks",
+      "Alibaba Cloud agent prototypes"
+    ],
+    "pricing": "Preview model; check current Alibaba Cloud plan and regional availability"
+  },
+  "Qwen3.6-35B-A3B (open weights)": {
     "strengths": [
       "Strong coding benchmark scores for its size",
       "35B total parameters with about 3B active",
@@ -328,7 +445,7 @@
     ],
     "pricing": "Open weights; hosting and inference still cost money"
   },
-  "DeepSeek V4 (open source)": {
+  "DeepSeek V4 (open weights)": {
     "strengths": [
       "Pro and Flash variants",
       "One-million-token context",
@@ -345,21 +462,87 @@
     ],
     "pricing": "Open weights; check current hosted API pricing"
   },
-  "Kimi K2.5 (open source)": {
+  "Kimi K3 (open weights)": {
     "strengths": [
-      "Multimodal agentic coding",
-      "256K-token context",
-      "Coordinated multi-agent workflow support"
+      "Long-horizon agentic coding",
+      "Native visual understanding",
+      "One-million-token context"
     ],
     "weaknesses": [
       "Full model requires substantial hardware",
-      "Modified MIT license requires review for your use case"
+      "Kimi K3 License requires review for your use case"
     ],
     "bestFor": [
       "Visual and coding agents",
       "Long-context open-weight experimentation",
-      "Multi-agent research workflows"
+      "End-to-end knowledge work"
     ],
+    "pricing": "Open weights under the custom Kimi K3 License; hosting and inference still cost money"
+  },
+  "MiniMax M3": {
+    "strengths": ["Frontier coding and agent focus", "Native multimodal input", "Up to one-million-token context"],
+    "weaknesses": ["MiniMax Community License needs review", "Full deployment needs substantial hardware"],
+    "bestFor": ["Long-running coding agents", "Long video or repository analysis", "Private deployment evaluation"],
+    "pricing": "Published open weights; check the MiniMax Community License and current hosted pricing"
+  },
+  "NVIDIA Nemotron 3 Ultra (open weights)": {
+    "strengths": ["Long-running agent orchestration", "One-million-token context", "Open recipes and weights"],
+    "weaknesses": ["The full 550B model needs substantial NVIDIA hardware", "NVIDIA-optimized deployment stack"],
+    "bestFor": ["Agent orchestration", "Long-context research systems", "Private enterprise inference"],
     "pricing": "Open weights; hosting and inference still cost money"
+  },
+  "Mistral Medium 3.5 (open weights)": {
+    "strengths": ["Frontier-class agentic coding", "Multimodal input", "256K context"],
+    "weaknesses": ["Modified MIT license needs review", "Dense 128B deployment is hardware intensive"],
+    "bestFor": ["Private enterprise agents", "Multimodal coding", "European deployment options"],
+    "pricing": "Open weights under Modified MIT; check current hosted pricing"
+  },
+  "Mistral Small 4 (open weights)": {
+    "strengths": ["Efficient hybrid reasoning and coding", "256K context", "Apache 2.0 license"],
+    "weaknesses": ["Less capable than frontier models on the hardest tasks"],
+    "bestFor": ["Self-hosted daily agents", "Cost-sensitive coding", "Private document workflows"],
+    "pricing": "Apache 2.0 weights; hosting and inference still cost money"
+  },
+  "Step-3.7-Flash (open weights)": {
+    "strengths": ["Fast agentic reasoning", "Coding and research workflows", "Apache 2.0 license"],
+    "weaknesses": ["Fewer third-party integrations than major providers", "Benchmark on the target language and harness"],
+    "bestFor": ["Fast local agents", "Research automation", "Cost-sensitive tool use"],
+    "pricing": "Apache 2.0 weights; check current hosted pricing"
+  },
+  "MiMo-V2-Flash (open weights)": {
+    "strengths": ["Efficient reasoning and coding", "256K context", "Apache 2.0 license"],
+    "weaknesses": ["Requires careful multi-turn reasoning-content handling", "Best deployment still needs serious hardware"],
+    "bestFor": ["Fast agentic coding", "Self-hosted experimentation", "Tool-use pipelines"],
+    "pricing": "Apache 2.0 weights; hosting and inference still cost money"
+  },
+  "Tencent Hy3 (open weights)": {
+    "strengths": ["Efficient reasoning and agent focus", "21B active parameters", "Private deployment option"],
+    "weaknesses": ["New model with fewer third-party integrations", "Verify license and inference support"],
+    "bestFor": ["Chinese and bilingual agent evaluation", "Reasoning agents", "Private inference research"],
+    "pricing": "Open weights; verify license and hosted pricing"
+  },
+  "Cohere Command A+ (open weights)": {
+    "strengths": ["Multimodal enterprise agents", "48-language support", "Apache 2.0 license"],
+    "weaknesses": ["128K context is shorter than million-token alternatives", "Optimized mainly for enterprise workloads"],
+    "bestFor": ["Private enterprise RAG", "Multilingual agents", "Regulated deployments"],
+    "pricing": "Apache 2.0 weights; check current Cohere service pricing"
+  },
+  "Llama 4 Scout / Maverick (open weights)": {
+    "strengths": ["Broad deployment support", "Native multimodal input", "Scout supports very long input context"],
+    "weaknesses": ["Custom Llama license", "Older than several 2026 open-weight frontier releases"],
+    "bestFor": ["Established Llama deployments", "Multimodal applications", "Long-context experiments"],
+    "pricing": "Open weights under the Llama license; hosting and inference still cost money"
+  },
+  "ERNIE 5.1": {
+    "strengths": ["Current Baidu general model", "Strong Chinese writing and understanding", "Agent-focused post-training"],
+    "weaknesses": ["Hosted product access and regional terms vary", "No general open-weight release documented"],
+    "bestFor": ["Chinese-language knowledge work", "Baidu platform agents", "Writing and instruction following"],
+    "pricing": "Check current Baidu product and API pricing"
+  },
+  "ByteDance Seed2.0": {
+    "strengths": ["Multimodal document understanding", "Dedicated Pro and Code variants", "Production use through Doubao, TRAE, and Volcano Engine"],
+    "weaknesses": ["Regional availability and product names vary", "No general open-weight release documented"],
+    "bestFor": ["Chinese-language agents", "Document and chart analysis", "TRAE coding workflows"],
+    "pricing": "Check current Volcano Engine pricing"
   }
 }

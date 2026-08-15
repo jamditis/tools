@@ -24,7 +24,7 @@
 
   var THEME = {
     // Trigger styled as nav link — colors derived from existing nav at runtime
-    triggerColor: '#6b6b6b',      // mist — matches nav link default
+    triggerColor: '#555555',      // mist — matches nav link default
     triggerHoverColor: '#121212',  // ink — matches nav link hover
     panelBg: '#ffffff',
     panelColor: '#121212',
