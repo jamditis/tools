@@ -80,6 +80,13 @@
     --info-surface: #2a4f7c;
     --sage-surface: #3d4b40;
 
+    /**
+     * Text sitting on a `--sage` fill. Unlike `--sage-surface`, `--sage` does
+     * invert, so its foreground has to invert with it: light text on the dark
+     * day-paper sage, dark text on the light night-paper sage.
+     */
+    --on-sage: var(--on-slab);
+
     /* Slab family — stays dark in both themes */
     --slab: #191510;
     --slab-rgb: 25 21 16;
@@ -147,6 +154,7 @@
         --accent-surface: #8f3d2c;
         --sage: #9db89f;
         --sage-rgb: 157 184 159;
+        --on-sage: var(--slab);
     --signal: #e0765c;
         --signal-rgb: 224 118 92;
         --caution: #d8a955;
@@ -200,6 +208,7 @@
     --accent-surface: #8f3d2c;
     --sage: #9db89f;
     --sage-rgb: 157 184 159;
+    --on-sage: var(--slab);
     --signal: #e0765c;
     --signal-rgb: 224 118 92;
     --caution: #d8a955;
@@ -865,7 +874,7 @@ body {
 .border-ice { border-color: var(--sage); }
 .border-signal { border-color: var(--signal); }
 .bg-acid { background-color: var(--accent-surface); }
-.bg-ice { background-color: var(--sage); }
+.bg-ice { background-color: var(--sage); color: var(--on-sage); }
 .bg-signal { background-color: var(--signal); }
 .bg-acidDim { background-color: rgb(var(--accent-rgb) / 0.1); }
 .bg-iceDim { background-color: rgb(var(--sage-rgb) / 0.12); }
@@ -1280,6 +1289,15 @@ body {
 .text-ink\/30 { color: rgb(var(--ink-rgb) / 0.62); }
 .bg-acid { color: var(--on-slab); }
 .text-gray-400.line-through { color: var(--mist); }
+
+/**
+ * A V1 fill button whose hover swaps the fill for paper — `hover:bg-white`
+ * resolves to `--leaf`. `.bg-acid` and `.bg-ice` force a light foreground for
+ * the filled rest state, which would leave the label all but invisible once the
+ * paper arrives, so the hover hands the label back to body ink.
+ */
+.bg-acid.hover\:bg-white:hover,
+.bg-ice.hover\:bg-white:hover { color: var(--ink); }
 
 /**
  * The glossary term link. `--info` reads at 3.6:1 against the muted text it is

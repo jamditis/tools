@@ -60,7 +60,7 @@
         }
 
         :focus-visible {
-            outline: 2px solid #3d4b40;
+            outline: 2px solid var(--accent);
             outline-offset: 4px;
         }
 
@@ -116,6 +116,28 @@
         .sidebar-section {
             border-bottom: 1px solid rgba(18, 18, 18, 0.05);
         }
+
+        /**
+         * The toolbar carries six controls plus the theme toggle. Their labels
+         * are already hidden below `sm`, but the horizontal padding alone made
+         * the row 387px wide, so anything narrower than about 388px — a 375pt
+         * iPhone, a 360px Android — pushed the toggle and then the download
+         * button past the edge. Tighten the buttons at that width and let the
+         * row wrap, so every control stays reachable and nothing scrolls
+         * sideways.
+         */
+        @media (max-width: 639px) {
+            .editor-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.5rem;
+            }
+
+            .editor-actions .toolbar-btn {
+                padding-left: 0.625rem;
+                padding-right: 0.625rem;
+            }
+        }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
 </head>
@@ -139,7 +161,7 @@
                 </a>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="editor-actions flex items-center gap-3">
                 <span id="project-name" class="text-[10px] tracking-[0.2em] font-bold opacity-40 uppercase hidden md:block mr-4">No project loaded</span>
 
                 <button id="help-btn" class="toolbar-btn p-2.5 border border-ink/10 hover:text-accent" title="Help & Instructions">
@@ -1472,16 +1494,22 @@
             // Add editing styles (marked with data attribute for safe removal)
             const style = doc.createElement('style');
             style.setAttribute('data-amditis-editor', 'true');
+            // The edited document is the reader's own HTML and carries none of
+            // the V3 custom properties, so resolve the accent against this page
+            // and pass the computed value across rather than hardcoding it.
+            const hostStyles = getComputedStyle(document.documentElement);
+            const accent = hostStyles.getPropertyValue('--accent').trim();
+            const accentRgb = hostStyles.getPropertyValue('--accent-rgb').trim();
             style.textContent = `
                 body {
                     cursor: text;
                 }
                 *:focus {
-                    outline: 2px solid #3d4b40 !important;
+                    outline: 2px solid ${accent} !important;
                     outline-offset: 2px;
                 }
                 [contenteditable]:hover {
-                    background-color: rgba(61, 75, 64, 0.03);
+                    background-color: rgb(${accentRgb} / 0.03);
                 }
             `;
             doc.head.appendChild(style);
