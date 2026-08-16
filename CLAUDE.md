@@ -45,6 +45,7 @@ tools/                        # Git root
 │       ├── assets/           # Shared CSS, JS, images
 │       ├── llm-advisor/      # LLM tool selector app
 │       ├── vibe-coding/      # Vibe coding guide
+│       ├── next-level/       # Strategy guide: sessions to systems
 │       └── downloads/        # Downloadable templates
 ├── skills/                   # Claude Code skills
 │   ├── test-first-bugs/      # Test-driven bug fixing

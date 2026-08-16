@@ -19,6 +19,7 @@
 - LLM selection guide: https://tools.amditis.tech/llm-advisor/ — Decision matrices for choosing the right AI coding assistant
 - Tool stacks: https://tools.amditis.tech/tool-stacks/ — Free and low-cost development resources for newsrooms
 - Code patterns: https://tools.amditis.tech/code-patterns/ — Seven reusable Claude Code approaches for common journalism tasks
+- Next level: https://tools.amditis.tech/next-level/ — Strategy guide for moving from AI sessions to AI systems: autonomy, memory, review stacks, verification
 
 ## Vibe coding sub-guides
 
