@@ -901,6 +901,15 @@ body {
     border-color: var(--edge-firm);
 }
 
+/**
+ * The `display: inline-flex` above out-specifies the user agent's
+ * `[hidden] { display: none }`, so theme.js could not hide the fixed fallback
+ * by setting the attribute without this rule.
+ */
+.theme-toggle[hidden] {
+    display: none;
+}
+
 .theme-toggle svg {
     width: 0.95rem;
     height: 0.95rem;
@@ -946,6 +955,20 @@ body {
 .theme-toggle--on-slab:hover {
     color: var(--on-slab);
     border-color: rgb(var(--on-slab-rgb) / 0.45);
+}
+
+/**
+ * A screen control has no business on paper. The printable pages (quick
+ * reference card, cheat sheet) hide only `.no-print`, which the toggle is not
+ * marked with, so the fixed fallback printed in the corner of every sheet.
+ * `!important` matches those pages' own print overrides, which load after this
+ * file from a page-local <style>.
+ */
+@media print {
+    .theme-toggle,
+    [data-theme-toggle-slot] {
+        display: none !important;
+    }
 }
 
 /* ==========================================================================

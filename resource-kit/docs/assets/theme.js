@@ -19,8 +19,12 @@
  * ## Placement
  *
  * The control is rendered into every `[data-theme-toggle-slot]` element on the
- * page. Pages with no slot get a small fixed control instead, so no page is
- * left without a way to switch.
+ * page. Pages with no *visible* slot get a small fixed control instead, so no
+ * page is left without a way to switch. That check is by rendered box rather
+ * than by slot count, because several pages keep their only slot inside a
+ * `hidden md:block` sidebar: at mobile widths the slot exists but nothing is
+ * drawn. Visibility is re-checked on resize, and the fixed control is hidden
+ * again whenever a slot button is on screen, so no page shows two.
  *
  * @module AmditisThemeToggle
  * @see assets/amditis-v3.css — `.theme-toggle`
@@ -143,23 +147,85 @@
         }
     }
 
+    /* Slot-mounted controls, so their visibility can be re-checked on resize. */
+    var slotButtons = [];
+    var floatingButton = null;
+
+    /**
+     * Reports whether an element currently renders a box.
+     *
+     * `getClientRects()` is used rather than `offsetParent`, because several
+     * pages put the slot inside a `position: fixed` sidebar, where the offset
+     * chain is a poor proxy for "on screen".
+     *
+     * @param {Element} element
+     * @returns {boolean}
+     */
+    function isVisible(element) {
+        return element.getClientRects().length > 0;
+    }
+
+    /**
+     * Keeps a usable control on screen at every viewport width.
+     *
+     * Some pages carry their only slot inside a `hidden md:block` sidebar, so
+     * below the md breakpoint the slot-mounted button is not rendered at all
+     * and the reader is left with no way to switch. In that case the fixed
+     * fallback is shown instead; it is hidden again as soon as a slot button
+     * is visible, so no page ever shows two.
+     */
+    function syncFloating() {
+        var slotVisible = false;
+        for (var i = 0; i < slotButtons.length; i += 1) {
+            if (isVisible(slotButtons[i])) {
+                slotVisible = true;
+                break;
+            }
+        }
+
+        if (slotVisible) {
+            if (floatingButton) {
+                floatingButton.hidden = true;
+            }
+            return;
+        }
+
+        if (!floatingButton) {
+            floatingButton = build(true);
+            buttons.push(floatingButton);
+            document.body.appendChild(floatingButton);
+            apply(current());
+        }
+        floatingButton.hidden = false;
+    }
+
     function init() {
         var slots = document.querySelectorAll('[data-theme-toggle-slot]');
 
-        if (slots.length) {
-            for (var i = 0; i < slots.length; i += 1) {
-                var button = build(false);
-                if (slots[i].hasAttribute('data-theme-toggle-on-slab')) {
-                    button.classList.add('theme-toggle--on-slab');
-                }
-                buttons.push(button);
-                slots[i].appendChild(button);
+        for (var i = 0; i < slots.length; i += 1) {
+            var button = build(false);
+            if (slots[i].hasAttribute('data-theme-toggle-on-slab')) {
+                button.classList.add('theme-toggle--on-slab');
             }
-        } else {
-            var floating = build(true);
-            buttons.push(floating);
-            document.body.appendChild(floating);
+            buttons.push(button);
+            slotButtons.push(button);
+            slots[i].appendChild(button);
         }
+
+        syncFloating();
+
+        /* The breakpoint that hides a sidebar slot is crossed by resizing. */
+        var pending = false;
+        window.addEventListener('resize', function () {
+            if (pending) {
+                return;
+            }
+            pending = true;
+            window.requestAnimationFrame(function () {
+                pending = false;
+                syncFloating();
+            });
+        });
 
         apply(current());
 

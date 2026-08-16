@@ -956,6 +956,8 @@ async function loadAllData() {
         function renderCaseStudiesModal() {
             modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => {
                 const sourceUrl = safeHttpUrl(study.sourceUrl);
+                /* Several entries carry no quote; an empty pull-quote panel reads as a bug. */
+                const quote = typeof study.quote === 'string' ? study.quote.trim() : '';
                 return `
                 <div class="border border-ink/10 overflow-hidden flex flex-col bg-white/40">
                     <div class="px-5 py-4 ${getPillClasses(study.tool)}">
@@ -976,10 +978,10 @@ async function loadAllData() {
                                     <h4 class="font-mono text-xs text-accent tracking-wider mb-2">KEY_TAKEAWAY</h4>
                                     <p class="text-mist">${sanitizeHTML(study.tips)}</p>
                                 </div>
-                                <div>
+                                ${quote ? `<div>
                                     <h4 class="font-mono text-xs text-accent tracking-wider mb-2">WORDS_OF_WISDOM</h4>
-                                    <p class="border-l-2 pl-4 py-2 border-accent/30 bg-accent/5 text-sm italic text-ink">"${sanitizeHTML(study.quote)}"</p>
-                                </div>
+                                    <p class="border-l-2 pl-4 py-2 border-accent/30 bg-accent/5 text-sm italic text-ink">"${sanitizeHTML(quote)}"</p>
+                                </div>` : ''}
                             </div>
                         </div>
                         ${sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${escapeAttr(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Learn more →</a></div>` : ''}
