@@ -64,12 +64,6 @@
         }
 
         /* Pulse animation for the status indicator */
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        .pulse-status {
-            animation: pulse-glow 2s ease-in-out infinite;
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
@@ -109,12 +103,6 @@
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
-                <!-- Status badge -->
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-accent/30 text-accent text-xs font-medium tracking-wide rounded-full bg-accent/5">
-                    <span class="w-2 h-2 bg-accent rounded-full pulse-status"></span>
-                    Ready to code
-                </div>
-
                 <!-- Title -->
                 <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-light italic mb-6 text-ink">
                     Vibe coder's guide
@@ -126,22 +114,11 @@
                     <span class="text-accent">Build working software with AI as your co-pilot.</span>
                 </p>
 
-                <!-- Intro box -->
-                <div class="max-w-xl mx-auto deckle-card p-6 text-left text-sm">
-                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-ink/10">
-                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
-                        <span class="w-3 h-3 rounded-full bg-accent"></span>
-                        <span class="w-3 h-3 rounded-full bg-blue-400"></span>
-                        <span class="text-xs text-ink/40 ml-2">Getting started</span>
-                    </div>
-                    <div class="text-ink/60 space-y-1">
-                        <p><span class="text-accent font-medium">$</span> ./start_vibing --mode=build</p>
-                        <p class="text-ink/40"># Loading AI assistants...</p>
-                        <p class="text-ink/40"># Syntax memorization: DISABLED</p>
-                        <p class="text-ink/40"># Ship-first mindset: ENABLED</p>
-                        <p><span class="text-accent">Ready.</span> <span class="text-ink">Pick your path below.</span></p>
-                    </div>
-                </div>
+                <!-- Standfirst -->
+                <p class="max-w-xl mx-auto text-sm text-mist leading-relaxed border-t border-ink/10 pt-6">
+                    You do not have to memorise syntax to ship something that works. Pick a
+                    path below and start where you actually are.
+                </p>
             </div>
         </section>
 
@@ -161,9 +138,6 @@
 
                     <!-- THE BASICS Card -->
                     <a href="/vibe-coding/essentials/" class="group block deckle-card hover:border-accent/30 transition duration-300 relative overflow-hidden card-hover">
-                        <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/30 group-hover:border-accent transition-colors"></div>
 
                         <!-- Icon -->
                         <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-accent">
@@ -187,16 +161,13 @@
                         </div>
 
                         <div class="bg-cream px-8 py-3 border-t border-ink/10 flex justify-between items-center text-sm text-ink/60 group-hover:text-accent transition-colors">
-                            <span>Load module</span>
+                            <span>Read this module</span>
                             <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
                         </div>
                     </a>
 
                     <!-- LEVEL UP Card -->
                     <a href="/vibe-coding/level-up/" class="group block deckle-card hover:border-accent/30 transition duration-300 relative overflow-hidden card-hover">
-                        <!-- Corner accent -->
-                        <div class="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors"></div>
-                        <div class="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-accent/30 group-hover:border-accent transition-colors"></div>
 
                         <!-- Icon -->
                         <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity text-accent">
@@ -220,7 +191,7 @@
                         </div>
 
                         <div class="bg-cream px-8 py-3 border-t border-ink/10 flex justify-between items-center text-sm text-ink/60 group-hover:text-accent transition-colors">
-                            <span>Load module</span>
+                            <span>Read this module</span>
                             <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
                         </div>
                     </a>
