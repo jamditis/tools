@@ -1,5 +1,60 @@
 [
   {
+    "title": "Autopilot dev work with a five-layer review stack",
+    "tool": "Claude Code + Codex",
+    "journalist": "Joe Amditis, Center for Cooperative Media",
+    "challenge": "Running a backlog of coding work across several projects without a team, and without letting unreviewed AI-written code reach a repository.",
+    "solution": "A cron job wakes a Claude Code session hourly from 7am to 9pm. The session pulls open GitHub issues and works each one in an isolated git worktree. Claude Opus writes the code, Codex reviews the diff before anything is committed, and a Codex cloud connector runs an independent fresh-eyes review on the pull request in GitHub. A human approves every merge. The whole system runs on two Raspberry Pis with Telegram notifications, on CLI subscriptions rather than metered API calls.",
+    "quote": "Quality comes from stacking independent checks. No single model has to be brilliant; enough of them have to disagree.",
+    "outcome": "Issues move from the backlog to reviewed pull requests without anyone at the keyboard, and nothing merges without a human approving it.",
+    "tips": "The review layers only work because they are independent: the model that wrote the code is never the model that signs off on it. Keep the human merge gate no matter how good the automated reviews get.",
+    "sourceUrl": "https://skills.amditis.tech/autonomy/"
+  },
+  {
+    "title": "Codex as an independent second reviewer",
+    "tool": "OpenAI Codex",
+    "journalist": "Joe Amditis, Center for Cooperative Media",
+    "challenge": "Code written by one model needed a check that model could not perform on itself, at a cost that would not scale with the number of reviews.",
+    "solution": "The Codex CLI reviews Claude-written code before it merges. A fast low-effort pass runs first, with reasoning effort escalated for higher-stakes changes, and the review is re-run on the updated diff until no high or medium findings remain. Codex stays on the ChatGPT subscription rather than a metered API key. The review prompt casts it as \"a skeptical senior engineer trying to find real defects.\"",
+    "quote": "Codex reviews and suggests fixes; it never approves or ships its own work.",
+    "outcome": "A second, independent opinion on every diff at flat subscription cost, with the reviewer kept strictly out of the shipping decision.",
+    "tips": "Match the reasoning effort to the stakes instead of maxing it out by default, and re-run the review on the updated diff rather than assuming the first round of fixes landed cleanly.",
+    "sourceUrl": "https://codex.amditis.tech"
+  },
+  {
+    "title": "Pattern: engineering a memory for a Slack agent",
+    "tool": "Claude Opus 4.8",
+    "journalist": "Joe Amditis, Center for Cooperative Media",
+    "challenge": "A persistent assistant answering direct messages in a working Slack needs to remember corrections, project context, and tone, and the cost of getting those wrong is borne by real colleagues.",
+    "solution": "Pattern is a persistent Claude session that has answered DMs on the Center for Cooperative Media Slack since May 2026. Its memory is a Markdown working copy backed by an append-only SQLite source of truth. Corrections observed in Slack become candidate rules, and a candidate is promoted to canon only after five or more independent sightings. Only Joe's own messages can mint a global rule.",
+    "quote": "The cost of saying the wrong thing — wrong tone, wrong project context, forgetting a correction someone gave last week — is real.",
+    "outcome": "An agent whose memory grows from observed corrections rather than one-off instructions, with a promotion threshold that keeps a single stray comment from becoming policy.",
+    "tips": "Separate the working copy from the source of truth, and require repeated independent evidence before a note becomes a rule the agent applies everywhere.",
+    "sourceUrl": "https://share.amditis.tech/pattern"
+  },
+  {
+    "title": "An autonomous Claude Code system on $700 of Raspberry Pi gear",
+    "tool": "Claude Code",
+    "journalist": "Joe Amditis, Center for Cooperative Media",
+    "challenge": "Email, Slack, and meeting follow-ups were consuming the hours meant for reporting and program work.",
+    "solution": "A scheduled Claude Code instance handles email with Telegram approve, edit, and cancel controls, works in Slack, and turns meeting transcripts into kanban cards, across a four-node Tailscale mesh built from roughly $688 of hardware. Secrets are GPG-encrypted behind a proxy, with no API keys in environment variables. The 400-plus-line CLAUDE.md that governs it is, in his description, \"a changelog of failures, encoded as rules.\"",
+    "quote": "",
+    "outcome": "Routine administrative traffic is drafted and triaged automatically, with a human approval step in Telegram before anything sends.",
+    "tips": "Start small. One Raspberry Pi, one Telegram bot, and Claude responding to commands is enough to begin; the rest of the system grows from there.",
+    "sourceUrl": "https://strugglestreet.substack.com/p/claude-chode-an-autonomous-claude"
+  },
+  {
+    "title": "Vibe coding for newsrooms",
+    "tool": "Claude Code + Gemini CLI",
+    "journalist": "Joe Amditis / Hacks-Hackers",
+    "challenge": "Journalists with no programming background need working tools quickly, and the usual advice about prompt tricks does not get them there.",
+    "solution": "Keep all project context in one local folder, use Claude Code planning mode to generate a requirements document before any code, develop in phases, and test across devices before publishing.",
+    "quote": "There is no magic prompt engineering trick that makes these tools work well. The real 'magic' simply comes from being able to comprehensively describe exactly what you want.",
+    "outcome": "Most minimum viable products come together in one to two hours. The March 2026 Vibe Coding Show and Tell drew 34 projects from 24 contributors, including Reroute NJ, built in a day and a half and serving roughly 2,000 daily users.",
+    "tips": "The requirements document is the work. Describe exactly what you want before you ask for code, then build it in phases and test on a phone as well as a laptop.",
+    "sourceUrl": "https://generative-ai-newsroom.com/vibe-coding-for-newsrooms-6848b17dac99"
+  },
+  {
     "title": "Building the Amditis resource kit with Claude Code",
     "tool": "Claude Opus 4.8",
     "journalist": "Center for Cooperative Media",
@@ -149,5 +204,60 @@
     "quote": "Maintaining human oversight not only over the outputs — the content generated — but also over the inputs — the cues that influence model responses — can help build a more reliable and systematic AI-assisted operation.",
     "tips": "Language models can be highly sensitive to the phrasing of prompts, and even slight modifications may lead to inconsistent or unpredictable results.",
     "sourceUrl": "https://generative-ai-newsroom.com/personalizing-newsletters-a-case-study-on-iterative-prompt-evaluation-and-improvement-a9f1141900fd"
+  },
+  {
+    "title": "Election night on a vibe-coded dashboard",
+    "tool": "Claude + ChatGPT",
+    "journalist": "Bay City News",
+    "challenge": "Covering election results across multiple California counties with no in-house engineering team.",
+    "solution": "Executive publisher Kat Rowlands and impact manager Ciara Zavala, neither with a formal computer science background, used Claude and ChatGPT as a coding coach to build Python scrapers for roughly six counties, with a human-verification layer between the scraped results and anything published.",
+    "quote": "",
+    "outcome": "The dashboard worked on election night 2025, and the effort was spun into \"Bay City Labs\" to make the approach replicable for other newsrooms.",
+    "tips": "Treat the model as a coach rather than a contractor, and keep a human verification step between automated collection and publication.",
+    "sourceUrl": "https://rjionline.org/news/bay-city-news-election-playbook-part-2-newsrooms-can-vibe-code-their-way-to-automated-election-night-dashboard/"
+  },
+  {
+    "title": "An AI-translated newsletter that pays for itself",
+    "tool": "ChatGPT",
+    "journalist": "Enlace Latino NC",
+    "challenge": "Reaching an English-speaking audience with reporting produced in Spanish, without a budget for professional translation.",
+    "solution": "A custom GPT workflow translates Spanish stories for an English-language newsletter launched in June 2025. Every translation gets human editorial review before it publishes.",
+    "quote": "",
+    "outcome": "More than 1,460 subscribers, open rates higher than the Spanish edition, roughly $2,500 a month and about 150 hours saved across the first five issues, and zero translation complaints.",
+    "tips": "Machine translation earns its savings only with an editor in the loop. Budget the review time rather than the translation time.",
+    "sourceUrl": "https://theajp.org/how-ai-assisted-translation-helps-newsrooms-reach-new-audiences/"
+  },
+  {
+    "title": "Listening to 40 school-board meetings a month",
+    "tool": "Custom AI tool",
+    "journalist": "Civic News Company (Chalkbeat)",
+    "challenge": "Bureaus of two to four reporters cannot attend every public meeting in the districts they cover.",
+    "solution": "Local Lens transcribes and summarizes public meetings and tracks keywords, so small bureaus can follow more than 40 meetings a month and know which ones deserve a reporter's attention.",
+    "quote": "",
+    "outcome": "A published Chalkbeat story came directly out of an AI meeting summary.",
+    "tips": "Summaries are leads, not stories. Use them to decide where to spend reporting time, then do the reporting.",
+    "sourceUrl": "https://www.niemanlab.org/2025/03/local-newsrooms-are-using-ai-to-listen-in-on-public-meetings/"
+  },
+  {
+    "title": "Skills that keep document analysis honest",
+    "tool": "Claude Opus 4.5",
+    "journalist": "Nick Hagar, University of Minnesota",
+    "challenge": "Testing whether a coding agent could replicate a real investigation without introducing the silent data errors that survive normal review.",
+    "solution": "Hagar replicated a MuckRock and WHRO investigation into police decertification using Claude Code skills that encoded the data-handling rules the analysis depended on.",
+    "quote": "",
+    "outcome": "The run matched the original findings in under an hour, with about 20 minutes of human spot-checking. The same work without the skills made silent errors, including bad date parsing and mixed finalized and pending cases, that would have survived normal review.",
+    "tips": "Write the data-handling rules down as skills before the analysis starts. The failure mode is not an obvious error, it is a plausible wrong number, so budget human spot-checking either way.",
+    "sourceUrl": "https://generative-ai-newsroom.com/coding-agents-for-investigative-journalism-8b65bc30f9ea"
+  },
+  {
+    "title": "Making a 1.65M-photo morgue searchable",
+    "tool": "Custom AI tool",
+    "journalist": "Northeastern University / Boston Globe",
+    "challenge": "The Boston Globe's photo morgue spans the 1920s to 2017 and holds about 1.65 million images with little machine-readable description.",
+    "solution": "Researchers used machine learning to identify image content, estimate dates, attribute photographers, and transcribe the handwriting on the backs of prints.",
+    "quote": "",
+    "outcome": "A peer-reviewed project aimed at giving the public searchable access to the archive.",
+    "tips": "Archive-scale work is a different problem from story-scale work. The value is in the description layer that makes the collection findable at all.",
+    "sourceUrl": "https://cssh.northeastern.edu/nulab/seeing-our-neighborhoods/"
   }
 ]
