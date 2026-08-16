@@ -38,11 +38,19 @@
     <style>
         .sidebar-nav { position: sticky; top: 100px; }
         .sidebar-link { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
-        .sidebar-link:hover, .sidebar-link.active { color: #b8860b; border-left-color: #b8860b; }
-        .code-block { background: #1a1a1a; border: 1px solid rgba(26,26,26,0.2); }
-        .code-block:hover { border-color: rgba(184,134,11,0.3); }
+        .sidebar-link:hover, .sidebar-link.active { color: var(--caution); border-left-color: var(--caution); }
+        .code-block { background: var(--slab); border: 1px solid var(--edge-soft); }
+        .code-block:hover { border-color: var(--edge-firm); }
+
+        /* The block is a slab in both themes, so its text stays light. */
+        .code-block, .code-block pre, .code-block code { color: var(--on-slab); }
+        .code-block .text-gray-500 { color: rgb(var(--on-slab-rgb) / 0.62); }
+        .code-block .text-gray-400,
+        .code-block .text-gray-300 { color: rgb(var(--on-slab-rgb) / 0.78); }
+        .code-block .text-accent { color: var(--accent-on-slab); }
+
         .step-badge {
-            width: 2rem; height: 2rem; background: #b8860b; color: white;
+            width: 2rem; height: 2rem; background: var(--caution-surface); color: #fff;
             display: flex; align-items: center; justify-content: center;
             font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
         }
@@ -587,7 +595,7 @@ set -g window-status-format "  #I:#W#{?window_silence_flag, ~,}#{?window_bell_fl
             navigator.clipboard.writeText(code).then(() => {
                 const orig = btn.textContent;
                 btn.textContent = 'Copied!';
-                btn.style.color = '#b8860b';
+                btn.style.color = 'var(--caution)';
                 setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
             });
         }

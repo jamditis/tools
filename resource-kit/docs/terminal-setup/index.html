@@ -61,9 +61,17 @@
 
         /* Code block styling */
         .code-block {
-            background: #1a1a1a;
-            border: 1px solid rgba(26, 26, 26, 0.2);
+            background: var(--slab);
+            border: 1px solid var(--edge-soft);
         }
+
+        /* The block is a slab in both themes, so its text stays light. */
+        .code-block, .code-block pre, .code-block code { color: var(--on-slab); }
+        .code-block .text-gray-500 { color: rgb(var(--on-slab-rgb) / 0.62); }
+        .code-block .text-gray-400,
+        .code-block .text-gray-300 { color: rgb(var(--on-slab-rgb) / 0.78); }
+        .code-block .text-accent { color: var(--accent-on-slab); }
+
 
         .code-block pre {
             background: transparent;
@@ -75,10 +83,10 @@
         [style*="color:#666"] { color: #a3a3a3 !important; }
 
         .text-ink\/50,
-        .text-ink\/40 { color: #555555 !important; }
+        .text-ink\/40 { color: var(--mist) !important; }
 
         .code-block:hover {
-            border-color: rgba(184, 134, 11, 0.3);
+            border-color: rgb(var(--caution-rgb) / 0.3);
         }
 
         /* Tab styles */
@@ -87,9 +95,9 @@
         }
 
         .tab-btn.active {
-            background: rgba(184, 134, 11, 0.1);
-            border-color: #6f5000;
-            color: #6f5000;
+            background: rgb(var(--caution-rgb) / 0.12);
+            border-color: var(--caution);
+            color: var(--caution);
         }
 
         .tab-content {
@@ -122,8 +130,8 @@
         }
 
         .sidebar-link:hover, .sidebar-link.active {
-            color: #b8860b;
-            border-left-color: #b8860b;
+            color: var(--caution);
+            border-left-color: var(--caution);
         }
 
         /* Topic number styling */

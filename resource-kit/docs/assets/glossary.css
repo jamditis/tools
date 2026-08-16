@@ -50,10 +50,10 @@
  * <span class="term" data-term="python">Python</span>
  */
 .term {
-  color: var(--accent, #60a5fa);
+  color: var(--accent, #8a3a2b);
   text-decoration: underline;
   text-decoration-style: dotted;
-  text-decoration-color: var(--accent, #60a5fa);
+  text-decoration-color: var(--accent, #8a3a2b);
   text-underline-offset: 3px;
   cursor: help;
   transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
@@ -149,7 +149,7 @@
 .tooltip-term {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-weight: 600;
-  color: var(--accent, #60a5fa);
+  color: var(--accent, #8a3a2b);
   font-size: 13px;
 }
 

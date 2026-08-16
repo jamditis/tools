@@ -59,19 +59,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            background: rgb(var(--info-rgb) / 0.1);
+            border: 1px solid rgb(var(--info-rgb) / 0.25);
             border-radius: 6px;
             font-size: 0.65rem;
             font-weight: 700;
-            color: #2563eb;
+            color: var(--info);
             font-family: 'JetBrains Mono', monospace;
             letter-spacing: 0.05em;
         }
         .rule-num.critical {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.25);
-            color: #dc2626;
+            background: rgb(var(--signal-rgb) / 0.1);
+            border-color: rgb(var(--signal-rgb) / 0.25);
+            color: var(--signal);
         }
         .category-bar {
             position: relative;

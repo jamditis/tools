@@ -473,14 +473,11 @@ pre, code {
 }
 
 pre {
-    background-color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(18, 18, 18, 0.08);
     padding: 1.5rem;
     overflow-x: auto;
 }
 
 code {
-    background-color: rgba(255, 255, 255, 0.4);
     padding: 0.125rem 0.375rem;
     font-size: 0.875em;
 }

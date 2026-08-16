@@ -22,17 +22,22 @@
   // THEME CONSTANTS
   // ---------------------------------------------------------------------------
 
+  /**
+   * Colours come from the V3 theme tokens rather than fixed hex, so the widget
+   * follows day and night paper. The V2 values are kept as fallbacks for any
+   * page that has not loaded amditis-v3.css.
+   */
   var THEME = {
     // Trigger styled as nav link — colors derived from existing nav at runtime
-    triggerColor: '#555555',      // mist — matches nav link default
-    triggerHoverColor: '#121212',  // ink — matches nav link hover
-    panelBg: '#ffffff',
-    panelColor: '#121212',
-    panelBorder: '1px solid #d6cdb7',
+    triggerColor: 'var(--mist, #555555)',
+    triggerHoverColor: 'var(--ink, #121212)',
+    panelBg: 'var(--leaf, #ffffff)',
+    panelColor: 'var(--ink, #121212)',
+    panelBorder: '1px solid var(--edge, #d6cdb7)',
     panelRadius: '0.75rem',
-    panelShadow: '0 10px 25px rgba(0,0,0,0.1)',
-    itemHoverBg: '#f5f0e6',
-    iconColor: '#3d4b40',
+    panelShadow: 'var(--lift-2, 0 10px 25px rgba(0,0,0,0.1))',
+    itemHoverBg: 'var(--tint-30, #f5f0e6)',
+    iconColor: 'var(--accent, #3d4b40)',
     fontFamily: "'Plus Jakarta Sans', sans-serif"
   };
 
@@ -383,13 +388,6 @@
     var headerNav = document.querySelector('header nav');
     if (headerNav) {
       headerNav.appendChild(container);
-      // Derive trigger color from a sibling nav link if available
-      var siblingLink = headerNav.querySelector('a');
-      if (siblingLink) {
-        var computed = window.getComputedStyle(siblingLink);
-        button.style.color = computed.color;
-        THEME.triggerColor = computed.color;
-      }
     } else {
       // Fallback: find the last flex child in the header (right side)
       var header = document.querySelector('header, nav[role="navigation"]');

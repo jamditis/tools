@@ -70,11 +70,19 @@
             transition: width 0.3s ease;
         }
         .code-block {
-            background: #1a1a1a;
+            background: var(--slab);
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 12px;
             line-height: 1.6;
         }
+
+        /* The block is a slab in both themes, so its text stays light. */
+        .code-block, .code-block pre, .code-block code { color: var(--on-slab); }
+        .code-block .text-gray-500 { color: rgb(var(--on-slab-rgb) / 0.62); }
+        .code-block .text-gray-400,
+        .code-block .text-gray-300 { color: rgb(var(--on-slab-rgb) / 0.78); }
+        .code-block .text-accent { color: var(--accent-on-slab); }
+
     </style>
 </head>
 <body class="antialiased font-sans bg-canvas text-ink">

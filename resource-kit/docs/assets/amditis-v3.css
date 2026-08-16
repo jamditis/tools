@@ -85,6 +85,7 @@
     --slab-rgb: 25 21 16;
     --on-slab: #efe9dc;
     --on-slab-rgb: 239 233 220;
+    --accent-on-slab: #dd8570;
 
     /* Tint family — translucent paper lifts */
     --tint-5: rgba(255, 255, 255, 0.34);
@@ -141,8 +142,8 @@
         --clay: #3a332a;
         --clay-rgb: 58 51 42;
 
-        --accent: #d4705c;
-        --accent-rgb: 212 112 92;
+        --accent: #e4907c;
+        --accent-rgb: 228 144 124;
         --accent-surface: #8f3d2c;
         --sage: #9db89f;
         --sage-rgb: 157 184 159;
@@ -194,8 +195,8 @@
     --clay: #3a332a;
     --clay-rgb: 58 51 42;
 
-    --accent: #d4705c;
-    --accent-rgb: 212 112 92;
+    --accent: #e4907c;
+    --accent-rgb: 228 144 124;
     --accent-surface: #8f3d2c;
     --sage: #9db89f;
     --sage-rgb: 157 184 159;
@@ -313,7 +314,7 @@ body {
 .hover\:text-ink:hover { color: var(--ink); }
 
 /* Decorative ink washes — oversized folio numerals and watermarks, not text. */
-.text-ink\/40 { color: rgb(var(--ink-rgb) / 0.4); }
+.text-ink\/40 { color: rgb(var(--ink-rgb) / 0.62); }
 .text-ink\/30 { color: rgb(var(--ink-rgb) / 0.3); }
 .text-ink\/20 { color: rgb(var(--ink-rgb) / 0.2); }
 .text-ink\/5 { color: rgb(var(--ink-rgb) / 0.07); }
@@ -797,14 +798,28 @@ body {
 
 /* -- Code ----------------------------------------------------------------- */
 
-pre {
+/**
+ * Bare code blocks get the paper treatment, at zero specificity so any utility
+ * class on the element still wins.
+ */
+:where(pre) {
     background-color: var(--leaf);
     border: 1px solid var(--edge-soft);
     color: var(--ink);
 }
 
-code { background-color: rgb(var(--ink-rgb) / 0.06); }
-pre code { background: none; }
+/**
+ * A code block sitting inside a slab is already on a dark ground and carries
+ * light `text-white/*` spans. Painting paper behind it would strand them.
+ */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo) :where(pre) {
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit;
+}
+
+:where(code) { background-color: rgb(var(--ink-rgb) / 0.06); }
+:where(pre code) { background: none; }
 
 .syntax-keyword { color: var(--accent); }
 .syntax-string { color: var(--sage); }
@@ -1121,3 +1136,129 @@ pre code { background: none; }
 .text-yellow-500 { color: var(--caution); }
 .text-yellow-600 { color: var(--caution); }
 .text-yellow-700 { color: var(--caution); }
+
+
+/* ==========================================================================
+   13. ON-SLAB TEXT
+   ==========================================================================
+
+   Slabs stay dark in both themes, so day-paper ink and the day madder accent
+   both strand on them — `text-accent` inside a dark footer measured 2.35:1.
+   Inside a slab, text resolves to the on-slab family instead.
+   ========================================================================== */
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-accent,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .hover\:text-accent:hover,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-acid { color: var(--accent-on-slab); }
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-chrome { color: var(--on-slab); }
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-mist,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/80,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/75,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/70,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/60,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/55,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/50 { color: rgb(var(--on-slab-rgb) / 0.74); }
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-sage,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-signal,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-caution,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-info { color: var(--accent-on-slab); }
+
+/**
+ * `text-white/N` only ever appears on slabs. The literal 40% step lands at
+ * 3.84:1, so the ramp is compressed at the low end the same way the ink ramp is.
+ */
+.text-white\/40 { color: rgb(255 255 255 / 0.52); }
+.text-white\/50 { color: rgb(255 255 255 / 0.58); }
+.text-white\/60 { color: rgb(255 255 255 / 0.66); }
+.text-white\/70 { color: rgb(255 255 255 / 0.74); }
+.text-white\/80 { color: rgb(255 255 255 / 0.84); }
+
+
+/* The semantic remap and the glossary term link also need lifting on a slab. */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-300,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-yellow-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-orange-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-amber-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term-link { color: var(--accent-on-slab); }
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-300,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-600 { color: rgb(var(--on-slab-rgb) / 0.74); }
+
+
+/**
+ * term-info.js injects its styles into <head> at runtime, after this file, so
+ * a bare `.term-link` there would win the slab rule above on source order.
+ * Repeating the class raises specificity without reaching for !important.
+ */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term-link.term-link,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term.term { color: var(--accent-on-slab); }
+
+
+/**
+ * Paper tints inside a slab.
+ *
+ * `bg-white/N` is calibrated as a lift on the cream ground. Applied inside a
+ * slab it does the opposite — a 5% white tint resolved to a 34% wash on day
+ * paper, lifting a dark code header to mid-grey and stranding the light text
+ * on it. Inside a slab the tints use the night-paper strengths in both themes.
+ */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/5 { background-color: rgb(255 255 255 / 0.04); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/10 { background-color: rgb(255 255 255 / 0.07); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/20 { background-color: rgb(255 255 255 / 0.1); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/30 { background-color: rgb(255 255 255 / 0.13); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/40 { background-color: rgb(255 255 255 / 0.16); }
+
+/* Canvas alphas used as on-slab labels rather than decoration. */
+.text-canvas\/30 { color: rgb(var(--on-slab-rgb) / 0.55); }
+.text-canvas\/20 { color: rgb(var(--on-slab-rgb) / 0.5); }
+
+
+/**
+ * The neon accent pair the old llm-advisor vibe-coding page shipped with
+ * (#00dc82 green, #3b82f6 blue). Both were unreadable once that page moved
+ * onto paper, so they resolve to the kit's own accents.
+ */
+.text-accent-green { color: var(--sage); }
+.bg-accent-green { background-color: var(--sage-surface); }
+.border-accent-green { border-color: rgb(var(--sage-rgb) / 0.4); }
+.text-accent-blue { color: var(--info); }
+.border-accent-blue { border-color: rgb(var(--info-rgb) / 0.4); }
+.bg-accent-blue\/10 { background-color: rgb(var(--info-rgb) / 0.1); }
+.hover\:text-accent-green:hover { color: var(--sage); }
+.hover\:border-accent-green:hover { border-color: rgb(var(--sage-rgb) / 0.5); }
+
+
+/**
+ * Text inside a slab that inherits its colour rather than declaring one. Set at
+ * zero specificity so any explicit utility on the element still wins.
+ */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) { color: var(--on-slab); }
+
+
+/* Final legibility passes on labels that were set too faint to read. */
+.text-ink\/30 { color: rgb(var(--ink-rgb) / 0.62); }
+.bg-acid { color: var(--on-slab); }
+.text-gray-400.line-through { color: var(--mist); }
+
+/**
+ * The glossary term link. `--info` reads at 3.6:1 against the muted text it is
+ * usually embedded in, so terms take the accent, which is the kit's
+ * interactive colour anyway.
+ */
+.term, .term-link { color: var(--accent); text-decoration-color: rgb(var(--accent-rgb) / 0.45); }
+.term:hover, .term.active { color: var(--ink); }

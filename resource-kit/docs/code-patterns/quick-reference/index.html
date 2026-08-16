@@ -45,8 +45,8 @@
 
     <style>
         body {
-            background-color: #ede6d4;
-            color: #121212;
+            background-color: var(--canvas);
+            color: var(--ink);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
@@ -63,9 +63,9 @@
         }
 
         .deckle-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(18, 18, 18, 0.05);
-            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+            background-color: var(--leaf);
+            border: 1px solid var(--edge-soft);
+            box-shadow: var(--lift-1);
         }
 
         @keyframes drift {
@@ -99,7 +99,7 @@
             background: rgba(18, 18, 18, 0.02);
         }
         .situation-cell {
-            color: #121212;
+            color: var(--ink);
             font-weight: 500;
         }
         .action-cell {
