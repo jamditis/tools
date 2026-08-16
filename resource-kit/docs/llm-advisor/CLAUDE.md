@@ -26,6 +26,7 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 
 **Core technologies:**
 - Compiled Tailwind CSS from `resource-kit/docs/assets/tailwind.css`
+- Amditis V3 theme tokens from `resource-kit/docs/assets/amditis-v3.css`
 - Vanilla JavaScript for all functionality
 - JSON files for content data storage
 - Tailwind build and migration checks live in `resource-kit/tailwind-build/`
@@ -33,7 +34,7 @@ The LLM journalism tool advisor is a multi-file web application that helps journ
 **Key components:**
 - Decision tree engine that maps user journeys through journalism workflows
 - Modal system for displaying case studies, best practices, and tool comparisons
-- Theme system with persistent dark/light mode (stored in localStorage)
+- Day/night paper theme shared with the rest of the kit (see below)
 - Progress tracking with breadcrumb navigation
 - Dynamic data loading via Fetch API
 
@@ -59,7 +60,7 @@ Then open `http://localhost:8000` in your browser.
 - Run `node scripts/validate-all-json.js`
 - Run `cd scripts && npm test`
 - Run `cd resource-kit/tailwind-build && npm test`
-- Test in both light and dark modes using the theme toggle
+- Test in both day and night paper using the theme toggle in the app header
 - Verify all decision tree paths lead to appropriate recommendations
 - Check modal functionality (case studies, best practices, tool comparison, changelog)
 - Test breadcrumb navigation and back button functionality
@@ -79,8 +80,14 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 6. **Recording changes:** Add new version entry to `data/changelog.json` array
 
 **Updating styles:**
-- Modify `styles.css` for application-specific styling
-- Add Tailwind classes in HTML, then rebuild the shared stylesheet from `resource-kit/tailwind-build/`
+- Reach for the V3 tokens and component classes first (`.note`, `.folio`,
+  `.stamp`, `.deckle-card`, `.section-label`) — see the theme section of the root
+  `CLAUDE.md`
+- Before using a Tailwind class, confirm it is already compiled into
+  `assets/tailwind.css`; that file cannot be rebuilt here, and an uncompiled
+  class silently does nothing
+- Anything genuinely new belongs in `assets/amditis-v3.css`, not in a page-local
+  `<style>` block, which would load last and break dark mode for that page
 
 **Updating functionality:**
 - Modify `app.js` for behavior changes
@@ -88,13 +95,26 @@ Content changes are now made in the corresponding JSON files in the `data/` dire
 
 ## Important implementation details
 
-**Theme persistence:** Dark/light mode preference is stored in `localStorage` as `llm-advisor-theme`.
+**Theme:** the advisor uses the kit-wide Amditis V3 day/night paper, not a theme
+of its own. The toggle lives in `assets/theme.js` and stores the reader's choice
+in `localStorage` under **`amditis-theme`**. The old `llm-advisor-theme` key and
+the hidden `#theme-toggle-checkbox` are dead; `.switch` is still hidden in
+`styles.css` (which the page does not load).
 
-**Color coding:** AI tools have consistent color-coded pill buttons defined in `getPillClasses()` function:
-- Claude: Orange (#d9843b)
-- Gemini/Nano Banana: Teal (#369a8b)
-- ChatGPT/GPT-5.6 Sol, Terra, and Luna/Codex: Slate gray
-- Other tools: Various distinctive colors
+**Color coding:** AI tools carry provider-coded pills chosen by `getPillClasses()`.
+The function returns a **class name**, not Tailwind colour utilities:
+- Claude: `pill-anthropic` (orange)
+- Gemini/Nano Banana: `pill-google` (teal)
+- GPT/Codex: `pill-openai` (slate)
+- Open-weight families: `pill-open-weight`
+- Unmatched: `pill-neutral`
+
+The fills are declared in `assets/amditis-v3.css`. They live there rather than
+as arbitrary Tailwind values because `tailwind.css` cannot be rebuilt in this
+repo, so a class like `bg-[#ab6121]` that is not already compiled does nothing —
+three of the V2 fills were in exactly that state. Every fill is darkened along
+its own hue until white text clears 4.6:1; the hue encodes the provider family,
+which is real information, so it is preserved.
 
 **Modal system:** Uses a single universal modal (`#universal-modal`) that dynamically updates content based on the type of information being displayed.
 
@@ -111,7 +131,12 @@ Current-facing model guidance was verified August 15, 2026. Re-check official pr
 ## Brand guidelines
 
 This tool follows Center for Cooperative Media brand standards:
-- Use sentence case for all headings (never title case)
+- Use sentence case for all headings and UI copy (never title case)
+- No console decoration as structure. V2 labelled the views `QUERY_01`,
+  `ANALYSIS_COMPLETE`, `RECOMMENDED_MODELS` and `[ START_NEW_QUERY ]`; V3 uses a
+  folio for the step counter and sentence-case note rubrics for the rest
+- Decision-tree options are ruled rows, not numbered: the task categories have no
+  inherent order
 - Professional but accessible tone
 - Focus on practical journalism applications
 - Emphasize human oversight and verification
@@ -142,7 +167,7 @@ This tool follows Center for Cooperative Media brand standards:
 1. Open `data/model-info.json` for detailed descriptions
 2. Open `data/tool-comparison.json` for comparison table data
 3. Add or modify model entries
-4. For new models, also update color coding in `app.js` (`getPillClasses` function) if needed
+4. For new models, also update color coding in `app.js` (`getPillClasses` function) if needed — the returned value is a `pill-*` class declared in `assets/amditis-v3.css`
 5. Save files
 
 **Update best practices:**
@@ -153,7 +178,9 @@ This tool follows Center for Cooperative Media brand standards:
 **Update styling:**
 1. Modify `styles.css` for custom CSS changes
 2. For Tailwind config changes, edit the `<script>` section in `index.html`
-3. For tool color coding, update `getPillClasses()` function in `app.js`
+3. For tool color coding, add a `pill-*` class in `assets/amditis-v3.css` and map
+   it in `getPillClasses()` in `app.js`. Check white text clears 4.5:1 on the new
+   fill
 
 ## FTP deployment
 
