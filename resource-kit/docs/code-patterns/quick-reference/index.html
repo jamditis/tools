@@ -26,14 +26,27 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
         body {
-            background-color: #ede6d4;
-            color: #121212;
+            background-color: var(--canvas);
+            color: var(--ink);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
@@ -50,9 +63,9 @@
         }
 
         .deckle-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(18, 18, 18, 0.05);
-            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+            background-color: var(--leaf);
+            border: 1px solid var(--edge-soft);
+            box-shadow: var(--lift-1);
         }
 
         @keyframes drift {
@@ -70,8 +83,8 @@
         .ref-table th {
             text-align: left;
             padding: 0.75rem 1rem;
-            background: rgba(18, 18, 18, 0.03);
-            border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+            background: rgb(var(--ink-rgb) / 0.03);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.1);
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -79,26 +92,42 @@
         }
         .ref-table td {
             padding: 0.75rem 1rem;
-            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.05);
             vertical-align: top;
         }
         .ref-table tr:hover {
-            background: rgba(18, 18, 18, 0.02);
+            background: rgb(var(--ink-rgb) / 0.02);
         }
         .situation-cell {
-            color: #121212;
+            color: var(--ink);
             font-weight: 500;
         }
         .action-cell {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
+        /* Print is a fixed white ground, so these values are deliberately
+           literal rather than tokens: the palette must not follow the screen
+           theme onto paper. The overrides name the V3 utility classes because
+           a bare `body` rule loses to `.bg-canvas` / `.text-ink` at equal
+           weight, which is what printed night paper. */
         @media print {
-            body { background: white; color: black; }
-            .no-print { display: none; }
-            .paper-overlay { display: none; }
-            .ref-table th { background: #f0f0f0; }
-            .ref-table td { border-color: #ccc; }
+            @page { margin: 0.5in; size: letter; }
+
+            body, .bg-canvas, .bg-canvas\/80 { background: #fff !important; color: #000 !important; }
+            .text-ink, .text-mist, .situation-cell, .action-cell { color: #000 !important; }
+            .text-accent { color: #000 !important; font-weight: 700 !important; }
+            .deckle-card { background: #fff !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+            .border-ink\/10, .border-ink\/5 { border-color: #999 !important; }
+            .bg-accent\/5 { background: transparent !important; }
+
+            .no-print { display: none !important; }
+            .paper-overlay { display: none !important; }
+            .ref-table th { background: #f0f0f0 !important; color: #000 !important; border-bottom-color: #999 !important; }
+            .ref-table td { color: #000 !important; border-bottom-color: #ccc !important; }
+            .ref-table tr:hover { background: transparent !important; }
+
+            main { padding: 0 !important; }
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
@@ -120,6 +149,7 @@
                         <div class="text-xs text-mist tracking-[0.2em]">CODE PATTERNS</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-4">
                 <nav class="flex gap-4 md:gap-6 text-xs">
                     <button onclick="window.print()" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="printer" class="w-3 h-3"></i>
@@ -130,6 +160,8 @@
                         <span class="hidden sm:inline">Patterns Hub</span>
                     </a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 
@@ -455,7 +487,7 @@
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
     </script>
 </body>
 </html>

@@ -20,17 +20,36 @@
 
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
+        /* Track and thumb are drawn from tokens so they invert with the paper:
+           a fixed dark track disappeared entirely against night canvas. */
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
             width: 100%;
             height: 4px;
             border-radius: 2px;
-            background: rgba(18,18,18,0.15);
+            background: rgb(var(--ink-rgb) / 0.55);
             outline: none;
+        }
+        input[type="range"]:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
         }
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -38,18 +57,18 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #3d4b40;
+            background: var(--sage);
             cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            border: 2px solid var(--leaf);
+            box-shadow: 0 1px 4px rgb(var(--slab-rgb) / 0.2);
         }
         input[type="range"]::-moz-range-thumb {
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #3d4b40;
+            background: var(--sage);
             cursor: pointer;
-            border: 2px solid white;
+            border: 2px solid var(--leaf);
         }
         .savings-bar {
             height: 8px;
@@ -57,11 +76,19 @@
             transition: width 0.3s ease;
         }
         .code-block {
-            background: #1a1a1a;
+            background: var(--slab);
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 12px;
             line-height: 1.6;
         }
+
+        /* The block is a slab in both themes, so its text stays light. */
+        .code-block, .code-block pre, .code-block code { color: var(--on-slab); }
+        .code-block .text-gray-500 { color: rgb(var(--on-slab-rgb) / 0.62); }
+        .code-block .text-gray-400,
+        .code-block .text-gray-300 { color: rgb(var(--on-slab-rgb) / 0.78); }
+        .code-block .text-accent { color: var(--accent-on-slab); }
+
     </style>
 </head>
 <body class="antialiased font-sans bg-canvas text-ink">
@@ -78,13 +105,16 @@
                     <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
                     <div>
                         <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
-                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
+                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.7</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-4">
                 <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
                     <a href="/" class="text-mist hover:text-ink transition-colors">Home</a>
                     <a href="/terminal-setup/" class="text-mist hover:text-ink transition-colors">Terminal setup</a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 
@@ -97,7 +127,7 @@
                 <h1 class="font-display text-5xl md:text-6xl font-light leading-tight tracking-tight mb-4 text-ink">
                     Claude Max<br><span class="italic font-black">savings calculator</span>
                 </h1>
-                <p class="text-ink/70 text-lg font-light max-w-2xl leading-relaxed border-l-2 border-accent/20 pl-6">
+                <p class="text-ink/70 text-lg font-light measure leading-relaxed">
                     Claude Max gives unlimited usage for a flat monthly rate. This calculator shows what the same usage would cost at API rates — and how much you save.
                 </p>
             </div>
@@ -117,25 +147,25 @@
                     <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Model</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <button onclick="setModel('fable')" id="btn-fable"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Fable 5</div>
                             <div class="text-xs text-mist mt-1">Long-running agents</div>
                             <div class="text-xs text-mist font-bold mt-2">$10 / $50 per M tokens</div>
                         </button>
                         <button onclick="setModel('opus')" id="btn-opus"
-                            class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
                             <div class="font-display font-bold text-sm text-ink">Claude Opus 5</div>
                             <div class="text-xs text-mist mt-1">Best for complex coding</div>
                             <div class="text-xs text-accent font-bold mt-2">$5 / $25 per M tokens</div>
                         </button>
                         <button onclick="setModel('sonnet')" id="btn-sonnet"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Sonnet 5</div>
                             <div class="text-xs text-mist mt-1">Fast, balanced</div>
                             <div class="text-xs text-mist font-bold mt-2">$3 / $15 per M tokens</div>
                         </button>
                         <button onclick="setModel('haiku')" id="btn-haiku"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Haiku 4.5</div>
                             <div class="text-xs text-mist mt-1">Fastest, cheapest</div>
                             <div class="text-xs text-mist font-bold mt-2">$1 / $5 per M tokens</div>
@@ -148,12 +178,12 @@
                     <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Your Max plan</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <button onclick="setPlan(100)" id="btn-plan-100"
-                            class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
                             <div class="font-display font-bold text-sm text-ink">Max 5x — $100/month</div>
                             <div class="text-xs text-mist mt-1">5× more usage than Claude.ai Pro</div>
                         </button>
                         <button onclick="setPlan(200)" id="btn-plan-200"
-                            class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Max 20x — $200/month</div>
                             <div class="text-xs text-mist mt-1">20× more usage than Claude.ai Pro</div>
                         </button>
@@ -475,17 +505,17 @@ echo "~\$$cost"</pre>
             navigator.clipboard.writeText(code).then(() => {
                 const btn = document.getElementById('copy-btn');
                 btn.querySelector('i').setAttribute('data-lucide', 'check');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
                 setTimeout(() => {
                     btn.querySelector('i').setAttribute('data-lucide', 'copy');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 1500);
             });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             update();
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
 
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {

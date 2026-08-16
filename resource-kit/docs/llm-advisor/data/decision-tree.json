@@ -36,6 +36,21 @@
         "text": "Building tools & automation",
         "next": "tools",
         "track": "tools"
+      },
+      {
+        "text": "Community engagement",
+        "next": "community",
+        "track": "community"
+      },
+      {
+        "text": "Events & live coverage",
+        "next": "events",
+        "track": "events"
+      },
+      {
+        "text": "Documents, records & archives",
+        "next": "documents",
+        "track": "documents"
       }
     ]
   },
@@ -81,11 +96,11 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code with plan mode",
-            "description": "For complex projects, use Claude Code's /plan command to design the architecture before writing code. Claude will explore your codebase, create a plan, and wait for your approval.",
-            "tools": ["Claude Fable 5", "Claude Opus 5"],
-            "prompt": "I'm building a [PROJECT TYPE] that needs to [MAIN GOAL]. Before we start coding, please explore the codebase, understand the existing patterns, and create a detailed implementation plan. Use /plan to enter plan mode.",
-            "tips": "Plan mode is essential for multi-file projects. It prevents Claude from diving in without understanding the big picture. Review and approve the plan before implementation begins."
+            "name": "Codex cloud tasks for big builds",
+            "description": "Codex runs long multi-file builds in isolated cloud containers. It reads the repo, plans the work, edits the files, runs the tests, and opens a pull request for you to review.",
+            "tools": ["Codex (GPT-5.6 Sol)", "Claude Opus 5"],
+            "prompt": "I'm building a [PROJECT TYPE] that needs to [MAIN GOAL]. Before writing code, explore the repository, summarize the patterns already in use, and write an implementation plan for me to approve. Then build it in phases: 1. [PHASE 1] 2. [PHASE 2] 3. [PHASE 3]. Run the test suite after each phase and open a pull request with the passing output included.",
+            "tips": "Claude Code with plan mode is still the stronger pick for architecture-heavy, repo-wide refactors, for very large context, and for anything wired into your MCP servers—reach for it when the shape of the codebase is the hard part. Whichever tool writes the code, have a different model review the diff. Never let a model grade its own homework, and keep a human approval step before anything merges."
           }
         ]
       }
@@ -99,11 +114,24 @@
         "next": "recommendation",
         "tools": [
           {
-            "name": "Claude Code with background tasks",
-            "description": "Automate repetitive file processing with Claude Code. Use background tasks (Ctrl+B) to run long processes while you continue working on other things.",
-            "tools": ["Claude Opus 5"],
-            "prompt": "I need to automate processing [NUMBER] files in [FOLDER]. For each file: 1. [OPERATION 1] 2. [OPERATION 2]. Create a script that handles errors gracefully and logs progress. Run it in the background so I can continue working.",
-            "tips": "Use Claude Code's background task feature for long-running automation. Press Ctrl+B to background tasks. Create hooks to validate outputs automatically."
+            "name": "Codex background jobs for batch processing",
+            "description": "Hand repetitive file processing to a Codex cloud task. It writes the script, runs it against your files in a sandbox, works through the errors it hits, and reports back with a diff and logs while you keep working.",
+            "tools": ["Codex (GPT-5.6 Sol)", "Claude Opus 5"],
+            "prompt": "I need to process [NUMBER] files in [FOLDER]. For each file: 1. [OPERATION 1] 2. [OPERATION 2]. Write a script that handles errors gracefully, logs progress, and can resume if it stops partway. Run it on a sample of 10 files first and show me the output before processing the rest.",
+            "tips": "Claude Code still wins when the job needs your MCP servers, your committed skills, or hooks that validate each step—its background tasks (Ctrl+B) keep all of that local context. Either way, have a second model review the transformation script before it runs on the full set, then spot-check a random sample of the output against the original files."
+          }
+        ]
+      },
+      {
+        "text": "Long-running job that works unattended",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Codex cloud for unattended jobs",
+            "description": "Codex cloud tasks run for hours in a sandbox, can fan out to parallel subagents, and can be started by tagging @codex on a GitHub pull request. Flat ChatGPT-plan pricing keeps the cost of a long job predictable.",
+            "tools": ["Codex (GPT-5.6 Sol)"],
+            "prompt": "Work through this task without me at the keyboard: [DESCRIBE JOB]. Definition of done: [SPECIFIC, CHECKABLE OUTCOME—for example, 'every test in tests/ passes' or 'output.csv has one row per input file']. Before you finish, run those checks yourself and paste the actual output. If you cannot meet the definition of done, stop and explain what blocked you instead of working around it.",
+            "tips": "Joe Amditis's published finding is that routing heavy work to Codex on a flat plan \"gets far more done per dollar\" than running it against metered limits. On the Anthropic side, Claude Code's Auto mode and Routines cover the same ground when the job needs your MCP servers, hooks, or committed skills. Either way, define what \"done\" means before you walk away, and require the run to prove it with passing tests or real output rather than claim it."
           }
         ]
       },
@@ -148,6 +176,19 @@
             "tools": ["Claude Opus 5"],
             "prompt": "I need a command-line tool that [DESCRIBES FUNCTION]. It should accept these arguments: [LIST ARGS]. Include --help documentation and handle errors gracefully. Test it with sample inputs.",
             "tips": "Claude Code is ideal for CLI tools because it can test them directly in the terminal. Ask it to create thorough --help documentation."
+          }
+        ]
+      },
+      {
+        "text": "Public-facing calculator or simple widget",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Vibe-coded calculators and widgets",
+            "description": "Small single-purpose tools—calculators, lookups, converters—are the sweet spot for vibe coding. Most minimum viable versions take one to two hours.",
+            "tools": ["Claude Sonnet 5", "Gemini 3.7 Flash"],
+            "prompt": "Write a PRD for a small web tool that [DESCRIBES WHAT IT CALCULATES OR LOOKS UP] for [AUDIENCE]. Cover: 1. What the user enters 2. What the tool returns 3. The exact formula or data source behind it 4. Edge cases and error states 5. What is explicitly out of scope. Wait for my approval on the PRD, then build it as a single self-contained HTML file.",
+            "tips": "The differentiator is project-management skill, not prompt tricks. Write a short requirements document before any code, and ask for a \"PRD\" rather than a \"plan\"—it gets you more structured output. Test across browsers and on a phone before you publish. Keep user data out of it until you understand the security implications of collecting any."
           }
         ]
       }
@@ -572,13 +613,13 @@
         "tools": [
           {
             "name": "Coding assistant for journalists",
-            "description": "Generate and debug code for data analysis, visualization, or web scraping.",
+            "description": "Generate and debug code for data analysis, visualization, or web scraping. For a long-running scrape or a batch job, hand it to a Codex cloud task; for interactive iteration, stay in Claude Code.",
             "tools": [
-              "Claude Opus 5",
-              "GPT-5.6 Sol"
+              "GPT-5.6 Sol",
+              "Claude Opus 5"
             ],
             "prompt": "You are an expert Python developer specializing in data journalism. Write a well-commented Python script that uses the 'pandas' and 'matplotlib' libraries. The script should: 1. Load the dataset from 'data.csv'. 2. Clean the data by removing rows with missing values in the '[COLUMN_NAME]' column. 3. Calculate the average of '[COLUMN_A]' grouped by '[COLUMN_B]'. 4. Create and save a bar chart of the result, titled 'Average [A] by [B]'.",
-            "tips": "Use a capable coding agent for clean, explained code and multi-file work. Reproduce bugs with tests, review the diff, and run the relevant suite instead of accepting a model's success report."
+            "tips": "For a scrape that runs for hours or a batch job across thousands of files, hand it to a Codex cloud task and let it work unattended. For interactive iteration—reshaping a dataframe or fixing a chart while you watch—Claude Code is faster. Whichever you use, reproduce bugs with tests, review the diff, and run the relevant suite instead of accepting a model's success report."
           }
         ]
       },
@@ -780,6 +821,181 @@
             ],
             "prompt": "Activate voice mode and have a natural conversation. For example: 'Let's brainstorm some ideas for a podcast about the local food scene.' or 'Pretend you are [PERSON], I'm going to ask you some practice interview questions.'",
             "tips": "ChatGPT and Gemini have the best voice modes. Their killer feature is multimodality: you can point your phone's camera at something (a document, a broken appliance) and the AI will see it and talk about it with you."
+          }
+        ]
+      }
+    ]
+  },
+  "community": {
+    "question": "What kind of community engagement work are you doing?",
+    "options": [
+      {
+        "text": "Translating coverage for community audiences",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Community translation with human review",
+            "description": "Translate reporting between languages so a story reaches the community it is about, with a bilingual editor checking every word before it publishes.",
+            "tools": [
+              "GPT-5.6 Terra",
+              "Claude Sonnet 5"
+            ],
+            "prompt": "Translate the article below from [SOURCE LANGUAGE] into [TARGET LANGUAGE] for a [COMMUNITY] audience. Keep the meaning exact and the register conversational. Translate quotes literally and flag any that lose meaning in translation. Then list every name, place, title, and number in a separate table so an editor can check them against the original. ARTICLE: [PASTE ARTICLE]",
+            "tips": "Spanish-language newsrooms including Enlace Latino NC and Boyle Heights Beat, following the shared prompt workflow developed at the Centro de Periodismo Investigativo, run AI translation with mandatory human editorial review before anything publishes. Enlace Latino NC's AI-translated English newsletter saved roughly $2,500 a month and 150 hours across its first five issues, with zero translation complaints. Never publish machine translation unreviewed."
+          }
+        ]
+      },
+      {
+        "text": "Audience chatbots and callouts",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Audience chatbots and callout forms",
+            "description": "Build a chatbot or callout that answers audience questions from your own reporting and routes everything it cannot answer to a person.",
+            "tools": [
+              "Claude Sonnet 5",
+              "Gemini 3.7 Flash"
+            ],
+            "prompt": "I want to build a chatbot for [AUDIENCE] that answers questions about [NARROW TOPIC] using only [SOURCE CORPUS]. Draft: 1. The single use case it serves 2. A system prompt that instructs it to say it does not know rather than guess 3. How the underlying content stays up to date 4. The disclosure text users see 5. How user feedback reaches an editor.",
+            "tips": "Small newsrooms have built audience-facing chatbots in about a month, but Nieman Lab's August 2025 reporting found long-term viability depends on four things: a defined use case, a content pipeline that updates itself, transparency about what the bot can and cannot do, and a structured feedback loop. Without those it becomes a maintenance burden nobody owns."
+          }
+        ]
+      },
+      {
+        "text": "Comment and inbox triage",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Comment and inbox triage",
+            "description": "High-volume, low-stakes sorting—tips, comments, reader email—suits cheap, fast models you can run over everything without a budget conversation.",
+            "tools": [
+              "Claude Haiku 4.5",
+              "Gemini 3.7 Flash"
+            ],
+            "prompt": "Sort the messages below into these buckets: [BUCKET 1], [BUCKET 2], [BUCKET 3], and 'needs a human'. For each message give the bucket, a one-line summary, and a confidence rating. Put anything involving a legal threat, a safety concern, or a named source into 'needs a human' regardless of confidence. MESSAGES: [PASTE MESSAGES]",
+            "tips": "Triage output routes to a person. Nothing auto-publishes or auto-replies to a community member without review. Sample the low-priority pile every week—the failure mode here is a real tip getting sorted into the noise."
+          }
+        ]
+      }
+    ]
+  },
+  "events": {
+    "question": "What kind of event or live coverage work?",
+    "options": [
+      {
+        "text": "Monitoring public meetings at scale",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Public meeting monitoring at scale",
+            "description": "Transcribe and summarize public meetings so a small staff can keep watch on far more government bodies than it could ever attend in person.",
+            "tools": [
+              "Gemini 3.7 Flash",
+              "Claude Sonnet 5"
+            ],
+            "prompt": "Here is the transcript of a [BODY] meeting held on [DATE]. Produce: 1. A five-bullet summary of what was decided 2. Every mention of [KEYWORD LIST], with the surrounding quote and its timestamp 3. Any vote, including who voted which way 4. Three things a reporter should follow up on. Where the transcript is unclear, say so instead of guessing. TRANSCRIPT: [PASTE TRANSCRIPT]",
+            "tips": "Civic News Company's Local Lens transcribes and summarizes public meetings so a handful of reporters can track more than 40 school-board meetings a month, and it has already produced published stories. RJI and Big Local News are building PSST, a scanner-monitoring tool that alerts newsrooms with a transcript. Treat AI meeting summaries as leads, not stories—verify against the recording before you publish."
+          }
+        ]
+      },
+      {
+        "text": "Election night and live results",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Build a verified results dashboard",
+            "description": "Election night means scraping results from county sites that each publish differently, then getting the numbers onto a page fast. This is a build task with a hard deadline.",
+            "tools": [
+              "Codex (GPT-5.6 Sol)",
+              "Claude Opus 5"
+            ],
+            "prompt": "I need an election-night results dashboard that scrapes [NUMBER] county registrar sites: [LIST SITES]. Requirements: 1. One scraper per site, isolated so a failure in one does not take down the others 2. Results land in a staging table that a human approves before anything appears publicly 3. The public page shows the last-verified timestamp 4. A dry-run mode I can rehearse with. Build the scrapers first and show me the parsed output for each site.",
+            "tips": "Bay City News' two-person team vibe-coded an election-night dashboard scraping six California county registrars, with a human-verification layer between the scrapers and the published page, and it held up on election night 2025. The verification layer is the design requirement, not an afterthought—build it before the front end and rehearse the whole pipeline days ahead."
+          }
+        ]
+      },
+      {
+        "text": "Event listings and calendars",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Structured event listings",
+            "description": "Pull structured event data—what, when, where, who—out of school sites, Facebook pages, and local outlets, and turn it into listings your audience can actually use.",
+            "tools": [
+              "Gemini 3.7 Flash",
+              "GPT-5.6 Terra"
+            ],
+            "prompt": "Extract every event from the text below into a table with these columns: name, date, start time, end time, venue, address, cost, organizer, source URL. Use ISO dates. If a field is not stated, leave it blank rather than inferring it. Flag any listing where the date or venue is ambiguous. TEXT: [PASTE SOURCE TEXT]",
+            "tips": "The Jersey Bee's \"Harvest\" system maps and distributes local information at scale on 1.5 full-time staff. The win is structured extraction plus human curation, not auto-publishing—a person still decides what runs and fixes what the extraction got wrong."
+          }
+        ]
+      }
+    ]
+  },
+  "documents": {
+    "question": "What are you doing with documents, records, or archives?",
+    "options": [
+      {
+        "text": "Analyzing a large document dump",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Large document dump analysis",
+            "description": "Work through a large set of records to find the pattern, the outlier, or the name that turns up where it should not.",
+            "tools": [
+              "Claude Opus 5",
+              "Gemini 3.1 Pro"
+            ],
+            "prompt": "Before analyzing anything, write down the rules for this dataset: [DESCRIBE THE RECORDS]. Define what counts as a match for [WHAT YOU ARE LOOKING FOR], what to do with ambiguous records, and which fields to leave blank when the source does not say. Show me those rules for approval. Then apply them to the documents, and cite the specific document and page for every finding.",
+            "tips": "Encode your domain rules before the analysis starts. Researcher Nick Hagar replicated a MuckRock and WHRO police-decertification investigation using Claude Code skills that encoded the data-handling rules, matching the original findings in under an hour with about 20 minutes of human spot-checking. The same run without those skills made silent errors that would have survived review. ProPublica's guardrail on its NSF-grants analysis was instructing the model to leave fields blank when unsure. For big shared corpora, look at DocumentCloud (MuckRock) and Datashare (ICIJ)."
+          }
+        ]
+      },
+      {
+        "text": "Public records requests (FOIA and state equivalents)",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Public records request drafting",
+            "description": "Draft and sharpen records requests, work out which agency holds what, and decode the denial letter that comes back.",
+            "tools": [
+              "Claude Sonnet 5",
+              "GPT-5.6 Terra"
+            ],
+            "prompt": "I want records about [SUBJECT] in [JURISDICTION]. Help me: 1. List which agencies are likely to hold them and what each record series is called 2. Draft a request citing [STATUTE] that describes the records narrowly enough to be processed 3. List the exemptions the agency is most likely to claim, and how I would narrow the request to avoid each 4. Suggest a fee-waiver argument.",
+            "tips": "Be honest about what this does: AI helps you draft, narrow, and summarize, but there is no documented end-to-end AI records-request success story yet. MuckRock's 2026 guidance keeps it to brainstorming which agencies to ask, identifying what records exist, and understanding denials. Ready-made FOIA and records-request skills for Claude Code are at skills.amditis.tech."
+          }
+        ]
+      },
+      {
+        "text": "Extracting structured data from scanned records",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Structured extraction from scanned records",
+            "description": "Turn scanned pages, forms, and image PDFs into a table you can sort, filter, and search.",
+            "tools": [
+              "Gemini 3.7 Flash",
+              "Claude Sonnet 5"
+            ],
+            "prompt": "Extract these fields from each page of the scanned document into CSV: [FIELD 1], [FIELD 2], [FIELD 3], plus the page number. If a field is illegible or absent, leave it blank and note why in a 'flags' column—do not guess. Output only the CSV.",
+            "tips": "Run the OCR, then verify against the originals. Spot-check a random sample of pages rather than just the first few: the first page is usually the cleanest scan in the file. Leave-blank-when-unsure beats a confident guess, because a blank gets checked and a wrong value does not."
+          }
+        ]
+      },
+      {
+        "text": "Archiving and preservation",
+        "next": "recommendation",
+        "tools": [
+          {
+            "name": "Archive metadata and transcription",
+            "description": "Make an archive findable: generate metadata, correct OCR, and transcribe audio and handwriting at a scale nobody can match by hand.",
+            "tools": [
+              "Claude Haiku 4.5",
+              "Gemini 3.7 Flash"
+            ],
+            "prompt": "For each item below, generate archival metadata: a one-sentence description, subject keywords, the people and organizations named, an estimated date with the evidence behind that estimate, and a confidence rating. Mark anything you are unsure about for human review instead of guessing. ITEMS: [PASTE ITEM DESCRIPTIONS OR TRANSCRIPTS]",
+            "tips": "Metadata generation, OCR correction, and transcription are the proven wins. Northeastern researchers used machine learning to organize and search the Boston Globe's 1.65 million-photo morgue, dating images and transcribing the handwriting on the backs of photos, and StoryCorps used speech-to-text to make the largest oral-history archive searchable. Archive to multiple services for redundancy—a web-archiving skill at skills.amditis.tech automates Wayback plus Archive.today."
           }
         ]
       }

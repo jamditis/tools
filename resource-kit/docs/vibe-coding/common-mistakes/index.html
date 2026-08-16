@@ -20,6 +20,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -36,7 +49,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: #ef4444;
+            background: var(--signal);
         }
         .pulse-warning {
             animation: pulse-warn 2s infinite;
@@ -71,7 +84,8 @@
                         Warning active
                     </span>
                 </div>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </header>
 
         <!-- Hero Section -->
@@ -142,8 +156,8 @@ git log -p | grep -i "api_key\|secret\|password"
 trufflehog git file://./</code></pre>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
-                            <div class="text-xs text-red-500 font-medium mb-1">If You Already Pushed Secrets:</div>
+                        <div class="note note--signal">
+                            <span class="note__label">If you already pushed secrets</span>
                             <ol class="text-xs text-ink/60 space-y-1 list-decimal list-inside">
                                 <li><span class="text-ink font-medium">Immediately revoke/rotate the exposed key</span> in your provider's dashboard</li>
                                 <li>Do not just delete the file - the secret is still in history</li>
@@ -206,7 +220,7 @@ trufflehog git file://./</code></pre>
                             </div>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
+                        <div class="note note--signal">
                             <div class="text-xs text-red-500 font-medium mb-1">"It Was Working Yesterday" Syndrome</div>
                             <p class="text-xs text-ink/60">
                                 Something changed. Check: Did you update dependencies? Did someone else push code? Did an API change? Did your environment variables expire? Use <code class="text-accent">git diff</code> to see what changed.
@@ -469,7 +483,7 @@ npm install</code></pre>
                             </div>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
+                        <div class="note note--signal">
                             <div class="text-xs text-red-500 font-medium mb-1">Specify Your Environment</div>
                             <p class="text-xs text-ink/60">
                                 Mention: What framework (React, Vue, Next.js)? What language version (Node 18, Python 3.11)? What OS? Browser console or terminal? These details matter.
@@ -663,7 +677,7 @@ git checkout main && git branch -D experiment/new-feature</code></pre>
     </div>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
     </script>
 </body>
 </html>

@@ -9,6 +9,19 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
     <style>
         .prose-section h2 {
@@ -16,9 +29,10 @@
             font-weight: 300;
             font-style: italic;
         }
+        /* A hanging indent rather than an accent bar down the side. */
         .example-block {
-            border-left: 3px solid var(--accent);
-            padding-left: 1rem;
+            padding-left: 1.25rem;
+            border-left: 1px solid var(--edge);
         }
         .related-card {
             transition: transform 0.18s ease, border-color 0.18s ease;
@@ -128,7 +142,8 @@
                 <a href="/vibe-coding/glossary-frontend/" class="flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors rounded">
                     <i data-lucide="arrow-left" class="w-3 h-3"></i> All terms
                 </a>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </div>
     </header>
 
@@ -173,13 +188,10 @@
 
             <!-- Analogy -->
             <section id="analogy-section" class="reveal-section">
-                <div class="deckle-card p-6 flex gap-4">
-                    <div class="flex-shrink-0 w-10 h-10 bg-accent/10 border border-accent/20 rounded flex items-center justify-center text-accent">
-                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <div class="text-xs font-semibold tracking-widest text-accent uppercase mb-2">Real-world analogy</div>
-                        <p id="analogy-text" class="text-ink/75 leading-relaxed text-sm"></p>
+                <div class="deckle-card p-6 md:p-8">
+                    <div class="note note--accent">
+                        <span class="note__label">Real-world analogy</span>
+                        <p id="analogy-text" class="text-ink/75 leading-relaxed"></p>
                     </div>
                 </div>
             </section>
@@ -211,9 +223,9 @@
                 </div>
             </section>
 
-            <!-- Related Terms -->
+            <!-- Related terms -->
             <section id="related-section" class="reveal-section">
-                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Related Terms</h2>
+                <h2 class="prose-section font-display text-2xl font-light italic text-ink mb-5 pb-3 border-b border-ink/10">Related terms</h2>
                 <div id="related-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </section>
 

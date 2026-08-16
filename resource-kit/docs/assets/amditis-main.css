@@ -1,9 +1,14 @@
 /**
- * @fileoverview Amditis Theme V2 - Core CSS Utilities & Effects
+ * @fileoverview Amditis Theme - Core CSS Utilities & Effects
  *
  * This stylesheet provides custom utility classes and visual effects for the
- * Amditis V2 editorial/archival theme. It complements the Tailwind configuration
- * in the precompiled Tailwind configuration with CSS-only features.
+ * Amditis editorial/archival theme. It complements the precompiled Tailwind
+ * utilities with CSS-only features.
+ *
+ * NOTE: this file loads BEFORE tailwind.css, so it cannot override Tailwind
+ * utilities. The V3 token system, dark mode and component vocabulary live in
+ * `amditis-v3.css`, which loads after tailwind.css and supersedes the colour
+ * values and several of the component rules defined here.
  *
  * ## Sections
  *
@@ -20,7 +25,7 @@
  * 11. **Responsive Type** - Fluid typography handling
  * 12. **Legacy Compatibility** - Mappings from V1 classes
  *
- * @module AmditisCSSV2
+ * @module AmditisCSS
  * @requires tailwind.css (precompiled Tailwind utilities)
  * @see {@link https://jamditis.github.io/tools/} Live implementation
  */
@@ -179,7 +184,8 @@ body {
 .reveal-section {
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-section.visible {
@@ -296,7 +302,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline:hover {
@@ -325,16 +331,6 @@ body {
 
 .input-field::placeholder {
     color: var(--mist);
-}
-
-/**
- * Status indicators
- */
-.status-active {
-    width: 0.625rem;
-    height: 0.625rem;
-    background-color: var(--accent);
-    animation: pulse 2s infinite;
 }
 
 /* ==========================================================================
@@ -477,14 +473,11 @@ pre, code {
 }
 
 pre {
-    background-color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(18, 18, 18, 0.08);
     padding: 1.5rem;
     overflow-x: auto;
 }
 
 code {
-    background-color: rgba(255, 255, 255, 0.4);
     padding: 0.125rem 0.375rem;
     font-size: 0.875em;
 }

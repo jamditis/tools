@@ -26,14 +26,27 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
         body {
-            background-color: #ede6d4;
-            color: #121212;
+            background-color: var(--canvas);
+            color: var(--ink);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
@@ -50,9 +63,9 @@
         }
 
         .deckle-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(18, 18, 18, 0.05);
-            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+            background-color: var(--leaf);
+            border: 1px solid var(--edge-soft);
+            box-shadow: var(--lift-1);
         }
 
         @keyframes drift {
@@ -109,12 +122,15 @@
                         <div class="text-xs text-mist tracking-[0.2em]">CODE PATTERNS</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-4">
                 <nav class="flex gap-4 md:gap-6 text-xs">
                     <a href="/code-patterns/" class="text-mist hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
                         <span class="hidden sm:inline">Patterns Hub</span>
                     </a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 
@@ -207,9 +223,9 @@
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                            <div class="note note--accent">
                                 <p class="text-sm text-ink">
-                                    <span class="text-accent font-bold">KEY INSIGHT:</span> "The tightest feedback loops produce the fastest learning." Convert ephemeral failures into documented lessons.
+                                    <span class="text-accent font-bold">Key insight:</span> "The tightest feedback loops produce the fastest learning." Convert ephemeral failures into documented lessons.
                                 </p>
                             </div>
 
@@ -357,9 +373,9 @@ fi</code></pre>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                            <div class="note note--accent">
                                 <p class="text-sm text-ink">
-                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Programmatic control through deterministic code rules creates superior outcomes compared to relying solely on probabilistic model guidance.
+                                    <span class="text-accent font-bold">Key insight:</span> Programmatic control through deterministic code rules creates superior outcomes compared to relying solely on probabilistic model guidance.
                                 </p>
                             </div>
 
@@ -457,9 +473,9 @@ fi</code></pre>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                            <div class="note note--accent">
                                 <p class="text-sm text-ink">
-                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Treat context as a finite resource. Irrelevant tokens actively impair performance. Rigorous hygiene practices significantly enhance results.
+                                    <span class="text-accent font-bold">Key insight:</span> Treat context as a finite resource. Irrelevant tokens actively impair performance. Rigorous hygiene practices significantly enhance results.
                                 </p>
                             </div>
 
@@ -523,15 +539,15 @@ fi</code></pre>
                             <div class="mb-6">
                                 <h4 class="text-sm text-accent font-bold mb-3 uppercase tracking-wider">Critical Warnings</h4>
                                 <div class="space-y-3">
-                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                    <div class="note note--accent">
                                         <span class="text-accent text-sm font-bold">Hallucination chains</span>
                                         <p class="text-xs text-ink mt-1">Subagent-to-subagent info passing can compound errors. Use deterministic verification between handoffs.</p>
                                     </div>
-                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                    <div class="note note--accent">
                                         <span class="text-accent text-sm font-bold">Subagent overload</span>
                                         <p class="text-xs text-ink mt-1">Multiple unrelated tasks create context pollution. Split into separate focused agents.</p>
                                     </div>
-                                    <div class="p-3 bg-accent/10 border-l-4 border-accent">
+                                    <div class="note note--accent">
                                         <span class="text-accent text-sm font-bold">Model mismatch</span>
                                         <p class="text-xs text-ink mt-1">Complex reasoning delegated to lighter models produces inferior results.</p>
                                     </div>
@@ -616,9 +632,9 @@ fi</code></pre>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                            <div class="note note--accent">
                                 <p class="text-sm text-ink">
-                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Constraint as opportunity—a streamlined toolkit preserves context capacity for actual problem-solving.
+                                    <span class="text-accent font-bold">Key insight:</span> Constraint as opportunity—a streamlined toolkit preserves context capacity for actual problem-solving.
                                 </p>
                             </div>
 
@@ -634,7 +650,7 @@ fi</code></pre>
                                 <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-bold border border-accent/20 uppercase tracking-wider">Lesson 07</span>
                                 <i data-lucide="mic" class="w-4 h-4 text-accent"></i>
                             </div>
-                            <h3 class="font-display text-xl text-ink font-black italic">Prompt engineering on steroids</h3>
+                            <h3 class="font-display text-xl text-ink font-black italic">Prompt engineering, systematised</h3>
                             <p class="text-sm text-mist mt-2">Voice input + automated enhancement systems</p>
                         </div>
                         <span class="lesson-number text-accent">07</span>
@@ -701,9 +717,9 @@ fi</code></pre>
                             </div>
 
                             <!-- Key Insight -->
-                            <div class="p-4 bg-accent/10 border-l-4 border-accent">
+                            <div class="note note--accent">
                                 <p class="text-sm text-ink">
-                                    <span class="text-accent font-bold">KEY INSIGHT:</span> Eliminate manual prompt typing. Leverage voice input or conversational interviews to focus on solving actual problems instead of formatting.
+                                    <span class="text-accent font-bold">Key insight:</span> Eliminate manual prompt typing. Leverage voice input or conversational interviews to focus on solving actual problems instead of formatting.
                                 </p>
                             </div>
 
@@ -746,7 +762,7 @@ fi</code></pre>
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Accordion functionality
         function toggleAccordion(lessonId) {

@@ -24,50 +24,52 @@
 
     <!-- Tailwind & Libraries -->
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
         body {
-            background-color: #ede6d4;
-            color: #121212;
+            background-color: var(--canvas);
+            color: var(--ink);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
 
-        .paper-overlay {
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 1;
-        }
-
         :focus-visible {
-            outline: 2px solid #3d4b40;
+            outline: 2px solid var(--accent);
             outline-offset: 4px;
         }
 
         .drop-zone {
-            border: 2px dashed rgba(18, 18, 18, 0.15);
-            transition: all 0.3s ease;
+            border: 2px dashed rgb(var(--ink-rgb) / 0.15);
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
 
         .drop-zone.drag-over {
-            border-color: #3d4b40;
-            background: rgba(61, 75, 64, 0.05);
+            border-color: var(--sage);
+            background: rgb(var(--sage-rgb) / 0.05);
         }
 
         .toolbar-btn {
-            transition: all 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
 
         .toolbar-btn:hover:not(:disabled) {
-            background: rgba(61, 75, 64, 0.1);
-            border-color: #3d4b40;
+            background: rgb(var(--sage-rgb) / 0.1);
+            border-color: var(--sage);
         }
 
         .toolbar-btn:disabled {
@@ -76,32 +78,60 @@
         }
 
         .deckle-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(18, 18, 18, 0.05);
-            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+            background-color: var(--leaf);
+            border: 1px solid var(--edge-soft);
+            box-shadow: var(--lift-1);
         }
 
         #editor-frame {
+            /* Simulates a plain browser canvas hosting the reader's own
+               HTML/CSS, which defaults to white like any unstyled page.
+               This is the same "edited document" exception as the inline
+               style injected in setupEditor(): it represents content
+               outside the Amditis theme, not app chrome, so it stays a
+               literal white rather than a paper token. */
             background: white;
             border: none;
         }
 
         .file-item {
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
         }
 
         .file-item:hover {
             padding-left: 1rem;
-            background: rgba(61, 75, 64, 0.05);
+            background: rgb(var(--sage-rgb) / 0.05);
         }
 
         .file-item.active {
-            background: rgba(61, 75, 64, 0.1);
-            border-left: 2px solid #3d4b40;
+            background: rgb(var(--sage-rgb) / 0.1);
+            border-left: 2px solid var(--sage);
         }
 
         .sidebar-section {
-            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.05);
+        }
+
+        /**
+         * The toolbar carries six controls plus the theme toggle. Their labels
+         * are already hidden below `sm`, but the horizontal padding alone made
+         * the row 387px wide, so anything narrower than about 388px — a 375pt
+         * iPhone, a 360px Android — pushed the toggle and then the download
+         * button past the edge. Tighten the buttons at that width and let the
+         * row wrap, so every control stays reachable and nothing scrolls
+         * sideways.
+         */
+        @media (max-width: 639px) {
+            .editor-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.5rem;
+            }
+
+            .editor-actions .toolbar-btn {
+                padding-left: 0.625rem;
+                padding-right: 0.625rem;
+            }
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
@@ -126,7 +156,7 @@
                 </a>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="editor-actions flex items-center gap-3">
                 <span id="project-name" class="text-[10px] tracking-[0.2em] font-bold opacity-40 uppercase hidden md:block mr-4">No project loaded</span>
 
                 <button id="help-btn" class="toolbar-btn p-2.5 border border-ink/10 hover:text-accent" title="Help & Instructions">
@@ -154,11 +184,12 @@
                     <span class="hidden sm:inline">Upload</span>
                 </button>
 
-                <button id="download-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all" disabled>
+                <button id="download-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition" disabled>
                     <i data-lucide="download" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">Download</span>
                 </button>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </nav>
 
         <!-- Main Content -->
@@ -181,7 +212,7 @@
                                 placeholder="https://example.com/page.html"
                                 class="flex-1 px-4 py-3 bg-white/50 border border-ink/10 text-sm focus:outline-none focus:border-accent"
                             >
-                            <button id="fetch-btn" class="toolbar-btn px-6 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all flex items-center justify-center gap-2">
+                            <button id="fetch-btn" class="toolbar-btn px-6 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition flex items-center justify-center gap-2">
                                 <i data-lucide="download-cloud" class="w-4 h-4"></i>
                                 Fetch
                             </button>
@@ -341,7 +372,6 @@
                         <div class="flex-1"></div>
 
                         <div class="hidden sm:flex items-center gap-2">
-                            <div class="w-2 h-2 bg-accent animate-pulse"></div>
                             <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-mist">Click text to edit</span>
                         </div>
                     </div>
@@ -385,7 +415,7 @@
                 <!-- Modal Body -->
                 <div class="p-6">
                     <!-- Drop Zone for Image -->
-                    <div id="image-drop-zone" class="border-2 border-dashed border-ink/15 p-8 text-center cursor-pointer hover:border-accent hover:bg-accent/5 transition-all">
+                    <div id="image-drop-zone" class="border-2 border-dashed border-ink/15 p-8 text-center cursor-pointer hover:border-accent hover:bg-accent/5 transition">
                         <i data-lucide="image-plus" class="w-10 h-10 mx-auto text-ink/30 mb-4"></i>
                         <p class="text-sm text-ink/70 mb-2">Drop image here or click to browse</p>
                         <p class="text-[10px] text-mist">PNG, JPG, GIF, WebP (max 10MB)</p>
@@ -396,7 +426,7 @@
                     <div id="image-upload-progress" class="mt-4 hidden">
                         <div class="flex items-center gap-3">
                             <div class="flex-1 h-1 bg-ink/10 overflow-hidden">
-                                <div id="image-progress-bar" class="h-full bg-accent transition-all duration-300" style="width: 0%"></div>
+                                <div id="image-progress-bar" class="h-full bg-accent transition duration-300" style="width: 0%"></div>
                             </div>
                             <span id="image-progress-text" class="text-[10px] font-bold text-mist">0%</span>
                         </div>
@@ -489,7 +519,7 @@
                 <!-- Modal Footer -->
                 <div class="p-6 pt-0">
                     <button id="welcome-get-started" class="w-full px-4 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-colors">
-                        Get Started
+                        Start editing
                     </button>
                 </div>
             </div>
@@ -603,7 +633,7 @@
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // DOM Elements
         const uploadZone = document.getElementById('upload-zone');
@@ -716,7 +746,7 @@
 
         function showWelcomeModal() {
             welcomeModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function closeWelcomeModal() {
@@ -775,7 +805,7 @@
             updateSettingsInputStates();
             settingsStatus.classList.add('hidden');
             settingsModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function closeSettingsModal() {
@@ -978,7 +1008,7 @@
                         <button class="restore-session-btn px-3 py-1.5 bg-accent text-canvas text-[9px] font-bold uppercase tracking-wider hover:bg-ink transition-colors" data-id="${session.id}">
                             Open
                         </button>
-                        <button class="delete-session-btn p-1.5 text-mist hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all" data-id="${session.id}" title="Delete">
+                        <button class="delete-session-btn p-1.5 text-mist hover:text-red-600 opacity-0 group-hover:opacity-100 transition" data-id="${session.id}" title="Delete">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -1008,7 +1038,7 @@
                 });
             });
 
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Helper: get relative time
@@ -1028,7 +1058,7 @@
         function openRecentModal() {
             renderRecentSessionsList();
             recentModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Close recent modal
@@ -1361,7 +1391,7 @@
             });
 
             // Re-init icons
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Get display name (remove folder path for cleaner display)
@@ -1459,16 +1489,22 @@
             // Add editing styles (marked with data attribute for safe removal)
             const style = doc.createElement('style');
             style.setAttribute('data-amditis-editor', 'true');
+            // The edited document is the reader's own HTML and carries none of
+            // the V3 custom properties, so resolve the accent against this page
+            // and pass the computed value across rather than hardcoding it.
+            const hostStyles = getComputedStyle(document.documentElement);
+            const accent = hostStyles.getPropertyValue('--accent').trim();
+            const accentRgb = hostStyles.getPropertyValue('--accent-rgb').trim();
             style.textContent = `
                 body {
                     cursor: text;
                 }
                 *:focus {
-                    outline: 2px solid #3d4b40 !important;
+                    outline: 2px solid ${accent} !important;
                     outline-offset: 2px;
                 }
                 [contenteditable]:hover {
-                    background-color: rgba(61, 75, 64, 0.03);
+                    background-color: rgb(${accentRgb} / 0.03);
                 }
             `;
             doc.head.appendChild(style);
@@ -1821,7 +1857,7 @@
             imageError.classList.add('hidden');
             imageUploadBtn.disabled = true;
             imageModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Close image modal
@@ -1873,7 +1909,7 @@
                 });
             });
 
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Setup hover overlay buttons on images in editor

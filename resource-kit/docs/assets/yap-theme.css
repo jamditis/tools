@@ -192,7 +192,7 @@ body::before {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-dim);
   border-radius: 0.75rem;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .yap-card:hover {
@@ -220,7 +220,7 @@ body::before {
   color: var(--text-primary);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-  transition: all 0.2s;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .yap-input:focus {

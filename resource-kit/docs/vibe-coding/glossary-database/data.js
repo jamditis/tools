@@ -28,20 +28,20 @@ const TERMS = [
   .bedge { stroke-dasharray: 0; animation: draw 2s ease forwards; }
   @keyframes draw { from { stroke-dasharray: 0 100; } to { stroke-dasharray: 100 0; } }
 </style>
-<rect class="bnode" x="45" y="15" width="30" height="14" rx="3" fill="#3d4b40"/>
-<rect class="bnode" x="20" y="45" width="30" height="14" rx="3" fill="#3d4b40"/>
-<rect class="bnode" x="70" y="45" width="30" height="14" rx="3" fill="#3d4b40"/>
-<rect class="bnode" x="5" y="75" width="25" height="12" rx="2" fill="#3d4b40" opacity="0.6"/>
-<rect class="bnode" x="35" y="75" width="25" height="12" rx="2" fill="#3d4b40" opacity="0.6"/>
-<rect class="bnode" x="65" y="75" width="25" height="12" rx="2" fill="#3d4b40" opacity="0.6"/>
-<rect class="bnode" x="95" y="75" width="20" height="12" rx="2" fill="#3d4b40" opacity="0.6"/>
-<line class="bedge" x1="52" y1="29" x2="38" y2="45" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="bedge" x1="68" y1="29" x2="82" y2="45" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="bedge" x1="28" y1="59" x2="18" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<line class="bedge" x1="42" y1="59" x2="48" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<line class="bedge" x1="78" y1="59" x2="78" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<line class="bedge" x1="92" y1="59" x2="102" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="105" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.6" font-family="sans-serif">balanced</text>
+<rect class="bnode" x="45" y="15" width="30" height="14" rx="3" fill="var(--diagram-ink)"/>
+<rect class="bnode" x="20" y="45" width="30" height="14" rx="3" fill="var(--diagram-ink)"/>
+<rect class="bnode" x="70" y="45" width="30" height="14" rx="3" fill="var(--diagram-ink)"/>
+<rect class="bnode" x="5" y="75" width="25" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+<rect class="bnode" x="35" y="75" width="25" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+<rect class="bnode" x="65" y="75" width="25" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+<rect class="bnode" x="95" y="75" width="20" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+<line class="bedge" x1="52" y1="29" x2="38" y2="45" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="bedge" x1="68" y1="29" x2="82" y2="45" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="bedge" x1="28" y1="59" x2="18" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="bedge" x1="42" y1="59" x2="48" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="bedge" x1="78" y1="59" x2="78" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="bedge" x1="92" y1="59" x2="102" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="105" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">balanced</text>
 </svg>`,
         definition: `A B-Tree is a self-balancing tree data structure that maintains sorted data and allows searches, insertions, and deletions in logarithmic time. Unlike binary trees, each node can contain multiple keys and have multiple children, making it exceptionally well-suited for storage systems that read and write large blocks of data.
 
@@ -67,17 +67,17 @@ B-Trees are the backbone of most relational database indexes. They keep data sor
   .lsm-arrow { animation: lsm-flow 2s ease-in-out infinite; }
   @keyframes lsm-flow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
 </style>
-<rect class="lsm-level" x="35" y="12" width="50" height="12" rx="2" fill="#3d4b40" opacity="0.9"/>
+<rect class="lsm-level" x="35" y="12" width="50" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
 <text x="60" y="21" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">memtable</text>
-<g class="lsm-arrow"><polygon points="57,28 63,28 60,34" fill="#3d4b40" opacity="0.4"/></g>
-<rect class="lsm-level" x="25" y="38" width="70" height="14" rx="2" fill="#3d4b40" opacity="0.7"/>
+<g class="lsm-arrow"><polygon points="57,28 63,28 60,34" fill="var(--diagram-ink)" opacity="0.4"/></g>
+<rect class="lsm-level" x="25" y="38" width="70" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
 <text x="60" y="48" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">L0</text>
-<g class="lsm-arrow"><polygon points="57,56 63,56 60,62" fill="#3d4b40" opacity="0.4"/></g>
-<rect class="lsm-level" x="15" y="66" width="90" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<g class="lsm-arrow"><polygon points="57,56 63,56 60,62" fill="var(--diagram-ink)" opacity="0.4"/></g>
+<rect class="lsm-level" x="15" y="66" width="90" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="60" y="77" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">L1</text>
-<g class="lsm-arrow"><polygon points="57,86 63,86 60,92" fill="#3d4b40" opacity="0.4"/></g>
-<rect class="lsm-level" x="8" y="96" width="104" height="14" rx="2" fill="#3d4b40" opacity="0.3"/>
-<text x="60" y="106" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">L2 (largest)</text>
+<g class="lsm-arrow"><polygon points="57,86 63,86 60,92" fill="var(--diagram-ink)" opacity="0.4"/></g>
+<rect class="lsm-level" x="8" y="96" width="104" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
+<text x="60" y="106" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">L2 (largest)</text>
 </svg>`,
         definition: `An LSM-Tree (Log-Structured Merge Tree) is a data structure designed to provide high write throughput. Instead of updating data in place like a B-Tree, it buffers writes in memory (a memtable), then flushes sorted runs to disk. Periodically, these sorted runs are merged together in a process called compaction.
 
@@ -104,14 +104,14 @@ This approach trades some read performance for dramatically better write perform
   .wal-pen { animation: wal-move 3s ease-in-out infinite; }
   @keyframes wal-move { 0% { transform: translateY(0); } 25% { transform: translateY(16px); } 50% { transform: translateY(32px); } 75% { transform: translateY(48px); } 100% { transform: translateY(0); } }
 </style>
-<rect x="20" y="10" width="80" height="95" rx="4" fill="none" stroke="#3d4b40" stroke-width="1.5" opacity="0.3"/>
-<line x1="30" y1="10" x2="30" y2="105" stroke="#3d4b40" stroke-width="0.5" opacity="0.2"/>
-<rect class="wal-entry" x="35" y="20" width="55" height="10" rx="2" fill="#3d4b40" opacity="0.8"/>
-<rect class="wal-entry" x="35" y="36" width="55" height="10" rx="2" fill="#3d4b40" opacity="0.6"/>
-<rect class="wal-entry" x="35" y="52" width="55" height="10" rx="2" fill="#3d4b40" opacity="0.4"/>
-<rect class="wal-entry" x="35" y="68" width="55" height="10" rx="2" fill="#3d4b40" opacity="0.25"/>
-<circle class="wal-pen" cx="25" cy="25" r="3" fill="#3d4b40"/>
-<text x="60" y="95" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">write first</text>
+<rect x="20" y="10" width="80" height="95" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.3"/>
+<line x1="30" y1="10" x2="30" y2="105" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.2"/>
+<rect class="wal-entry" x="35" y="20" width="55" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.8"/>
+<rect class="wal-entry" x="35" y="36" width="55" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+<rect class="wal-entry" x="35" y="52" width="55" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+<rect class="wal-entry" x="35" y="68" width="55" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.25"/>
+<circle class="wal-pen" cx="25" cy="25" r="3" fill="var(--diagram-ink)"/>
+<text x="60" y="95" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">write first</text>
 </svg>`,
         definition: `A Write-Ahead Log (WAL) is a technique where changes are first recorded in a sequential log file before being applied to the actual data files. If the system crashes, the log can be replayed to recover any changes that were recorded but not yet fully written to the data files.
 
@@ -135,17 +135,17 @@ The WAL is fundamental to database durability, the D in ACID. By ensuring every 
   .pg-highlight { animation: pg-scan 3s linear infinite; }
   @keyframes pg-scan { 0% { y: 15; } 100% { y: 88; } }
 </style>
-<rect x="15" y="10" width="90" height="95" rx="3" fill="none" stroke="#3d4b40" stroke-width="1.5" opacity="0.4"/>
-<rect class="pg-block" x="20" y="15" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-block" x="20" y="30" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-block" x="20" y="45" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-block" x="20" y="60" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-block" x="20" y="75" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-block" x="20" y="90" width="80" height="12" rx="1" fill="#3d4b40"/>
-<rect class="pg-highlight" x="18" y="15" width="84" height="14" rx="2" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.6"/>
-<text x="8" y="24" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">4K</text>
-<text x="8" y="39" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">4K</text>
-<text x="8" y="54" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">4K</text>
+<rect x="15" y="10" width="90" height="95" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.4"/>
+<rect class="pg-block" x="20" y="15" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-block" x="20" y="30" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-block" x="20" y="45" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-block" x="20" y="60" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-block" x="20" y="75" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-block" x="20" y="90" width="80" height="12" rx="1" fill="var(--diagram-ink)"/>
+<rect class="pg-highlight" x="18" y="15" width="84" height="14" rx="2" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.6"/>
+<text x="8" y="24" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">4K</text>
+<text x="8" y="39" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">4K</text>
+<text x="8" y="54" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">4K</text>
 </svg>`,
         definition: `A page is the fundamental unit of data storage and I/O in a database system. Typically 4KB, 8KB, or 16KB in size, pages are fixed-size blocks that the database reads from and writes to disk. All data -- rows, index entries, metadata -- lives within pages.
 
@@ -171,18 +171,18 @@ When the database needs to access a row, it reads the entire page containing tha
   .bp-flash { animation: bp-hit 2s ease-in-out infinite; }
   @keyframes bp-hit { 0%,100% { r: 3; opacity: 0.3; } 50% { r: 5; opacity: 0.8; } }
 </style>
-<text x="60" y="12" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">MEMORY</text>
-<rect x="10" y="16" width="100" height="55" rx="4" fill="#3d4b40" opacity="0.08" stroke="#3d4b40" stroke-width="1" stroke-dasharray="4 2"/>
-<rect class="bp-page" x="15" y="22" width="27" height="20" rx="2" fill="#3d4b40"/>
-<rect class="bp-page" x="47" y="22" width="27" height="20" rx="2" fill="#3d4b40"/>
-<rect class="bp-page" x="79" y="22" width="27" height="20" rx="2" fill="#3d4b40"/>
-<rect class="bp-page" x="15" y="46" width="27" height="20" rx="2" fill="#3d4b40"/>
-<rect class="bp-page" x="47" y="46" width="27" height="20" rx="2" fill="#3d4b40"/>
-<rect class="bp-page" x="79" y="46" width="27" height="20" rx="2" fill="#3d4b40" opacity="0.3"/>
+<text x="60" y="12" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">MEMORY</text>
+<rect x="10" y="16" width="100" height="55" rx="4" fill="var(--diagram-ink)" opacity="0.08" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="4 2"/>
+<rect class="bp-page" x="15" y="22" width="27" height="20" rx="2" fill="var(--diagram-ink)"/>
+<rect class="bp-page" x="47" y="22" width="27" height="20" rx="2" fill="var(--diagram-ink)"/>
+<rect class="bp-page" x="79" y="22" width="27" height="20" rx="2" fill="var(--diagram-ink)"/>
+<rect class="bp-page" x="15" y="46" width="27" height="20" rx="2" fill="var(--diagram-ink)"/>
+<rect class="bp-page" x="47" y="46" width="27" height="20" rx="2" fill="var(--diagram-ink)"/>
+<rect class="bp-page" x="79" y="46" width="27" height="20" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
 <circle class="bp-flash" cx="29" cy="32" r="3" fill="#6b8f71"/>
-<text x="60" y="85" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">DISK</text>
-<rect x="25" y="88" width="70" height="18" rx="3" fill="#3d4b40" opacity="0.15" stroke="#3d4b40" stroke-width="0.5"/>
-<line x1="60" y1="71" x2="60" y2="88" stroke="#3d4b40" stroke-width="1" opacity="0.3" stroke-dasharray="3 2"/>
+<text x="60" y="85" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">DISK</text>
+<rect x="25" y="88" width="70" height="18" rx="3" fill="var(--diagram-ink)" opacity="0.15" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<line x1="60" y1="71" x2="60" y2="88" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3" stroke-dasharray="3 2"/>
 </svg>`,
         definition: `The buffer pool is a region of main memory allocated by the database to cache data pages read from disk. When a query needs data, the database first checks the buffer pool. If the page is already in memory (a cache hit), the data is served directly without any disk I/O. If not (a cache miss), the page is read from disk into the buffer pool.
 
@@ -210,23 +210,23 @@ Buffer pool management is critical to database performance. A well-tuned buffer 
   @keyframes cs-fade { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
 </style>
 <g class="cs-col">
-  <rect x="12" y="20" width="18" height="70" rx="2" fill="#3d4b40" opacity="0.8"/>
-  <text class="cs-label" x="21" y="16" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">id</text>
+  <rect x="12" y="20" width="18" height="70" rx="2" fill="var(--diagram-ink)" opacity="0.8"/>
+  <text class="cs-label" x="21" y="16" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">id</text>
 </g>
 <g class="cs-col">
-  <rect x="35" y="30" width="18" height="60" rx="2" fill="#3d4b40" opacity="0.6"/>
-  <text class="cs-label" x="44" y="26" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">name</text>
+  <rect x="35" y="30" width="18" height="60" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+  <text class="cs-label" x="44" y="26" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">name</text>
 </g>
 <g class="cs-col">
-  <rect x="58" y="25" width="18" height="65" rx="2" fill="#3d4b40" opacity="0.7"/>
-  <text class="cs-label" x="67" y="21" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">price</text>
+  <rect x="58" y="25" width="18" height="65" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
+  <text class="cs-label" x="67" y="21" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">price</text>
 </g>
 <g class="cs-col">
-  <rect x="81" y="35" width="18" height="55" rx="2" fill="#3d4b40" opacity="0.5"/>
-  <text class="cs-label" x="90" y="31" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">qty</text>
+  <rect x="81" y="35" width="18" height="55" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
+  <text class="cs-label" x="90" y="31" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">qty</text>
 </g>
-<line x1="10" y1="92" x2="102" y2="92" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<text x="56" y="108" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">columnar layout</text>
+<line x1="10" y1="92" x2="102" y2="92" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<text x="56" y="108" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">columnar layout</text>
 </svg>`,
         definition: `A column store (or columnar database) stores data by columns rather than by rows. Instead of keeping all fields of a row together on disk, each column is stored independently. This layout is exceptionally efficient for analytical queries that read a few columns from many rows.
 
@@ -254,31 +254,31 @@ Column stores shine in OLAP (Online Analytical Processing) workloads like aggreg
   @keyframes rs-glow { 0%,100% { stroke-opacity: 0.2; } 50% { stroke-opacity: 0.8; } }
 </style>
 <g class="rs-row">
-  <rect x="10" y="18" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.8"/>
-  <rect x="32" y="18" width="30" height="14" rx="1" fill="#3d4b40" opacity="0.6"/>
-  <rect x="64" y="18" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.5"/>
-  <rect x="86" y="18" width="24" height="14" rx="1" fill="#3d4b40" opacity="0.4"/>
+  <rect x="10" y="18" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
+  <rect x="32" y="18" width="30" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="64" y="18" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="86" y="18" width="24" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.4"/>
 </g>
 <g class="rs-row">
-  <rect x="10" y="38" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.8"/>
-  <rect x="32" y="38" width="30" height="14" rx="1" fill="#3d4b40" opacity="0.6"/>
-  <rect x="64" y="38" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.5"/>
-  <rect x="86" y="38" width="24" height="14" rx="1" fill="#3d4b40" opacity="0.4"/>
+  <rect x="10" y="38" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
+  <rect x="32" y="38" width="30" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="64" y="38" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="86" y="38" width="24" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.4"/>
 </g>
 <g class="rs-row">
-  <rect x="10" y="58" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.8"/>
-  <rect x="32" y="58" width="30" height="14" rx="1" fill="#3d4b40" opacity="0.6"/>
-  <rect x="64" y="58" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.5"/>
-  <rect x="86" y="58" width="24" height="14" rx="1" fill="#3d4b40" opacity="0.4"/>
+  <rect x="10" y="58" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
+  <rect x="32" y="58" width="30" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="64" y="58" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="86" y="58" width="24" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.4"/>
 </g>
 <g class="rs-row">
-  <rect x="10" y="78" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.8"/>
-  <rect x="32" y="78" width="30" height="14" rx="1" fill="#3d4b40" opacity="0.6"/>
-  <rect x="64" y="78" width="20" height="14" rx="1" fill="#3d4b40" opacity="0.5"/>
-  <rect x="86" y="78" width="24" height="14" rx="1" fill="#3d4b40" opacity="0.4"/>
+  <rect x="10" y="78" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
+  <rect x="32" y="78" width="30" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="64" y="78" width="20" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="86" y="78" width="24" height="14" rx="1" fill="var(--diagram-ink)" opacity="0.4"/>
 </g>
-<rect class="rs-highlight" x="8" y="36" width="104" height="18" rx="2" fill="none" stroke="#3d4b40" stroke-width="2"/>
-<text x="60" y="108" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">row-oriented</text>
+<rect class="rs-highlight" x="8" y="36" width="104" height="18" rx="2" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+<text x="60" y="108" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">row-oriented</text>
 </svg>`,
         definition: `A row store is the traditional way databases organize data on disk: all columns of a single row are stored together, one row after another. This layout is optimal for transactional workloads where you typically read or write entire rows at a time.
 
@@ -302,14 +302,14 @@ Row stores are the default for OLTP (Online Transaction Processing) databases li
   .hf-new { animation: hf-drop 2s ease-in-out infinite; }
   @keyframes hf-drop { 0% { transform: translateY(-8px); opacity: 0; } 30%,100% { transform: translateY(0); opacity: 0.8; } }
 </style>
-<rect class="hf-pg" x="10" y="15" width="40" height="25" rx="2" fill="#3d4b40" opacity="0.3" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="hf-pg" x="55" y="20" width="40" height="25" rx="2" fill="#3d4b40" opacity="0.5" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="hf-pg" x="25" y="48" width="40" height="25" rx="2" fill="#3d4b40" opacity="0.4" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="hf-pg" x="70" y="50" width="35" height="25" rx="2" fill="#3d4b40" opacity="0.6" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="hf-pg" x="15" y="78" width="38" height="22" rx="2" fill="#3d4b40" opacity="0.35" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="hf-new hf-pg" x="58" y="80" width="38" height="22" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+<rect class="hf-pg" x="10" y="15" width="40" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.3" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="hf-pg" x="55" y="20" width="40" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.5" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="hf-pg" x="25" y="48" width="40" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.4" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="hf-pg" x="70" y="50" width="35" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.6" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="hf-pg" x="15" y="78" width="38" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.35" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="hf-new hf-pg" x="58" y="80" width="38" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="77" y="94" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">new</text>
-<text x="60" y="112" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">unordered</text>
+<text x="60" y="112" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">unordered</text>
 </svg>`,
         definition: `A heap file is an unordered collection of pages that stores table data without any particular sorting. New rows are simply appended to the end of the file or inserted into the first page with enough free space. There is no inherent order to the data.
 
@@ -335,21 +335,21 @@ Heap files are the simplest storage structure and the default for many databases
   .sst-arrow { animation: sst-flow 2s linear infinite; }
   @keyframes sst-flow { 0% { opacity: 0; } 50% { opacity: 0.6; } 100% { opacity: 0; } }
 </style>
-<rect class="sst-seg" x="10" y="15" width="100" height="16" rx="2" fill="#3d4b40"/>
+<rect class="sst-seg" x="10" y="15" width="100" height="16" rx="2" fill="var(--diagram-ink)"/>
 <text x="15" y="26" font-size="5" fill="white" font-family="monospace">A..D</text>
 <text x="50" y="26" font-size="5" fill="white" font-family="monospace">E..H</text>
 <text x="85" y="26" font-size="5" fill="white" font-family="monospace">I..L</text>
-<rect class="sst-seg" x="10" y="40" width="100" height="16" rx="2" fill="#3d4b40"/>
+<rect class="sst-seg" x="10" y="40" width="100" height="16" rx="2" fill="var(--diagram-ink)"/>
 <text x="15" y="51" font-size="5" fill="white" font-family="monospace">A..F</text>
 <text x="55" y="51" font-size="5" fill="white" font-family="monospace">G..M</text>
 <text x="90" y="51" font-size="5" fill="white" font-family="monospace">N..Z</text>
-<path class="sst-arrow" d="M60,60 L60,72" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#sst-arr)"/>
-<defs><marker id="sst-arr" markerWidth="6" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<rect class="sst-seg" x="10" y="75" width="100" height="18" rx="2" fill="#3d4b40" opacity="0.9"/>
+<path class="sst-arrow" d="M60,60 L60,72" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#sst-arr)"/>
+<defs><marker id="sst-arr" markerWidth="6" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<rect class="sst-seg" x="10" y="75" width="100" height="18" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
 <text x="15" y="87" font-size="5" fill="white" font-family="monospace">A..F</text>
 <text x="45" y="87" font-size="5" fill="white" font-family="monospace">G..L</text>
 <text x="75" y="87" font-size="5" fill="white" font-family="monospace">M..Z</text>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">sorted + merged</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">sorted + merged</text>
 </svg>`,
         definition: `A Sorted String Table (SSTable) is an immutable file that stores key-value pairs in sorted order. Once written, an SSTable is never modified -- new data goes into new SSTables, and old ones are merged together during compaction. The sorted nature enables efficient lookups via binary search and fast merges.
 
@@ -372,20 +372,20 @@ SSTables are the on-disk component of LSM-Trees. When a memtable fills up, it is
   .bpt-link { animation: bpt-trace 2s linear infinite; stroke-dasharray: 4 3; }
   @keyframes bpt-trace { 0% { stroke-dashoffset: 14; } 100% { stroke-dashoffset: 0; } }
 </style>
-<rect class="bpt-node" x="42" y="10" width="36" height="14" rx="3" fill="#3d4b40"/>
+<rect class="bpt-node" x="42" y="10" width="36" height="14" rx="3" fill="var(--diagram-ink)"/>
 <text x="60" y="20" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">keys</text>
-<rect class="bpt-node" x="12" y="40" width="30" height="14" rx="3" fill="#3d4b40" opacity="0.7"/>
-<rect class="bpt-node" x="78" y="40" width="30" height="14" rx="3" fill="#3d4b40" opacity="0.7"/>
-<line x1="50" y1="24" x2="30" y2="40" stroke="#3d4b40" stroke-width="1"/>
-<line x1="70" y1="24" x2="90" y2="40" stroke="#3d4b40" stroke-width="1"/>
-<rect class="bpt-node" x="5" y="70" width="22" height="14" rx="2" fill="#3d4b40" opacity="0.9"/>
-<rect class="bpt-node" x="30" y="70" width="22" height="14" rx="2" fill="#3d4b40" opacity="0.9"/>
-<rect class="bpt-node" x="55" y="70" width="22" height="14" rx="2" fill="#3d4b40" opacity="0.9"/>
-<rect class="bpt-node" x="80" y="70" width="22" height="14" rx="2" fill="#3d4b40" opacity="0.9"/>
-<line x1="18" y1="54" x2="16" y2="70" stroke="#3d4b40" stroke-width="0.8"/>
-<line x1="32" y1="54" x2="41" y2="70" stroke="#3d4b40" stroke-width="0.8"/>
-<line x1="86" y1="54" x2="66" y2="70" stroke="#3d4b40" stroke-width="0.8"/>
-<line x1="98" y1="54" x2="91" y2="70" stroke="#3d4b40" stroke-width="0.8"/>
+<rect class="bpt-node" x="12" y="40" width="30" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.7"/>
+<rect class="bpt-node" x="78" y="40" width="30" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.7"/>
+<line x1="50" y1="24" x2="30" y2="40" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line x1="70" y1="24" x2="90" y2="40" stroke="var(--diagram-ink)" stroke-width="1"/>
+<rect class="bpt-node" x="5" y="70" width="22" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
+<rect class="bpt-node" x="30" y="70" width="22" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
+<rect class="bpt-node" x="55" y="70" width="22" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
+<rect class="bpt-node" x="80" y="70" width="22" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
+<line x1="18" y1="54" x2="16" y2="70" stroke="var(--diagram-ink)" stroke-width="0.8"/>
+<line x1="32" y1="54" x2="41" y2="70" stroke="var(--diagram-ink)" stroke-width="0.8"/>
+<line x1="86" y1="54" x2="66" y2="70" stroke="var(--diagram-ink)" stroke-width="0.8"/>
+<line x1="98" y1="54" x2="91" y2="70" stroke="var(--diagram-ink)" stroke-width="0.8"/>
 <line class="bpt-link" x1="27" y1="77" x2="30" y2="77" stroke="#6b8f71" stroke-width="2"/>
 <line class="bpt-link" x1="52" y1="77" x2="55" y2="77" stroke="#6b8f71" stroke-width="2"/>
 <line class="bpt-link" x1="77" y1="77" x2="80" y2="77" stroke="#6b8f71" stroke-width="2"/>
@@ -413,21 +413,21 @@ B+ Trees are the most common index structure in relational databases. The separa
   .hi-bucket:nth-child(even) { animation-delay: 0.5s; }
   @keyframes hi-pulse { 0%,100% { fill-opacity: 0.5; } 50% { fill-opacity: 0.8; } }
 </style>
-<text class="hi-key" x="15" y="30" font-size="8" fill="#3d4b40" font-family="monospace">key</text>
-<text x="45" y="30" font-size="9" fill="#3d4b40" opacity="0.4" font-family="sans-serif">&#8594;</text>
-<text x="58" y="30" font-size="7" fill="#3d4b40" opacity="0.6" font-family="monospace">h()</text>
-<text x="80" y="30" font-size="9" fill="#3d4b40" opacity="0.4" font-family="sans-serif">&#8594;</text>
-<rect class="hi-bucket" x="90" y="12" width="20" height="12" rx="2" fill="#3d4b40"/>
-<rect class="hi-bucket" x="90" y="28" width="20" height="12" rx="2" fill="#3d4b40"/>
-<rect class="hi-bucket" x="90" y="44" width="20" height="12" rx="2" fill="#3d4b40"/>
-<rect class="hi-bucket" x="90" y="60" width="20" height="12" rx="2" fill="#3d4b40"/>
-<rect class="hi-bucket" x="90" y="76" width="20" height="12" rx="2" fill="#3d4b40"/>
+<text class="hi-key" x="15" y="30" font-size="8" fill="var(--diagram-ink)" font-family="monospace">key</text>
+<text x="45" y="30" font-size="9" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">&#8594;</text>
+<text x="58" y="30" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="monospace">h()</text>
+<text x="80" y="30" font-size="9" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">&#8594;</text>
+<rect class="hi-bucket" x="90" y="12" width="20" height="12" rx="2" fill="var(--diagram-ink)"/>
+<rect class="hi-bucket" x="90" y="28" width="20" height="12" rx="2" fill="var(--diagram-ink)"/>
+<rect class="hi-bucket" x="90" y="44" width="20" height="12" rx="2" fill="var(--diagram-ink)"/>
+<rect class="hi-bucket" x="90" y="60" width="20" height="12" rx="2" fill="var(--diagram-ink)"/>
+<rect class="hi-bucket" x="90" y="76" width="20" height="12" rx="2" fill="var(--diagram-ink)"/>
 <text x="100" y="20" text-anchor="middle" font-size="4" fill="white" font-family="monospace">0</text>
 <text x="100" y="36" text-anchor="middle" font-size="4" fill="white" font-family="monospace">1</text>
 <text x="100" y="52" text-anchor="middle" font-size="4" fill="white" font-family="monospace">2</text>
 <text x="100" y="68" text-anchor="middle" font-size="4" fill="white" font-family="monospace">3</text>
 <text x="100" y="84" text-anchor="middle" font-size="4" fill="white" font-family="monospace">4</text>
-<text x="60" y="108" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">O(1) lookup</text>
+<text x="60" y="108" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">O(1) lookup</text>
 </svg>`,
         definition: `A hash index maps keys to locations using a hash function, providing constant-time O(1) lookups for exact-match queries. The hash function computes a bucket number from the key, and the data (or a pointer to it) is stored in that bucket.
 
@@ -447,33 +447,33 @@ Hash indexes are the fastest possible index for equality lookups (WHERE id = 42)
 <style>
   .bi-bit { animation: bi-flip 3s step-end infinite; }
   .bi-bit:nth-child(odd) { animation-delay: 1.5s; }
-  @keyframes bi-flip { 0%,50% { fill: #3d4b40; } 50.1%,100% { fill: #b8c4ba; } }
+  @keyframes bi-flip { 0%,50% { fill: var(--diagram-ink); } 50.1%,100% { fill: #b8c4ba; } }
   .bi-label { animation: bi-show 3s ease-in-out infinite; }
   @keyframes bi-show { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
 </style>
-<text class="bi-label" x="6" y="22" font-size="5" fill="#3d4b40" font-family="sans-serif">red</text>
-<rect class="bi-bit" x="28" y="14" width="10" height="10" rx="1" fill="#3d4b40"/>
+<text class="bi-label" x="6" y="22" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">red</text>
+<rect class="bi-bit" x="28" y="14" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
 <rect x="40" y="14" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<rect class="bi-bit" x="52" y="14" width="10" height="10" rx="1" fill="#3d4b40"/>
+<rect class="bi-bit" x="52" y="14" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
 <rect x="64" y="14" width="10" height="10" rx="1" fill="#b8c4ba"/>
 <rect x="76" y="14" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<rect class="bi-bit" x="88" y="14" width="10" height="10" rx="1" fill="#3d4b40"/>
-<text class="bi-label" x="6" y="44" font-size="5" fill="#3d4b40" font-family="sans-serif">blue</text>
+<rect class="bi-bit" x="88" y="14" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
+<text class="bi-label" x="6" y="44" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">blue</text>
 <rect x="28" y="36" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<rect class="bi-bit" x="40" y="36" width="10" height="10" rx="1" fill="#3d4b40"/>
+<rect class="bi-bit" x="40" y="36" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
 <rect x="52" y="36" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<rect class="bi-bit" x="64" y="36" width="10" height="10" rx="1" fill="#3d4b40"/>
+<rect class="bi-bit" x="64" y="36" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
 <rect x="76" y="36" width="10" height="10" rx="1" fill="#b8c4ba"/>
 <rect x="88" y="36" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<text class="bi-label" x="6" y="66" font-size="5" fill="#3d4b40" font-family="sans-serif">green</text>
+<text class="bi-label" x="6" y="66" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">green</text>
 <rect x="28" y="58" width="10" height="10" rx="1" fill="#b8c4ba"/>
 <rect x="40" y="58" width="10" height="10" rx="1" fill="#b8c4ba"/>
 <rect x="52" y="58" width="10" height="10" rx="1" fill="#b8c4ba"/>
 <rect x="64" y="58" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<rect class="bi-bit" x="76" y="58" width="10" height="10" rx="1" fill="#3d4b40"/>
+<rect class="bi-bit" x="76" y="58" width="10" height="10" rx="1" fill="var(--diagram-ink)"/>
 <rect x="88" y="58" width="10" height="10" rx="1" fill="#b8c4ba"/>
-<text x="60" y="88" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="monospace">1 0 1 0 0 1</text>
-<text x="60" y="108" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">bit arrays</text>
+<text x="60" y="88" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="monospace">1 0 1 0 0 1</text>
+<text x="60" y="108" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">bit arrays</text>
 </svg>`,
         definition: `A bitmap index uses arrays of bits to represent the presence or absence of a value for each row in a table. For a column with N distinct values, the index creates N bit arrays, each with one bit per row. If row 5 has color='red', then the red bitmap has bit 5 set to 1.
 
@@ -499,23 +499,23 @@ Bitmap indexes are extremely space-efficient for low-cardinality columns (column
   .ii-line { animation: ii-connect 4s ease-in-out infinite; }
   @keyframes ii-connect { 0%,100% { stroke-opacity: 0.1; } 15% { stroke-opacity: 0.6; } 30% { stroke-opacity: 0.1; } }
 </style>
-<text x="8" y="24" font-size="7" fill="#3d4b40" font-family="monospace" class="ii-word">"cat"</text>
-<text x="8" y="50" font-size="7" fill="#3d4b40" font-family="monospace" class="ii-word">"dog"</text>
-<text x="8" y="76" font-size="7" fill="#3d4b40" font-family="monospace" class="ii-word">"fish"</text>
-<rect x="70" y="12" width="22" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<text x="8" y="24" font-size="7" fill="var(--diagram-ink)" font-family="monospace" class="ii-word">"cat"</text>
+<text x="8" y="50" font-size="7" fill="var(--diagram-ink)" font-family="monospace" class="ii-word">"dog"</text>
+<text x="8" y="76" font-size="7" fill="var(--diagram-ink)" font-family="monospace" class="ii-word">"fish"</text>
+<rect x="70" y="12" width="22" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="81" y="23" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">doc1</text>
-<rect x="95" y="12" width="22" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="95" y="12" width="22" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="106" y="23" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">doc3</text>
-<rect x="70" y="38" width="22" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="70" y="38" width="22" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="81" y="49" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">doc2</text>
-<rect x="70" y="64" width="22" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="70" y="64" width="22" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="81" y="75" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">doc1</text>
-<rect x="95" y="64" width="22" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="95" y="64" width="22" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="106" y="75" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">doc2</text>
-<line class="ii-line" x1="42" y1="20" x2="70" y2="20" stroke="#3d4b40" stroke-width="1"/>
-<line class="ii-line" x1="42" y1="46" x2="70" y2="46" stroke="#3d4b40" stroke-width="1"/>
-<line class="ii-line" x1="42" y1="72" x2="70" y2="72" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">term &#8594; documents</text>
+<line class="ii-line" x1="42" y1="20" x2="70" y2="20" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="ii-line" x1="42" y1="46" x2="70" y2="46" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="ii-line" x1="42" y1="72" x2="70" y2="72" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">term &#8594; documents</text>
 </svg>`,
         definition: `An inverted index maps each unique term (word, token) to the list of documents or rows that contain it. Instead of scanning every document to find which ones contain a word, you look up the word in the index and immediately get all matching document IDs.
 
@@ -538,16 +538,16 @@ Inverted indexes are the backbone of full-text search engines. They enable sub-s
   .ci-check { animation: ci-pop 2.5s ease-in-out infinite; }
   @keyframes ci-pop { 0%,100% { transform: scale(0.8); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 1; } }
 </style>
-<rect x="15" y="15" width="90" height="50" rx="3" fill="none" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<text x="60" y="12" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">TABLE</text>
-<rect class="ci-idx" x="20" y="22" width="80" height="35" rx="2" fill="#3d4b40" stroke="#3d4b40" stroke-width="1.5"/>
+<rect x="15" y="15" width="90" height="50" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<text x="60" y="12" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">TABLE</text>
+<rect class="ci-idx" x="20" y="22" width="80" height="35" rx="2" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 <text x="60" y="35" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">INDEX</text>
 <text x="60" y="48" text-anchor="middle" font-size="5" fill="white" opacity="0.7" font-family="monospace">(a, b, c)</text>
 <g class="ci-check" transform="translate(60, 80)">
-  <circle cx="0" cy="0" r="10" fill="#3d4b40" opacity="0.2"/>
-  <path d="M-5,0 L-1,4 L5,-4" stroke="#3d4b40" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="0" cy="0" r="10" fill="var(--diagram-ink)" opacity="0.2"/>
+  <path d="M-5,0 L-1,4 L5,-4" stroke="var(--diagram-ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
 </g>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">no table lookup</text>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">no table lookup</text>
 </svg>`,
         definition: `A covering index is an index that contains all the columns required by a query, eliminating the need to access the underlying table data. When the database can satisfy a query entirely from the index, it performs an index-only scan, which is significantly faster than fetching rows from the table.
 
@@ -571,15 +571,15 @@ Covering indexes are a powerful optimization technique. By including commonly qu
   .cpi-col:nth-child(3) { animation-delay: 1s; }
   @keyframes cpi-stack { 0%,100% { transform: translateX(0); opacity: 0.7; } 50% { transform: translateX(2px); opacity: 1; } }
 </style>
-<rect class="cpi-col" x="10" y="15" width="28" height="80" rx="2" fill="#3d4b40" opacity="0.8"/>
+<rect class="cpi-col" x="10" y="15" width="28" height="80" rx="2" fill="var(--diagram-ink)" opacity="0.8"/>
 <text x="24" y="58" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif" transform="rotate(-90,24,58)">col_a</text>
-<rect class="cpi-col" x="42" y="15" width="28" height="80" rx="2" fill="#3d4b40" opacity="0.6"/>
+<rect class="cpi-col" x="42" y="15" width="28" height="80" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 <text x="56" y="58" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif" transform="rotate(-90,56,58)">col_b</text>
-<rect class="cpi-col" x="74" y="15" width="28" height="80" rx="2" fill="#3d4b40" opacity="0.4"/>
+<rect class="cpi-col" x="74" y="15" width="28" height="80" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
 <text x="88" y="58" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif" transform="rotate(-90,88,58)">col_c</text>
 <path d="M38,55 L42,55" stroke="#6b8f71" stroke-width="2"/>
 <path d="M70,55 L74,55" stroke="#6b8f71" stroke-width="2"/>
-<text x="55" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">left-to-right order</text>
+<text x="55" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">left-to-right order</text>
 </svg>`,
         definition: `A composite index (also called a multi-column index or compound index) is an index built on two or more columns. The columns are ordered, and the index sorts first by the first column, then by the second within each group of the first, and so on. This leftmost prefix property is crucial -- the index can only be used efficiently starting from the leftmost column.
 
@@ -604,20 +604,20 @@ Composite indexes are essential for queries that filter or sort on multiple colu
   .fts-mag { animation: fts-zoom 3s ease-in-out infinite; }
   @keyframes fts-zoom { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 </style>
-<rect x="15" y="15" width="90" height="75" rx="3" fill="none" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<line x1="20" y1="25" x2="70" y2="25" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<line x1="20" y1="35" x2="95" y2="35" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<rect class="fts-match" x="45" y="31" width="25" height="8" rx="1" fill="#3d4b40"/>
-<line x1="20" y1="45" x2="85" y2="45" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<line x1="20" y1="55" x2="90" y2="55" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<rect class="fts-match" x="30" y="51" width="25" height="8" rx="1" fill="#3d4b40"/>
-<line x1="20" y1="65" x2="75" y2="65" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<line x1="20" y1="75" x2="88" y2="75" stroke="#3d4b40" stroke-width="1" opacity="0.15"/>
-<rect class="fts-match" x="60" y="71" width="25" height="8" rx="1" fill="#3d4b40"/>
-<rect class="fts-line" x="15" y="30" width="0" height="10" fill="#3d4b40"/>
+<rect x="15" y="15" width="90" height="75" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<line x1="20" y1="25" x2="70" y2="25" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<line x1="20" y1="35" x2="95" y2="35" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<rect class="fts-match" x="45" y="31" width="25" height="8" rx="1" fill="var(--diagram-ink)"/>
+<line x1="20" y1="45" x2="85" y2="45" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<line x1="20" y1="55" x2="90" y2="55" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<rect class="fts-match" x="30" y="51" width="25" height="8" rx="1" fill="var(--diagram-ink)"/>
+<line x1="20" y1="65" x2="75" y2="65" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<line x1="20" y1="75" x2="88" y2="75" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.15"/>
+<rect class="fts-match" x="60" y="71" width="25" height="8" rx="1" fill="var(--diagram-ink)"/>
+<rect class="fts-line" x="15" y="30" width="0" height="10" fill="var(--diagram-ink)"/>
 <g class="fts-mag" transform="translate(85,95)">
-  <circle cx="0" cy="0" r="7" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="5" y1="5" x2="12" y2="12" stroke="#3d4b40" stroke-width="1.5"/>
+  <circle cx="0" cy="0" r="7" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="5" y1="5" x2="12" y2="12" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </g>
 </svg>`,
         definition: `Full-text search is the ability to search for words or phrases within text content, returning results ranked by relevance. Unlike simple LIKE queries that do exact substring matching, full-text search understands language -- it handles stemming (finding 'running' when searching 'run'), stop words, and relevance ranking.
@@ -638,28 +638,28 @@ Full-text search systems tokenize text into terms, build inverted indexes, and u
 <style>
   .bf-bit { animation: bf-set 4s step-end infinite; }
   .bf-bit:nth-child(odd) { animation-delay: 2s; }
-  @keyframes bf-set { 0%,45% { fill: #b8c4ba; } 46%,100% { fill: #3d4b40; } }
+  @keyframes bf-set { 0%,45% { fill: #b8c4ba; } 46%,100% { fill: var(--diagram-ink); } }
   .bf-hash { animation: bf-point 4s ease-in-out infinite; }
   @keyframes bf-point { 0%,100% { opacity: 0.1; } 30%,60% { opacity: 0.6; } }
 </style>
-<text x="60" y="15" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">maybe / definitely not</text>
-<rect x="10" y="50" width="100" height="14" rx="7" fill="#3d4b40" opacity="0.08" stroke="#3d4b40" stroke-width="0.5"/>
+<text x="60" y="15" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">maybe / definitely not</text>
+<rect x="10" y="50" width="100" height="14" rx="7" fill="var(--diagram-ink)" opacity="0.08" stroke="var(--diagram-ink)" stroke-width="0.5"/>
 <circle class="bf-bit" cx="20" cy="57" r="4" fill="#b8c4ba"/>
-<circle class="bf-bit" cx="32" cy="57" r="4" fill="#3d4b40"/>
+<circle class="bf-bit" cx="32" cy="57" r="4" fill="var(--diagram-ink)"/>
 <circle class="bf-bit" cx="44" cy="57" r="4" fill="#b8c4ba"/>
-<circle class="bf-bit" cx="56" cy="57" r="4" fill="#3d4b40"/>
+<circle class="bf-bit" cx="56" cy="57" r="4" fill="var(--diagram-ink)"/>
 <circle class="bf-bit" cx="68" cy="57" r="4" fill="#b8c4ba"/>
-<circle class="bf-bit" cx="80" cy="57" r="4" fill="#3d4b40"/>
+<circle class="bf-bit" cx="80" cy="57" r="4" fill="var(--diagram-ink)"/>
 <circle class="bf-bit" cx="92" cy="57" r="4" fill="#b8c4ba"/>
-<circle class="bf-bit" cx="104" cy="57" r="4" fill="#3d4b40"/>
-<text x="22" y="35" font-size="6" fill="#3d4b40" font-family="monospace" opacity="0.6">h1</text>
-<line class="bf-hash" x1="28" y1="32" x2="32" y2="50" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="35" font-size="6" fill="#3d4b40" font-family="monospace" opacity="0.6">h2</text>
-<line class="bf-hash" x1="66" y1="32" x2="56" y2="50" stroke="#3d4b40" stroke-width="1"/>
-<text x="90" y="35" font-size="6" fill="#3d4b40" font-family="monospace" opacity="0.6">h3</text>
-<line class="bf-hash" x1="96" y1="32" x2="80" y2="50" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="85" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">false positives possible</text>
-<text x="60" y="96" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">false negatives impossible</text>
+<circle class="bf-bit" cx="104" cy="57" r="4" fill="var(--diagram-ink)"/>
+<text x="22" y="35" font-size="6" fill="var(--diagram-ink)" font-family="monospace" opacity="0.6">h1</text>
+<line class="bf-hash" x1="28" y1="32" x2="32" y2="50" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="35" font-size="6" fill="var(--diagram-ink)" font-family="monospace" opacity="0.6">h2</text>
+<line class="bf-hash" x1="66" y1="32" x2="56" y2="50" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="90" y="35" font-size="6" fill="var(--diagram-ink)" font-family="monospace" opacity="0.6">h3</text>
+<line class="bf-hash" x1="96" y1="32" x2="80" y2="50" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="85" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">false positives possible</text>
+<text x="60" y="96" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">false negatives impossible</text>
 </svg>`,
         definition: `A Bloom filter is a space-efficient probabilistic data structure that tests whether an element is a member of a set. It can tell you definitely not in the set or possibly in the set, but never gives false negatives. Multiple hash functions map each element to positions in a bit array.
 
@@ -686,15 +686,15 @@ Bloom filters are used to avoid expensive lookups. Before querying a database or
   .acid-shield { animation: acid-guard 2s ease-in-out infinite; }
   @keyframes acid-guard { 0%,100% { opacity: 0.2; } 50% { opacity: 0.4; } }
 </style>
-<path class="acid-shield" d="M60,8 L100,25 L100,60 Q100,95 60,108 Q20,95 20,60 L20,25 Z" fill="#3d4b40" opacity="0.1" stroke="#3d4b40" stroke-width="1"/>
-<text class="acid-letter" x="22" y="50" fill="#3d4b40">A</text>
-<text class="acid-letter" x="42" y="50" fill="#3d4b40">C</text>
-<text class="acid-letter" x="64" y="50" fill="#3d4b40">I</text>
-<text class="acid-letter" x="82" y="50" fill="#3d4b40">D</text>
-<text x="28" y="70" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">atomic</text>
-<text x="46" y="78" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">consist.</text>
-<text x="65" y="70" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">isolate</text>
-<text x="82" y="78" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">durable</text>
+<path class="acid-shield" d="M60,8 L100,25 L100,60 Q100,95 60,108 Q20,95 20,60 L20,25 Z" fill="var(--diagram-ink)" opacity="0.1" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text class="acid-letter" x="22" y="50" fill="var(--diagram-ink)">A</text>
+<text class="acid-letter" x="42" y="50" fill="var(--diagram-ink)">C</text>
+<text class="acid-letter" x="64" y="50" fill="var(--diagram-ink)">I</text>
+<text class="acid-letter" x="82" y="50" fill="var(--diagram-ink)">D</text>
+<text x="28" y="70" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">atomic</text>
+<text x="46" y="78" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">consist.</text>
+<text x="65" y="70" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">isolate</text>
+<text x="82" y="78" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">durable</text>
 </svg>`,
         definition: `ACID is an acronym for four properties that guarantee reliable database transactions. Atomicity ensures a transaction is all-or-nothing. Consistency ensures the database moves from one valid state to another. Isolation ensures concurrent transactions do not interfere with each other. Durability ensures committed data survives system failures.
 
@@ -720,18 +720,18 @@ Together, these properties make relational databases trustworthy for critical ap
   .mvcc-eye { animation: mvcc-look 3s ease-in-out infinite; }
   @keyframes mvcc-look { 0%,100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
 </style>
-<rect class="mvcc-ver" x="10" y="18" width="85" height="16" rx="2" fill="#3d4b40" opacity="0.3"/>
-<text x="52" y="29" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">v1: Alice = $100</text>
-<rect class="mvcc-ver" x="15" y="40" width="85" height="16" rx="2" fill="#3d4b40" opacity="0.5"/>
-<text x="57" y="51" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">v2: Alice = $80</text>
-<rect class="mvcc-ver" x="20" y="62" width="85" height="16" rx="2" fill="#3d4b40" opacity="0.8"/>
+<rect class="mvcc-ver" x="10" y="18" width="85" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
+<text x="52" y="29" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">v1: Alice = $100</text>
+<rect class="mvcc-ver" x="15" y="40" width="85" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
+<text x="57" y="51" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">v2: Alice = $80</text>
+<rect class="mvcc-ver" x="20" y="62" width="85" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.8"/>
 <text x="62" y="73" text-anchor="middle" font-size="5" fill="white" font-family="monospace">v3: Alice = $50</text>
 <g class="mvcc-eye" transform="translate(15,95)">
-  <ellipse cx="0" cy="0" rx="8" ry="5" fill="none" stroke="#3d4b40" stroke-width="1"/>
-  <circle cx="0" cy="0" r="2.5" fill="#3d4b40"/>
-  <text x="14" y="3" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Tx sees v2</text>
+  <ellipse cx="0" cy="0" rx="8" ry="5" fill="none" stroke="var(--diagram-ink)" stroke-width="1"/>
+  <circle cx="0" cy="0" r="2.5" fill="var(--diagram-ink)"/>
+  <text x="14" y="3" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Tx sees v2</text>
 </g>
-<line x1="15" y1="88" x2="57" y2="56" stroke="#3d4b40" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
+<line x1="15" y1="88" x2="57" y2="56" stroke="var(--diagram-ink)" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
 </svg>`,
         definition: `Multi-Version Concurrency Control (MVCC) allows multiple transactions to access the database concurrently without blocking each other. Instead of locking rows when reading, the database maintains multiple versions of each row. Each transaction sees a consistent snapshot of the data as it existed when the transaction started.
 
@@ -756,15 +756,15 @@ MVCC is the key innovation that allows modern databases to handle many concurren
   .tpl-phase2 { animation: tpl-label2 4s ease-in-out infinite; }
   @keyframes tpl-label2 { 0%,45% { opacity: 0.2; } 55%,100% { opacity: 0.8; } }
 </style>
-<line x1="15" y1="85" x2="105" y2="85" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<line x1="15" y1="15" x2="15" y2="85" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<text x="8" y="50" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif" transform="rotate(-90,8,50)">locks held</text>
-<text x="60" y="98" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">time &#8594;</text>
-<polyline points="15,85 35,65 55,30 60,25 65,30 85,65 105,85" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.7"/>
-<polygon points="15,85 35,65 55,30 60,25 65,30 85,65 105,85" fill="#3d4b40" opacity="0.1"/>
-<line x1="60" y1="15" x2="60" y2="85" stroke="#3d4b40" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.4"/>
-<text class="tpl-phase" x="37" y="15" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">grow</text>
-<text class="tpl-phase2" x="83" y="15" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">shrink</text>
+<line x1="15" y1="85" x2="105" y2="85" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<line x1="15" y1="15" x2="15" y2="85" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<text x="8" y="50" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif" transform="rotate(-90,8,50)">locks held</text>
+<text x="60" y="98" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">time &#8594;</text>
+<polyline points="15,85 35,65 55,30 60,25 65,30 85,65 105,85" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.7"/>
+<polygon points="15,85 35,65 55,30 60,25 65,30 85,65 105,85" fill="var(--diagram-ink)" opacity="0.1"/>
+<line x1="60" y1="15" x2="60" y2="85" stroke="var(--diagram-ink)" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.4"/>
+<text class="tpl-phase" x="37" y="15" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">grow</text>
+<text class="tpl-phase2" x="83" y="15" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">shrink</text>
 </svg>`,
         definition: `Two-Phase Locking (2PL) is a concurrency control protocol that guarantees serializability. A transaction goes through two phases: a growing phase where it acquires locks but never releases any, and a shrinking phase where it releases locks but never acquires new ones. Once a lock is released, no new locks can be obtained.
 
@@ -789,19 +789,19 @@ This protocol prevents transactions from interleaving in ways that produce incon
   .iso-bar:nth-child(4) { animation-delay: 1.2s; }
   @keyframes iso-fill { 0%,100% { fill-opacity: 0.5; } 50% { fill-opacity: 0.9; } }
 </style>
-<rect class="iso-bar" x="12" y="72" width="20" height="22" rx="2" fill="#3d4b40" opacity="0.4"/>
-<text x="22" y="68" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">read</text>
-<text x="22" y="62" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">uncomm.</text>
-<rect class="iso-bar" x="36" y="55" width="20" height="39" rx="2" fill="#3d4b40" opacity="0.55"/>
-<text x="46" y="51" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">read</text>
-<text x="46" y="45" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">comm.</text>
-<rect class="iso-bar" x="60" y="38" width="20" height="56" rx="2" fill="#3d4b40" opacity="0.7"/>
-<text x="70" y="34" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">repeat.</text>
-<text x="70" y="28" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.6" font-family="sans-serif">read</text>
-<rect class="iso-bar" x="84" y="18" width="20" height="76" rx="2" fill="#3d4b40" opacity="0.9"/>
-<text x="94" y="14" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.8" font-family="sans-serif">serial.</text>
-<line x1="10" y1="94" x2="108" y2="94" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<text x="60" y="108" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">isolation &#8594; stronger</text>
+<rect class="iso-bar" x="12" y="72" width="20" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+<text x="22" y="68" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">read</text>
+<text x="22" y="62" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">uncomm.</text>
+<rect class="iso-bar" x="36" y="55" width="20" height="39" rx="2" fill="var(--diagram-ink)" opacity="0.55"/>
+<text x="46" y="51" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">read</text>
+<text x="46" y="45" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">comm.</text>
+<rect class="iso-bar" x="60" y="38" width="20" height="56" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
+<text x="70" y="34" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">repeat.</text>
+<text x="70" y="28" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">read</text>
+<rect class="iso-bar" x="84" y="18" width="20" height="76" rx="2" fill="var(--diagram-ink)" opacity="0.9"/>
+<text x="94" y="14" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.8" font-family="sans-serif">serial.</text>
+<line x1="10" y1="94" x2="108" y2="94" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<text x="60" y="108" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">isolation &#8594; stronger</text>
 </svg>`,
         definition: `Isolation levels define the degree to which concurrent transactions are isolated from each other. The SQL standard defines four levels, from weakest to strongest: Read Uncommitted (can see uncommitted changes), Read Committed (only sees committed data), Repeatable Read (sees a consistent snapshot), and Serializable (full isolation, as if transactions ran one at a time).
 
@@ -826,22 +826,22 @@ Choosing an isolation level is a tradeoff between correctness and performance. H
   @keyframes dl-throb { 0%,100% { stroke-opacity: 0.4; } 50% { stroke-opacity: 1; } }
 </style>
 <g class="dl-tx">
-  <circle cx="35" cy="40" r="18" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="35" y="38" text-anchor="middle" font-size="7" fill="#3d4b40" font-family="sans-serif">Tx</text>
-  <text x="35" y="47" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">A</text>
+  <circle cx="35" cy="40" r="18" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="35" y="38" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" font-family="sans-serif">Tx</text>
+  <text x="35" y="47" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">A</text>
 </g>
 <g class="dl-tx">
-  <circle cx="85" cy="40" r="18" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="85" y="38" text-anchor="middle" font-size="7" fill="#3d4b40" font-family="sans-serif">Tx</text>
-  <text x="85" y="47" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">B</text>
+  <circle cx="85" cy="40" r="18" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="85" y="38" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" font-family="sans-serif">Tx</text>
+  <text x="85" y="47" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">B</text>
 </g>
-<path class="dl-arrow" d="M53,32 Q60,20 67,32" fill="none" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#dl-arr)"/>
-<text x="60" y="20" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">waits for</text>
-<path class="dl-arrow" d="M67,48 Q60,60 53,48" fill="none" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#dl-arr)"/>
-<text x="60" y="65" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.5" font-family="sans-serif">waits for</text>
-<defs><marker id="dl-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<text x="60" y="95" text-anchor="middle" font-size="8" fill="#3d4b40" opacity="0.6" font-family="sans-serif">circular wait</text>
-<text x="60" y="108" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.3" font-family="sans-serif">one must be aborted</text>
+<path class="dl-arrow" d="M53,32 Q60,20 67,32" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#dl-arr)"/>
+<text x="60" y="20" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">waits for</text>
+<path class="dl-arrow" d="M67,48 Q60,60 53,48" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#dl-arr)"/>
+<text x="60" y="65" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">waits for</text>
+<defs><marker id="dl-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<text x="60" y="95" text-anchor="middle" font-size="8" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">circular wait</text>
+<text x="60" y="108" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.3" font-family="sans-serif">one must be aborted</text>
 </svg>`,
         definition: `A deadlock occurs when two or more transactions each hold a lock that the other needs, creating a circular dependency. Neither transaction can proceed because each is waiting for the other to release its lock. The database must detect the deadlock and abort one transaction to break the cycle.
 
@@ -866,23 +866,23 @@ Deadlocks are an inherent risk of pessimistic concurrency control. While they ca
   .oc-check { animation: oc-verify 3s ease-in-out infinite; }
   @keyframes oc-verify { 0%,75% { opacity: 0; } 80%,95% { opacity: 1; } 100% { opacity: 0; } }
 </style>
-<line x1="15" y1="35" x2="105" y2="35" stroke="#3d4b40" stroke-width="0.5" opacity="0.2"/>
-<line x1="15" y1="65" x2="105" y2="65" stroke="#3d4b40" stroke-width="0.5" opacity="0.2"/>
-<text x="10" y="38" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Tx1</text>
-<text x="10" y="68" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Tx2</text>
-<circle class="oc-tx" cx="25" cy="35" r="5" fill="#3d4b40" opacity="0.6"/>
-<circle class="oc-tx" cx="25" cy="65" r="5" fill="#3d4b40" opacity="0.6"/>
-<line x1="90" y1="15" x2="90" y2="85" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
-<text x="90" y="12" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">validate</text>
+<line x1="15" y1="35" x2="105" y2="35" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.2"/>
+<line x1="15" y1="65" x2="105" y2="65" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.2"/>
+<text x="10" y="38" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Tx1</text>
+<text x="10" y="68" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Tx2</text>
+<circle class="oc-tx" cx="25" cy="35" r="5" fill="var(--diagram-ink)" opacity="0.6"/>
+<circle class="oc-tx" cx="25" cy="65" r="5" fill="var(--diagram-ink)" opacity="0.6"/>
+<line x1="90" y1="15" x2="90" y2="85" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
+<text x="90" y="12" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">validate</text>
 <g class="oc-check">
-  <circle cx="90" cy="35" r="6" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <path d="M86,35 L89,38 L94,32" stroke="#3d4b40" stroke-width="1.5" fill="none"/>
+  <circle cx="90" cy="35" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <path d="M86,35 L89,38 L94,32" stroke="var(--diagram-ink)" stroke-width="1.5" fill="none"/>
 </g>
 <g class="oc-check" style="animation-delay: 0.3s">
   <circle cx="90" cy="65" r="6" fill="none" stroke="#b44" stroke-width="1.5" opacity="0.7"/>
   <path d="M86,61 L94,69 M94,61 L86,69" stroke="#b44" stroke-width="1.5" opacity="0.7"/>
 </g>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">validate at commit</text>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">validate at commit</text>
 </svg>`,
         definition: `Optimistic concurrency control (OCC) allows transactions to execute without acquiring locks, assuming conflicts are rare. Each transaction works on its own copy of the data. At commit time, the system validates that no conflicting modifications occurred. If a conflict is detected, the transaction is aborted and must be retried.
 
@@ -910,20 +910,20 @@ OCC works best when conflicts are rare -- most transactions operate on different
   .sp-rewind { animation: sp-back 3s ease-in-out infinite; }
   @keyframes sp-back { 0%,60%,100% { opacity: 0; } 70%,90% { opacity: 0.6; } }
 </style>
-<line x1="20" y1="55" x2="100" y2="55" stroke="#3d4b40" stroke-width="1.5" opacity="0.3"/>
-<circle class="sp-step" cx="25" cy="55" r="6" fill="#3d4b40"/>
-<text x="25" y="45" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">BEGIN</text>
-<circle class="sp-step" cx="50" cy="55" r="6" fill="#3d4b40"/>
-<circle class="sp-step" cx="75" cy="55" r="6" fill="#3d4b40"/>
-<circle class="sp-step" cx="100" cy="55" r="6" fill="#3d4b40" opacity="0.3"/>
+<line x1="20" y1="55" x2="100" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.3"/>
+<circle class="sp-step" cx="25" cy="55" r="6" fill="var(--diagram-ink)"/>
+<text x="25" y="45" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">BEGIN</text>
+<circle class="sp-step" cx="50" cy="55" r="6" fill="var(--diagram-ink)"/>
+<circle class="sp-step" cx="75" cy="55" r="6" fill="var(--diagram-ink)"/>
+<circle class="sp-step" cx="100" cy="55" r="6" fill="var(--diagram-ink)" opacity="0.3"/>
 <g class="sp-flag" transform-origin="63px 30px">
   <line x1="63" y1="30" x2="63" y2="50" stroke="#6b8f71" stroke-width="1.5"/>
   <polygon points="63,30 80,35 63,40" fill="#6b8f71" opacity="0.6"/>
   <text x="63" y="25" text-anchor="middle" font-size="5" fill="#6b8f71" font-family="sans-serif">SAVEPOINT</text>
 </g>
-<path class="sp-rewind" d="M95,70 Q80,85 65,70" fill="none" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#sp-arr)"/>
-<defs><marker id="sp-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<text x="80" y="95" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">ROLLBACK TO</text>
+<path class="sp-rewind" d="M95,70 Q80,85 65,70" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#sp-arr)"/>
+<defs><marker id="sp-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<text x="80" y="95" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">ROLLBACK TO</text>
 </svg>`,
         definition: `A savepoint is a marker within a transaction that allows you to roll back part of the transaction without aborting the entire thing. When you create a savepoint, you can later ROLLBACK TO that savepoint, undoing any changes made after it while keeping changes made before it intact.
 
@@ -947,27 +947,27 @@ Savepoints are useful for complex transactions that involve multiple steps where
   .wlog-step:nth-child(3) { animation-delay: 2.6s; }
   @keyframes wlog-seq { 0%,25% { fill-opacity: 0.3; stroke-opacity: 0.3; } 30%,60% { fill-opacity: 0.8; stroke-opacity: 1; } 65%,100% { fill-opacity: 0.3; stroke-opacity: 0.3; } }
 </style>
-<text x="60" y="14" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">1. Log 2. Apply 3. Confirm</text>
+<text x="60" y="14" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">1. Log 2. Apply 3. Confirm</text>
 <g class="wlog-step">
-  <rect x="8" y="25" width="30" height="55" rx="3" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="14" y1="35" x2="32" y2="35" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <line x1="14" y1="42" x2="32" y2="42" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <line x1="14" y1="49" x2="32" y2="49" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <line x1="14" y1="56" x2="28" y2="56" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <text x="23" y="73" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">LOG</text>
+  <rect x="8" y="25" width="30" height="55" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="14" y1="35" x2="32" y2="35" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <line x1="14" y1="42" x2="32" y2="42" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <line x1="14" y1="49" x2="32" y2="49" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <line x1="14" y1="56" x2="28" y2="56" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <text x="23" y="73" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">LOG</text>
 </g>
-<path d="M42,52 L48,52" stroke="#3d4b40" stroke-width="1" marker-end="url(#wlog-a)" opacity="0.4"/>
+<path d="M42,52 L48,52" stroke="var(--diagram-ink)" stroke-width="1" marker-end="url(#wlog-a)" opacity="0.4"/>
 <g class="wlog-step">
-  <rect x="50" y="30" width="25" height="45" rx="3" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="62" y="56" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">DATA</text>
+  <rect x="50" y="30" width="25" height="45" rx="3" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="62" y="56" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">DATA</text>
 </g>
-<path d="M78,52 L84,52" stroke="#3d4b40" stroke-width="1" marker-end="url(#wlog-a)" opacity="0.4"/>
+<path d="M78,52 L84,52" stroke="var(--diagram-ink)" stroke-width="1" marker-end="url(#wlog-a)" opacity="0.4"/>
 <g class="wlog-step">
-  <circle cx="97" cy="52" r="14" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <path d="M91,52 L95,56 L103,47" stroke="#3d4b40" stroke-width="2" fill="none"/>
+  <circle cx="97" cy="52" r="14" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <path d="M91,52 L95,56 L103,47" stroke="var(--diagram-ink)" stroke-width="2" fill="none"/>
 </g>
-<defs><marker id="wlog-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">log before data</text>
+<defs><marker id="wlog-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">log before data</text>
 </svg>`,
         definition: `Write-Ahead Logging (WAL) is the protocol that ensures every modification is first recorded in a durable log before the actual data pages are modified. If the system crashes between logging and applying, the log can be replayed to complete the operation. If the change was not logged, it is as if it never happened.
 
@@ -993,16 +993,16 @@ WAL is the foundational technique for achieving durability and atomicity in data
   .cap-edge { animation: cap-dash 2s linear infinite; stroke-dasharray: 4 3; }
   @keyframes cap-dash { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 14; } }
 </style>
-<line class="cap-edge" x1="60" y1="22" x2="25" y2="78" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="cap-edge" x1="60" y1="22" x2="95" y2="78" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="cap-edge" x1="25" y1="78" x2="95" y2="78" stroke="#3d4b40" stroke-width="1.5"/>
-<circle class="cap-vertex" cx="60" cy="22" r="14" fill="#3d4b40"/>
+<line class="cap-edge" x1="60" y1="22" x2="25" y2="78" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="cap-edge" x1="60" y1="22" x2="95" y2="78" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="cap-edge" x1="25" y1="78" x2="95" y2="78" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<circle class="cap-vertex" cx="60" cy="22" r="14" fill="var(--diagram-ink)"/>
 <text x="60" y="26" text-anchor="middle" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">C</text>
-<circle class="cap-vertex" cx="25" cy="78" r="14" fill="#3d4b40"/>
+<circle class="cap-vertex" cx="25" cy="78" r="14" fill="var(--diagram-ink)"/>
 <text x="25" y="82" text-anchor="middle" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">A</text>
-<circle class="cap-vertex" cx="95" cy="78" r="14" fill="#3d4b40"/>
+<circle class="cap-vertex" cx="95" cy="78" r="14" fill="var(--diagram-ink)"/>
 <text x="95" y="82" text-anchor="middle" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">P</text>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">pick two</text>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">pick two</text>
 </svg>`,
         definition: `The CAP theorem states that a distributed system can provide at most two of three guarantees simultaneously: Consistency (every read receives the most recent write), Availability (every request receives a response), and Partition tolerance (the system continues operating despite network partitions).
 
@@ -1027,20 +1027,20 @@ Since network partitions are inevitable in distributed systems, the practical ch
   .raft-heartbeat { animation: raft-beat 1.5s ease-out infinite; }
   @keyframes raft-beat { 0% { r: 0; opacity: 0.8; } 100% { r: 30; opacity: 0; } }
 </style>
-<circle class="raft-heartbeat" cx="60" cy="35" r="0" fill="none" stroke="#3d4b40" stroke-width="1"/>
-<circle class="raft-leader" cx="60" cy="35" r="14" fill="#3d4b40" stroke="#3d4b40"/>
+<circle class="raft-heartbeat" cx="60" cy="35" r="0" fill="none" stroke="var(--diagram-ink)" stroke-width="1"/>
+<circle class="raft-leader" cx="60" cy="35" r="14" fill="var(--diagram-ink)" stroke="var(--diagram-ink)"/>
 <text x="60" y="39" text-anchor="middle" font-size="7" fill="white" font-family="sans-serif">L</text>
-<text x="60" y="18" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">leader</text>
-<line x1="50" y1="46" x2="30" y2="68" stroke="#3d4b40" stroke-width="1" opacity="0.4"/>
-<line x1="60" y1="49" x2="60" y2="68" stroke="#3d4b40" stroke-width="1" opacity="0.4"/>
-<line x1="70" y1="46" x2="90" y2="68" stroke="#3d4b40" stroke-width="1" opacity="0.4"/>
-<circle class="raft-follower" cx="30" cy="78" r="10" fill="#3d4b40"/>
+<text x="60" y="18" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">leader</text>
+<line x1="50" y1="46" x2="30" y2="68" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.4"/>
+<line x1="60" y1="49" x2="60" y2="68" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.4"/>
+<line x1="70" y1="46" x2="90" y2="68" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.4"/>
+<circle class="raft-follower" cx="30" cy="78" r="10" fill="var(--diagram-ink)"/>
 <text x="30" y="81" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<circle class="raft-follower" cx="60" cy="78" r="10" fill="#3d4b40"/>
+<circle class="raft-follower" cx="60" cy="78" r="10" fill="var(--diagram-ink)"/>
 <text x="60" y="81" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<circle class="raft-follower" cx="90" cy="78" r="10" fill="#3d4b40"/>
+<circle class="raft-follower" cx="90" cy="78" r="10" fill="var(--diagram-ink)"/>
 <text x="90" y="81" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">consensus</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">consensus</text>
 </svg>`,
         definition: `Raft is a consensus algorithm designed to be understandable. It allows a cluster of servers to agree on a sequence of values (a replicated log) even if some servers fail. Raft divides consensus into three sub-problems: leader election, log replication, and safety.
 
@@ -1067,32 +1067,32 @@ One server is elected leader, and all changes go through it. The leader replicat
   @keyframes pax-send { 0% { stroke-dashoffset: 20; } 100% { stroke-dashoffset: 0; } }
 </style>
 <g class="pax-node">
-  <circle cx="20" cy="40" r="12" fill="#3d4b40" opacity="0.7"/>
+  <circle cx="20" cy="40" r="12" fill="var(--diagram-ink)" opacity="0.7"/>
   <text x="20" y="43" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">prop</text>
 </g>
 <g class="pax-node">
-  <circle cx="60" cy="25" r="12" fill="#3d4b40" opacity="0.7"/>
+  <circle cx="60" cy="25" r="12" fill="var(--diagram-ink)" opacity="0.7"/>
   <text x="60" y="28" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">acc</text>
 </g>
 <g class="pax-node">
-  <circle cx="100" cy="40" r="12" fill="#3d4b40" opacity="0.7"/>
+  <circle cx="100" cy="40" r="12" fill="var(--diagram-ink)" opacity="0.7"/>
   <text x="100" y="43" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">acc</text>
 </g>
-<line class="pax-msg" x1="32" y1="35" x2="48" y2="28" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<line class="pax-msg" x1="32" y1="42" x2="88" y2="38" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<text x="60" y="58" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">prepare &#8594; promise</text>
-<text x="60" y="68" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">accept &#8594; accepted</text>
+<line class="pax-msg" x1="32" y1="35" x2="48" y2="28" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<line class="pax-msg" x1="32" y1="42" x2="88" y2="38" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="60" y="58" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">prepare &#8594; promise</text>
+<text x="60" y="68" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">accept &#8594; accepted</text>
 <g class="pax-node">
-  <circle cx="40" cy="88" r="10" fill="#3d4b40" opacity="0.5"/>
+  <circle cx="40" cy="88" r="10" fill="var(--diagram-ink)" opacity="0.5"/>
   <text x="40" y="91" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">learn</text>
 </g>
 <g class="pax-node">
-  <circle cx="80" cy="88" r="10" fill="#3d4b40" opacity="0.5"/>
+  <circle cx="80" cy="88" r="10" fill="var(--diagram-ink)" opacity="0.5"/>
   <text x="80" y="91" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">learn</text>
 </g>
-<line class="pax-msg" x1="55" y1="36" x2="44" y2="78" stroke="#3d4b40" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
-<line class="pax-msg" x1="95" y1="51" x2="84" y2="78" stroke="#3d4b40" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">classic consensus</text>
+<line class="pax-msg" x1="55" y1="36" x2="44" y2="78" stroke="var(--diagram-ink)" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
+<line class="pax-msg" x1="95" y1="51" x2="84" y2="78" stroke="var(--diagram-ink)" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">classic consensus</text>
 </svg>`,
         definition: `Paxos is the foundational consensus algorithm for achieving agreement among distributed processes. It operates in rounds, where a proposer sends a proposal to acceptors, who promise not to accept older proposals and eventually accept a value. Once a majority accepts, the value is chosen and learned by all.
 
@@ -1118,24 +1118,24 @@ Paxos guarantees safety (all nodes agree on the same value) but is notoriously d
   .vc-arrow { animation: vc-send 2s ease-in-out infinite; stroke-dasharray: 4 3; }
   @keyframes vc-send { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -14; } }
 </style>
-<line x1="15" y1="25" x2="105" y2="25" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<line x1="15" y1="55" x2="105" y2="55" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<line x1="15" y1="85" x2="105" y2="85" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<text x="8" y="28" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">A</text>
-<text x="8" y="58" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">B</text>
-<text x="8" y="88" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">C</text>
-<circle cx="30" cy="25" r="4" fill="#3d4b40" opacity="0.7"/>
-<text class="vc-tick" x="30" y="18" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">[1,0,0]</text>
-<circle cx="60" cy="25" r="4" fill="#3d4b40" opacity="0.7"/>
-<text class="vc-tick" x="60" y="18" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">[2,0,0]</text>
-<circle cx="50" cy="55" r="4" fill="#3d4b40" opacity="0.7"/>
-<text class="vc-tick" x="50" y="48" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">[0,1,0]</text>
-<circle cx="80" cy="55" r="4" fill="#3d4b40" opacity="0.7"/>
-<text class="vc-tick" x="80" y="48" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">[2,2,0]</text>
-<circle cx="70" cy="85" r="4" fill="#3d4b40" opacity="0.7"/>
-<text class="vc-tick" x="70" y="98" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">[0,0,1]</text>
-<line class="vc-arrow" x1="62" y1="27" x2="78" y2="53" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">causal ordering</text>
+<line x1="15" y1="25" x2="105" y2="25" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<line x1="15" y1="55" x2="105" y2="55" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<line x1="15" y1="85" x2="105" y2="85" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<text x="8" y="28" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">A</text>
+<text x="8" y="58" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">B</text>
+<text x="8" y="88" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">C</text>
+<circle cx="30" cy="25" r="4" fill="var(--diagram-ink)" opacity="0.7"/>
+<text class="vc-tick" x="30" y="18" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">[1,0,0]</text>
+<circle cx="60" cy="25" r="4" fill="var(--diagram-ink)" opacity="0.7"/>
+<text class="vc-tick" x="60" y="18" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">[2,0,0]</text>
+<circle cx="50" cy="55" r="4" fill="var(--diagram-ink)" opacity="0.7"/>
+<text class="vc-tick" x="50" y="48" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">[0,1,0]</text>
+<circle cx="80" cy="55" r="4" fill="var(--diagram-ink)" opacity="0.7"/>
+<text class="vc-tick" x="80" y="48" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">[2,2,0]</text>
+<circle cx="70" cy="85" r="4" fill="var(--diagram-ink)" opacity="0.7"/>
+<text class="vc-tick" x="70" y="98" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">[0,0,1]</text>
+<line class="vc-arrow" x1="62" y1="27" x2="78" y2="53" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">causal ordering</text>
 </svg>`,
         definition: `A vector clock is a mechanism for tracking causality (the happens-before relationship) between events in a distributed system. Each node maintains a vector of counters, one per node. When a node performs an action, it increments its own counter. When sending a message, it includes its vector. The receiver merges by taking the element-wise maximum.
 
@@ -1154,25 +1154,25 @@ Vector clocks allow you to determine if one event causally preceded another, or 
         svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
 <style>
   .gp-node { animation: gp-spread 4s ease-in-out infinite; }
-  .gp-node:nth-child(1) { animation-delay: 0s; fill: #3d4b40; }
+  .gp-node:nth-child(1) { animation-delay: 0s; fill: var(--diagram-ink); }
   .gp-node:nth-child(2) { animation-delay: 0.8s; }
   .gp-node:nth-child(3) { animation-delay: 1.6s; }
   .gp-node:nth-child(4) { animation-delay: 2.4s; }
   .gp-node:nth-child(5) { animation-delay: 3.2s; }
-  @keyframes gp-spread { 0%,20% { fill: #b8c4ba; } 25%,100% { fill: #3d4b40; } }
+  @keyframes gp-spread { 0%,20% { fill: #b8c4ba; } 25%,100% { fill: var(--diagram-ink); } }
   .gp-whisper { animation: gp-msg 4s ease-in-out infinite; opacity: 0; }
   @keyframes gp-msg { 10%,20% { opacity: 0.5; } 25%,100% { opacity: 0; } }
 </style>
-<circle class="gp-node" cx="60" cy="30" r="10" fill="#3d4b40"/>
+<circle class="gp-node" cx="60" cy="30" r="10" fill="var(--diagram-ink)"/>
 <circle class="gp-node" cx="30" cy="55" r="10" fill="#b8c4ba"/>
 <circle class="gp-node" cx="90" cy="55" r="10" fill="#b8c4ba"/>
 <circle class="gp-node" cx="25" cy="85" r="10" fill="#b8c4ba"/>
 <circle class="gp-node" cx="95" cy="85" r="10" fill="#b8c4ba"/>
-<line class="gp-whisper" x1="55" y1="38" x2="35" y2="48" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="gp-whisper" x1="65" y1="38" x2="85" y2="48" stroke="#3d4b40" stroke-width="1.5" style="animation-delay:0.8s"/>
-<line class="gp-whisper" x1="28" y1="64" x2="26" y2="76" stroke="#3d4b40" stroke-width="1.5" style="animation-delay:1.6s"/>
-<line class="gp-whisper" x1="92" y1="64" x2="94" y2="76" stroke="#3d4b40" stroke-width="1.5" style="animation-delay:2.4s"/>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">epidemic spread</text>
+<line class="gp-whisper" x1="55" y1="38" x2="35" y2="48" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="gp-whisper" x1="65" y1="38" x2="85" y2="48" stroke="var(--diagram-ink)" stroke-width="1.5" style="animation-delay:0.8s"/>
+<line class="gp-whisper" x1="28" y1="64" x2="26" y2="76" stroke="var(--diagram-ink)" stroke-width="1.5" style="animation-delay:1.6s"/>
+<line class="gp-whisper" x1="92" y1="64" x2="94" y2="76" stroke="var(--diagram-ink)" stroke-width="1.5" style="animation-delay:2.4s"/>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">epidemic spread</text>
 </svg>`,
         definition: `A gossip protocol (or epidemic protocol) is a communication pattern where each node periodically selects a random peer and exchanges information. Through repeated random exchanges, information eventually reaches all nodes in the cluster, similar to how rumors spread through a social network.
 
@@ -1197,23 +1197,23 @@ Gossip protocols are robust, scalable, and decentralized. They do not require a 
   .tpc-commit { animation: tpc-phase2 3s ease-in-out infinite; }
   @keyframes tpc-phase2 { 0%,65% { opacity: 0; } 70%,95% { opacity: 0.6; } 100% { opacity: 0; } }
 </style>
-<rect class="tpc-coord" x="35" y="10" width="50" height="20" rx="3" fill="#3d4b40"/>
+<rect class="tpc-coord" x="35" y="10" width="50" height="20" rx="3" fill="var(--diagram-ink)"/>
 <text x="60" y="24" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">coordinator</text>
-<rect x="8" y="70" width="30" height="18" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="8" y="70" width="30" height="18" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="23" y="82" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">node1</text>
-<rect x="45" y="70" width="30" height="18" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="45" y="70" width="30" height="18" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="60" y="82" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">node2</text>
-<rect x="82" y="70" width="30" height="18" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="82" y="70" width="30" height="18" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="97" y="82" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">node3</text>
-<text x="3" y="50" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">prepare?</text>
-<line class="tpc-vote" x1="45" y1="30" x2="23" y2="70" stroke="#3d4b40" stroke-width="1"/>
-<line class="tpc-vote" x1="60" y1="30" x2="60" y2="70" stroke="#3d4b40" stroke-width="1"/>
-<line class="tpc-vote" x1="75" y1="30" x2="97" y2="70" stroke="#3d4b40" stroke-width="1"/>
+<text x="3" y="50" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">prepare?</text>
+<line class="tpc-vote" x1="45" y1="30" x2="23" y2="70" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="tpc-vote" x1="60" y1="30" x2="60" y2="70" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="tpc-vote" x1="75" y1="30" x2="97" y2="70" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="100" y="50" font-size="5" fill="#6b8f71" opacity="0.4" font-family="sans-serif">commit!</text>
 <line class="tpc-commit" x1="23" y1="70" x2="45" y2="30" stroke="#6b8f71" stroke-width="1"/>
 <line class="tpc-commit" x1="60" y1="70" x2="60" y2="30" stroke="#6b8f71" stroke-width="1"/>
 <line class="tpc-commit" x1="97" y1="70" x2="75" y2="30" stroke="#6b8f71" stroke-width="1"/>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">all-or-nothing</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">all-or-nothing</text>
 </svg>`,
         definition: `Two-Phase Commit (2PC) is a protocol that ensures all participants in a distributed transaction either commit or abort together. In Phase 1 (Prepare), the coordinator asks each participant to vote yes or no. In Phase 2 (Commit/Abort), if all voted yes, the coordinator tells everyone to commit; if any voted no, everyone aborts.
 
@@ -1239,17 +1239,17 @@ Gossip protocols are robust, scalable, and decentralized. They do not require a 
   .qu-dim { animation: qu-off 3s ease-in-out infinite; }
   @keyframes qu-off { 0%,100% { fill-opacity: 0.15; } 50% { fill-opacity: 0.25; } }
 </style>
-<circle class="qu-node" cx="35" cy="30" r="14" fill="#3d4b40"/>
+<circle class="qu-node" cx="35" cy="30" r="14" fill="var(--diagram-ink)"/>
 <text x="35" y="33" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">yes</text>
-<circle class="qu-node" cx="85" cy="30" r="14" fill="#3d4b40"/>
+<circle class="qu-node" cx="85" cy="30" r="14" fill="var(--diagram-ink)"/>
 <text x="85" y="33" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">yes</text>
-<circle class="qu-node" cx="35" cy="72" r="14" fill="#3d4b40"/>
+<circle class="qu-node" cx="35" cy="72" r="14" fill="var(--diagram-ink)"/>
 <text x="35" y="75" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">yes</text>
-<circle class="qu-dim" cx="85" cy="72" r="14" fill="#3d4b40"/>
-<text x="85" y="75" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.4" font-family="sans-serif">no</text>
-<circle class="qu-dim" cx="60" cy="100" r="10" fill="#3d4b40"/>
-<text x="60" y="103" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.3" font-family="sans-serif">down</text>
-<text x="60" y="12" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.6" font-family="sans-serif">3 of 5 = quorum</text>
+<circle class="qu-dim" cx="85" cy="72" r="14" fill="var(--diagram-ink)"/>
+<text x="85" y="75" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">no</text>
+<circle class="qu-dim" cx="60" cy="100" r="10" fill="var(--diagram-ink)"/>
+<text x="60" y="103" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.3" font-family="sans-serif">down</text>
+<text x="60" y="12" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">3 of 5 = quorum</text>
 </svg>`,
         definition: `A quorum is the minimum number of nodes that must agree for an operation to be considered successful in a distributed system. Typically, a quorum requires a majority (N/2 + 1 out of N nodes). By requiring overlapping majorities for reads and writes, the system guarantees that any read quorum will include at least one node with the latest write.
 
@@ -1275,20 +1275,20 @@ The quorum concept is central to consistency in replicated systems. The formula 
   @keyframes le-ray { 0%,40%,100% { opacity: 0; } 50%,80% { opacity: 0.4; } }
 </style>
 <g class="le-crown">
-  <polygon points="50,18 55,8 60,15 65,8 70,18" fill="#3d4b40" opacity="0.8"/>
+  <polygon points="50,18 55,8 60,15 65,8 70,18" fill="var(--diagram-ink)" opacity="0.8"/>
 </g>
-<circle cx="60" cy="35" r="14" fill="#3d4b40" opacity="0.9"/>
+<circle cx="60" cy="35" r="14" fill="var(--diagram-ink)" opacity="0.9"/>
 <text x="60" y="39" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">L</text>
-<circle class="le-node" cx="25" cy="80" r="10" fill="#3d4b40"/>
+<circle class="le-node" cx="25" cy="80" r="10" fill="var(--diagram-ink)"/>
 <text x="25" y="83" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<circle class="le-node" cx="60" cy="85" r="10" fill="#3d4b40"/>
+<circle class="le-node" cx="60" cy="85" r="10" fill="var(--diagram-ink)"/>
 <text x="60" y="88" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<circle class="le-node" cx="95" cy="80" r="10" fill="#3d4b40"/>
+<circle class="le-node" cx="95" cy="80" r="10" fill="var(--diagram-ink)"/>
 <text x="95" y="83" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">F</text>
-<line class="le-elect" x1="50" y1="46" x2="30" y2="72" stroke="#3d4b40" stroke-width="1"/>
-<line class="le-elect" x1="60" y1="49" x2="60" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<line class="le-elect" x1="70" y1="46" x2="90" y2="72" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">elect a coordinator</text>
+<line class="le-elect" x1="50" y1="46" x2="30" y2="72" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="le-elect" x1="60" y1="49" x2="60" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="le-elect" x1="70" y1="46" x2="90" y2="72" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">elect a coordinator</text>
 </svg>`,
         definition: `Leader election is the process by which distributed nodes select one among them to act as coordinator or leader. The leader typically handles all writes, makes decisions, and coordinates activities. If the leader fails, the remaining nodes elect a new leader to ensure continuous operation.
 
@@ -1307,24 +1307,24 @@ Leader election is a fundamental primitive in distributed systems, used by conse
         svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
 <style>
   .ec-node { animation: ec-converge 4s ease-in-out infinite; }
-  .ec-node:nth-child(1) { --ec-target: #3d4b40; }
-  .ec-node:nth-child(2) { --ec-target: #3d4b40; }
-  .ec-node:nth-child(3) { --ec-target: #3d4b40; }
-  @keyframes ec-converge { 0% { fill: #8fa892; } 50% { fill: #5d7060; } 100% { fill: #3d4b40; } }
+  .ec-node:nth-child(1) { --ec-target: var(--diagram-ink); }
+  .ec-node:nth-child(2) { --ec-target: var(--diagram-ink); }
+  .ec-node:nth-child(3) { --ec-target: var(--diagram-ink); }
+  @keyframes ec-converge { 0% { fill: #8fa892; } 50% { fill: #5d7060; } 100% { fill: var(--diagram-ink); } }
   .ec-sync { animation: ec-wave 4s ease-in-out infinite; }
   @keyframes ec-wave { 0% { r: 5; opacity: 0.6; } 100% { r: 35; opacity: 0; } }
 </style>
-<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="#3d4b40" stroke-width="0.5"/>
-<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="#3d4b40" stroke-width="0.5" style="animation-delay:1.3s"/>
-<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="#3d4b40" stroke-width="0.5" style="animation-delay:2.6s"/>
+<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="var(--diagram-ink)" stroke-width="0.5" style="animation-delay:1.3s"/>
+<circle class="ec-sync" cx="60" cy="55" r="5" fill="none" stroke="var(--diagram-ink)" stroke-width="0.5" style="animation-delay:2.6s"/>
 <circle class="ec-node" cx="30" cy="35" r="14" fill="#8fa892"/>
 <text x="30" y="38" text-anchor="middle" font-size="5" fill="white" font-family="monospace">v2</text>
 <circle class="ec-node" cx="90" cy="35" r="14" fill="#8fa892"/>
 <text x="90" y="38" text-anchor="middle" font-size="5" fill="white" font-family="monospace">v1</text>
 <circle class="ec-node" cx="60" cy="80" r="14" fill="#8fa892"/>
 <text x="60" y="83" text-anchor="middle" font-size="5" fill="white" font-family="monospace">v3</text>
-<text x="60" y="15" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">converging...</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">eventually consistent</text>
+<text x="60" y="15" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">converging...</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">eventually consistent</text>
 </svg>`,
         definition: `Eventual consistency is a consistency model where, given enough time without new updates, all replicas of a data item will converge to the same value. During the convergence period, different replicas may return different values for the same query.
 
@@ -1350,24 +1350,24 @@ Eventual consistency is the weakest consistency guarantee but enables the highes
   .norm-sm:nth-child(3) { animation-delay: 0.6s; }
   @keyframes norm-appear { 0%,35% { opacity: 0; transform: scale(0.8); } 45%,100% { opacity: 0.8; transform: scale(1); } }
 </style>
-<rect class="norm-big" x="20" y="25" width="80" height="55" rx="3" fill="#3d4b40" opacity="0.4" stroke="#3d4b40" stroke-width="1"/>
-<text x="60" y="55" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif" class="norm-big">redundant data</text>
+<rect class="norm-big" x="20" y="25" width="80" height="55" rx="3" fill="var(--diagram-ink)" opacity="0.4" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="60" y="55" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif" class="norm-big">redundant data</text>
 <g class="norm-sm">
-  <rect x="5" y="28" width="32" height="30" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+  <rect x="5" y="28" width="32" height="30" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
   <text x="21" y="46" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">users</text>
 </g>
 <g class="norm-sm">
-  <rect x="42" y="28" width="36" height="30" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+  <rect x="42" y="28" width="36" height="30" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
   <text x="60" y="46" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">orders</text>
 </g>
 <g class="norm-sm">
-  <rect x="83" y="28" width="32" height="30" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+  <rect x="83" y="28" width="32" height="30" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
   <text x="99" y="46" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">items</text>
 </g>
 <line x1="37" y1="43" x2="42" y2="43" stroke="#6b8f71" stroke-width="1.5" class="norm-sm" style="animation-delay:0.3s"/>
 <line x1="78" y1="43" x2="83" y2="43" stroke="#6b8f71" stroke-width="1.5" class="norm-sm" style="animation-delay:0.6s"/>
-<text x="60" y="80" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">1NF &#8594; 2NF &#8594; 3NF</text>
-<text x="60" y="100" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">decompose tables</text>
+<text x="60" y="80" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">1NF &#8594; 2NF &#8594; 3NF</text>
+<text x="60" y="100" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">decompose tables</text>
 </svg>`,
         definition: `Normalization is the process of organizing database tables to minimize redundancy and dependency. By decomposing large tables into smaller, related tables and defining relationships between them, normalization ensures that each piece of data is stored in exactly one place.
 
@@ -1393,16 +1393,16 @@ The normal forms (1NF, 2NF, 3NF, BCNF) represent progressively stricter rules. M
   @keyframes dn-fast { 0% { transform: translateX(0); } 100% { transform: translateX(8px); } }
 </style>
 <g class="dn-merge">
-  <rect x="10" y="30" width="25" height="22" rx="2" fill="#3d4b40" opacity="0.6"/>
-  <rect x="40" y="30" width="25" height="22" rx="2" fill="#3d4b40" opacity="0.6"/>
-  <rect x="70" y="30" width="25" height="22" rx="2" fill="#3d4b40" opacity="0.6"/>
+  <rect x="10" y="30" width="25" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="40" y="30" width="25" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
+  <rect x="70" y="30" width="25" height="22" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 </g>
-<rect class="dn-big" x="10" y="25" width="100" height="40" rx="3" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+<rect class="dn-big" x="10" y="25" width="100" height="40" rx="3" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="48" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif" class="dn-big">combined table</text>
 <g class="dn-speed dn-big">
-  <text x="45" y="80" font-size="7" fill="#3d4b40" opacity="0.5" font-family="sans-serif">&#9889; faster reads</text>
+  <text x="45" y="80" font-size="7" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">&#9889; faster reads</text>
 </g>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">trade redundancy for speed</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">trade redundancy for speed</text>
 </svg>`,
         definition: `Denormalization is the deliberate introduction of redundancy into a database schema to improve read performance. By duplicating data or pre-computing aggregations, queries can be served from a single table without expensive joins across multiple normalized tables.
 
@@ -1428,23 +1428,23 @@ Denormalization is a pragmatic response to the reality that normalized schemas, 
   @keyframes er-glow { 0%,100% { fill-opacity: 0.3; stroke-opacity: 0.5; } 50% { fill-opacity: 0.6; stroke-opacity: 1; } }
 </style>
 <g class="er-entity">
-  <rect x="8" y="35" width="35" height="28" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1.5"/>
+  <rect x="8" y="35" width="35" height="28" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1.5"/>
   <text x="25" y="52" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">Student</text>
 </g>
 <g class="er-entity">
-  <rect x="77" y="35" width="35" height="28" rx="2" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1.5"/>
+  <rect x="77" y="35" width="35" height="28" rx="2" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1.5"/>
   <text x="95" y="52" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">Course</text>
 </g>
 <g class="er-rel">
-  <polygon points="60,35 75,49 60,63 45,49" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+  <polygon points="60,35 75,49 60,63 45,49" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
   <text x="60" y="52" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">enrolls</text>
 </g>
-<line x1="43" y1="49" x2="45" y2="49" stroke="#3d4b40" stroke-width="1.5"/>
-<line x1="75" y1="49" x2="77" y2="49" stroke="#3d4b40" stroke-width="1.5"/>
-<text x="48" y="32" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">M</text>
-<text x="72" y="32" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">N</text>
-<text x="60" y="90" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">entities + relationships</text>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">ER diagram</text>
+<line x1="43" y1="49" x2="45" y2="49" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line x1="75" y1="49" x2="77" y2="49" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<text x="48" y="32" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">M</text>
+<text x="72" y="32" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">N</text>
+<text x="60" y="90" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">entities + relationships</text>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">ER diagram</text>
 </svg>`,
         definition: `The Entity-Relationship (ER) model is a conceptual framework for describing the structure of a database using entities (things), attributes (properties), and relationships (associations between things). ER diagrams are the visual representation of this model and are used extensively in database design.
 
@@ -1467,28 +1467,28 @@ Entities become tables, attributes become columns, and relationships become fore
   .fk-key { animation: fk-turn 3s ease-in-out infinite; transform-origin: 60px 55px; }
   @keyframes fk-turn { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } }
 </style>
-<rect x="10" y="15" width="42" height="45" rx="3" fill="#3d4b40" opacity="0.15" stroke="#3d4b40" stroke-width="1"/>
-<text x="31" y="12" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.6" font-family="sans-serif">orders</text>
-<rect x="15" y="22" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.5"/>
+<rect x="10" y="15" width="42" height="45" rx="3" fill="var(--diagram-ink)" opacity="0.15" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="31" y="12" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">orders</text>
+<rect x="15" y="22" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="31" y="28" text-anchor="middle" font-size="4" fill="white" font-family="monospace">order_id PK</text>
-<rect x="15" y="33" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.8"/>
+<rect x="15" y="33" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
 <text x="31" y="39" text-anchor="middle" font-size="4" fill="white" font-family="monospace">user_id FK</text>
-<rect x="15" y="44" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.3"/>
+<rect x="15" y="44" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.3"/>
 <text x="31" y="50" text-anchor="middle" font-size="4" fill="white" font-family="monospace">total</text>
-<rect x="68" y="15" width="42" height="45" rx="3" fill="#3d4b40" opacity="0.15" stroke="#3d4b40" stroke-width="1"/>
-<text x="89" y="12" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.6" font-family="sans-serif">users</text>
-<rect x="73" y="22" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.8"/>
+<rect x="68" y="15" width="42" height="45" rx="3" fill="var(--diagram-ink)" opacity="0.15" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="89" y="12" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">users</text>
+<rect x="73" y="22" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.8"/>
 <text x="89" y="28" text-anchor="middle" font-size="4" fill="white" font-family="monospace">user_id PK</text>
-<rect x="73" y="33" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.3"/>
+<rect x="73" y="33" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.3"/>
 <text x="89" y="39" text-anchor="middle" font-size="4" fill="white" font-family="monospace">name</text>
-<rect x="73" y="44" width="32" height="8" rx="1" fill="#3d4b40" opacity="0.3"/>
+<rect x="73" y="44" width="32" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.3"/>
 <text x="89" y="50" text-anchor="middle" font-size="4" fill="white" font-family="monospace">email</text>
-<line class="fk-link" x1="47" y1="37" x2="73" y2="26" stroke="#3d4b40" stroke-width="1.5"/>
+<line class="fk-link" x1="47" y1="37" x2="73" y2="26" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 <g class="fk-key">
-  <circle cx="60" cy="80" r="6" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="60" y1="86" x2="60" y2="100" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="60" y1="93" x2="65" y2="93" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="60" y1="98" x2="65" y2="98" stroke="#3d4b40" stroke-width="1.5"/>
+  <circle cx="60" cy="80" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="60" y1="86" x2="60" y2="100" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="60" y1="93" x2="65" y2="93" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="60" y1="98" x2="65" y2="98" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </g>
 </svg>`,
         definition: `A foreign key is a column (or set of columns) in one table that references the primary key of another table. It creates a link between the two tables, enforcing referential integrity -- the database guarantees that the foreign key value always points to an existing row in the referenced table.
@@ -1513,20 +1513,20 @@ Foreign keys are the mechanism that turns separate tables into a connected relat
   @keyframes pk-id { 0%,100% { opacity: 0.5; } 50% { opacity: 0.8; } }
 </style>
 <g class="pk-key">
-  <circle cx="30" cy="30" r="10" fill="none" stroke="#3d4b40" stroke-width="2.5"/>
-  <line x1="30" y1="40" x2="30" y2="60" stroke="#3d4b40" stroke-width="2.5"/>
-  <line x1="30" y1="50" x2="38" y2="50" stroke="#3d4b40" stroke-width="2.5"/>
-  <line x1="30" y1="57" x2="38" y2="57" stroke="#3d4b40" stroke-width="2.5"/>
+  <circle cx="30" cy="30" r="10" fill="none" stroke="var(--diagram-ink)" stroke-width="2.5"/>
+  <line x1="30" y1="40" x2="30" y2="60" stroke="var(--diagram-ink)" stroke-width="2.5"/>
+  <line x1="30" y1="50" x2="38" y2="50" stroke="var(--diagram-ink)" stroke-width="2.5"/>
+  <line x1="30" y1="57" x2="38" y2="57" stroke="var(--diagram-ink)" stroke-width="2.5"/>
 </g>
-<rect x="50" y="18" width="60" height="14" rx="2" fill="#3d4b40" opacity="0.8"/>
+<rect x="50" y="18" width="60" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.8"/>
 <text x="55" y="28" font-size="5" fill="white" font-family="monospace">id=1 &#10003;</text>
-<rect class="pk-row" x="50" y="36" width="60" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect class="pk-row" x="50" y="36" width="60" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="55" y="46" font-size="5" fill="white" font-family="monospace">id=2 &#10003;</text>
-<rect class="pk-row" x="50" y="54" width="60" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect class="pk-row" x="50" y="54" width="60" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="55" y="64" font-size="5" fill="white" font-family="monospace">id=3 &#10003;</text>
-<rect class="pk-row" x="50" y="72" width="60" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect class="pk-row" x="50" y="72" width="60" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="55" y="82" font-size="5" fill="white" font-family="monospace">id=4 &#10003;</text>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">unique, not null</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">unique, not null</text>
 </svg>`,
         definition: `A primary key is a column or combination of columns that uniquely identifies each row in a table. It must be unique (no two rows share the same value) and not null (every row must have a value). Most tables have a single-column primary key, often an auto-incrementing integer or a UUID.
 
@@ -1553,20 +1553,20 @@ The primary key determines the physical storage order of data in clustered index
   .sm-arrow { animation: sm-flow 2s linear infinite; }
   @keyframes sm-flow { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -12; } }
 </style>
-<rect class="sm-step" x="5" y="40" width="22" height="30" rx="2" fill="#3d4b40"/>
+<rect class="sm-step" x="5" y="40" width="22" height="30" rx="2" fill="var(--diagram-ink)"/>
 <text x="16" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">v1</text>
-<line class="sm-arrow" x1="29" y1="55" x2="35" y2="55" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<rect class="sm-step" x="37" y="40" width="22" height="30" rx="2" fill="#3d4b40"/>
+<line class="sm-arrow" x1="29" y1="55" x2="35" y2="55" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<rect class="sm-step" x="37" y="40" width="22" height="30" rx="2" fill="var(--diagram-ink)"/>
 <text x="48" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">v2</text>
-<line class="sm-arrow" x1="61" y1="55" x2="67" y2="55" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<rect class="sm-step" x="69" y="40" width="22" height="30" rx="2" fill="#3d4b40"/>
+<line class="sm-arrow" x1="61" y1="55" x2="67" y2="55" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<rect class="sm-step" x="69" y="40" width="22" height="30" rx="2" fill="var(--diagram-ink)"/>
 <text x="80" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">v3</text>
-<line class="sm-arrow" x1="93" y1="55" x2="99" y2="55" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<rect class="sm-step" x="101" y="40" width="14" height="30" rx="2" fill="#3d4b40" opacity="0.3"/>
+<line class="sm-arrow" x1="93" y1="55" x2="99" y2="55" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<rect class="sm-step" x="101" y="40" width="14" height="30" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
 <text x="108" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">?</text>
-<text x="60" y="22" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">schema evolution</text>
-<text x="60" y="90" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">up() / down()</text>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">versioned changes</text>
+<text x="60" y="22" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">schema evolution</text>
+<text x="60" y="90" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">up() / down()</text>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">versioned changes</text>
 </svg>`,
         definition: `Schema migration is the process of making incremental, versioned changes to a database schema over time. Each migration is a script with an 'up' method (apply the change) and a 'down' method (revert it). Migrations are applied in order and tracked in a migrations table.
 
@@ -1592,19 +1592,19 @@ Schema migrations solve the problem of keeping database structure in sync with a
   .pa-line { animation: pa-connect 4s ease-in-out infinite; }
   @keyframes pa-connect { 0%,100% { stroke-opacity: 0.2; } 33% { stroke-opacity: 0.7; } }
 </style>
-<rect x="35" y="70" width="50" height="25" rx="3" fill="#3d4b40" opacity="0.7" stroke="#3d4b40" stroke-width="1"/>
+<rect x="35" y="70" width="50" height="25" rx="3" fill="var(--diagram-ink)" opacity="0.7" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="80" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">comments</text>
 <text x="60" y="90" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="monospace">type + id</text>
-<rect class="pa-target" x="5" y="15" width="32" height="22" rx="2" fill="#3d4b40"/>
+<rect class="pa-target" x="5" y="15" width="32" height="22" rx="2" fill="var(--diagram-ink)"/>
 <text x="21" y="29" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Post</text>
-<rect class="pa-target" x="44" y="15" width="32" height="22" rx="2" fill="#3d4b40"/>
+<rect class="pa-target" x="44" y="15" width="32" height="22" rx="2" fill="var(--diagram-ink)"/>
 <text x="60" y="29" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Photo</text>
-<rect class="pa-target" x="83" y="15" width="32" height="22" rx="2" fill="#3d4b40"/>
+<rect class="pa-target" x="83" y="15" width="32" height="22" rx="2" fill="var(--diagram-ink)"/>
 <text x="99" y="29" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Video</text>
-<line class="pa-line" x1="21" y1="37" x2="50" y2="70" stroke="#3d4b40" stroke-width="1"/>
-<line class="pa-line" x1="60" y1="37" x2="60" y2="70" stroke="#3d4b40" stroke-width="1" style="animation-delay:1.3s"/>
-<line class="pa-line" x1="99" y1="37" x2="70" y2="70" stroke="#3d4b40" stroke-width="1" style="animation-delay:2.6s"/>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">one FK, many targets</text>
+<line class="pa-line" x1="21" y1="37" x2="50" y2="70" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="pa-line" x1="60" y1="37" x2="60" y2="70" stroke="var(--diagram-ink)" stroke-width="1" style="animation-delay:1.3s"/>
+<line class="pa-line" x1="99" y1="37" x2="70" y2="70" stroke="var(--diagram-ink)" stroke-width="1" style="animation-delay:2.6s"/>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">one FK, many targets</text>
 </svg>`,
         definition: `A polymorphic association is a data modeling pattern where a single foreign key column can reference rows in multiple different tables. Instead of a traditional foreign key pointing to one specific table, the association stores both a type (which table) and an ID (which row).
 
@@ -1629,20 +1629,20 @@ This pattern is common in ORMs like ActiveRecord and Django. While flexible, it 
   .ts-new { animation: ts-append 2s ease-in-out infinite; }
   @keyframes ts-append { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
 </style>
-<line x1="15" y1="85" x2="110" y2="85" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<line x1="15" y1="15" x2="15" y2="85" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<text x="60" y="98" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">time &#8594;</text>
-<polyline class="ts-line" points="20,70 30,55 40,60 50,40 60,45 70,30 80,35 90,25" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-<circle class="ts-point" cx="20" cy="70" r="2" fill="#3d4b40"/>
-<circle class="ts-point" cx="30" cy="55" r="2" fill="#3d4b40" style="animation-delay:0.2s"/>
-<circle class="ts-point" cx="40" cy="60" r="2" fill="#3d4b40" style="animation-delay:0.4s"/>
-<circle class="ts-point" cx="50" cy="40" r="2" fill="#3d4b40" style="animation-delay:0.6s"/>
-<circle class="ts-point" cx="60" cy="45" r="2" fill="#3d4b40" style="animation-delay:0.8s"/>
-<circle class="ts-point" cx="70" cy="30" r="2" fill="#3d4b40" style="animation-delay:1.0s"/>
-<circle class="ts-point" cx="80" cy="35" r="2" fill="#3d4b40" style="animation-delay:1.2s"/>
-<circle class="ts-point" cx="90" cy="25" r="2" fill="#3d4b40" style="animation-delay:1.4s"/>
+<line x1="15" y1="85" x2="110" y2="85" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<line x1="15" y1="15" x2="15" y2="85" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<text x="60" y="98" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">time &#8594;</text>
+<polyline class="ts-line" points="20,70 30,55 40,60 50,40 60,45 70,30 80,35 90,25" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<circle class="ts-point" cx="20" cy="70" r="2" fill="var(--diagram-ink)"/>
+<circle class="ts-point" cx="30" cy="55" r="2" fill="var(--diagram-ink)" style="animation-delay:0.2s"/>
+<circle class="ts-point" cx="40" cy="60" r="2" fill="var(--diagram-ink)" style="animation-delay:0.4s"/>
+<circle class="ts-point" cx="50" cy="40" r="2" fill="var(--diagram-ink)" style="animation-delay:0.6s"/>
+<circle class="ts-point" cx="60" cy="45" r="2" fill="var(--diagram-ink)" style="animation-delay:0.8s"/>
+<circle class="ts-point" cx="70" cy="30" r="2" fill="var(--diagram-ink)" style="animation-delay:1.0s"/>
+<circle class="ts-point" cx="80" cy="35" r="2" fill="var(--diagram-ink)" style="animation-delay:1.2s"/>
+<circle class="ts-point" cx="90" cy="25" r="2" fill="var(--diagram-ink)" style="animation-delay:1.4s"/>
 <circle class="ts-new" cx="100" cy="20" r="3" fill="#6b8f71"/>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">append-only stream</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">append-only stream</text>
 </svg>`,
         definition: `Time-series data is a sequence of data points indexed and ordered by time. Each data point typically consists of a timestamp, a metric name (or tag set), and one or more values. Examples include sensor readings, stock prices, server metrics, and application logs.
 
@@ -1668,21 +1668,21 @@ Time-series data has unique characteristics: it is append-heavy (new data is alw
   .qp-edge { animation: qp-data 2s linear infinite; stroke-dasharray: 4 2; }
   @keyframes qp-data { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -12; } }
 </style>
-<ellipse class="qp-op" cx="60" cy="20" rx="28" ry="12" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<ellipse class="qp-op" cx="60" cy="20" rx="28" ry="12" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="23" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Sort</text>
-<line class="qp-edge" x1="45" y1="30" x2="35" y2="45" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="qp-edge" x1="75" y1="30" x2="85" y2="45" stroke="#3d4b40" stroke-width="1.5"/>
-<ellipse class="qp-op" cx="35" cy="55" rx="25" ry="10" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<line class="qp-edge" x1="45" y1="30" x2="35" y2="45" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="qp-edge" x1="75" y1="30" x2="85" y2="45" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<ellipse class="qp-op" cx="35" cy="55" rx="25" ry="10" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="35" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Hash Join</text>
-<ellipse class="qp-op" cx="85" cy="55" rx="22" ry="10" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<ellipse class="qp-op" cx="85" cy="55" rx="22" ry="10" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="85" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Idx Scan</text>
-<line class="qp-edge" x1="22" y1="63" x2="15" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<line class="qp-edge" x1="48" y1="63" x2="55" y2="75" stroke="#3d4b40" stroke-width="1"/>
-<ellipse class="qp-op" cx="15" cy="85" rx="13" ry="8" fill="#3d4b40" stroke="#3d4b40" stroke-width="1" opacity="0.6"/>
+<line class="qp-edge" x1="22" y1="63" x2="15" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="qp-edge" x1="48" y1="63" x2="55" y2="75" stroke="var(--diagram-ink)" stroke-width="1"/>
+<ellipse class="qp-op" cx="15" cy="85" rx="13" ry="8" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.6"/>
 <text x="15" y="88" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">Scan</text>
-<ellipse class="qp-op" cx="55" cy="85" rx="13" ry="8" fill="#3d4b40" stroke="#3d4b40" stroke-width="1" opacity="0.6"/>
+<ellipse class="qp-op" cx="55" cy="85" rx="13" ry="8" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.6"/>
 <text x="55" y="88" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">Scan</text>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">execution tree</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">execution tree</text>
 </svg>`,
         definition: `A query plan is the sequence of operations the database engine will perform to execute a SQL query. The query optimizer evaluates multiple possible plans -- different join orders, index choices, and scan methods -- and selects the one with the lowest estimated cost.
 
@@ -1709,17 +1709,17 @@ The query plan is represented as a tree of operations: table scans, index lookup
   .ea-time { animation: ea-show 2s ease-out forwards; opacity: 0; }
   @keyframes ea-show { 0%,80% { opacity: 0; } 100% { opacity: 0.7; } }
 </style>
-<text x="10" y="15" font-size="6" fill="#3d4b40" opacity="0.6" font-family="monospace">EXPLAIN ANALYZE</text>
-<text x="5" y="35" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Seq Scan</text>
-<rect class="ea-bar" x="5" y="38" height="8" rx="1" fill="#3d4b40" opacity="0.8" style="--w:90px" width="0"/>
-<text class="ea-time" x="98" y="45" font-size="4" fill="#3d4b40" font-family="monospace">12.5ms</text>
-<text x="5" y="58" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Hash Join</text>
-<rect class="ea-bar" x="5" y="61" height="8" rx="1" fill="#3d4b40" opacity="0.6" style="--w:60px" width="0"/>
-<text class="ea-time" x="68" y="68" font-size="4" fill="#3d4b40" font-family="monospace" style="animation-delay:0.3s">5.2ms</text>
-<text x="5" y="81" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">Idx Scan</text>
-<rect class="ea-bar" x="5" y="84" height="8" rx="1" fill="#3d4b40" opacity="0.4" style="--w:15px" width="0"/>
-<text class="ea-time" x="23" y="91" font-size="4" fill="#3d4b40" font-family="monospace" style="animation-delay:0.6s">0.1ms</text>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">actual timing</text>
+<text x="10" y="15" font-size="6" fill="var(--diagram-ink)" opacity="0.6" font-family="monospace">EXPLAIN ANALYZE</text>
+<text x="5" y="35" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Seq Scan</text>
+<rect class="ea-bar" x="5" y="38" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.8" style="--w:90px" width="0"/>
+<text class="ea-time" x="98" y="45" font-size="4" fill="var(--diagram-ink)" font-family="monospace">12.5ms</text>
+<text x="5" y="58" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Hash Join</text>
+<rect class="ea-bar" x="5" y="61" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.6" style="--w:60px" width="0"/>
+<text class="ea-time" x="68" y="68" font-size="4" fill="var(--diagram-ink)" font-family="monospace" style="animation-delay:0.3s">5.2ms</text>
+<text x="5" y="81" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">Idx Scan</text>
+<rect class="ea-bar" x="5" y="84" height="8" rx="1" fill="var(--diagram-ink)" opacity="0.4" style="--w:15px" width="0"/>
+<text class="ea-time" x="23" y="91" font-size="4" fill="var(--diagram-ink)" font-family="monospace" style="animation-delay:0.6s">0.1ms</text>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">actual timing</text>
 </svg>`,
         definition: `EXPLAIN ANALYZE is a diagnostic command that executes a query and shows the actual execution plan alongside real timing and row count information. Unlike plain EXPLAIN (which only shows the estimated plan), EXPLAIN ANALYZE runs the query and reports what actually happened -- how long each step took, how many rows were processed, and how estimates compared to reality.
 
@@ -1745,17 +1745,17 @@ This is the most powerful tool for diagnosing slow queries. By comparing estimat
   @keyframes jn-glow { 0%,100% { fill-opacity: 0.1; } 50% { fill-opacity: 0.4; } }
 </style>
 <g class="jn-circle" style="--jd: 5px">
-  <circle cx="42" cy="50" r="28" fill="none" stroke="#3d4b40" stroke-width="1.5" opacity="0.6"/>
-  <text x="28" y="50" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.6" font-family="sans-serif">A</text>
+  <circle cx="42" cy="50" r="28" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.6"/>
+  <text x="28" y="50" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">A</text>
 </g>
 <g class="jn-circle" style="--jd: -5px">
-  <circle cx="78" cy="50" r="28" fill="none" stroke="#3d4b40" stroke-width="1.5" opacity="0.6"/>
-  <text x="92" y="50" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.6" font-family="sans-serif">B</text>
+  <circle cx="78" cy="50" r="28" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.6"/>
+  <text x="92" y="50" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">B</text>
 </g>
-<path class="jn-overlap" d="M60,24 A28,28 0 0,1 60,76 A28,28 0 0,1 60,24Z" fill="#3d4b40"/>
-<text x="60" y="53" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="sans-serif">A&#8745;B</text>
-<text x="60" y="100" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">INNER / LEFT / RIGHT / FULL</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">combine tables</text>
+<path class="jn-overlap" d="M60,24 A28,28 0 0,1 60,76 A28,28 0 0,1 60,24Z" fill="var(--diagram-ink)"/>
+<text x="60" y="53" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="sans-serif">A&#8745;B</text>
+<text x="60" y="100" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">INNER / LEFT / RIGHT / FULL</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">combine tables</text>
 </svg>`,
         definition: `A JOIN combines rows from two or more tables based on a related column, typically a foreign key relationship. The most common types are INNER JOIN (only matching rows from both tables), LEFT JOIN (all rows from the left table plus matching rows from the right), RIGHT JOIN (opposite), and FULL JOIN (all rows from both tables).
 
@@ -1780,16 +1780,16 @@ Joins are fundamental to relational databases. They allow you to query normalize
   .sq-result { animation: sq-up 2.5s ease-in-out infinite; }
   @keyframes sq-up { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-3px); opacity: 1; } }
 </style>
-<rect class="sq-outer" x="10" y="10" width="100" height="70" rx="4" fill="none" stroke="#3d4b40" stroke-width="2"/>
-<text x="18" y="26" font-size="5" fill="#3d4b40" opacity="0.5" font-family="monospace">SELECT * FROM orders</text>
-<text x="18" y="36" font-size="5" fill="#3d4b40" opacity="0.5" font-family="monospace">WHERE total > (</text>
-<rect class="sq-inner" x="25" y="42" width="75" height="25" rx="3" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<rect class="sq-outer" x="10" y="10" width="100" height="70" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+<text x="18" y="26" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="monospace">SELECT * FROM orders</text>
+<text x="18" y="36" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="monospace">WHERE total > (</text>
+<rect class="sq-inner" x="25" y="42" width="75" height="25" rx="3" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="62" y="55" text-anchor="middle" font-size="5" fill="white" font-family="monospace">SELECT AVG(total)</text>
 <text x="62" y="63" text-anchor="middle" font-size="5" fill="white" font-family="monospace">FROM orders</text>
-<text x="18" y="78" font-size="5" fill="#3d4b40" opacity="0.5" font-family="monospace">)</text>
+<text x="18" y="78" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="monospace">)</text>
 <g class="sq-result">
-  <rect x="35" y="90" width="50" height="16" rx="2" fill="#3d4b40" opacity="0.3"/>
-  <text x="60" y="101" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">result set</text>
+  <rect x="35" y="90" width="50" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
+  <text x="60" y="101" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">result set</text>
 </g>
 </svg>`,
         definition: `A subquery is a query nested inside another SQL query. It can appear in the SELECT clause (scalar subquery), the FROM clause (derived table), or the WHERE clause (filtering subquery). Subqueries can be correlated (referencing columns from the outer query) or uncorrelated (independent of the outer query).
@@ -1808,7 +1808,7 @@ Subqueries allow you to break complex logic into smaller, composable pieces. How
         category: "querying",
         svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
 <style>
-  .wf-row { fill: #3d4b40; }
+  .wf-row { fill: var(--diagram-ink); }
   .wf-window { animation: wf-slide 4s ease-in-out infinite; }
   @keyframes wf-slide { 0% { transform: translateY(0); } 50% { transform: translateY(24px); } 100% { transform: translateY(0); } }
   .wf-val { animation: wf-calc 4s ease-in-out infinite; }
@@ -1820,12 +1820,12 @@ Subqueries allow you to break complex logic into smaller, composable pieces. How
 <rect class="wf-row" x="15" y="54" width="55" height="10" rx="1" opacity="0.4"/>
 <rect class="wf-row" x="15" y="67" width="55" height="10" rx="1" opacity="0.4"/>
 <rect class="wf-row" x="15" y="80" width="55" height="10" rx="1" opacity="0.4"/>
-<rect class="wf-window" x="12" y="12" width="61" height="38" rx="3" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.7"/>
-<text class="wf-val" x="90" y="35" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="monospace">SUM</text>
-<text class="wf-val" x="90" y="48" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="monospace">AVG</text>
-<text class="wf-val" x="90" y="61" text-anchor="middle" font-size="6" fill="#3d4b40" font-family="monospace">RANK</text>
-<line x1="75" y1="30" x2="82" y2="30" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">sliding frame</text>
+<rect class="wf-window" x="12" y="12" width="61" height="38" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.7"/>
+<text class="wf-val" x="90" y="35" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="monospace">SUM</text>
+<text class="wf-val" x="90" y="48" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="monospace">AVG</text>
+<text class="wf-val" x="90" y="61" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" font-family="monospace">RANK</text>
+<line x1="75" y1="30" x2="82" y2="30" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">sliding frame</text>
 </svg>`,
         definition: `A window function performs a calculation across a set of rows that are related to the current row, without collapsing the result into a single row like GROUP BY does. The 'window' is defined by PARTITION BY (which rows to include) and ORDER BY (how to sort within the window), with an optional frame clause (e.g., ROWS BETWEEN 3 PRECEDING AND CURRENT ROW).
 
@@ -1851,18 +1851,18 @@ Window functions like ROW_NUMBER(), RANK(), SUM() OVER(), LAG(), and LEAD() enab
   @keyframes mv-refresh { 0%,40% { opacity: 0; } 42%,55% { opacity: 0.6; } 60%,100% { opacity: 0; } }
 </style>
 <g class="mv-query">
-  <rect x="10" y="15" width="40" height="35" rx="2" fill="none" stroke="#3d4b40" stroke-width="1"/>
-  <text x="30" y="30" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">SELECT</text>
-  <text x="30" y="40" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="monospace">SUM()...</text>
+  <rect x="10" y="15" width="40" height="35" rx="2" fill="none" stroke="var(--diagram-ink)" stroke-width="1"/>
+  <text x="30" y="30" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">SELECT</text>
+  <text x="30" y="40" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="monospace">SUM()...</text>
 </g>
-<path class="mv-arrow" d="M52,32 L68,32" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#mv-a)"/>
-<defs><marker id="mv-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<rect class="mv-cache" x="70" y="15" width="40" height="35" rx="2" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<path class="mv-arrow" d="M52,32 L68,32" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#mv-a)"/>
+<defs><marker id="mv-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<rect class="mv-cache" x="70" y="15" width="40" height="35" rx="2" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="90" y="30" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">cached</text>
 <text x="90" y="40" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">result</text>
-<rect x="55" y="65" width="40" height="16" rx="2" fill="#3d4b40" opacity="0.3"/>
-<text x="75" y="76" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">REFRESH</text>
-<text x="60" y="100" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">pre-computed table</text>
+<rect x="55" y="65" width="40" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
+<text x="75" y="76" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">REFRESH</text>
+<text x="60" y="100" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">pre-computed table</text>
 </svg>`,
         definition: `A materialized view is the result of a query stored as a physical table. Unlike a regular view (which re-runs the query on every access), a materialized view stores the pre-computed result, making subsequent reads instantaneous. The tradeoff is that the data can become stale and needs periodic refreshing.
 
@@ -1882,7 +1882,7 @@ Materialized views are a powerful optimization for expensive queries that are ru
 <style>
   .cur-ptr { animation: cur-move 3s steps(5) infinite; }
   @keyframes cur-move { 0% { transform: translateY(0); } 100% { transform: translateY(60px); } }
-  .cur-row { fill: #3d4b40; }
+  .cur-row { fill: var(--diagram-ink); }
 </style>
 <rect class="cur-row" x="25" y="15" width="70" height="10" rx="1" opacity="0.4"/>
 <rect class="cur-row" x="25" y="28" width="70" height="10" rx="1" opacity="0.4"/>
@@ -1891,10 +1891,10 @@ Materialized views are a powerful optimization for expensive queries that are ru
 <rect class="cur-row" x="25" y="67" width="70" height="10" rx="1" opacity="0.4"/>
 <rect class="cur-row" x="25" y="80" width="70" height="10" rx="1" opacity="0.4"/>
 <g class="cur-ptr">
-  <polygon points="10,18 20,20 10,22" fill="#3d4b40" opacity="0.8"/>
-  <line x1="20" y1="20" x2="25" y2="20" stroke="#3d4b40" stroke-width="1"/>
+  <polygon points="10,18 20,20 10,22" fill="var(--diagram-ink)" opacity="0.8"/>
+  <line x1="20" y1="20" x2="25" y2="20" stroke="var(--diagram-ink)" stroke-width="1"/>
 </g>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">FETCH NEXT</text>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">FETCH NEXT</text>
 </svg>`,
         definition: `A cursor is a database object that allows you to retrieve and process rows from a query result set one at a time (or in small batches), rather than loading the entire result into memory at once. The cursor maintains a pointer to the current position in the result set.
 
@@ -1920,17 +1920,17 @@ Cursors are useful when processing very large result sets that would be too larg
   .ps-shield { animation: ps-protect 3s ease-in-out infinite; }
   @keyframes ps-protect { 0%,100% { opacity: 0.15; } 50% { opacity: 0.3; } }
 </style>
-<rect class="ps-template" x="10" y="15" width="100" height="35" rx="3" fill="none" stroke="#3d4b40" stroke-width="2"/>
-<text x="15" y="30" font-size="5" fill="#3d4b40" opacity="0.6" font-family="monospace">SELECT * FROM users</text>
-<text x="15" y="42" font-size="5" fill="#3d4b40" opacity="0.6" font-family="monospace">WHERE id = <tspan class="ps-param" fill="#3d4b40" font-weight="bold">$1</tspan></text>
-<rect class="ps-param" x="25" y="60" width="25" height="14" rx="2" fill="#3d4b40"/>
+<rect class="ps-template" x="10" y="15" width="100" height="35" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+<text x="15" y="30" font-size="5" fill="var(--diagram-ink)" opacity="0.6" font-family="monospace">SELECT * FROM users</text>
+<text x="15" y="42" font-size="5" fill="var(--diagram-ink)" opacity="0.6" font-family="monospace">WHERE id = <tspan class="ps-param" fill="var(--diagram-ink)" font-weight="bold">$1</tspan></text>
+<rect class="ps-param" x="25" y="60" width="25" height="14" rx="2" fill="var(--diagram-ink)"/>
 <text x="37" y="70" text-anchor="middle" font-size="5" fill="white" font-family="monospace">42</text>
-<rect class="ps-param" x="55" y="60" width="25" height="14" rx="2" fill="#3d4b40"/>
+<rect class="ps-param" x="55" y="60" width="25" height="14" rx="2" fill="var(--diagram-ink)"/>
 <text x="67" y="70" text-anchor="middle" font-size="5" fill="white" font-family="monospace">99</text>
-<rect class="ps-param" x="85" y="60" width="25" height="14" rx="2" fill="#3d4b40"/>
+<rect class="ps-param" x="85" y="60" width="25" height="14" rx="2" fill="var(--diagram-ink)"/>
 <text x="97" y="70" text-anchor="middle" font-size="5" fill="white" font-family="monospace">7</text>
-<path class="ps-shield" d="M60,82 L80,88 L80,100 Q80,108 60,112 Q40,108 40,100 L40,88 Z" fill="#3d4b40"/>
-<text x="60" y="102" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">safe</text>
+<path class="ps-shield" d="M60,82 L80,88 L80,100 Q80,108 60,112 Q40,108 40,100 L40,88 Z" fill="var(--diagram-ink)"/>
+<text x="60" y="102" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">safe</text>
 </svg>`,
         definition: `A prepared statement is a pre-compiled SQL query template with placeholders for parameters. The database parses, validates, and compiles the query once, then reuses the compiled plan with different parameter values on subsequent executions. This provides two benefits: performance (no re-parsing) and security (prevents SQL injection).
 
@@ -1957,19 +1957,19 @@ Because parameters are sent separately from the query text, they are always trea
   .hs-new { animation: hs-appear 4s ease-in-out infinite; }
   @keyframes hs-appear { 0%,60% { opacity: 0; transform: translateX(10px); } 70%,100% { opacity: 0.7; transform: translateX(0); } }
 </style>
-<rect class="hs-server" x="10" y="30" width="20" height="50" rx="2" fill="#3d4b40" opacity="0.7"/>
+<rect class="hs-server" x="10" y="30" width="20" height="50" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
 <rect x="13" y="35" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
 <rect x="13" y="41" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
-<rect class="hs-server" x="35" y="30" width="20" height="50" rx="2" fill="#3d4b40" opacity="0.7"/>
+<rect class="hs-server" x="35" y="30" width="20" height="50" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
 <rect x="38" y="35" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
 <rect x="38" y="41" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
-<rect class="hs-server" x="60" y="30" width="20" height="50" rx="2" fill="#3d4b40" opacity="0.7"/>
+<rect class="hs-server" x="60" y="30" width="20" height="50" rx="2" fill="var(--diagram-ink)" opacity="0.7"/>
 <rect x="63" y="35" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
 <rect x="63" y="41" width="14" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
-<rect class="hs-new" x="88" y="30" width="20" height="50" rx="2" fill="#3d4b40" opacity="0.5" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<text x="98" y="58" text-anchor="middle" font-size="8" fill="#3d4b40" opacity="0.5" font-family="sans-serif">+</text>
-<text x="55" y="18" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">scale out &#8594;</text>
-<text x="55" y="100" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">add more machines</text>
+<rect class="hs-new" x="88" y="30" width="20" height="50" rx="2" fill="var(--diagram-ink)" opacity="0.5" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="98" y="58" text-anchor="middle" font-size="8" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">+</text>
+<text x="55" y="18" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">scale out &#8594;</text>
+<text x="55" y="100" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">add more machines</text>
 </svg>`,
         definition: `Horizontal scaling (scaling out) means adding more machines to a system to handle increased load. Instead of making one server more powerful, you distribute the workload across multiple servers. Each server handles a portion of the total requests or data.
 
@@ -1992,18 +1992,18 @@ Horizontal scaling is the foundation of modern distributed systems. Cloud platfo
   .vs-arrow { animation: vs-up 3s ease-in-out infinite; }
   @keyframes vs-up { 0%,100% { transform: translateY(0); opacity: 0.3; } 50% { transform: translateY(-8px); opacity: 0.8; } }
 </style>
-<rect x="30" y="15" width="60" height="85" rx="4" fill="none" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
+<rect x="30" y="15" width="60" height="85" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
 <rect x="35" y="25" width="12" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
 <rect x="35" y="31" width="12" height="3" rx="1" fill="#6b8f71" opacity="0.5"/>
-<rect class="vs-bar" x="42" y="50" width="36" height="40" rx="2" fill="#3d4b40" opacity="0.6"/>
+<rect class="vs-bar" x="42" y="50" width="36" height="40" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 <g class="vs-arrow">
-  <line x1="60" y1="90" x2="60" y2="18" stroke="#3d4b40" stroke-width="2"/>
-  <polygon points="54,24 60,14 66,24" fill="#3d4b40"/>
+  <line x1="60" y1="90" x2="60" y2="18" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <polygon points="54,24 60,14 66,24" fill="var(--diagram-ink)"/>
 </g>
-<text x="16" y="55" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">CPU</text>
-<text x="16" y="65" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">RAM</text>
-<text x="16" y="75" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">SSD</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">bigger machine</text>
+<text x="16" y="55" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">CPU</text>
+<text x="16" y="65" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">RAM</text>
+<text x="16" y="75" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">SSD</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">bigger machine</text>
 </svg>`,
         definition: `Vertical scaling (scaling up) means increasing the capacity of a single machine by adding more CPU, RAM, faster storage, or network bandwidth. Instead of distributing work across multiple servers, you make one server more powerful.
 
@@ -2032,18 +2032,18 @@ Vertical scaling is simpler than horizontal scaling because it avoids the comple
   .shard-arrow { animation: shard-fade 3s ease-in-out infinite; }
   @keyframes shard-fade { 0%,40%,100% { opacity: 0; } 50%,90% { opacity: 0.5; } }
 </style>
-<rect class="shard s1" x="20" y="30" width="25" height="35" rx="3" fill="#3d4b40" opacity="0.3" stroke="#3d4b40" stroke-width="1.5"/>
-<text x="32" y="50" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">A-H</text>
-<rect class="shard s2" x="48" y="30" width="25" height="35" rx="3" fill="#3d4b40" opacity="0.3" stroke="#3d4b40" stroke-width="1.5"/>
-<text x="60" y="50" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">I-P</text>
-<rect class="shard s3" x="76" y="30" width="25" height="35" rx="3" fill="#3d4b40" opacity="0.3" stroke="#3d4b40" stroke-width="1.5"/>
-<text x="88" y="50" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">Q-Z</text>
+<rect class="shard s1" x="20" y="30" width="25" height="35" rx="3" fill="var(--diagram-ink)" opacity="0.3" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<text x="32" y="50" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">A-H</text>
+<rect class="shard s2" x="48" y="30" width="25" height="35" rx="3" fill="var(--diagram-ink)" opacity="0.3" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<text x="60" y="50" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">I-P</text>
+<rect class="shard s3" x="76" y="30" width="25" height="35" rx="3" fill="var(--diagram-ink)" opacity="0.3" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<text x="88" y="50" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">Q-Z</text>
 <g class="shard-arrow">
-  <line x1="45" y1="47" x2="48" y2="47" stroke="#3d4b40" stroke-width="1"/>
-  <line x1="73" y1="47" x2="76" y2="47" stroke="#3d4b40" stroke-width="1"/>
+  <line x1="45" y1="47" x2="48" y2="47" stroke="var(--diagram-ink)" stroke-width="1"/>
+  <line x1="73" y1="47" x2="76" y2="47" stroke="var(--diagram-ink)" stroke-width="1"/>
 </g>
-<text x="60" y="95" text-anchor="middle" font-size="7" fill="#3d4b40" opacity="0.6" font-family="sans-serif">split data</text>
-<text x="60" y="110" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">by shard key</text>
+<text x="60" y="95" text-anchor="middle" font-size="7" fill="var(--diagram-ink)" opacity="0.6" font-family="sans-serif">split data</text>
+<text x="60" y="110" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">by shard key</text>
 </svg>`,
         definition: `Sharding is the practice of splitting a database into multiple independent databases (shards), each holding a subset of the total data. A shard key determines which shard holds each piece of data. Queries are routed to the correct shard based on the shard key.
 
@@ -2068,19 +2068,19 @@ Sharding enables horizontal scaling of databases by distributing both data and l
   .pt-part:nth-child(4) { animation-delay: 1.5s; }
   @keyframes pt-segment { 0%,100% { transform: translateY(0); fill-opacity: 0.5; } 50% { transform: translateY(-2px); fill-opacity: 0.8; } }
 </style>
-<rect x="15" y="10" width="90" height="15" rx="2" fill="#3d4b40" opacity="0.3"/>
-<text x="60" y="20" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">full table</text>
-<line x1="60" y1="30" x2="60" y2="38" stroke="#3d4b40" stroke-width="1" opacity="0.3"/>
-<rect class="pt-part" x="10" y="42" width="45" height="16" rx="2" fill="#3d4b40"/>
+<rect x="15" y="10" width="90" height="15" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
+<text x="60" y="20" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">full table</text>
+<line x1="60" y1="30" x2="60" y2="38" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.3"/>
+<rect class="pt-part" x="10" y="42" width="45" height="16" rx="2" fill="var(--diagram-ink)"/>
 <text x="32" y="53" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">2023</text>
-<rect class="pt-part" x="60" y="42" width="45" height="16" rx="2" fill="#3d4b40"/>
+<rect class="pt-part" x="60" y="42" width="45" height="16" rx="2" fill="var(--diagram-ink)"/>
 <text x="82" y="53" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">2024</text>
-<rect class="pt-part" x="10" y="62" width="45" height="16" rx="2" fill="#3d4b40"/>
+<rect class="pt-part" x="10" y="62" width="45" height="16" rx="2" fill="var(--diagram-ink)"/>
 <text x="32" y="73" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">2025</text>
-<rect class="pt-part" x="60" y="62" width="45" height="16" rx="2" fill="#3d4b40" opacity="0.3"/>
+<rect class="pt-part" x="60" y="62" width="45" height="16" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
 <text x="82" y="73" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">2026</text>
-<text x="60" y="98" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">range / list / hash</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">table partitions</text>
+<text x="60" y="98" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">range / list / hash</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">table partitions</text>
 </svg>`,
         definition: `Partitioning divides a single logical table into multiple physical sub-tables (partitions) based on a partition key. Common strategies include range partitioning (by date ranges), list partitioning (by specific values), and hash partitioning (by hash of a column). The database handles partitions transparently -- queries automatically target the relevant partition(s).
 
@@ -2105,20 +2105,20 @@ Unlike sharding (which distributes data across separate database instances), par
   .rr-read { animation: rr-pulse 2s ease-in-out infinite; }
   @keyframes rr-pulse { 0%,100% { fill-opacity: 0.4; } 50% { fill-opacity: 0.7; } }
 </style>
-<rect class="rr-primary" x="35" y="10" width="50" height="25" rx="3" fill="#3d4b40" opacity="0.8" stroke="#3d4b40"/>
+<rect class="rr-primary" x="35" y="10" width="50" height="25" rx="3" fill="var(--diagram-ink)" opacity="0.8" stroke="var(--diagram-ink)"/>
 <text x="60" y="22" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">PRIMARY</text>
 <text x="60" y="28" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="sans-serif">reads + writes</text>
-<line class="rr-sync" x1="45" y1="35" x2="25" y2="55" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="rr-sync" x1="60" y1="35" x2="60" y2="55" stroke="#3d4b40" stroke-width="1.5"/>
-<line class="rr-sync" x1="75" y1="35" x2="95" y2="55" stroke="#3d4b40" stroke-width="1.5"/>
-<rect class="rr-read" x="8" y="58" width="35" height="22" rx="3" fill="#3d4b40"/>
+<line class="rr-sync" x1="45" y1="35" x2="25" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="rr-sync" x1="60" y1="35" x2="60" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<line class="rr-sync" x1="75" y1="35" x2="95" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+<rect class="rr-read" x="8" y="58" width="35" height="22" rx="3" fill="var(--diagram-ink)"/>
 <text x="25" y="72" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">replica 1</text>
-<rect class="rr-read" x="48" y="58" width="35" height="22" rx="3" fill="#3d4b40"/>
+<rect class="rr-read" x="48" y="58" width="35" height="22" rx="3" fill="var(--diagram-ink)"/>
 <text x="65" y="72" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">replica 2</text>
-<rect class="rr-read" x="88" y="58" width="26" height="22" rx="3" fill="#3d4b40"/>
+<rect class="rr-read" x="88" y="58" width="26" height="22" rx="3" fill="var(--diagram-ink)"/>
 <text x="101" y="72" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">rep 3</text>
-<text x="60" y="98" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">reads only</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">scale reads</text>
+<text x="60" y="98" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">reads only</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">scale reads</text>
 </svg>`,
         definition: `A read replica is a copy of a primary database that handles read-only queries. Changes are written to the primary database and asynchronously replicated to the replicas. By directing read traffic to replicas, you offload the primary database and increase read throughput.
 
@@ -2140,29 +2140,29 @@ Read replicas are one of the simplest scaling techniques for read-heavy workload
   .cp-conn:nth-child(1) { animation-delay: 0s; }
   .cp-conn:nth-child(2) { animation-delay: 0.6s; }
   .cp-conn:nth-child(3) { animation-delay: 1.2s; }
-  @keyframes cp-use { 0%,30%,70%,100% { stroke: #b8c4ba; } 35%,65% { stroke: #3d4b40; } }
+  @keyframes cp-use { 0%,30%,70%,100% { stroke: #b8c4ba; } 35%,65% { stroke: var(--diagram-ink); } }
   .cp-pool { animation: cp-glow 2s ease-in-out infinite; }
   @keyframes cp-glow { 0%,100% { stroke-opacity: 0.3; } 50% { stroke-opacity: 0.7; } }
 </style>
-<text x="20" y="15" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">clients</text>
-<circle cx="12" cy="30" r="5" fill="#3d4b40" opacity="0.5"/>
-<circle cx="12" cy="48" r="5" fill="#3d4b40" opacity="0.5"/>
-<circle cx="12" cy="66" r="5" fill="#3d4b40" opacity="0.5"/>
-<circle cx="12" cy="84" r="5" fill="#3d4b40" opacity="0.5"/>
-<rect class="cp-pool" x="35" y="20" width="40" height="75" rx="4" fill="none" stroke="#3d4b40" stroke-width="2"/>
-<text x="55" y="16" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">pool</text>
+<text x="20" y="15" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">clients</text>
+<circle cx="12" cy="30" r="5" fill="var(--diagram-ink)" opacity="0.5"/>
+<circle cx="12" cy="48" r="5" fill="var(--diagram-ink)" opacity="0.5"/>
+<circle cx="12" cy="66" r="5" fill="var(--diagram-ink)" opacity="0.5"/>
+<circle cx="12" cy="84" r="5" fill="var(--diagram-ink)" opacity="0.5"/>
+<rect class="cp-pool" x="35" y="20" width="40" height="75" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+<text x="55" y="16" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">pool</text>
 <line class="cp-conn" x1="17" y1="30" x2="35" y2="40" stroke="#b8c4ba" stroke-width="1.5"/>
 <line class="cp-conn" x1="17" y1="48" x2="35" y2="55" stroke="#b8c4ba" stroke-width="1.5"/>
 <line class="cp-conn" x1="17" y1="66" x2="35" y2="65" stroke="#b8c4ba" stroke-width="1.5"/>
 <line class="cp-conn" x1="17" y1="84" x2="35" y2="75" stroke="#b8c4ba" stroke-width="1.5"/>
-<circle cx="45" cy="40" r="4" fill="#3d4b40" opacity="0.6"/>
-<circle cx="55" cy="55" r="4" fill="#3d4b40" opacity="0.6"/>
-<circle cx="45" cy="70" r="4" fill="#3d4b40" opacity="0.6"/>
-<circle cx="55" cy="82" r="4" fill="#3d4b40" opacity="0.3"/>
-<line x1="75" y1="55" x2="90" y2="55" stroke="#3d4b40" stroke-width="1.5" opacity="0.4"/>
-<rect x="90" y="30" width="25" height="50" rx="3" fill="#3d4b40" opacity="0.5"/>
+<circle cx="45" cy="40" r="4" fill="var(--diagram-ink)" opacity="0.6"/>
+<circle cx="55" cy="55" r="4" fill="var(--diagram-ink)" opacity="0.6"/>
+<circle cx="45" cy="70" r="4" fill="var(--diagram-ink)" opacity="0.6"/>
+<circle cx="55" cy="82" r="4" fill="var(--diagram-ink)" opacity="0.3"/>
+<line x1="75" y1="55" x2="90" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5" opacity="0.4"/>
+<rect x="90" y="30" width="25" height="50" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="102" y="58" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif" transform="rotate(-90,102,58)">database</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">reuse connections</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">reuse connections</text>
 </svg>`,
         definition: `Connection pooling maintains a pool of pre-established database connections that are shared among application requests. Instead of opening a new database connection for every request (which is expensive), the application borrows a connection from the pool, uses it, and returns it.
 
@@ -2185,20 +2185,20 @@ Database connections are resource-intensive -- each consumes memory on the datab
   .cl-miss { animation: cl-through 3s ease-in-out infinite; }
   @keyframes cl-through { 0%,40% { opacity: 0; } 50%,70% { opacity: 0.5; } 80%,100% { opacity: 0; } }
 </style>
-<text x="18" y="18" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">app</text>
-<rect x="10" y="22" width="25" height="20" rx="2" fill="#3d4b40" opacity="0.5"/>
-<text x="50" y="18" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">cache</text>
-<rect class="cl-hit" x="40" y="22" width="35" height="20" rx="2" fill="#6b8f71" stroke="#3d4b40" stroke-width="1"/>
+<text x="18" y="18" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">app</text>
+<rect x="10" y="22" width="25" height="20" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
+<text x="50" y="18" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">cache</text>
+<rect class="cl-hit" x="40" y="22" width="35" height="20" rx="2" fill="#6b8f71" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="57" y="35" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">Redis</text>
-<text x="97" y="18" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">DB</text>
-<rect x="85" y="22" width="25" height="20" rx="2" fill="#3d4b40" opacity="0.5"/>
-<line x1="35" y1="32" x2="40" y2="32" stroke="#3d4b40" stroke-width="1.5"/>
+<text x="97" y="18" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">DB</text>
+<rect x="85" y="22" width="25" height="20" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
+<line x1="35" y1="32" x2="40" y2="32" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 <text x="60" y="55" text-anchor="middle" font-size="6" fill="#6b8f71" font-family="sans-serif">HIT &#10003;</text>
 <path d="M35,60 L40,60 Q57,60 57,48" fill="none" stroke="#6b8f71" stroke-width="1.5" opacity="0.6"/>
-<line class="cl-miss" x1="75" y1="32" x2="85" y2="32" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<text x="60" y="80" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.4" font-family="sans-serif">MISS &#8594; DB</text>
-<path class="cl-miss" d="M35,85 L57,85 Q75,85 75,42 L85,42" fill="none" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2"/>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">hit vs miss</text>
+<line class="cl-miss" x1="75" y1="32" x2="85" y2="32" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="60" y="80" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">MISS &#8594; DB</text>
+<path class="cl-miss" d="M35,85 L57,85 Q75,85 75,42 L85,42" fill="none" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">hit vs miss</text>
 </svg>`,
         definition: `A caching layer is an in-memory data store (like Redis or Memcached) placed between the application and the database. Frequently accessed data is stored in the cache, and the application checks the cache before querying the database. Cache hits are orders of magnitude faster than database queries.
 
@@ -2224,32 +2224,32 @@ Common caching strategies include cache-aside (application manages cache), write
   .lb-hub { animation: lb-spin 4s linear infinite; }
   @keyframes lb-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
-<text x="22" y="18" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">requests</text>
-<line x1="15" y1="25" x2="15" y2="85" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<circle cx="15" cy="35" r="3" fill="#3d4b40" opacity="0.5"/>
-<circle cx="15" cy="55" r="3" fill="#3d4b40" opacity="0.5"/>
-<circle cx="15" cy="75" r="3" fill="#3d4b40" opacity="0.5"/>
+<text x="22" y="18" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">requests</text>
+<line x1="15" y1="25" x2="15" y2="85" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<circle cx="15" cy="35" r="3" fill="var(--diagram-ink)" opacity="0.5"/>
+<circle cx="15" cy="55" r="3" fill="var(--diagram-ink)" opacity="0.5"/>
+<circle cx="15" cy="75" r="3" fill="var(--diagram-ink)" opacity="0.5"/>
 <g transform="translate(55,55)">
-  <circle r="16" fill="#3d4b40" opacity="0.7"/>
+  <circle r="16" fill="var(--diagram-ink)" opacity="0.7"/>
   <g class="lb-hub" transform-origin="0 0">
     <line x1="-8" y1="0" x2="8" y2="0" stroke="white" stroke-width="1" opacity="0.5"/>
     <line x1="0" y1="-8" x2="0" y2="8" stroke="white" stroke-width="1" opacity="0.5"/>
   </g>
   <text x="0" y="3" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">LB</text>
 </g>
-<line class="lb-req" x1="18" y1="35" x2="39" y2="50" stroke="#3d4b40" stroke-width="1"/>
-<line class="lb-req" x1="18" y1="55" x2="39" y2="55" stroke="#3d4b40" stroke-width="1"/>
-<line class="lb-req" x1="18" y1="75" x2="39" y2="60" stroke="#3d4b40" stroke-width="1"/>
-<rect x="85" y="25" width="25" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<line class="lb-req" x1="18" y1="35" x2="39" y2="50" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="lb-req" x1="18" y1="55" x2="39" y2="55" stroke="var(--diagram-ink)" stroke-width="1"/>
+<line class="lb-req" x1="18" y1="75" x2="39" y2="60" stroke="var(--diagram-ink)" stroke-width="1"/>
+<rect x="85" y="25" width="25" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="97" y="35" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">srv 1</text>
-<rect x="85" y="48" width="25" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="85" y="48" width="25" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="97" y="58" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">srv 2</text>
-<rect x="85" y="71" width="25" height="14" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="85" y="71" width="25" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="97" y="81" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">srv 3</text>
-<line x1="71" y1="48" x2="85" y2="32" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<line x1="71" y1="55" x2="85" y2="55" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<line x1="71" y1="62" x2="85" y2="78" stroke="#3d4b40" stroke-width="0.5" opacity="0.3"/>
-<text x="60" y="108" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">distribute traffic</text>
+<line x1="71" y1="48" x2="85" y2="32" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<line x1="71" y1="55" x2="85" y2="55" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<line x1="71" y1="62" x2="85" y2="78" stroke="var(--diagram-ink)" stroke-width="0.5" opacity="0.3"/>
+<text x="60" y="108" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">distribute traffic</text>
 </svg>`,
         definition: `Load balancing distributes incoming network traffic or requests across multiple backend servers to ensure no single server is overwhelmed. A load balancer sits between clients and servers, using algorithms like round-robin, least connections, or weighted distribution to route each request.
 
@@ -2275,24 +2275,24 @@ Load balancing is essential for high availability and horizontal scaling. It all
   .rep-wave { animation: rep-ripple 2s ease-out infinite; }
   @keyframes rep-ripple { 0% { r: 8; opacity: 0.4; } 100% { r: 25; opacity: 0; } }
 </style>
-<circle class="rep-wave" cx="25" cy="50" r="8" fill="none" stroke="#3d4b40" stroke-width="0.5"/>
-<rect class="rep-node" x="10" y="35" width="30" height="30" rx="3" fill="#3d4b40" stroke="#3d4b40" stroke-width="1.5"/>
+<circle class="rep-wave" cx="25" cy="50" r="8" fill="none" stroke="var(--diagram-ink)" stroke-width="0.5"/>
+<rect class="rep-node" x="10" y="35" width="30" height="30" rx="3" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 <text x="25" y="50" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">primary</text>
 <text x="25" y="58" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="sans-serif">ABCDE</text>
-<line x1="40" y1="42" x2="55" y2="35" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
-<line x1="40" y1="50" x2="55" y2="50" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
-<line x1="40" y1="58" x2="55" y2="65" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
-<rect class="rep-node" x="55" y="20" width="28" height="25" rx="2" fill="#3d4b40" opacity="0.6"/>
+<line x1="40" y1="42" x2="55" y2="35" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+<line x1="40" y1="50" x2="55" y2="50" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+<line x1="40" y1="58" x2="55" y2="65" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+<rect class="rep-node" x="55" y="20" width="28" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 <text x="69" y="33" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">replica</text>
 <text x="69" y="41" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="sans-serif">ABCDE</text>
-<rect class="rep-node" x="55" y="50" width="28" height="25" rx="2" fill="#3d4b40" opacity="0.6"/>
+<rect class="rep-node" x="55" y="50" width="28" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 <text x="69" y="63" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">replica</text>
 <text x="69" y="71" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="sans-serif">ABCDE</text>
-<rect class="rep-node" x="55" y="80" width="28" height="25" rx="2" fill="#3d4b40" opacity="0.6"/>
+<rect class="rep-node" x="55" y="80" width="28" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 <text x="69" y="93" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">replica</text>
 <text x="69" y="101" text-anchor="middle" font-size="4" fill="white" opacity="0.6" font-family="sans-serif">ABCDE</text>
-<text x="100" y="55" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">same</text>
-<text x="100" y="63" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">data</text>
+<text x="100" y="55" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">same</text>
+<text x="100" y="63" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">data</text>
 </svg>`,
         definition: `Replication is the process of copying and maintaining data across multiple database servers (replicas). Each replica holds a full copy of the data. Changes on the primary are propagated to replicas through synchronous replication (waits for replicas to confirm) or asynchronous replication (does not wait).
 
@@ -2319,21 +2319,21 @@ Replication serves three purposes: high availability (if one server fails, other
   .fo-crown { animation: fo-rise 4s ease-in-out infinite; }
   @keyframes fo-rise { 0%,45% { opacity: 0; transform: translateY(5px); } 55%,100% { opacity: 0.8; transform: translateY(0); } }
 </style>
-<rect class="fo-primary" x="15" y="30" width="35" height="30" rx="3" fill="#3d4b40" stroke="#3d4b40" stroke-width="2"/>
+<rect class="fo-primary" x="15" y="30" width="35" height="30" rx="3" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="2"/>
 <text x="32" y="48" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif" class="fo-primary">primary</text>
 <g class="fo-x">
   <line x1="22" y1="37" x2="42" y2="53" stroke="#b44" stroke-width="3"/>
   <line x1="42" y1="37" x2="22" y2="53" stroke="#b44" stroke-width="3"/>
 </g>
-<rect class="fo-standby" x="70" y="30" width="35" height="30" rx="3" fill="#3d4b40" stroke="#3d4b40"/>
+<rect class="fo-standby" x="70" y="30" width="35" height="30" rx="3" fill="var(--diagram-ink)" stroke="var(--diagram-ink)"/>
 <text x="87" y="48" text-anchor="middle" font-size="6" fill="white" font-family="sans-serif">standby</text>
 <g class="fo-crown">
-  <polygon points="80,22 84,14 87,20 90,14 94,22" fill="#3d4b40" opacity="0.7"/>
+  <polygon points="80,22 84,14 87,20 90,14 94,22" fill="var(--diagram-ink)" opacity="0.7"/>
 </g>
-<path d="M50,45 Q60,35 70,45" fill="none" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#fo-a)" opacity="0.4"/>
-<defs><marker id="fo-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="#3d4b40"/></marker></defs>
-<text x="60" y="80" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">automatic promotion</text>
-<text x="60" y="100" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">switch to standby</text>
+<path d="M50,45 Q60,35 70,45" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#fo-a)" opacity="0.4"/>
+<defs><marker id="fo-a" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4Z" fill="var(--diagram-ink)"/></marker></defs>
+<text x="60" y="80" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">automatic promotion</text>
+<text x="60" y="100" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">switch to standby</text>
 </svg>`,
         definition: `Failover is the process of automatically switching to a standby database server when the primary server fails. A monitoring system detects the failure (through health checks or heartbeats), promotes the standby to primary, and redirects client connections to the new primary.
 
@@ -2356,18 +2356,18 @@ Automatic failover is critical for high availability. Without it, a primary serv
   .pitr-arrow { animation: pitr-spin 4s ease-in-out infinite; }
   @keyframes pitr-spin { 0%,25% { opacity: 0; } 30%,70% { opacity: 0.6; } 75%,100% { opacity: 0; } }
 </style>
-<circle cx="45" cy="50" r="30" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.3"/>
-<circle cx="45" cy="50" r="2" fill="#3d4b40"/>
-<line class="pitr-hand" x1="45" y1="50" x2="45" y2="25" stroke="#3d4b40" stroke-width="2" stroke-linecap="round"/>
-<line x1="45" y1="50" x2="58" y2="55" stroke="#3d4b40" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+<circle cx="45" cy="50" r="30" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.3"/>
+<circle cx="45" cy="50" r="2" fill="var(--diagram-ink)"/>
+<line class="pitr-hand" x1="45" y1="50" x2="45" y2="25" stroke="var(--diagram-ink)" stroke-width="2" stroke-linecap="round"/>
+<line x1="45" y1="50" x2="58" y2="55" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
 <g class="pitr-arrow">
-  <path d="M75,35 Q85,25 80,40" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <polygon points="78,38 82,42 84,36" fill="#3d4b40"/>
+  <path d="M75,35 Q85,25 80,40" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <polygon points="78,38 82,42 84,36" fill="var(--diagram-ink)"/>
 </g>
-<text x="90" y="55" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">rewind</text>
-<text x="90" y="65" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">to any</text>
-<text x="90" y="75" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">moment</text>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">time travel for data</text>
+<text x="90" y="55" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">rewind</text>
+<text x="90" y="65" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">to any</text>
+<text x="90" y="75" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">moment</text>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">time travel for data</text>
 </svg>`,
         definition: `Point-in-Time Recovery (PITR) allows you to restore a database to its exact state at any specific moment in the past. It works by combining a base backup with write-ahead log (WAL) replay. You restore the base backup, then replay WAL records up to the target timestamp.
 
@@ -2393,15 +2393,15 @@ PITR is invaluable for recovering from accidental data deletion, corruption, or 
   .bs-shield { animation: bs-guard 2s ease-in-out infinite; }
   @keyframes bs-guard { 0%,100% { opacity: 0.15; } 50% { opacity: 0.3; } }
 </style>
-<path class="bs-shield" d="M60,8 L95,22 L95,55 Q95,85 60,100 Q25,85 25,55 L25,22 Z" fill="#3d4b40"/>
-<rect class="bs-copy" x="35" y="25" width="50" height="14" rx="2" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<path class="bs-shield" d="M60,8 L95,22 L95,55 Q95,85 60,100 Q25,85 25,55 L25,22 Z" fill="var(--diagram-ink)"/>
+<rect class="bs-copy" x="35" y="25" width="50" height="14" rx="2" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="35" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">full backup</text>
-<rect class="bs-copy" x="38" y="45" width="44" height="12" rx="2" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<rect class="bs-copy" x="38" y="45" width="44" height="12" rx="2" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="54" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">incremental</text>
-<rect class="bs-copy" x="41" y="63" width="38" height="12" rx="2" fill="#3d4b40" stroke="#3d4b40" stroke-width="1"/>
+<rect class="bs-copy" x="41" y="63" width="38" height="12" rx="2" fill="var(--diagram-ink)" stroke="var(--diagram-ink)" stroke-width="1"/>
 <text x="60" y="72" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">WAL archive</text>
-<text x="60" y="90" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">3-2-1 rule</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">protect your data</text>
+<text x="60" y="90" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">3-2-1 rule</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">protect your data</text>
 </svg>`,
         definition: `A backup strategy defines how, when, and where database backups are created and stored. The classic 3-2-1 rule recommends: 3 copies of data, on 2 different media types, with 1 offsite copy. Common backup types include full backups (complete copy), incremental backups (only changes since last backup), and continuous WAL archiving.
 
@@ -2424,22 +2424,22 @@ A backup strategy is not just about creating backups -- it must include regular 
   .ck-ok { animation: ck-match 3s ease-in-out infinite; }
   @keyframes ck-match { 0%,40%,100% { opacity: 0; } 50%,90% { opacity: 0.8; } }
 </style>
-<rect x="10" y="20" width="60" height="30" rx="3" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1"/>
-<text x="40" y="32" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">data block</text>
-<text x="40" y="42" text-anchor="middle" font-size="4" fill="#3d4b40" opacity="0.5" font-family="monospace">01101001 10110...</text>
-<line x1="70" y1="35" x2="80" y2="35" stroke="#3d4b40" stroke-width="1" opacity="0.4"/>
-<text x="85" y="30" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">hash</text>
-<rect class="ck-bit" x="80" y="32" width="30" height="10" rx="2" fill="#3d4b40"/>
+<rect x="10" y="20" width="60" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="40" y="32" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">data block</text>
+<text x="40" y="42" text-anchor="middle" font-size="4" fill="var(--diagram-ink)" opacity="0.5" font-family="monospace">01101001 10110...</text>
+<line x1="70" y1="35" x2="80" y2="35" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.4"/>
+<text x="85" y="30" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">hash</text>
+<rect class="ck-bit" x="80" y="32" width="30" height="10" rx="2" fill="var(--diagram-ink)"/>
 <text x="95" y="40" text-anchor="middle" font-size="4" fill="white" font-family="monospace">a3f2</text>
-<rect x="10" y="60" width="60" height="30" rx="3" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1"/>
-<text x="40" y="72" text-anchor="middle" font-size="5" fill="#3d4b40" font-family="sans-serif">stored checksum</text>
-<rect class="ck-bit" x="80" y="68" width="30" height="10" rx="2" fill="#3d4b40"/>
+<rect x="10" y="60" width="60" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1"/>
+<text x="40" y="72" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" font-family="sans-serif">stored checksum</text>
+<rect class="ck-bit" x="80" y="68" width="30" height="10" rx="2" fill="var(--diagram-ink)"/>
 <text x="95" y="76" text-anchor="middle" font-size="4" fill="white" font-family="monospace">a3f2</text>
-<line x1="70" y1="75" x2="80" y2="75" stroke="#3d4b40" stroke-width="1" opacity="0.4"/>
+<line x1="70" y1="75" x2="80" y2="75" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.4"/>
 <g class="ck-ok">
   <text x="95" y="58" text-anchor="middle" font-size="8" fill="#6b8f71" font-family="sans-serif">= &#10003;</text>
 </g>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">integrity check</text>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">integrity check</text>
 </svg>`,
         definition: `Checksums are fixed-size hash values computed from data blocks to detect corruption. When data is written, a checksum is calculated and stored alongside it. When the data is read back, the checksum is recalculated and compared to the stored value. If they do not match, corruption has occurred.
 
@@ -2464,24 +2464,24 @@ Database checksums catch silent data corruption caused by disk failures, firmwar
   .cb-spark { animation: cb-zap 4s ease-in-out infinite; }
   @keyframes cb-zap { 0%,40% { opacity: 0; } 42%,48% { opacity: 0.8; } 50%,100% { opacity: 0; } }
 </style>
-<text x="15" y="50" font-size="5" fill="#3d4b40" opacity="0.5" font-family="sans-serif">service</text>
-<rect x="8" y="55" width="25" height="15" rx="2" fill="#3d4b40" opacity="0.5"/>
-<line class="cb-closed" x1="33" y1="62" x2="75" y2="62" stroke="#3d4b40" stroke-width="2"/>
+<text x="15" y="50" font-size="5" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">service</text>
+<rect x="8" y="55" width="25" height="15" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
+<line class="cb-closed" x1="33" y1="62" x2="75" y2="62" stroke="var(--diagram-ink)" stroke-width="2"/>
 <g class="cb-open">
-  <line x1="33" y1="62" x2="50" y2="62" stroke="#3d4b40" stroke-width="2"/>
-  <line x1="50" y1="62" x2="62" y2="48" stroke="#3d4b40" stroke-width="2"/>
-  <line x1="65" y1="62" x2="75" y2="62" stroke="#3d4b40" stroke-width="2"/>
+  <line x1="33" y1="62" x2="50" y2="62" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <line x1="50" y1="62" x2="62" y2="48" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <line x1="65" y1="62" x2="75" y2="62" stroke="var(--diagram-ink)" stroke-width="2"/>
 </g>
 <g class="cb-spark">
   <line x1="55" y1="48" x2="58" y2="55" stroke="#b44" stroke-width="1.5"/>
   <line x1="58" y1="55" x2="54" y2="58" stroke="#b44" stroke-width="1.5"/>
   <line x1="54" y1="58" x2="60" y2="62" stroke="#b44" stroke-width="1.5"/>
 </g>
-<rect x="75" y="55" width="25" height="15" rx="2" fill="#3d4b40" opacity="0.5"/>
+<rect x="75" y="55" width="25" height="15" rx="2" fill="var(--diagram-ink)" opacity="0.5"/>
 <text x="87" y="66" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">DB</text>
-<text x="60" y="25" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">closed &#8594; open</text>
-<text x="60" y="95" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">fail fast, recover slow</text>
-<text x="60" y="110" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">protect downstream</text>
+<text x="60" y="25" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">closed &#8594; open</text>
+<text x="60" y="95" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">fail fast, recover slow</text>
+<text x="60" y="110" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">protect downstream</text>
 </svg>`,
         definition: `A circuit breaker is a design pattern that prevents an application from repeatedly calling a failing downstream service. When failures exceed a threshold, the circuit 'opens' and immediately returns errors without attempting the call. After a timeout, it enters a 'half-open' state, allowing a test request through. If that succeeds, the circuit closes; if not, it opens again.
 
@@ -2505,10 +2505,10 @@ Circuit breakers prevent cascading failures where a slow or failing service caus
   @keyframes hc-ecg { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
 </style>
 <g class="hc-pulse" transform-origin="60px 50px">
-  <path d="M60,25 C45,25 35,35 35,50 C35,70 60,85 60,85 C60,85 85,70 85,50 C85,35 75,25 60,25Z" fill="#3d4b40" opacity="0.2" stroke="#3d4b40" stroke-width="1.5"/>
+  <path d="M60,25 C45,25 35,35 35,50 C35,70 60,85 60,85 C60,85 85,70 85,50 C85,35 75,25 60,25Z" fill="var(--diagram-ink)" opacity="0.2" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </g>
-<polyline class="hc-line" points="10,55 25,55 30,55 35,45 40,65 45,35 50,70 55,50 60,55 75,55 80,55 85,45 90,60 95,55 110,55" fill="none" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="200" stroke-linecap="round"/>
-<text x="60" y="105" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">alive?</text>
+<polyline class="hc-line" points="10,55 25,55 30,55 35,45 40,65 45,35 50,70 55,50 60,55 75,55 80,55 85,45 90,60 95,55 110,55" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="200" stroke-linecap="round"/>
+<text x="60" y="105" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">alive?</text>
 <circle cx="100" cy="20" r="5" fill="#6b8f71" opacity="0.6"/>
 <text x="100" y="23" text-anchor="middle" font-size="4" fill="white" font-family="sans-serif">ok</text>
 </svg>`,
@@ -2537,23 +2537,23 @@ Health checks range from simple (is the process running?) to deep (can the servi
   @keyframes idem-same { 0%,100% { fill-opacity: 0.5; } 50% { fill-opacity: 1; } }
 </style>
 <g class="idem-try">
-  <rect x="8" y="20" width="45" height="14" rx="2" fill="#3d4b40" opacity="0.6"/>
+  <rect x="8" y="20" width="45" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
   <text x="30" y="30" text-anchor="middle" font-size="5" fill="white" font-family="monospace">POST /pay</text>
 </g>
 <g class="idem-try">
-  <rect x="8" y="40" width="45" height="14" rx="2" fill="#3d4b40" opacity="0.6"/>
+  <rect x="8" y="40" width="45" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
   <text x="30" y="50" text-anchor="middle" font-size="5" fill="white" font-family="monospace">POST /pay</text>
 </g>
 <g class="idem-try">
-  <rect x="8" y="60" width="45" height="14" rx="2" fill="#3d4b40" opacity="0.6"/>
+  <rect x="8" y="60" width="45" height="14" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
   <text x="30" y="70" text-anchor="middle" font-size="5" fill="white" font-family="monospace">POST /pay</text>
 </g>
-<text x="60" y="50" font-size="8" fill="#3d4b40" opacity="0.3" font-family="sans-serif">&#8594;</text>
-<rect class="idem-result" x="68" y="35" width="42" height="22" rx="3" fill="#3d4b40"/>
+<text x="60" y="50" font-size="8" fill="var(--diagram-ink)" opacity="0.3" font-family="sans-serif">&#8594;</text>
+<rect class="idem-result" x="68" y="35" width="42" height="22" rx="3" fill="var(--diagram-ink)"/>
 <text x="89" y="47" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">charged</text>
 <text x="89" y="54" text-anchor="middle" font-size="5" fill="white" font-family="sans-serif">once</text>
-<text x="60" y="95" text-anchor="middle" font-size="5" fill="#3d4b40" opacity="0.4" font-family="sans-serif">f(x) = f(f(x))</text>
-<text x="60" y="112" text-anchor="middle" font-size="6" fill="#3d4b40" opacity="0.5" font-family="sans-serif">safe to retry</text>
+<text x="60" y="95" text-anchor="middle" font-size="5" fill="var(--diagram-ink)" opacity="0.4" font-family="sans-serif">f(x) = f(f(x))</text>
+<text x="60" y="112" text-anchor="middle" font-size="6" fill="var(--diagram-ink)" opacity="0.5" font-family="sans-serif">safe to retry</text>
 </svg>`,
         definition: `An idempotent operation produces the same result regardless of how many times it is executed. In database and API design, idempotency means that retrying an operation (due to network failures, timeouts, or errors) will not cause duplicate effects like double-charging a customer or creating duplicate records.
 

@@ -20,6 +20,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -45,7 +58,8 @@
                 <a href="/downloads/glossary.md" download class="hidden md:flex items-center gap-2 px-3 py-1 border border-ink/20 text-xs text-ink/60 hover:border-accent hover:text-accent transition-colors">
                     <i data-lucide="download" class="w-3 h-3"></i> Download.md
                 </a>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </header>
 
         <!-- Main Content -->
@@ -60,7 +74,7 @@
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ink/40 group-focus-within:text-accent transition-colors">
                         <i data-lucide="search" class="w-5 h-5"></i>
                     </div>
-                    <input type="text" id="searchInput" class="w-full bg-white border border-ink/10 text-ink pl-12 pr-4 py-4 text-sm focus:outline-none focus:border-accent focus:bg-white transition-all rounded-sm" placeholder="Search terms...">
+                    <input type="text" id="searchInput" class="w-full bg-white border border-ink/10 text-ink pl-12 pr-4 py-4 text-sm focus:outline-none focus:border-accent focus:bg-white transition rounded-sm" placeholder="Search terms...">
                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                         <span class="text-xs text-ink/30 group-focus-within:text-accent transition-colors">[Input]</span>
                     </div>
@@ -97,7 +111,7 @@
 
     <!-- App Logic -->
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         const grid = document.getElementById('glossaryGrid');
         const searchInput = document.getElementById('searchInput');
@@ -164,7 +178,7 @@
             }
 
             // Re-init icons for new elements
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function copyDefinition(key) {

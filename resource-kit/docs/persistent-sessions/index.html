@@ -20,16 +20,37 @@
 
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
         .sidebar-nav { position: sticky; top: 100px; }
-        .sidebar-link { transition: all 0.2s ease; }
-        .sidebar-link:hover, .sidebar-link.active { color: #b8860b; border-left-color: #b8860b; }
-        .code-block { background: #1a1a1a; border: 1px solid rgba(26,26,26,0.2); }
-        .code-block:hover { border-color: rgba(184,134,11,0.3); }
+        .sidebar-link { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
+        .sidebar-link:hover, .sidebar-link.active { color: var(--caution); border-left-color: var(--caution); }
+        .code-block { background: var(--slab); border: 1px solid var(--edge-soft); }
+        .code-block:hover { border-color: var(--edge-firm); }
+
+        /* The block is a slab in both themes, so its text stays light. */
+        .code-block, .code-block pre, .code-block code { color: var(--on-slab); }
+        .code-block .text-gray-500 { color: rgb(var(--on-slab-rgb) / 0.62); }
+        .code-block .text-gray-400,
+        .code-block .text-gray-300 { color: rgb(var(--on-slab-rgb) / 0.78); }
+        .code-block .text-accent { color: var(--accent-on-slab); }
+
         .step-badge {
-            width: 2rem; height: 2rem; background: #b8860b; color: white;
+            width: 2rem; height: 2rem; background: var(--caution-surface); color: #fff;
             display: flex; align-items: center; justify-content: center;
             font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
         }
@@ -73,7 +94,8 @@
                         <i data-lucide="arrow-left" class="w-3 h-3"></i> <span class="hidden sm:inline">Return Home</span>
                     </a>
                 </nav>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </header>
 
         <!-- Hero -->
@@ -566,14 +588,14 @@ set -g window-status-format "  #I:#W#{?window_silence_flag, ~,}#{?window_bell_fl
     </div>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         function copyCode(btn) {
             const code = btn.closest('.code-block').querySelector('code').innerText;
             navigator.clipboard.writeText(code).then(() => {
                 const orig = btn.textContent;
                 btn.textContent = 'Copied!';
-                btn.style.color = '#b8860b';
+                btn.style.color = 'var(--caution)';
                 setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
             });
         }

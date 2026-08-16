@@ -272,10 +272,34 @@ async function loadAllData() {
         let selectedTools = [];
 
         /**
-         * Tools selected for comparison in the comparison modal (max 3).
+         * Tools selected for comparison in the comparison modal.
+         *
+         * Fixed length of three: one entry per comparison column, in column
+         * order. An empty string means that column has no model chosen yet.
          * @type {string[]}
          */
-        let compareTools = [];
+        let compareTools = ['', '', ''];
+
+        /**
+         * Preferred starting trio for the comparison modal.
+         *
+         * Any name missing from tool-comparison.json is dropped, so the modal
+         * still opens with something sensible if the catalog is renamed.
+         * @type {string[]}
+         */
+        const COMPARE_DEFAULTS = ['Claude Opus 5', 'GPT-5.6 Sol', 'Gemini 3.7 Flash'];
+
+        /**
+         * Builds the default three-column comparison selection.
+         *
+         * @function defaultCompareTools
+         * @returns {string[]} Three column values, padded with empty strings
+         */
+        function defaultCompareTools() {
+            const available = toolComparisonData ? Object.keys(toolComparisonData) : [];
+            const picks = COMPARE_DEFAULTS.filter(name => available.includes(name));
+            return [picks[0] || '', picks[1] || '', picks[2] || ''];
+        }
 
         /**
          * Whether to display the recommendation view vs. question view.
@@ -365,47 +389,55 @@ async function loadAllData() {
          *
          * @function getPillClasses
          * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 5")
-         * @returns {string} Tailwind CSS classes for background and text color
+         * @returns {string} A provider pill class defined in amditis-v3.css
          *
          * @example
-         * getPillClasses('Claude Opus 5')  // Returns 'bg-[#d9843b] text-white'
-         * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
+         * getPillClasses('Claude Opus 5')  // Returns 'pill-anthropic'
+         * getPillClasses('Unknown Tool')     // Returns 'pill-neutral'
          */
         const getPillClasses = (tool) => {
-             // Map of tool name fragments to their brand colors
+             /**
+              * Map of tool name fragments to their provider colours.
+              *
+              * The hue encodes the provider family, which is real information, so
+              * it is kept. The lightness is not: several V2 fills carried white
+              * text at 2.5-3.5:1, well under WCAG AA. Each fill is darkened along
+              * its own hue until white text clears 4.6:1. These are solid fills,
+              * so one value serves both the day and night palettes.
+              */
              const toolColorMap = {
-                 'Claude': 'bg-[#d9843b] text-white',       // Anthropic orange
-                 'Gemini': 'bg-[#369a8b] text-white',       // Google teal
-                 'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
-                 'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT-5.6 Sol': 'bg-slate-500 text-white',      // OpenAI neutral
-                 'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
-                 'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
-                 'Kimi': 'bg-orange-500 text-white',        // Open-weight Kimi family
-                 'MiniMax': 'bg-orange-500 text-white',     // Open-weight MiniMax family
-                 'Step-': 'bg-orange-500 text-white',       // Open-weight StepFun family
-                 'MiMo': 'bg-orange-500 text-white',        // Open-weight Xiaomi family
-                 'Tencent Hy3': 'bg-orange-500 text-white', // Open-weight Tencent family
-                 'Command A+': 'bg-orange-500 text-white',  // Open-weight Cohere family
-                 'Nemotron': 'bg-orange-500 text-white',    // Open-weight NVIDIA family
-                 'Llama 4': 'bg-orange-500 text-white',     // Open-weight Meta family
-                 'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
-                 'Grok': 'bg-blue-500 text-white',          // xAI blue
-                 'DeepSeek': 'bg-[#615EFC] text-white',     // DeepSeek purple
-                 'Mistral': 'bg-pink-500 text-white',       // Mistral pink
-                 'Perplexity': 'bg-violet-500 text-white',  // Perplexity violet
-                 'ElevenLabs': 'bg-emerald-500 text-white', // ElevenLabs green
-                 'Midjourney': 'bg-indigo-600 text-white',  // Midjourney indigo
-                 'NotebookLM': 'bg-slate-600 text-white',   // Google NotebookLM
-                 'Custom AI': 'bg-gray-500 text-gray-100',  // Generic custom
-                 'RAG-enabled': 'bg-gray-500 text-white',   // RAG systems
-                 'Open Source': 'bg-orange-500 text-white', // Legacy open-source label
-                 'open weights': 'bg-orange-500 text-white' // Generic open-weight label
+                 'Claude': 'pill-anthropic',       // Anthropic orange
+                 'Gemini': 'pill-google',          // Google teal
+                 'Nano Banana': 'pill-google',     // Alias for Gemini
+                 'Codex': 'pill-openai',           // OpenAI neutral
+                 'GPT-5.6 Sol': 'pill-openai',     // OpenAI neutral
+                 'GLM': 'pill-open-weight',        // Open-weight GLM family
+                 'Qwen': 'pill-open-weight',       // Open-weight Qwen family
+                 'Kimi': 'pill-open-weight',       // Open-weight Kimi family
+                 'MiniMax': 'pill-open-weight',    // Open-weight MiniMax family
+                 'Step-': 'pill-open-weight',      // Open-weight StepFun family
+                 'MiMo': 'pill-open-weight',       // Open-weight Xiaomi family
+                 'Tencent Hy3': 'pill-open-weight', // Open-weight Tencent family
+                 'Command A+': 'pill-open-weight', // Open-weight Cohere family
+                 'Nemotron': 'pill-open-weight',   // Open-weight NVIDIA family
+                 'Llama 4': 'pill-open-weight',    // Open-weight Meta family
+                 'GPT': 'pill-openai',             // OpenAI neutral
+                 'Grok': 'pill-xai',               // xAI blue
+                 'DeepSeek': 'pill-deepseek',      // DeepSeek purple
+                 'Mistral': 'pill-mistral',        // Mistral pink
+                 'Perplexity': 'pill-perplexity',  // Perplexity violet
+                 'ElevenLabs': 'pill-elevenlabs',  // ElevenLabs green
+                 'Midjourney': 'pill-midjourney',  // Midjourney indigo
+                 'NotebookLM': 'pill-notebooklm',  // Google NotebookLM
+                 'Custom AI': 'pill-neutral',      // Generic custom
+                 'RAG-enabled': 'pill-neutral',    // RAG systems
+                 'Open Source': 'pill-open-weight', // Legacy open-source label
+                 'open weights': 'pill-open-weight' // Generic open-weight label
              };
 
              // Find the first matching key using partial string match
              const key = Object.keys(toolColorMap).find(k => tool.includes(k));
-             return key ? toolColorMap[key] : 'bg-slate-700 text-slate-300';
+             return key ? toolColorMap[key] : 'pill-neutral';
         };
 
         /**
@@ -610,27 +642,26 @@ async function loadAllData() {
                 const trackColor = getTrackColor(option.track || currentTrack);
 
                 return `
-                <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-white/40 border border-ink/10 hover:border-accent hover:bg-white/60"
+                <button class="option-button group w-full text-left py-4 flex justify-between items-baseline gap-4 border-b border-ink/10 hover:bg-ink/5 transition-colors duration-200"
                         data-next="${option.next}"
                         data-text="${sanitizeHTML(option.text)}"
                         data-tools='${toolsJSON}'
                         data-track="${option.track || currentTrack}"
                         style="animation-delay: ${index * 50}ms">
-                    <div class="flex items-center gap-4">
-                        <span class="text-xs font-mono text-mist group-hover:text-accent transition-colors">0${index + 1}</span>
-                        <span class="font-display text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-mist group-hover:text-accent group-hover:translate-x-1 transition-all"><path d="m9 18 6-6-6-6"/></svg>
+                    <span class="font-display text-lg text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 text-mist group-hover:text-accent transition-colors" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
                 </button>`;
             }).join('');
 
-            // Render question header with step counter and options
+            // Render question header with step counter and options. The counter
+            // is a real position in the reader's path, so it is set as a folio
+            // rather than the `QUERY_01` console label V2 used.
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">${sanitizeHTML(node.question)}</h2>
+                    <div class="folio mb-3">Step ${String(history.length + 1).padStart(2, '0')}</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink">${sanitizeHTML(node.question)}</h2>
                 </div>
-                <div class="space-y-3">${optionsHTML}</div>`;
+                <div class="border-t border-ink/10">${optionsHTML}</div>`;
         }
 
         /**
@@ -650,48 +681,40 @@ async function loadAllData() {
         function renderRecommendationView() {
             // Generate HTML for each recommended tool card
             let toolsHTML = selectedTools.map((tool, index) => `
-                <div class="recommendation-card border border-ink/10 bg-white/40 p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
-                    <div class="pl-4">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-8 h-8 bg-accent/20 border border-accent flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
-                            </div>
-                            <h3 class="font-display text-xl text-ink tracking-wide">${sanitizeHTML(tool.name)}</h3>
-                        </div>
-                        <p class="text-sm text-mist mb-6 leading-relaxed">${sanitizeHTML(tool.description)}</p>
+                <div class="recommendation-card deckle-card-solid p-6 md:p-8" style="animation-delay: ${index * 100}ms">
+                    <h3 class="font-display text-2xl text-ink mb-3">${sanitizeHTML(tool.name)}</h3>
+                    <p class="text-sm text-mist mb-8 leading-relaxed measure">${sanitizeHTML(tool.description)}</p>
 
-                        <div class="mb-6">
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">RECOMMENDED_MODELS</h4>
-                            <div class="flex flex-wrap gap-2">
-                                ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
-                            </div>
+                    <div class="note note--accent">
+                        <span class="note__label">Recommended models</span>
+                        <div class="flex flex-wrap gap-2">
+                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
                         </div>
-
-                        <div class="mb-6">
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">SAMPLE_PROMPT</h4>
-                            <code class="block text-sm text-ink whitespace-pre-wrap font-mono bg-white/50 border border-ink/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
-                        </div>
-
-                        ${tool.tips ? `
-                        <div>
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">PRO_TIPS</h4>
-                            <p class="text-sm text-mist leading-relaxed border-l-2 border-accent/30 pl-4">${sanitizeHTML(tool.tips)}</p>
-                        </div>` : ''}
                     </div>
+
+                    <div class="note">
+                        <span class="note__label">Sample prompt</span>
+                        <code class="block text-sm text-ink whitespace-pre-wrap font-mono bg-ink/5 border border-ink/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
+                    </div>
+
+                    ${tool.tips ? `
+                    <div class="note note--sage">
+                        <span class="note__label">Tips</span>
+                        <p class="text-sm text-mist leading-relaxed measure">${sanitizeHTML(tool.tips)}</p>
+                    </div>` : ''}
                 </div>`).join('');
 
             // Render the complete recommendation view with header and restart button
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">Recommended tools and approaches</h2>
+                    <div class="folio mb-3">Result</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink">Recommended tools and approaches</h2>
                 </div>
-                <div class="space-y-6">${toolsHTML}</div>
-                <div class="mt-8 pt-6 border-t border-ink/10">
-                    <button id="restart-from-rec-btn" class="flex items-center gap-2 px-6 py-3 text-sm font-mono bg-white/40 border border-ink/10 text-mist hover:text-accent hover:border-accent transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                        [ START_NEW_QUERY ]
+                <div class="space-y-8">${toolsHTML}</div>
+                <div class="mt-10 pt-6 border-t border-ink/10">
+                    <button id="restart-from-rec-btn" class="btn-outline inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        Start a new query
                     </button>
                 </div>`;
         }
@@ -827,66 +850,121 @@ async function loadAllData() {
         // -------------------------------------------------------------------------
 
         /**
+         * Renders the comparison table for the currently chosen models.
+         *
+         * Writes into `#comparison-table` so a dropdown change can refresh the
+         * table without re-rendering the dropdowns themselves (which would
+         * throw away keyboard focus mid-selection).
+         *
+         * @function renderComparisonTable
+         * @returns {void}
+         */
+        function renderComparisonTable() {
+            const container = document.getElementById('comparison-table');
+            if (!container) return;
+
+            const chosen = compareTools.filter(tool => tool && toolComparisonData[tool]);
+
+            if (chosen.length === 0) {
+                container.innerHTML = `<div class="text-center p-8 bg-white/70 border border-ink/15"><p class="text-ink/70 text-sm">Choose a model in any column above to start comparing.</p></div>`;
+                return;
+            }
+
+            const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
+            const featureNames = {
+                strengths: 'Key strengths',
+                weaknesses: 'Limitations',
+                bestFor: 'Best use cases',
+                pricing: 'Pricing'
+            };
+
+            container.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table class="min-w-full w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-ink/10">
+                                <th scope="col" class="py-3 text-xs text-mist tracking-wider font-medium">Feature</th>
+                                ${chosen.map(tool => `<th scope="col" class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${sanitizeHTML(tool)}</span></th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${features.map(feature => `
+                                <tr class="align-top border-b border-ink/5">
+                                    <th scope="row" class="py-4 pr-4 font-medium text-ink whitespace-nowrap text-left">${featureNames[feature]}</th>
+                                    ${chosen.map(tool => `<td class="py-4 pr-4 text-ink/85">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>`;
+        }
+
+        /**
+         * Marks each dropdown option already chosen in another column disabled.
+         *
+         * The three columns compare three different models, so offering a model
+         * a neighbouring column already holds only produces a table with the
+         * same column twice. Toggling `disabled` on the existing option nodes
+         * leaves the select elements themselves untouched, so a keyboard user
+         * mid-selection keeps focus.
+         *
+         * @function updateCompareOptionStates
+         * @returns {void}
+         */
+        function updateCompareOptionStates() {
+            if (!modalBody) return;
+
+            modalBody.querySelectorAll('.compare-select').forEach(select => {
+                const column = Number(select.dataset.column);
+
+                Array.from(select.options).forEach(option => {
+                    option.disabled = option.value !== '' &&
+                        compareTools.some((tool, index) => index !== column && tool === option.value);
+                });
+            });
+        }
+
+        /**
          * Renders the tool comparison modal content.
          *
-         * Displays a tool selection interface and a comparison table. Users can
-         * select up to 3 tools to compare side-by-side across features:
+         * Shows one dropdown per comparison column. Each dropdown lists every
+         * model in `tool-comparison.json`, alphabetized, with the models the
+         * other two columns hold disabled so no model can be compared against
+         * itself. The table below compares the chosen models side by side
+         * across:
          * - Key strengths
          * - Limitations
          * - Best use cases
          * - Pricing
          *
-         * The modal updates dynamically as tools are selected/deselected via
-         * the `compareTools` state array.
+         * Column choices live in the `compareTools` state array, one entry per
+         * column.
          *
          * @function renderComparisonModal
          * @returns {void}
          */
         function renderComparisonModal() {
-            // Render tool selection buttons
-            const headerHTML = `
-                <h3 class="text-sm font-mono text-accent mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
-                <div class="flex flex-wrap gap-2">
-                    ${Object.keys(toolComparisonData).map(tool => `
-                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/80 border border-ink/15 text-ink/75 hover:text-ink hover:border-ink/40'}" data-tool="${escapeAttr(tool)}">${sanitizeHTML(tool)}</button>
+            const allTools = Object.keys(toolComparisonData).sort((a, b) => a.localeCompare(b));
+            const selectClasses = 'appearance-none w-full bg-canvas border border-ink/15 text-sm text-ink py-2 px-3 focus:outline-none focus:border-accent transition-colors cursor-pointer';
+
+            const selectorsHTML = `
+                <h3 class="text-sm font-medium text-accent mb-1">Compare three models</h3>
+                <p class="text-sm text-mist mb-4">Pick a model for each column.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    ${compareTools.map((selected, column) => `
+                        <div>
+                            <label class="block text-xs text-mist mb-1" for="compare-select-${column}">Column ${column + 1}</label>
+                            <select id="compare-select-${column}" class="compare-select ${selectClasses}" data-column="${column}">
+                                <option value="">Choose a model</option>
+                                ${allTools.map(tool => `<option value="${escapeAttr(tool)}"${tool === selected ? ' selected' : ''}>${sanitizeHTML(tool)}</option>`).join('')}
+                            </select>
+                        </div>
                     `).join('')}
                 </div>`;
 
-            let tableHTML = '';
-            if (compareTools.length > 0) {
-                // Build comparison table when tools are selected
-                const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
-                const featureNames = {
-                    strengths: 'Key strengths',
-                    weaknesses: 'Limitations',
-                    bestFor: 'Best use cases',
-                    pricing: 'Pricing'
-                };
-
-                tableHTML = `
-                    <div class="overflow-x-auto mt-6">
-                        <table class="min-w-full w-full text-left text-sm">
-                            <thead>
-                                <tr class="border-b border-ink/10">
-                                    <th class="py-3 font-mono text-xs text-mist tracking-wider">FEATURE</th>
-                                    ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${sanitizeHTML(tool)}</span></th>`).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${features.map(feature => `
-                                    <tr class="align-top border-b border-ink/5">
-                                        <td class="py-4 pr-4 font-medium text-ink whitespace-nowrap">${featureNames[feature]}</td>
-                                        ${compareTools.map(tool => `<td class="py-4 pr-4 text-ink/85">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>`;
-            } else {
-                // Show placeholder when no tools selected
-                tableHTML = `<div class="text-center p-8 bg-white/70 border border-ink/15 mt-6"><p class="text-ink/70 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
-            }
-            modalBody.innerHTML = headerHTML + tableHTML;
+            modalBody.innerHTML = `${selectorsHTML}<div id="comparison-table" class="mt-6"></div>`;
+            updateCompareOptionStates();
+            renderComparisonTable();
         }
 
         /**
@@ -906,6 +984,8 @@ async function loadAllData() {
         function renderCaseStudiesModal() {
             modalBody.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${caseStudiesData.map(study => {
                 const sourceUrl = safeHttpUrl(study.sourceUrl);
+                /* Several entries carry no quote; an empty pull-quote panel reads as a bug. */
+                const quote = typeof study.quote === 'string' ? study.quote.trim() : '';
                 return `
                 <div class="border border-ink/10 overflow-hidden flex flex-col bg-white/40">
                     <div class="px-5 py-4 ${getPillClasses(study.tool)}">
@@ -926,10 +1006,10 @@ async function loadAllData() {
                                     <h4 class="font-mono text-xs text-accent tracking-wider mb-2">KEY_TAKEAWAY</h4>
                                     <p class="text-mist">${sanitizeHTML(study.tips)}</p>
                                 </div>
-                                <div>
+                                ${quote ? `<div>
                                     <h4 class="font-mono text-xs text-accent tracking-wider mb-2">WORDS_OF_WISDOM</h4>
-                                    <p class="border-l-2 pl-4 py-2 border-accent/30 bg-accent/5 text-sm italic text-ink">"${sanitizeHTML(study.quote)}"</p>
-                                </div>
+                                    <p class="border-l-2 pl-4 py-2 border-accent/30 bg-accent/5 text-sm italic text-ink">"${sanitizeHTML(quote)}"</p>
+                                </div>` : ''}
                             </div>
                         </div>
                         ${sourceUrl ? `<div class="mt-4 flex justify-end"><a href="${escapeAttr(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-accent hover:underline">Learn more →</a></div>` : ''}
@@ -1077,7 +1157,7 @@ async function loadAllData() {
 
             // Update progress bar
             progressBar.style.width = `${progress}%`;
-            progressBar.className = 'absolute top-0 left-0 h-full bg-accent transition-all duration-500';
+            progressBar.className = 'absolute top-0 left-0 h-full bg-accent progress-fill';
 
             // Update back button state
             backBtn.disabled = history.length === 0;
@@ -1362,7 +1442,7 @@ async function loadAllData() {
 
                 // Sidebar modal triggers (may also be in container on mobile)
                 if (id === 'show-comparison-btn') {
-                    compareTools = [];
+                    compareTools = defaultCompareTools();
                     showModal('Tool comparison', renderComparisonModal);
                     return;
                 }
@@ -1379,17 +1459,6 @@ async function loadAllData() {
                 if (classList.contains('modal-close-btn')) {
                     hideModal();
                     return;
-                }
-
-                // Tool comparison toggle
-                if (classList.contains('compare-tool-btn')) {
-                    const tool = button.dataset.tool;
-                    if (compareTools.includes(tool)) {
-                        compareTools = compareTools.filter(t => t !== tool);
-                    } else if (compareTools.length < 3) {
-                        compareTools.push(tool);
-                    }
-                    renderComparisonModal();
                 }
             });
 
@@ -1425,24 +1494,37 @@ async function loadAllData() {
                     return;
                 }
 
-                // Tool comparison toggles inside modal
-                if (button.classList.contains('compare-tool-btn')) {
-                    const tool = button.dataset.tool;
-                    if (compareTools.includes(tool)) {
-                        compareTools = compareTools.filter(t => t !== tool);
-                    } else if (compareTools.length < 3) {
-                        compareTools.push(tool);
-                    }
-                    renderComparisonModal();
-                    return;
-                }
-
                 // Model pills inside modal (for switching between models)
                 if (button.classList.contains('model-pill-btn')) {
                     const modelName = button.dataset.modelName;
                     showModal('Model information', renderModelInfoModal, modelName);
                     return;
                 }
+            });
+
+            // Comparison dropdowns live inside the modal, which sits outside
+            // #llm-tool-advisor-container, so the container's delegated listener
+            // never sees them. Delegate from the modal instead.
+            universalModal.addEventListener('change', e => {
+                const select = e.target.closest('.compare-select');
+                if (!select) return;
+
+                const column = Number(select.dataset.column);
+                if (!Number.isInteger(column) || column < 0 || column >= compareTools.length) return;
+
+                const value = select.value;
+
+                // Disabled options make this unreachable in a browser, but a
+                // duplicate arriving any other way would render one model in
+                // two columns, so refuse it and restore the column's choice.
+                if (value && compareTools.some((tool, index) => index !== column && tool === value)) {
+                    select.value = compareTools[column];
+                    return;
+                }
+
+                compareTools[column] = toolComparisonData[value] ? value : '';
+                updateCompareOptionStates();
+                renderComparisonTable();
             });
 
             // ----------------------------------------------------------------
@@ -1455,7 +1537,7 @@ async function loadAllData() {
 
             if (showComparisonBtn) {
                 showComparisonBtn.addEventListener('click', () => {
-                    compareTools = [];
+                    compareTools = defaultCompareTools();
                     showModal('Tool comparison', renderComparisonModal);
                 });
             }

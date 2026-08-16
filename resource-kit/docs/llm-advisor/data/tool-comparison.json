@@ -277,22 +277,26 @@
   },
   "Codex (GPT-5.6 Sol)": {
     "strengths": [
-      "Specialized for coding tasks",
-      "Built for long-horizon repository work",
+      "Cloud tasks run in isolated containers, so long jobs finish unattended",
+      "Parallel subagents in Ultra mode fan work out across a repository",
+      "Tag @codex on a GitHub pull request to start a task or a review",
       "Strong debugging and multi-file reasoning",
       "Works well in Windows environments and with vision-to-code"
     ],
     "weaknesses": [
       "Less versatile for non-coding tasks",
-      "Requires OpenAI subscription"
+      "Requires OpenAI subscription",
+      "Should never review or approve its own output"
     ],
     "bestFor": [
       "All OpenAI coding tasks",
+      "Long-running unattended coding jobs",
+      "Independent second-model code review",
       "Multi-file projects",
       "Long-horizon refactors",
       "Code debugging"
     ],
-    "pricing": "Check current Codex plan or API pricing"
+    "pricing": "Flat ChatGPT-plan pricing, metered per five-hour window; check current Codex plan or API pricing"
   },
   "GPT 5.4": {
     "strengths": [

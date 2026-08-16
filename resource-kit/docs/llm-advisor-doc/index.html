@@ -25,14 +25,27 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
         body {
-            background-color: #ede6d4;
-            color: #121212;
+            background-color: var(--canvas);
+            color: var(--ink);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
@@ -49,9 +62,9 @@
         }
 
         .deckle-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(18, 18, 18, 0.05);
-            box-shadow: 0 15px 50px -10px rgba(18, 18, 18, 0.05);
+            background-color: var(--leaf);
+            border: 1px solid var(--edge-soft);
+            box-shadow: var(--lift-1);
         }
 
         @keyframes drift {
@@ -78,21 +91,24 @@
                     <span class="font-display text-3xl font-black italic tracking-tighter group-hover:text-accent transition-colors">A.</span>
                     <div>
                         <h1 class="font-display font-bold text-lg tracking-wider text-ink">AMDITIS</h1>
-                        <p class="text-xs text-mist tracking-[0.2em]">KIT v2.6</p>
+                        <p class="text-xs text-mist tracking-[0.2em]">KIT v2.7</p>
                     </div>
                 </a>
             </div>
 
+            <div class="flex items-center gap-4">
             <nav class="p-6 space-y-1 text-sm">
-                <a href="/" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">DASHBOARD</a>
+                <a href="/" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">DASHBOARD</a>
                 <a href="#workflow" class="block px-3 py-2 text-accent border-l-2 border-accent bg-accent/5">WORKFLOW</a>
-                <a href="#complexity" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">COMPLEXITY</a>
-                <a href="#budget" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">BUDGET</a>
-                <a href="#matrix" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">MATRIX</a>
-                <a href="#models" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">MODELS</a>
-                <a href="#tips" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">OPTIMIZATION</a>
-                <a href="#switch" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">FAILOVER</a>
+                <a href="#complexity" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">COMPLEXITY</a>
+                <a href="#budget" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">BUDGET</a>
+                <a href="#matrix" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">MATRIX</a>
+                <a href="#models" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">MODELS</a>
+                <a href="#tips" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">OPTIMIZATION</a>
+                <a href="#switch" class="block px-3 py-2 text-mist hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">FAILOVER</a>
             </nav>
+                <div data-theme-toggle-slot class="flex items-center"></div>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -100,14 +116,9 @@
 
             <!-- Hero -->
             <section class="border-b border-ink/10 pb-12">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="h-px flex-1 bg-ink/10"></div>
-                    <span class="text-xs text-mist uppercase tracking-widest">Protocol selection</span>
-                    <div class="h-px flex-1 bg-ink/10"></div>
-                </div>
                 <h2 class="font-display text-4xl md:text-6xl text-ink font-black italic mb-8">LLM Advisor</h2>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <p class="text-mist text-lg leading-relaxed border-l-2 border-accent pl-4 max-w-2xl">
+                    <p class="text-mist text-lg leading-relaxed measure">
                         Choose the right AI coding assistant. Manual decision guide for newsroom deployments.
                     </p>
                     <a href="/llm-advisor/" class="inline-flex items-center justify-center px-6 py-3 bg-accent text-canvas font-bold text-xs hover:bg-ink transition-colors">
@@ -196,19 +207,19 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="border-l-4 border-l-accent/50 deckle-card p-6">
+                    <div class="deckle-card p-6">
                         <div class="text-xs text-accent mb-2 font-bold">LEVEL 1</div>
                         <h4 class="font-bold text-ink mb-2">Simple</h4>
                         <p class="text-xs text-mist mb-4">Single script, one task.</p>
                         <div class="text-xs text-ink bg-ink/5 inline-block px-2 py-1">USE: Claude.ai Free</div>
                     </div>
-                    <div class="border-l-4 border-l-accent deckle-card p-6">
+                    <div class="deckle-card p-6">
                         <div class="text-xs text-accent mb-2 font-bold">LEVEL 2</div>
                         <h4 class="font-bold text-ink mb-2">Medium</h4>
                         <p class="text-xs text-mist mb-4">Multiple files, some logic.</p>
                         <div class="text-xs text-ink bg-ink/5 inline-block px-2 py-1">USE: Claude Sonnet 5</div>
                     </div>
-                    <div class="border-l-4 border-l-red-500 deckle-card p-6">
+                    <div class="deckle-card p-6">
                         <div class="text-xs text-red-700 mb-2 font-bold">LEVEL 3</div>
                         <h4 class="font-bold text-ink mb-2">Complex</h4>
                         <p class="text-xs text-mist mb-4">Multi-step, debugging intensive.</p>
@@ -272,7 +283,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div class="bg-ink/5 p-4 border-l-2 border-accent flex justify-between items-center">
+                    <div class="note note--accent flex justify-between items-center">
                         <span class="text-mist">Best coding/writing</span>
                         <span class="text-ink font-bold">Claude Opus 5</span>
                     </div>
@@ -420,19 +431,19 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-ink/5 p-6 border-l-4 border-red-500">
+                    <div class="note note--signal">
                         <h4 class="text-ink font-bold mb-2">Same error 3+ times?</h4>
                         <p class="text-xs text-mist">Try a different model. Each has different training data and approaches.</p>
                     </div>
-                    <div class="bg-ink/5 p-6 border-l-4 border-blue-500">
+                    <div class="note">
                         <h4 class="text-ink font-bold mb-2">Too slow?</h4>
                         <p class="text-xs text-mist">Drop from Opus to Sonnet, or use Gemini 3.7 Flash for quick tasks.</p>
                     </div>
-                    <div class="bg-ink/5 p-6 border-l-4 border-accent">
+                    <div class="note note--accent">
                         <h4 class="text-ink font-bold mb-2">Too expensive?</h4>
                         <p class="text-xs text-mist">Use free tiers for exploration, paid for production code.</p>
                     </div>
-                    <div class="bg-ink/5 p-6 border-l-4 border-ink/30">
+                    <div class="note">
                         <h4 class="text-ink font-bold mb-2">Need real-time help?</h4>
                         <p class="text-xs text-mist">GitHub Copilot for in-editor, conversational LLM for debugging.</p>
                     </div>
@@ -458,7 +469,7 @@
     </footer>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
     </script>
 </body>
 </html>

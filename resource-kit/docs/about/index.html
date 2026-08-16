@@ -20,6 +20,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -39,17 +52,20 @@
                     <div class="w-8 h-8 bg-accent text-white flex items-center justify-center font-bold font-display text-xl group-hover:bg-ink transition-colors">A</div>
                     <div>
                         <h1 class="font-display font-bold text-lg tracking-wider text-ink">AMDITIS</h1>
-                        <p class="text-xs text-ink/50 tracking-[0.2em]">KIT v2.6</p>
+                        <p class="text-xs text-ink/50 tracking-[0.2em]">KIT v2.7</p>
                     </div>
                 </a>
             </div>
 
+            <div class="flex items-center gap-4">
             <nav class="p-6 space-y-1 text-sm">
-                <a href="/" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Dashboard</a>
+                <a href="/" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">Dashboard</a>
                 <a href="#mission" class="block px-3 py-2 text-accent border-l-2 border-accent bg-accent/5">Mission</a>
-                <a href="#quickstart" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Quickstart</a>
-                <a href="#philosophy" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Philosophy</a>
+                <a href="#quickstart" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">Quickstart</a>
+                <a href="#philosophy" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition">Philosophy</a>
             </nav>
+                <div data-theme-toggle-slot class="flex items-center"></div>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -57,11 +73,6 @@
 
             <!-- Hero -->
             <section id="mission" class="border-b border-ink/10 pb-12">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="h-px flex-1 bg-ink/10"></div>
-                    <span class="text-xs text-ink/50 uppercase tracking-widest">About module</span>
-                    <div class="h-px flex-1 bg-ink/10"></div>
-                </div>
                 <h2 class="font-display text-4xl md:text-6xl font-light italic text-ink mb-8">Resource Kit</h2>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -80,7 +91,7 @@
                         </div>
                         <h3 class="text-lg font-display text-ink mb-4">Core objective</h3>
                         <p class="text-sm text-ink/60 leading-relaxed">
-                            To empower journalists and non-programmers to leverage AI for tool creation. Focusing on practical application over theoretical knowledge.
+                            To help journalists and non-programmers build their own tools with AI, focusing on what works in practice over what reads well in theory.
                         </p>
                     </div>
                 </div>
@@ -182,7 +193,7 @@
     </footer>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
     </script>
 </body>
 </html>

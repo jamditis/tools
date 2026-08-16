@@ -223,15 +223,15 @@ function wrapTerm(termKey, displayText) {
 const termStyles = document.createElement('style');
 termStyles.textContent = `
   .term-link {
-    color: #00f0ff;
+    color: var(--accent);
     cursor: pointer;
-    border-bottom: 1px dashed rgba(0, 240, 255, 0.4);
-    transition: all 0.2s ease;
+    border-bottom: 1px dashed rgb(var(--accent-rgb) / 0.45);
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
   }
   .term-link:hover {
-    color: #fff;
-    border-bottom-color: #fff;
-    background: rgba(0, 240, 255, 0.1);
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    background: rgb(var(--accent-rgb) / 0.1);
   }
 
   /* Panel animation */

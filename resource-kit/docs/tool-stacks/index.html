@@ -21,6 +21,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -28,7 +41,7 @@
     <style>
         /* Tool card styling */
         .tool-card {
-            transition: all 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
         .tool-card:hover {
             transform: translateY(-2px);
@@ -72,14 +85,14 @@
             white-space: nowrap;
         }
         .price-free {
-            background: rgba(22, 163, 74, 0.1);
-            color: #16a34a;
-            border: 1px solid rgba(22, 163, 74, 0.3);
+            background: rgb(var(--sage-rgb) / 0.12);
+            color: var(--sage);
+            border: 1px solid rgb(var(--sage-rgb) / 0.3);
         }
         .price-freemium {
-            background: rgba(184, 134, 11, 0.1);
-            color: #b8860b;
-            border: 1px solid rgba(184, 134, 11, 0.3);
+            background: rgb(var(--caution-rgb) / 0.12);
+            color: var(--caution);
+            border: 1px solid rgb(var(--caution-rgb) / 0.3);
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
@@ -101,12 +114,15 @@
                         <div class="text-xs text-ink/50 tracking-[0.2em]">Amditis Kit</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-4">
                 <nav class="flex gap-4 md:gap-6 text-xs">
                     <a href="/" class="text-ink/60 hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
                         <span class="hidden sm:inline">Main Hub</span>
                     </a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 
@@ -130,25 +146,14 @@
                 <!-- Tagline -->
                 <p class="text-ink/60 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
                     Ship real projects without breaking the bank. <br class="hidden sm:inline">
-                    <span class="text-accent">Everything you need, mostly free.</span>
+                    <span class="text-accent">Mostly free, and all of it in use.</span>
                 </p>
 
-                <!-- Terminal-style intro -->
-                <div class="max-w-xl mx-auto deckle-card p-4 text-left text-sm overflow-hidden">
-                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-ink/5">
-                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
-                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
-                        <span class="w-3 h-3 rounded-full bg-green-400"></span>
-                        <span class="text-xs text-ink/40 ml-2">stack_init.sh</span>
-                    </div>
-                    <code class="text-ink/50 font-mono text-xs">
-                        <span class="text-accent">$</span> ./init_stack --budget=<span class="text-accent">$0</span><br>
-                        <span class="text-ink/40"># Loading free tier tools...</span><br>
-                        <span class="text-ink/40"># Enterprise pricing: IGNORED</span><br>
-                        <span class="text-ink/40"># Ship-first mindset: ENABLED</span><br>
-                        <span class="text-accent">Ready.</span> <span class="text-ink">Browse the stack below.</span>
-                    </code>
-                </div>
+                <!-- Standfirst -->
+                <p class="max-w-xl mx-auto text-sm text-mist leading-relaxed border-t border-ink/10 pt-6">
+                    Every tool below has a free tier that is genuinely usable. Enterprise
+                    pricing is out of scope.
+                </p>
             </div>
         </section>
 
@@ -722,7 +727,7 @@
                 </div>
                 <div class="mt-6 pt-6 border-t border-white/5 text-center">
                     <p class="text-xs text-canvas/40">
-                        Amditis Kit v2.6 // Part of the <a href="/" class="text-canvas/50 hover:text-accent transition-colors">CCM Resource Collection</a>
+                        Amditis Kit v2.7 // Part of the <a href="/" class="text-canvas/50 hover:text-accent transition-colors">CCM Resource Collection</a>
                     </p>
                 </div>
             </div>
@@ -732,7 +737,7 @@
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
     </script>
 </body>
 </html>

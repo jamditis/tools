@@ -18,7 +18,7 @@ This repository (`tools`) contains the **Amditis Resource Kit** - a collection o
 
 ### Main components
 
-1. **Resource kit website** (`resource-kit/docs/`) - Interactive tools with Amditis V2 light editorial theme
+1. **Resource kit website** (`resource-kit/docs/`) - Interactive tools on the Amditis V3 editorial theme, with day and night paper
    - LLM Advisor - decision tree tool for selecting AI tools
    - Vibe coding guide - interactive glossary and tutorials
    - Quick reference cards and downloadable templates
@@ -45,6 +45,7 @@ tools/                        # Git root
 │       ├── assets/           # Shared CSS, JS, images
 │       ├── llm-advisor/      # LLM tool selector app
 │       ├── vibe-coding/      # Vibe coding guide
+│       ├── next-level/       # Strategy guide: sessions to systems
 │       └── downloads/        # Downloadable templates
 ├── skills/                   # Claude Code skills
 │   ├── test-first-bugs/      # Test-driven bug fixing
@@ -56,35 +57,159 @@ tools/                        # Git root
 └── CLAUDE-RULES-*.md         # Claude Code memory templates
 ```
 
-## Amditis V2 theme system
+## Amditis V3 theme system
 
-The site uses a light editorial/archival theme called "Amditis V2" with these key classes:
+The site uses an editorial/archival theme called "Amditis V3": a re-art-directed
+continuation of V2, not a replacement. The paper ground, Fraunces display serif,
+ink body text and hairline rules survive; the palette accents, type scale,
+spacing scale and component vocabulary are re-cut, and the whole system gained a
+day/night paper inversion.
 
-**Backgrounds:**
-- `bg-canvas` - cream page background (#ede6d4)
-- `deckle-card` - frosted glass card (rgba(255,255,255,0.3))
-- `deckle-card-solid` - solid white card (rgba(255,255,255,0.6))
+### Where the CSS lives, and why the order matters
 
-**Text:**
-- `text-ink` - primary dark text (#121212)
-- `text-mist` - secondary/tertiary text (#555555)
+| File | Loads | Role |
+|------|-------|------|
+| `assets/amditis-main.css` | first | V2 effects and components. Cannot override Tailwind. |
+| `assets/tailwind.css` | second | Precompiled build artefact. **Not rebuildable in this repo.** |
+| `assets/amditis-v3.css` | third | Tokens, dark mode, component vocabulary, utility re-point. |
+| `assets/theme.js` | deferred | Renders the toggle, persists the choice. |
 
-**Accents:**
-- `text-accent` / `bg-accent` - muted green accent (#3d4b40)
-- `text-clay` / `bg-clay` - neutral warm accent (#d6cdb7)
+Every page loads `amditis-main.css` **before** `tailwind.css`, so it cannot
+override a Tailwind utility at equal specificity. That is why V3 lives in its
+own file loaded *after* tailwind.css: it re-points the compiled colour utilities
+at CSS custom properties rather than regenerating them.
 
-**Borders:** Always use `border-ink/10` or `border-ink/5`
+**Before using any Tailwind class, check it is actually in `tailwind.css`.** The
+file cannot be rebuilt, so a class that is not already compiled does nothing at
+all. `gap-5`, `md:grid-cols-12`, `col-span-*`, `md:gap-*`, `pb-16`, `grid-cols-3`
+and arbitrary values like `transition-[width]` or `bg-[#ab6121]` are all absent.
+When a needed class is missing, declare it in `amditis-v3.css` instead.
 
-**Effects:**
-- `paper-overlay` - subtle paper texture overlay
-- `reveal-section` - scroll-triggered fade-in animation
-- `animate-drift` - slow ambient light movement
+### Token families
 
-**Typography:**
-- `font-display` - Fraunces serif for headings
-- `font-sans` - Plus Jakarta Sans for body text
+A naive inversion breaks this site, because some surfaces are already inverted
+in the light theme. Colours split four ways:
 
-**Legacy compatibility:** Old V1 classes (bg-void, text-chrome, text-acid, etc.) are automatically mapped to V2 equivalents in amditis-main.css.
+1. **Ground** — page and text colours that invert: `bg-canvas`, `text-ink*`,
+   `border-ink*`, `text-mist`, `bg-clay/*`, and the small `bg-ink/5|10|20` tints.
+2. **Slab** — deliberately dark blocks that stay dark in both themes: `bg-ink`
+   solid, `bg-ink/40|50|80|90`, `.code-block`, `.code-window`, dark footers,
+   terminal chrome, modal scrims.
+3. **On-slab** — light text and rules sitting on a slab: `text-canvas*`,
+   `border-canvas*`, `text-white*`. Light in both themes.
+4. **Tint** — `bg-white/N` paper lifts, re-scaled per theme, and re-scaled again
+   inside a slab where a 5% white tint would otherwise become a 34% wash.
+
+### Palettes
+
+| Token | Day paper | Night paper | Role |
+|-------|-----------|-------------|------|
+| `--canvas` | `#f0e9d9` | `#17140f` | page ground |
+| `--leaf` | `#fbf7ec` | `#211c15` | raised paper (cards) |
+| `--ink` | `#1c1815` | `#ece4d5` | body text |
+| `--mist` | `#5d5548` | `#a89c86` | secondary text |
+| `--clay` | `#ddd4c0` | `#3a332a` | rules, tints |
+| `--accent` | `#8a3a2b` | `#e4907c` | madder — primary editorial accent |
+| `--accent-surface` | `#8a3a2b` | `#8f3d2c` | accent fills carrying light text |
+| `--accent-on-slab` | `#dd8570` | `#dd8570` | accent inside a slab |
+| `--sage` | `#3d4b40` | `#9db89f` | affirmative (the V2 heritage green) |
+| `--caution` | `#7d5410` | `#d8a955` | caution |
+| `--signal` | `#a8341f` | `#e0765c` | warning, error |
+| `--info` | `#2a4f7c` | `#8fb4d9` | annotation |
+| `--slab` | `#191510` | `#0e0c08` | dark block (does not invert) |
+| `--on-slab` | `#efe9dc` | `#efe9dc` | text on a slab (does not invert) |
+| `--diagram-ink` | `#3d4b40` | `#9db89f` | glossary SVG illustrations |
+
+Night paper is a warm charcoal inversion of the same paper: no pure black, no
+neon, no glass.
+
+**Contrast is a hard requirement.** All body text must clear WCAG AA (4.5:1) in
+*both* palettes. Alpha ramps are compressed at the low end because the literal
+values fail — 60% ink on cream lands at 4.32:1, so `text-ink/60` resolves to
+0.68. `text-mist/*` resolves to solid mist for the same reason. Verify with the
+audit approach in "Checking contrast" below before shipping colour changes.
+
+### Type and spacing scales
+
+Fluid type on a 1.25 ratio: `--step--1` through `--step-6`, plus `.display-xl`
+and `.display-lg` for masthead type. Spacing runs `--sp-1` (0.25rem) to `--sp-32`
+(8rem). `.measure` (68ch) and `.measure-tight` (54ch) cap line length.
+
+### Component vocabulary
+
+- `.index-entry` — the ruled editorial directory row (rubric | entry | folio)
+  that replaced grids of identical icon cards. With `__rubric`, `__title`,
+  `__blurb`, `__folio`.
+- `.note` (+ `--accent`, `--sage`, `--signal`) with `.note__label` — the callout.
+  A rubric over a top rule, replacing colour-stripe cards.
+- `.spec-list` — a `dt`/`dd` reference list, term hanging in the margin.
+- `.stamp` — a category tag that names a real rubric.
+- `.folio` — a section or step number set as a running head.
+- `.deckle-card` / `.deckle-card-solid` — opaque paper leaf, hairline edge,
+  bottom-weighted shadow. **Do not redeclare these in a page-local `<style>`;**
+  seven pages did, which froze them at the V2 translucent white.
+- `.rule` / `.rule-heavy`, `.section-header`, `.section-label`, `.btn-primary`,
+  `.btn-outline`, `.pill-*` (provider colours, all AA against white).
+
+**Borders:** `border-ink/10` or `border-ink/5`.
+**Typography:** `font-display` (Fraunces), `font-sans` (Plus Jakarta Sans).
+**Effects:** `paper-overlay`, `reveal-section`, `animate-drift`.
+
+**Legacy compatibility:** V1 classes (`bg-void`, `text-chrome`, `text-acid`,
+`bg-cream`, `text-accent-green`, …) and Tailwind's fixed palette (`text-red-500`,
+`bg-green-600/10`, `text-gray-400`, …) are all re-pointed at V3 tokens in
+`amditis-v3.css`, so they follow the palette and invert correctly. Prefer the
+token-named classes in new markup.
+
+### Dark mode
+
+- Tokens are defined once on `:root`; `@media (prefers-color-scheme: dark)`
+  guarded by `:root:not([data-theme="light"])` handles the system default, and
+  `:root[data-theme="dark"]` handles an explicit choice.
+- `assets/theme.js` renders a toggle into every `[data-theme-toggle-slot]`, or a
+  small fixed control when a page has no slot. It stores `light`/`dark` under
+  the localStorage key **`amditis-theme`** — the same pattern as the glossary
+  pages' `glossary-beginner-mode`. Nothing is written until the reader chooses,
+  so the system preference is followed by default.
+- A tiny inline script in each page's `<head>` applies the stored choice before
+  first paint, which is what prevents a flash of the wrong theme.
+- theme.js also reveals any on-screen `.reveal-section` the page's own observer
+  missed. See the Lucide note under "Things to avoid".
+
+### Anti-slop rules now in force
+
+These were swept out of the kit and must not come back:
+
+- Eyebrow/kicker labels that restate the heading below them.
+- Fake status pills, pulsing "live" dots, invented Module/Version/Mode readouts.
+- Colour-stripe accent cards (`border-l-4` and friends) — use `.note`.
+- Icon-in-tinted-tile cards repeated in identical grids; a generic Lucide icon
+  beside every list item.
+- Gradient text, gradient washes, glassmorphism for its own sake.
+- `hover:scale-*` springs and **`transition: all` anywhere** — scope transitions
+  to real properties, or use Tailwind's bare `.transition`, which lists paint and
+  transform properties only.
+- Terminal/console chrome as decoration (traffic-light dots, `QUERY_01`,
+  `[ START_NEW_QUERY ]`), emoji as section icons, badge spam, invented stat tiles,
+  ordinal numbers on genuinely unordered content.
+- Copy tells: "Everything you need to…", seamless/elevate/empower/unlock, and
+  vague CTAs like "Get Started" or machine cosplay like "Load module".
+
+**The context rule — do not bleach the identity.** A device used once, with a
+reason, in the site's own voice is a design choice, not slop. Uppercase labels
+carrying real information (a date, a category, `Lesson 03`), genuine category
+tags, the cream palette, serif display type, single hairline rules, blockquote
+rules, active-nav indicators, a terminal frame on a page *about* terminals, and a
+scoped reveal animation are all legitimate here. The tell is the same device
+stamped identically on every section, or stacked with several other defaults.
+
+### Checking contrast
+
+Serve `resource-kit/docs` and walk every page in both themes with a headless
+browser, compositing each text node's effective background up the tree and
+comparing against its WCAG threshold. The V3 pass took this from 1,473 failures
+to 44, the remainder being oversized watermark numerals set at 5-7% ink, which
+are decoration rather than text. Re-run it after any colour change.
 
 ## Development workflow
 
@@ -236,10 +361,13 @@ Background: `tools` issues #59 and #71, and GitHub's custom instructions support
 
 ## Things to avoid
 
-- Using dark theme patterns (crt-overlay, glitch-text, clip-notch) - use V2 light patterns instead
+- Using V1 dark-theme patterns (crt-overlay, glitch-text, clip-notch) — use the V3 vocabulary instead. Night paper is the theme system, not a per-page dark skin: never hand-roll a dark palette on one page
 - Attaching event listeners only to the main container (check if elements are outside it)
 - Deploying without pushing to master (GitHub Actions handles it)
 - Using Jekyll features (site uses static deployment, not Jekyll)
 - **`transition: all`** on any element — scope to specific properties (`transform`, `box-shadow`, `border-color`, etc.). `all` catches layout changes from DOM mutations (including Lucide icon injection) and animates them visibly
 - **Generic class names in SVG `<style>` tags** — SVG styles leak into the document. A `.block` rule inside an SVG will apply to every Tailwind `block` element on the page
-- **Inline scripts that depend on `defer`'d libraries** — wrap in `DOMContentLoaded` instead of assuming load order. Guard `lucide.createIcons()` with try/catch
+- **Inline scripts that depend on `defer`'d libraries** — wrap in `DOMContentLoaded` instead of assuming load order. **Always guard `lucide.createIcons()` with try/catch:** pages put it at the top of the same script block that registers the reveal observer, so an icon-CDN failure threw before the observer existed and left every section at `opacity: 0` — a blank page
+- **Tailwind classes that are not in the compiled `tailwind.css`** — the file cannot be rebuilt here, so an uncompiled class silently does nothing. Check before using, and declare what you need in `amditis-v3.css`
+- **Redeclaring theme components in a page-local `<style>`** — page styles load last and win, so a local `.deckle-card` or `body` rule freezes that page at the old palette and breaks dark mode. Use the tokens
+- **Hardcoded hex anywhere** — colours must come from tokens, or they will not invert and will not have been contrast-checked

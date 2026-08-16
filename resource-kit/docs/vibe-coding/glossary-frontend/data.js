@@ -22,7 +22,7 @@ const TERMS = [
     term: "Hydration",
     tagline: "Attaching event listeners to server-rendered HTML to make it interactive",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes drop{0%{opacity:0;transform:translateY(-8px)}60%{opacity:1}100%{opacity:0;transform:translateY(28px)}}</style><rect x="20" y="65" width="80" height="38" rx="4" fill="#3d4b40" opacity=".18" stroke="#3d4b40" stroke-width="2"/><ellipse cx="40" cy="32" rx="5" ry="7" fill="#3d4b40" style="animation:drop 1.8s 0s infinite"/><ellipse cx="60" cy="22" rx="5" ry="7" fill="#3d4b40" style="animation:drop 1.8s .5s infinite"/><ellipse cx="80" cy="32" rx="5" ry="7" fill="#3d4b40" style="animation:drop 1.8s 1s infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes drop{0%{opacity:0;transform:translateY(-8px)}60%{opacity:1}100%{opacity:0;transform:translateY(28px)}}</style><rect x="20" y="65" width="80" height="38" rx="4" fill="var(--diagram-ink)" opacity=".18" stroke="var(--diagram-ink)" stroke-width="2"/><ellipse cx="40" cy="32" rx="5" ry="7" fill="var(--diagram-ink)" style="animation:drop 1.8s 0s infinite"/><ellipse cx="60" cy="22" rx="5" ry="7" fill="var(--diagram-ink)" style="animation:drop 1.8s .5s infinite"/><ellipse cx="80" cy="32" rx="5" ry="7" fill="var(--diagram-ink)" style="animation:drop 1.8s 1s infinite"/></svg>`,
     definition: `Hydration is the process by which a JS framework takes over a server-rendered HTML document and attaches event listeners, making static markup interactive. The browser receives fully-formed HTML immediately, then downloads and executes the JS bundle which traverses the existing DOM to wire up the component tree.\n\nHydration cost is easy to underestimate. Even though no new DOM nodes are created, the framework must re-run every component's render logic to reconcile its virtual state with the existing markup. On large pages this traversal can block the main thread for hundreds of milliseconds after the content is already visible.`,
     analogy: `Think of a mannequin dressed in real clothes (server HTML). Hydration is the process of replacing the mannequin's rigid arms with articulated ones — the outfit looks the same the whole time, but only once the swap is done can the arms actually move.`,
     examples: [
@@ -42,7 +42,7 @@ const TERMS = [
     term: "Partial hydration",
     tagline: "Hydrating only the components that actually need interactivity",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes glow{0%,100%{opacity:.35}50%{opacity:1}}</style><rect x="10" y="15" width="45" height="40" rx="3" fill="#3d4b40" style="animation:glow 2s infinite"/><rect x="65" y="15" width="45" height="40" rx="3" fill="#3d4b40" opacity=".18" stroke="#3d4b40" stroke-width="1.5"/><rect x="10" y="65" width="45" height="40" rx="3" fill="#3d4b40" opacity=".18" stroke="#3d4b40" stroke-width="1.5"/><rect x="65" y="65" width="45" height="40" rx="3" fill="#3d4b40" style="animation:glow 2s .9s infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes glow{0%,100%{opacity:.35}50%{opacity:1}}</style><rect x="10" y="15" width="45" height="40" rx="3" fill="var(--diagram-ink)" style="animation:glow 2s infinite"/><rect x="65" y="15" width="45" height="40" rx="3" fill="var(--diagram-ink)" opacity=".18" stroke="var(--diagram-ink)" stroke-width="1.5"/><rect x="10" y="65" width="45" height="40" rx="3" fill="var(--diagram-ink)" opacity=".18" stroke="var(--diagram-ink)" stroke-width="1.5"/><rect x="65" y="65" width="45" height="40" rx="3" fill="var(--diagram-ink)" style="animation:glow 2s .9s infinite"/></svg>`,
     definition: `Partial hydration hydrates only the components that require client-side interactivity, leaving the rest as inert server-rendered HTML. Components like a search bar or carousel receive JS; static sections like article text or a footer do not. This avoids traversing and wiring up components that will never receive user input.\n\nFrameworks implement this via explicit annotations (Astro's client:load directive) or static analysis that detects event handler usage. The result is a drastically smaller JS footprint and less main-thread work on page load, since the browser skips hydration for the majority of the page.`,
     analogy: `Installing electricity in a historic building: you only run wires to the rooms that need outlets. The unelectrified rooms still look fine and serve their purpose — wiring everything would just waste material and time.`,
     examples: [
@@ -62,7 +62,7 @@ const TERMS = [
     term: "Islands architecture",
     tagline: "Interactive component islands surrounded by static HTML oceans",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}</style><rect x="5" y="72" width="110" height="42" rx="4" fill="#3d4b40" opacity=".12" stroke="#3d4b40" stroke-width="1.5"/><ellipse cx="30" cy="68" rx="20" ry="11" fill="#3d4b40" opacity=".7" style="animation:bob 3s ease-in-out infinite"/><ellipse cx="90" cy="65" rx="24" ry="13" fill="#3d4b40" style="animation:bob 3s 1.1s ease-in-out infinite"/><ellipse cx="60" cy="70" rx="13" ry="7" fill="#3d4b40" opacity=".3"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}</style><rect x="5" y="72" width="110" height="42" rx="4" fill="var(--diagram-ink)" opacity=".12" stroke="var(--diagram-ink)" stroke-width="1.5"/><ellipse cx="30" cy="68" rx="20" ry="11" fill="var(--diagram-ink)" opacity=".7" style="animation:bob 3s ease-in-out infinite"/><ellipse cx="90" cy="65" rx="24" ry="13" fill="var(--diagram-ink)" style="animation:bob 3s 1.1s ease-in-out infinite"/><ellipse cx="60" cy="70" rx="13" ry="7" fill="var(--diagram-ink)" opacity=".3"/></svg>`,
     definition: `Islands architecture describes a page structure where interactive "islands" (hydrated components) are embedded in a sea of static, non-interactive HTML. Coined by Katie Sylor-Miller and popularized by Astro, each island is independently hydrated and can have its own loading priority. Everything outside an island is pure markup with no associated JS.\n\nUnlike SPAs, there is no app-level runtime connecting all components. Each island is isolated — it cannot directly communicate with another island without going through a shared state mechanism like a URL parameter, localStorage, or a global store. This isolation is both the key benefit (no framework overhead) and the key constraint.`,
     analogy: `A printed magazine with interactive QR codes: the page itself is static, but each QR code links to a small, self-contained interactive experience. The magazine as a whole requires no special reader software — only the QR code scanner needs to run.`,
     examples: [
@@ -82,7 +82,7 @@ const TERMS = [
     term: "Streaming SSR",
     tagline: "Sending HTML to the browser in progressive chunks as it's generated",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes flow{0%{stroke-dashoffset:80}100%{stroke-dashoffset:0}}.ln{stroke:#3d4b40;stroke-width:2.5;fill:none;stroke-dasharray:80;stroke-linecap:round;animation:flow 1.6s linear infinite}</style><path class="ln" d="M10 30 Q40 30 110 30"/><path class="ln" d="M10 50 Q40 50 110 50" style="animation-delay:.35s"/><path class="ln" d="M10 70 Q40 70 110 70" style="animation-delay:.7s"/><path class="ln" d="M10 90 Q40 90 110 90" style="animation-delay:1.05s"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes flow{0%{stroke-dashoffset:80}100%{stroke-dashoffset:0}}.ln{stroke:var(--diagram-ink);stroke-width:2.5;fill:none;stroke-dasharray:80;stroke-linecap:round;animation:flow 1.6s linear infinite}</style><path class="ln" d="M10 30 Q40 30 110 30"/><path class="ln" d="M10 50 Q40 50 110 50" style="animation-delay:.35s"/><path class="ln" d="M10 70 Q40 70 110 70" style="animation-delay:.7s"/><path class="ln" d="M10 90 Q40 90 110 90" style="animation-delay:1.05s"/></svg>`,
     definition: `Streaming SSR sends HTML to the browser incrementally as the server generates it, rather than waiting for the entire page before transmitting. The browser can start parsing and rendering the document top while the server is still computing the bottom, significantly reducing the time to first byte for visible content.\n\nReact 18's renderToPipeableStream integrates with Suspense: when a component suspends waiting for data, React sends a placeholder and continues streaming the rest of the page. Once the data resolves, React streams a small inline script that replaces the placeholder with the real content — no client re-render required.`,
     analogy: `A restaurant that brings each course as it's ready, rather than waiting until the entire meal is plated. You start eating bread while the chef finishes the main course.`,
     examples: [
@@ -102,7 +102,7 @@ const TERMS = [
     term: "Concurrent rendering",
     tagline: "Interruptible, prioritized rendering that keeps the UI responsive",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.9}}</style><rect x="10" y="20" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s 0s infinite"/><rect x="10" y="44" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .3s infinite"/><rect x="10" y="68" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .6s infinite"/><rect x="10" y="92" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .9s infinite"/><rect x="68" y="20" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .15s infinite"/><rect x="68" y="44" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .45s infinite"/><rect x="68" y="68" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s .75s infinite"/><rect x="68" y="92" width="42" height="14" rx="2" fill="#3d4b40" style="animation:pulse 1.4s 1.05s infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.9}}</style><rect x="10" y="20" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s 0s infinite"/><rect x="10" y="44" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .3s infinite"/><rect x="10" y="68" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .6s infinite"/><rect x="10" y="92" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .9s infinite"/><rect x="68" y="20" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .15s infinite"/><rect x="68" y="44" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .45s infinite"/><rect x="68" y="68" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s .75s infinite"/><rect x="68" y="92" width="42" height="14" rx="2" fill="var(--diagram-ink)" style="animation:pulse 1.4s 1.05s infinite"/></svg>`,
     definition: `Concurrent rendering (React 18+) allows React to prepare multiple versions of the UI simultaneously and to pause, interrupt, or abandon in-progress renders when higher-priority work arrives. Previously a render ran to completion on the main thread; concurrent mode makes renders interruptible work units.\n\nWork marked as a transition (startTransition or useTransition) can be interrupted if user input arrives mid-render. React abandons the in-progress work, responds to the input first, and restarts the transition when the thread is free. This prevents the UI from freezing during expensive state-driven re-renders.`,
     analogy: `A chef who can pause a complex sauce mid-preparation to handle a fire alarm, deal with the emergency, and return to the sauce without losing progress. The sauce is interruptible work; the alarm is urgent input.`,
     examples: [
@@ -122,7 +122,7 @@ const TERMS = [
     term: "Time slicing",
     tagline: "Splitting render work into small chunks spread across multiple frames",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes rotate{100%{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="44" fill="none" stroke="#3d4b40" stroke-width="2" opacity=".25"/><path d="M60 60 L60 16 A44 44 0 0 1 98 82 Z" fill="#3d4b40" opacity=".55"/><path d="M60 60 L98 82 A44 44 0 0 1 27 93 Z" fill="#3d4b40" opacity=".3"/><path d="M60 60 L27 93 A44 44 0 0 1 60 16 Z" fill="#3d4b40" opacity=".15"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes rotate{100%{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="44" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity=".25"/><path d="M60 60 L60 16 A44 44 0 0 1 98 82 Z" fill="var(--diagram-ink)" opacity=".55"/><path d="M60 60 L98 82 A44 44 0 0 1 27 93 Z" fill="var(--diagram-ink)" opacity=".3"/><path d="M60 60 L27 93 A44 44 0 0 1 60 16 Z" fill="var(--diagram-ink)" opacity=".15"/></svg>`,
     definition: `Time slicing breaks a large computation into small units of work, each running within a single frame budget (~5ms). Between units, control is yielded back to the browser to handle input events and animations. React's internal scheduler implements time slicing when concurrent features are used.\n\nThe browser event loop processes tasks serially — a 200ms JS task blocks everything for 200ms. Time slicing converts that into 40 × 5ms slices interleaved with the browser's own work. The user experiences the page as responsive during long renders because the main thread is never held for more than a few milliseconds at a stretch.`,
     analogy: `Mowing a large lawn by cutting one row at a time and pausing after each to check for urgent messages, rather than pushing nonstop for two hours. Each row is a time slice. You can respond to an urgent call between rows without losing your place.`,
     examples: [
@@ -142,7 +142,7 @@ const TERMS = [
     term: "Reconciliation algorithm",
     tagline: "How React determines what DOM updates to make after a state change",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes dash{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}.dc{stroke:#3d4b40;stroke-width:1.5;fill:none;stroke-dasharray:20;animation:dash 1.5s linear infinite}</style><circle cx="30" cy="28" r="11" fill="#3d4b40" opacity=".6"/><circle cx="90" cy="28" r="11" fill="#3d4b40" opacity=".3"/><circle cx="15" cy="76" r="8" fill="#3d4b40" opacity=".6"/><circle cx="45" cy="76" r="8" fill="#3d4b40" opacity=".6"/><circle cx="75" cy="76" r="8" fill="#3d4b40" opacity=".3"/><circle cx="105" cy="76" r="8" fill="#3d4b40" opacity=".6"/><line class="dc" x1="30" y1="39" x2="15" y2="68"/><line class="dc" x1="30" y1="39" x2="45" y2="68" style="animation-delay:.3s"/><line class="dc" x1="90" y1="39" x2="75" y2="68" style="animation-delay:.6s"/><line class="dc" x1="90" y1="39" x2="105" y2="68" style="animation-delay:.9s"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes dash{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}.dc{stroke:var(--diagram-ink);stroke-width:1.5;fill:none;stroke-dasharray:20;animation:dash 1.5s linear infinite}</style><circle cx="30" cy="28" r="11" fill="var(--diagram-ink)" opacity=".6"/><circle cx="90" cy="28" r="11" fill="var(--diagram-ink)" opacity=".3"/><circle cx="15" cy="76" r="8" fill="var(--diagram-ink)" opacity=".6"/><circle cx="45" cy="76" r="8" fill="var(--diagram-ink)" opacity=".6"/><circle cx="75" cy="76" r="8" fill="var(--diagram-ink)" opacity=".3"/><circle cx="105" cy="76" r="8" fill="var(--diagram-ink)" opacity=".6"/><line class="dc" x1="30" y1="39" x2="15" y2="68"/><line class="dc" x1="30" y1="39" x2="45" y2="68" style="animation-delay:.3s"/><line class="dc" x1="90" y1="39" x2="75" y2="68" style="animation-delay:.6s"/><line class="dc" x1="90" y1="39" x2="105" y2="68" style="animation-delay:.9s"/></svg>`,
     definition: `React's reconciliation algorithm determines the minimum set of DOM operations needed to update the UI after a state change. Diffing two arbitrary trees naively is O(n³), but React uses a heuristic O(n) algorithm based on two assumptions: elements of different types produce entirely different trees, and keyed list items can be matched across renders.\n\nWhen a component's type changes at a position in the tree, React unmounts the old subtree and mounts the new one from scratch. When the type is stable, React updates the existing instance. The key prop is critical for lists — without stable keys, any reorder forces React to assume the worst case and update every node.`,
     analogy: `A moving company that inventories both apartments before the move. Rather than transporting every item, they compare the lists, move only what changed rooms, and leave the rest in place. The comparison (diffing) is what makes it efficient.`,
     examples: [
@@ -162,7 +162,7 @@ const TERMS = [
     term: "Fiber architecture",
     tagline: "React's linked-list work unit model that makes rendering interruptible",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes weave{0%{stroke-dashoffset:100}100%{stroke-dashoffset:0}}.wv{stroke:#3d4b40;stroke-width:2;fill:none;stroke-dasharray:100;stroke-linecap:round;animation:weave 2.5s linear infinite}</style><path class="wv" d="M15 20 Q35 55 15 90"/><path class="wv" d="M38 20 Q58 55 38 90" style="animation-delay:.5s"/><path class="wv" d="M61 20 Q81 55 61 90" style="animation-delay:1s"/><path class="wv" d="M84 20 Q104 55 84 90" style="animation-delay:1.5s"/><path class="wv" d="M107 20 Q107 55 107 90" style="animation-delay:2s" opacity=".3"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes weave{0%{stroke-dashoffset:100}100%{stroke-dashoffset:0}}.wv{stroke:var(--diagram-ink);stroke-width:2;fill:none;stroke-dasharray:100;stroke-linecap:round;animation:weave 2.5s linear infinite}</style><path class="wv" d="M15 20 Q35 55 15 90"/><path class="wv" d="M38 20 Q58 55 38 90" style="animation-delay:.5s"/><path class="wv" d="M61 20 Q81 55 61 90" style="animation-delay:1s"/><path class="wv" d="M84 20 Q104 55 84 90" style="animation-delay:1.5s"/><path class="wv" d="M107 20 Q107 55 107 90" style="animation-delay:2s" opacity=".3"/></svg>`,
     definition: `React Fiber is the reconciler rewrite introduced in React 16. Each component instance maps to a "fiber" — a JS object with pointers to its parent, child, and sibling fibers. This linked list structure allows React to pause traversal, resume it later, and work on different subtrees in different priority lanes.\n\nBefore Fiber, React's recursive call stack approach meant a render ran until the entire component tree was evaluated — it could not be interrupted. Fiber decouples the render phase (pure computation, can be abandoned) from the commit phase (DOM mutations, runs to completion), which is the structural prerequisite for all concurrent features.`,
     analogy: `Replacing a stack of to-do cards you must process top-to-bottom (old reconciler) with a web of indexed cards where any card can pause itself and hand off to a higher-priority card. Each card remembers exactly where it left off via pointers.`,
     examples: [
@@ -182,7 +182,7 @@ const TERMS = [
     term: "Virtual DOM diffing complexity",
     tagline: "The algorithmic cost of comparing two virtual trees to produce a DOM patch",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes scan{0%{transform:translateY(0);opacity:0}40%{opacity:.9}100%{transform:translateY(70px);opacity:0}}.sc{animation:scan 2s ease-in-out infinite}</style><rect x="12" y="18" width="38" height="84" rx="3" fill="none" stroke="#3d4b40" stroke-width="2" opacity=".45"/><rect x="70" y="18" width="38" height="84" rx="3" fill="none" stroke="#3d4b40" stroke-width="2" opacity=".45"/><rect class="sc" x="15" y="18" width="32" height="3" rx="1" fill="#3d4b40"/><rect class="sc" x="73" y="18" width="32" height="3" rx="1" fill="#3d4b40" style="animation-delay:.3s"/><line x1="50" y1="60" x2="70" y2="60" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="4 3"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes scan{0%{transform:translateY(0);opacity:0}40%{opacity:.9}100%{transform:translateY(70px);opacity:0}}.sc{animation:scan 2s ease-in-out infinite}</style><rect x="12" y="18" width="38" height="84" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity=".45"/><rect x="70" y="18" width="38" height="84" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity=".45"/><rect class="sc" x="15" y="18" width="32" height="3" rx="1" fill="var(--diagram-ink)"/><rect class="sc" x="73" y="18" width="32" height="3" rx="1" fill="var(--diagram-ink)" style="animation-delay:.3s"/><line x1="50" y1="60" x2="70" y2="60" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="4 3"/></svg>`,
     definition: `Diffing two arbitrary trees is O(n³) — for every node in tree A, you'd need to find the best match in tree B and compute edit distances. This is impractical for UIs with hundreds of nodes. React reduces this to O(n) using two heuristics: same type at the same position means update in place, and keyed list items are matched by key not by position.\n\nFrameworks like Svelte and Solid.js avoid the virtual DOM entirely by compiling templates to direct DOM mutations at build time. For simple, granular updates this is faster since there's no diff step. The trade-off is that a compiled approach is less flexible than a runtime virtual DOM — it can't easily support cross-platform rendering or dynamic component composition.`,
     analogy: `Comparing two sorted phone books simultaneously (O(n)) versus reading every entry in one against every entry in the other (O(n²)). The heuristic assumption — same type, same position — is the sorting key that makes the linear scan possible.`,
     examples: [
@@ -202,7 +202,7 @@ const TERMS = [
     term: "Selective hydration",
     tagline: "Prioritizing hydration of the component the user is currently interacting with",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spotlight{0%,100%{r:12;opacity:.5}50%{r:18;opacity:.9}}</style><rect x="8" y="8" width="104" height="104" rx="5" fill="#3d4b40" opacity=".08" stroke="#3d4b40" stroke-width="1.5"/><rect x="20" y="20" width="34" height="34" rx="3" fill="#3d4b40" opacity=".18"/><rect x="66" y="20" width="34" height="34" rx="3" fill="#3d4b40" opacity=".18"/><rect x="20" y="66" width="34" height="34" rx="3" fill="#3d4b40" opacity=".18"/><rect x="66" y="66" width="34" height="34" rx="3" fill="#3d4b40" opacity=".15" stroke="#3d4b40" stroke-width="1.5"/><circle cx="83" cy="83" r="12" fill="#3d4b40" style="animation:spotlight 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spotlight{0%,100%{r:12;opacity:.5}50%{r:18;opacity:.9}}</style><rect x="8" y="8" width="104" height="104" rx="5" fill="var(--diagram-ink)" opacity=".08" stroke="var(--diagram-ink)" stroke-width="1.5"/><rect x="20" y="20" width="34" height="34" rx="3" fill="var(--diagram-ink)" opacity=".18"/><rect x="66" y="20" width="34" height="34" rx="3" fill="var(--diagram-ink)" opacity=".18"/><rect x="20" y="66" width="34" height="34" rx="3" fill="var(--diagram-ink)" opacity=".18"/><rect x="66" y="66" width="34" height="34" rx="3" fill="var(--diagram-ink)" opacity=".15" stroke="var(--diagram-ink)" stroke-width="1.5"/><circle cx="83" cy="83" r="12" fill="var(--diagram-ink)" style="animation:spotlight 2s ease-in-out infinite"/></svg>`,
     definition: `Selective hydration (React 18) lets the browser interrupt background hydration to prioritize the component a user just interacted with. Before this, clicking a button before hydration was complete would silently drop the click — hydration had to finish from the top of the document before any component could respond.\n\nWith selective hydration, React queues the interaction, immediately hydrates the target component, replays the event, and resumes background hydration of the remaining tree. The page becomes interactive where the user is rather than in document order, even before the full JS bundle finishes.`,
     analogy: `A hotel check-in where one desk processes rooms sequentially (background hydration) and another can fast-track a specific guest who is standing and waiting (selective hydration on click). The waiting guest doesn't have to stand in line.`,
     examples: [
@@ -222,7 +222,7 @@ const TERMS = [
     term: "Server components",
     tagline: "Components that execute only on the server and never ship JS to the client",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes send{0%{transform:translateX(0);opacity:1}80%{opacity:1}100%{transform:translateX(44px);opacity:0}}.ar{animation:send 1.6s ease-in infinite}</style><rect x="5" y="32" width="52" height="56" rx="5" fill="#3d4b40" opacity=".7"/><text x="22" y="67" font-size="22" fill="white" font-family="monospace" opacity=".9">S</text><rect x="68" y="32" width="47" height="56" rx="5" fill="none" stroke="#3d4b40" stroke-width="2" opacity=".45"/><g class="ar"><line x1="57" y1="60" x2="70" y2="60" stroke="#3d4b40" stroke-width="2"/><polygon points="68,56 75,60 68,64" fill="#3d4b40"/></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes send{0%{transform:translateX(0);opacity:1}80%{opacity:1}100%{transform:translateX(44px);opacity:0}}.ar{animation:send 1.6s ease-in infinite}</style><rect x="5" y="32" width="52" height="56" rx="5" fill="var(--diagram-ink)" opacity=".7"/><text x="22" y="67" font-size="22" fill="white" font-family="monospace" opacity=".9">S</text><rect x="68" y="32" width="47" height="56" rx="5" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity=".45"/><g class="ar"><line x1="57" y1="60" x2="70" y2="60" stroke="var(--diagram-ink)" stroke-width="2"/><polygon points="68,56 75,60 68,64" fill="var(--diagram-ink)"/></g></svg>`,
     definition: `React Server Components (RSC) execute only on the server (or at build time) and send their rendered output to the client as serialized HTML or a component description. Unlike SSR, server components are never hydrated — their code is never included in the client bundle. They can directly access databases, file systems, and secrets without an API layer.\n\nServer and client components coexist in the same tree. The boundary is explicit: files marked "use client" become client components; everything else is a server component by default. Client components cannot import server components (that would pull server-only code into the bundle), but can receive server components as children via prop composition.`,
     analogy: `A restaurant that prints the menu in the kitchen (server component) and sends it as a physical card. The customer sees the menu but never needs the kitchen's recipe database. The interactive parts — ordering via a waiter — are client-side. The printed card needs no JS.`,
     examples: [
@@ -242,7 +242,7 @@ const TERMS = [
     term: "Suspense boundaries",
     tagline: "Declarative loading states for async component subtrees",
     category: "rendering",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spin{100%{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="38" fill="none" stroke="#3d4b40" stroke-width="2.5" opacity=".18"/><path d="M60 22 A38 38 0 0 1 98 60" fill="none" stroke="#3d4b40" stroke-width="3" stroke-linecap="round" style="transform-origin:60px 60px;animation:spin 1.1s linear infinite"/><circle cx="60" cy="60" r="5" fill="#3d4b40" opacity=".4"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spin{100%{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="38" fill="none" stroke="var(--diagram-ink)" stroke-width="2.5" opacity=".18"/><path d="M60 22 A38 38 0 0 1 98 60" fill="none" stroke="var(--diagram-ink)" stroke-width="3" stroke-linecap="round" style="transform-origin:60px 60px;animation:spin 1.1s linear infinite"/><circle cx="60" cy="60" r="5" fill="var(--diagram-ink)" opacity=".4"/></svg>`,
     definition: `Suspense boundaries let you declaratively specify a loading fallback for a subtree of components that aren't ready to render. A component signals it's not ready by throwing a Promise during render; React catches it at the nearest Suspense boundary, renders the fallback, and retries the component when the Promise resolves.\n\nIn React 18, Suspense integrates with streaming SSR, selective hydration, and concurrent rendering. Suspense boundaries define the unit of "async readiness" — how coarsely or finely you wrap them determines how granular loading states are and how independently different sections of a page can stream and hydrate.`,
     analogy: `An automatic door that opens when someone approaches (thrown Promise) and closes again once they've passed (data resolved). The door shows the fallback; the approach triggers it; the resolved data clears it.`,
     examples: [
@@ -265,10 +265,10 @@ const TERMS = [
     category: "state",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .node { fill: #3d4b40; }
-    .edge { stroke: #3d4b40; stroke-width: 2; fill: none; }
-    .shared { fill: #3d4b40; opacity: 0.45; }
-    .new-node { fill: #3d4b40; opacity: 1; }
+    .node { fill: var(--diagram-ink); }
+    .edge { stroke: var(--diagram-ink); stroke-width: 2; fill: none; }
+    .shared { fill: var(--diagram-ink); opacity: 0.45; }
+    .new-node { fill: var(--diagram-ink); opacity: 1; }
     @keyframes highlight { 0%,100% { opacity: 1 } 50% { opacity: 0.5 } }
     .pulse { animation: highlight 2s ease-in-out infinite; }
   </style>
@@ -284,12 +284,12 @@ const TERMS = [
   <line class="edge" x1="50" y1="60" x2="56" y2="60" marker-end="url(#arr)"/>
   <defs>
     <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
-  <text x="8" y="95" font-size="9" fill="#3d4b40">old</text>
-  <text x="82" y="95" font-size="9" fill="#3d4b40">new</text>
-  <text x="30" y="110" font-size="8" fill="#3d4b40" opacity="0.7">shared subtree</text>
+  <text x="8" y="95" font-size="9" fill="var(--diagram-ink)">old</text>
+  <text x="82" y="95" font-size="9" fill="var(--diagram-ink)">new</text>
+  <text x="30" y="110" font-size="8" fill="var(--diagram-ink)" opacity="0.7">shared subtree</text>
 </svg>`,
     definition: `Structural sharing is a technique where a new version of a data structure reuses unchanged subtrees from the previous version instead of copying them. Only the nodes along the path of the mutation are replaced; everything else is aliased by reference.\n\nThis makes immutable updates memory-efficient. Rather than cloning an entire object tree on every change, you pay only for the path length — O(log n) for balanced trees. Libraries like Immer and Immutable.js rely on this to make immutability practical at scale.`,
     analogy: `Think of a Git commit. When you change one file, Git does not re-store every other file — it records a new tree object that points to the same blobs for unchanged files and only a new blob for the edited one. Whole repository history shares unchanged content, so it stays compact.`,
@@ -325,22 +325,22 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes cross-in { 0% { opacity: 0 } 100% { opacity: 1 } }
-    .lock { fill: #3d4b40; }
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .forbidden { stroke: #3d4b40; stroke-width: 3; opacity: 0.7; }
+    .lock { fill: var(--diagram-ink); }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .forbidden { stroke: var(--diagram-ink); stroke-width: 3; opacity: 0.7; }
   </style>
   <rect class="box" x="10" y="30" width="40" height="36" rx="4"/>
-  <text x="18" y="53" font-size="10" fill="#3d4b40">{a:1}</text>
-  <line x1="54" y1="48" x2="66" y2="48" stroke="#3d4b40" stroke-width="2"/>
+  <text x="18" y="53" font-size="10" fill="var(--diagram-ink)">{a:1}</text>
+  <line x1="54" y1="48" x2="66" y2="48" stroke="var(--diagram-ink)" stroke-width="2"/>
   <line class="forbidden" x1="56" y1="42" x2="64" y2="54"/>
   <line class="forbidden" x1="64" y1="42" x2="56" y2="54"/>
   <rect class="box" x="70" y="30" width="40" height="36" rx="4"/>
-  <text x="78" y="53" font-size="10" fill="#3d4b40">{a:2}</text>
+  <text x="78" y="53" font-size="10" fill="var(--diagram-ink)">{a:2}</text>
   <rect class="lock" x="18" y="18" width="12" height="9" rx="2" opacity="0.8"/>
-  <path d="M20,18 Q24,12 28,18" stroke="#3d4b40" stroke-width="2" fill="none"/>
-  <text x="14" y="80" font-size="8" fill="#3d4b40">frozen</text>
-  <text x="74" y="80" font-size="8" fill="#3d4b40">new copy</text>
-  <text x="20" y="100" font-size="8" fill="#3d4b40" opacity="0.7">never mutate — always replace</text>
+  <path d="M20,18 Q24,12 28,18" stroke="var(--diagram-ink)" stroke-width="2" fill="none"/>
+  <text x="14" y="80" font-size="8" fill="var(--diagram-ink)">frozen</text>
+  <text x="74" y="80" font-size="8" fill="var(--diagram-ink)">new copy</text>
+  <text x="20" y="100" font-size="8" fill="var(--diagram-ink)" opacity="0.7">never mutate — always replace</text>
 </svg>`,
     definition: `Immutable data patterns mean every state update produces a new value rather than modifying an existing one. The original object is never changed; consumers holding old references see a consistent snapshot.\n\nIn JavaScript, true immutability requires discipline (Object.freeze, Immer, or Immutable.js) because the language is mutable by default. The payoff is predictable change detection: if a reference changed, the data changed; if it did not, nothing needs to re-render.`,
     analogy: `A bank statement is immutable — when a transaction posts, the bank does not erase last month's balance and write a new one in the same cell. It appends a new record. The ledger grows; old entries are never touched. You can always audit any point in history.`,
@@ -376,25 +376,25 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .eq { fill: #3d4b40; }
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a2); }
+    .eq { fill: var(--diagram-ink); }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a2); }
   </style>
   <defs>
     <marker id="a2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="box" x="45" y="50" width="36" height="26" rx="3"/>
-  <text x="52" y="67" font-size="9" fill="#3d4b40">{x:1}</text>
+  <text x="52" y="67" font-size="9" fill="var(--diagram-ink)">{x:1}</text>
   <rect class="box" x="5" y="20" width="24" height="18" rx="2"/>
-  <text x="10" y="33" font-size="9" fill="#3d4b40">ref A</text>
+  <text x="10" y="33" font-size="9" fill="var(--diagram-ink)">ref A</text>
   <path class="arrow" d="M29,29 Q40,29 45,58"/>
   <rect class="box" x="5" y="56" width="24" height="18" rx="2"/>
-  <text x="10" y="69" font-size="9" fill="#3d4b40">ref B</text>
+  <text x="10" y="69" font-size="9" fill="var(--diagram-ink)">ref B</text>
   <path class="arrow" d="M29,65 L45,65"/>
-  <text x="55" y="95" font-size="11" fill="#3d4b40" style="animation:blink 2s infinite">A===B</text>
-  <text x="53" y="108" font-size="8" fill="#3d4b40" opacity="0.7">same address</text>
+  <text x="55" y="95" font-size="11" fill="var(--diagram-ink)" style="animation:blink 2s infinite">A===B</text>
+  <text x="53" y="108" font-size="8" fill="var(--diagram-ink)" opacity="0.7">same address</text>
 </svg>`,
     definition: `Referential equality (===) checks whether two variables point to the same object in memory, not whether their contents are equivalent. Two objects with identical properties are not referentially equal unless they are literally the same allocation.\n\nIn React, referential equality drives memoization decisions. React.memo, useMemo, and useCallback all skip re-computation only when their inputs pass a === check. Accidentally breaking referential stability — by recreating objects or functions on every render — silently defeats these optimizations.`,
     analogy: `Two printed copies of the same contract are content-equal but not referentially equal. If you write your signature on one, the other is unaffected. Referential equality is like checking whether both people are holding the exact same physical piece of paper, not whether the text matches.`,
@@ -430,17 +430,17 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-3px)} 75%{transform:translateX(3px)} }
-    .warn { fill: #3d4b40; }
-    .cache { fill: none; stroke: #3d4b40; stroke-width: 2; }
+    .warn { fill: var(--diagram-ink); }
+    .cache { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
   </style>
   <rect class="cache" x="20" y="30" width="80" height="40" rx="4"/>
-  <text x="30" y="47" font-size="8" fill="#3d4b40">memo cache</text>
-  <text x="30" y="60" font-size="8" fill="#3d4b40">key: [a, b] -&gt; val</text>
+  <text x="30" y="47" font-size="8" fill="var(--diagram-ink)">memo cache</text>
+  <text x="30" y="60" font-size="8" fill="var(--diagram-ink)">key: [a, b] -&gt; val</text>
   <polygon class="warn" points="60,8 76,30 44,30" opacity="0.85" style="animation:shake 1.5s ease-in-out infinite"/>
   <text x="57" y="24" font-size="9" fill="white" font-weight="bold">!</text>
   <rect class="cache" x="28" y="78" width="64" height="18" rx="3"/>
-  <text x="36" y="91" font-size="9" fill="#3d4b40">stale hit returned</text>
-  <text x="22" y="112" font-size="7.5" fill="#3d4b40" opacity="0.7">wrong deps = wrong output</text>
+  <text x="36" y="91" font-size="9" fill="var(--diagram-ink)">stale hit returned</text>
+  <text x="22" y="112" font-size="7.5" fill="var(--diagram-ink)" opacity="0.7">wrong deps = wrong output</text>
 </svg>`,
     definition: `Memoization caches a function's return value keyed on its inputs, returning the cached result when inputs repeat. The pitfall is that "inputs" in JavaScript are checked by reference, not value — so a memoized selector or component may receive a semantically identical input but treat it as changed (or, worse, miss a real change because a stale reference survived).\n\nCommon failure modes: over-memoizing cheap functions adds cache lookup overhead; under-specifying dependencies causes stale returns; recreating dependency objects on every render makes the cache miss every time.`,
     analogy: `A memoized lookup is like a receptionist who checks a guest list by matching the exact ticket stub. If you reprinted the ticket with the same text, they would say "I have never seen you before" and re-do all the work. If you snuck in a guest whose stub is identical to someone already checked in, they would wave you through without checking.`,
@@ -476,26 +476,26 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes fade-old { 0%,60%{opacity:1} 100%{opacity:0.25} }
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .val { fill: #3d4b40; font-size: 10px; }
-    .stale { fill: #3d4b40; opacity: 0.35; }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .val { fill: var(--diagram-ink); font-size: 10px; }
+    .stale { fill: var(--diagram-ink); opacity: 0.35; }
   </style>
   <rect class="box" x="10" y="20" width="44" height="28" rx="3"/>
   <text class="val" x="16" y="36">count=0</text>
   <text class="val" x="16" y="46" font-size="8">render 1</text>
-  <rect x="10" y="62" width="44" height="28" rx="3" fill="#3d4b40" opacity="0.12" stroke="#3d4b40" stroke-width="2"/>
+  <rect x="10" y="62" width="44" height="28" rx="3" fill="var(--diagram-ink)" opacity="0.12" stroke="var(--diagram-ink)" stroke-width="2"/>
   <text class="stale" x="14" y="78" font-size="9">fn() {</text>
   <text class="stale" x="14" y="89" font-size="9">  count=0</text>
-  <line x1="34" y1="48" x2="34" y2="62" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="34" y1="48" x2="34" y2="62" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#a3)"/>
   <defs>
     <marker id="a3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="box" x="66" y="20" width="44" height="28" rx="3"/>
   <text class="val" x="72" y="36">count=5</text>
   <text class="val" x="72" y="46" font-size="8">render 6</text>
-  <text x="20" y="106" font-size="8" fill="#3d4b40" opacity="0.75">fn sees 0, state is 5</text>
+  <text x="20" y="106" font-size="8" fill="var(--diagram-ink)" opacity="0.75">fn sees 0, state is 5</text>
 </svg>`,
     definition: `A closure captures variables from its enclosing scope at the time it is created. In React, a function defined during render — an event handler, a useEffect callback, a setTimeout — closes over the state and props values from that render. If state updates later, the old function still references the old values.\n\nThis is the stale closure problem. It surfaces most often in useEffect with an empty dependency array: the effect runs once and its callback forever reads the initial state, ignoring all subsequent updates.`,
     analogy: `Imagine writing yourself a note that says "call back at 555-0100." You read and follow the note a week later, but the number changed two days ago. The note captured the number at writing time, not at reading time. A stale closure is that outdated note inside your code.`,
@@ -532,8 +532,8 @@ const TERMS = [
   <style>
     @keyframes move-a { 0%{transform:translateX(0)} 100%{transform:translateX(52px)} }
     @keyframes move-b { 0%{transform:translateX(0)} 60%{transform:translateX(62px)} 100%{transform:translateX(62px)} }
-    .track { stroke: #3d4b40; stroke-width: 1.5; fill: none; opacity: 0.3; }
-    .req { fill: #3d4b40; }
+    .track { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; opacity: 0.3; }
+    .req { fill: var(--diagram-ink); }
   </style>
   <line class="track" x1="10" y1="44" x2="110" y2="44"/>
   <line class="track" x1="10" y1="70" x2="110" y2="70"/>
@@ -541,10 +541,10 @@ const TERMS = [
   <text x="12" y="47" font-size="7" fill="white">A</text>
   <circle class="req" cx="18" cy="70" r="8" opacity="0.55" style="animation:move-b 1.8s ease-in infinite alternate"/>
   <text x="12" y="73" font-size="7" fill="white">B</text>
-  <rect x="90" y="30" width="24" height="52" rx="3" fill="none" stroke="#3d4b40" stroke-width="2"/>
-  <text x="93" y="57" font-size="7" fill="#3d4b40">state</text>
-  <text x="10" y="98" font-size="8" fill="#3d4b40">B sent later,</text>
-  <text x="10" y="109" font-size="8" fill="#3d4b40">arrives last = stale</text>
+  <rect x="90" y="30" width="24" height="52" rx="3" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <text x="93" y="57" font-size="7" fill="var(--diagram-ink)">state</text>
+  <text x="10" y="98" font-size="8" fill="var(--diagram-ink)">B sent later,</text>
+  <text x="10" y="109" font-size="8" fill="var(--diagram-ink)">arrives last = stale</text>
 </svg>`,
     definition: `A race condition in UI state occurs when two overlapping async operations (fetches, debounced inputs, concurrent effects) both try to commit results, and the one that should have "won" arrives after the one that should have "lost." The UI ends up displaying stale or mismatched data.\n\nThe classic case: a user types quickly into a search box, each keystroke fires a fetch, and the response to keystroke N-1 arrives after the response to keystroke N — overwriting the correct result with an outdated one.`,
     analogy: `Two taxi drivers both racing to pick up the same passenger who has moved. The first driver to complete the journey gets credited the fare. If the driver who picked up the old address arrives at the airport just after the driver with the correct terminal, the passenger is dropped at the wrong door — and no one knows.`,
@@ -579,17 +579,17 @@ const TERMS = [
     category: "state",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .panel { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .val { fill: #3d4b40; font-size: 11px; font-weight: bold; }
+    .panel { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .val { fill: var(--diagram-ink); font-size: 11px; font-weight: bold; }
   </style>
   <rect class="panel" x="5" y="20" width="48" height="80" rx="4"/>
   <text class="val" x="18" y="58">v1</text>
-  <text x="10" y="72" font-size="8" fill="#3d4b40">component A</text>
+  <text x="10" y="72" font-size="8" fill="var(--diagram-ink)">component A</text>
   <rect class="panel" x="67" y="20" width="48" height="80" rx="4"/>
   <text class="val" x="80" y="58">v2</text>
-  <text x="72" y="72" font-size="8" fill="#3d4b40">component B</text>
-  <path d="M60,15 Q57,40 62,60 Q57,80 60,105" stroke="#3d4b40" stroke-width="2.5" fill="none" stroke-dasharray="4 3" opacity="0.7"/>
-  <text x="18" y="112" font-size="7.5" fill="#3d4b40" opacity="0.8">same store, two snapshots</text>
+  <text x="72" y="72" font-size="8" fill="var(--diagram-ink)">component B</text>
+  <path d="M60,15 Q57,40 62,60 Q57,80 60,105" stroke="var(--diagram-ink)" stroke-width="2.5" fill="none" stroke-dasharray="4 3" opacity="0.7"/>
+  <text x="18" y="112" font-size="7.5" fill="var(--diagram-ink)" opacity="0.8">same store, two snapshots</text>
 </svg>`,
     definition: `Tearing happens when React's concurrent rendering renders different components reading from the same external store but sees different values — because the store was updated mid-render. In synchronous rendering this cannot happen; React commits atomically. But in concurrent mode, renders are interruptible, so a store write arriving during a suspended render can be picked up by later components while earlier ones used the old value.\n\nThe fix is useSyncExternalStore, which forces the store read to be synchronous and consistent across a single render pass.`,
     analogy: `Imagine printing a spreadsheet while someone is editing it. The first page prints with the old totals, but by page 2 the values have been updated. The printed report has consistent-looking rows but the subtotals do not add up. Tearing is that inconsistency mid-document.`,
@@ -624,14 +624,14 @@ const TERMS = [
     category: "state",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .state { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .active { fill: #3d4b40; opacity: 0.15; stroke: #3d4b40; stroke-width: 2; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a4); }
+    .state { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .active { fill: var(--diagram-ink); opacity: 0.15; stroke: var(--diagram-ink); stroke-width: 2; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a4); }
   </style>
   <defs>
     <marker id="a4" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <circle class="active" cx="24" cy="36" r="16"/>
@@ -681,13 +681,13 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes slide-in { 0%{opacity:0;transform:translateY(-6px)} 100%{opacity:1;transform:translateY(0)} }
-    .ev { fill: none; stroke: #3d4b40; stroke-width: 1.5; }
-    .label { fill: #3d4b40; font-size: 7.5px; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; marker-end: url(#a5); fill: none; }
+    .ev { fill: none; stroke: var(--diagram-ink); stroke-width: 1.5; }
+    .label { fill: var(--diagram-ink); font-size: 7.5px; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; marker-end: url(#a5); fill: none; }
   </style>
   <defs>
     <marker id="a5" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="ev" x="5" y="10" width="54" height="16" rx="2"/>
@@ -699,10 +699,10 @@ const TERMS = [
   <rect class="ev" x="5" y="70" width="54" height="16" rx="2"/>
   <text class="label" x="10" y="81">UPDATE B</text>
   <path class="arrow" d="M59,52 L74,52"/>
-  <rect fill="none" stroke="#3d4b40" stroke-width="2" x="74" y="36" width="42" height="38" rx="4"/>
+  <rect fill="none" stroke="var(--diagram-ink)" stroke-width="2" x="74" y="36" width="42" height="38" rx="4"/>
   <text class="label" x="80" y="54">{B: v2}</text>
   <text class="label" x="80" y="65">current</text>
-  <text x="15" y="100" font-size="7.5" fill="#3d4b40" opacity="0.8">replay log to get current state</text>
+  <text x="15" y="100" font-size="7.5" fill="var(--diagram-ink)" opacity="0.8">replay log to get current state</text>
 </svg>`,
     definition: `Event sourcing stores state as an append-only log of events rather than as a mutable current value. The current state is always derived by replaying events from the beginning (or from a snapshot). Redux is a mild form of this: actions are events, the reducer is the replay function.\n\nFrontend event sourcing is useful when you need undo/redo, audit trails, offline sync, or the ability to derive different projections from the same event history. CRDTs take the idea further for collaborative editing.`,
     analogy: `A bank account balance is not stored directly — it is derived from the transaction log. If you need the balance at any point in time, you replay transactions up to that date. The events are the truth; the current state is a computed view of them.`,
@@ -738,24 +738,24 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes rollback { 0%,40%{transform:translateX(0)} 60%,100%{transform:translateX(-28px)} }
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .label { fill: #3d4b40; font-size: 8px; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a6); }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .label { fill: var(--diagram-ink); font-size: 8px; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a6); }
   </style>
   <defs>
     <marker id="a6" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="box" x="5" y="28" width="38" height="26" rx="3"/>
   <text class="label" x="12" y="44">state A</text>
   <rect class="box" x="56" y="28" width="38" height="26" rx="3" opacity="0.5"/>
   <text class="label" x="60" y="44" opacity="0.5">state B*</text>
-  <text x="60" y="72" font-size="16" fill="#3d4b40" opacity="0.75">&#10007;</text>
+  <text x="60" y="72" font-size="16" fill="var(--diagram-ink)" opacity="0.75">&#10007;</text>
   <text class="label" x="54" y="86">server error</text>
   <path class="arrow" d="M56,42 Q40,20 22,42" stroke-dasharray="4 2"/>
   <text class="label" x="25" y="18">rollback</text>
-  <text x="5" y="108" font-size="7.5" fill="#3d4b40" opacity="0.8">apply fast, revert if server rejects</text>
+  <text x="5" y="108" font-size="7.5" fill="var(--diagram-ink)" opacity="0.8">apply fast, revert if server rejects</text>
 </svg>`,
     definition: `Optimistic UI applies a state change to the local UI immediately — before the server confirms it — giving the user instant feedback. If the server later rejects the operation, the app rolls back to the previous state and shows an error. If the server confirms, the optimistic state is replaced with the canonical server response.\n\nThe pattern requires storing a snapshot of pre-mutation state (or the mutation's inverse) so that rollback is deterministic. React Query and SWR both support onMutate/onError hooks for this lifecycle.`,
     analogy: `A cafe that lets regulars take their coffee immediately and pay at the end of the month. Most of the time no one defaults, and the experience is frictionless. If a customer fails to pay, the cafe marks it as a loss and stops the arrangement. The optimistic trust makes service fast; the rollback handles the failure case.`,
@@ -793,9 +793,9 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes spin { from{transform-origin:60px 60px;transform:rotate(0deg)} to{transform-origin:60px 60px;transform:rotate(360deg)} }
-    .ring { fill: none; stroke: #3d4b40; stroke-width: 3; }
-    .dot { fill: #3d4b40; }
-    .label { fill: #3d4b40; font-size: 7px; text-anchor: middle; }
+    .ring { fill: none; stroke: var(--diagram-ink); stroke-width: 3; }
+    .dot { fill: var(--diagram-ink); }
+    .label { fill: var(--diagram-ink); font-size: 7px; text-anchor: middle; }
   </style>
   <circle class="ring" cx="60" cy="60" r="44" stroke-dasharray="8 6" opacity="0.5"/>
   <circle class="ring" cx="60" cy="60" r="26" stroke-dasharray="4 3" opacity="0.85"/>
@@ -840,22 +840,22 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes fill-bar { 0%{width:0} 100%{width:88px} }
-    .bar-bg { fill: #3d4b40; opacity: 0.15; }
-    .bar-fg { fill: #3d4b40; }
-    .label { fill: #3d4b40; font-size: 8px; }
-    .waiting { fill: #3d4b40; opacity: 0.35; }
+    .bar-bg { fill: var(--diagram-ink); opacity: 0.15; }
+    .bar-fg { fill: var(--diagram-ink); }
+    .label { fill: var(--diagram-ink); font-size: 8px; }
+    .waiting { fill: var(--diagram-ink); opacity: 0.35; }
   </style>
   <rect class="bar-bg" x="8" y="20" width="104" height="20" rx="3"/>
   <rect class="bar-fg" x="8" y="20" width="88" height="20" rx="3" style="animation:fill-bar 2s ease-out infinite"/>
   <text class="label" x="12" y="34">long task running...</text>
   <rect class="waiting" x="8" y="50" width="28" height="14" rx="2"/>
-  <text x="11" y="61" font-size="7" fill="#3d4b40">task B</text>
+  <text x="11" y="61" font-size="7" fill="var(--diagram-ink)">task B</text>
   <rect class="waiting" x="42" y="50" width="28" height="14" rx="2"/>
-  <text x="45" y="61" font-size="7" fill="#3d4b40">task C</text>
+  <text x="45" y="61" font-size="7" fill="var(--diagram-ink)">task C</text>
   <rect class="waiting" x="76" y="50" width="28" height="14" rx="2"/>
-  <text x="79" y="61" font-size="7" fill="#3d4b40">task D</text>
-  <text x="8" y="84" font-size="8" fill="#3d4b40">B, C, D wait indefinitely</text>
-  <text x="8" y="96" font-size="7.5" fill="#3d4b40" opacity="0.7">paint also starved — UI freezes</text>
+  <text x="79" y="61" font-size="7" fill="var(--diagram-ink)">task D</text>
+  <text x="8" y="84" font-size="8" fill="var(--diagram-ink)">B, C, D wait indefinitely</text>
+  <text x="8" y="96" font-size="7.5" fill="var(--diagram-ink)" opacity="0.7">paint also starved — UI freezes</text>
 </svg>`,
     definition: `Task starvation occurs when the event loop is perpetually occupied with high-priority or continuous work, preventing lower-priority tasks from ever executing. In the browser, this shows up as a frozen UI: the rendering pipeline cannot paint because the main thread is never yielded.\n\nThe microtask queue is a common culprit — because it is fully drained before every paint, an unbounded microtask chain starves everything. Long synchronous tasks have the same effect. The solution is to explicitly yield via setTimeout, scheduler.yield(), or scheduler.postTask.`,
     analogy: `An emergency room that processes only critical patients can prevent stable patients from ever being seen. If new critical cases keep arriving faster than they resolve, everyone else waits forever. The system needs a policy that occasionally serves lower-priority patients even when higher-priority ones exist.`,
@@ -890,10 +890,10 @@ const TERMS = [
     category: "browser",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .host { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .shadow { fill: #3d4b40; opacity: 0.1; stroke: #3d4b40; stroke-width: 1.5; stroke-dasharray: 5 3; }
-    .inner { fill: none; stroke: #3d4b40; stroke-width: 1.5; }
-    .label { fill: #3d4b40; font-size: 8px; }
+    .host { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .shadow { fill: var(--diagram-ink); opacity: 0.1; stroke: var(--diagram-ink); stroke-width: 1.5; stroke-dasharray: 5 3; }
+    .inner { fill: none; stroke: var(--diagram-ink); stroke-width: 1.5; }
+    .label { fill: var(--diagram-ink); font-size: 8px; }
   </style>
   <rect class="host" x="10" y="10" width="100" height="100" rx="6"/>
   <text class="label" x="14" y="24">host element</text>
@@ -938,14 +938,14 @@ const TERMS = [
     category: "browser",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .node { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .dot { fill: #3d4b40; }
-    .label { fill: #3d4b40; font-size: 7.5px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a7); }
+    .node { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .dot { fill: var(--diagram-ink); }
+    .label { fill: var(--diagram-ink); font-size: 7.5px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a7); }
   </style>
   <defs>
     <marker id="a7" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <circle class="node" cx="60" cy="16" r="12"/>
@@ -997,14 +997,14 @@ const TERMS = [
     category: "browser",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .fw { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .wc { fill: #3d4b40; opacity: 0.15; stroke: #3d4b40; stroke-width: 2; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a8); }
+    .fw { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .wc { fill: var(--diagram-ink); opacity: 0.15; stroke: var(--diagram-ink); stroke-width: 2; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a8); }
   </style>
   <defs>
     <marker id="a8" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="fw" x="8" y="20" width="44" height="40" rx="4"/>
@@ -1014,9 +1014,9 @@ const TERMS = [
   <text class="label" x="90" y="38">my-</text>
   <text class="label" x="90" y="50">widget</text>
   <path class="arrow" d="M52,32 L68,32"/>
-  <text x="53" y="28" font-size="7" fill="#3d4b40">props</text>
+  <text x="53" y="28" font-size="7" fill="var(--diagram-ink)">props</text>
   <path class="arrow" d="M68,46 L52,46"/>
-  <text x="53" y="56" font-size="7" fill="#3d4b40">events</text>
+  <text x="53" y="56" font-size="7" fill="var(--diagram-ink)">events</text>
   <text class="label" x="60" y="82" font-size="7.5">properties not attributes</text>
   <text class="label" x="60" y="93" font-size="7">for complex data</text>
 </svg>`,
@@ -1053,13 +1053,13 @@ const TERMS = [
     category: "browser",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .label { fill: #3d4b40; font-size: 7.5px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a9); }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .label { fill: var(--diagram-ink); font-size: 7.5px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a9); }
   </style>
   <defs>
     <marker id="a9" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="box" x="35" y="8" width="50" height="26" rx="3"/>
@@ -1110,14 +1110,14 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes write-pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
-    .buf { fill: #3d4b40; opacity: 0.15; stroke: #3d4b40; stroke-width: 2; }
-    .cell { fill: none; stroke: #3d4b40; stroke-width: 1; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a10); }
+    .buf { fill: var(--diagram-ink); opacity: 0.15; stroke: var(--diagram-ink); stroke-width: 2; }
+    .cell { fill: none; stroke: var(--diagram-ink); stroke-width: 1; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a10); }
   </style>
   <defs>
     <marker id="a10" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="buf" x="18" y="50" width="84" height="22" rx="2"/>
@@ -1170,14 +1170,14 @@ const TERMS = [
   <style>
     @keyframes move-buf { 0%{transform:translateX(0)} 60%{transform:translateX(48px)} 100%{transform:translateX(48px)} }
     @keyframes fade-out { 0%,50%{opacity:1} 80%,100%{opacity:0.15} }
-    .box { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .buf { fill: #3d4b40; opacity: 0.7; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 2; fill: none; marker-end: url(#a11); }
+    .box { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .buf { fill: var(--diagram-ink); opacity: 0.7; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 2; fill: none; marker-end: url(#a11); }
   </style>
   <defs>
     <marker id="a11" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="box" x="5" y="30" width="40" height="34" rx="3"/>
@@ -1224,14 +1224,14 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes draw { 0%{stroke-dashoffset:80} 100%{stroke-dashoffset:0} }
-    .canvas { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .line { stroke: #3d4b40; stroke-width: 2; stroke-dasharray: 80; fill: none; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .arrow { stroke: #3d4b40; stroke-width: 1.5; fill: none; marker-end: url(#a12); }
+    .canvas { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .line { stroke: var(--diagram-ink); stroke-width: 2; stroke-dasharray: 80; fill: none; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .arrow { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; marker-end: url(#a12); }
   </style>
   <defs>
     <marker id="a12" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#3d4b40"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="var(--diagram-ink)"/>
     </marker>
   </defs>
   <rect class="canvas" x="5" y="10" width="50" height="30" rx="3"/>
@@ -1278,11 +1278,11 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes drip { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(20px);opacity:0} }
-    .bucket { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .fill { fill: #3d4b40; opacity: 0.3; }
-    .fill2 { fill: #3d4b40; opacity: 0.55; }
-    .drop { fill: #3d4b40; opacity: 0.7; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
+    .bucket { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .fill { fill: var(--diagram-ink); opacity: 0.3; }
+    .fill2 { fill: var(--diagram-ink); opacity: 0.55; }
+    .drop { fill: var(--diagram-ink); opacity: 0.7; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
   </style>
   <path class="bucket" d="M25,20 L20,90 L95,90 L90,20 Z"/>
   <rect class="fill" x="21" y="68" width="72" height="21"/>
@@ -1325,18 +1325,18 @@ const TERMS = [
     category: "browser",
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .tree { stroke: #3d4b40; stroke-width: 1.5; fill: none; }
-    .node { fill: #3d4b40; opacity: 0.85; }
-    .ghost { fill: #3d4b40; opacity: 0.2; stroke: #3d4b40; stroke-width: 1.5; stroke-dasharray: 4 2; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .ref-line { stroke: #3d4b40; stroke-width: 1.5; stroke-dasharray: 3 2; }
+    .tree { stroke: var(--diagram-ink); stroke-width: 1.5; fill: none; }
+    .node { fill: var(--diagram-ink); opacity: 0.85; }
+    .ghost { fill: var(--diagram-ink); opacity: 0.2; stroke: var(--diagram-ink); stroke-width: 1.5; stroke-dasharray: 4 2; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .ref-line { stroke: var(--diagram-ink); stroke-width: 1.5; stroke-dasharray: 3 2; }
   </style>
   <circle class="node" cx="36" cy="20" r="8"/>
   <line class="tree" x1="36" y1="28" x2="24" y2="50"/>
   <circle class="node" cx="24" cy="58" r="8"/>
   <circle class="ghost" cx="72" cy="58" r="12"/>
   <text class="label" x="72" y="62">detached</text>
-  <rect x="72" y="90" width="40" height="18" rx="2" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
+  <rect x="72" y="90" width="40" height="18" rx="2" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
   <text class="label" x="92" y="102" font-size="7.5">let cached</text>
   <line class="ref-line" x1="92" y1="90" x2="80" y2="70"/>
   <text class="label" x="60" y="115" font-size="7">GC cannot collect — ref alive</text>
@@ -1375,10 +1375,10 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes spike { 0%,80%,100%{height:6px;y:62px;opacity:0.4} 85%,95%{height:28px;y:40px;opacity:1} }
-    .bar { fill: #3d4b40; width: 10px; }
-    .spike { fill: #3d4b40; width: 10px; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .axis { stroke: #3d4b40; stroke-width: 1.5; }
+    .bar { fill: var(--diagram-ink); width: 10px; }
+    .spike { fill: var(--diagram-ink); width: 10px; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .axis { stroke: var(--diagram-ink); stroke-width: 1.5; }
   </style>
   <line class="axis" x1="10" y1="68" x2="110" y2="68"/>
   <rect class="bar" x="12" y="52" height="16" opacity="0.5"/>
@@ -1426,19 +1426,19 @@ const TERMS = [
     svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <style>
     @keyframes tap { 0%,100%{r:6;opacity:0.8} 50%{r:12;opacity:0.3} }
-    .device { fill: none; stroke: #3d4b40; stroke-width: 2; }
-    .cursor { fill: #3d4b40; opacity: 0.85; }
-    .label { fill: #3d4b40; font-size: 8px; text-anchor: middle; }
-    .ripple { fill: none; stroke: #3d4b40; stroke-width: 1.5; }
+    .device { fill: none; stroke: var(--diagram-ink); stroke-width: 2; }
+    .cursor { fill: var(--diagram-ink); opacity: 0.85; }
+    .label { fill: var(--diagram-ink); font-size: 8px; text-anchor: middle; }
+    .ripple { fill: none; stroke: var(--diagram-ink); stroke-width: 1.5; }
   </style>
   <circle class="ripple" cx="60" cy="60" r="6" style="animation:tap 1.5s ease-out infinite"/>
   <circle class="cursor" cx="60" cy="60" r="5"/>
   <text class="label" x="60" y="18">mouse</text>
   <text class="label" x="20" y="90">touch</text>
   <text class="label" x="100" y="90">pen</text>
-  <line x1="60" y1="22" x2="60" y2="54" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <line x1="28" y1="84" x2="54" y2="64" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
-  <line x1="92" y1="84" x2="66" y2="64" stroke="#3d4b40" stroke-width="1" opacity="0.5"/>
+  <line x1="60" y1="22" x2="60" y2="54" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <line x1="28" y1="84" x2="54" y2="64" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
+  <line x1="92" y1="84" x2="66" y2="64" stroke="var(--diagram-ink)" stroke-width="1" opacity="0.5"/>
   <text class="label" x="60" y="106" font-size="7.5">pointerdown / move / up / cancel</text>
   <text class="label" x="60" y="116" font-size="7">setPointerCapture, pressure, tilt</text>
 </svg>`,
@@ -1481,11 +1481,11 @@ const TERMS = [
     .bar:nth-child(3) { animation-delay: 0.2s; }
     .bar:nth-child(4) { animation-delay: 0.3s; }
   </style>
-  <rect x="10" y="100" width="20" height="10" fill="#3d4b40" class="bar"/>
-  <rect x="35" y="85" width="20" height="25" fill="#3d4b40" class="bar"/>
-  <rect x="60" y="70" width="20" height="40" fill="#3d4b40" class="bar"/>
-  <rect x="85" y="55" width="20" height="55" fill="#3d4b40" class="bar"/>
-  <line x1="10" y1="110" x2="110" y2="110" stroke="#3d4b40" stroke-width="2"/>
+  <rect x="10" y="100" width="20" height="10" fill="var(--diagram-ink)" class="bar"/>
+  <rect x="35" y="85" width="20" height="25" fill="var(--diagram-ink)" class="bar"/>
+  <rect x="60" y="70" width="20" height="40" fill="var(--diagram-ink)" class="bar"/>
+  <rect x="85" y="55" width="20" height="55" fill="var(--diagram-ink)" class="bar"/>
+  <line x1="10" y1="110" x2="110" y2="110" stroke="var(--diagram-ink)" stroke-width="2"/>
 </svg>`,
     definition: `Layout thrashing happens when JavaScript reads layout properties (like offsetWidth or getBoundingClientRect) immediately after writing DOM styles, forcing the browser to synchronously recalculate layout before the current frame completes. Each read-after-write pair triggers a separate layout pass, multiplying the work per frame.\n\nThe browser normally batches layout work and runs it once per frame. Interleaving reads and writes breaks this batching. A loop that reads and writes layout properties on every iteration can cause dozens of forced synchronous layouts, dropping frame rates well below 60fps.`,
     analogy: `It's like a chef who slices one vegetable, immediately asks how many are left in the bin, slices another, asks again — instead of slicing everything first and counting once at the end. Each question interrupts the flow and adds overhead.`,
@@ -1515,18 +1515,18 @@ const TERMS = [
     .step:nth-child(4) { animation-delay: 0.9s; }
     @keyframes fadein { to { opacity: 1; } }
   </style>
-  <rect x="10" y="10" width="25" height="20" rx="3" fill="#3d4b40" class="step"/>
+  <rect x="10" y="10" width="25" height="20" rx="3" fill="var(--diagram-ink)" class="step"/>
   <text x="22" y="24" font-size="7" fill="white" text-anchor="middle" class="step">DOM</text>
-  <rect x="45" y="10" width="25" height="20" rx="3" fill="#3d4b40" class="step"/>
+  <rect x="45" y="10" width="25" height="20" rx="3" fill="var(--diagram-ink)" class="step"/>
   <text x="57" y="24" font-size="7" fill="white" text-anchor="middle" class="step">CSSOM</text>
-  <rect x="80" y="10" width="25" height="20" rx="3" fill="#3d4b40" class="step"/>
+  <rect x="80" y="10" width="25" height="20" rx="3" fill="var(--diagram-ink)" class="step"/>
   <text x="92" y="24" font-size="7" fill="white" text-anchor="middle" class="step">Render</text>
-  <line x1="35" y1="20" x2="45" y2="20" stroke="#3d4b40" stroke-width="2" marker-end="url(#arr)"/>
-  <line x1="70" y1="20" x2="80" y2="20" stroke="#3d4b40" stroke-width="2"/>
-  <rect x="10" y="50" width="95" height="50" rx="4" fill="none" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="57" y="70" font-size="8" fill="#3d4b40" text-anchor="middle">Layout</text>
-  <text x="57" y="82" font-size="8" fill="#3d4b40" text-anchor="middle">Paint</text>
-  <text x="57" y="94" font-size="8" fill="#3d4b40" text-anchor="middle">Composite</text>
+  <line x1="35" y1="20" x2="45" y2="20" stroke="var(--diagram-ink)" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="70" y1="20" x2="80" y2="20" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <rect x="10" y="50" width="95" height="50" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="57" y="70" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">Layout</text>
+  <text x="57" y="82" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">Paint</text>
+  <text x="57" y="94" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">Composite</text>
 </svg>`,
     definition: `The critical rendering path is the ordered set of steps a browser must complete to display the first frame: parse HTML to build the DOM, parse CSS to build the CSSOM, combine them into a render tree, run layout to compute geometry, paint pixels, and composite layers. Any resource that blocks these steps delays first contentful paint.\n\nOptimising the path means reducing the number or size of render-blocking resources, inlining critical CSS, deferring non-essential scripts, and minimising the payload that must load before the first visible frame renders.`,
     analogy: `Building a stage set before the curtain rises. Every prop and backdrop must be in place before the audience sees anything. If a single piece of scenery is late, the whole show waits.`,
@@ -1552,18 +1552,18 @@ const TERMS = [
     .svg-block { animation: pulse 1s ease-in-out infinite alternate; }
     @keyframes pulse { from { opacity: 1; } to { opacity: 0.3; } }
   </style>
-  <rect x="15" y="45" width="90" height="30" rx="4" fill="#3d4b40" class="svg-block"/>
+  <rect x="15" y="45" width="90" height="30" rx="4" fill="var(--diagram-ink)" class="svg-block"/>
   <text x="60" y="65" font-size="9" fill="white" text-anchor="middle">BLOCKED</text>
-  <rect x="5" y="10" width="30" height="20" rx="3" fill="#3d4b40" opacity="0.4"/>
+  <rect x="5" y="10" width="30" height="20" rx="3" fill="var(--diagram-ink)" opacity="0.4"/>
   <text x="20" y="24" font-size="7" fill="white" text-anchor="middle">HTML</text>
-  <rect x="45" y="10" width="30" height="20" rx="3" fill="#3d4b40"/>
+  <rect x="45" y="10" width="30" height="20" rx="3" fill="var(--diagram-ink)"/>
   <text x="60" y="24" font-size="7" fill="white" text-anchor="middle">CSS</text>
-  <rect x="85" y="10" width="30" height="20" rx="3" fill="#3d4b40"/>
+  <rect x="85" y="10" width="30" height="20" rx="3" fill="var(--diagram-ink)"/>
   <text x="100" y="24" font-size="7" fill="white" text-anchor="middle">JS</text>
-  <line x1="60" y1="30" x2="60" y2="45" stroke="#3d4b40" stroke-width="2"/>
-  <line x1="100" y1="30" x2="100" y2="45" stroke="#3d4b40" stroke-width="2" stroke-dasharray="3,2"/>
-  <rect x="20" y="90" width="80" height="20" rx="3" fill="#3d4b40" opacity="0.3"/>
-  <text x="60" y="104" font-size="7" fill="#3d4b40" text-anchor="middle">paint (waiting)</text>
+  <line x1="60" y1="30" x2="60" y2="45" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <line x1="100" y1="30" x2="100" y2="45" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="3,2"/>
+  <rect x="20" y="90" width="80" height="20" rx="3" fill="var(--diagram-ink)" opacity="0.3"/>
+  <text x="60" y="104" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">paint (waiting)</text>
 </svg>`,
     definition: `Render-blocking resources are files the browser must fully download and process before it can paint any content to the screen. Stylesheets linked in <head> block rendering because the browser needs the complete CSSOM before it can calculate styles. Parser-blocking scripts block both DOM construction and rendering until they execute.\n\nNon-critical CSS and JavaScript can be made non-blocking using media queries, async/defer attributes on scripts, and link rel=preload with onload swapping. Reducing render-blocking resources is one of the highest-impact LCP optimisations available.`,
     analogy: `A traffic light that stays red until every single delivery truck on a side street has cleared the intersection — even trucks heading somewhere the main road cars don't need to go.`,
@@ -1592,14 +1592,14 @@ const TERMS = [
     .layer:nth-child(3) { animation-delay: 0.4s; }
     @keyframes stack { from { transform: translateY(0); } to { transform: translateY(-4px); } }
   </style>
-  <rect x="20" y="80" width="80" height="18" rx="3" fill="#3d4b40" opacity="0.4" class="layer"/>
-  <rect x="20" y="58" width="80" height="18" rx="3" fill="#3d4b40" opacity="0.65" class="layer"/>
-  <rect x="20" y="36" width="80" height="18" rx="3" fill="#3d4b40" opacity="0.9" class="layer"/>
+  <rect x="20" y="80" width="80" height="18" rx="3" fill="var(--diagram-ink)" opacity="0.4" class="layer"/>
+  <rect x="20" y="58" width="80" height="18" rx="3" fill="var(--diagram-ink)" opacity="0.65" class="layer"/>
+  <rect x="20" y="36" width="80" height="18" rx="3" fill="var(--diagram-ink)" opacity="0.9" class="layer"/>
   <text x="60" y="91" font-size="7" fill="white" text-anchor="middle">base layer</text>
   <text x="60" y="69" font-size="7" fill="white" text-anchor="middle">scroll layer</text>
   <text x="60" y="47" font-size="7" fill="white" text-anchor="middle">overlay layer</text>
-  <text x="60" y="22" font-size="8" fill="#3d4b40" text-anchor="middle">GPU composite</text>
-  <line x1="60" y1="25" x2="60" y2="36" stroke="#3d4b40" stroke-width="1.5"/>
+  <text x="60" y="22" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">GPU composite</text>
+  <line x1="60" y1="25" x2="60" y2="36" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </svg>`,
     definition: `Compositing is the final stage of the rendering pipeline where the browser's compositor thread combines independently painted layer bitmaps into the final screen image. Certain CSS properties (transform, opacity, will-change) promote elements to their own compositor layers, allowing them to be moved or faded by the GPU without triggering layout or paint.\n\nComposited animations avoid the main thread entirely, which is why transform-based animations stay smooth even when JavaScript is busy. However, each layer consumes GPU memory, and too many layers cause memory pressure and slower composite times — a trade-off between paint isolation and resource cost.`,
     analogy: `Editing a Photoshop file: each layer can be moved independently without redrawing the whole canvas. But too many layers make the file slow to save and eat up RAM.`,
@@ -1625,10 +1625,10 @@ const TERMS = [
     .ring { animation: spin 2s linear infinite; transform-origin: 60px 60px; }
     .ring:nth-child(2) { animation-duration: 3s; animation-direction: reverse; }
   </style>
-  <circle cx="60" cy="60" r="40" fill="none" stroke="#3d4b40" stroke-width="3" stroke-dasharray="10,5" class="ring"/>
-  <circle cx="60" cy="60" r="25" fill="none" stroke="#3d4b40" stroke-width="2" stroke-dasharray="6,4" class="ring"/>
-  <circle cx="60" cy="60" r="10" fill="#3d4b40"/>
-  <text x="60" y="108" font-size="7" fill="#3d4b40" text-anchor="middle">layout / paint / composite</text>
+  <circle cx="60" cy="60" r="40" fill="none" stroke="var(--diagram-ink)" stroke-width="3" stroke-dasharray="10,5" class="ring"/>
+  <circle cx="60" cy="60" r="25" fill="none" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="6,4" class="ring"/>
+  <circle cx="60" cy="60" r="10" fill="var(--diagram-ink)"/>
+  <text x="60" y="108" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">layout / paint / composite</text>
 </svg>`,
     definition: `Layout, paint, and composite are the three phases of rendering, each triggered by different CSS property changes. Layout recalculates geometry when size or position changes (width, margin, top). Paint rasterises pixels when visual appearance changes without affecting geometry (color, background, box-shadow). Composite only moves or blends existing layer bitmaps when transform or opacity changes — the cheapest operation by far.\n\nTriggering layout also forces paint and composite. Triggering paint forces composite. CSS Triggers (now csstriggers.com archive) documents which properties hit which phases. Optimal animations touch only composite-stage properties.`,
     analogy: `Renovating a room: layout is moving walls (expensive, affects everything), paint is repainting a wall (moderate effort, contained), composite is rearranging furniture without touching the walls (fast, no structural work).`,
@@ -1654,14 +1654,14 @@ const TERMS = [
     .glow { animation: glow 1s ease-in-out infinite alternate; }
     @keyframes glow { from { opacity: 0.5; } to { opacity: 1; } }
   </style>
-  <rect x="20" y="30" width="80" height="60" rx="6" fill="none" stroke="#3d4b40" stroke-width="2"/>
-  <rect x="28" y="38" width="64" height="44" rx="3" fill="#3d4b40" opacity="0.15"/>
-  <text x="60" y="56" font-size="8" fill="#3d4b40" text-anchor="middle" class="glow">GPU</text>
-  <text x="60" y="70" font-size="7" fill="#3d4b40" text-anchor="middle">transform</text>
-  <text x="60" y="82" font-size="7" fill="#3d4b40" text-anchor="middle">opacity</text>
-  <line x1="40" y1="100" x2="40" y2="108" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="60" y1="100" x2="60" y2="108" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="80" y1="100" x2="80" y2="108" stroke="#3d4b40" stroke-width="1.5"/>
+  <rect x="20" y="30" width="80" height="60" rx="6" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <rect x="28" y="38" width="64" height="44" rx="3" fill="var(--diagram-ink)" opacity="0.15"/>
+  <text x="60" y="56" font-size="8" fill="var(--diagram-ink)" text-anchor="middle" class="glow">GPU</text>
+  <text x="60" y="70" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">transform</text>
+  <text x="60" y="82" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">opacity</text>
+  <line x1="40" y1="100" x2="40" y2="108" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="60" y1="100" x2="60" y2="108" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="80" y1="100" x2="80" y2="108" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </svg>`,
     definition: `GPU acceleration in CSS happens when the browser promotes an element to its own compositor layer and hands rendering of that layer to the GPU. The GPU can apply transforms and opacity changes by rearranging or blending texture quads at the hardware level, entirely bypassing the CPU-bound layout and paint stages.\n\nPromotion is triggered by animating transform or opacity, or by adding will-change: transform as a hint. The benefit is main-thread independence: GPU compositing continues even when JavaScript is executing heavy work. The cost is GPU memory for each layer texture, which can be significant on mobile.`,
     analogy: `Delegating a slide presentation to a projector — the projector handles zooming and fading slides without involving your laptop's CPU at all, as long as the slides are already uploaded.`,
@@ -1687,12 +1687,12 @@ const TERMS = [
     .box { animation: contain 1.5s ease-in-out infinite alternate; }
     @keyframes contain { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 20; } }
   </style>
-  <rect x="15" y="15" width="90" height="90" rx="6" fill="none" stroke="#3d4b40" stroke-width="2" stroke-dasharray="6,3" class="box"/>
-  <rect x="25" y="25" width="30" height="30" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="65" y="25" width="30" height="30" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="25" y="65" width="30" height="30" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="65" y="65" width="30" height="30" rx="3" fill="#3d4b40" opacity="0.2"/>
-  <text x="80" y="84" font-size="7" fill="#3d4b40" text-anchor="middle">skip</text>
+  <rect x="15" y="15" width="90" height="90" rx="6" fill="none" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="6,3" class="box"/>
+  <rect x="25" y="25" width="30" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="65" y="25" width="30" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="25" y="65" width="30" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="65" y="65" width="30" height="30" rx="3" fill="var(--diagram-ink)" opacity="0.2"/>
+  <text x="80" y="84" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">skip</text>
 </svg>`,
     definition: `CSS containment (the contain property) lets developers declare that a subtree is independent from the rest of the document for layout, paint, style, or size calculations. The browser can skip re-rendering the contained subtree when changes happen outside it, and skip re-rendering the rest of the page when changes happen inside it.\n\nThe contain: content shorthand (combining layout and paint) is the most broadly useful value. It prevents overflow from affecting outside elements and isolates stacking contexts. contain: strict adds size containment, telling the browser the element's size is unaffected by its children — enabling more aggressive optimisations in virtualized lists.`,
     analogy: `Filing documents in labeled boxes: when you need to search for something, you only open the relevant box rather than emptying the entire cabinet.`,
@@ -1718,16 +1718,16 @@ const TERMS = [
     .pixel { animation: flicker 0.8s step-start infinite; }
     @keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   </style>
-  <rect x="10" y="10" width="14" height="14" fill="#3d4b40"/>
-  <rect x="24" y="10" width="14" height="14" fill="#3d4b40" opacity="0.6" class="pixel"/>
-  <rect x="38" y="10" width="14" height="14" fill="#3d4b40" opacity="0.3"/>
-  <rect x="10" y="24" width="14" height="14" fill="#3d4b40" opacity="0.7"/>
-  <rect x="24" y="24" width="14" height="14" fill="#3d4b40"/>
-  <rect x="38" y="24" width="14" height="14" fill="#3d4b40" opacity="0.5" class="pixel"/>
-  <text x="60" y="70" font-size="8" fill="#3d4b40" text-anchor="middle">subpixel</text>
-  <text x="60" y="82" font-size="7" fill="#3d4b40" text-anchor="middle">anti-aliasing</text>
-  <rect x="10" y="90" width="100" height="8" rx="2" fill="#3d4b40" opacity="0.2"/>
-  <rect x="10" y="90" width="55" height="8" rx="2" fill="#3d4b40" opacity="0.6"/>
+  <rect x="10" y="10" width="14" height="14" fill="var(--diagram-ink)"/>
+  <rect x="24" y="10" width="14" height="14" fill="var(--diagram-ink)" opacity="0.6" class="pixel"/>
+  <rect x="38" y="10" width="14" height="14" fill="var(--diagram-ink)" opacity="0.3"/>
+  <rect x="10" y="24" width="14" height="14" fill="var(--diagram-ink)" opacity="0.7"/>
+  <rect x="24" y="24" width="14" height="14" fill="var(--diagram-ink)"/>
+  <rect x="38" y="24" width="14" height="14" fill="var(--diagram-ink)" opacity="0.5" class="pixel"/>
+  <text x="60" y="70" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">subpixel</text>
+  <text x="60" y="82" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">anti-aliasing</text>
+  <rect x="10" y="90" width="100" height="8" rx="2" fill="var(--diagram-ink)" opacity="0.2"/>
+  <rect x="10" y="90" width="55" height="8" rx="2" fill="var(--diagram-ink)" opacity="0.6"/>
 </svg>`,
     definition: `Subpixel rendering refers to positioning and sizing elements at non-integer pixel values (e.g., 10.5px). Browsers apply anti-aliasing to smooth the result, blending neighbouring pixels to approximate the fractional position. This produces sharper-looking text and lines on standard displays but can cause blurry edges, 1px alignment gaps, and inconsistent rendering across browsers.\n\nSubpixel positioning interacts with compositing layers in unexpected ways. When an element is promoted to a compositor layer, its position is snapped to an integer pixel boundary on some browsers, causing a visible jump. CSS transforms that result in fractional pixel values (like translateX(50%) on an odd-width container) are a common source of blurry images and hairline gaps.`,
     analogy: `Trying to hang a picture perfectly centred on a wall where the stud spacing doesn't divide evenly — you end up splitting the difference, and the result looks slightly off no matter which way you lean.`,
@@ -1753,12 +1753,12 @@ const TERMS = [
     .elem { animation: slide 2s ease-in-out infinite alternate; }
     @keyframes slide { from { transform: translateY(0); } to { transform: translateY(-30px); } }
   </style>
-  <rect x="20" y="20" width="80" height="80" rx="4" fill="none" stroke="#3d4b40" stroke-width="2"/>
-  <text x="60" y="16" font-size="7" fill="#3d4b40" text-anchor="middle">viewport</text>
-  <rect x="30" y="50" width="60" height="25" rx="3" fill="#3d4b40" opacity="0.7" class="elem"/>
+  <rect x="20" y="20" width="80" height="80" rx="4" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <text x="60" y="16" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">viewport</text>
+  <rect x="30" y="50" width="60" height="25" rx="3" fill="var(--diagram-ink)" opacity="0.7" class="elem"/>
   <text x="60" y="66" font-size="7" fill="white" text-anchor="middle">observed element</text>
-  <line x1="20" y1="60" x2="10" y2="60" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="3,2"/>
-  <line x1="100" y1="60" x2="110" y2="60" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="20" y1="60" x2="10" y2="60" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="100" y1="60" x2="110" y2="60" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="3,2"/>
 </svg>`,
     definition: `IntersectionObserver fires callbacks asynchronously when an observed element's intersection with the viewport (or a specified root element) crosses defined thresholds. Internally the browser batches intersection calculations on the main thread after layout, so callbacks are delivered once per frame at most — not on every scroll event tick.\n\nBecause the calculations are deferred and batched, IntersectionObserver is far cheaper than scroll listener polling. However, the asynchronous delivery means there is always a one-frame lag between the element entering the viewport and the callback firing. The root margin and threshold options let you trigger early (negative threshold, positive root margin) to pre-load content before it becomes visible.`,
     analogy: `A motion sensor on a door rather than a person watching through a peephole every second — the sensor triggers once on crossing the threshold, then resets, using no power between events.`,
@@ -1784,12 +1784,12 @@ const TERMS = [
     .arrow { animation: rotate 2s linear infinite; transform-origin: 60px 60px; }
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
-  <circle cx="60" cy="60" r="35" fill="none" stroke="#3d4b40" stroke-width="2" stroke-dasharray="8,4" class="arrow"/>
-  <polygon points="60,25 55,35 65,35" fill="#3d4b40" class="arrow"/>
-  <rect x="45" y="50" width="30" height="20" rx="3" fill="#3d4b40" opacity="0.7"/>
+  <circle cx="60" cy="60" r="35" fill="none" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="8,4" class="arrow"/>
+  <polygon points="60,25 55,35 65,35" fill="var(--diagram-ink)" class="arrow"/>
+  <rect x="45" y="50" width="30" height="20" rx="3" fill="var(--diagram-ink)" opacity="0.7"/>
   <text x="60" y="64" font-size="7" fill="white" text-anchor="middle">resize</text>
-  <line x1="60" y1="95" x2="60" y2="108" stroke="#3d4b40" stroke-width="2"/>
-  <text x="60" y="118" font-size="7" fill="#3d4b40" text-anchor="middle">loop blocked</text>
+  <line x1="60" y1="95" x2="60" y2="108" stroke="var(--diagram-ink)" stroke-width="2"/>
+  <text x="60" y="118" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">loop blocked</text>
 </svg>`,
     definition: `ResizeObserver delivers callbacks when an element's size changes. To prevent infinite loops — where a callback resizes the element, triggering another callback — the browser only delivers callbacks for elements deeper in the DOM tree than the shallowest element that triggered a resize in the same frame. Elements at a shallower depth are skipped and an error is thrown to the console: "ResizeObserver loop completed with undelivered notifications."\n\nThis is a safety mechanism, not a bug. The error means the observer and the callback are creating a resize cycle. The fix is to defer the resize-causing side effect using requestAnimationFrame, breaking the synchronous loop.`,
     analogy: `A thermostat that won't respond to its own heating output during the same cycle — it only reads the room temperature at the next check-in, preventing the heat from endlessly chasing its own tail.`,
@@ -1817,12 +1817,12 @@ const TERMS = [
     .dot:nth-child(3) { animation-delay: 0.6s; }
     @keyframes ping { 0% { r: 3; opacity: 1; } 100% { r: 12; opacity: 0; } }
   </style>
-  <rect x="40" y="45" width="40" height="30" rx="4" fill="#3d4b40"/>
+  <rect x="40" y="45" width="40" height="30" rx="4" fill="var(--diagram-ink)"/>
   <text x="60" y="64" font-size="7" fill="white" text-anchor="middle">DOM</text>
-  <circle cx="60" cy="60" r="3" fill="none" stroke="#3d4b40" stroke-width="1.5" class="dot"/>
-  <circle cx="60" cy="60" r="3" fill="none" stroke="#3d4b40" stroke-width="1.5" class="dot"/>
-  <circle cx="60" cy="60" r="3" fill="none" stroke="#3d4b40" stroke-width="1.5" class="dot"/>
-  <text x="60" y="108" font-size="7" fill="#3d4b40" text-anchor="middle">mutation records</text>
+  <circle cx="60" cy="60" r="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" class="dot"/>
+  <circle cx="60" cy="60" r="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" class="dot"/>
+  <circle cx="60" cy="60" r="3" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5" class="dot"/>
+  <text x="60" y="108" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">mutation records</text>
 </svg>`,
     definition: `MutationObserver batches DOM mutation records and delivers them asynchronously via a microtask after the current task completes. The cost comes from two places: the browser must record and queue every mutation that matches the observer's configuration (subtree, childList, attributes, characterData), and the callback must process potentially large batches of records.\n\nObserving a large subtree with subtree: true and all mutation types is expensive — a single innerHTML replacement can generate thousands of records. The cost also grows if callbacks trigger further mutations, creating secondary batches. Fine-grained configuration (observing only what you need) and disconnecting observers when no longer needed are the primary mitigations.`,
     analogy: `Hiring a secretary to log every change to every document in a filing room — useful when targeted, but overwhelming if they're recording every Post-it adjustment in the whole building.`,
@@ -1848,10 +1848,10 @@ const TERMS = [
     .tick { animation: draw 2s linear infinite; stroke-dasharray: 60; stroke-dashoffset: 60; }
     @keyframes draw { to { stroke-dashoffset: 0; } }
   </style>
-  <polyline points="10,90 25,70 40,80 55,50 70,60 85,30 100,40" fill="none" stroke="#3d4b40" stroke-width="2.5" class="tick"/>
-  <line x1="10" y1="95" x2="110" y2="95" stroke="#3d4b40" stroke-width="1.5"/>
-  <line x1="10" y1="10" x2="10" y2="95" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="60" y="112" font-size="7" fill="#3d4b40" text-anchor="middle">performance timeline</text>
+  <polyline points="10,90 25,70 40,80 55,50 70,60 85,30 100,40" fill="none" stroke="var(--diagram-ink)" stroke-width="2.5" class="tick"/>
+  <line x1="10" y1="95" x2="110" y2="95" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <line x1="10" y1="10" x2="10" y2="95" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="60" y="112" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">performance timeline</text>
 </svg>`,
     definition: `PerformanceObserver subscribes to performance timeline entries as the browser generates them, rather than requiring a polling call to performance.getEntries(). It supports entry types including largest-contentful-paint, layout-shift, longtask, element, resource, navigation, and paint, among others.\n\nThe observer callback receives a PerformanceObserverEntryList with the new entries. Using buffered: true in the observe() options lets late-registering observers see entries that occurred before the observer was created — essential for LCP and CLS measurement, which begin immediately at page load.`,
     analogy: `Subscribing to a news feed instead of refreshing a news site every few seconds — entries arrive as events happen rather than requiring constant polling.`,
@@ -1877,13 +1877,13 @@ const TERMS = [
     .bar { animation: grow 1.5s ease-in-out infinite alternate; transform-origin: left center; }
     @keyframes grow { from { transform: scaleX(1); } to { transform: scaleX(1.3); } }
   </style>
-  <rect x="10" y="30" width="40" height="12" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <rect x="10" y="50" width="90" height="12" rx="2" fill="#3d4b40" class="bar"/>
-  <rect x="10" y="70" width="25" height="12" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <line x1="60" y1="20" x2="60" y2="95" stroke="#3d4b40" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="62" y="18" font-size="6" fill="#3d4b40">50ms</text>
-  <text x="10" y="105" font-size="7" fill="#3d4b40">long task</text>
-  <line x1="10" y1="95" x2="110" y2="95" stroke="#3d4b40" stroke-width="1.5"/>
+  <rect x="10" y="30" width="40" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <rect x="10" y="50" width="90" height="12" rx="2" fill="var(--diagram-ink)" class="bar"/>
+  <rect x="10" y="70" width="25" height="12" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <line x1="60" y1="20" x2="60" y2="95" stroke="var(--diagram-ink)" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="62" y="18" font-size="6" fill="var(--diagram-ink)">50ms</text>
+  <text x="10" y="105" font-size="7" fill="var(--diagram-ink)">long task</text>
+  <line x1="10" y1="95" x2="110" y2="95" stroke="var(--diagram-ink)" stroke-width="1.5"/>
 </svg>`,
     definition: `The Long Tasks API (via PerformanceObserver with type 'longtask') reports any main thread task that takes longer than 50ms. Tasks longer than this block user input processing, causing FID and INP degradation. Each longtask entry includes a duration and a TaskAttributionTiming array that identifies the browsing context (script URL, iframe) responsible.\n\nLong tasks are typically caused by large synchronous JavaScript execution — parsing and executing large bundles, complex DOM operations, or synchronous data processing. The 50ms threshold corresponds to the human perception limit for input delay: tasks shorter than this feel instantaneous, tasks longer feel sluggish.`,
     analogy: `A customer service line where the agent handling the person ahead of you is on a 3-minute call — you're blocked no matter how simple your question is.`,
@@ -1909,11 +1909,11 @@ const TERMS = [
     .cursor { animation: click 1.2s ease-in-out infinite; }
     @keyframes click { 0%,100% { transform: scale(1); } 50% { transform: scale(0.85); } }
   </style>
-  <rect x="10" y="40" width="100" height="20" rx="3" fill="#3d4b40" opacity="0.2"/>
-  <rect x="10" y="40" width="60" height="20" rx="3" fill="#3d4b40" opacity="0.6"/>
+  <rect x="10" y="40" width="100" height="20" rx="3" fill="var(--diagram-ink)" opacity="0.2"/>
+  <rect x="10" y="40" width="60" height="20" rx="3" fill="var(--diagram-ink)" opacity="0.6"/>
   <text x="40" y="54" font-size="7" fill="white" text-anchor="middle">input delay</text>
-  <polygon points="80,70 75,85 80,82 80,95 85,95 85,82 90,85" fill="#3d4b40" class="cursor"/>
-  <text x="60" y="112" font-size="7" fill="#3d4b40" text-anchor="middle">FID measures first tap only</text>
+  <polygon points="80,70 75,85 80,82 80,95 85,95 85,82 90,85" fill="var(--diagram-ink)" class="cursor"/>
+  <text x="60" y="112" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">FID measures first tap only</text>
 </svg>`,
     definition: `First Input Delay measures the time from when a user first interacts with the page (click, tap, key press) to when the browser is able to begin processing that event handler. It does not measure how long the handler takes to run — only the waiting time caused by a busy main thread. FID is a field metric, measured only in real user sessions via the PerformanceObserver event entry type.\n\nFID was replaced by INP as a Core Web Vitals metric in March 2024. FID measured only the first interaction, which could be unrepresentative of overall responsiveness. A good FID is under 100ms; above 300ms is poor. Its replacement, INP, measures the worst interaction across the full session.`,
     analogy: `Pressing the elevator button and waiting for the button to light up — you've pressed it, but the elevator hasn't acknowledged yet because it's finishing a previous task.`,
@@ -1939,14 +1939,14 @@ const TERMS = [
     .bar { animation: highlight 2s ease-in-out infinite; }
     @keyframes highlight { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
   </style>
-  <rect x="10" y="80" width="15" height="15" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <rect x="30" y="70" width="15" height="25" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <rect x="50" y="50" width="15" height="45" rx="2" fill="#3d4b40" class="bar"/>
-  <rect x="70" y="65" width="15" height="30" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <rect x="90" y="75" width="15" height="20" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <text x="57" y="42" font-size="6" fill="#3d4b40" text-anchor="middle">worst INP</text>
-  <line x1="10" y1="95" x2="110" y2="95" stroke="#3d4b40" stroke-width="1.5"/>
-  <text x="60" y="112" font-size="7" fill="#3d4b40" text-anchor="middle">all interactions tracked</text>
+  <rect x="10" y="80" width="15" height="15" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <rect x="30" y="70" width="15" height="25" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <rect x="50" y="50" width="15" height="45" rx="2" fill="var(--diagram-ink)" class="bar"/>
+  <rect x="70" y="65" width="15" height="30" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <rect x="90" y="75" width="15" height="20" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <text x="57" y="42" font-size="6" fill="var(--diagram-ink)" text-anchor="middle">worst INP</text>
+  <line x1="10" y1="95" x2="110" y2="95" stroke="var(--diagram-ink)" stroke-width="1.5"/>
+  <text x="60" y="112" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">all interactions tracked</text>
 </svg>`,
     definition: `Interaction to Next Paint measures the latency of every click, tap, and keyboard interaction during a page session, then reports the worst one (or near-worst, using the 98th percentile for pages with many interactions). It spans from the user's input event to the next paint commit — covering input delay, event handler execution, and rendering update time.\n\nINP replaced FID as a Core Web Vitals metric in March 2024. A good INP is under 200ms; above 500ms is poor. Because it captures the worst interaction, it is much harder to game than FID and better reflects the user's overall experience of a page's responsiveness throughout a session.`,
     analogy: `A restaurant rated not on the speed of taking your order, but on the slowest moment across the entire meal — any sluggish response at any point in the visit affects the score.`,
@@ -1972,12 +1972,12 @@ const TERMS = [
     .svg-shift { animation: shift 1.5s ease-in-out infinite alternate; }
     @keyframes shift { from { transform: translateY(0); } to { transform: translateY(20px); } }
   </style>
-  <rect x="15" y="20" width="90" height="15" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="15" y="42" width="60" height="12" rx="3" fill="#3d4b40" opacity="0.5"/>
-  <rect x="15" y="60" width="90" height="20" rx="3" fill="#3d4b40" class="svg-shift"/>
-  <rect x="15" y="88" width="70" height="12" rx="3" fill="#3d4b40" opacity="0.3"/>
-  <line x1="112" y1="60" x2="112" y2="80" stroke="#3d4b40" stroke-width="1.5" marker-end="url(#arr2)"/>
-  <text x="60" y="112" font-size="7" fill="#3d4b40" text-anchor="middle">unexpected shift</text>
+  <rect x="15" y="20" width="90" height="15" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="15" y="42" width="60" height="12" rx="3" fill="var(--diagram-ink)" opacity="0.5"/>
+  <rect x="15" y="60" width="90" height="20" rx="3" fill="var(--diagram-ink)" class="svg-shift"/>
+  <rect x="15" y="88" width="70" height="12" rx="3" fill="var(--diagram-ink)" opacity="0.3"/>
+  <line x1="112" y1="60" x2="112" y2="80" stroke="var(--diagram-ink)" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="60" y="112" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">unexpected shift</text>
 </svg>`,
     definition: `Cumulative Layout Shift scores visual instability by summing the impact of unexpected layout shifts throughout the page's life. Each shift is scored as the product of the impact fraction (proportion of viewport affected) and the distance fraction (how far elements moved). Only shifts without a 500ms user-input grace period count — scrolling and intentional interactions are excluded.\n\nCLS is a Core Web Vitals metric. A good score is under 0.1; above 0.25 is poor. Common causes include images and embeds without explicit dimensions, dynamically injected banners, web fonts causing FOUT that shifts text, and late-loading ads that push content down.`,
     analogy: `Reading a book where someone keeps quietly swapping pages beneath your finger while you read — your place jumps and you lose context, even if the content itself is unchanged.`,
@@ -2003,11 +2003,11 @@ const TERMS = [
     .reveal { animation: wipe 2s ease-in-out infinite; clip-path: inset(0 100% 0 0); }
     @keyframes wipe { 0% { clip-path: inset(0 100% 0 0); } 80%,100% { clip-path: inset(0 0% 0 0); } }
   </style>
-  <rect x="10" y="10" width="100" height="70" rx="4" fill="#3d4b40" opacity="0.15"/>
-  <rect x="10" y="10" width="100" height="70" rx="4" fill="#3d4b40" opacity="0.6" class="reveal"/>
+  <rect x="10" y="10" width="100" height="70" rx="4" fill="var(--diagram-ink)" opacity="0.15"/>
+  <rect x="10" y="10" width="100" height="70" rx="4" fill="var(--diagram-ink)" opacity="0.6" class="reveal"/>
   <text x="60" y="50" font-size="9" fill="white" text-anchor="middle">hero image</text>
-  <rect x="10" y="88" width="60" height="8" rx="2" fill="#3d4b40" opacity="0.4"/>
-  <rect x="10" y="100" width="40" height="8" rx="2" fill="#3d4b40" opacity="0.3"/>
+  <rect x="10" y="88" width="60" height="8" rx="2" fill="var(--diagram-ink)" opacity="0.4"/>
+  <rect x="10" y="100" width="40" height="8" rx="2" fill="var(--diagram-ink)" opacity="0.3"/>
 </svg>`,
     definition: `Largest Contentful Paint marks the time when the largest image, video poster, or block-level text element visible in the viewport finishes rendering. The browser continuously updates the LCP candidate as larger elements load; the final value is recorded when the user first interacts or the page is backgrounded. LCP is the primary Core Web Vitals metric for perceived load speed.\n\nA good LCP is under 2.5 seconds; above 4 seconds is poor. Common causes of poor LCP include render-blocking resources delaying the critical path, server slow TTFB, unoptimised hero images, and client-side rendering requiring JavaScript execution before the element appears.`,
     analogy: `The moment a cinema screen is fully lit with the opening frame — everything before that is darkness and anticipation, and the audience judges how quickly the show started based on that moment.`,
@@ -2033,12 +2033,12 @@ const TERMS = [
     .ghost { animation: fade 2s ease-in-out infinite alternate; }
     @keyframes fade { from { opacity: 0.15; } to { opacity: 0.55; } }
   </style>
-  <rect x="10" y="20" width="45" height="70" rx="4" fill="#3d4b40"/>
+  <rect x="10" y="20" width="45" height="70" rx="4" fill="var(--diagram-ink)"/>
   <text x="32" y="58" font-size="7" fill="white" text-anchor="middle">current</text>
-  <rect x="65" y="20" width="45" height="70" rx="4" fill="#3d4b40" class="ghost"/>
-  <text x="87" y="58" font-size="7" fill="#3d4b40" text-anchor="middle">next page</text>
-  <line x1="55" y1="55" x2="65" y2="55" stroke="#3d4b40" stroke-width="2" stroke-dasharray="3,2"/>
-  <polygon points="63,51 63,59 70,55" fill="#3d4b40"/>
+  <rect x="65" y="20" width="45" height="70" rx="4" fill="var(--diagram-ink)" class="ghost"/>
+  <text x="87" y="58" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">next page</text>
+  <line x1="55" y1="55" x2="65" y2="55" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="3,2"/>
+  <polygon points="63,51 63,59 70,55" fill="var(--diagram-ink)"/>
 </svg>`,
     definition: `Speculative prerendering uses the browser's Speculation Rules API (or legacy rel=prerender) to fully load and render a likely next page in a hidden browsing context before the user clicks. When the user does navigate, the pre-rendered page activates instantly — appearing to load in near-zero milliseconds.\n\nThe Speculation Rules API (Chrome 108+) replaces the unreliable link rel=prerender with a JSON-based rule set that supports eagerness levels (immediate, eager, moderate, conservative) and URL matching. Unlike prefetch, which only downloads resources, prerender executes JavaScript and runs the full page lifecycle, so it must only be used for pages the user is highly likely to visit.`,
     analogy: `A hotel that has your room completely made up and your preferred temperature set before you even check in, based on your booking history — you walk in and it's immediately ready.`,
@@ -2060,7 +2060,7 @@ const TERMS = [
     term: "Tree shaking internals",
     tagline: "Removing dead exports from a bundle at build time",
     category: "bundling",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes shake{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}</style><g style="transform-origin:60px 60px;animation:shake 2s ease-in-out infinite"><polygon points="60,12 90,55 75,55 88,85 65,85 65,108 55,108 55,85 32,85 45,55 30,55" fill="#3d4b40" opacity="0.85"/><line x1="38" y1="42" x2="25" y2="30" stroke="#3d4b40" stroke-width="3" opacity="0.5"/><line x1="82" y1="42" x2="95" y2="30" stroke="#3d4b40" stroke-width="3" opacity="0.5"/><circle cx="22" cy="27" r="5" fill="#3d4b40" opacity="0.4"/><circle cx="98" cy="27" r="5" fill="#3d4b40" opacity="0.4"/></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes shake{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}</style><g style="transform-origin:60px 60px;animation:shake 2s ease-in-out infinite"><polygon points="60,12 90,55 75,55 88,85 65,85 65,108 55,108 55,85 32,85 45,55 30,55" fill="var(--diagram-ink)" opacity="0.85"/><line x1="38" y1="42" x2="25" y2="30" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.5"/><line x1="82" y1="42" x2="95" y2="30" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.5"/><circle cx="22" cy="27" r="5" fill="var(--diagram-ink)" opacity="0.4"/><circle cx="98" cy="27" r="5" fill="var(--diagram-ink)" opacity="0.4"/></g></svg>`,
     definition: `Tree shaking is a dead-code elimination technique used by bundlers like Rollup and webpack to remove exports that are never imported anywhere in the application. It relies on the static structure of ES modules — \`import\` and \`export\` statements must appear at the top level, which lets the bundler build a complete dependency graph before executing any code.\n\nFor tree shaking to work, modules must be marked as side-effect-free (via \`"sideEffects": false\` in package.json), written as ES modules rather than CommonJS, and their exports must not be accessed dynamically. Bundlers mark unreachable exports, then minifiers like Terser strip them. CommonJS and dynamic property access both defeat this analysis.`,
     analogy: `It's like shaking a real tree — only the leaves that aren't firmly attached fall off. Dead exports are the loose leaves: if nothing holds onto them (imports them), they drop out of the final bundle. Leaves with strong connections (actual usages) stay attached.`,
     examples: [
@@ -2092,7 +2092,7 @@ const TERMS = [
     term: "Code splitting strategies",
     tagline: "Dividing a bundle into chunks loaded on demand",
     category: "bundling",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes split{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}@keyframes splitL{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}</style><rect x="20" y="20" width="80" height="30" rx="4" fill="#3d4b40" opacity="0.8"/><rect x="20" y="65" width="36" height="22" rx="4" fill="#3d4b40" opacity="0.7" style="transform-origin:38px 76px;animation:splitL 2s ease-in-out infinite"/><rect x="64" y="65" width="36" height="22" rx="4" fill="#3d4b40" opacity="0.7" style="transform-origin:82px 76px;animation:split 2s ease-in-out infinite"/><rect x="20" y="95" width="16" height="14" rx="3" fill="#3d4b40" opacity="0.5" style="transform-origin:28px 102px;animation:splitL 2s ease-in-out infinite"/><rect x="40" y="95" width="16" height="14" rx="3" fill="#3d4b40" opacity="0.5" style="transform-origin:48px 102px;animation:splitL 2.2s ease-in-out infinite"/><rect x="64" y="95" width="16" height="14" rx="3" fill="#3d4b40" opacity="0.5" style="transform-origin:72px 102px;animation:split 2s ease-in-out infinite"/><rect x="84" y="95" width="16" height="14" rx="3" fill="#3d4b40" opacity="0.5" style="transform-origin:92px 102px;animation:split 2.2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes split{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}@keyframes splitL{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}</style><rect x="20" y="20" width="80" height="30" rx="4" fill="var(--diagram-ink)" opacity="0.8"/><rect x="20" y="65" width="36" height="22" rx="4" fill="var(--diagram-ink)" opacity="0.7" style="transform-origin:38px 76px;animation:splitL 2s ease-in-out infinite"/><rect x="64" y="65" width="36" height="22" rx="4" fill="var(--diagram-ink)" opacity="0.7" style="transform-origin:82px 76px;animation:split 2s ease-in-out infinite"/><rect x="20" y="95" width="16" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.5" style="transform-origin:28px 102px;animation:splitL 2s ease-in-out infinite"/><rect x="40" y="95" width="16" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.5" style="transform-origin:48px 102px;animation:splitL 2.2s ease-in-out infinite"/><rect x="64" y="95" width="16" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.5" style="transform-origin:72px 102px;animation:split 2s ease-in-out infinite"/><rect x="84" y="95" width="16" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.5" style="transform-origin:92px 102px;animation:split 2.2s ease-in-out infinite"/></svg>`,
     definition: `Code splitting breaks a monolithic JavaScript bundle into smaller chunks that can be loaded independently. The browser only downloads the code it needs for the current view, reducing initial parse and execution time. Bundlers support several splitting strategies: route-based (a chunk per page), component-based (lazy-load heavy UI), and vendor splitting (third-party libraries in a separate long-cached chunk).\n\nEffective splitting requires understanding the dependency graph. Splitting too aggressively creates waterfall requests; splitting too coarsely wastes the gain. Most frameworks handle route-level splitting automatically; component-level splitting is done manually with \`React.lazy\` or equivalent. Preloading adjacent route chunks on hover bridges the gap between lazy loading and perceived speed.`,
     analogy: `Think of a restaurant menu split into sections — appetizers, mains, desserts. You don't need to read the dessert section to order a starter. Code splitting lets the browser fetch only the "section" it needs right now, then grab others when the user navigates there.`,
     examples: [
@@ -2124,7 +2124,7 @@ const TERMS = [
     term: "Dynamic import chunking",
     tagline: "Using import() to load modules at runtime and control chunk boundaries",
     category: "bundling",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes drop{0%{transform:translateY(-18px);opacity:0}60%{opacity:1}100%{transform:translateY(0);opacity:1}}</style><rect x="30" y="65" width="60" height="40" rx="5" fill="#3d4b40" opacity="0.75"/><rect x="42" y="75" width="36" height="6" rx="2" fill="#3d4b40" opacity="0.35"/><rect x="42" y="87" width="24" height="6" rx="2" fill="#3d4b40" opacity="0.35"/><g style="animation:drop 2s ease-in-out infinite"><polygon points="60,15 72,38 66,38 66,58 54,58 54,38 48,38" fill="#3d4b40" opacity="0.9"/></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes drop{0%{transform:translateY(-18px);opacity:0}60%{opacity:1}100%{transform:translateY(0);opacity:1}}</style><rect x="30" y="65" width="60" height="40" rx="5" fill="var(--diagram-ink)" opacity="0.75"/><rect x="42" y="75" width="36" height="6" rx="2" fill="var(--diagram-ink)" opacity="0.35"/><rect x="42" y="87" width="24" height="6" rx="2" fill="var(--diagram-ink)" opacity="0.35"/><g style="animation:drop 2s ease-in-out infinite"><polygon points="60,15 72,38 66,38 66,58 54,58 54,38 48,38" fill="var(--diagram-ink)" opacity="0.9"/></g></svg>`,
     definition: `The dynamic \`import()\` expression is a browser-native API that returns a Promise resolving to a module's exports. Unlike static \`import\` declarations, it can appear anywhere in code and accept runtime-computed paths. Bundlers detect \`import()\` calls and automatically create a separate chunk for the imported module and all its dependencies, which the browser fetches only when that call executes.\n\nThe chunk boundary is implicit — whatever you put inside \`import()\` becomes the root of a new chunk. Bundler magic comments like \`/* webpackChunkName: "editor" */\` and \`/* @vite-ignore */\` let you name chunks or suppress warnings. Misuse — such as calling \`import()\` inside a loop with dynamic keys — generates one chunk per unique path and can balloon the number of network requests.`,
     analogy: `It's like ordering a book from a library rather than carrying the whole library in your bag. You walk in with just what you need, and only retrieve the specific volume when you're ready to read it. The library (bundler) already split the collection into individual books (chunks) so retrieval is fast.`,
     examples: [
@@ -2156,7 +2156,7 @@ const TERMS = [
     term: "Module federation",
     tagline: "Sharing live code between separately deployed JavaScript applications at runtime",
     category: "bundling",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{r:5}50%{r:7}}</style><circle cx="60" cy="60" r="10" fill="#3d4b40" opacity="0.9"/><circle cx="20" cy="30" r="8" fill="#3d4b40" opacity="0.7"/><circle cx="100" cy="30" r="8" fill="#3d4b40" opacity="0.7"/><circle cx="20" cy="90" r="8" fill="#3d4b40" opacity="0.7"/><circle cx="100" cy="90" r="8" fill="#3d4b40" opacity="0.7"/><line x1="28" y1="35" x2="52" y2="54" stroke="#3d4b40" stroke-width="2" opacity="0.5"/><line x1="92" y1="35" x2="68" y2="54" stroke="#3d4b40" stroke-width="2" opacity="0.5"/><line x1="28" y1="85" x2="52" y2="66" stroke="#3d4b40" stroke-width="2" opacity="0.5"/><line x1="92" y1="85" x2="68" y2="66" stroke="#3d4b40" stroke-width="2" opacity="0.5"/><circle cx="60" cy="60" r="5" fill="#3d4b40" style="animation:pulse 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{r:5}50%{r:7}}</style><circle cx="60" cy="60" r="10" fill="var(--diagram-ink)" opacity="0.9"/><circle cx="20" cy="30" r="8" fill="var(--diagram-ink)" opacity="0.7"/><circle cx="100" cy="30" r="8" fill="var(--diagram-ink)" opacity="0.7"/><circle cx="20" cy="90" r="8" fill="var(--diagram-ink)" opacity="0.7"/><circle cx="100" cy="90" r="8" fill="var(--diagram-ink)" opacity="0.7"/><line x1="28" y1="35" x2="52" y2="54" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5"/><line x1="92" y1="35" x2="68" y2="54" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5"/><line x1="28" y1="85" x2="52" y2="66" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5"/><line x1="92" y1="85" x2="68" y2="66" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5"/><circle cx="60" cy="60" r="5" fill="var(--diagram-ink)" style="animation:pulse 2s ease-in-out infinite"/></svg>`,
     definition: `Module Federation, introduced in webpack 5, allows independently deployed JavaScript applications to expose and consume each other's modules at runtime. Each app declares what it shares (remotes) and what it exposes (modules), and the consuming app fetches those chunks directly from the provider's CDN or server — no re-bundling required. This makes it possible to update a shared component in one app without redeploying all consumers.\n\nFederation is the primary technical mechanism behind many micro-frontend architectures. Shared dependencies (like React) can be declared as singletons to prevent version conflicts and duplicate downloads. The main challenge is version negotiation: mismatched shared library versions can silently load two copies or throw at runtime if strict version ranges are configured.`,
     analogy: `It's like a network of stores that share a common stockroom. Each store manages its own storefront, but they all pull certain products from the same central warehouse rather than stocking their own copies. Restocking the warehouse updates every store simultaneously.`,
     examples: [
@@ -2188,7 +2188,7 @@ const TERMS = [
     term: "WebAssembly integration",
     tagline: "Running near-native binary code in the browser alongside JavaScript",
     category: "bundling",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes scan{0%{transform:translateY(0)}50%{transform:translateY(50px)}100%{transform:translateY(0)}}</style><rect x="18" y="18" width="84" height="84" rx="6" fill="none" stroke="#3d4b40" stroke-width="4" opacity="0.7"/><text x="28" y="52" font-family="monospace" font-size="13" fill="#3d4b40" opacity="0.9">01 10</text><text x="28" y="68" font-family="monospace" font-size="13" fill="#3d4b40" opacity="0.9">11 00</text><text x="28" y="84" font-family="monospace" font-size="13" fill="#3d4b40" opacity="0.9">10 01</text><rect x="18" y="18" width="84" height="6" rx="3" fill="#3d4b40" opacity="0.35" style="animation:scan 3s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes scan{0%{transform:translateY(0)}50%{transform:translateY(50px)}100%{transform:translateY(0)}}</style><rect x="18" y="18" width="84" height="84" rx="6" fill="none" stroke="var(--diagram-ink)" stroke-width="4" opacity="0.7"/><text x="28" y="52" font-family="monospace" font-size="13" fill="var(--diagram-ink)" opacity="0.9">01 10</text><text x="28" y="68" font-family="monospace" font-size="13" fill="var(--diagram-ink)" opacity="0.9">11 00</text><text x="28" y="84" font-family="monospace" font-size="13" fill="var(--diagram-ink)" opacity="0.9">10 01</text><rect x="18" y="18" width="84" height="6" rx="3" fill="var(--diagram-ink)" opacity="0.35" style="animation:scan 3s ease-in-out infinite"/></svg>`,
     definition: `WebAssembly (Wasm) is a binary instruction format that browsers execute at near-native speed inside a sandboxed virtual machine. Code written in C, C++, Rust, Go, or other compiled languages is compiled to a \`.wasm\` binary, which the browser loads via the \`WebAssembly\` JS API or \`<script type="module">\`. Wasm modules export functions that JavaScript can call directly, and vice versa.\n\nIntegrating Wasm into a frontend build requires a toolchain step (Emscripten for C/C++, wasm-pack for Rust) to produce the \`.wasm\` file plus a JS glue file. Modern bundlers like webpack and Vite treat \`.wasm\` as a module type and handle the async instantiation. The performance gain is most pronounced for CPU-bound tasks — image processing, codecs, cryptography, physics simulations — but Wasm has no direct DOM access and must communicate with JS through its linear memory.`,
     analogy: `It's like hiring a specialist contractor for a task your general crew isn't fast at. JavaScript handles the overall project coordination, but when you need a wall drilled through concrete, the Wasm specialist does that part in a fraction of the time.`,
     examples: [
@@ -2222,7 +2222,7 @@ const TERMS = [
     term: "IndexedDB",
     tagline: "A low-level transactional key-value store built into the browser",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes stack{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}</style><ellipse cx="60" cy="32" rx="38" ry="12" fill="#3d4b40" opacity="0.8"/><rect x="22" y="32" width="76" height="18" fill="#3d4b40" opacity="0.65"/><ellipse cx="60" cy="50" rx="38" ry="12" fill="#3d4b40" opacity="0.65"/><rect x="22" y="50" width="76" height="18" fill="#3d4b40" opacity="0.5"/><ellipse cx="60" cy="68" rx="38" ry="12" fill="#3d4b40" opacity="0.5"/><rect x="22" y="68" width="76" height="18" fill="#3d4b40" opacity="0.35"/><ellipse cx="60" cy="86" rx="38" ry="12" fill="#3d4b40" opacity="0.35" style="animation:stack 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes stack{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}</style><ellipse cx="60" cy="32" rx="38" ry="12" fill="var(--diagram-ink)" opacity="0.8"/><rect x="22" y="32" width="76" height="18" fill="var(--diagram-ink)" opacity="0.65"/><ellipse cx="60" cy="50" rx="38" ry="12" fill="var(--diagram-ink)" opacity="0.65"/><rect x="22" y="50" width="76" height="18" fill="var(--diagram-ink)" opacity="0.5"/><ellipse cx="60" cy="68" rx="38" ry="12" fill="var(--diagram-ink)" opacity="0.5"/><rect x="22" y="68" width="76" height="18" fill="var(--diagram-ink)" opacity="0.35"/><ellipse cx="60" cy="86" rx="38" ry="12" fill="var(--diagram-ink)" opacity="0.35" style="animation:stack 2s ease-in-out infinite"/></svg>`,
     definition: `IndexedDB is a browser-native object store for structured data. Unlike localStorage, it holds arbitrary JavaScript values (including Blobs and ArrayBuffers), supports indexes for fast queries, and wraps every operation in ACID transactions. Storage quotas are generous — typically 50–80% of available disk — making it suitable for caching API responses, storing user-generated content, and enabling offline-first apps.\n\nAll IndexedDB operations are asynchronous and callback-based in the raw API, which makes it verbose. Libraries like Dexie.js or idb provide Promise-based wrappers. Schema migrations happen through the \`onupgradeneeded\` event, which fires only when the database version number increases. Failing to handle version upgrades correctly can leave users with a corrupted or inaccessible database across app updates.`,
     analogy: `Think of IndexedDB as a filing cabinet inside the browser. Each drawer (object store) holds folders (records) you can label with indexes for quick retrieval. Unlike a sticky note (localStorage), the cabinet can hold whole documents, photos, and binary files.`,
     examples: [
@@ -2254,7 +2254,7 @@ const TERMS = [
     term: "Service worker lifecycle traps",
     tagline: "The install, activate, and fetch phases that trip up most implementations",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="28" fill="none" stroke="#3d4b40" stroke-width="5" opacity="0.7" stroke-dasharray="44 44" style="animation:spin 4s linear infinite;transform-origin:60px 60px"/><circle cx="60" cy="60" r="12" fill="#3d4b40" opacity="0.8"/><circle cx="60" cy="32" r="6" fill="#3d4b40" opacity="0.9"/><circle cx="83" cy="74" r="6" fill="#3d4b40" opacity="0.9"/><circle cx="37" cy="74" r="6" fill="#3d4b40" opacity="0.9"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style><circle cx="60" cy="60" r="28" fill="none" stroke="var(--diagram-ink)" stroke-width="5" opacity="0.7" stroke-dasharray="44 44" style="animation:spin 4s linear infinite;transform-origin:60px 60px"/><circle cx="60" cy="60" r="12" fill="var(--diagram-ink)" opacity="0.8"/><circle cx="60" cy="32" r="6" fill="var(--diagram-ink)" opacity="0.9"/><circle cx="83" cy="74" r="6" fill="var(--diagram-ink)" opacity="0.9"/><circle cx="37" cy="74" r="6" fill="var(--diagram-ink)" opacity="0.9"/></svg>`,
     definition: `A service worker moves through three lifecycle phases: install, activate, and fetch interception. The most common trap is the waiting state — a new service worker installs but won't activate until all tabs using the old worker are closed, because the old worker holds a claim over open clients. Calling \`self.skipWaiting()\` in the install event bypasses this, but can cause a client running old app code to receive responses cached by new worker logic.\n\nA second trap is stale cache on activation: the activate phase is the correct place to delete old caches (not install), because other open tabs may still need the old cache until they reload. A third trap is scope — a worker registered at \`/admin/sw.js\` only intercepts requests under \`/admin/\`. Missing the correct scope silently leaves requests unintercepted with no error.`,
     analogy: `It's like rotating security guards at a building. The new guard (install) arrives and waits in the lobby. The old guard stays on duty until all visitors from their shift leave. Only then does the new guard take over (activate) and change the access rules.`,
     examples: [
@@ -2286,7 +2286,7 @@ const TERMS = [
     term: "Cache invalidation strategies",
     tagline: "Deciding when cached data is stale enough to discard or refresh",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes cross{0%,100%{opacity:1}50%{opacity:0.3}}</style><rect x="20" y="25" width="80" height="55" rx="6" fill="#3d4b40" opacity="0.6"/><rect x="30" y="35" width="60" height="8" rx="3" fill="#3d4b40" opacity="0.35"/><rect x="30" y="49" width="40" height="8" rx="3" fill="#3d4b40" opacity="0.35"/><line x1="75" y1="65" x2="100" y2="95" stroke="#3d4b40" stroke-width="5" stroke-linecap="round" opacity="0.8" style="animation:cross 2s ease-in-out infinite"/><line x1="100" y1="65" x2="75" y2="95" stroke="#3d4b40" stroke-width="5" stroke-linecap="round" opacity="0.8" style="animation:cross 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes cross{0%,100%{opacity:1}50%{opacity:0.3}}</style><rect x="20" y="25" width="80" height="55" rx="6" fill="var(--diagram-ink)" opacity="0.6"/><rect x="30" y="35" width="60" height="8" rx="3" fill="var(--diagram-ink)" opacity="0.35"/><rect x="30" y="49" width="40" height="8" rx="3" fill="var(--diagram-ink)" opacity="0.35"/><line x1="75" y1="65" x2="100" y2="95" stroke="var(--diagram-ink)" stroke-width="5" stroke-linecap="round" opacity="0.8" style="animation:cross 2s ease-in-out infinite"/><line x1="100" y1="65" x2="75" y2="95" stroke="var(--diagram-ink)" stroke-width="5" stroke-linecap="round" opacity="0.8" style="animation:cross 2s ease-in-out infinite"/></svg>`,
     definition: `Cache invalidation decides when a stored response should be considered stale and replaced. The main strategies are: time-based expiry (TTL), where the cache discards entries after a fixed duration; event-based invalidation, where a mutation explicitly purges related cache keys; and versioned URLs, where changing the URL (with a content hash) makes the old entry unreachable without explicit deletion. Each strategy has different consistency guarantees and operational overhead.\n\nPurging by key is simple but requires knowing exactly which keys a mutation affects — hard in systems with complex dependencies. Versioned URLs work perfectly for immutable assets but can't be used for API responses. Stale-while-revalidate blends TTL and freshness by serving the stale entry immediately while fetching a replacement in the background.`,
     analogy: `Imagine a whiteboard full of last week's meeting notes. Time-based expiry is erasing the board every Friday. Event-based invalidation is erasing specific notes the moment a decision changes. Versioned URLs are writing the meeting date on each note — the old notes don't vanish, they're just never referenced again.`,
     examples: [
@@ -2318,7 +2318,7 @@ const TERMS = [
     term: "Stale-while-revalidate",
     tagline: "Serve a cached response immediately while fetching a fresh one in the background",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes refresh{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style><rect x="22" y="42" width="52" height="36" rx="5" fill="#3d4b40" opacity="0.8"/><rect x="30" y="50" width="36" height="6" rx="2" fill="#3d4b40" opacity="0.35"/><rect x="30" y="62" width="22" height="6" rx="2" fill="#3d4b40" opacity="0.35"/><path d="M88,38 A20,20 0 1 1 68,58" fill="none" stroke="#3d4b40" stroke-width="4" stroke-linecap="round" opacity="0.7" style="transform-origin:88px 58px;animation:refresh 3s linear infinite"/><polygon points="88,34 82,44 94,44" fill="#3d4b40" opacity="0.7"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes refresh{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style><rect x="22" y="42" width="52" height="36" rx="5" fill="var(--diagram-ink)" opacity="0.8"/><rect x="30" y="50" width="36" height="6" rx="2" fill="var(--diagram-ink)" opacity="0.35"/><rect x="30" y="62" width="22" height="6" rx="2" fill="var(--diagram-ink)" opacity="0.35"/><path d="M88,38 A20,20 0 1 1 68,58" fill="none" stroke="var(--diagram-ink)" stroke-width="4" stroke-linecap="round" opacity="0.7" style="transform-origin:88px 58px;animation:refresh 3s linear infinite"/><polygon points="88,34 82,44 94,44" fill="var(--diagram-ink)" opacity="0.7"/></svg>`,
     definition: `Stale-while-revalidate (SWR) is a caching strategy where the cache returns the stored response immediately — even if it is past its freshness threshold — and simultaneously issues a background request to fetch a new version. When the fresh response arrives, the cache updates for the next request. This trades perfect freshness for zero additional latency on the critical path.\n\nIt is expressed in HTTP headers as \`Cache-Control: max-age=60, stale-while-revalidate=300\`, meaning the browser treats responses as fresh for 60 seconds, serves stale responses for up to 5 more minutes while revalidating in the background, and only blocks on a network request after 6 minutes. The pattern is also the namesake of the SWR and React Query data-fetching libraries, which apply it to client-side API requests.`,
     analogy: `It's like a newspaper delivered to your door each morning. You read yesterday's edition immediately while today's is still being printed. By the time you'd normally feel the information gap, the fresh edition has arrived — and you never had to wait at the door.`,
     examples: [
@@ -2350,7 +2350,7 @@ const TERMS = [
     term: "ETag vs Cache-Control",
     tagline: "The two independent axes of HTTP caching: when to reuse vs. how to revalidate",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}</style><rect x="15" y="25" width="40" height="30" rx="5" fill="#3d4b40" opacity="0.8"/><text x="24" y="46" font-family="monospace" font-size="11" fill="white" opacity="0.9">ETag</text><rect x="65" y="25" width="40" height="30" rx="5" fill="#3d4b40" opacity="0.6"/><text x="68" y="46" font-family="monospace" font-size="9" fill="white" opacity="0.9">Cache-C</text><line x1="55" y1="40" x2="65" y2="40" stroke="#3d4b40" stroke-width="2" stroke-dasharray="4 2" opacity="0.6"/><rect x="30" y="72" width="60" height="26" rx="5" fill="#3d4b40" opacity="0.45"/><text x="38" y="90" font-family="monospace" font-size="10" fill="white" opacity="0.85">304 / 200</text><line x1="35" y1="55" x2="48" y2="72" stroke="#3d4b40" stroke-width="2" opacity="0.5" style="animation:blink 2s ease-in-out infinite"/><line x1="85" y1="55" x2="72" y2="72" stroke="#3d4b40" stroke-width="2" opacity="0.5" style="animation:blink 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}</style><rect x="15" y="25" width="40" height="30" rx="5" fill="var(--diagram-ink)" opacity="0.8"/><text x="24" y="46" font-family="monospace" font-size="11" fill="white" opacity="0.9">ETag</text><rect x="65" y="25" width="40" height="30" rx="5" fill="var(--diagram-ink)" opacity="0.6"/><text x="68" y="46" font-family="monospace" font-size="9" fill="white" opacity="0.9">Cache-C</text><line x1="55" y1="40" x2="65" y2="40" stroke="var(--diagram-ink)" stroke-width="2" stroke-dasharray="4 2" opacity="0.6"/><rect x="30" y="72" width="60" height="26" rx="5" fill="var(--diagram-ink)" opacity="0.45"/><text x="38" y="90" font-family="monospace" font-size="10" fill="white" opacity="0.85">304 / 200</text><line x1="35" y1="55" x2="48" y2="72" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5" style="animation:blink 2s ease-in-out infinite"/><line x1="85" y1="55" x2="72" y2="72" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.5" style="animation:blink 2s ease-in-out infinite"/></svg>`,
     definition: `Cache-Control headers tell the browser and CDN how long a response may be reused without contacting the origin (\`max-age\`), whether it may be shared across users (\`public\` / \`private\`), and whether it should never be stored (\`no-store\`). ETags are a separate mechanism for conditional revalidation: the server attaches a hash of the response body; on subsequent requests the browser sends \`If-None-Match: <etag>\` and the server returns 304 Not Modified if the content hasn't changed, saving response body transfer.\n\nThey operate independently. Cache-Control answers "should I even ask?" ETags answer "if I ask, did anything change?" The most efficient combination is a short \`max-age\` for freshness control paired with an ETag so revalidation only transfers the body when it actually changed.`,
     analogy: `Cache-Control is the expiry date printed on food packaging — it tells you whether to bother checking. An ETag is like sniffing the food once the date has passed. If it still smells the same, you get a 304: "still good, don't send a new carton."`,
     examples: [
@@ -2382,7 +2382,7 @@ const TERMS = [
     term: "HTTP/3 and QUIC",
     tagline: "The protocol rewrite that eliminates head-of-line blocking by moving to UDP",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes flow{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}</style><line x1="15" y1="35" x2="105" y2="35" stroke="#3d4b40" stroke-width="3" stroke-dasharray="8 4" opacity="0.9" style="animation:flow 1.2s linear infinite"/><line x1="15" y1="55" x2="105" y2="55" stroke="#3d4b40" stroke-width="3" stroke-dasharray="8 4" opacity="0.7" style="animation:flow 1.5s linear infinite"/><line x1="15" y1="75" x2="105" y2="75" stroke="#3d4b40" stroke-width="3" stroke-dasharray="8 4" opacity="0.5" style="animation:flow 1.8s linear infinite"/><circle cx="15" cy="35" r="5" fill="#3d4b40" opacity="0.9"/><circle cx="15" cy="55" r="5" fill="#3d4b40" opacity="0.7"/><circle cx="15" cy="75" r="5" fill="#3d4b40" opacity="0.5"/><circle cx="105" cy="35" r="5" fill="#3d4b40" opacity="0.9"/><circle cx="105" cy="55" r="5" fill="#3d4b40" opacity="0.7"/><circle cx="105" cy="75" r="5" fill="#3d4b40" opacity="0.5"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes flow{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}</style><line x1="15" y1="35" x2="105" y2="35" stroke="var(--diagram-ink)" stroke-width="3" stroke-dasharray="8 4" opacity="0.9" style="animation:flow 1.2s linear infinite"/><line x1="15" y1="55" x2="105" y2="55" stroke="var(--diagram-ink)" stroke-width="3" stroke-dasharray="8 4" opacity="0.7" style="animation:flow 1.5s linear infinite"/><line x1="15" y1="75" x2="105" y2="75" stroke="var(--diagram-ink)" stroke-width="3" stroke-dasharray="8 4" opacity="0.5" style="animation:flow 1.8s linear infinite"/><circle cx="15" cy="35" r="5" fill="var(--diagram-ink)" opacity="0.9"/><circle cx="15" cy="55" r="5" fill="var(--diagram-ink)" opacity="0.7"/><circle cx="15" cy="75" r="5" fill="var(--diagram-ink)" opacity="0.5"/><circle cx="105" cy="35" r="5" fill="var(--diagram-ink)" opacity="0.9"/><circle cx="105" cy="55" r="5" fill="var(--diagram-ink)" opacity="0.7"/><circle cx="105" cy="75" r="5" fill="var(--diagram-ink)" opacity="0.5"/></svg>`,
     definition: `HTTP/3 runs on QUIC, a transport protocol built on UDP rather than TCP. HTTP/2 multiplexes multiple streams over one TCP connection, but TCP's reliability model means a single lost packet stalls all streams until it is retransmitted — head-of-line blocking at the transport layer. QUIC treats each stream independently: a lost packet only pauses the specific stream it belongs to, not the entire connection.\n\nQUIC also embeds TLS 1.3 in the handshake, reducing connection establishment from 2+ round trips (TCP + TLS) to a single round trip, or zero round trips for returning connections using session resumption. This is meaningful for mobile users who frequently change networks — QUIC connections survive IP address changes via connection IDs, while TCP connections must restart.`,
     analogy: `HTTP/2 over TCP is like shipping multiple packages in one truck but having a rule that if any box is damaged, the whole truck waits at a rest stop. QUIC is like using separate motorcycles — one getting a flat doesn't delay the others.`,
     examples: [
@@ -2414,7 +2414,7 @@ const TERMS = [
     term: "Priority hints",
     tagline: "Telling the browser which resources matter most with the fetchpriority attribute",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes rise{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.15)}}</style><rect x="20" y="30" width="80" height="14" rx="4" fill="#3d4b40" opacity="0.9" style="transform-origin:60px 37px;animation:rise 1.5s ease-in-out infinite"/><rect x="20" y="52" width="55" height="14" rx="4" fill="#3d4b40" opacity="0.65"/><rect x="20" y="74" width="35" height="14" rx="4" fill="#3d4b40" opacity="0.4"/><rect x="20" y="96" width="18" height="14" rx="4" fill="#3d4b40" opacity="0.25"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes rise{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.15)}}</style><rect x="20" y="30" width="80" height="14" rx="4" fill="var(--diagram-ink)" opacity="0.9" style="transform-origin:60px 37px;animation:rise 1.5s ease-in-out infinite"/><rect x="20" y="52" width="55" height="14" rx="4" fill="var(--diagram-ink)" opacity="0.65"/><rect x="20" y="74" width="35" height="14" rx="4" fill="var(--diagram-ink)" opacity="0.4"/><rect x="20" y="96" width="18" height="14" rx="4" fill="var(--diagram-ink)" opacity="0.25"/></svg>`,
     definition: `The \`fetchpriority\` attribute (values: \`high\`, \`low\`, \`auto\`) lets developers override the browser's default resource priority heuristics. Browsers assign priorities based on resource type and position in the document — images are low priority by default, scripts are high. But heuristics can be wrong: the LCP hero image may be below the fold in HTML order yet critical for the score, and an analytics script in the \`<head>\` is high priority but not user-facing.\n\nSetting \`fetchpriority="high"\` on the LCP image and \`fetchpriority="low"\` on below-the-fold images communicates true rendering intent to the browser's resource scheduler. It also applies to \`fetch()\` calls and \`<link rel="preload">\`. Overuse dilutes the signal — every resource marked high effectively means no resource is high.`,
     analogy: `It's like a ticket queue with priority lanes. The default queue is "everyone's equal." Adding fetchpriority is like giving some passengers express boarding. The gate agents (browser scheduler) still control the boarding process, but your hints help them allocate bandwidth to the right passengers first.`,
     examples: [
@@ -2446,7 +2446,7 @@ const TERMS = [
     term: "Preload vs Prefetch vs Preconnect",
     tagline: "Three resource hints with different scopes, priorities, and timing guarantees",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes forward{0%{transform:translateX(0)}100%{transform:translateX(20px)}}</style><line x1="15" y1="35" x2="80" y2="35" stroke="#3d4b40" stroke-width="3" opacity="0.9"/><polygon points="78,29 92,35 78,41" fill="#3d4b40" opacity="0.9" style="animation:forward 1.5s ease-in-out infinite alternate"/><line x1="15" y1="60" x2="65" y2="60" stroke="#3d4b40" stroke-width="3" opacity="0.6"/><polygon points="63,54 77,60 63,66" fill="#3d4b40" opacity="0.6" style="animation:forward 2s ease-in-out infinite alternate"/><line x1="15" y1="85" x2="45" y2="85" stroke="#3d4b40" stroke-width="3" opacity="0.35"/><circle cx="50" cy="85" r="7" fill="none" stroke="#3d4b40" stroke-width="3" opacity="0.35"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes forward{0%{transform:translateX(0)}100%{transform:translateX(20px)}}</style><line x1="15" y1="35" x2="80" y2="35" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.9"/><polygon points="78,29 92,35 78,41" fill="var(--diagram-ink)" opacity="0.9" style="animation:forward 1.5s ease-in-out infinite alternate"/><line x1="15" y1="60" x2="65" y2="60" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.6"/><polygon points="63,54 77,60 63,66" fill="var(--diagram-ink)" opacity="0.6" style="animation:forward 2s ease-in-out infinite alternate"/><line x1="15" y1="85" x2="45" y2="85" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.35"/><circle cx="50" cy="85" r="7" fill="none" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.35"/></svg>`,
     definition: `\`<link rel="preload">\` is a mandatory directive — it tells the browser to fetch a specific resource at high priority for the current page, and the browser must comply. Use it for critical assets discovered late (fonts, hero images fetched from CSS) that would otherwise be delayed. It requires an \`as\` attribute matching the resource type so the browser applies correct security policies and priority.\n\n\`<link rel="prefetch">\` is a hint for likely-needed future navigations, fetched at idle priority. The browser may ignore it under memory pressure. \`<link rel="preconnect">\` warms up the TCP+TLS connection to a third-party origin (e.g., fonts.googleapis.com) without fetching any resource — useful when you know a request is coming but don't yet know the exact URL. \`dns-prefetch\` is a cheaper fallback that only resolves DNS, skipping the TCP handshake.`,
     analogy: `Preload is booking your taxi the night before a flight — it's committed and confirmed. Prefetch is asking a friend to maybe drive you if they're free. Preconnect is loading your bag and waiting at the door so there's no delay once the taxi arrives.`,
     examples: [
@@ -2478,7 +2478,7 @@ const TERMS = [
     term: "Offline conflict resolution",
     tagline: "Merging divergent local and server state after a connectivity gap",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes merge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}</style><rect x="15" y="20" width="35" height="30" rx="5" fill="#3d4b40" opacity="0.75"/><rect x="70" y="20" width="35" height="30" rx="5" fill="#3d4b40" opacity="0.55"/><line x1="32" y1="50" x2="52" y2="78" stroke="#3d4b40" stroke-width="3" opacity="0.6"/><line x1="88" y1="50" x2="68" y2="78" stroke="#3d4b40" stroke-width="3" opacity="0.6"/><rect x="40" y="78" width="40" height="25" rx="5" fill="#3d4b40" opacity="0.85" style="transform-origin:60px 90px;animation:merge 2s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes merge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}</style><rect x="15" y="20" width="35" height="30" rx="5" fill="var(--diagram-ink)" opacity="0.75"/><rect x="70" y="20" width="35" height="30" rx="5" fill="var(--diagram-ink)" opacity="0.55"/><line x1="32" y1="50" x2="52" y2="78" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.6"/><line x1="88" y1="50" x2="68" y2="78" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.6"/><rect x="40" y="78" width="40" height="25" rx="5" fill="var(--diagram-ink)" opacity="0.85" style="transform-origin:60px 90px;animation:merge 2s ease-in-out infinite"/></svg>`,
     definition: `When a user edits data while offline and syncs it later, the server state may have changed during the gap, creating a conflict. Resolution strategies range from last-write-wins (simple, data-lossy) to operational transformation or CRDT-based merging (preserves all edits, complex). The right approach depends on the data type: for a counter, adding both deltas works; for free-form text, OT or CRDTs handle concurrent edits; for structured fields, field-level merging or user-visible conflict dialogs may be needed.\n\nA critical design choice is whether to detect conflicts or prevent them. Optimistic locking (version vectors or ETags) detects conflicts at sync time. Append-only event logs make conflicts structurally impossible — each edit is a new event rather than a mutation of shared state. Most real-world apps combine strategies: CRDT for text, last-write-wins for settings, and explicit conflict UI for high-stakes fields.`,
     analogy: `Two co-authors editing the same document in separate cabins over a weekend. When they reconnect, they must decide: use the newer version (last-write-wins), manually pick the best of each paragraph (user resolution), or apply a merge algorithm that accepts both changes wherever possible.`,
     examples: [
@@ -2510,7 +2510,7 @@ const TERMS = [
     term: "CRDT basics for collaboration",
     tagline: "Data structures that merge concurrent edits without coordination or conflict",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes join{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}@keyframes joinR{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}</style><circle cx="42" cy="55" r="28" fill="#3d4b40" opacity="0.55" style="animation:join 2s ease-in-out infinite"/><circle cx="78" cy="55" r="28" fill="#3d4b40" opacity="0.45" style="animation:joinR 2s ease-in-out infinite"/><circle cx="60" cy="55" r="14" fill="#3d4b40" opacity="0.85"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes join{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}@keyframes joinR{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}</style><circle cx="42" cy="55" r="28" fill="var(--diagram-ink)" opacity="0.55" style="animation:join 2s ease-in-out infinite"/><circle cx="78" cy="55" r="28" fill="var(--diagram-ink)" opacity="0.45" style="animation:joinR 2s ease-in-out infinite"/><circle cx="60" cy="55" r="14" fill="var(--diagram-ink)" opacity="0.85"/></svg>`,
     definition: `Conflict-free Replicated Data Types (CRDTs) are data structures mathematically guaranteed to merge correctly regardless of the order in which concurrent operations are applied. Each operation is designed to be commutative, associative, and idempotent, so any two replicas that have seen the same set of operations converge to the same state — no central coordinator required.\n\nThe two main families are state-based CRDTs (merge full state snapshots) and operation-based CRDTs (broadcast individual ops). Common examples: a G-Counter accumulates increments and merges by taking the max per node; an LWW-Register applies last-write-wins per field via a logical clock; RGA (Replicated Growable Array) enables collaborative text editing by giving each character a unique identifier. Libraries like Automerge and Yjs implement CRDT-based data models usable in browser JavaScript.`,
     analogy: `Imagine two people counting votes in different rooms, each keeping a tally. When they reconvene, the final count is just the sum of both tallies — it doesn't matter who counted which votes or in what order. A G-Counter CRDT works exactly like this.`,
     examples: [
@@ -2542,7 +2542,7 @@ const TERMS = [
     term: "WebRTC",
     tagline: "Peer-to-peer audio, video, and data channels directly between browsers",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes signal{0%,100%{opacity:0.2}50%{opacity:0.9}}</style><circle cx="35" cy="60" r="12" fill="#3d4b40" opacity="0.8"/><circle cx="85" cy="60" r="12" fill="#3d4b40" opacity="0.8"/><line x1="47" y1="60" x2="73" y2="60" stroke="#3d4b40" stroke-width="2.5" opacity="0.7"/><path d="M25,45 A25,25 0 0 0 25,75" fill="none" stroke="#3d4b40" stroke-width="2.5" opacity="0.5" style="animation:signal 2s ease-in-out infinite"/><path d="M14,36 A36,36 0 0 0 14,84" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.3" style="animation:signal 2.3s ease-in-out infinite"/><path d="M95,45 A25,25 0 0 1 95,75" fill="none" stroke="#3d4b40" stroke-width="2.5" opacity="0.5" style="animation:signal 2s ease-in-out infinite"/><path d="M106,36 A36,36 0 0 1 106,84" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.3" style="animation:signal 2.3s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes signal{0%,100%{opacity:0.2}50%{opacity:0.9}}</style><circle cx="35" cy="60" r="12" fill="var(--diagram-ink)" opacity="0.8"/><circle cx="85" cy="60" r="12" fill="var(--diagram-ink)" opacity="0.8"/><line x1="47" y1="60" x2="73" y2="60" stroke="var(--diagram-ink)" stroke-width="2.5" opacity="0.7"/><path d="M25,45 A25,25 0 0 0 25,75" fill="none" stroke="var(--diagram-ink)" stroke-width="2.5" opacity="0.5" style="animation:signal 2s ease-in-out infinite"/><path d="M14,36 A36,36 0 0 0 14,84" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.3" style="animation:signal 2.3s ease-in-out infinite"/><path d="M95,45 A25,25 0 0 1 95,75" fill="none" stroke="var(--diagram-ink)" stroke-width="2.5" opacity="0.5" style="animation:signal 2s ease-in-out infinite"/><path d="M106,36 A36,36 0 0 1 106,84" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.3" style="animation:signal 2.3s ease-in-out infinite"/></svg>`,
     definition: `WebRTC (Web Real-Time Communication) is a browser API for establishing peer-to-peer connections for audio, video, and arbitrary data without a server in the media path. Connection setup uses ICE (Interactive Connectivity Establishment) to negotiate network paths through NATs and firewalls, requiring a signaling channel (typically WebSocket) to exchange SDP offers/answers and ICE candidates. Once connected, data flows directly peer-to-peer.\n\nThe RTCDataChannel provides a low-latency bidirectional channel for arbitrary binary or text data. It can be configured as reliable (TCP-like) or unreliable+ordered (UDP-like), making it suitable for file transfer and game state sync respectively. Most production deployments also use TURN servers as relay fallbacks for peer pairs that cannot establish a direct path through NATs.`,
     analogy: `WebRTC is like arranging a direct phone call between two people. A receptionist (signaling server) facilitates the initial exchange of phone numbers, but once connected, the call is direct — the receptionist is no longer involved and doesn't hear anything.`,
     examples: [
@@ -2574,7 +2574,7 @@ const TERMS = [
     term: "Backpressure in streams API",
     tagline: "Signaling to a producer to slow down when a consumer can't keep up",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fill{0%{height:10px;y:90px}50%{height:40px;y:60px}100%{height:10px;y:90px}}</style><rect x="40" y="20" width="40" height="70" rx="5" fill="none" stroke="#3d4b40" stroke-width="3" opacity="0.7"/><rect x="43" y="23" width="34" height="64" rx="3" fill="#3d4b40" opacity="0.15"/><rect x="43" y="60" width="34" height="27" rx="3" fill="#3d4b40" opacity="0.7" style="animation:fill 3s ease-in-out infinite"/><polygon points="60,5 68,18 52,18" fill="#3d4b40" opacity="0.8"/><polygon points="60,105 52,98 68,98" fill="#3d4b40" opacity="0.4"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fill{0%{height:10px;y:90px}50%{height:40px;y:60px}100%{height:10px;y:90px}}</style><rect x="40" y="20" width="40" height="70" rx="5" fill="none" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.7"/><rect x="43" y="23" width="34" height="64" rx="3" fill="var(--diagram-ink)" opacity="0.15"/><rect x="43" y="60" width="34" height="27" rx="3" fill="var(--diagram-ink)" opacity="0.7" style="animation:fill 3s ease-in-out infinite"/><polygon points="60,5 68,18 52,18" fill="var(--diagram-ink)" opacity="0.8"/><polygon points="60,105 52,98 68,98" fill="var(--diagram-ink)" opacity="0.4"/></svg>`,
     definition: `Backpressure is a flow-control signal from a consumer to a producer saying "slow down — I can't process data as fast as you're sending it." The WHATWG Streams API models this through readable streams and writable streams connected by a \`TransformStream\`. A writable stream exposes a \`desiredSize\` property via its internal queue — when the queue fills, \`desiredSize\` goes negative and the write promise pauses, signaling the upstream readable to stop pulling.\n\nWithout backpressure, a fast producer can overwhelm a slow consumer, exhausting memory. This is common when streaming large responses from \`fetch()\` — if the transform processes data slower than the network delivers it, an unbounded queue grows without limit. Proper backpressure in Streams automatically handles this by pausing reads until the downstream queue drains.`,
     analogy: `It's like a conveyor belt feeding a packaging station. If the packager falls behind, boxes pile up. Backpressure is an automatic sensor that slows the conveyor when the pile reaches a certain height, and speeds it back up when the packager catches up.`,
     examples: [
@@ -2606,7 +2606,7 @@ const TERMS = [
     term: "AbortController",
     tagline: "Cancelling in-flight fetch requests and async operations via a shared signal",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes stop{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}</style><circle cx="60" cy="60" r="38" fill="none" stroke="#3d4b40" stroke-width="5" opacity="0.75" style="transform-origin:60px 60px;animation:stop 2s ease-in-out infinite"/><rect x="42" y="50" width="36" height="20" rx="4" fill="#3d4b40" opacity="0.85"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes stop{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}</style><circle cx="60" cy="60" r="38" fill="none" stroke="var(--diagram-ink)" stroke-width="5" opacity="0.75" style="transform-origin:60px 60px;animation:stop 2s ease-in-out infinite"/><rect x="42" y="50" width="36" height="20" rx="4" fill="var(--diagram-ink)" opacity="0.85"/></svg>`,
     definition: `AbortController exposes an AbortSignal that can be passed to \`fetch()\` and other async APIs. Calling \`controller.abort()\` causes any pending operation holding that signal to reject with an \`AbortError\`, freeing network connections and stopping unnecessary work. The signal is shareable — one controller can cancel multiple simultaneous fetches.\n\nCommon patterns: cancel stale searches when the user types a new query (debounce + abort), cancel in-flight requests on component unmount in React to avoid setting state on unmounted components, and implement request timeouts with \`AbortSignal.timeout(ms)\`. AbortSignal also integrates with the Streams API — piping a readable stream with a signal aborts the pipe when the signal fires, triggering backpressure cleanup.`,
     analogy: `It's like a walkie-talkie kill switch shared across multiple field teams. The moment you press it, every team on that channel stops their current task and returns to base. One signal, many receivers, instant stop.`,
     examples: [
@@ -2638,7 +2638,7 @@ const TERMS = [
     term: "Streaming fetch response handling",
     tagline: "Reading a response body incrementally as bytes arrive rather than waiting for completion",
     category: "data",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wave{0%{d:path('M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55')}50%{d:path('M10,60 Q30,75 50,60 Q70,45 90,60 Q110,75 120,65')}100%{d:path('M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55')}}</style><path d="M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55" fill="none" stroke="#3d4b40" stroke-width="4" opacity="0.8" style="animation:wave 2s ease-in-out infinite"/><path d="M10,75 Q30,60 50,75 Q70,90 90,75 Q110,60 120,70" fill="none" stroke="#3d4b40" stroke-width="3" opacity="0.5" style="animation:wave 2.5s ease-in-out infinite"/><path d="M10,45 Q30,30 50,45 Q70,60 90,45 Q110,30 120,40" fill="none" stroke="#3d4b40" stroke-width="2" opacity="0.3" style="animation:wave 3s ease-in-out infinite"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wave{0%{d:path('M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55')}50%{d:path('M10,60 Q30,75 50,60 Q70,45 90,60 Q110,75 120,65')}100%{d:path('M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55')}}</style><path d="M10,60 Q30,45 50,60 Q70,75 90,60 Q110,45 120,55" fill="none" stroke="var(--diagram-ink)" stroke-width="4" opacity="0.8" style="animation:wave 2s ease-in-out infinite"/><path d="M10,75 Q30,60 50,75 Q70,90 90,75 Q110,60 120,70" fill="none" stroke="var(--diagram-ink)" stroke-width="3" opacity="0.5" style="animation:wave 2.5s ease-in-out infinite"/><path d="M10,45 Q30,30 50,45 Q70,60 90,45 Q110,30 120,40" fill="none" stroke="var(--diagram-ink)" stroke-width="2" opacity="0.3" style="animation:wave 3s ease-in-out infinite"/></svg>`,
     definition: `The fetch API exposes \`response.body\` as a \`ReadableStream\`. Instead of awaiting \`response.json()\` or \`response.text()\` (which buffer the entire body), you can read the stream incrementally using a reader and process chunks as they arrive. This enables progress indicators, streaming JSON parsing, and first-token display for LLM APIs — none of which are possible with the buffering helpers.\n\nThe typical pattern is \`const reader = response.body.getReader()\` followed by a loop calling \`reader.read()\` until done. Each call returns a \`{ done, value }\` object where \`value\` is a Uint8Array chunk. A TextDecoder converts chunks to strings. For structured responses, libraries like \`can-ndjson-stream\` or custom parsers split the stream on delimiters and parse each line independently.`,
     analogy: `Buffered fetch is waiting for the full newspaper to print before reading any of it. Streaming fetch is reading each section as it comes off the press — you're reading the sports section while the crossword is still printing.`,
     examples: [
@@ -2671,7 +2671,7 @@ const TERMS = [
     term: "CORS preflight",
     tagline: "The browser's OPTIONS request that checks cross-origin permission before sending the real request",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>.arrow{animation:slide 1.8s ease-in-out infinite;}.reply{animation:slide 1.8s ease-in-out infinite 0.9s;}@keyframes slide{0%{opacity:0;transform:translateX(-6px)}40%{opacity:1;transform:translateX(0)}80%{opacity:1}100%{opacity:0}}</style><rect x="4" y="44" width="32" height="22" rx="3" fill="#3d4b40"/><rect x="84" y="44" width="32" height="22" rx="3" fill="#3d4b40"/><text x="20" y="59" font-size="7" fill="#fff" text-anchor="middle">client</text><text x="100" y="59" font-size="7" fill="#fff" text-anchor="middle">server</text><g class="arrow"><line x1="38" y1="50" x2="82" y2="50" stroke="#3d4b40" stroke-width="2.5"/><polygon points="82,47 88,50 82,53" fill="#3d4b40"/><text x="60" y="46" font-size="7" fill="#3d4b40" text-anchor="middle">OPTIONS</text></g><g class="reply"><line x1="82" y1="62" x2="38" y2="62" stroke="#3d4b40" stroke-width="2.5"/><polygon points="38,59 32,62 38,65" fill="#3d4b40"/><text x="60" y="75" font-size="7" fill="#3d4b40" text-anchor="middle">204 OK</text></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>.arrow{animation:slide 1.8s ease-in-out infinite;}.reply{animation:slide 1.8s ease-in-out infinite 0.9s;}@keyframes slide{0%{opacity:0;transform:translateX(-6px)}40%{opacity:1;transform:translateX(0)}80%{opacity:1}100%{opacity:0}}</style><rect x="4" y="44" width="32" height="22" rx="3" fill="var(--diagram-ink)"/><rect x="84" y="44" width="32" height="22" rx="3" fill="var(--diagram-ink)"/><text x="20" y="59" font-size="7" fill="#fff" text-anchor="middle">client</text><text x="100" y="59" font-size="7" fill="#fff" text-anchor="middle">server</text><g class="arrow"><line x1="38" y1="50" x2="82" y2="50" stroke="var(--diagram-ink)" stroke-width="2.5"/><polygon points="82,47 88,50 82,53" fill="var(--diagram-ink)"/><text x="60" y="46" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">OPTIONS</text></g><g class="reply"><line x1="82" y1="62" x2="38" y2="62" stroke="var(--diagram-ink)" stroke-width="2.5"/><polygon points="38,59 32,62 38,65" fill="var(--diagram-ink)"/><text x="60" y="75" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">204 OK</text></g></svg>`,
     definition: `When a browser makes a cross-origin request that is not "simple" — for example, using PUT, DELETE, or custom headers — it first sends an HTTP OPTIONS request to the target server. This preflight asks whether the actual request is allowed. The server responds with CORS headers such as Access-Control-Allow-Origin and Access-Control-Allow-Methods.\n\nOnly if the preflight succeeds does the browser send the real request. This handshake is enforced entirely by the browser; server-to-server calls skip it. Caching preflights via Access-Control-Max-Age reduces round trips.`,
     analogy: `Think of it like calling ahead before visiting someone's office. You phone ahead (OPTIONS) to confirm the person is available and allows your type of visit. Only after getting the go-ahead do you actually show up.`,
     examples: [
@@ -2691,7 +2691,7 @@ const TERMS = [
     term: "SameSite cookie modes",
     tagline: "Cookie attribute that controls whether cookies are sent on cross-site requests",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fade{0%,100%{opacity:0.3}50%{opacity:1}}.s1{animation:fade 2s infinite}.s2{animation:fade 2s infinite 0.7s}.s3{animation:fade 2s infinite 1.4s}</style><circle cx="60" cy="60" r="26" fill="none" stroke="#3d4b40" stroke-width="3"/><circle cx="60" cy="60" r="4" fill="#3d4b40"/><circle class="s1" cx="60" cy="34" r="5" fill="#3d4b40"/><circle class="s2" cx="83" cy="73" r="5" fill="#3d4b40"/><circle class="s3" cx="37" cy="73" r="5" fill="#3d4b40"/><text x="60" y="105" font-size="8" fill="#3d4b40" text-anchor="middle">Strict / Lax / None</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fade{0%,100%{opacity:0.3}50%{opacity:1}}.s1{animation:fade 2s infinite}.s2{animation:fade 2s infinite 0.7s}.s3{animation:fade 2s infinite 1.4s}</style><circle cx="60" cy="60" r="26" fill="none" stroke="var(--diagram-ink)" stroke-width="3"/><circle cx="60" cy="60" r="4" fill="var(--diagram-ink)"/><circle class="s1" cx="60" cy="34" r="5" fill="var(--diagram-ink)"/><circle class="s2" cx="83" cy="73" r="5" fill="var(--diagram-ink)"/><circle class="s3" cx="37" cy="73" r="5" fill="var(--diagram-ink)"/><text x="60" y="105" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">Strict / Lax / None</text></svg>`,
     definition: `SameSite is a cookie attribute with three modes. Strict: the cookie is never sent on any cross-site request, including top-level navigations from external links. Lax: the cookie is sent on top-level GET navigations but withheld from cross-origin sub-requests such as iframes, images, and fetch. None: the cookie is always sent but requires Secure.\n\nChrome defaulted to Lax in 2020 when SameSite is omitted. Choosing the right mode is the primary browser-native defense against CSRF. Strict blocks all cross-site cookie delivery; Lax preserves deep-link UX while blocking POST-based CSRF.`,
     analogy: `Strict is a bouncer who only lets in people from inside the building. Lax lets guests walk in through the front door but won't hand them anything if they're passed in through a side window. None leaves the door open to everyone who shows an ID.`,
     examples: [
@@ -2711,7 +2711,7 @@ const TERMS = [
     term: "CSRF vs XSS mitigation",
     tagline: "Two distinct attack classes that require different defenses despite often being conflated",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}.b{animation:blink 1.4s infinite}.b2{animation:blink 1.4s infinite 0.7s}</style><rect x="8" y="30" width="44" height="30" rx="4" fill="#3d4b40"/><text x="30" y="49" font-size="8" fill="#fff" text-anchor="middle">CSRF</text><rect x="68" y="30" width="44" height="30" rx="4" fill="#3d4b40"/><text x="90" y="49" font-size="8" fill="#fff" text-anchor="middle">XSS</text><text class="b" x="30" y="80" font-size="7" fill="#3d4b40" text-anchor="middle">forged request</text><text class="b2" x="90" y="80" font-size="7" fill="#3d4b40" text-anchor="middle">injected script</text><line x1="30" y1="60" x2="30" y2="70" stroke="#3d4b40" stroke-width="1.5"/><line x1="90" y1="60" x2="90" y2="70" stroke="#3d4b40" stroke-width="1.5"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}.b{animation:blink 1.4s infinite}.b2{animation:blink 1.4s infinite 0.7s}</style><rect x="8" y="30" width="44" height="30" rx="4" fill="var(--diagram-ink)"/><text x="30" y="49" font-size="8" fill="#fff" text-anchor="middle">CSRF</text><rect x="68" y="30" width="44" height="30" rx="4" fill="var(--diagram-ink)"/><text x="90" y="49" font-size="8" fill="#fff" text-anchor="middle">XSS</text><text class="b" x="30" y="80" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">forged request</text><text class="b2" x="90" y="80" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">injected script</text><line x1="30" y1="60" x2="30" y2="70" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="90" y1="60" x2="90" y2="70" stroke="var(--diagram-ink)" stroke-width="1.5"/></svg>`,
     definition: `CSRF (cross-site request forgery) tricks an authenticated user's browser into sending a state-changing request to a site where they have an active session. The attacker never reads the response; they just trigger the action. Mitigations: SameSite cookies, synchronizer tokens (CSRF tokens), and double-submit cookies.\n\nXSS (cross-site scripting) injects malicious script into a page that other users view, giving the attacker arbitrary code execution in that origin. Stored XSS persists in a database; reflected XSS echoes from a URL parameter. Mitigations: output encoding, Content Security Policy, Trusted Types, and sanitizing user-supplied HTML.`,
     analogy: `CSRF is forging someone's signature on a form — the victim unknowingly authorizes an action. XSS is slipping a note inside someone's wallet so it reads aloud when they open it — the attacker's words run as if they were the victim's own.`,
     examples: [
@@ -2731,7 +2731,7 @@ const TERMS = [
     term: "Content Security Policy (CSP)",
     tagline: "An HTTP header that tells the browser which sources are allowed to load scripts, styles, and other resources",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes shield{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}.sh{animation:shield 2s ease-in-out infinite;transform-origin:60px 55px;}</style><g class="sh"><path d="M60 18 L96 34 L96 62 C96 82 60 100 60 100 C60 100 24 82 24 62 L24 34 Z" fill="#3d4b40"/><text x="60" y="65" font-size="22" fill="#fff" text-anchor="middle">&#x2713;</text></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes shield{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}.sh{animation:shield 2s ease-in-out infinite;transform-origin:60px 55px;}</style><g class="sh"><path d="M60 18 L96 34 L96 62 C96 82 60 100 60 100 C60 100 24 82 24 62 L24 34 Z" fill="var(--diagram-ink)"/><text x="60" y="65" font-size="22" fill="#fff" text-anchor="middle">&#x2713;</text></g></svg>`,
     definition: `CSP is delivered as a Content-Security-Policy response header or a meta http-equiv tag. It defines allowlists for script-src, style-src, img-src, connect-src, and other resource types. Browsers refuse to load or execute anything not covered by the policy.\n\nStrict CSP policies use nonces or hashes instead of host allowlists because domain-based allowlists are routinely bypassed via JSONP endpoints or CDN compromises. Report-Only mode lets you audit violations without breaking the page while iterating toward enforcement.`,
     analogy: `CSP is a guest list for your page's resources. Only sources on the list get loaded. Anyone not on the list — including a script injected by an attacker — is turned away regardless of how legitimate they look.`,
     examples: [
@@ -2751,7 +2751,7 @@ const TERMS = [
     term: "Trusted Types",
     tagline: "A browser API that enforces safe DOM sink usage by requiring explicit type wrapping before injection",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes lock{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}.lk{animation:lock 2s ease-in-out infinite;transform-origin:60px 60px;}</style><g class="lk"><rect x="38" y="58" width="44" height="34" rx="4" fill="#3d4b40"/><path d="M48 58 L48 46 Q60 34 72 46 L72 58" fill="none" stroke="#3d4b40" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="74" r="5" fill="#fff"/><line x1="60" y1="79" x2="60" y2="86" stroke="#fff" stroke-width="2.5"/></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes lock{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}.lk{animation:lock 2s ease-in-out infinite;transform-origin:60px 60px;}</style><g class="lk"><rect x="38" y="58" width="44" height="34" rx="4" fill="var(--diagram-ink)"/><path d="M48 58 L48 46 Q60 34 72 46 L72 58" fill="none" stroke="var(--diagram-ink)" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="74" r="5" fill="#fff"/><line x1="60" y1="79" x2="60" y2="86" stroke="#fff" stroke-width="2.5"/></g></svg>`,
     definition: `Trusted Types locks down dangerous DOM sinks — innerHTML, outerHTML, insertAdjacentHTML, and eval — so they only accept values wrapped by a registered policy object rather than raw strings. If a script tries to assign a plain string to innerHTML, the browser throws a TypeError.\n\nPolicies are created with trustedTypes.createPolicy(), and their createHTML/createScript methods are the only place sanitization or escaping logic lives. Combined with a CSP require-trusted-types-for directive, this eliminates the entire class of DOM XSS caused by unsanitized string assignment.`,
     analogy: `Trusted Types is like requiring all wire transfers to go through a compliance officer rather than letting anyone type an account number directly into the system. The compliance officer (the policy) checks the value; the wire system (the DOM) won't accept raw input from anyone else.`,
     examples: [
@@ -2771,7 +2771,7 @@ const TERMS = [
     term: "DOM clobbering",
     tagline: "An attack where HTML element IDs or names shadow JavaScript globals, corrupting application logic",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}.wb{animation:wobble 1.6s ease-in-out infinite;transform-origin:60px 60px;}</style><g class="wb"><rect x="30" y="40" width="60" height="14" rx="3" fill="#3d4b40"/><rect x="38" y="56" width="44" height="10" rx="2" fill="#3d4b40" opacity="0.7"/><rect x="44" y="68" width="32" height="10" rx="2" fill="#3d4b40" opacity="0.4"/><text x="60" y="97" font-size="8" fill="#3d4b40" text-anchor="middle">id clobbers global</text></g></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}.wb{animation:wobble 1.6s ease-in-out infinite;transform-origin:60px 60px;}</style><g class="wb"><rect x="30" y="40" width="60" height="14" rx="3" fill="var(--diagram-ink)"/><rect x="38" y="56" width="44" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.7"/><rect x="44" y="68" width="32" height="10" rx="2" fill="var(--diagram-ink)" opacity="0.4"/><text x="60" y="97" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">id clobbers global</text></g></svg>`,
     definition: `Browsers expose named HTML elements (id and name attributes) as properties on the window and document objects. An attacker who can inject arbitrary HTML — but not script — can create elements whose IDs collide with variable names the application reads. For example, an img tag with id="config" makes window.config an HTMLElement, breaking any code that reads config.apiUrl.\n\nThis is especially dangerous in apps that check window.something for feature flags or configuration objects. Mitigations include avoiding global variable lookups for config, using hasOwnProperty checks, and sanitizing HTML input with a library that strips id and name attributes from untrusted content.`,
     analogy: `It's like someone placing a cardboard cutout of a security guard in a hallway. Your code looks for a guard, finds the shape, and assumes it's real — but the impostor has none of the guard's actual capabilities or properties.`,
     examples: [
@@ -2791,7 +2791,7 @@ const TERMS = [
     term: "Prototype pollution",
     tagline: "An attack that injects properties into Object.prototype, causing those properties to appear on all plain objects",
     category: "security",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spread{0%{r:4}50%{r:8}100%{r:4}}.sp{animation:spread 1.8s ease-in-out infinite;}</style><circle cx="60" cy="40" r="10" fill="#3d4b40"/><circle cx="30" cy="75" r="8" fill="#3d4b40" opacity="0.8"/><circle cx="90" cy="75" r="8" fill="#3d4b40" opacity="0.8"/><circle class="sp" cx="60" cy="40" r="4" fill="#fff" opacity="0.5"/><line x1="52" y1="48" x2="36" y2="68" stroke="#3d4b40" stroke-width="2"/><line x1="68" y1="48" x2="84" y2="68" stroke="#3d4b40" stroke-width="2"/><text x="60" y="105" font-size="7" fill="#3d4b40" text-anchor="middle">__proto__ -&gt; Object.prototype</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes spread{0%{r:4}50%{r:8}100%{r:4}}.sp{animation:spread 1.8s ease-in-out infinite;}</style><circle cx="60" cy="40" r="10" fill="var(--diagram-ink)"/><circle cx="30" cy="75" r="8" fill="var(--diagram-ink)" opacity="0.8"/><circle cx="90" cy="75" r="8" fill="var(--diagram-ink)" opacity="0.8"/><circle class="sp" cx="60" cy="40" r="4" fill="#fff" opacity="0.5"/><line x1="52" y1="48" x2="36" y2="68" stroke="var(--diagram-ink)" stroke-width="2"/><line x1="68" y1="48" x2="84" y2="68" stroke="var(--diagram-ink)" stroke-width="2"/><text x="60" y="105" font-size="7" fill="var(--diagram-ink)" text-anchor="middle">__proto__ -&gt; Object.prototype</text></svg>`,
     definition: `JavaScript objects inherit from Object.prototype via the prototype chain. If an attacker can control the key in a deep merge or path-based setter — such as user-supplied JSON with __proto__ or constructor.prototype — they can write arbitrary properties onto Object.prototype itself. Every plain object in the process then inherits those properties.\n\nThis can bypass security checks, corrupt application logic, or escalate to RCE in server-side Node.js when polluted properties reach child_process options. Mitigations: use Object.create(null) for merge targets, validate keys against a blocklist, and prefer structuredClone over manual deep merge.`,
     analogy: `It's like writing a new rule in a company-wide policy manual that applies retroactively to every employee. Any subsequent check against that policy finds the attacker's rule as if it were always there.`,
     examples: [
@@ -2814,7 +2814,7 @@ const TERMS = [
     term: "Scheduler priorities",
     tagline: "A mechanism for ordering async work units so high-priority tasks preempt low-priority ones",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}.p1{animation:pulse 1s infinite}.p2{animation:pulse 1s infinite 0.33s}.p3{animation:pulse 1s infinite 0.66s}</style><rect class="p1" x="10" y="20" width="100" height="16" rx="3" fill="#3d4b40"/><rect class="p2" x="10" y="44" width="70" height="16" rx="3" fill="#3d4b40" opacity="0.7"/><rect class="p3" x="10" y="68" width="40" height="16" rx="3" fill="#3d4b40" opacity="0.4"/><text x="60" y="102" font-size="8" fill="#3d4b40" text-anchor="middle">urgent / normal / idle</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}.p1{animation:pulse 1s infinite}.p2{animation:pulse 1s infinite 0.33s}.p3{animation:pulse 1s infinite 0.66s}</style><rect class="p1" x="10" y="20" width="100" height="16" rx="3" fill="var(--diagram-ink)"/><rect class="p2" x="10" y="44" width="70" height="16" rx="3" fill="var(--diagram-ink)" opacity="0.7"/><rect class="p3" x="10" y="68" width="40" height="16" rx="3" fill="var(--diagram-ink)" opacity="0.4"/><text x="60" y="102" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">urgent / normal / idle</text></svg>`,
     definition: `Schedulers assign priority levels to units of work so the runtime can decide which tasks run first. React's scheduler uses five levels: ImmediatePriority (synchronous), UserBlockingPriority (input handlers), NormalPriority (state updates), LowPriority (data prefetch), and IdlePriority (non-visible work). Higher-priority tasks interrupt lower-priority ones mid-execution via time-slicing.\n\nThe browser's own scheduler (scheduler.postTask API) exposes user-visible, user-blocking, and background buckets, mirroring React's model. Correct priority assignment prevents input jank caused by expensive background work monopolizing the main thread.`,
     analogy: `It's like an emergency room triage system. A walk-in with a sprained ankle waits while a trauma patient is treated immediately. The work gets done in order of urgency, not order of arrival.`,
     examples: [
@@ -2834,7 +2834,7 @@ const TERMS = [
     term: "Render waterfalls",
     tagline: "A chain of sequential data fetches that each block rendering until the previous fetch completes",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fall{0%{transform:translateY(-10px);opacity:0}60%{opacity:1}100%{transform:translateY(0px);opacity:0.8}}.w1{animation:fall 1.8s ease-in infinite}.w2{animation:fall 1.8s ease-in infinite 0.6s}.w3{animation:fall 1.8s ease-in infinite 1.2s}</style><rect class="w1" x="20" y="18" width="80" height="14" rx="3" fill="#3d4b40"/><rect class="w2" x="30" y="42" width="60" height="14" rx="3" fill="#3d4b40" opacity="0.7"/><rect class="w3" x="40" y="66" width="40" height="14" rx="3" fill="#3d4b40" opacity="0.5"/><line x1="60" y1="32" x2="60" y2="42" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="60" y1="56" x2="60" y2="66" stroke="#3d4b40" stroke-width="1.5" stroke-dasharray="3,2"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes fall{0%{transform:translateY(-10px);opacity:0}60%{opacity:1}100%{transform:translateY(0px);opacity:0.8}}.w1{animation:fall 1.8s ease-in infinite}.w2{animation:fall 1.8s ease-in infinite 0.6s}.w3{animation:fall 1.8s ease-in infinite 1.2s}</style><rect class="w1" x="20" y="18" width="80" height="14" rx="3" fill="var(--diagram-ink)"/><rect class="w2" x="30" y="42" width="60" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.7"/><rect class="w3" x="40" y="66" width="40" height="14" rx="3" fill="var(--diagram-ink)" opacity="0.5"/><line x1="60" y1="32" x2="60" y2="42" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="60" y1="56" x2="60" y2="66" stroke="var(--diagram-ink)" stroke-width="1.5" stroke-dasharray="3,2"/></svg>`,
     definition: `A render waterfall occurs when a component fetches data, renders children only after that fetch completes, and those children each trigger their own fetches. Each layer waits for the one above it, creating cumulative latency proportional to the number of nesting levels. This is common in component trees where each component owns its own data fetching.\n\nSolutions include hoisting fetches to a parent that fires them all in parallel, using a router-level data loading layer (React Router loaders, Next.js getServerSideProps), or switching to a streaming server-side model where data and markup arrive incrementally.`,
     analogy: `It's like a restaurant where each waiter can only take your order after the previous table has been fully served and paid. Instead of serving tables in parallel, everyone waits in a single queue.`,
     examples: [
@@ -2854,7 +2854,7 @@ const TERMS = [
     term: "Edge rendering",
     tagline: "Running server-side rendering at CDN edge nodes close to users rather than in a central origin server",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes ripple{0%{r:6;opacity:1}100%{r:28;opacity:0}}.rp{animation:ripple 2s ease-out infinite;}</style><circle cx="60" cy="60" r="8" fill="#3d4b40"/><circle class="rp" cx="60" cy="60" r="6" fill="none" stroke="#3d4b40" stroke-width="2"/><circle cx="20" cy="40" r="5" fill="#3d4b40" opacity="0.6"/><circle cx="100" cy="40" r="5" fill="#3d4b40" opacity="0.6"/><circle cx="20" cy="80" r="5" fill="#3d4b40" opacity="0.6"/><circle cx="100" cy="80" r="5" fill="#3d4b40" opacity="0.6"/><line x1="60" y1="52" x2="24" y2="44" stroke="#3d4b40" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="52" x2="96" y2="44" stroke="#3d4b40" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="68" x2="24" y2="76" stroke="#3d4b40" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="68" x2="96" y2="76" stroke="#3d4b40" stroke-width="1.2" opacity="0.5"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes ripple{0%{r:6;opacity:1}100%{r:28;opacity:0}}.rp{animation:ripple 2s ease-out infinite;}</style><circle cx="60" cy="60" r="8" fill="var(--diagram-ink)"/><circle class="rp" cx="60" cy="60" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/><circle cx="20" cy="40" r="5" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="100" cy="40" r="5" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="20" cy="80" r="5" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="100" cy="80" r="5" fill="var(--diagram-ink)" opacity="0.6"/><line x1="60" y1="52" x2="24" y2="44" stroke="var(--diagram-ink)" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="52" x2="96" y2="44" stroke="var(--diagram-ink)" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="68" x2="24" y2="76" stroke="var(--diagram-ink)" stroke-width="1.2" opacity="0.5"/><line x1="60" y1="68" x2="96" y2="76" stroke="var(--diagram-ink)" stroke-width="1.2" opacity="0.5"/></svg>`,
     definition: `Edge rendering runs HTML generation in CDN workers (Cloudflare Workers, Vercel Edge Runtime, Fastly Compute) that are geographically distributed near users. Instead of a request traveling to a central origin datacenter, it hits a nearby edge node that renders the page and returns HTML — often in under 50ms.\n\nEdge rendering suits content that varies per user (locale, A/B test, auth state) but cannot be fully statically cached, and where origin round-trip latency is a meaningful contributor to TTFB. Constraints include limited Node.js API surface, no filesystem access, and cold-start sensitivity in some runtimes.`,
     analogy: `It's the difference between a single central kitchen cooking for an entire city versus neighborhood pop-up kitchens each serving their local area. The food arrives faster because it doesn't have to travel as far.`,
     examples: [
@@ -2874,7 +2874,7 @@ const TERMS = [
     term: "Micro-frontend orchestration",
     tagline: "Composing a page from independently deployed UI fragments owned by separate teams",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes assemble{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-2px)}}.a{animation:assemble 2s ease-in-out infinite}.b{animation:assemble 2s ease-in-out infinite 0.5s}.c{animation:assemble 2s ease-in-out infinite 1s}</style><rect class="a" x="10" y="15" width="44" height="36" rx="3" fill="#3d4b40"/><rect class="b" x="66" y="15" width="44" height="36" rx="3" fill="#3d4b40" opacity="0.75"/><rect class="c" x="10" y="65" width="100" height="36" rx="3" fill="#3d4b40" opacity="0.5"/><text x="32" y="38" font-size="7" fill="#fff" text-anchor="middle">team A</text><text x="88" y="38" font-size="7" fill="#fff" text-anchor="middle">team B</text><text x="60" y="88" font-size="7" fill="#fff" text-anchor="middle">team C (shell)</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes assemble{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-2px)}}.a{animation:assemble 2s ease-in-out infinite}.b{animation:assemble 2s ease-in-out infinite 0.5s}.c{animation:assemble 2s ease-in-out infinite 1s}</style><rect class="a" x="10" y="15" width="44" height="36" rx="3" fill="var(--diagram-ink)"/><rect class="b" x="66" y="15" width="44" height="36" rx="3" fill="var(--diagram-ink)" opacity="0.75"/><rect class="c" x="10" y="65" width="100" height="36" rx="3" fill="var(--diagram-ink)" opacity="0.5"/><text x="32" y="38" font-size="7" fill="#fff" text-anchor="middle">team A</text><text x="88" y="38" font-size="7" fill="#fff" text-anchor="middle">team B</text><text x="60" y="88" font-size="7" fill="#fff" text-anchor="middle">team C (shell)</text></svg>`,
     definition: `Micro-frontends split a web application into vertical slices, each owned by a different team with its own deployment pipeline, framework choice, and release cadence. An orchestrator (shell application) composes the slices at runtime via iframes, Web Components, module federation, or server-side include.\n\nModule federation (Webpack 5) is the dominant approach: each micro-frontend exposes modules from its own bundle, and the shell loads them at runtime without bundling them at build time. Teams deploy independently; the shell fetches the latest remote entry manifest on each page load.`,
     analogy: `It's like a newspaper where different sections (sports, business, opinion) are written and laid out by separate editorial teams, then assembled into one edition at print time. Each team owns their section end-to-end.`,
     examples: [
@@ -2894,7 +2894,7 @@ const TERMS = [
     term: "Priority inversion in async code",
     tagline: "A high-priority task is blocked waiting for a resource held by a lower-priority task",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes swap{0%{transform:translateY(0)}40%{transform:translateY(18px)}60%{transform:translateY(18px)}100%{transform:translateY(0)}.swapb{0%{transform:translateY(0)}40%{transform:translateY(-18px)}60%{transform:translateY(-18px)}100%{transform:translateY(0)}}}.ta{animation:swap 2s ease-in-out infinite;}.tb{animation:swap 2s ease-in-out infinite 0s reverse;}</style><rect class="ta" x="20" y="22" width="80" height="18" rx="3" fill="#3d4b40"/><rect class="tb" x="20" y="52" width="80" height="18" rx="3" fill="#3d4b40" opacity="0.5"/><text x="60" y="35" font-size="7" fill="#fff" text-anchor="middle">high priority (blocked)</text><text x="60" y="65" font-size="7" fill="#fff" text-anchor="middle">low priority (holds lock)</text><text x="60" y="100" font-size="8" fill="#3d4b40" text-anchor="middle">inverted order</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes swap{0%{transform:translateY(0)}40%{transform:translateY(18px)}60%{transform:translateY(18px)}100%{transform:translateY(0)}.swapb{0%{transform:translateY(0)}40%{transform:translateY(-18px)}60%{transform:translateY(-18px)}100%{transform:translateY(0)}}}.ta{animation:swap 2s ease-in-out infinite;}.tb{animation:swap 2s ease-in-out infinite 0s reverse;}</style><rect class="ta" x="20" y="22" width="80" height="18" rx="3" fill="var(--diagram-ink)"/><rect class="tb" x="20" y="52" width="80" height="18" rx="3" fill="var(--diagram-ink)" opacity="0.5"/><text x="60" y="35" font-size="7" fill="#fff" text-anchor="middle">high priority (blocked)</text><text x="60" y="65" font-size="7" fill="#fff" text-anchor="middle">low priority (holds lock)</text><text x="60" y="100" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">inverted order</text></svg>`,
     definition: `Priority inversion occurs when a high-priority task cannot proceed because it is waiting on a resource, lock, or promise that is held or owned by a low-priority task. In JavaScript, this manifests when a high-priority microtask or render is queued behind a low-priority macro-task that hasn't yielded.\n\nCommon patterns: a user-blocking render awaiting a Promise created by an idle-priority data sync, or a React high-priority update blocked on a context value that is being set by a low-priority background subscription. Solutions include scheduler.yield(), priority inheritance, or redesigning the shared dependency to not block.`,
     analogy: `It's like a fire truck stuck behind a slow-moving street sweeper on a one-lane road. The sweeper has no way to let the truck pass, so the high-urgency vehicle is delayed by something that could have pulled over.`,
     examples: [
@@ -2914,7 +2914,7 @@ const TERMS = [
     term: "Deterministic rendering",
     tagline: "Given the same props and state, a component always produces the same output with no side effects during render",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes eq{0%,100%{opacity:1}50%{opacity:0.4}}.eq{animation:eq 1.6s ease-in-out infinite;}</style><rect x="10" y="30" width="40" height="30" rx="4" fill="#3d4b40" opacity="0.7"/><text x="30" y="50" font-size="10" fill="#fff" text-anchor="middle">f(s)</text><text class="eq" x="60" y="50" font-size="14" fill="#3d4b40" text-anchor="middle">=</text><rect x="70" y="30" width="40" height="30" rx="4" fill="#3d4b40" opacity="0.7"/><text x="90" y="50" font-size="10" fill="#fff" text-anchor="middle">f(s)</text><text x="60" y="90" font-size="8" fill="#3d4b40" text-anchor="middle">same input, same output</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes eq{0%,100%{opacity:1}50%{opacity:0.4}}.eq{animation:eq 1.6s ease-in-out infinite;}</style><rect x="10" y="30" width="40" height="30" rx="4" fill="var(--diagram-ink)" opacity="0.7"/><text x="30" y="50" font-size="10" fill="#fff" text-anchor="middle">f(s)</text><text class="eq" x="60" y="50" font-size="14" fill="var(--diagram-ink)" text-anchor="middle">=</text><rect x="70" y="30" width="40" height="30" rx="4" fill="var(--diagram-ink)" opacity="0.7"/><text x="90" y="50" font-size="10" fill="#fff" text-anchor="middle">f(s)</text><text x="60" y="90" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">same input, same output</text></svg>`,
     definition: `Deterministic rendering means a component is a pure function of its inputs: same props plus same state always yields the same JSX, with no mutations, random values, or observable side effects occurring during the render phase. React's concurrent mode relies on this — it may call render multiple times for the same update when time-slicing.\n\nNon-determinism in render (reading Date.now(), incrementing an external counter, writing to a ref) causes subtle bugs when React re-renders are triggered unexpectedly. StrictMode deliberately double-invokes render functions in development to surface these violations.`,
     analogy: `It's like a pure mathematical function. f(x) = x * 2 always returns the same result for the same x, no matter how many times you call it or in what order. A component render should work the same way.`,
     examples: [
@@ -2934,7 +2934,7 @@ const TERMS = [
     term: "Idempotent UI actions",
     tagline: "An action that produces the same result whether it is applied once or multiple times",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes repeat{0%{transform:translateX(0);opacity:1}50%{transform:translateX(16px);opacity:0.5}100%{transform:translateX(0);opacity:1}}.rp{animation:repeat 1.8s ease-in-out infinite;}</style><rect x="30" y="44" width="60" height="28" rx="5" fill="#3d4b40"/><text x="60" y="62" font-size="9" fill="#fff" text-anchor="middle">submit</text><g class="rp"><line x1="20" y1="58" x2="28" y2="58" stroke="#3d4b40" stroke-width="2.5"/><polygon points="28,54 34,58 28,62" fill="#3d4b40"/></g><text x="60" y="96" font-size="8" fill="#3d4b40" text-anchor="middle">1x = 2x = Nx</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes repeat{0%{transform:translateX(0);opacity:1}50%{transform:translateX(16px);opacity:0.5}100%{transform:translateX(0);opacity:1}}.rp{animation:repeat 1.8s ease-in-out infinite;}</style><rect x="30" y="44" width="60" height="28" rx="5" fill="var(--diagram-ink)"/><text x="60" y="62" font-size="9" fill="#fff" text-anchor="middle">submit</text><g class="rp"><line x1="20" y1="58" x2="28" y2="58" stroke="var(--diagram-ink)" stroke-width="2.5"/><polygon points="28,54 34,58 28,62" fill="var(--diagram-ink)"/></g><text x="60" y="96" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">1x = 2x = Nx</text></svg>`,
     definition: `An idempotent UI action is one where submitting it multiple times has the same effect as submitting it once. In practice, this means protecting mutations against duplicate execution caused by double-clicks, network retries, or optimistic update rollbacks that re-apply.\n\nPatterns include disabling the submit button after the first click, using a server-generated idempotency key in the request (so the server deduplicates), or making the underlying operation naturally idempotent (SET rather than INCREMENT). React's optimistic update pattern relies on rollback being idempotent when a mutation fails.`,
     analogy: `It's like a light switch versus a light dimmer. Pressing the switch once or a hundred times still leaves the light in the same state. A non-idempotent action is like a counter — each press changes the value.`,
     examples: [
@@ -2954,7 +2954,7 @@ const TERMS = [
     term: "Accessibility tree",
     tagline: "A parallel representation of the DOM that assistive technologies use to navigate and announce page content",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes highlight{0%,100%{fill:#3d4b40}50%{fill:#6a7f6e}}.hl{animation:highlight 2s ease-in-out infinite;}</style><circle class="hl" cx="60" cy="22" r="8" fill="#3d4b40"/><circle cx="30" cy="55" r="7" fill="#3d4b40" opacity="0.8"/><circle cx="90" cy="55" r="7" fill="#3d4b40" opacity="0.8"/><circle cx="16" cy="85" r="6" fill="#3d4b40" opacity="0.6"/><circle cx="44" cy="85" r="6" fill="#3d4b40" opacity="0.6"/><circle cx="76" cy="85" r="6" fill="#3d4b40" opacity="0.6"/><circle cx="104" cy="85" r="6" fill="#3d4b40" opacity="0.6"/><line x1="60" y1="30" x2="34" y2="48" stroke="#3d4b40" stroke-width="1.5"/><line x1="60" y1="30" x2="86" y2="48" stroke="#3d4b40" stroke-width="1.5"/><line x1="30" y1="62" x2="20" y2="79" stroke="#3d4b40" stroke-width="1.5"/><line x1="30" y1="62" x2="42" y2="79" stroke="#3d4b40" stroke-width="1.5"/><line x1="90" y1="62" x2="78" y2="79" stroke="#3d4b40" stroke-width="1.5"/><line x1="90" y1="62" x2="102" y2="79" stroke="#3d4b40" stroke-width="1.5"/></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes highlight{0%,100%{fill:var(--diagram-ink)}50%{fill:#6a7f6e}}.hl{animation:highlight 2s ease-in-out infinite;}</style><circle class="hl" cx="60" cy="22" r="8" fill="var(--diagram-ink)"/><circle cx="30" cy="55" r="7" fill="var(--diagram-ink)" opacity="0.8"/><circle cx="90" cy="55" r="7" fill="var(--diagram-ink)" opacity="0.8"/><circle cx="16" cy="85" r="6" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="44" cy="85" r="6" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="76" cy="85" r="6" fill="var(--diagram-ink)" opacity="0.6"/><circle cx="104" cy="85" r="6" fill="var(--diagram-ink)" opacity="0.6"/><line x1="60" y1="30" x2="34" y2="48" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="60" y1="30" x2="86" y2="48" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="30" y1="62" x2="20" y2="79" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="30" y1="62" x2="42" y2="79" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="90" y1="62" x2="78" y2="79" stroke="var(--diagram-ink)" stroke-width="1.5"/><line x1="90" y1="62" x2="102" y2="79" stroke="var(--diagram-ink)" stroke-width="1.5"/></svg>`,
     definition: `The browser builds an accessibility tree in parallel with the DOM, containing only elements that are meaningful to assistive technologies such as screen readers. Each node carries a computed accessible name, role, state (checked, expanded, disabled), and value. The tree omits presentational elements (role="presentation", aria-hidden="true") and generic containers with no semantic role.\n\nJavaScript-heavy SPAs frequently break the accessibility tree by rendering content into non-semantic containers, updating visible text without updating the accessible name, or removing focus from a modal's trigger when it closes. Tools like axe-core inspect the tree to surface these violations.`,
     analogy: `The accessibility tree is like the table of contents and chapter headings in a book. Sighted users can skim the visual layout, but someone listening to the book read aloud relies entirely on the structural outline to navigate.`,
     examples: [
@@ -2974,7 +2974,7 @@ const TERMS = [
     term: "ARIA live regions internals",
     tagline: "A mechanism that tells assistive technologies to announce DOM changes without the user explicitly navigating to them",
     category: "architecture",
-    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wave{0%{r:6;opacity:1}100%{r:22;opacity:0}}.w1{animation:wave 1.6s ease-out infinite}.w2{animation:wave 1.6s ease-out infinite 0.5s}.w3{animation:wave 1.6s ease-out infinite 1s}</style><circle cx="60" cy="60" r="8" fill="#3d4b40"/><circle class="w1" cx="60" cy="60" r="6" fill="none" stroke="#3d4b40" stroke-width="2"/><circle class="w2" cx="60" cy="60" r="6" fill="none" stroke="#3d4b40" stroke-width="1.5"/><circle class="w3" cx="60" cy="60" r="6" fill="none" stroke="#3d4b40" stroke-width="1"/><text x="60" y="100" font-size="8" fill="#3d4b40" text-anchor="middle">aria-live announcement</text></svg>`,
+    svg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><style>@keyframes wave{0%{r:6;opacity:1}100%{r:22;opacity:0}}.w1{animation:wave 1.6s ease-out infinite}.w2{animation:wave 1.6s ease-out infinite 0.5s}.w3{animation:wave 1.6s ease-out infinite 1s}</style><circle cx="60" cy="60" r="8" fill="var(--diagram-ink)"/><circle class="w1" cx="60" cy="60" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="2"/><circle class="w2" cx="60" cy="60" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="1.5"/><circle class="w3" cx="60" cy="60" r="6" fill="none" stroke="var(--diagram-ink)" stroke-width="1"/><text x="60" y="100" font-size="8" fill="var(--diagram-ink)" text-anchor="middle">aria-live announcement</text></svg>`,
     definition: `An ARIA live region (aria-live="polite" or aria-live="assertive") monitors a DOM subtree and instructs the screen reader to announce any text changes to the user, even without focus. Polite waits until the user finishes the current utterance; assertive interrupts immediately. aria-atomic="true" announces the entire region on any change; aria-relevant controls which change types (additions, removals, text) trigger announcements.\n\nCommon bugs: injecting content into a live region before it is mounted (announcements only fire for changes to an already-live region, not initial content), using assertive for non-urgent updates (causes announcement interruption fatigue), and nesting live regions (behavior is undefined across screen readers).`,
     analogy: `A live region is like a newsroom ticker that a radio announcer monitors. Whenever new text appears on the ticker, the announcer reads it aloud at the next available pause — or immediately if it is marked urgent — without the listener having to ask for an update.`,
     examples: [

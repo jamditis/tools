@@ -20,18 +20,35 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
-        /* App Specific Overrides */
+        /**
+         * The progress bar reports real position in the decision tree, so it is
+         * kept — but as a plain rule rather than the glowing bar V2 used.
+         */
         #progress-bar {
-            box-shadow: 0 0 8px currentColor;
+            box-shadow: none;
         }
 
+        /* Options are ruled rows now; the hover tint carries the affordance. */
         .option-button:hover {
-            transform: translateX(4px);
+            transform: none;
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
@@ -50,36 +67,19 @@
                     <div class="w-8 h-8 bg-accent text-canvas flex items-center justify-center font-bold font-display text-xl group-hover:bg-ink transition-colors">A</div>
                     <div>
                         <h1 class="font-display font-bold text-lg tracking-wider text-ink">Amditis</h1>
-                        <p class="text-xs text-mist tracking-[0.2em]">Kit v2.6</p>
+                        <p class="text-xs text-mist tracking-[0.2em]">Kit v2.7</p>
                     </div>
                 </a>
             </div>
 
             <div class="p-6 flex-1">
-                <div class="text-xs font-medium text-accent mb-4 uppercase tracking-widest flex items-center gap-2">
-                    <i data-lucide="cpu" class="w-3 h-3"></i> System status
-                </div>
-                <div class="space-y-4 text-xs text-mist">
-                    <div class="flex justify-between">
-                        <span>Module</span>
-                        <span class="text-ink">LLM Advisor</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>Version</span>
-                        <span class="text-ink">2.1.0</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>Mode</span>
-                        <span class="text-accent">Interactive</span>
-                    </div>
-                </div>
-
-                <div class="mt-8 pt-8 border-t border-ink/10">
-                    <button id="show-comparison-btn" class="w-full text-left py-2 hover:text-ink hover:pl-2 transition-all border-l-2 border-transparent hover:border-accent text-mist text-xs">
-                        Compare Models
+                <div class="section-label mb-4">Reference</div>
+                <div class="border-t border-ink/10">
+                    <button id="show-comparison-btn" class="w-full text-left py-3 border-b border-ink/10 text-ink hover:text-accent transition-colors text-sm font-display">
+                        Compare models
                     </button>
-                    <button id="show-case-studies-btn" class="w-full text-left py-2 hover:text-ink hover:pl-2 transition-all border-l-2 border-transparent hover:border-accent text-mist text-xs">
-                        Case Studies
+                    <button id="show-case-studies-btn" class="w-full text-left py-3 border-b border-ink/10 text-ink hover:text-accent transition-colors text-sm font-display">
+                        Case studies
                     </button>
                 </div>
             </div>
@@ -87,7 +87,11 @@
             <div class="p-6 border-t border-ink/10 space-y-4">
                 <a href="/llm-advisor-doc/" class="flex items-center gap-2 text-xs text-mist hover:text-ink transition-colors">
                     <i data-lucide="file-text" class="w-3 h-3"></i>
-                    View Static Docs
+                    View static docs
+                </a>
+                <a href="../next-level/" class="flex items-center gap-2 text-xs text-mist hover:text-ink transition-colors">
+                    <i data-lucide="trending-up" class="w-3 h-3"></i>
+                    Next level guide
                 </a>
                 <div class="flex flex-wrap gap-2 pt-2">
                     <a href="https://venmo.com/jamditis" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white bg-[#006bbf] hover:opacity-90 transition-opacity">
@@ -113,7 +117,7 @@
             <header class="border-b border-ink/10 bg-canvas/80 backdrop-blur-md p-6 flex flex-col gap-4 z-20">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="font-display text-2xl text-ink tracking-wide">Tool Selector</h2>
+                        <h2 class="font-display text-2xl text-ink">Tool selector</h2>
                         <div id="breadcrumb" class="text-xs text-mist mt-1 hidden"></div>
                     </div>
 
@@ -124,14 +128,15 @@
                         <button id="restart-btn" aria-label="Restart advisor" class="w-8 h-8 border border-ink/10 flex items-center justify-center text-mist hover:text-accent hover:border-accent transition-colors">
                             <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                         </button>
-                    </div>
                 </div>
+                <div data-theme-toggle-slot class="flex items-center"></div>
+                    </div>
 
                 <!-- Controls -->
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                     <!-- Progress -->
                     <div class="w-full md:w-1/3 bg-clay/50 border border-ink/10 h-2 relative overflow-hidden">
-                        <div id="progress-bar" class="absolute top-0 left-0 h-full bg-accent w-0 transition-all duration-500"></div>
+                        <div id="progress-bar" class="absolute top-0 left-0 h-full bg-accent w-0 progress-fill"></div>
                     </div>
 
                     <!-- Quick Jump -->
@@ -159,8 +164,8 @@
             <!-- Mobile Footer Controls -->
             <div class="md:hidden border-t border-ink/10 bg-ink text-canvas p-4 space-y-3">
                 <div class="grid grid-cols-2 gap-4">
-                    <button id="footer-best-practices-btn" class="text-xs text-canvas/70 border border-canvas/20 py-2 text-center hover:text-canvas hover:border-canvas/40 transition-colors">Best Practices</button>
-                    <button id="footer-model-info-btn" class="text-xs text-canvas/70 border border-canvas/20 py-2 text-center hover:text-canvas hover:border-canvas/40 transition-colors">Model Info</button>
+                    <button id="footer-best-practices-btn" class="text-xs text-canvas/70 border border-canvas/20 py-2 text-center hover:text-canvas hover:border-canvas/40 transition-colors">Best practices</button>
+                    <button id="footer-model-info-btn" class="text-xs text-canvas/70 border border-canvas/20 py-2 text-center hover:text-canvas hover:border-canvas/40 transition-colors">Model info</button>
                 </div>
                 <div class="flex justify-center gap-2 pt-1">
                     <a href="https://venmo.com/jamditis" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white bg-[#006bbf] hover:opacity-90 transition-opacity">
@@ -171,7 +176,7 @@
                         <svg viewBox="0 0 24 24" class="w-3 h-3 fill-current"><path d="M7.02 21.5L7.8 17h-2L8.6 2.5h5.4c2.6 0 4.4 1.8 4 4.4-.6 3.4-3.2 5.1-6.2 5.1H9.7l-1 5.5H6.6zm10-15.1c.3-2-1-3.4-3.4-3.4h-1L11.4 10h1.2c2.2 0 4-1.2 4.4-3.6zm-1.6 8.1c.3-2-1-3.4-3.4-3.4h-1L9.8 18h1.2c2.2 0 4-1.2 4.4-3.5z"/></svg>
                         PayPal
                     </a>
-                    <a href="https://github.com/sponsors/jamditis" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white bg-canvas/20 hover:bg-canvas/30 transition-colors">
+                    <a href="https://github.com/sponsors/jamditis" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white on-slab-tint transition-colors">
                         <svg viewBox="0 0 16 16" class="w-3 h-3 fill-current"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                         Sponsor
                     </a>
@@ -205,11 +210,11 @@
     <script src="app.js"></script>
     <script>
         // Init Icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Additional UI logic if needed
         const observer = new MutationObserver(() => {
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         });
         observer.observe(document.getElementById('main-content'), { childList: true, subtree: true });
     </script>
