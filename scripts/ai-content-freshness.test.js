@@ -23,6 +23,7 @@ const activeSurfaces = [
   "resource-kit/docs/llm-advisor/data/decision-tree.json",
   "resource-kit/docs/llm-advisor/data/model-info.json",
   "resource-kit/docs/llm-advisor/data/tool-comparison.json",
+  "resource-kit/docs/next-level/index.html",
   "resource-kit/docs/terminal-setup/index.html",
   "resource-kit/docs/downloads/CLAUDE-RULES-editorial-tool.md",
   "resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md",
@@ -147,9 +148,9 @@ test("the public advisor records the current refresh", async () => {
     "utf8"
   );
 
-  assert.equal(changelog[0].version, "August 15, 2026");
-  assert.match(changelog[0].notes, /official-source register/);
-  assert.match(advisor, /Kit v2\.6/);
+  assert.equal(changelog[0].version, "August 16, 2026");
+  assert.match(changelog[0].notes, /Next level guide/);
+  assert.match(advisor, /Kit v2\.7/);
 });
 
 test("current recommendation surfaces use the newest workhorse models", async () => {
