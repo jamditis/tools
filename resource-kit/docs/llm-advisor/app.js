@@ -272,10 +272,34 @@ async function loadAllData() {
         let selectedTools = [];
 
         /**
-         * Tools selected for comparison in the comparison modal (max 3).
+         * Tools selected for comparison in the comparison modal.
+         *
+         * Fixed length of three: one entry per comparison column, in column
+         * order. An empty string means that column has no model chosen yet.
          * @type {string[]}
          */
-        let compareTools = [];
+        let compareTools = ['', '', ''];
+
+        /**
+         * Preferred starting trio for the comparison modal.
+         *
+         * Any name missing from tool-comparison.json is dropped, so the modal
+         * still opens with something sensible if the catalog is renamed.
+         * @type {string[]}
+         */
+        const COMPARE_DEFAULTS = ['Claude Opus 5', 'GPT-5.6 Sol', 'Gemini 3.7 Flash'];
+
+        /**
+         * Builds the default three-column comparison selection.
+         *
+         * @function defaultCompareTools
+         * @returns {string[]} Three column values, padded with empty strings
+         */
+        function defaultCompareTools() {
+            const available = toolComparisonData ? Object.keys(toolComparisonData) : [];
+            const picks = COMPARE_DEFAULTS.filter(name => available.includes(name));
+            return [picks[0] || '', picks[1] || '', picks[2] || ''];
+        }
 
         /**
          * Whether to display the recommendation view vs. question view.
@@ -827,66 +851,93 @@ async function loadAllData() {
         // -------------------------------------------------------------------------
 
         /**
+         * Renders the comparison table for the currently chosen models.
+         *
+         * Writes into `#comparison-table` so a dropdown change can refresh the
+         * table without re-rendering the dropdowns themselves (which would
+         * throw away keyboard focus mid-selection).
+         *
+         * @function renderComparisonTable
+         * @returns {void}
+         */
+        function renderComparisonTable() {
+            const container = document.getElementById('comparison-table');
+            if (!container) return;
+
+            const chosen = compareTools.filter(tool => tool && toolComparisonData[tool]);
+
+            if (chosen.length === 0) {
+                container.innerHTML = `<div class="text-center p-8 bg-white/70 border border-ink/15"><p class="text-ink/70 text-sm">Choose a model in any column above to start comparing.</p></div>`;
+                return;
+            }
+
+            const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
+            const featureNames = {
+                strengths: 'Key strengths',
+                weaknesses: 'Limitations',
+                bestFor: 'Best use cases',
+                pricing: 'Pricing'
+            };
+
+            container.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table class="min-w-full w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-ink/10">
+                                <th scope="col" class="py-3 text-xs text-mist tracking-wider font-medium">Feature</th>
+                                ${chosen.map(tool => `<th scope="col" class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${sanitizeHTML(tool)}</span></th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${features.map(feature => `
+                                <tr class="align-top border-b border-ink/5">
+                                    <th scope="row" class="py-4 pr-4 font-medium text-ink whitespace-nowrap text-left">${featureNames[feature]}</th>
+                                    ${chosen.map(tool => `<td class="py-4 pr-4 text-ink/85">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>`;
+        }
+
+        /**
          * Renders the tool comparison modal content.
          *
-         * Displays a tool selection interface and a comparison table. Users can
-         * select up to 3 tools to compare side-by-side across features:
+         * Shows one dropdown per comparison column. Each dropdown lists every
+         * model in `tool-comparison.json`, alphabetized, and the table below
+         * compares the chosen models side by side across:
          * - Key strengths
          * - Limitations
          * - Best use cases
          * - Pricing
          *
-         * The modal updates dynamically as tools are selected/deselected via
-         * the `compareTools` state array.
+         * Column choices live in the `compareTools` state array, one entry per
+         * column.
          *
          * @function renderComparisonModal
          * @returns {void}
          */
         function renderComparisonModal() {
-            // Render tool selection buttons
-            const headerHTML = `
-                <h3 class="text-sm font-mono text-accent mb-4 tracking-widest">SELECT_TOOLS (MAX 3)</h3>
-                <div class="flex flex-wrap gap-2">
-                    ${Object.keys(toolComparisonData).map(tool => `
-                        <button class="px-3 py-1.5 text-sm font-medium transition-all compare-tool-btn ${compareTools.includes(tool) ? getPillClasses(tool) + ' ring-2 ring-offset-2 ring-offset-canvas ring-current' : 'bg-white/80 border border-ink/15 text-ink/75 hover:text-ink hover:border-ink/40'}" data-tool="${escapeAttr(tool)}">${sanitizeHTML(tool)}</button>
+            const allTools = Object.keys(toolComparisonData).sort((a, b) => a.localeCompare(b));
+            const selectClasses = 'appearance-none w-full bg-canvas border border-ink/15 text-sm text-ink py-2 px-3 focus:outline-none focus:border-accent transition-colors cursor-pointer';
+
+            const selectorsHTML = `
+                <h3 class="text-sm font-medium text-accent mb-1">Compare three models</h3>
+                <p class="text-sm text-mist mb-4">Pick a model for each column.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    ${compareTools.map((selected, column) => `
+                        <div>
+                            <label class="block text-xs text-mist mb-1" for="compare-select-${column}">Column ${column + 1}</label>
+                            <select id="compare-select-${column}" class="compare-select ${selectClasses}" data-column="${column}">
+                                <option value="">Choose a model</option>
+                                ${allTools.map(tool => `<option value="${escapeAttr(tool)}"${tool === selected ? ' selected' : ''}>${sanitizeHTML(tool)}</option>`).join('')}
+                            </select>
+                        </div>
                     `).join('')}
                 </div>`;
 
-            let tableHTML = '';
-            if (compareTools.length > 0) {
-                // Build comparison table when tools are selected
-                const features = ['strengths', 'weaknesses', 'bestFor', 'pricing'];
-                const featureNames = {
-                    strengths: 'Key strengths',
-                    weaknesses: 'Limitations',
-                    bestFor: 'Best use cases',
-                    pricing: 'Pricing'
-                };
-
-                tableHTML = `
-                    <div class="overflow-x-auto mt-6">
-                        <table class="min-w-full w-full text-left text-sm">
-                            <thead>
-                                <tr class="border-b border-ink/10">
-                                    <th class="py-3 font-mono text-xs text-mist tracking-wider">FEATURE</th>
-                                    ${compareTools.map(tool => `<th class="py-3"><span class="text-xs font-medium px-3 py-1 rounded-sm inline-block ${getPillClasses(tool)}">${sanitizeHTML(tool)}</span></th>`).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${features.map(feature => `
-                                    <tr class="align-top border-b border-ink/5">
-                                        <td class="py-4 pr-4 font-medium text-ink whitespace-nowrap">${featureNames[feature]}</td>
-                                        ${compareTools.map(tool => `<td class="py-4 pr-4 text-ink/85">${Array.isArray(toolComparisonData[tool][feature]) ? `<ul class="list-disc pl-5 space-y-1">${toolComparisonData[tool][feature].map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}</ul>` : sanitizeHTML(toolComparisonData[tool][feature])}</td>`).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>`;
-            } else {
-                // Show placeholder when no tools selected
-                tableHTML = `<div class="text-center p-8 bg-white/70 border border-ink/15 mt-6"><p class="text-ink/70 font-mono text-sm">Select up to three tools to compare their features side-by-side.</p></div>`;
-            }
-            modalBody.innerHTML = headerHTML + tableHTML;
+            modalBody.innerHTML = `${selectorsHTML}<div id="comparison-table" class="mt-6"></div>`;
+            renderComparisonTable();
         }
 
         /**
@@ -1362,7 +1413,7 @@ async function loadAllData() {
 
                 // Sidebar modal triggers (may also be in container on mobile)
                 if (id === 'show-comparison-btn') {
-                    compareTools = [];
+                    compareTools = defaultCompareTools();
                     showModal('Tool comparison', renderComparisonModal);
                     return;
                 }
@@ -1379,17 +1430,6 @@ async function loadAllData() {
                 if (classList.contains('modal-close-btn')) {
                     hideModal();
                     return;
-                }
-
-                // Tool comparison toggle
-                if (classList.contains('compare-tool-btn')) {
-                    const tool = button.dataset.tool;
-                    if (compareTools.includes(tool)) {
-                        compareTools = compareTools.filter(t => t !== tool);
-                    } else if (compareTools.length < 3) {
-                        compareTools.push(tool);
-                    }
-                    renderComparisonModal();
                 }
             });
 
@@ -1425,24 +1465,27 @@ async function loadAllData() {
                     return;
                 }
 
-                // Tool comparison toggles inside modal
-                if (button.classList.contains('compare-tool-btn')) {
-                    const tool = button.dataset.tool;
-                    if (compareTools.includes(tool)) {
-                        compareTools = compareTools.filter(t => t !== tool);
-                    } else if (compareTools.length < 3) {
-                        compareTools.push(tool);
-                    }
-                    renderComparisonModal();
-                    return;
-                }
-
                 // Model pills inside modal (for switching between models)
                 if (button.classList.contains('model-pill-btn')) {
                     const modelName = button.dataset.modelName;
                     showModal('Model information', renderModelInfoModal, modelName);
                     return;
                 }
+            });
+
+            // Comparison dropdowns live inside the modal, which sits outside
+            // #llm-tool-advisor-container, so the container's delegated listener
+            // never sees them. Delegate from the modal instead.
+            universalModal.addEventListener('change', e => {
+                const select = e.target.closest('.compare-select');
+                if (!select) return;
+
+                const column = Number(select.dataset.column);
+                if (!Number.isInteger(column) || column < 0 || column >= compareTools.length) return;
+
+                const value = select.value;
+                compareTools[column] = toolComparisonData[value] ? value : '';
+                renderComparisonTable();
             });
 
             // ----------------------------------------------------------------
@@ -1455,7 +1498,7 @@ async function loadAllData() {
 
             if (showComparisonBtn) {
                 showComparisonBtn.addEventListener('click', () => {
-                    compareTools = [];
+                    compareTools = defaultCompareTools();
                     showModal('Tool comparison', renderComparisonModal);
                 });
             }
