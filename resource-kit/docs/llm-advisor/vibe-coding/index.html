@@ -145,6 +145,13 @@
             background: var(--accent-surface);
             color: var(--on-slab);
         }
+
+        /* ring-canvas isn't compiled into tailwind.css: punches the timeline
+           dots out from the page ground using the token instead of a fixed
+           near-black ring, so it inverts with the theme. */
+        .ring-token-canvas {
+            --tw-ring-color: var(--canvas);
+        }
     </style>
 <script src="/assets/ask-ai.js" defer></script>
 </head>
@@ -159,7 +166,7 @@
     </div>
 
     <!-- Sidebar Navigation (Desktop Sticky / Mobile Drawer) -->
-    <nav id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 md:w-72 bg-[#0f0f11] border-r border-news-gray z-40 transition-transform duration-300 ease-in-out overflow-y-auto p-6 md:p-8">
+    <nav id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 md:w-72 bg-[#0f0f11] border-r border-canvas/20 z-40 transition-transform duration-300 ease-in-out overflow-y-auto p-6 md:p-8">
         <div class="hidden md:block mb-10">
             <div class="font-vibe-mono text-xs text-accent-green mb-1 opacity-70">GUIDE v1.0</div>
             <h1 class="font-vibe-sans font-bold text-2xl leading-tight">Vibe coding starter guide</h1>
@@ -495,35 +502,35 @@ Use standard SQL syntax that works in SQLite."</pre>
                 <h2 class="font-vibe-sans text-2xl font-bold mb-6 text-ink">The "scripts to full apps" progression</h2>
                 <ol class="relative border-l border-gray-700 ml-3 space-y-8">
                     <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-token-canvas">
                             <span class="text-accent-green font-bold text-xs">1</span>
                         </span>
                         <h3 class="font-bold text-ink mb-1">Start: Single-purpose scripts</h3>
                         <p class="text-gray-400 text-sm">Clean this CSV, scrape this page.</p>
                     </li>
                     <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-token-canvas">
                             <span class="text-accent-green font-bold text-xs">2</span>
                         </span>
                         <h3 class="font-bold text-ink mb-1">Combine: Chain scripts</h3>
                         <p class="text-gray-400 text-sm">Clean → Analyze → Visualize.</p>
                     </li>
                     <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-token-canvas">
                             <span class="text-accent-green font-bold text-xs">3</span>
                         </span>
                         <h3 class="font-bold text-ink mb-1">Automate: Schedule scripts</h3>
                         <p class="text-gray-400 text-sm">Run automatically (<span class="term" data-term="cron">cron jobs</span>, triggers).</p>
                     </li>
                     <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-token-canvas">
                             <span class="text-accent-green font-bold text-xs">4</span>
                         </span>
                         <h3 class="font-bold text-ink mb-1">Wrap: Web interface</h3>
                         <p class="text-gray-400 text-sm">Add a simple dashboard for your scripts.</p>
                     </li>
                     <li class="ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-news-bg">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-800 rounded-full -left-3 ring-4 ring-token-canvas">
                             <span class="text-accent-green font-bold text-xs">5</span>
                         </span>
                         <h3 class="font-bold text-ink mb-1">Deploy</h3>

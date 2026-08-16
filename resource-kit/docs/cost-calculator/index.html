@@ -47,6 +47,10 @@
             background: rgb(var(--ink-rgb) / 0.55);
             outline: none;
         }
+        input[type="range"]:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;

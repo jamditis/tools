@@ -67,6 +67,7 @@
     --accent: #8a3a2b;
     --accent-rgb: 138 58 43;
     --accent-surface: #8a3a2b;
+    --accent-surface-rgb: 138 58 43;
     --sage: #3d4b40;
     --sage-rgb: 61 75 64;
     --signal: #a8341f;
@@ -152,6 +153,7 @@
         --accent: #e4907c;
         --accent-rgb: 228 144 124;
         --accent-surface: #8f3d2c;
+        --accent-surface-rgb: 143 61 44;
         --sage: #9db89f;
         --sage-rgb: 157 184 159;
         --on-sage: var(--slab);
@@ -206,6 +208,7 @@
     --accent: #e4907c;
     --accent-rgb: 228 144 124;
     --accent-surface: #8f3d2c;
+    --accent-surface-rgb: 143 61 44;
     --sage: #9db89f;
     --sage-rgb: 157 184 159;
     --on-sage: var(--slab);
@@ -403,7 +406,15 @@ body {
  * keeps 7.3:1 (white) and 6.0:1 (cream) on the fill at night.
  */
 .bg-accent { background-color: var(--accent-surface); }
-.bg-accent\/70 { background-color: rgb(var(--accent-rgb) / 0.7); }
+/* /80 carries solid white text at near-opaque strength (the level-up page's
+   "2" badge), so it needs the same fill token as the solid state above, not
+   the ground-token --accent that goes light at night and fails white text
+   once composited. 70% alpha still let too much of a light day-theme card
+   bleed through (3.90:1 on white); 80% clears 4.5:1 in both themes (4.89
+   day / 8.83 night) while keeping a visible step down from the solid badge.
+   The lower alphas below stay on --accent: they are translucent washes read
+   against ground text, a different case. */
+.bg-accent\/80 { background-color: rgb(var(--accent-surface-rgb) / 0.8); }
 .bg-accent\/20 { background-color: rgb(var(--accent-rgb) / 0.2); }
 .bg-accent\/15 { background-color: rgb(var(--accent-rgb) / 0.15); }
 .bg-accent\/10 { background-color: rgb(var(--accent-rgb) / 0.1); }
@@ -425,7 +436,10 @@ body {
 .bg-ink\/90 { background-color: rgb(var(--slab-rgb) / 0.94); }
 .bg-ink\/80 { background-color: rgb(var(--slab-rgb) / 0.88); }
 .bg-ink\/50 { background-color: rgb(var(--slab-rgb) / 0.62); }
-.bg-ink\/40 { background-color: rgb(var(--slab-rgb) / 0.52); }
+/* 0.52 let a day-theme leaf card bleed through enough to fail white text at
+   3.85:1 (the level-up page's "3" badge); 0.6 clears 4.5:1 in both themes
+   (4.97 day / 18.61 night) and still sits below /50's 0.62. */
+.bg-ink\/40 { background-color: rgb(var(--slab-rgb) / 0.6); }
 .hover\:bg-ink:hover { background-color: var(--slab); }
 .group:hover .group-hover\:bg-ink { background-color: var(--slab); }
 
@@ -1182,25 +1196,26 @@ body {
    Inside a slab, text resolves to the on-slab family instead.
    ========================================================================== */
 
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-accent,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .hover\:text-accent:hover,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-acid { color: var(--accent-on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-accent,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:text-accent:hover,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-acid { color: var(--accent-on-slab); }
 
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-chrome { color: var(--on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:text-ink:hover,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-chrome { color: var(--on-slab); }
 
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-mist,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/80,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/75,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/70,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/60,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/55,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-ink\/50 { color: rgb(var(--on-slab-rgb) / 0.74); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-mist,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/80,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/75,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/70,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/60,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/55,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-ink\/50 { color: rgb(var(--on-slab-rgb) / 0.74); }
 
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-sage,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-signal,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-caution,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-info { color: var(--accent-on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-sage,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-signal,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-caution,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-info { color: var(--accent-on-slab); }
 
 /**
  * `text-white/N` only ever appears on slabs. The literal 40% step lands at
@@ -1214,25 +1229,25 @@ body {
 
 
 /* The semantic remap and the glossary term link also need lifting on a slab. */
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-500,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-green-600,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-500,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-red-600,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-300,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-500,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-blue-600,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-yellow-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-orange-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-amber-600,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term-link { color: var(--accent-on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-green-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-green-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-green-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-red-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-red-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-red-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-blue-300,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-blue-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-blue-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-blue-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-yellow-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-orange-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-amber-600,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .term-link { color: var(--accent-on-slab); }
 
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-300,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-400,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-500,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .text-gray-600 { color: rgb(var(--on-slab-rgb) / 0.74); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-gray-300,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-gray-400,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-gray-500,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-gray-600 { color: rgb(var(--on-slab-rgb) / 0.74); }
 
 
 /**
@@ -1240,8 +1255,8 @@ body {
  * a bare `.term-link` there would win the slab rule above on source order.
  * Repeating the class raises specificity without reaching for !important.
  */
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term-link.term-link,
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .term.term { color: var(--accent-on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .term-link.term-link,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .term.term { color: var(--accent-on-slab); }
 
 
 /**
@@ -1252,11 +1267,19 @@ body {
  * paper, lifting a dark code header to mid-grey and stranding the light text
  * on it. Inside a slab the tints use the night-paper strengths in both themes.
  */
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/5 { background-color: rgb(255 255 255 / 0.04); }
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/10 { background-color: rgb(255 255 255 / 0.07); }
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/20 { background-color: rgb(255 255 255 / 0.1); }
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/30 { background-color: rgb(255 255 255 / 0.13); }
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) .bg-white\/40 { background-color: rgb(255 255 255 / 0.16); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .bg-white\/5 { background-color: rgb(255 255 255 / 0.04); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .bg-white\/10 { background-color: rgb(255 255 255 / 0.07); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .bg-white\/20 { background-color: rgb(255 255 255 / 0.1); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .bg-white\/30 { background-color: rgb(255 255 255 / 0.13); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .bg-white\/40 { background-color: rgb(255 255 255 / 0.16); }
+
+/* The `hover:` variants of the same tint scale need the identical lift: a
+   nav link's hover:bg-white/5 inside the vibe-coding sidebar was resolving
+   to the day tint (40% white), flashing a near-opaque white bar on hover. */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:bg-white\/5:hover { background-color: rgb(255 255 255 / 0.04); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:bg-white\/20:hover { background-color: rgb(255 255 255 / 0.1); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:bg-white\/40:hover { background-color: rgb(255 255 255 / 0.16); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:bg-white\/60:hover { background-color: rgb(255 255 255 / 0.19); }
 
 /* Canvas alphas used as on-slab labels rather than decoration. */
 .text-canvas\/30 { color: rgb(var(--on-slab-rgb) / 0.55); }
@@ -1277,12 +1300,31 @@ body {
 .hover\:text-accent-green:hover { color: var(--sage); }
 .hover\:border-accent-green:hover { border-color: rgb(var(--sage-rgb) / 0.5); }
 
+/* The legacy green/blue pair also needs lifting on a slab, same as their
+   text-green-400 / text-blue-400 siblings above: --sage and --info are
+   ground tokens that go dark in the day palette, and stranded on a slab
+   (like the vibe-coding sidebar) that reads dark-on-dark. */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-accent-green,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:text-accent-green:hover,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .text-accent-blue { color: var(--accent-on-slab); }
+
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .border-accent-green,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .hover\:border-accent-green:hover,
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) .border-accent-blue { border-color: var(--accent-on-slab); }
+
 
 /**
  * Text inside a slab that inherits its colour rather than declaring one. Set at
  * zero specificity so any explicit utility on the element still wins.
  */
-:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink) { color: var(--on-slab); }
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) { color: var(--on-slab); }
+
+/* The shared focus ring uses day --accent, which measures ~2.35-2.48:1 on a
+   slab. Swap in accent-on-slab for any focusable element inside one so the
+   keyboard focus indicator stays visible. */
+:where(.bg-ink, .bg-ink\/90, .bg-ink\/80, .bg-ink\/50, .bg-\[\#121214\], .bg-\[\#18181b\], .bg-\[\#0f0f11\], .bg-\[\#0d1117\], .bg-\[\#1e1e1e\], .code-block, .code-window, .status-demo, footer.bg-ink, .bg-gray-800) :focus-visible {
+    outline-color: var(--accent-on-slab);
+}
 
 
 /* Final legibility passes on labels that were set too faint to read. */
