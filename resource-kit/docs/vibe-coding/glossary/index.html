@@ -165,7 +165,7 @@
 
     <!-- App Logic -->
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         const grid = document.getElementById('glossaryGrid');
         const searchInput = document.getElementById('searchInput');
@@ -268,7 +268,7 @@
             }
 
             // Re-init icons for new elements
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function copyDefinition(key) {

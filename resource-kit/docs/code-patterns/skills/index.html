@@ -462,7 +462,7 @@ Success patterns compound. What works once can work many times if documented pro
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Copy code functionality
         function copyCode(button, codeId) {
@@ -472,12 +472,12 @@ Success patterns compound. What works once can work many times if documented pro
             navigator.clipboard.writeText(text).then(() => {
                 button.innerHTML = '<i data-lucide="check" class="w-3 h-3 inline"></i> Copied!';
                 button.classList.add('copied');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
 
                 setTimeout(() => {
                     button.innerHTML = '<i data-lucide="copy" class="w-3 h-3 inline"></i> Copy';
                     button.classList.remove('copied');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             });
         }

@@ -223,11 +223,11 @@
     <script src="app.js"></script>
     <script>
         // Init Icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Additional UI logic if needed
         const observer = new MutationObserver(() => {
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         });
         observer.observe(document.getElementById('main-content'), { childList: true, subtree: true });
     </script>

@@ -491,17 +491,17 @@ echo "~\$$cost"</pre>
             navigator.clipboard.writeText(code).then(() => {
                 const btn = document.getElementById('copy-btn');
                 btn.querySelector('i').setAttribute('data-lucide', 'check');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
                 setTimeout(() => {
                     btn.querySelector('i').setAttribute('data-lucide', 'copy');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 1500);
             });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             update();
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
 
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {

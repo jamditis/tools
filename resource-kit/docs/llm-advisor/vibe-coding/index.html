@@ -777,7 +777,7 @@ Entries are grouped by date. Each individual entry must use the following struct
     <!-- Scripts -->
     <script>
         // Initialize Icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-toggle');
@@ -811,12 +811,12 @@ Entries are grouped by date. Each individual entry must use the following struct
             navigator.clipboard.writeText(text).then(() => {
                 button.innerHTML = `<i data-lucide="check" class="w-3 h-3"></i> COPIED`;
                 button.classList.add('text-green-400');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
 
                 setTimeout(() => {
                     button.innerHTML = originalContent;
                     button.classList.remove('text-green-400');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);

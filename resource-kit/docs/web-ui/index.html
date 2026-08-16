@@ -535,7 +535,7 @@
     </div>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Nav Scroll Logic
         const nav = document.getElementById('main-nav');

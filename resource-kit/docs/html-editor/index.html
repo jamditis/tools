@@ -617,7 +617,7 @@
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // DOM Elements
         const uploadZone = document.getElementById('upload-zone');
@@ -730,7 +730,7 @@
 
         function showWelcomeModal() {
             welcomeModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function closeWelcomeModal() {
@@ -789,7 +789,7 @@
             updateSettingsInputStates();
             settingsStatus.classList.add('hidden');
             settingsModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         function closeSettingsModal() {
@@ -1022,7 +1022,7 @@
                 });
             });
 
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Helper: get relative time
@@ -1042,7 +1042,7 @@
         function openRecentModal() {
             renderRecentSessionsList();
             recentModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Close recent modal
@@ -1375,7 +1375,7 @@
             });
 
             // Re-init icons
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Get display name (remove folder path for cleaner display)
@@ -1835,7 +1835,7 @@
             imageError.classList.add('hidden');
             imageUploadBtn.disabled = true;
             imageModal.classList.remove('hidden');
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Close image modal
@@ -1887,7 +1887,7 @@
                 });
             });
 
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch (e) {}
         }
 
         // Setup hover overlay buttons on images in editor

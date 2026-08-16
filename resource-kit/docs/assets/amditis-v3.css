@@ -52,10 +52,10 @@
 
 :root {
     /* Ground family — inverts between themes */
-    --canvas: #efe9dc;
-    --canvas-rgb: 239 233 220;
-    --leaf: #fbf8f1;
-    --leaf-rgb: 251 248 241;
+    --canvas: #f0e9d9;
+    --canvas-rgb: 240 233 217;
+    --leaf: #fbf7ec;
+    --leaf-rgb: 251 247 236;
     --ink: #1c1815;
     --ink-rgb: 28 24 21;
     --mist: #5d5548;
@@ -159,7 +159,7 @@
         --lift-2: 0 2px 0 rgba(0, 0, 0, 0.45), 0 12px 28px -18px rgba(0, 0, 0, 0.85);
         --lift-3: 0 3px 0 rgba(0, 0, 0, 0.5), 0 26px 50px -28px rgba(0, 0, 0, 0.95);
 
-        --grain-opacity: 0.2;
+        --grain-opacity: 0.1;
 
         color-scheme: dark;
     }
@@ -206,7 +206,7 @@
     --lift-2: 0 2px 0 rgba(0, 0, 0, 0.45), 0 12px 28px -18px rgba(0, 0, 0, 0.85);
     --lift-3: 0 3px 0 rgba(0, 0, 0, 0.5), 0 26px 50px -28px rgba(0, 0, 0, 0.95);
 
-    --grain-opacity: 0.2;
+    --grain-opacity: 0.1;
 
     color-scheme: dark;
 }
@@ -845,18 +845,23 @@ pre code { background: none; }
 .theme-toggle svg {
     width: 0.95rem;
     height: 0.95rem;
-    display: block;
 }
 
-.theme-toggle__night { display: none; }
-.theme-toggle__day { display: block; }
+/**
+ * Only one face shows at a time. These rules carry the same specificity as the
+ * sizing rule above so the display value is not fought over — `.theme-toggle
+ * svg { display: block }` would otherwise out-specify a bare class selector and
+ * leave both the sun and the moon visible.
+ */
+.theme-toggle .theme-toggle__day { display: block; }
+.theme-toggle .theme-toggle__night { display: none; }
 
-:root[data-theme="dark"] .theme-toggle__night { display: block; }
-:root[data-theme="dark"] .theme-toggle__day { display: none; }
+:root[data-theme="dark"] .theme-toggle .theme-toggle__night { display: block; }
+:root[data-theme="dark"] .theme-toggle .theme-toggle__day { display: none; }
 
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .theme-toggle__night { display: block; }
-    :root:not([data-theme="light"]) .theme-toggle__day { display: none; }
+    :root:not([data-theme="light"]) .theme-toggle .theme-toggle__night { display: block; }
+    :root:not([data-theme="light"]) .theme-toggle .theme-toggle__day { display: none; }
 }
 
 /**

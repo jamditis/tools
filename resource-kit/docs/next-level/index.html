@@ -540,7 +540,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
             } catch (error) {
                 console.error('Lucide icons failed to load', error);
             }

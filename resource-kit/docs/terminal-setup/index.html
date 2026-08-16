@@ -1519,7 +1519,7 @@ exit 0</code></pre>
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         document.querySelectorAll('.code-block pre').forEach(pre => {
             pre.tabIndex = 0;
@@ -1564,7 +1564,7 @@ exit 0</code></pre>
                 btn.innerHTML = '<span class="text-accent">Copied!</span>';
                 setTimeout(() => {
                     btn.innerHTML = originalText;
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             });
         }

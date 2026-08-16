@@ -922,7 +922,7 @@ GROUP BY author;</code></pre>
 
     <!-- Scripts -->
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Copy code function
         function copyCode(button) {
@@ -932,11 +932,11 @@ GROUP BY author;</code></pre>
             navigator.clipboard.writeText(text).then(() => {
                 const icon = button.querySelector('i');
                 icon.setAttribute('data-lucide', 'check');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
 
                 setTimeout(() => {
                     icon.setAttribute('data-lucide', 'copy');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             });
         }

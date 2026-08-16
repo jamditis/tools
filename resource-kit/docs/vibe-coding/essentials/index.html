@@ -928,7 +928,7 @@ fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
     <!-- Scripts -->
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Accordion functionality
         document.querySelectorAll('.accordion-trigger').forEach(trigger => {
@@ -952,12 +952,12 @@ fetch(<span class="text-gray-400">"https://api.openai.com/v1/chat"</span>, {
                 const originalHTML = button.innerHTML;
                 button.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> Copied';
                 button.classList.add('text-accent');
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch (e) {}
 
                 setTimeout(() => {
                     button.innerHTML = originalHTML;
                     button.classList.remove('text-accent');
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             });
         }

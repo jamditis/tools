@@ -91,44 +91,41 @@
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition-all duration-500">
+        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition-[padding,background-color] duration-500">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
                     <div>
                         <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
-                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
+                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.7</div>
                     </div>
                 </div>
                 <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
                     <a href="/about/" class="nav-link text-mist hover:text-ink transition-colors">About</a>
                     <a href="https://centerforcooperativemedia.org" class="text-mist hover:text-ink transition-colors">Home</a>
                 </nav>
-            <div data-theme-toggle-slot class="flex items-center"></div>
-                </div>
+                <div data-theme-toggle-slot class="flex items-center"></div>
+            </div>
         </header>
 
-        <!-- Hero -->
-        <section class="py-24 px-6 text-center border-b border-ink/10 relative overflow-hidden reveal-section">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
-
-            <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center animate-page-in">
-                <div class="inline-flex items-center px-4 py-1 mb-6 border border-ink/10 text-mist text-[10px] font-bold tracking-[0.4em] uppercase">
-                    System status: online
-                </div>
-                <h1 class="font-display fluid-title text-[11vw] md:text-[8.5vw] font-light leading-[0.85] tracking-tight mb-8 text-ink">
-                    AI tools for <br><span class="italic font-black">newsrooms.</span>
+        <!-- Masthead -->
+        <section class="pt-20 pb-16 px-6 border-b border-ink/10 relative overflow-hidden reveal-section">
+            <div class="max-w-7xl mx-auto relative z-10 animate-page-in">
+                <h1 class="font-display display-xl font-light text-ink mb-10">
+                    AI tools for <span class="italic font-black">newsrooms.</span>
                 </h1>
-                <p class="text-ink/70 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-10">
-                    Practical guides, templates, and reference materials for journalists building tools with AI assistance.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="/vibe-coding/" class="btn-primary">
-                        Start learning
-                    </a>
-                    <a href="/tool-stacks/" class="btn-outline">
-                        View tool stacks
-                    </a>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-end border-t border-ink/10 pt-8">
+                    <p class="md:col-span-7 text-ink/75 text-lg md:text-xl font-light leading-relaxed measure">
+                        Practical guides, templates, and reference materials for journalists building tools with AI assistance.
+                    </p>
+                    <div class="md:col-span-5 flex flex-col sm:flex-row md:justify-end gap-3">
+                        <a href="/vibe-coding/" class="btn-primary text-center">
+                            Start with vibe coding
+                        </a>
+                        <a href="/tool-stacks/" class="btn-outline text-center">
+                            View tool stacks
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -140,209 +137,121 @@
             <section class="reveal-section">
                 <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <h2 class="font-display text-4xl font-light italic">01 / Guides</h2>
-                    <span class="section-label">Primary modules</span>
+                    <span class="section-label">11 entries</span>
                 </div>
                 <p class="text-sm text-mist mb-8 max-w-2xl">Tutorials, reference materials, and documentation for working with AI coding assistants. Start with the Vibe Coding Guide to understand the mindset.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="border-t border-ink/10">
 
                     <!-- Card 1 - Vibe Coder's Guide -->
-                    <a href="/vibe-coding/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="terminal" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Vibe coding</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Vibe Coder's guide</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Everything you need to ship code with AI. Essentials, advanced skills, glossary, and cheat sheet.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Start vibing</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/vibe-coding/" class="index-entry group">
+                            <div class="index-entry__rubric">Guide</div>
+                            <div>
+                                <h4 class="index-entry__title">Vibe Coder's guide</h4>
+                                <p class="index-entry__blurb">The mindset, the essentials, advanced skills, a glossary, and a cheat sheet.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 2 - Terminal Setup -->
-                    <a href="/terminal-setup/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="terminal" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Setup guide</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Terminal setup</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Configure your terminal for Claude Code, Gemini CLI, and Codex. Mac/Windows setup and status line config.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Init terminal</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/terminal-setup/" class="index-entry group">
+                            <div class="index-entry__rubric">Setup guide</div>
+                            <div>
+                                <h4 class="index-entry__title">Terminal setup</h4>
+                                <p class="index-entry__blurb">Configure your terminal for Claude Code, Gemini CLI, and Codex. Mac/Windows setup and status line config.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 3 - Persistent sessions -->
-                    <a href="/persistent-sessions/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="layers" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Setup guide</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Persistent sessions</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Keep Claude Code running through disconnects with tmux. Setup for Cockpit and SSH terminals.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Stay connected</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/persistent-sessions/" class="index-entry group">
+                            <div class="index-entry__rubric">Setup guide</div>
+                            <div>
+                                <h4 class="index-entry__title">Persistent sessions</h4>
+                                <p class="index-entry__blurb">Keep Claude Code running through disconnects with tmux. Setup for Cockpit and SSH terminals.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 4 - Quick Reference -->
-                    <a href="/quick-reference-card/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="zap" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Cheat sheet</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Quick reference</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Printable one-page reference card. Essential info, workflow steps, and common pitfalls.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>View data</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/quick-reference-card/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">Quick reference</h4>
+                                <p class="index-entry__blurb">Printable one-page reference card. Essential info, workflow steps, and common pitfalls.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 4 - Language Guide -->
-                    <a href="/language-guide/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="code" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Docs</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Language guide</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                When to use Python vs JavaScript vs R. Practical guide for common journalism tasks.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Read file</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/language-guide/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">Language guide</h4>
+                                <p class="index-entry__blurb">When to use Python vs JavaScript vs R. Practical guide for common journalism tasks.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 5 - Glossary -->
-                    <a href="/glossary/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="book" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Database</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Technical glossary</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Plain-language definitions of 40+ technical terms. No jargon, just clear explanations.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Access DB</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/glossary/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">Technical glossary</h4>
+                                <p class="index-entry__blurb">Plain-language definitions of 40+ technical terms. No jargon, just clear explanations.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 6 - LLM Selection Guide -->
-                    <a href="/llm-advisor-doc/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="file-text" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Static doc</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">LLM selection guide</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Static documentation and decision matrices for choosing AI coding assistants.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Read file</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/llm-advisor-doc/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">LLM selection guide</h4>
+                                <p class="index-entry__blurb">Static documentation and decision matrices for choosing AI coding assistants.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 7 - Tool Stacks -->
-                    <a href="/tool-stacks/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="layers" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Dev toolkit</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Tool stacks</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Low-cost development stack for shipping projects. IDEs, databases, auth, deployment—all free or nearly free.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>View stack</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/tool-stacks/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">Tool stacks</h4>
+                                <p class="index-entry__blurb">Low-cost development stack for shipping projects. IDEs, databases, auth, deployment—all free or nearly free.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 8 - Code Patterns -->
-                    <a href="/code-patterns/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="git-branch" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Advanced</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Code patterns</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Seven battle-tested Claude Code patterns. Error logging, commands-as-apps, hooks, context hygiene, and more.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Load patterns</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/code-patterns/" class="index-entry group">
+                            <div class="index-entry__rubric">Patterns</div>
+                            <div>
+                                <h4 class="index-entry__title">Code patterns</h4>
+                                <p class="index-entry__blurb">Seven battle-tested Claude Code patterns. Error logging, commands-as-apps, hooks, context hygiene, and more.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 9 - Next level -->
-                    <a href="/next-level/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="trending-up" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Strategy</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Next level</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Going from AI sessions to AI systems. Autonomy, memory discipline, review stacks, and verification standards.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Level up</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/next-level/" class="index-entry group">
+                            <div class="index-entry__rubric">Guide</div>
+                            <div>
+                                <h4 class="index-entry__title">Next level</h4>
+                                <p class="index-entry__blurb">Going from AI sessions to AI systems. Autonomy, memory discipline, review stacks, and verification standards.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Card 10 - Web UI Principles -->
-                    <a href="/web-ui/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="sparkles" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Design</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Web UI taste</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                18 signs of taste in web interfaces. The details that separate polished UIs from everything else.
-                            </p>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Read principles</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                        <a href="/web-ui/" class="index-entry group">
+                            <div class="index-entry__rubric">Reference</div>
+                            <div>
+                                <h4 class="index-entry__title">Web UI taste</h4>
+                                <p class="index-entry__blurb">18 signs of taste in web interfaces. The details that separate polished UIs from everything else.</p>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                 </div>
             </section>
@@ -357,43 +266,19 @@
                 </div>
                 <p class="text-sm text-mist mb-8 max-w-2xl relative z-10">Build tools faster with Claude Code—Anthropic's AI coding assistant that runs in your terminal. It reads your files, executes code, and iterates autonomously.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
-                    <!-- Feature 1: Plan Mode -->
-                    <div class="border border-ink/10 bg-white/30 p-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="map" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-display font-bold text-ink">Plan mode</span>
-                        </div>
-                        <p class="text-xs text-mist">Use <code class="text-accent bg-white/50 px-1">/plan</code> to have Claude explore your codebase and design architecture before coding.</p>
-                    </div>
+                <dl class="spec-list relative z-10 border-t border-ink/10 pt-6">
+                    <dt>Plan mode</dt>
+                    <dd class="mb-6">Use <code>/plan</code> to have Claude explore your codebase and design architecture before writing anything.</dd>
 
-                    <!-- Feature 2: Hooks -->
-                    <div class="border border-ink/10 bg-white/30 p-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="webhook" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-display font-bold text-ink">Hooks</span>
-                        </div>
-                        <p class="text-xs text-mist">Automate validation with PreToolUse/PostToolUse hooks that run on every edit.</p>
-                    </div>
+                    <dt>Hooks</dt>
+                    <dd class="mb-6">Automate validation with PreToolUse and PostToolUse hooks that run on every edit.</dd>
 
-                    <!-- Feature 3: Skills -->
-                    <div class="border border-ink/10 bg-white/30 p-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-display font-bold text-ink">Skills</span>
-                        </div>
-                        <p class="text-xs text-mist">Teach Claude specialized knowledge with reusable skills in <code class="text-accent bg-white/50 px-1">.claude/skills/</code>.</p>
-                    </div>
+                    <dt>Skills</dt>
+                    <dd class="mb-6">Teach Claude specialised knowledge with reusable skills in <code>.claude/skills/</code>.</dd>
 
-                    <!-- Feature 4: Background Tasks -->
-                    <div class="border border-ink/10 bg-white/30 p-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i data-lucide="layers" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-display font-bold text-ink">Background tasks</span>
-                        </div>
-                        <p class="text-xs text-mist">Press <code class="text-accent bg-white/50 px-1">Ctrl+B</code> to run tasks in background while you keep working.</p>
-                    </div>
-                </div>
+                    <dt>Background tasks</dt>
+                    <dd class="mb-8">Press <code>Ctrl+B</code> to run a task in the background while you keep working.</dd>
+                </dl>
 
                 <div class="mt-6 flex flex-wrap gap-4 relative z-10">
                     <a href="downloads/CLAUDE-CODE-QUICKREF.md" download class="btn-primary flex items-center gap-2">
@@ -412,263 +297,170 @@
             <section class="reveal-section">
                 <div class="section-header flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <h2 class="font-display text-4xl font-light italic">02 / My tools</h2>
-                    <span class="section-label">External applications</span>
+                    <span class="section-label">11 entries</span>
                 </div>
                 <p class="text-sm text-mist mb-8 max-w-2xl">Standalone tools I've built for journalism and data work. These live at their own domains but share the same design philosophy.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border-t border-ink/10">
 
                     <!-- Claude Max savings calculator -->
-                    <a href="/cost-calculator/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="dollar-sign" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Decision tool</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Claude Max savings calculator</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                See what your Claude usage would cost at API rates vs the Max subscription. Adjust model, sessions, and cache rate to find your break-even point.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Interactive</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Prompt caching</span>
+                        <a href="/cost-calculator/" class="index-entry group">
+                            <div class="index-entry__rubric">Web app</div>
+                            <div>
+                                <h4 class="index-entry__title">Claude Max savings calculator</h4>
+                                <p class="index-entry__blurb">See what your Claude usage would cost at API rates vs the Max subscription. Adjust model, sessions, and cache rate to find your break-even point.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Interactive</span>
+                                <span class="stamp">Prompt caching</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Calculate savings</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Journalism Skills -->
-                    <a href="https://skills.amditis.tech/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="newspaper" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Claude skills</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Journalism skills</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                62 agent skills, 12 plugins, and 17 hooks for journalists, researchers, and media professionals. Claude and Codex support included.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">62 Skills</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">12 Plugins</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">17 Hooks</span>
+                        <a href="https://skills.amditis.tech/" target="_blank" rel="noopener noreferrer" class="index-entry group">
+                            <div class="index-entry__rubric">Skill library</div>
+                            <div>
+                                <h4 class="index-entry__title">Journalism skills</h4>
+                                <p class="index-entry__blurb">62 agent skills, 12 plugins, and 17 hooks for journalists, researchers, and media professionals. Claude and Codex support included.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">62 Skills</span>
+                                <span class="stamp">12 Plugins</span>
+                                <span class="stamp">17 Hooks</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Browse skills</span>
-                            <span>&nearr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&nearr;</div>
+                        </a>
 
                     <!-- Codex code review field guide -->
-                    <a href="https://codex.amditis.tech/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <svg viewBox="0 0 70 70" class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
-                                <path d="M35 66 C34 48 34 30 35 16" stroke-width="4"/>
-                                <path d="M35 40 C20 34 18 22 27 12" stroke-width="3"/>
-                                <path d="M35 44 C50 38 52 26 43 15" stroke-width="3"/>
-                                <rect x="31" y="4" width="8" height="16" rx="4" fill="#7a4a22" stroke="none"/>
-                            </svg>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] font-bold tracking-[0.3em] uppercase mb-3" style="color:#a75f30">Field guide</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Codex code review</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                How I set up OpenAI's Codex for code review, the exact command I run, and the token math behind routing the heavy work to it. Written for engineers and for everyone.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Field-tested</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Code review</span>
+                        <a href="https://codex.amditis.tech/" target="_blank" rel="noopener noreferrer" class="index-entry group">
+                            <div class="index-entry__rubric">Essay</div>
+                            <div>
+                                <h4 class="index-entry__title">Codex code review</h4>
+                                <p class="index-entry__blurb">How I set up OpenAI's Codex for code review, the exact command I run, and the token math behind routing the heavy work to it. Written for engineers and for everyone.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Field-tested</span>
+                                <span class="stamp">Code review</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Read the field guide</span>
-                            <span>&nearr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&nearr;</div>
+                        </a>
 
                     <!-- LLM Advisor -->
-                    <a href="/llm-advisor/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="bot" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Decision engine</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">LLM Advisor</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Decision support system for choosing the right LLM and approach for your newsroom project.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">JavaScript</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Decision Tree</span>
+                        <a href="/llm-advisor/" class="index-entry group">
+                            <div class="index-entry__rubric">Web app</div>
+                            <div>
+                                <h4 class="index-entry__title">LLM Advisor</h4>
+                                <p class="index-entry__blurb">Decision support system for choosing the right LLM and approach for your newsroom project.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">JavaScript</span>
+                                <span class="stamp">Decision Tree</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Launch app</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Python Explorer -->
-                    <a href="https://jamditis.github.io/python-explorer/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="library" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Library database</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Python Explorer</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Interactive directory of Python libraries across 8+ domains. Browse, search, and compare packages.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">JavaScript</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Search</span>
+                        <a href="https://jamditis.github.io/python-explorer/" target="_blank" rel="noopener noreferrer" class="index-entry group">
+                            <div class="index-entry__rubric">Web app</div>
+                            <div>
+                                <h4 class="index-entry__title">Python Explorer</h4>
+                                <p class="index-entry__blurb">Interactive directory of Python libraries across 8+ domains. Browse, search, and compare packages.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">JavaScript</span>
+                                <span class="stamp">Search</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Explore DB</span>
-                            <span>&nearr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&nearr;</div>
+                        </a>
 
                     <!-- AudioBash -->
-                    <a href="https://audiobash.app/" target="_blank" rel="noopener noreferrer" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="mic" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Voice terminal</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">AudioBash</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Voice-controlled desktop terminal. Speak commands, execute instantly with AI-powered context awareness.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Electron</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">React</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">TypeScript</span>
+                        <a href="https://audiobash.app/" target="_blank" rel="noopener noreferrer" class="index-entry group">
+                            <div class="index-entry__rubric">Desktop app</div>
+                            <div>
+                                <h4 class="index-entry__title">AudioBash</h4>
+                                <p class="index-entry__blurb">Voice-controlled desktop terminal. Speak commands, execute instantly with AI-powered context awareness.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Electron</span>
+                                <span class="stamp">React</span>
+                                <span class="stamp">TypeScript</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Launch app</span>
-                            <span>&nearr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&nearr;</div>
+                        </a>
 
                     <!-- LinkSweepr -->
-                    <a href="/linksweepr/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="eraser" class="w-6 h-6" aria-hidden="true"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Chrome extension</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">LinkSweepr</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Keep the domains you choose out of your browsing history, automatically and on-device. The sites keep working and you stay signed in.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Manifest V3</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Local-only</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">MIT</span>
+                        <a href="/linksweepr/" class="index-entry group">
+                            <div class="index-entry__rubric">Chrome extension</div>
+                            <div>
+                                <h4 class="index-entry__title">LinkSweepr</h4>
+                                <p class="index-entry__blurb">Keep the domains you choose out of your browsing history, automatically and on-device. The sites keep working and you stay signed in.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Manifest V3</span>
+                                <span class="stamp">Local-only</span>
+                                <span class="stamp">MIT</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>View details</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- SocialSnag -->
-                    <a href="/socialsnag/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="download" class="w-6 h-6" aria-hidden="true"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Chrome extension</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">SocialSnag</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                Right-click to download full-resolution images and videos from Instagram, Twitter/X, Facebook, and Bluesky. No copy-pasting URLs.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Manifest V3</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">ESM</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Tested</span>
+                        <a href="/socialsnag/" class="index-entry group">
+                            <div class="index-entry__rubric">Chrome extension</div>
+                            <div>
+                                <h4 class="index-entry__title">SocialSnag</h4>
+                                <p class="index-entry__blurb">Right-click to download full-resolution images and videos from Instagram, Twitter/X, Facebook, and Bluesky. No copy-pasting URLs.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Manifest V3</span>
+                                <span class="stamp">ESM</span>
+                                <span class="stamp">Tested</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>View details</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- PocketLink -->
-                    <a href="/pocketlink/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="link" class="w-6 h-6" aria-hidden="true"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Chrome extension</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">PocketLink</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                One click turns the current page into a Bit.ly shortlink and copies it to your clipboard, from the toolbar or the right-click menu.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Manifest V3</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Bit.ly</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Offscreen API</span>
+                        <a href="/pocketlink/" class="index-entry group">
+                            <div class="index-entry__rubric">Chrome extension</div>
+                            <div>
+                                <h4 class="index-entry__title">PocketLink</h4>
+                                <p class="index-entry__blurb">One click turns the current page into a Bit.ly shortlink and copies it to your clipboard, from the toolbar or the right-click menu.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">Manifest V3</span>
+                                <span class="stamp">Bit.ly</span>
+                                <span class="stamp">Offscreen API</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>View details</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Database & Systems Glossary -->
-                    <a href="/vibe-coding/glossary-database/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="database" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Interactive glossary</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Database & systems glossary</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                From indexing to consensus — the vocabulary of distributed systems and data engineering. 73 terms with animated diagrams.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">73 Terms</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">SVG animations</span>
+                        <a href="/vibe-coding/glossary-database/" class="index-entry group">
+                            <div class="index-entry__rubric">Glossary</div>
+                            <div>
+                                <h4 class="index-entry__title">Database & systems glossary</h4>
+                                <p class="index-entry__blurb">From indexing to consensus — the vocabulary of distributed systems and data engineering. 73 terms with animated diagrams.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">73 Terms</span>
+                                <span class="stamp">SVG animations</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Browse glossary</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                     <!-- Frontend Engineering Glossary -->
-                    <a href="/vibe-coding/glossary-frontend/" class="group block deckle-card hover:border-accent transition-all duration-300 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-30 group-hover:opacity-100 transition-opacity text-accent">
-                            <i data-lucide="layers" class="w-6 h-6"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Interactive glossary</div>
-                            <h4 class="font-display text-xl text-ink font-bold mb-3 group-hover:text-accent transition-colors">Frontend engineering glossary</h4>
-                            <p class="text-sm text-mist leading-relaxed">
-                                From hydration to CRDT — the deep vocabulary of modern frontend development. Animated SVG illustrations for every concept.
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">SVG animations</span>
-                                <span class="px-2 py-0.5 bg-white/30 text-xs text-mist border border-ink/10">Deep reference</span>
+                        <a href="/vibe-coding/glossary-frontend/" class="index-entry group">
+                            <div class="index-entry__rubric">Glossary</div>
+                            <div>
+                                <h4 class="index-entry__title">Frontend engineering glossary</h4>
+                                <p class="index-entry__blurb">From hydration to CRDT — the deep vocabulary of modern frontend development. Animated SVG illustrations for every concept.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="stamp">SVG animations</span>
+                                <span class="stamp">Deep reference</span>
                             </div>
-                        </div>
-                        <div class="bg-white/20 px-6 py-2 border-t border-ink/5 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-mist group-hover:text-accent transition-colors">
-                            <span>Browse glossary</span>
-                            <span>&rarr;</span>
-                        </div>
-                    </a>
+                            </div>
+                            <div class="index-entry__folio" aria-hidden="true">&rarr;</div>
+                        </a>
 
                 </div>
             </section>
@@ -1068,7 +860,7 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
     </div>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Nav Scroll Logic
         const nav = document.getElementById('main-nav');

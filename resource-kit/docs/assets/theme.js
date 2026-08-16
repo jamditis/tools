@@ -123,6 +123,26 @@
         return button;
     }
 
+    /**
+     * Reveals any `.reveal-section` that is already on screen but has not been
+     * marked visible.
+     *
+     * Pages run their own IntersectionObserver inside the same script block as
+     * `lucide.createIcons()`. If the icon CDN fails, that call throws, the rest
+     * of the block never runs, and every section stays at `opacity: 0` — a
+     * blank page. This file has no external dependency, so it can act as the
+     * backstop: content wins over the entrance animation.
+     */
+    function revealFallback() {
+        var sections = document.querySelectorAll('.reveal-section:not(.visible)');
+        for (var i = 0; i < sections.length; i += 1) {
+            var box = sections[i].getBoundingClientRect();
+            if (box.top < window.innerHeight && box.bottom > 0) {
+                sections[i].classList.add('visible');
+            }
+        }
+    }
+
     function init() {
         var slots = document.querySelectorAll('[data-theme-toggle-slot]');
 
@@ -158,6 +178,10 @@
                 query.addListener(onChange);
             }
         }
+
+        /* Give each page's own observer a moment before stepping in. */
+        window.setTimeout(revealFallback, 1200);
+        window.addEventListener('scroll', revealFallback, { passive: true });
     }
 
     if (document.readyState === 'loading') {

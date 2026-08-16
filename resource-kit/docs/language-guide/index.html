@@ -526,7 +526,7 @@ find . -mtime <span class="text-orange-400">0</span> -type f</code></pre>
     </footer>
 
     <script>
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         function copyCode(btn) {
             const pre = btn.closest('.relative, .group').querySelector('pre');
@@ -537,7 +537,7 @@ find . -mtime <span class="text-orange-400">0</span> -type f</code></pre>
                 btn.innerHTML = `<span class="text-accent">Copied</span>`;
                 setTimeout(() => {
                     btn.innerHTML = originalHtml;
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch (e) {}
                 }, 2000);
             });
         }

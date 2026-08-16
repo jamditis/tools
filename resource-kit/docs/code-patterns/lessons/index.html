@@ -762,7 +762,7 @@ fi</code></pre>
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch (e) {}
 
         // Accordion functionality
         function toggleAccordion(lessonId) {
