@@ -389,47 +389,55 @@ async function loadAllData() {
          *
          * @function getPillClasses
          * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 5")
-         * @returns {string} Tailwind CSS classes for background and text color
+         * @returns {string} A provider pill class defined in amditis-v3.css
          *
          * @example
-         * getPillClasses('Claude Opus 5')  // Returns 'bg-[#d9843b] text-white'
-         * getPillClasses('Unknown Tool')     // Returns 'bg-slate-700 text-slate-300'
+         * getPillClasses('Claude Opus 5')  // Returns 'pill-anthropic'
+         * getPillClasses('Unknown Tool')     // Returns 'pill-neutral'
          */
         const getPillClasses = (tool) => {
-             // Map of tool name fragments to their brand colors
+             /**
+              * Map of tool name fragments to their provider colours.
+              *
+              * The hue encodes the provider family, which is real information, so
+              * it is kept. The lightness is not: several V2 fills carried white
+              * text at 2.5-3.5:1, well under WCAG AA. Each fill is darkened along
+              * its own hue until white text clears 4.6:1. These are solid fills,
+              * so one value serves both the day and night palettes.
+              */
              const toolColorMap = {
-                 'Claude': 'bg-[#d9843b] text-white',       // Anthropic orange
-                 'Gemini': 'bg-[#369a8b] text-white',       // Google teal
-                 'Nano Banana': 'bg-[#369a8b] text-white',  // Alias for Gemini
-                 'Codex': 'bg-slate-500 text-white',        // OpenAI neutral
-                 'GPT-5.6 Sol': 'bg-slate-500 text-white',      // OpenAI neutral
-                 'GLM': 'bg-orange-500 text-white',         // Open-weight GLM family
-                 'Qwen': 'bg-orange-500 text-white',        // Open-weight Qwen family
-                 'Kimi': 'bg-orange-500 text-white',        // Open-weight Kimi family
-                 'MiniMax': 'bg-orange-500 text-white',     // Open-weight MiniMax family
-                 'Step-': 'bg-orange-500 text-white',       // Open-weight StepFun family
-                 'MiMo': 'bg-orange-500 text-white',        // Open-weight Xiaomi family
-                 'Tencent Hy3': 'bg-orange-500 text-white', // Open-weight Tencent family
-                 'Command A+': 'bg-orange-500 text-white',  // Open-weight Cohere family
-                 'Nemotron': 'bg-orange-500 text-white',    // Open-weight NVIDIA family
-                 'Llama 4': 'bg-orange-500 text-white',     // Open-weight Meta family
-                 'GPT': 'bg-slate-500 text-white',          // OpenAI neutral
-                 'Grok': 'bg-blue-500 text-white',          // xAI blue
-                 'DeepSeek': 'bg-[#615EFC] text-white',     // DeepSeek purple
-                 'Mistral': 'bg-pink-500 text-white',       // Mistral pink
-                 'Perplexity': 'bg-violet-500 text-white',  // Perplexity violet
-                 'ElevenLabs': 'bg-emerald-500 text-white', // ElevenLabs green
-                 'Midjourney': 'bg-indigo-600 text-white',  // Midjourney indigo
-                 'NotebookLM': 'bg-slate-600 text-white',   // Google NotebookLM
-                 'Custom AI': 'bg-gray-500 text-gray-100',  // Generic custom
-                 'RAG-enabled': 'bg-gray-500 text-white',   // RAG systems
-                 'Open Source': 'bg-orange-500 text-white', // Legacy open-source label
-                 'open weights': 'bg-orange-500 text-white' // Generic open-weight label
+                 'Claude': 'pill-anthropic',       // Anthropic orange
+                 'Gemini': 'pill-google',          // Google teal
+                 'Nano Banana': 'pill-google',     // Alias for Gemini
+                 'Codex': 'pill-openai',           // OpenAI neutral
+                 'GPT-5.6 Sol': 'pill-openai',     // OpenAI neutral
+                 'GLM': 'pill-open-weight',        // Open-weight GLM family
+                 'Qwen': 'pill-open-weight',       // Open-weight Qwen family
+                 'Kimi': 'pill-open-weight',       // Open-weight Kimi family
+                 'MiniMax': 'pill-open-weight',    // Open-weight MiniMax family
+                 'Step-': 'pill-open-weight',      // Open-weight StepFun family
+                 'MiMo': 'pill-open-weight',       // Open-weight Xiaomi family
+                 'Tencent Hy3': 'pill-open-weight', // Open-weight Tencent family
+                 'Command A+': 'pill-open-weight', // Open-weight Cohere family
+                 'Nemotron': 'pill-open-weight',   // Open-weight NVIDIA family
+                 'Llama 4': 'pill-open-weight',    // Open-weight Meta family
+                 'GPT': 'pill-openai',             // OpenAI neutral
+                 'Grok': 'pill-xai',               // xAI blue
+                 'DeepSeek': 'pill-deepseek',      // DeepSeek purple
+                 'Mistral': 'pill-mistral',        // Mistral pink
+                 'Perplexity': 'pill-perplexity',  // Perplexity violet
+                 'ElevenLabs': 'pill-elevenlabs',  // ElevenLabs green
+                 'Midjourney': 'pill-midjourney',  // Midjourney indigo
+                 'NotebookLM': 'pill-notebooklm',  // Google NotebookLM
+                 'Custom AI': 'pill-neutral',      // Generic custom
+                 'RAG-enabled': 'pill-neutral',    // RAG systems
+                 'Open Source': 'pill-open-weight', // Legacy open-source label
+                 'open weights': 'pill-open-weight' // Generic open-weight label
              };
 
              // Find the first matching key using partial string match
              const key = Object.keys(toolColorMap).find(k => tool.includes(k));
-             return key ? toolColorMap[key] : 'bg-slate-700 text-slate-300';
+             return key ? toolColorMap[key] : 'pill-neutral';
         };
 
         /**
@@ -634,27 +642,26 @@ async function loadAllData() {
                 const trackColor = getTrackColor(option.track || currentTrack);
 
                 return `
-                <button class="option-button group w-full text-left p-5 transition-all duration-200 flex justify-between items-center bg-white/40 border border-ink/10 hover:border-accent hover:bg-white/60"
+                <button class="option-button group w-full text-left py-4 flex justify-between items-baseline gap-4 border-b border-ink/10 hover:bg-ink/5 transition-colors duration-200"
                         data-next="${option.next}"
                         data-text="${sanitizeHTML(option.text)}"
                         data-tools='${toolsJSON}'
                         data-track="${option.track || currentTrack}"
                         style="animation-delay: ${index * 50}ms">
-                    <div class="flex items-center gap-4">
-                        <span class="text-xs font-mono text-mist group-hover:text-accent transition-colors">0${index + 1}</span>
-                        <span class="font-display text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 ml-2 text-mist group-hover:text-accent group-hover:translate-x-1 transition-all"><path d="m9 18 6-6-6-6"/></svg>
+                    <span class="font-display text-lg text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 text-mist group-hover:text-accent transition-colors" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
                 </button>`;
             }).join('');
 
-            // Render question header with step counter and options
+            // Render question header with step counter and options. The counter
+            // is a real position in the reader's path, so it is set as a folio
+            // rather than the `QUERY_01` console label V2 used.
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">QUERY_${String(history.length + 1).padStart(2, '0')}</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">${sanitizeHTML(node.question)}</h2>
+                    <div class="folio mb-3">Step ${String(history.length + 1).padStart(2, '0')}</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink">${sanitizeHTML(node.question)}</h2>
                 </div>
-                <div class="space-y-3">${optionsHTML}</div>`;
+                <div class="border-t border-ink/10">${optionsHTML}</div>`;
         }
 
         /**
@@ -674,48 +681,40 @@ async function loadAllData() {
         function renderRecommendationView() {
             // Generate HTML for each recommended tool card
             let toolsHTML = selectedTools.map((tool, index) => `
-                <div class="recommendation-card border border-ink/10 bg-white/40 p-6 transition-all duration-300 relative overflow-hidden" style="animation-delay: ${index * 100}ms">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
-                    <div class="pl-4">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-8 h-8 bg-accent/20 border border-accent flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 20s-8-4.5-8-12.5A8 8 0 0 1 12 4a8 8 0 0 1 8 8.5c0 8-8 12.5-8 12.5z"/><circle cx="12" cy="11" r="2"/></svg>
-                            </div>
-                            <h3 class="font-display text-xl text-ink tracking-wide">${sanitizeHTML(tool.name)}</h3>
-                        </div>
-                        <p class="text-sm text-mist mb-6 leading-relaxed">${sanitizeHTML(tool.description)}</p>
+                <div class="recommendation-card deckle-card-solid p-6 md:p-8" style="animation-delay: ${index * 100}ms">
+                    <h3 class="font-display text-2xl text-ink mb-3">${sanitizeHTML(tool.name)}</h3>
+                    <p class="text-sm text-mist mb-8 leading-relaxed measure">${sanitizeHTML(tool.description)}</p>
 
-                        <div class="mb-6">
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">RECOMMENDED_MODELS</h4>
-                            <div class="flex flex-wrap gap-2">
-                                ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
-                            </div>
+                    <div class="note note--accent">
+                        <span class="note__label">Recommended models</span>
+                        <div class="flex flex-wrap gap-2">
+                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
                         </div>
-
-                        <div class="mb-6">
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">SAMPLE_PROMPT</h4>
-                            <code class="block text-sm text-ink whitespace-pre-wrap font-mono bg-white/50 border border-ink/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
-                        </div>
-
-                        ${tool.tips ? `
-                        <div>
-                            <h4 class="text-xs font-mono text-accent mb-3 tracking-widest">PRO_TIPS</h4>
-                            <p class="text-sm text-mist leading-relaxed border-l-2 border-accent/30 pl-4">${sanitizeHTML(tool.tips)}</p>
-                        </div>` : ''}
                     </div>
+
+                    <div class="note">
+                        <span class="note__label">Sample prompt</span>
+                        <code class="block text-sm text-ink whitespace-pre-wrap font-mono bg-ink/5 border border-ink/10 p-4 leading-relaxed">${sanitizeHTML(tool.prompt)}</code>
+                    </div>
+
+                    ${tool.tips ? `
+                    <div class="note note--sage">
+                        <span class="note__label">Tips</span>
+                        <p class="text-sm text-mist leading-relaxed measure">${sanitizeHTML(tool.tips)}</p>
+                    </div>` : ''}
                 </div>`).join('');
 
             // Render the complete recommendation view with header and restart button
             mainContent.innerHTML = `
                 <div class="mb-8">
-                    <div class="text-xs font-mono text-accent mb-2 tracking-widest">ANALYSIS_COMPLETE</div>
-                    <h2 class="font-display text-2xl sm:text-3xl text-ink tracking-wide">Recommended tools and approaches</h2>
+                    <div class="folio mb-3">Result</div>
+                    <h2 class="font-display text-2xl sm:text-3xl text-ink">Recommended tools and approaches</h2>
                 </div>
-                <div class="space-y-6">${toolsHTML}</div>
-                <div class="mt-8 pt-6 border-t border-ink/10">
-                    <button id="restart-from-rec-btn" class="flex items-center gap-2 px-6 py-3 text-sm font-mono bg-white/40 border border-ink/10 text-mist hover:text-accent hover:border-accent transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                        [ START_NEW_QUERY ]
+                <div class="space-y-8">${toolsHTML}</div>
+                <div class="mt-10 pt-6 border-t border-ink/10">
+                    <button id="restart-from-rec-btn" class="btn-outline inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        Start a new query
                     </button>
                 </div>`;
         }
@@ -1128,7 +1127,7 @@ async function loadAllData() {
 
             // Update progress bar
             progressBar.style.width = `${progress}%`;
-            progressBar.className = 'absolute top-0 left-0 h-full bg-accent transition-all duration-500';
+            progressBar.className = 'absolute top-0 left-0 h-full bg-accent transition-[width] duration-500';
 
             // Update back button state
             backBtn.disabled = history.length === 0;

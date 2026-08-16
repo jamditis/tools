@@ -936,3 +936,45 @@ pre code { background: none; }
 
     .animate-drift { animation: none !important; }
 }
+
+/* ==========================================================================
+   11. PROVIDER PILLS
+   ==========================================================================
+
+   The advisor colour-codes model names by provider family, which is real
+   information rather than decoration, so the hues are kept. The lightness is
+   not: several V2 fills carried white text at 2.5-3.5:1, under WCAG AA. Each
+   fill is darkened along its own hue until white text clears 4.6:1.
+
+   These are declared here rather than as arbitrary Tailwind values because
+   `tailwind.css` is a build artefact this repo cannot regenerate — a class
+   like `bg-[#ab6121]` that is not already compiled into it does nothing.
+   ========================================================================== */
+
+.pill-anthropic,
+.pill-google,
+.pill-openai,
+.pill-open-weight,
+.pill-xai,
+.pill-deepseek,
+.pill-mistral,
+.pill-perplexity,
+.pill-elevenlabs,
+.pill-midjourney,
+.pill-notebooklm,
+.pill-neutral {
+    color: #ffffff;
+}
+
+.pill-anthropic { background-color: #ab6121; }   /* 4.70:1 */
+.pill-google { background-color: #2d8073; }      /* 4.72:1 */
+.pill-openai { background-color: #5c6b80; }      /* 5.30:1 */
+.pill-open-weight { background-color: #c35305; } /* 4.61:1 */
+.pill-xai { background-color: #196cf4; }         /* 4.67:1 */
+.pill-deepseek { background-color: #615efc; }    /* 4.65:1 */
+.pill-mistral { background-color: #db1778; }     /* 4.77:1 */
+.pill-perplexity { background-color: #8452f5; }  /* 4.66:1 */
+.pill-elevenlabs { background-color: #0c855d; }  /* 4.64:1 */
+.pill-midjourney { background-color: #4f46e5; }  /* 6.29:1 */
+.pill-notebooklm { background-color: #475569; }  /* 7.58:1 */
+.pill-neutral { background-color: #5f6772; }     /* 5.16:1 */
