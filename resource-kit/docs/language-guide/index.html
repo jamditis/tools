@@ -20,6 +20,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -44,6 +57,7 @@
                 </a>
             </div>
 
+            <div class="flex items-center gap-5">
             <nav class="p-6 space-y-1 text-sm">
                 <a href="/" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Dashboard</a>
                 <a href="#summary" class="block px-3 py-2 text-accent border-l-2 border-accent bg-accent/5">Short answer</a>
@@ -56,6 +70,8 @@
                 <a href="#mixing" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Pipelines</a>
                 <a href="#getting-started" class="block px-3 py-2 text-ink/50 hover:text-ink border-l-2 border-transparent hover:border-ink/20 transition-all">Getting started</a>
             </nav>
+                <div data-theme-toggle-slot class="flex items-center"></div>
+            </div>
         </aside>
 
         <!-- Main Content -->

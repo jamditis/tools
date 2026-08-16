@@ -20,6 +20,19 @@
 
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
@@ -81,10 +94,13 @@
                         <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.6</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-5">
                 <nav class="hidden md:flex gap-6 text-[10px] font-bold uppercase tracking-widest">
                     <a href="/" class="text-mist hover:text-ink transition-colors">Home</a>
                     <a href="/terminal-setup/" class="text-mist hover:text-ink transition-colors">Terminal setup</a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 

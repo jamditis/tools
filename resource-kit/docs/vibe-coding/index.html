@@ -21,6 +21,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
@@ -78,12 +91,15 @@
                         <div class="text-xs text-ink/50 tracking-wide">Amditis Kit</div>
                     </div>
                 </a>
+                <div class="flex items-center gap-5">
                 <nav class="flex gap-4 md:gap-6 text-xs font-sans">
                     <a href="/" class="text-ink/60 hover:text-accent transition-colors flex items-center gap-2">
                         <i data-lucide="arrow-left" class="w-3 h-3"></i>
                         <span class="hidden sm:inline">Main hub</span>
                     </a>
                 </nav>
+                    <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
             </div>
         </header>
 

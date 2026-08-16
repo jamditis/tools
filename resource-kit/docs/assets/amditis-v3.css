@@ -1,0 +1,933 @@
+/**
+ * @fileoverview Amditis Theme V3 — Token system, dark mode, component vocabulary
+ *
+ * V3 is a re-art-directed continuation of the V2 editorial/archival theme, not a
+ * replacement of it. The paper ground, Fraunces display serif, ink body text and
+ * hairline rules all survive; the palette accents, type scale, spacing scale and
+ * component vocabulary are re-cut, and the whole system gains a considered
+ * paper/ink dark mode.
+ *
+ * ## Load order matters
+ *
+ * Every page loads `amditis-main.css` BEFORE the precompiled `tailwind.css`, so
+ * amditis-main.css cannot override Tailwind utilities at equal specificity. This
+ * file is therefore loaded AFTER `tailwind.css` and re-points the compiled colour
+ * utilities at CSS custom properties. `tailwind.css` is a build artefact that
+ * cannot be rebuilt in this repo, which is why the utilities are re-declared here
+ * rather than regenerated.
+ *
+ * ## Token families
+ *
+ * A naive "invert everything" dark mode breaks this site, because some surfaces
+ * are already inverted in the light theme (dark footers, terminal chrome, modal
+ * scrims). Colours are therefore split into four families:
+ *
+ * 1. GROUND  — page and text colours that invert between themes.
+ * 2. SLAB    — deliberately dark blocks that stay dark in both themes.
+ * 3. ON-SLAB — light text and rules sitting on a slab; light in both themes.
+ * 4. TINT    — translucent paper lifts, re-scaled per theme so a 30% white lift
+ *              on cream becomes a low-alpha warm lift on charcoal.
+ *
+ * ## Sections
+ *
+ * 1. Tokens — day paper
+ * 2. Tokens — night paper
+ * 3. Base styles
+ * 4. Utility re-point — ground family
+ * 5. Utility re-point — slab and on-slab families
+ * 6. Utility re-point — tint family
+ * 7. Type scale and spacing scale
+ * 8. Component vocabulary
+ * 9. Theme toggle
+ * 10. Motion
+ *
+ * @module AmditisCSSV3
+ * @requires tailwind.css (must be loaded before this file)
+ * @requires amditis-main.css
+ */
+
+/* ==========================================================================
+   1. TOKENS — DAY PAPER (light)
+   ========================================================================== */
+
+:root {
+    /* Ground family — inverts between themes */
+    --canvas: #efe9dc;
+    --canvas-rgb: 239 233 220;
+    --leaf: #fbf8f1;
+    --leaf-rgb: 251 248 241;
+    --ink: #1c1815;
+    --ink-rgb: 28 24 21;
+    --mist: #5d5548;
+    --mist-rgb: 93 85 72;
+    --clay: #ddd4c0;
+    --clay-rgb: 221 212 192;
+
+    /* Accents — madder primary, sage affirmative, signal warning */
+    --accent: #8a3a2b;
+    --accent-rgb: 138 58 43;
+    --accent-surface: #8a3a2b;
+    --sage: #3d4b40;
+    --sage-rgb: 61 75 64;
+    --signal: #a8341f;
+    --signal-rgb: 168 52 31;
+
+    /* Slab family — stays dark in both themes */
+    --slab: #191510;
+    --slab-rgb: 25 21 16;
+    --on-slab: #efe9dc;
+    --on-slab-rgb: 239 233 220;
+
+    /* Tint family — translucent paper lifts */
+    --tint-5: rgba(255, 255, 255, 0.34);
+    --tint-10: rgba(255, 255, 255, 0.4);
+    --tint-20: rgba(255, 255, 255, 0.48);
+    --tint-30: rgba(255, 255, 255, 0.56);
+    --tint-40: rgba(255, 255, 255, 0.64);
+    --tint-50: rgba(255, 255, 255, 0.72);
+    --tint-60: rgba(255, 255, 255, 0.8);
+    --tint-70: rgba(255, 255, 255, 0.88);
+    --tint-80: rgba(255, 255, 255, 0.94);
+
+    /* Hairlines */
+    --edge: rgba(28, 24, 21, 0.13);
+    --edge-soft: rgba(28, 24, 21, 0.07);
+    --edge-firm: rgba(28, 24, 21, 0.24);
+
+    /* Depth — bottom-weighted, as paper lifted off a desk */
+    --lift-1: 0 1px 0 rgba(28, 24, 21, 0.04);
+    --lift-2: 0 2px 0 rgba(28, 24, 21, 0.05), 0 12px 28px -18px rgba(28, 24, 21, 0.35);
+    --lift-3: 0 3px 0 rgba(28, 24, 21, 0.06), 0 26px 50px -28px rgba(28, 24, 21, 0.45);
+
+    /* Paper texture strength */
+    --grain-opacity: 0.42;
+
+    color-scheme: light;
+}
+
+/* ==========================================================================
+   2. TOKENS — NIGHT PAPER (dark)
+   ==========================================================================
+
+   A warm charcoal inversion of the same paper, not a generic dark dashboard:
+   no pure black, no neon, no glass. The ground keeps the cream's warm hue at
+   low lightness so the page still reads as paper seen at night.
+
+   Applied when the reader has chosen dark explicitly, or when the system asks
+   for dark and the reader has not chosen light.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --canvas: #17140f;
+        --canvas-rgb: 23 20 15;
+        --leaf: #211c15;
+        --leaf-rgb: 33 28 21;
+        --ink: #ece4d5;
+        --ink-rgb: 236 228 213;
+        --mist: #a89c86;
+        --mist-rgb: 168 156 134;
+        --clay: #3a332a;
+        --clay-rgb: 58 51 42;
+
+        --accent: #d4705c;
+        --accent-rgb: 212 112 92;
+        --accent-surface: #8f3d2c;
+        --sage: #9db89f;
+        --sage-rgb: 157 184 159;
+        --signal: #e0765c;
+        --signal-rgb: 224 118 92;
+
+        --slab: #0e0c08;
+        --slab-rgb: 14 12 8;
+
+        --tint-5: rgba(236, 228, 213, 0.022);
+        --tint-10: rgba(236, 228, 213, 0.03);
+        --tint-20: rgba(236, 228, 213, 0.04);
+        --tint-30: rgba(236, 228, 213, 0.05);
+        --tint-40: rgba(236, 228, 213, 0.062);
+        --tint-50: rgba(236, 228, 213, 0.075);
+        --tint-60: rgba(236, 228, 213, 0.09);
+        --tint-70: rgba(236, 228, 213, 0.105);
+        --tint-80: rgba(236, 228, 213, 0.12);
+
+        --edge: rgba(236, 228, 213, 0.15);
+        --edge-soft: rgba(236, 228, 213, 0.08);
+        --edge-firm: rgba(236, 228, 213, 0.28);
+
+        --lift-1: 0 1px 0 rgba(0, 0, 0, 0.4);
+        --lift-2: 0 2px 0 rgba(0, 0, 0, 0.45), 0 12px 28px -18px rgba(0, 0, 0, 0.85);
+        --lift-3: 0 3px 0 rgba(0, 0, 0, 0.5), 0 26px 50px -28px rgba(0, 0, 0, 0.95);
+
+        --grain-opacity: 0.2;
+
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme="dark"] {
+    --canvas: #17140f;
+    --canvas-rgb: 23 20 15;
+    --leaf: #211c15;
+    --leaf-rgb: 33 28 21;
+    --ink: #ece4d5;
+    --ink-rgb: 236 228 213;
+    --mist: #a89c86;
+    --mist-rgb: 168 156 134;
+    --clay: #3a332a;
+    --clay-rgb: 58 51 42;
+
+    --accent: #d4705c;
+    --accent-rgb: 212 112 92;
+    --accent-surface: #8f3d2c;
+    --sage: #9db89f;
+    --sage-rgb: 157 184 159;
+    --signal: #e0765c;
+    --signal-rgb: 224 118 92;
+
+    --slab: #0e0c08;
+    --slab-rgb: 14 12 8;
+
+    --tint-5: rgba(236, 228, 213, 0.022);
+    --tint-10: rgba(236, 228, 213, 0.03);
+    --tint-20: rgba(236, 228, 213, 0.04);
+    --tint-30: rgba(236, 228, 213, 0.05);
+    --tint-40: rgba(236, 228, 213, 0.062);
+    --tint-50: rgba(236, 228, 213, 0.075);
+    --tint-60: rgba(236, 228, 213, 0.09);
+    --tint-70: rgba(236, 228, 213, 0.105);
+    --tint-80: rgba(236, 228, 213, 0.12);
+
+    --edge: rgba(236, 228, 213, 0.15);
+    --edge-soft: rgba(236, 228, 213, 0.08);
+    --edge-firm: rgba(236, 228, 213, 0.28);
+
+    --lift-1: 0 1px 0 rgba(0, 0, 0, 0.4);
+    --lift-2: 0 2px 0 rgba(0, 0, 0, 0.45), 0 12px 28px -18px rgba(0, 0, 0, 0.85);
+    --lift-3: 0 3px 0 rgba(0, 0, 0, 0.5), 0 26px 50px -28px rgba(0, 0, 0, 0.95);
+
+    --grain-opacity: 0.2;
+
+    color-scheme: dark;
+}
+
+/* ==========================================================================
+   3. BASE STYLES
+   ========================================================================== */
+
+html {
+    background-color: var(--canvas);
+}
+
+body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    line-height: 1.65;
+}
+
+::selection {
+    background-color: var(--accent-surface);
+    color: var(--on-slab);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--clay); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/**
+ * The paper grain is a light-theme texture. On night paper it is dialled back
+ * and the highlight wash is dropped, so the ground stays flat rather than
+ * turning into a glow.
+ */
+.paper-overlay {
+    opacity: var(--grain-opacity);
+}
+
+:root[data-theme="dark"] .paper-overlay {
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    mix-blend-mode: soft-light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .paper-overlay {
+        background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        mix-blend-mode: soft-light;
+    }
+}
+
+/* ==========================================================================
+   4. UTILITY RE-POINT — GROUND FAMILY
+   ==========================================================================
+
+   Page grounds, body text, hairlines and subtle tints. These invert with the
+   theme. Alpha steps used for text are compressed at the low end so every
+   step clears WCAG AA (4.5:1) in both palettes — a literal 60% ink on cream
+   lands at 4.32:1, which fails.
+   ========================================================================== */
+
+/* -- Page ground ---------------------------------------------------------- */
+.bg-canvas { background-color: var(--canvas); }
+.bg-canvas\/50 { background-color: rgb(var(--canvas-rgb) / 0.72); }
+.bg-canvas\/60 { background-color: rgb(var(--canvas-rgb) / 0.78); }
+.bg-canvas\/80 { background-color: rgb(var(--canvas-rgb) / 0.88); }
+.bg-canvas\/90 { background-color: rgb(var(--canvas-rgb) / 0.94); }
+.ring-offset-canvas { --tw-ring-offset-color: var(--canvas); }
+
+/* -- Body text ------------------------------------------------------------ */
+.text-ink { color: var(--ink); }
+.text-ink\/85 { color: rgb(var(--ink-rgb) / 0.89); }
+.text-ink\/80 { color: rgb(var(--ink-rgb) / 0.85); }
+.text-ink\/75 { color: rgb(var(--ink-rgb) / 0.81); }
+.text-ink\/70 { color: rgb(var(--ink-rgb) / 0.76); }
+.text-ink\/60 { color: rgb(var(--ink-rgb) / 0.68); }
+.text-ink\/55 { color: rgb(var(--ink-rgb) / 0.65); }
+.text-ink\/50 { color: rgb(var(--ink-rgb) / 0.62); }
+.hover\:text-ink:hover { color: var(--ink); }
+
+/* Decorative ink washes — oversized folio numerals and watermarks, not text. */
+.text-ink\/40 { color: rgb(var(--ink-rgb) / 0.4); }
+.text-ink\/30 { color: rgb(var(--ink-rgb) / 0.3); }
+.text-ink\/20 { color: rgb(var(--ink-rgb) / 0.2); }
+.text-ink\/5 { color: rgb(var(--ink-rgb) / 0.07); }
+
+/**
+ * Mist is the secondary text colour. Its alpha steps cannot reach AA at any
+ * useful transparency, so every step resolves to solid mist (6.07:1 on day
+ * paper, 6.79:1 on night paper).
+ */
+.text-mist,
+.text-mist\/70,
+.text-mist\/60,
+.text-mist\/50 { color: var(--mist); }
+
+/* -- Hairlines ------------------------------------------------------------ */
+.border-ink { border-color: var(--ink); }
+.border-ink\/40 { border-color: rgb(var(--ink-rgb) / 0.4); }
+.border-ink\/30 { border-color: rgb(var(--ink-rgb) / 0.3); }
+.border-ink\/20 { border-color: var(--edge-firm); }
+.border-ink\/15 { border-color: rgb(var(--ink-rgb) / 0.18); }
+.border-ink\/10 { border-color: var(--edge); }
+.border-ink\/5 { border-color: var(--edge-soft); }
+.hover\:border-ink:hover { border-color: var(--ink); }
+.hover\:border-ink\/40:hover { border-color: rgb(var(--ink-rgb) / 0.4); }
+.hover\:border-ink\/20:hover { border-color: var(--edge-firm); }
+.divide-ink\/5 > :not([hidden]) ~ :not([hidden]) { border-color: var(--edge-soft); }
+.border-ink-5 { border-color: var(--edge-soft); }
+.border-ink-10 { border-color: var(--edge); }
+.border-ink-20 { border-color: var(--edge-firm); }
+
+/* -- Subtle ink tints on the ground --------------------------------------- */
+.bg-ink\/20 { background-color: rgb(var(--ink-rgb) / 0.2); }
+.bg-ink\/10 { background-color: rgb(var(--ink-rgb) / 0.12); }
+.bg-ink\/5 { background-color: rgb(var(--ink-rgb) / 0.06); }
+.bg-ink\/\[0\.03\] { background-color: rgb(var(--ink-rgb) / 0.04); }
+.bg-ink\/\[0\.02\] { background-color: rgb(var(--ink-rgb) / 0.03); }
+.hover\:bg-ink\/10:hover { background-color: rgb(var(--ink-rgb) / 0.12); }
+.hover\:bg-ink\/5:hover { background-color: rgb(var(--ink-rgb) / 0.06); }
+.placeholder-ink\/40::-moz-placeholder { color: rgb(var(--ink-rgb) / 0.55); }
+.placeholder-ink\/40::placeholder { color: rgb(var(--ink-rgb) / 0.55); }
+
+/* -- Clay ----------------------------------------------------------------- */
+.bg-clay\/30 { background-color: rgb(var(--clay-rgb) / 0.45); }
+.bg-clay\/50 { background-color: rgb(var(--clay-rgb) / 0.65); }
+
+/* -- Accent --------------------------------------------------------------- */
+.text-accent { color: var(--accent); }
+.text-accent\/5 { color: rgb(var(--accent-rgb) / 0.12); }
+.hover\:text-accent:hover,
+.hover\:text-acid:hover { color: var(--accent); }
+.focus\:text-accent:focus { color: var(--accent); }
+.group:hover .group-hover\:text-accent,
+.group:hover .group-hover\:text-acid { color: var(--accent); }
+.group:focus-within .group-focus-within\:text-accent { color: var(--accent); }
+
+.border-accent { border-color: var(--accent); }
+.border-accent\/30 { border-color: rgb(var(--accent-rgb) / 0.38); }
+.border-accent\/20 { border-color: rgb(var(--accent-rgb) / 0.28); }
+.border-l-accent { border-left-color: var(--accent); }
+.border-l-accent\/50 { border-left-color: rgb(var(--accent-rgb) / 0.5); }
+.hover\:border-accent:hover { border-color: var(--accent); }
+.hover\:border-accent\/50:hover { border-color: rgb(var(--accent-rgb) / 0.5); }
+.hover\:border-accent\/30:hover { border-color: rgb(var(--accent-rgb) / 0.38); }
+.hover\:border-accent\/20:hover { border-color: rgb(var(--accent-rgb) / 0.28); }
+.focus\:border-accent:focus { border-color: var(--accent); }
+.group:hover .group-hover\:border-accent { border-color: var(--accent); }
+.group:hover .group-hover\:border-accent\/40 { border-color: rgb(var(--accent-rgb) / 0.48); }
+
+.ring-accent { --tw-ring-color: var(--accent); }
+.focus\:ring-accent:focus { --tw-ring-color: var(--accent); }
+.hover\:ring-accent\/30:hover { --tw-ring-color: rgb(var(--accent-rgb) / 0.38); }
+.accent-accent { accent-color: var(--accent); }
+
+/**
+ * Accent fills carry white or cream text, so the fill stays a deep madder in
+ * both themes while `text-accent` lifts for the dark ground. Splitting the two
+ * keeps 7.3:1 (white) and 6.0:1 (cream) on the fill at night.
+ */
+.bg-accent { background-color: var(--accent-surface); }
+.bg-accent\/70 { background-color: rgb(var(--accent-rgb) / 0.7); }
+.bg-accent\/20 { background-color: rgb(var(--accent-rgb) / 0.2); }
+.bg-accent\/15 { background-color: rgb(var(--accent-rgb) / 0.15); }
+.bg-accent\/10 { background-color: rgb(var(--accent-rgb) / 0.1); }
+.bg-accent\/5 { background-color: rgb(var(--accent-rgb) / 0.07); }
+.hover\:bg-accent:hover { background-color: var(--accent-surface); }
+.hover\:bg-accent\/5:hover { background-color: rgb(var(--accent-rgb) / 0.07); }
+.group:hover .group-hover\:bg-accent { background-color: var(--accent-surface); }
+
+/* ==========================================================================
+   5. UTILITY RE-POINT — SLAB AND ON-SLAB FAMILIES
+   ==========================================================================
+
+   Slabs are surfaces the light theme already inverted: dark footers, terminal
+   window chrome, modal scrims. They stay dark at night — inverting them would
+   turn a dark footer cream and strand the white text on it.
+   ========================================================================== */
+
+.bg-ink { background-color: var(--slab); }
+.bg-ink\/90 { background-color: rgb(var(--slab-rgb) / 0.94); }
+.bg-ink\/80 { background-color: rgb(var(--slab-rgb) / 0.88); }
+.bg-ink\/50 { background-color: rgb(var(--slab-rgb) / 0.62); }
+.bg-ink\/40 { background-color: rgb(var(--slab-rgb) / 0.52); }
+.hover\:bg-ink:hover { background-color: var(--slab); }
+.group:hover .group-hover\:bg-ink { background-color: var(--slab); }
+
+/* On-slab text and rules — light in both themes. */
+.text-canvas { color: var(--on-slab); }
+.text-canvas\/80 { color: rgb(var(--on-slab-rgb) / 0.86); }
+.text-canvas\/70 { color: rgb(var(--on-slab-rgb) / 0.8); }
+.text-canvas\/60 { color: rgb(var(--on-slab-rgb) / 0.74); }
+.text-canvas\/50 { color: rgb(var(--on-slab-rgb) / 0.68); }
+.text-canvas\/40 { color: rgb(var(--on-slab-rgb) / 0.62); }
+.text-canvas\/30 { color: rgb(var(--on-slab-rgb) / 0.45); }
+.text-canvas\/20 { color: rgb(var(--on-slab-rgb) / 0.3); }
+.hover\:text-canvas:hover { color: var(--on-slab); }
+.border-canvas\/20 { border-color: rgb(var(--on-slab-rgb) / 0.22); }
+.border-canvas\/10 { border-color: rgb(var(--on-slab-rgb) / 0.12); }
+.border-canvas\/5 { border-color: rgb(var(--on-slab-rgb) / 0.07); }
+.hover\:border-canvas\/40:hover { border-color: rgb(var(--on-slab-rgb) / 0.42); }
+
+/**
+ * .on-slab-tint
+ *
+ * A translucent light chip sitting on a slab — used for the sponsor buttons in
+ * the advisor's inverted footer, which previously borrowed `bg-canvas/20` and
+ * so would have inverted with the page ground.
+ */
+.on-slab-tint { background-color: rgb(var(--on-slab-rgb) / 0.16); }
+.on-slab-tint:hover { background-color: rgb(var(--on-slab-rgb) / 0.26); }
+
+/* ==========================================================================
+   6. UTILITY RE-POINT — TINT FAMILY
+   ==========================================================================
+
+   `bg-white/N` is used across the kit as a paper lift on the cream ground. At
+   night the same lift has to become a low-alpha warm highlight, otherwise a
+   30% white panel blows a hole in the page.
+   ========================================================================== */
+
+.bg-white { background-color: var(--leaf); }
+.bg-white\/5 { background-color: var(--tint-5); }
+.bg-white\/10 { background-color: var(--tint-10); }
+.bg-white\/20 { background-color: var(--tint-20); }
+.bg-white\/30 { background-color: var(--tint-30); }
+.bg-white\/40 { background-color: var(--tint-40); }
+.bg-white\/50 { background-color: var(--tint-50); }
+.bg-white\/60 { background-color: var(--tint-60); }
+.bg-white\/70 { background-color: var(--tint-70); }
+.bg-white\/80 { background-color: var(--tint-80); }
+.hover\:bg-white:hover { background-color: var(--leaf); }
+.hover\:bg-white\/5:hover { background-color: var(--tint-10); }
+.hover\:bg-white\/20:hover { background-color: var(--tint-30); }
+.hover\:bg-white\/40:hover { background-color: var(--tint-50); }
+.hover\:bg-white\/60:hover { background-color: var(--tint-70); }
+.focus\:bg-white:focus { background-color: var(--leaf); }
+
+/* ==========================================================================
+   7. TYPE SCALE AND SPACING SCALE
+   ==========================================================================
+
+   A fluid scale on a 1.25 ratio, so display type shrinks with the viewport
+   without the per-page `vw` overrides V2 needed.
+   ========================================================================== */
+
+:root {
+    --step--1: clamp(0.76rem, 0.74rem + 0.1vw, 0.82rem);
+    --step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
+    --step-1: clamp(1.15rem, 1.09rem + 0.3vw, 1.33rem);
+    --step-2: clamp(1.4rem, 1.29rem + 0.55vw, 1.75rem);
+    --step-3: clamp(1.7rem, 1.5rem + 1vw, 2.35rem);
+    --step-4: clamp(2.1rem, 1.72rem + 1.9vw, 3.1rem);
+    --step-5: clamp(2.6rem, 1.9rem + 3.5vw, 4.4rem);
+    --step-6: clamp(3.2rem, 1.5rem + 8.5vw, 8rem);
+
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-6: 1.5rem;
+    --sp-8: 2rem;
+    --sp-12: 3rem;
+    --sp-16: 4rem;
+    --sp-24: 6rem;
+    --sp-32: 8rem;
+
+    --measure: 68ch;
+    --measure-tight: 54ch;
+}
+
+/**
+ * .display-xl / .display-lg
+ *
+ * Masthead-scale display type. Replaces the `text-[11vw]` + `.fluid-title`
+ * pairing, which needed a media query to stay sane on phones.
+ */
+.display-xl {
+    font-size: var(--step-6);
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+}
+
+.display-lg {
+    font-size: var(--step-5);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+}
+
+.measure { max-width: var(--measure); }
+.measure-tight { max-width: var(--measure-tight); }
+
+/* ==========================================================================
+   8. COMPONENT VOCABULARY
+   ========================================================================== */
+
+/**
+ * .deckle-card / .deckle-card-solid
+ *
+ * V2 made these frosted translucent glass. V3 makes them a sheet of paper: an
+ * opaque leaf, a hairline edge, and a bottom-weighted shadow as if lifted off
+ * the desk. Redeclared here because amditis-main.css loads earlier.
+ */
+.deckle-card {
+    background-color: var(--leaf);
+    border: 1px solid var(--edge-soft);
+    box-shadow: var(--lift-1);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.deckle-card-solid {
+    background-color: var(--leaf);
+    border: 1px solid var(--edge);
+    box-shadow: var(--lift-2);
+}
+
+/**
+ * .index-entry
+ *
+ * The kit's directory row. Replaces grids of identical icon-tile cards with a
+ * ruled editorial index: a rubric column, the entry itself, and a folio. The
+ * hairline belongs to the row, so a list of them reads as one ruled table
+ * rather than a field of floating boxes.
+ */
+.index-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-2);
+    padding: var(--sp-6) 0;
+    border-bottom: 1px solid var(--edge);
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .index-entry {
+        grid-template-columns: 9.5rem minmax(0, 1fr) 2.5rem;
+        gap: var(--sp-8);
+        align-items: baseline;
+    }
+}
+
+.index-entry:hover {
+    background-color: rgb(var(--ink-rgb) / 0.03);
+}
+
+.index-entry__rubric {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mist);
+    padding-top: 0.35rem;
+}
+
+.index-entry__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: var(--step-2);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    transition: color 0.2s ease;
+}
+
+.index-entry:hover .index-entry__title {
+    color: var(--accent);
+}
+
+.index-entry__blurb {
+    margin-top: var(--sp-2);
+    font-size: 0.9rem;
+    color: var(--mist);
+    max-width: var(--measure);
+    line-height: 1.6;
+}
+
+.index-entry__folio {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 0.8rem;
+    color: rgb(var(--ink-rgb) / 0.3);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
+}
+
+.index-entry:hover .index-entry__folio { color: var(--accent); }
+
+/**
+ * .folio
+ *
+ * A section number set as a running head, the way a periodical numbers its
+ * departments. Carries real sequence information.
+ */
+.folio {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--mist);
+}
+
+/**
+ * .stamp
+ *
+ * A category tag. Unlike a kicker it names a real rubric the entry belongs to,
+ * and only one appears per entry.
+ */
+.stamp {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mist);
+    border: 1px solid var(--edge);
+    padding: 0.2rem 0.55rem;
+}
+
+.stamp--accent {
+    color: var(--accent);
+    border-color: rgb(var(--accent-rgb) / 0.35);
+}
+
+/**
+ * .note
+ *
+ * The kit's callout. V2 used `border-l-4` colour-stripe cards for these; V3
+ * hangs a rubric above a hairline-topped block, so a page of callouts reads as
+ * marginalia rather than a stack of highlighter bars.
+ */
+.note {
+    border-top: 2px solid var(--edge-firm);
+    padding-top: var(--sp-3);
+    margin: var(--sp-6) 0;
+}
+
+.note__label {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: var(--sp-2);
+}
+
+.note--accent { border-top-color: var(--accent); }
+.note--accent .note__label { color: var(--accent); }
+.note--sage { border-top-color: var(--sage); }
+.note--sage .note__label { color: var(--sage); }
+.note--signal { border-top-color: var(--signal); }
+.note--signal .note__label { color: var(--signal); }
+
+/**
+ * .spec-list
+ *
+ * A definition list for reference content — replaces stripe-bordered fact
+ * cards. The term hangs in the margin on wide viewports.
+ */
+.spec-list { margin: 0; }
+
+.spec-list dt {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mist);
+}
+
+.spec-list dd {
+    margin: 0 0 var(--sp-4) 0;
+    color: var(--ink);
+}
+
+@media (min-width: 768px) {
+    .spec-list {
+        display: grid;
+        grid-template-columns: 11rem minmax(0, 1fr);
+        column-gap: var(--sp-8);
+    }
+
+    .spec-list dt { padding-top: 0.2rem; }
+    .spec-list dd { margin-bottom: var(--sp-4); }
+}
+
+/**
+ * .rule / .rule-heavy
+ *
+ * Single hairline dividers. The heavy variant marks a major break only.
+ */
+.rule { border: 0; border-top: 1px solid var(--edge); margin: var(--sp-12) 0; }
+.rule-heavy { border: 0; border-top: 2px solid var(--ink); margin: var(--sp-12) 0; }
+
+/**
+ * .section-header / .section-label
+ *
+ * Redeclared against tokens. The label is retained as an editorial device but
+ * its tracking is pulled back from V2's 0.3em, which read as a kicker.
+ */
+.section-header {
+    border-bottom: 1px solid var(--edge);
+    padding-bottom: var(--sp-6);
+    margin-bottom: var(--sp-8);
+}
+
+.section-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mist);
+}
+
+/* -- Buttons -------------------------------------------------------------- */
+
+.btn-primary {
+    background-color: var(--ink);
+    color: var(--canvas);
+    padding: 0.7rem 1.6rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid var(--ink);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-surface);
+    border-color: var(--accent-surface);
+    color: var(--on-slab);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--ink);
+    border: 1px solid var(--edge-firm);
+    padding: 0.7rem 1.6rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-outline:hover {
+    border-color: var(--ink);
+    background-color: var(--ink);
+    color: var(--canvas);
+}
+
+.input-field {
+    background-color: var(--leaf);
+    border: 1px solid var(--edge);
+    color: var(--ink);
+    transition: border-color 0.25s ease;
+}
+
+.input-field:focus { border-color: var(--accent); }
+.input-field::placeholder { color: var(--mist); }
+
+/* -- Code ----------------------------------------------------------------- */
+
+pre {
+    background-color: var(--leaf);
+    border: 1px solid var(--edge-soft);
+    color: var(--ink);
+}
+
+code { background-color: rgb(var(--ink-rgb) / 0.06); }
+pre code { background: none; }
+
+.syntax-keyword { color: var(--accent); }
+.syntax-string { color: var(--sage); }
+.syntax-func { color: var(--ink); font-weight: 600; }
+.syntax-comment { color: var(--mist); font-style: italic; }
+
+/* -- Navigation ----------------------------------------------------------- */
+
+.scrolled-nav {
+    background: rgb(var(--canvas-rgb) / 0.92);
+    border-bottom: 1px solid var(--edge);
+}
+
+.nav-link::after { background: var(--accent); }
+
+/* -- Legacy V1 mappings, re-pointed at V3 tokens -------------------------- */
+
+.bg-void { background-color: var(--canvas); }
+.bg-panel { background-color: var(--leaf); }
+.bg-surface { background-color: var(--leaf); }
+.text-chrome { color: var(--ink); }
+.text-acid { color: var(--accent); }
+.text-ice { color: var(--sage); }
+.text-signal { color: var(--signal); }
+.border-acid { border-color: var(--accent); }
+.border-ice { border-color: var(--sage); }
+.border-signal { border-color: var(--signal); }
+.bg-acid { background-color: var(--accent-surface); }
+.bg-ice { background-color: var(--sage); }
+.bg-signal { background-color: var(--signal); }
+.bg-acidDim { background-color: rgb(var(--accent-rgb) / 0.1); }
+.bg-iceDim { background-color: rgb(var(--sage-rgb) / 0.12); }
+.bg-signalDim { background-color: rgb(var(--signal-rgb) / 0.1); }
+
+/* ==========================================================================
+   9. THEME TOGGLE
+   ========================================================================== */
+
+/**
+ * .theme-toggle
+ *
+ * A single control that swaps day and night paper. Rendered by theme.js into
+ * any `[data-theme-toggle-slot]` element, or appended to the page as a small
+ * fixed control when a page has no header slot.
+ */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid var(--edge);
+    color: var(--mist);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--edge-firm);
+}
+
+.theme-toggle svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    display: block;
+}
+
+.theme-toggle__night { display: none; }
+.theme-toggle__day { display: block; }
+
+:root[data-theme="dark"] .theme-toggle__night { display: block; }
+:root[data-theme="dark"] .theme-toggle__day { display: none; }
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle__night { display: block; }
+    :root:not([data-theme="light"]) .theme-toggle__day { display: none; }
+}
+
+/**
+ * .theme-toggle--floating
+ *
+ * Fallback placement for pages whose header has no slot for the control.
+ */
+.theme-toggle--floating {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 90;
+    background-color: var(--leaf);
+    box-shadow: var(--lift-2);
+}
+
+/* On-slab placement — footers and inverted chrome. */
+.theme-toggle--on-slab {
+    border-color: rgb(var(--on-slab-rgb) / 0.22);
+    color: rgb(var(--on-slab-rgb) / 0.7);
+}
+
+.theme-toggle--on-slab:hover {
+    color: var(--on-slab);
+    border-color: rgb(var(--on-slab-rgb) / 0.45);
+}
+
+/* ==========================================================================
+   10. MOTION
+   ==========================================================================
+
+   Transitions are scoped to the properties that actually change. V2's
+   `.reveal-section` used `transition: all`, which animated every layout change
+   the section saw — including the reflow when Lucide swaps an <i> for an
+   <svg> — so icons visibly slid into place on load.
+   ========================================================================== */
+
+.reveal-section {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/**
+ * Suppresses transitions while the theme swaps, so a toggle press repaints
+ * instantly instead of cross-fading every colour on the page.
+ */
+:root.theme-switching *,
+:root.theme-switching *::before,
+:root.theme-switching *::after {
+    transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-section {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .stagger-child {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+    }
+
+    .animate-drift { animation: none !important; }
+}

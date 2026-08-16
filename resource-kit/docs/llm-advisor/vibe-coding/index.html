@@ -24,6 +24,19 @@
 
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     
     <!-- Fonts: Space Grotesk (Headings), Merriweather (Body), JetBrains Mono (Code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

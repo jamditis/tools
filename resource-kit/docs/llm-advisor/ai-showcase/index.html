@@ -8,6 +8,19 @@
     <!-- CSS & Config -->
     <link rel="stylesheet" href="/assets/amditis-main.css">
     <link rel="stylesheet" href="/assets/tailwind.css">
+    <link rel="stylesheet" href="/assets/amditis-v3.css">
+    <script>
+        /* Applies the stored day/night paper choice before first paint. */
+        (function () {
+            try {
+                var t = localStorage.getItem('amditis-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            } catch (e) { /* storage blocked: fall back to prefers-color-scheme */ }
+        })();
+    </script>
+    <script src="/assets/theme.js" defer></script>
     
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website" />
@@ -48,7 +61,8 @@
                     <a href="#videos" class="text-gray-400 hover:text-ice transition-colors">VIDEOS</a>
                     <a href="#writing" class="text-gray-400 hover:text-signal transition-colors">WRITING</a>
                 </div>
-            </div>
+            <div data-theme-toggle-slot class="flex items-center"></div>
+                </div>
         </header>
 
         <!-- Hero -->
