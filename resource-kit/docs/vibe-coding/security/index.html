@@ -112,8 +112,16 @@
             background: var(--leaf);
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
         }
+        /**
+         * The checked fill carries the white checkmark glyph, so it has to be
+         * the non-inverting `--info-surface` (the same token `.bg-blue-600`
+         * uses for filled blue). `--info` lifts light in night paper, which
+         * left the white glyph at 2.17:1 on its own fill. The border stays on
+         * `--info` so the box still has a boundary against the card in both
+         * themes — it saturates the unchecked 30% ring rather than replacing it.
+         */
         .rule-check:checked {
-            background: var(--info);
+            background: var(--info-surface);
             border-color: var(--info);
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
             background-size: 10px;
