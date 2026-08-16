@@ -71,6 +71,14 @@
     --sage-rgb: 61 75 64;
     --signal: #a8341f;
     --signal-rgb: 168 52 31;
+    --signal-surface: #9c3218;
+    --caution: #7d5410;
+    --caution-rgb: 125 84 16;
+    --caution-surface: #7a5210;
+    --info: #2a4f7c;
+    --info-rgb: 42 79 124;
+    --info-surface: #2a4f7c;
+    --sage-surface: #3d4b40;
 
     /* Slab family — stays dark in both themes */
     --slab: #191510;
@@ -135,8 +143,12 @@
         --accent-surface: #8f3d2c;
         --sage: #9db89f;
         --sage-rgb: 157 184 159;
-        --signal: #e0765c;
+    --signal: #e0765c;
         --signal-rgb: 224 118 92;
+        --caution: #d8a955;
+        --caution-rgb: 216 169 85;
+        --info: #8fb4d9;
+        --info-rgb: 143 180 217;
 
         --slab: #0e0c08;
         --slab-rgb: 14 12 8;
@@ -184,6 +196,10 @@
     --sage-rgb: 157 184 159;
     --signal: #e0765c;
     --signal-rgb: 224 118 92;
+    --caution: #d8a955;
+    --caution-rgb: 216 169 85;
+    --info: #8fb4d9;
+    --info-rgb: 143 180 217;
 
     --slab: #0e0c08;
     --slab-rgb: 14 12 8;
@@ -893,10 +909,10 @@ pre code { background: none; }
    10. MOTION
    ==========================================================================
 
-   Transitions are scoped to the properties that actually change. V2's
-   `.reveal-section` used `transition: all`, which animated every layout change
-   the section saw — including the reflow when Lucide swaps an <i> for an
-   <svg> — so icons visibly slid into place on load.
+   Transitions are scoped to the properties that actually change. V2 reached
+   for the unscoped `all` keyword throughout, which animates every layout
+   change an element sees — including the reflow when Lucide swaps an <i> for
+   an <svg> — so icons visibly slid into place on load.
    ========================================================================== */
 
 .reveal-section {
@@ -978,3 +994,102 @@ pre code { background: none; }
 .pill-midjourney { background-color: #4f46e5; }  /* 6.29:1 */
 .pill-notebooklm { background-color: #475569; }  /* 7.58:1 */
 .pill-neutral { background-color: #5f6772; }     /* 5.16:1 */
+
+/* ==========================================================================
+   12. SEMANTIC PALETTE REMAP
+   ==========================================================================
+
+   Pages across the kit reach for Tailwind's fixed palette — text-red-500,
+   bg-green-600/10, text-gray-400. Those hex values neither follow the V3
+   palette nor invert for night paper, and several already fail WCAG AA on
+   the cream ground: text-red-500 sits at 3.5:1 on day paper, and the darker
+   reds that pass there drop under 3:1 at night.
+
+   Each family maps to the semantic token matching how the kit uses it —
+   red warns, green affirms, amber cautions, blue annotates, the neutrals
+   fold into the ink/mist ramp. The shade now sets only the strength of the
+   treatment, not the hue.
+   ========================================================================== */
+
+.bg-amber-100 { background-color: rgb(var(--caution-rgb) / 0.10); }
+.bg-blue-100 { background-color: rgb(var(--info-rgb) / 0.10); }
+.bg-blue-400 { background-color: rgb(var(--info-rgb) / 0.18); }
+.bg-blue-50 { background-color: rgb(var(--info-rgb) / 0.10); }
+.bg-blue-500\/10 { background-color: rgb(var(--info-rgb) / 0.10); }
+.bg-blue-500\/3 { background-color: rgb(var(--info-rgb) / 0.03); }
+.bg-blue-600 { background-color: var(--info-surface); }
+.bg-blue-700 { background-color: var(--info-surface); }
+.bg-blue-900\/20 { background-color: rgb(var(--info-rgb) / 0.20); }
+.bg-gray-800 { background-color: var(--slab); }
+.bg-gray-900\/30 { background-color: rgb(var(--ink-rgb) / 0.30); }
+.bg-green-400 { background-color: rgb(var(--sage-rgb) / 0.18); }
+.bg-green-500 { background-color: var(--sage-surface); }
+.bg-green-500\/10 { background-color: rgb(var(--sage-rgb) / 0.10); }
+.bg-green-600 { background-color: var(--sage-surface); }
+.bg-green-600\/10 { background-color: rgb(var(--sage-rgb) / 0.10); }
+.bg-pink-500\/10 { background-color: rgb(var(--info-rgb) / 0.10); }
+.bg-red-100 { background-color: rgb(var(--signal-rgb) / 0.10); }
+.bg-red-400 { background-color: rgb(var(--signal-rgb) / 0.18); }
+.bg-red-50 { background-color: rgb(var(--signal-rgb) / 0.10); }
+.bg-red-500 { background-color: var(--signal-surface); }
+.bg-red-600 { background-color: var(--signal-surface); }
+.bg-red-600\/10 { background-color: rgb(var(--signal-rgb) / 0.10); }
+.bg-yellow-100 { background-color: rgb(var(--caution-rgb) / 0.10); }
+.bg-yellow-400 { background-color: rgb(var(--caution-rgb) / 0.18); }
+.bg-yellow-500\/10 { background-color: rgb(var(--caution-rgb) / 0.10); }
+.border-amber-200 { border-color: rgb(var(--caution-rgb) / 0.30); }
+.border-blue-100 { border-color: rgb(var(--info-rgb) / 0.30); }
+.border-blue-200 { border-color: rgb(var(--info-rgb) / 0.30); }
+.border-blue-300 { border-color: rgb(var(--info-rgb) / 0.30); }
+.border-blue-500 { border-color: rgb(var(--info-rgb) / 0.50); }
+.border-blue-700 { border-color: rgb(var(--info-rgb) / 0.50); }
+.border-blue-900\/30 { border-color: rgb(var(--info-rgb) / 0.30); }
+.border-gray-600 { border-color: var(--edge-firm); }
+.border-gray-700 { border-color: var(--edge-firm); }
+.border-green-600\/30 { border-color: rgb(var(--sage-rgb) / 0.30); }
+.border-red-200 { border-color: rgb(var(--signal-rgb) / 0.30); }
+.border-red-300 { border-color: rgb(var(--signal-rgb) / 0.30); }
+.border-red-500 { border-color: rgb(var(--signal-rgb) / 0.50); }
+.border-red-500\/30 { border-color: rgb(var(--signal-rgb) / 0.30); }
+.border-red-600\/30 { border-color: rgb(var(--signal-rgb) / 0.30); }
+.border-red-700 { border-color: rgb(var(--signal-rgb) / 0.50); }
+.group:hover .group-hover\:text-blue-500 { color: var(--info); }
+.group:hover .group-hover\:text-red-500 { color: var(--signal); }
+.hover\:bg-blue-800:hover { background-color: var(--info-surface); }
+.hover\:bg-red-700:hover { background-color: var(--signal-surface); }
+.hover\:border-blue-400:hover { border-color: rgb(var(--info-rgb) / 0.50); }
+.hover\:border-blue-400\/40:hover { border-color: rgb(var(--info-rgb) / 0.40); }
+.hover\:border-red-300:hover { border-color: rgb(var(--signal-rgb) / 0.30); }
+.hover\:border-red-400:hover { border-color: rgb(var(--signal-rgb) / 0.50); }
+.hover\:border-red-400\/30:hover { border-color: rgb(var(--signal-rgb) / 0.30); }
+.hover\:text-blue-600:hover { color: var(--info); }
+.hover\:text-red-500:hover { color: var(--signal); }
+.hover\:text-red-600:hover { color: var(--signal); }
+.hover\:text-yellow-600:hover { color: var(--caution); }
+.text-amber-600 { color: var(--caution); }
+.text-amber-700 { color: var(--caution); }
+.text-blue-200 { color: var(--info); }
+.text-blue-300 { color: var(--info); }
+.text-blue-400 { color: var(--info); }
+.text-blue-500 { color: var(--info); }
+.text-blue-600 { color: var(--info); }
+.text-blue-700 { color: var(--info); }
+.text-gray-300 { color: var(--mist); }
+.text-gray-400 { color: var(--mist); }
+.text-gray-500 { color: var(--mist); }
+.text-gray-600 { color: var(--ink); }
+.text-green-400 { color: var(--sage); }
+.text-green-500 { color: var(--sage); }
+.text-green-600 { color: var(--sage); }
+.text-orange-400 { color: var(--caution); }
+.text-pink-400 { color: var(--info); }
+.text-purple-400 { color: var(--info); }
+.text-red-400 { color: var(--signal); }
+.text-red-500 { color: var(--signal); }
+.text-red-500\/60 { color: var(--signal); }
+.text-red-600 { color: var(--signal); }
+.text-red-700 { color: var(--signal); }
+.text-yellow-400 { color: var(--caution); }
+.text-yellow-500 { color: var(--caution); }
+.text-yellow-600 { color: var(--caution); }
+.text-yellow-700 { color: var(--caution); }

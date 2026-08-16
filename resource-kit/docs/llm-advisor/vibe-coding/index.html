@@ -128,7 +128,7 @@
         }
 
         .copy-btn {
-            transition: all 0.2s;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
         }
         .copy-btn:hover {
             color: #fff;
@@ -202,7 +202,7 @@
                 <p>
                     <span class="text-white font-bold">"<span class="term" data-term="vibe-coding">Vibe coding</span>"</span> is when you use <span class="term" data-term="llm">LLMs</span> to write code by describing what you want in plain language. You don't need to be a developer—you need to be a good project manager who can clearly articulate requirements and give feedback.
                 </p>
-                <div class="bg-[#121214] border-l-4 border-accent-green p-6 my-6 rounded-r-lg">
+                <div class="bg-[#121214] border-t-2 border-accent-green p-6 my-6 rounded-b-lg">
                     <p class="font-vibe-sans text-white font-medium">Key principle</p>
                     <p class="text-gray-400 mt-1">Code often either works or it doesn't, making it (somewhat) safer from hallucinations than other LLM uses.</p>
                 </div>
@@ -634,7 +634,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                     <h2 class="font-vibe-sans text-3xl font-bold text-white">Changelog template</h2>
                     <p class="text-gray-400 mt-2 font-vibe-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
                 </div>
-                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
+                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition shadow-lg shadow-blue-500/20">
                     <i data-lucide="clipboard-copy" class="w-4 h-4"></i> COPY TEMPLATE
                 </button>
             </div>

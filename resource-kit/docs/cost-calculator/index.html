@@ -133,25 +133,25 @@
                     <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Model</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <button onclick="setModel('fable')" id="btn-fable"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Fable 5</div>
                             <div class="text-xs text-mist mt-1">Long-running agents</div>
                             <div class="text-xs text-mist font-bold mt-2">$10 / $50 per M tokens</div>
                         </button>
                         <button onclick="setModel('opus')" id="btn-opus"
-                            class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
                             <div class="font-display font-bold text-sm text-ink">Claude Opus 5</div>
                             <div class="text-xs text-mist mt-1">Best for complex coding</div>
                             <div class="text-xs text-accent font-bold mt-2">$5 / $25 per M tokens</div>
                         </button>
                         <button onclick="setModel('sonnet')" id="btn-sonnet"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Sonnet 5</div>
                             <div class="text-xs text-mist mt-1">Fast, balanced</div>
                             <div class="text-xs text-mist font-bold mt-2">$3 / $15 per M tokens</div>
                         </button>
                         <button onclick="setModel('haiku')" id="btn-haiku"
-                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Claude Haiku 4.5</div>
                             <div class="text-xs text-mist mt-1">Fastest, cheapest</div>
                             <div class="text-xs text-mist font-bold mt-2">$1 / $5 per M tokens</div>
@@ -164,12 +164,12 @@
                     <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Your Max plan</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <button onclick="setPlan(100)" id="btn-plan-100"
-                            class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition-all">
+                            class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
                             <div class="font-display font-bold text-sm text-ink">Max 5x — $100/month</div>
                             <div class="text-xs text-mist mt-1">5× more usage than Claude.ai Pro</div>
                         </button>
                         <button onclick="setPlan(200)" id="btn-plan-200"
-                            class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition-all hover:border-accent/50">
+                            class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
                             <div class="font-display font-bold text-sm text-ink">Max 20x — $200/month</div>
                             <div class="text-xs text-mist mt-1">20× more usage than Claude.ai Pro</div>
                         </button>

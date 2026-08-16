@@ -66,7 +66,7 @@
 
         .drop-zone {
             border: 2px dashed rgba(18, 18, 18, 0.15);
-            transition: all 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
 
         .drop-zone.drag-over {
@@ -75,7 +75,7 @@
         }
 
         .toolbar-btn {
-            transition: all 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
 
         .toolbar-btn:hover:not(:disabled) {
@@ -100,7 +100,7 @@
         }
 
         .file-item {
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
         }
 
         .file-item:hover {
@@ -167,7 +167,7 @@
                     <span class="hidden sm:inline">Upload</span>
                 </button>
 
-                <button id="download-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all" disabled>
+                <button id="download-btn" class="toolbar-btn flex items-center gap-2 px-4 py-2.5 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition" disabled>
                     <i data-lucide="download" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">Download</span>
                 </button>
@@ -195,7 +195,7 @@
                                 placeholder="https://example.com/page.html"
                                 class="flex-1 px-4 py-3 bg-white/50 border border-ink/10 text-sm focus:outline-none focus:border-accent"
                             >
-                            <button id="fetch-btn" class="toolbar-btn px-6 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all flex items-center justify-center gap-2">
+                            <button id="fetch-btn" class="toolbar-btn px-6 py-3 bg-ink text-canvas text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition flex items-center justify-center gap-2">
                                 <i data-lucide="download-cloud" class="w-4 h-4"></i>
                                 Fetch
                             </button>
@@ -355,7 +355,6 @@
                         <div class="flex-1"></div>
 
                         <div class="hidden sm:flex items-center gap-2">
-                            <div class="w-2 h-2 bg-accent animate-pulse"></div>
                             <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-mist">Click text to edit</span>
                         </div>
                     </div>
@@ -399,7 +398,7 @@
                 <!-- Modal Body -->
                 <div class="p-6">
                     <!-- Drop Zone for Image -->
-                    <div id="image-drop-zone" class="border-2 border-dashed border-ink/15 p-8 text-center cursor-pointer hover:border-accent hover:bg-accent/5 transition-all">
+                    <div id="image-drop-zone" class="border-2 border-dashed border-ink/15 p-8 text-center cursor-pointer hover:border-accent hover:bg-accent/5 transition">
                         <i data-lucide="image-plus" class="w-10 h-10 mx-auto text-ink/30 mb-4"></i>
                         <p class="text-sm text-ink/70 mb-2">Drop image here or click to browse</p>
                         <p class="text-[10px] text-mist">PNG, JPG, GIF, WebP (max 10MB)</p>
@@ -410,7 +409,7 @@
                     <div id="image-upload-progress" class="mt-4 hidden">
                         <div class="flex items-center gap-3">
                             <div class="flex-1 h-1 bg-ink/10 overflow-hidden">
-                                <div id="image-progress-bar" class="h-full bg-accent transition-all duration-300" style="width: 0%"></div>
+                                <div id="image-progress-bar" class="h-full bg-accent transition duration-300" style="width: 0%"></div>
                             </div>
                             <span id="image-progress-text" class="text-[10px] font-bold text-mist">0%</span>
                         </div>
@@ -992,7 +991,7 @@
                         <button class="restore-session-btn px-3 py-1.5 bg-accent text-canvas text-[9px] font-bold uppercase tracking-wider hover:bg-ink transition-colors" data-id="${session.id}">
                             Open
                         </button>
-                        <button class="delete-session-btn p-1.5 text-mist hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all" data-id="${session.id}" title="Delete">
+                        <button class="delete-session-btn p-1.5 text-mist hover:text-red-600 opacity-0 group-hover:opacity-100 transition" data-id="${session.id}" title="Delete">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>

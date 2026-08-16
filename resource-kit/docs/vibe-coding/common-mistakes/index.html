@@ -156,8 +156,8 @@ git log -p | grep -i "api_key\|secret\|password"
 trufflehog git file://./</code></pre>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
-                            <div class="text-xs text-red-500 font-medium mb-1">If You Already Pushed Secrets:</div>
+                        <div class="note note--signal">
+                            <span class="note__label">If you already pushed secrets</span>
                             <ol class="text-xs text-ink/60 space-y-1 list-decimal list-inside">
                                 <li><span class="text-ink font-medium">Immediately revoke/rotate the exposed key</span> in your provider's dashboard</li>
                                 <li>Do not just delete the file - the secret is still in history</li>
@@ -220,7 +220,7 @@ trufflehog git file://./</code></pre>
                             </div>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
+                        <div class="note note--signal">
                             <div class="text-xs text-red-500 font-medium mb-1">"It Was Working Yesterday" Syndrome</div>
                             <p class="text-xs text-ink/60">
                                 Something changed. Check: Did you update dependencies? Did someone else push code? Did an API change? Did your environment variables expire? Use <code class="text-accent">git diff</code> to see what changed.
@@ -483,7 +483,7 @@ npm install</code></pre>
                             </div>
                         </div>
 
-                        <div class="border-l-4 border-red-400 pl-4">
+                        <div class="note note--signal">
                             <div class="text-xs text-red-500 font-medium mb-1">Specify Your Environment</div>
                             <p class="text-xs text-ink/60">
                                 Mention: What framework (React, Vue, Next.js)? What language version (Node 18, Python 3.11)? What OS? Browser console or terminal? These details matter.

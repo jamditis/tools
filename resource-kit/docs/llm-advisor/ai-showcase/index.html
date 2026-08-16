@@ -297,7 +297,7 @@
                 sections[id].forEach(item => {
                     const card = document.createElement('a');
                     card.href = item.link;
-                    card.className = `group block border border-white/10 bg-panel hover:${item.border} transition-all duration-300 relative overflow-hidden p-6`;
+                    card.className = `group block border border-white/10 bg-panel hover:${item.border} transition duration-300 relative overflow-hidden p-6`;
                     card.innerHTML = `
                         <div class="text-xs ${item.color} font-mono mb-2 opacity-70 group-hover:opacity-100">${item.date}</div>
                         <h4 class="font-display text-lg text-white font-bold mb-3 group-hover:${item.color} transition-colors">${item.title}</h4>
