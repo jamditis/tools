@@ -900,11 +900,38 @@ async function loadAllData() {
         }
 
         /**
+         * Marks each dropdown option already chosen in another column disabled.
+         *
+         * The three columns compare three different models, so offering a model
+         * a neighbouring column already holds only produces a table with the
+         * same column twice. Toggling `disabled` on the existing option nodes
+         * leaves the select elements themselves untouched, so a keyboard user
+         * mid-selection keeps focus.
+         *
+         * @function updateCompareOptionStates
+         * @returns {void}
+         */
+        function updateCompareOptionStates() {
+            if (!modalBody) return;
+
+            modalBody.querySelectorAll('.compare-select').forEach(select => {
+                const column = Number(select.dataset.column);
+
+                Array.from(select.options).forEach(option => {
+                    option.disabled = option.value !== '' &&
+                        compareTools.some((tool, index) => index !== column && tool === option.value);
+                });
+            });
+        }
+
+        /**
          * Renders the tool comparison modal content.
          *
          * Shows one dropdown per comparison column. Each dropdown lists every
-         * model in `tool-comparison.json`, alphabetized, and the table below
-         * compares the chosen models side by side across:
+         * model in `tool-comparison.json`, alphabetized, with the models the
+         * other two columns hold disabled so no model can be compared against
+         * itself. The table below compares the chosen models side by side
+         * across:
          * - Key strengths
          * - Limitations
          * - Best use cases
@@ -936,6 +963,7 @@ async function loadAllData() {
                 </div>`;
 
             modalBody.innerHTML = `${selectorsHTML}<div id="comparison-table" class="mt-6"></div>`;
+            updateCompareOptionStates();
             renderComparisonTable();
         }
 
@@ -1485,7 +1513,17 @@ async function loadAllData() {
                 if (!Number.isInteger(column) || column < 0 || column >= compareTools.length) return;
 
                 const value = select.value;
+
+                // Disabled options make this unreachable in a browser, but a
+                // duplicate arriving any other way would render one model in
+                // two columns, so refuse it and restore the column's choice.
+                if (value && compareTools.some((tool, index) => index !== column && tool === value)) {
+                    select.value = compareTools[column];
+                    return;
+                }
+
                 compareTools[column] = toolComparisonData[value] ? value : '';
+                updateCompareOptionStates();
                 renderComparisonTable();
             });
 

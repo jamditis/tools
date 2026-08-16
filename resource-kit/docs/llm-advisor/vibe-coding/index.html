@@ -132,6 +132,14 @@
             transform: scale(0.95);
         }
 
+        /* The copied confirmation swaps in .text-green-400, which resolves to
+           the day-dark sage. Every copy button here sits on a slab or on the
+           filled info surface, so the confirmation keeps on-slab text. */
+        .copy-btn.text-green-400,
+        .copy-btn-filled.text-green-400 {
+            color: var(--on-slab);
+        }
+
         /* Selection color */
         ::selection {
             background: var(--accent-surface);
@@ -143,7 +151,7 @@
 <body class="font-vibe-sans antialiased min-h-screen flex flex-col md:flex-row relative bg-canvas text-ink">
 
     <!-- Mobile Header -->
-    <div class="md:hidden fixed top-0 left-0 w-full bg-news-bg/90 backdrop-blur-md border-b border-news-gray z-50 p-4 flex justify-between items-center">
+    <div class="md:hidden fixed top-0 left-0 w-full bg-canvas/90 backdrop-blur-md border-b border-ink/10 z-50 p-4 flex justify-between items-center">
         <span class="font-vibe-sans font-bold text-lg tracking-tight text-accent-green">VIBE CODING</span>
         <button id="menu-toggle" class="text-ink focus:outline-none">
             <i data-lucide="menu" class="w-6 h-6"></i>
@@ -629,7 +637,7 @@ Use standard SQL syntax that works in SQLite."</pre>
                     <h2 class="font-vibe-sans text-3xl font-bold text-ink">Changelog template</h2>
                     <p class="text-gray-400 mt-2 font-vibe-serif max-w-2xl">Copy this template into every project. Have the LLM update and maintain it throughout your build.</p>
                 </div>
-                <button onclick="copyToClipboard(this, 'changelog-content')" class="bg-blue-700 hover:bg-blue-800 text-ink px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition shadow-lg shadow-blue-500/20">
+                <button onclick="copyToClipboard(this, 'changelog-content')" class="copy-btn-filled bg-blue-700 hover:bg-blue-800 text-canvas px-6 py-3 rounded-lg font-vibe-sans font-bold text-sm flex items-center gap-2 transition shadow-lg shadow-blue-500/20">
                     <i data-lucide="clipboard-copy" class="w-4 h-4"></i> COPY TEMPLATE
                 </button>
             </div>

@@ -36,13 +36,15 @@
     <script src="https://unpkg.com/lucide@0.577.0/dist/umd/lucide.min.js" integrity="sha384-orgVf2eX2+m1zKAOIi09hD0W6GtVhoOUmqDK+sysYB2JTZ4vS86j4jm+X7a4Nnei" crossorigin="anonymous"></script>
 
     <style>
+        /* Track and thumb are drawn from tokens so they invert with the paper:
+           a fixed dark track disappeared entirely against night canvas. */
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
             width: 100%;
             height: 4px;
             border-radius: 2px;
-            background: rgba(18,18,18,0.15);
+            background: rgb(var(--ink-rgb) / 0.55);
             outline: none;
         }
         input[type="range"]::-webkit-slider-thumb {
@@ -51,18 +53,18 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #3d4b40;
+            background: var(--sage);
             cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            border: 2px solid var(--leaf);
+            box-shadow: 0 1px 4px rgb(var(--slab-rgb) / 0.2);
         }
         input[type="range"]::-moz-range-thumb {
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #3d4b40;
+            background: var(--sage);
             cursor: pointer;
-            border: 2px solid white;
+            border: 2px solid var(--leaf);
         }
         .savings-bar {
             height: 8px;
