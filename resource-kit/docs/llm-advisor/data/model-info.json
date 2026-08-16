@@ -159,12 +159,13 @@
     "link": "https://developers.openai.com/api/docs/models"
   },
   "Codex (GPT-5.6 Sol)": {
-    "description": "OpenAI's coding-agent experience using GPT-5.6 Sol for complex repository work. Use explicit approval boundaries, relevant tool subsets, bounded concurrency, tests, and exact-head review gates.",
+    "description": "OpenAI's coding-agent experience using GPT-5.6 Sol for complex repository work. Cloud tasks run in isolated containers, so a long job keeps working after you close the laptop. Use explicit approval boundaries, relevant tool subsets, bounded concurrency, tests, and exact-head review gates.",
     "features": [
-      "Specialized for coding tasks",
-      "Excellent at multi-file projects",
-      "Strong debugging and refactoring capabilities",
-      "Designed for long-horizon agentic engineering"
+      "Cloud tasks run in isolated containers, unattended for hours",
+      "Parallel subagents in Ultra mode for fan-out work",
+      "Start a task by tagging @codex on a GitHub pull request",
+      "Flat-plan pricing measured per five-hour window",
+      "Strong debugging, multi-file reasoning, and long-horizon refactors"
     ],
     "link": "https://developers.openai.com/codex/"
   },
