@@ -29,9 +29,10 @@
             font-weight: 300;
             font-style: italic;
         }
+        /* A hanging indent rather than an accent bar down the side. */
         .example-block {
-            border-left: 3px solid var(--accent);
-            padding-left: 1rem;
+            padding-left: 1.25rem;
+            border-left: 1px solid var(--edge);
         }
         .related-card {
             transition: transform 0.18s ease, border-color 0.18s ease;
@@ -127,13 +128,10 @@
 
             <!-- Analogy -->
             <section id="analogy-section" class="reveal-section">
-                <div class="deckle-card p-6 flex gap-4">
-                    <div class="flex-shrink-0 w-10 h-10 bg-accent/10 border border-accent/20 rounded flex items-center justify-center text-accent">
-                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <div class="text-xs font-semibold tracking-widest text-accent uppercase mb-2">Real-world analogy</div>
-                        <p id="analogy-text" class="text-ink/75 leading-relaxed text-sm"></p>
+                <div class="deckle-card p-6 md:p-8">
+                    <div class="note note--accent">
+                        <span class="note__label">Real-world analogy</span>
+                        <p id="analogy-text" class="text-ink/75 leading-relaxed"></p>
                     </div>
                 </div>
             </section>

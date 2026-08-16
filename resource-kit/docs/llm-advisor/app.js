@@ -1127,7 +1127,7 @@ async function loadAllData() {
 
             // Update progress bar
             progressBar.style.width = `${progress}%`;
-            progressBar.className = 'absolute top-0 left-0 h-full bg-accent transition-[width] duration-500';
+            progressBar.className = 'absolute top-0 left-0 h-full bg-accent progress-fill';
 
             // Update back button state
             backBtn.disabled = history.length === 0;

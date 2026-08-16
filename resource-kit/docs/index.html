@@ -91,7 +91,7 @@
     <div class="relative z-10 flex min-h-screen flex-col">
 
         <!-- Header -->
-        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition-[padding,background-color] duration-500">
+        <header id="main-nav" class="border-b border-ink/10 bg-canvas/50 backdrop-blur-md sticky top-0 z-50 transition duration-500">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
@@ -109,16 +109,16 @@
         </header>
 
         <!-- Masthead -->
-        <section class="pt-20 pb-16 px-6 border-b border-ink/10 relative overflow-hidden reveal-section">
+        <section class="pt-20 pb-20 px-6 border-b border-ink/10 relative overflow-hidden reveal-section">
             <div class="max-w-7xl mx-auto relative z-10 animate-page-in">
                 <h1 class="font-display display-xl font-light text-ink mb-10">
                     AI tools for <span class="italic font-black">newsrooms.</span>
                 </h1>
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-end border-t border-ink/10 pt-8">
-                    <p class="md:col-span-7 text-ink/75 text-lg md:text-xl font-light leading-relaxed measure">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 border-t border-ink/10 pt-8">
+                    <p class="text-ink/75 text-lg md:text-xl font-light leading-relaxed measure">
                         Practical guides, templates, and reference materials for journalists building tools with AI assistance.
                     </p>
-                    <div class="md:col-span-5 flex flex-col sm:flex-row md:justify-end gap-3">
+                    <div class="flex flex-col sm:flex-row gap-3 flex-shrink-0">
                         <a href="/vibe-coding/" class="btn-primary text-center">
                             Start with vibe coding
                         </a>

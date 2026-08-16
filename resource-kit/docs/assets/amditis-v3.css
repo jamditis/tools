@@ -107,6 +107,9 @@
     --lift-2: 0 2px 0 rgba(28, 24, 21, 0.05), 0 12px 28px -18px rgba(28, 24, 21, 0.35);
     --lift-3: 0 3px 0 rgba(28, 24, 21, 0.06), 0 26px 50px -28px rgba(28, 24, 21, 0.45);
 
+    /* Glossary diagram ink — the single colour the SVG illustrations draw in */
+    --diagram-ink: #3d4b40;
+
     /* Paper texture strength */
     --grain-opacity: 0.42;
 
@@ -152,6 +155,8 @@
 
         --slab: #0e0c08;
         --slab-rgb: 14 12 8;
+
+        --diagram-ink: #9db89f;
 
         --tint-5: rgba(236, 228, 213, 0.022);
         --tint-10: rgba(236, 228, 213, 0.03);
@@ -203,6 +208,8 @@
 
     --slab: #0e0c08;
     --slab-rgb: 14 12 8;
+
+    --diagram-ink: #9db89f;
 
     --tint-5: rgba(236, 228, 213, 0.022);
     --tint-10: rgba(236, 228, 213, 0.03);
@@ -669,6 +676,10 @@ body {
     margin-bottom: var(--sp-2);
 }
 
+/* A note flush against its container's padding needs no outer margin. */
+.note:first-child { margin-top: 0; }
+.note:last-child { margin-bottom: 0; }
+
 .note--accent { border-top-color: var(--accent); }
 .note--accent .note__label { color: var(--accent); }
 .note--sage { border-top-color: var(--sage); }
@@ -808,6 +819,23 @@ pre code { background: none; }
 }
 
 .nav-link::after { background: var(--accent); }
+
+/**
+ * .bg-cream
+ *
+ * Used on 80 elements across the vibe-coding pages but never compiled into
+ * tailwind.css, so it painted nothing. It is a raised paper tint.
+ */
+.bg-cream { background-color: var(--leaf); }
+
+/**
+ * .progress-fill
+ *
+ * The advisor's progress bar. Declared here because `transition-[width]` is an
+ * arbitrary Tailwind value that is not in the build artefact, and a bare
+ * `transition` would not cover width at all.
+ */
+.progress-fill { transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* -- Legacy V1 mappings, re-pointed at V3 tokens -------------------------- */
 
