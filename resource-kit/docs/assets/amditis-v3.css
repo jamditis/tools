@@ -657,7 +657,7 @@ body {
 /**
  * .note
  *
- * The kit's callout. V2 used `border-l-4` colour-stripe cards for these; V3
+ * The kit's callout. V2 drew these as colour-stripe cards; V3
  * hangs a rubric above a hairline-topped block, so a page of callouts reads as
  * marginalia rather than a stack of highlighter bars.
  */
@@ -1126,7 +1126,7 @@ body {
 .text-green-600 { color: var(--sage); }
 .text-orange-400 { color: var(--caution); }
 .text-pink-400 { color: var(--info); }
-.text-purple-400 { color: var(--info); }
+.text-purple-400 { color: var(--info); } /* legacy name; renders as the info token */
 .text-red-400 { color: var(--signal); }
 .text-red-500 { color: var(--signal); }
 .text-red-500\/60 { color: var(--signal); }
