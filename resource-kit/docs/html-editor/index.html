@@ -48,30 +48,19 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .paper-overlay {
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("https://www.transparenttextures.com/patterns/natural-paper.png"),
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%);
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 1;
-        }
-
         :focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 4px;
         }
 
         .drop-zone {
-            border: 2px dashed rgba(18, 18, 18, 0.15);
+            border: 2px dashed rgb(var(--ink-rgb) / 0.15);
             transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
         }
 
         .drop-zone.drag-over {
-            border-color: #3d4b40;
-            background: rgba(61, 75, 64, 0.05);
+            border-color: var(--sage);
+            background: rgb(var(--sage-rgb) / 0.05);
         }
 
         .toolbar-btn {
@@ -79,8 +68,8 @@
         }
 
         .toolbar-btn:hover:not(:disabled) {
-            background: rgba(61, 75, 64, 0.1);
-            border-color: #3d4b40;
+            background: rgb(var(--sage-rgb) / 0.1);
+            border-color: var(--sage);
         }
 
         .toolbar-btn:disabled {
@@ -95,6 +84,12 @@
         }
 
         #editor-frame {
+            /* Simulates a plain browser canvas hosting the reader's own
+               HTML/CSS, which defaults to white like any unstyled page.
+               This is the same "edited document" exception as the inline
+               style injected in setupEditor(): it represents content
+               outside the Amditis theme, not app chrome, so it stays a
+               literal white rather than a paper token. */
             background: white;
             border: none;
         }
@@ -105,16 +100,16 @@
 
         .file-item:hover {
             padding-left: 1rem;
-            background: rgba(61, 75, 64, 0.05);
+            background: rgb(var(--sage-rgb) / 0.05);
         }
 
         .file-item.active {
-            background: rgba(61, 75, 64, 0.1);
-            border-left: 2px solid #3d4b40;
+            background: rgb(var(--sage-rgb) / 0.1);
+            border-left: 2px solid var(--sage);
         }
 
         .sidebar-section {
-            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.05);
         }
 
         /**
