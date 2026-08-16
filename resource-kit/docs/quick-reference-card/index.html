@@ -49,12 +49,22 @@
             }
             .no-print { display: none !important; }
 
-            /* Print Overrides */
+            /* Print overrides. Values here are deliberately literal, not
+               tokens: paper is a fixed white ground, so the palette must not
+               follow the screen theme onto it. */
             .bg-canvas, .deckle-card { background: white !important; border: 1px solid #ddd !important; }
-            .text-ink, .text-ink\/60, .text-ink\/50, .text-ink\/40 { color: black !important; }
+            .text-ink, .text-ink\/70, .text-ink\/60, .text-ink\/50, .text-ink\/40, .text-mist { color: black !important; }
             .text-accent { color: #8B6914 !important; font-weight: bold !important; }
-            .border-ink\/10, .border-ink\/20 { border-color: #000 !important; }
+            .text-red-500 { color: #8a1c0a !important; }
+            .border-ink\/10, .border-ink\/20, .border-ink\/40 { border-color: #000 !important; }
             .paper-overlay { display: none !important; }
+
+            /* Slabs are dark in both themes, so they vanish when the reader
+               prints without background graphics. On paper they become a
+               ruled white block. */
+            .bg-ink { background: white !important; color: black !important; border: 1px solid #999 !important; }
+            .bg-ink\/\[0\.03\] { background: white !important; }
+            .text-white, .bg-ink .text-accent { color: black !important; }
 
             /* Compact layout for print */
             main { padding: 0 !important; }

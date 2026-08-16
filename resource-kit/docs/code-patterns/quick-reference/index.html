@@ -83,8 +83,8 @@
         .ref-table th {
             text-align: left;
             padding: 0.75rem 1rem;
-            background: rgba(18, 18, 18, 0.03);
-            border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+            background: rgb(var(--ink-rgb) / 0.03);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.1);
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -92,11 +92,11 @@
         }
         .ref-table td {
             padding: 0.75rem 1rem;
-            border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+            border-bottom: 1px solid rgb(var(--ink-rgb) / 0.05);
             vertical-align: top;
         }
         .ref-table tr:hover {
-            background: rgba(18, 18, 18, 0.02);
+            background: rgb(var(--ink-rgb) / 0.02);
         }
         .situation-cell {
             color: var(--ink);
@@ -106,12 +106,28 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
+        /* Print is a fixed white ground, so these values are deliberately
+           literal rather than tokens: the palette must not follow the screen
+           theme onto paper. The overrides name the V3 utility classes because
+           a bare `body` rule loses to `.bg-canvas` / `.text-ink` at equal
+           weight, which is what printed night paper. */
         @media print {
-            body { background: white; color: black; }
-            .no-print { display: none; }
-            .paper-overlay { display: none; }
-            .ref-table th { background: #f0f0f0; }
-            .ref-table td { border-color: #ccc; }
+            @page { margin: 0.5in; size: letter; }
+
+            body, .bg-canvas, .bg-canvas\/80 { background: #fff !important; color: #000 !important; }
+            .text-ink, .text-mist, .situation-cell, .action-cell { color: #000 !important; }
+            .text-accent { color: #000 !important; font-weight: 700 !important; }
+            .deckle-card { background: #fff !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+            .border-ink\/10, .border-ink\/5 { border-color: #999 !important; }
+            .bg-accent\/5 { background: transparent !important; }
+
+            .no-print { display: none !important; }
+            .paper-overlay { display: none !important; }
+            .ref-table th { background: #f0f0f0 !important; color: #000 !important; border-bottom-color: #999 !important; }
+            .ref-table td { color: #000 !important; border-bottom-color: #ccc !important; }
+            .ref-table tr:hover { background: transparent !important; }
+
+            main { padding: 0 !important; }
         }
     </style>
 <script src="/assets/ask-ai.js" defer></script>

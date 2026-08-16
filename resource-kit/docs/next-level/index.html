@@ -111,9 +111,9 @@
             font-style: normal;
         }
 
-        /* Numbered list markers in the accent colour */
-        .marker-accent > li::marker {
-            color: #3d4b40;
+        /* Numbered list markers in the sage accent */
+        .marker-sage > li::marker {
+            color: var(--sage);
             font-weight: 600;
         }
 
@@ -316,7 +316,7 @@
                     </p>
                 </div>
 
-                <ol class="space-y-3 my-6 text-ink/75 list-decimal pl-6 marker-accent">
+                <ol class="space-y-3 my-6 text-ink/75 list-decimal pl-6 marker-sage">
                     <li>A self quality pass by the agent that wrote the code.</li>
                     <li>A Codex correctness review of the diff, before anything is committed.</li>
                     <li>A "coach" quality assessment of the change as a whole.</li>

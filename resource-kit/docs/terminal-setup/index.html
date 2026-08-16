@@ -108,10 +108,13 @@
             display: block;
         }
 
-        /* Tool badge colors */
-        .badge-claude { background: rgba(138, 47, 8, 0.08); border-color: rgba(138, 47, 8, 0.45); color: #8a2f08; }
-        .badge-gemini { background: rgba(23, 78, 166, 0.08); border-color: rgba(23, 78, 166, 0.4); color: #174ea6; }
-        .badge-codex { background: rgba(0, 107, 84, 0.08); border-color: rgba(0, 107, 84, 0.4); color: #006b54; }
+        /* Tool badges. Colours come from V3 tokens so the text follows the
+           paper and clears AA on both grounds; fixed dark hex sat at ~2:1 on
+           night paper. */
+        .badge-claude { background: rgb(var(--accent-rgb) / 0.08); border-color: rgb(var(--accent-rgb) / 0.45); color: var(--accent); }
+        .badge-gemini { background: rgb(var(--info-rgb) / 0.08); border-color: rgb(var(--info-rgb) / 0.4); color: var(--info); }
+        .badge-codex { background: rgb(var(--sage-rgb) / 0.08); border-color: rgb(var(--sage-rgb) / 0.4); color: var(--sage); }
+        .badge-github { background: rgb(var(--mist-rgb) / 0.08); border-color: rgb(var(--mist-rgb) / 0.4); color: var(--mist); }
 
         /* Definition tooltip */
         .def-trigger {
@@ -915,7 +918,7 @@ node --version</code></pre>
                                     <div class="w-8 h-8 rounded-sm pill-openai flex items-center justify-center font-bold text-sm">GH</div>
                                     // Copilot CLI
                                 </h2>
-                                <span class="text-xs px-2 py-1 border rounded-sm" style="background:rgba(100,116,139,0.1);border-color:rgba(100,116,139,0.3);color:#475569">GitHub</span>
+                                <span class="text-xs badge-github px-2 py-1 border rounded-sm">GitHub</span>
                             </div>
                         </div>
 

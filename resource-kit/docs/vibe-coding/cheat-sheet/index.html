@@ -47,13 +47,26 @@
             }
             .no-print { display: none !important; }
 
-            /* Print Overrides */
+            /* Print overrides. Values here are deliberately literal, not
+               tokens: paper is a fixed white ground, so the palette must not
+               follow the screen theme onto it. */
             .bg-canvas, .bg-cream, .bg-white, .deckle-card { background: white !important; border: 1px solid #ddd !important; }
-            .text-ink, .text-ink\/60, .text-ink\/50, .text-ink\/40 { color: black !important; }
+            .text-ink, .text-ink\/60, .text-ink\/50, .text-ink\/40, .text-ink\/30, .text-mist { color: black !important; }
             .text-accent { color: black !important; font-weight: bold !important; }
-            .border-ink\/10, .border-ink\/20, .border-accent\/30 { border-color: #000 !important; }
+            .border-ink\/10, .border-ink\/20, .border-ink\/5, .border-accent\/30 { border-color: #000 !important; }
             .paper-overlay { display: none !important; }
             .animate-drift { display: none !important; }
+
+            /* Slabs are dark in both themes, so they vanish when the reader
+               prints without background graphics. On paper they become a
+               ruled white block. */
+            .bg-ink { background: white !important; color: black !important; border: 1px solid #999 !important; }
+            .text-white, .text-white\/60, .text-white\/50, .bg-ink .text-accent { color: black !important; }
+
+            /* The "never do" panel keeps its red, dark enough to read on white. */
+            .bg-red-50 { background: white !important; }
+            .border-red-300 { border-color: #8a1c0a !important; }
+            .text-red-500, .text-red-400 { color: #8a1c0a !important; }
 
             /* Compact layout for print */
             main { padding: 0 !important; }

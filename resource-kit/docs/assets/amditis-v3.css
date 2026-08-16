@@ -961,12 +961,15 @@ body {
  * A screen control has no business on paper. The printable pages (quick
  * reference card, cheat sheet) hide only `.no-print`, which the toggle is not
  * marked with, so the fixed fallback printed in the corner of every sheet.
+ * The Ask AI trigger is injected by a script and carries no page class either,
+ * so it printed as a stranded "Ask AI" line in mist grey.
  * `!important` matches those pages' own print overrides, which load after this
  * file from a page-local <style>.
  */
 @media print {
     .theme-toggle,
-    [data-theme-toggle-slot] {
+    [data-theme-toggle-slot],
+    [data-ask-ai] {
         display: none !important;
     }
 }
