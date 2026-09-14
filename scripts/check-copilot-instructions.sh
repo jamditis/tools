@@ -145,9 +145,45 @@ repo_identity() {
   printf 'path:%s' "$abs"
 }
 
+# Label the working-tree measurement; no network access or default-ref file reads.
+checkout_ref() {
+  local repo="$1" abs top branch ref default candidate source=""
+  abs="$(cd "$repo" 2>/dev/null && pwd -P)" || abs=""
+  top="$(git -C "$repo" rev-parse --show-toplevel 2>/dev/null)" || top=""
+  if [[ -z "$abs" || "$top" != "$abs" ]]; then
+    printf 'working tree; ref unavailable'
+    return
+  fi
+  branch="$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null)" || branch=""
+  ref="$branch"
+  if [[ -z "$ref" ]]; then
+    ref="$(git -C "$repo" rev-parse --short HEAD 2>/dev/null)" || ref="unborn"
+    ref="detached $ref"
+  fi
+  default="$(git -C "$repo" symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null)" || default=""
+  default="${default#origin/}"
+  if [[ -z "$default" ]]; then
+    for candidate in main master; do
+      if git -C "$repo" show-ref --verify --quiet "refs/heads/$candidate"; then
+        default="$candidate"
+        source=" (local fallback)"
+        break
+      fi
+    done
+  fi
+  printf 'working tree: %s' "$ref"
+  if [[ -z "$default" ]]; then
+    printf '; default unknown'
+  elif [[ "$branch" == "$default" ]]; then
+    printf '; default %s%s' "$default" "$source"
+  else
+    printf '; off-default; default %s%s' "$default" "$source"
+  fi
+}
+
 # Collect every file first, then report one row per upstream repo. Reporting inside the
 # scan loop is what produced the duplicate rows.
-declare -A group_name group_chars group_files group_count group_paths
+declare -A group_name group_chars group_files group_count group_paths group_refs
 order=()
 
 for repo in "${repos[@]}"; do
@@ -164,6 +200,7 @@ for repo in "${repos[@]}"; do
     group_chars[$key]="$chars"
     group_files[$key]="$file"
     group_paths[$key]="$name"
+    group_refs[$key]="$(checkout_ref "$repo")"
     continue
   fi
   group_count[$key]=$((group_count[$key] + 1))
@@ -178,6 +215,7 @@ for repo in "${repos[@]}"; do
   if [[ "$chars" -gt "${group_chars[$key]}" ]]; then
     group_chars[$key]="$chars"
     group_name[$key]="$name"
+    group_refs[$key]="$(checkout_ref "$repo")"
   fi
 done
 
@@ -199,7 +237,7 @@ for key in "${order[@]}"; do
   else
     status="ok"
   fi
-  printf '%-30s %8s  %s\n' "$name" "$chars" "$status"
+  printf '%-30s %8s  %s [%s]\n' "$name" "$chars" "$status" "${group_refs[$key]}"
 
   if [[ "${group_count[$key]}" -gt 1 ]]; then
     duplicates=$((duplicates + group_count[$key] - 1))

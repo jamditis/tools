@@ -654,3 +654,34 @@ test("add_decision_node refuses prototype keys as node ids", async (t) => {
     new RegExp(`${FAILURE_MARK} decisionTree`)
   );
 });
+
+for (const [name, option] of [
+  ["missing option text", { next: "recommendation", tools: TERMINAL_OPTION.tools }],
+  ["unknown option field", { ...TERMINAL_OPTION, unsupported: true }],
+  ["malformed tips", { ...TERMINAL_OPTION, tools: [{ ...TERMINAL_OPTION.tools[0], tips: {} }] }],
+  ["empty intermediate tools", { text: "Continue", next: "start", tools: [] }],
+  ["unknown recommendation field", { ...TERMINAL_OPTION, tools: [{ ...TERMINAL_OPTION.tools[0], unsupported: true }] }],
+  ["invalid track", { ...TERMINAL_OPTION, track: {} }],
+]) {
+  test(`rejects complete nested shape: ${name}`, async (t) => {
+    const client = await makeCatalogWithDecisionTree(t, "llm-advisor-nested-shape-");
+    const result = await client.callTool({ name: "add_decision_node", arguments: { nodeId: "invalid_probe", question: "Example question", options: [option] } });
+    assert.equal(result.isError, true);
+    const stored = await client.callTool({ name: "get_decision_node", arguments: { nodeId: "invalid_probe" } });
+    assert.equal(stored.isError, true);
+  });
+}
+
+
+test("malformed existing nested options fail validation and prevent unrelated mutation", async (t) => {
+  const client = await makeCatalogWithDecisionTree(t, "llm-advisor-invalid-existing-", {
+    start: { question: "Synthetic", options: [{ ...TERMINAL_OPTION, tools: [{ ...TERMINAL_OPTION.tools[0], tips: {} }] }] },
+    recommendation: { question: "Result", options: [] },
+  });
+  const validation = await client.callTool({ name: "validate_all_json", arguments: {} });
+  assert.match(validation.content[0].text, new RegExp(`${FAILURE_MARK} decisionTree`));
+  const result = await client.callTool({ name: "add_decision_node", arguments: { nodeId: "unrelated", question: "Synthetic", options: [TERMINAL_OPTION] } });
+  assert.equal(result.isError, true);
+  const stored = await client.callTool({ name: "get_decision_node", arguments: { nodeId: "unrelated" } });
+  assert.equal(stored.isError, true);
+});
