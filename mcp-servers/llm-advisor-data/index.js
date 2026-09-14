@@ -180,8 +180,17 @@ const RECOMMENDATION_NODE = "recommendation";
 // .map on tools, so an entry missing tools throws and one missing the others
 // renders the string "undefined". tips is guarded by a ternary there, so it stays
 // optional here.
+function validateKnownFields(data, fields, name) {
+  validateRecord(data, name);
+  for (const field of Object.keys(data)) {
+    if (!fields.includes(field)) {
+      throw new Error(`${name} has unsupported field ${field}`);
+    }
+  }
+}
+
 function validateRecommendation(recommendation, name) {
-  validateRecord(recommendation, name);
+  validateKnownFields(recommendation, ["name", "description", "tools", "prompt", "tips"], name);
   for (const field of ["name", "description", "prompt"]) {
     if (
       typeof recommendation[field] !== "string" ||
@@ -196,9 +205,33 @@ function validateRecommendation(recommendation, name) {
   ) {
     throw new Error(`${name} must list at least one tool`);
   }
+  if (Object.hasOwn(recommendation, "tips") && typeof recommendation.tips !== "string") {
+    throw new Error(`${name} tips must be a string`);
+  }
   for (const [index, tool] of recommendation.tools.entries()) {
     if (typeof tool !== "string" || tool.length === 0) {
       throw new Error(`${name} tool ${index} must be a non-empty string`);
+    }
+  }
+}
+
+function validateDecisionOption(option, name) {
+  validateKnownFields(option, ["text", "next", "track", "tools"], name);
+  for (const field of ["text", "next"]) {
+    if (typeof option[field] !== "string" || !option[field].trim()) {
+      throw new Error(`${name} must have a non-empty ${field}`);
+    }
+  }
+  if (Object.hasOwn(option, "track") && typeof option.track !== "string") {
+    throw new Error(`${name} track must be a string`);
+  }
+  // The workflow selector reads tools[0] on any option with tools, not only terminals.
+  if (option.next === RECOMMENDATION_NODE || Object.hasOwn(option, "tools")) {
+    if (!Array.isArray(option.tools) || option.tools.length === 0) {
+      throw new Error(`${name} must list at least one recommendation`);
+    }
+    for (const [index, recommendation] of option.tools.entries()) {
+      validateRecommendation(recommendation, `${name} recommendation ${index}`);
     }
   }
 }
@@ -211,11 +244,14 @@ function validateRecommendation(recommendation, name) {
 function validateDecisionTreeShape(data) {
   validateRecord(data, "Decision tree");
   for (const [nodeId, node] of Object.entries(data)) {
-    validateRecord(node, `Decision node ${nodeId}`);
+    validateKnownFields(node, ["question", "options"], `Decision node ${nodeId}`);
     if (typeof node.question !== "string" || !Array.isArray(node.options)) {
       throw new Error(
         `Decision node ${nodeId} must have a question and options array`
       );
+    }
+    for (const [index, option] of node.options.entries()) {
+      validateDecisionOption(option, `Decision node ${nodeId} option ${index}`);
     }
   }
 }
@@ -235,31 +271,12 @@ function validateDecisionTree(data) {
 
   for (const [nodeId, node] of Object.entries(data)) {
     for (const [index, option] of node.options.entries()) {
-      validateRecord(option, `Decision node ${nodeId} option ${index}`);
-      if (typeof option.next !== "string" || option.next.length === 0) {
-        throw new Error(
-          `Decision node ${nodeId} option ${index} must have a next node id`
-        );
-      }
       if (!Object.prototype.hasOwnProperty.call(data, option.next)) {
         throw new Error(
           `Decision node ${nodeId} option ${index} points at missing node ${option.next}`
         );
       }
-      if (option.next !== RECOMMENDATION_NODE) {
-        continue;
-      }
-      if (!Array.isArray(option.tools) || option.tools.length === 0) {
-        throw new Error(
-          `Decision node ${nodeId} option ${index} ends the walk and must list at least one recommendation`
-        );
-      }
-      for (const [toolIndex, recommendation] of option.tools.entries()) {
-        validateRecommendation(
-          recommendation,
-          `Decision node ${nodeId} option ${index} recommendation ${toolIndex}`
-        );
-      }
+
     }
   }
 }
@@ -408,30 +425,35 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               items: {
                 type: "object",
                 properties: {
-                  text: { type: "string" },
-                  next: { type: "string" },
+                  text: { type: "string", minLength: 1 },
+                  next: { type: "string", minLength: 1 },
+                  track: { type: "string" },
                   tools: {
                     type: "array",
+                    minItems: 1,
                     description:
                       'Recommendations rendered when next is "recommendation"',
                     items: {
                       type: "object",
                       properties: {
-                        name: { type: "string" },
-                        description: { type: "string" },
+                        name: { type: "string", minLength: 1 },
+                        description: { type: "string", minLength: 1 },
                         tools: {
                           type: "array",
+                          minItems: 1,
                           description: "Model names to suggest",
-                          items: { type: "string" },
+                          items: { type: "string", minLength: 1 },
                         },
-                        prompt: { type: "string" },
+                        prompt: { type: "string", minLength: 1 },
                         tips: { type: "string" },
                       },
                       required: ["name", "description", "tools", "prompt"],
+                      additionalProperties: false,
                     },
                   },
                 },
                 required: ["text", "next"],
+                additionalProperties: false,
               },
             },
           },

@@ -218,5 +218,21 @@ check "path-scoped-only repository remains visible" grep -Eq 'advisory: path-sco
 check "other markdown files are not counted" test -z "$(grep 'not-an-instruction.md' <<<"$out" || true)"
 
 echo
+mkrepo refprobe 200
+git -C "$tmp/refprobe" branch -M main
+git -C "$tmp/refprobe" checkout -qb stale-feature
+mkfile refprobe 4200
+out="$("$guard" "$tmp/refprobe" 2>&1)"; rc=$?
+check "size report identifies the measured feature branch" grep -q 'stale-feature' <<<"$out"
+check "off-default measurement is qualified" grep -Eqi 'off-default|non-default|default.*main' <<<"$out"
+
+git -C "$tmp/refprobe" symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+out="$("$guard" "$tmp/refprobe" 2>&1)"; rc=$?
+check "remote default name qualifies working-tree size" grep -q 'off-default; default main' <<<"$out"
+git -C "$tmp/refprobe" checkout -q --detach
+out="$("$guard" "$tmp/refprobe" 2>&1)"; rc=$?
+check "detached checkout identifies measured commit" grep -q "detached $(git -C "$tmp/refprobe" rev-parse --short HEAD)" <<<"$out"
+check "detached measurement stays off-default" grep -q 'off-default' <<<"$out"
+
 echo "=== $pass passed, $fail failed ==="
 [[ $fail -eq 0 ]]
