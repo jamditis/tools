@@ -1,5 +1,7 @@
 # AI resources + toolkit
 
+[Project: Tools maintenance](https://github.com/users/jamditis/projects/20)
+
 A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted at **https://tools.amditis.tech/**
 
 Current-facing model, agent, harness, and routing guidance was verified July

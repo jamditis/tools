@@ -643,10 +643,10 @@ async function loadAllData() {
 
                 return `
                 <button class="option-button group w-full text-left py-4 flex justify-between items-baseline gap-4 border-b border-ink/10 hover:bg-ink/5 transition-colors duration-200"
-                        data-next="${option.next}"
-                        data-text="${sanitizeHTML(option.text)}"
+                        data-next="${escapeAttr(option.next)}"
+                        data-text="${escapeAttr(option.text)}"
                         data-tools='${toolsJSON}'
-                        data-track="${option.track || currentTrack}"
+                        data-track="${escapeAttr(option.track || currentTrack)}"
                         style="animation-delay: ${index * 50}ms">
                     <span class="font-display text-lg text-ink group-hover:text-accent transition-colors">${sanitizeHTML(option.text)}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 text-mist group-hover:text-accent transition-colors" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
@@ -688,7 +688,7 @@ async function loadAllData() {
                     <div class="note note--accent">
                         <span class="note__label">Recommended models</span>
                         <div class="flex flex-wrap gap-2">
-                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${item}">${sanitizeHTML(item)}</button>`).join('')}
+                            ${tool.tools.map(item => `<button class="model-pill-btn text-xs font-medium px-3 py-1.5 rounded-sm ${getPillClasses(item)} hover:opacity-80 transition-opacity" data-model-name="${escapeAttr(item)}">${sanitizeHTML(item)}</button>`).join('')}
                         </div>
                     </div>
 
@@ -1092,7 +1092,7 @@ async function loadAllData() {
                 const isHighlighted = name === highlightModel;
                 const modelUrl = safeHttpUrl(data.link);
                 contentHTML += `
-                <div id="model-card-${name.replace(/\s+/g, '-')}" class="border border-ink/10 overflow-hidden flex flex-col bg-white/40 ${isHighlighted ? 'ring-2 ring-accent' : ''}">
+                <div id="model-card-${escapeAttr(name.replace(/\s+/g, '-'))}" class="border border-ink/10 overflow-hidden flex flex-col bg-white/40 ${isHighlighted ? 'ring-2 ring-accent' : ''}">
                     <div class="px-5 py-4 ${getPillClasses(name)}"><h3 class="font-display font-bold text-lg">${sanitizeHTML(name)}</h3></div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex-grow">

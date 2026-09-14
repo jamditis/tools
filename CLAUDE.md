@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+[Project: Tools maintenance](https://github.com/users/jamditis/projects/20)
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Bug-fixing workflow
@@ -332,7 +334,7 @@ Earlier notes here said the bot also reads the repo's `CLAUDE.md`. That is not d
 
 That 4,000 is a house budget, and calling it a platform limit was wrong. GitHub publishes no hard size, character, or token limit for the file and documents no truncation threshold or mechanism. It does warn that shorter instruction files are more likely to be fully processed, recommends limiting any single instruction file to about 1,000 lines, and asks for generated onboarding instructions no longer than two pages. The 4,000-character house budget sits comfortably inside both length recommendations. Earlier notes here and in tools issues #59, #64, and #71 described it as a silent-truncation cap the bot enforces. Nobody could source that mechanism or threshold, so treat a file over the budget as risking incomplete processing without asserting how or where processing stops.
 
-A repo that genuinely needs more guidance than the budget holds has somewhere to put it. The same table gives that code-review row path-specific instructions, `.github/instructions/**/*.instructions.md`, so rules moved into one with an `applyTo` glob stay in review, scoped to the files they apply to. The check does not count those files, so moving text into one satisfies the guard without reducing how much the bot reads. Use it to scope rules, not to duck the budget.
+A repo that genuinely needs more guidance than the budget holds has somewhere to put it. The same table gives that code-review row path-specific instructions, `.github/instructions/**/*.instructions.md`, so rules moved into one with an `applyTo` glob stay in review, scoped to the files they apply to. The check reports each path-scoped file's size as advisory, including nested files and checkouts without repository-wide instructions. Only the repository-wide file has a size gate; the advisory does not set a new budget. Moving text into a path-scoped file can satisfy the gate without reducing how much the bot reads. Use it to scope rules, not to duck the budget.
 
 The bot is a bug finder, not a style linter. It flags code defects, not English-prose conventions, so a copilot-instructions file should carry only rules the bot can act on and nothing it will ignore.
 

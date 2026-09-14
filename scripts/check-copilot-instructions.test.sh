@@ -206,6 +206,17 @@ mkrepo portB 200 "ssh://git@git.example.com:2222/org/repo"
 out="$("$guard" "$tmp/portA" "$tmp/portB" 2>&1)"
 check "a ported SSH origin folds with its .git-suffixed twin" grep -q "checked 1 repo(s)" <<<"$out"
 
+echo "=== path-scoped sizes are visible without adding a gate ==="
+mkdir -p "$tmp/under/.github/instructions/nested" "$tmp/scoped-only/.github/instructions"
+head -c 5000 </dev/zero | tr '\0' x > "$tmp/under/.github/instructions/nested/large.instructions.md"
+printf 'rules' > "$tmp/scoped-only/.github/instructions/only.instructions.md"
+printf 'ignored' > "$tmp/under/.github/instructions/not-an-instruction.md"
+out="$("$guard" "$tmp/under" "$tmp/scoped-only" 2>&1)"; rc=$?
+check "large path-scoped files do not fail the gate" test "$rc" -eq 0
+check "nested path-scoped file reports its byte size" grep -Eq 'advisory: path-scoped.*5000.*large.instructions.md' <<<"$out"
+check "path-scoped-only repository remains visible" grep -Eq 'advisory: path-scoped.*5.*only.instructions.md' <<<"$out"
+check "other markdown files are not counted" test -z "$(grep 'not-an-instruction.md' <<<"$out" || true)"
+
 echo
 echo "=== $pass passed, $fail failed ==="
 [[ $fail -eq 0 ]]
