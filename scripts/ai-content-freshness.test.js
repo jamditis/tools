@@ -94,9 +94,9 @@ test("the skills site card matches the current public catalog", async () => {
   );
 
   assert.match(home, /https:\/\/skills\.amditis\.tech\//);
-  assert.match(home, /62 agent skills, 12 plugins, and 17 hooks/);
-  assert.match(home, />62 Skills</);
-  assert.match(home, />12 Plugins</);
+  assert.match(home, /64 agent skills, 13 plugins, and 17 hooks/);
+  assert.match(home, />64 Skills</);
+  assert.match(home, />13 Plugins</);
   assert.match(home, />17 Hooks</);
   assert.doesNotMatch(home, /jamditis\.github\.io\/claude-skills-journalism/);
 });
