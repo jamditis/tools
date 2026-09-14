@@ -23,7 +23,8 @@
 # It also runs an advisory scan for the prose-style globals (sentence case, banned
 # words) that the bot ignores, so a file that starts restating them again is flagged
 # before it eats the budget. The advisory never changes the exit code; only the hard
-# cap does.
+# cap does. Path-scoped .github/instructions/**/*.instructions.md sizes are
+# also reported as advisory, including repos without the repository-wide file.
 #
 # Counts are per repo, not per directory scanned. ~/projects holds worktrees sharing one
 # .git and separate clones of the same upstream, so one over-cap file used to be reported
@@ -225,6 +226,17 @@ for key in "${order[@]}"; do
   fi
 done
 
+# These rules have a separate scope, not a separate budget. Report every checkout,
+# including those without repository-wide instructions, without changing the gate.
+for repo in "${repos[@]}"; do
+  scoped_dir="$repo/.github/instructions"
+  [[ -d "$scoped_dir" ]] || continue
+  while IFS= read -r -d '' file; do
+    bytes="$(wc -c <"$file" | tr -d ' ')"
+    printf '  advisory: path-scoped instructions (not gated): %s bytes %s\n' "$bytes" "$file"
+  done < <(find "$scoped_dir" -type f -name '*.instructions.md' -print0)
+done
+
 echo
 if [[ "$checked" -eq 0 ]]; then
   echo "no .github/copilot-instructions.md files found in the ${#repos[@]} repo(s) scanned"
@@ -242,4 +254,4 @@ if [[ "$over" -gt 0 ]]; then
   echo ".github/instructions/<name>.instructions.md with an applyTo glob." >&2
   exit 1
 fi
-echo "OK: every file is under the ${CAP}-char cap"
+echo "OK: every repository-wide file is under the ${CAP}-char cap"

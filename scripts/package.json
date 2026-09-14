@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "browser": "tsx browser.ts",
-    "test": "node --test ai-content-freshness.test.js browser.test.js",
+    "test": "node --test ai-content-freshness.test.js browser.test.js advisor-attributes.test.js",
     "typecheck": "tsc --noEmit browser.ts --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck"
   },
   "dependencies": {
