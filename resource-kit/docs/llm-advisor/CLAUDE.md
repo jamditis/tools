@@ -126,7 +126,9 @@ which is real information, so it is preserved.
 
 `gemini-3-prompting-guide.md` contains best practices for prompting Gemini 3, useful context when updating AI-related recommendations or guidance.
 
-Current-facing model guidance was verified August 15, 2026. Re-check official provider model, lifecycle, and pricing pages before changing recommendations. Historical case studies and changelog entries should retain the names that were accurate when written.
+Model guidance was refreshed November 2, 2026. The source register at
+`../downloads/AI-MODEL-SOURCE-REGISTER.md` records provider sources and families
+last checked in August. Re-check official provider model, lifecycle, and pricing pages before changing recommendations. Historical case studies and changelog entries should retain the names that were accurate when written.
 
 ## Brand guidelines
 

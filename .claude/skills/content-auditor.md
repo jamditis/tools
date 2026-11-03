@@ -23,6 +23,8 @@ When this skill is invoked, spawn these three parallel sub-agents using the Task
 
 Search all JSON and HTML files for outdated AI model names:
 - Check for: "Claude 4 Opus", "Claude 3", "GPT-4o", "GPT-4", "Gemini 2.", "Gemini 1."
+- Compare active guidance with `model-info.json` and the source register.
+- Preserve historical case studies, changelog entries, plans, and archives.
 - Report file, line number, and suggested replacement
 - Files to check: `resource-kit/docs/llm-advisor/data/*.json`, `resource-kit/docs/**/*.html`
 
@@ -53,7 +55,7 @@ Return a consolidated audit report:
 - ✅ All model names current
   OR
 - ⚠️ Found 3 outdated references:
-  - file.json:42 - "GPT-4o" → "GPT 5.5"
+  - file.json:42 - active recommendation does not match a model-info.json key
 
 ### External Links
 - ✅ All 15 links valid
@@ -65,7 +67,7 @@ Return a consolidated audit report:
 - ✅ All references valid
   OR
 - ⚠️ Found inconsistencies:
-  - "Claude Opus" vs "Claude Opus 4.8" mismatch
+  - "Claude Opus" vs "Claude Opus 5.5" mismatch
 ```
 
 ## Usage

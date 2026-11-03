@@ -4,10 +4,11 @@
 
 A collection of AI tools, templates, and guides for journalists and developers. Created by **Joe Amditis** and hosted at **https://tools.amditis.tech/**
 
-Current-facing model, agent, harness, and routing guidance was verified July
-24, 2026. Because provider catalogs and plan access change quickly, the site
-links to official model pages and tells readers to re-check availability,
-pricing, privacy terms, and tool requirements before production use.
+The resource kit is at version 2.8. The November 2, 2026 refresh updated
+model recommendations, prices, terminal setup, and downloads. The
+[AI model source register](resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md)
+records provider sources and the families still carrying August checks. Re-check
+availability, pricing, privacy terms, and tool requirements before production use.
 
 ## Resource kit website
 
@@ -21,6 +22,7 @@ Interactive tools and guides built with love and frustration by Joe Amditis.
 | [Terminal setup guide](https://tools.amditis.tech/terminal-setup/) | Step-by-step instructions for configuring AI CLI tools |
 | [Language guide](https://tools.amditis.tech/language-guide/) | How to write effective prompts |
 | [Style guide](https://tools.amditis.tech/style-guide/) | Writing style reference |
+| [Next level guide](https://tools.amditis.tech/next-level/) | Agent workflows and techniques beyond the basics |
 | [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable cheat sheet for common AI prompts |
 | [Glossary](https://tools.amditis.tech/glossary/) | AI and development terminology |
 
@@ -30,6 +32,7 @@ Interactive tools and guides built with love and frustration by Joe Amditis.
 |------|-------------|
 | [LLM Advisor](https://tools.amditis.tech/llm-advisor/) | Decision tree tool for selecting the right AI model for your task |
 | [Tool stacks](https://tools.amditis.tech/tool-stacks/) | IDEs, AI app builders, databases, deployment, and 14 tool categories |
+| [Claude plan savings calculator](https://tools.amditis.tech/cost-calculator/) | Compare estimated API costs with subscription plans; includes a cumulative-cost statusline snippet |
 | [HTML editor](https://tools.amditis.tech/html-editor/) | Interactive HTML editor |
 | [Code patterns](https://tools.amditis.tech/code-patterns/) | Skills, lessons, and quick reference for Claude Code workflows |
 | [About](https://tools.amditis.tech/about/) | About the project and author |
@@ -75,7 +78,7 @@ Reusable skills for Claude Code that extend its capabilities for specific workfl
 |-------|-------------|------|
 | [test-first-bugs](./skills/test-first-bugs/) | Test-driven bug fixing workflow | Local |
 | [pdf-design](./skills/pdf-design/) | PDF reports and proposals with interactive editing, brand system, budget tables | Local |
-| [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 50+ skills for journalism, media, and academia | External repo |
+| [journalism skills](https://github.com/jamditis/claude-skills-journalism) | 76 skills, 14 plugins, and 17 hooks for journalism, media, and academia; Claude and Codex support | External repo |
 
 ### Installing plugins (recommended for PDF Playground)
 
@@ -178,6 +181,8 @@ tools/
 │   └── docs/                    # GitHub Pages (served from here)
 │       ├── index.html           # Main landing page
 │       ├── about/               # About page
+│       ├── cost-calculator/     # Claude plan savings calculator
+│       ├── next-level/          # Agent workflow guide
 │       ├── code-patterns/       # Skills, lessons, quick reference
 │       ├── glossary/            # AI terminology glossary
 │       ├── html-editor/         # Interactive HTML editor
@@ -199,7 +204,7 @@ tools/
 ├── CLAUDE-RULES-*.md            # Claude Code memory templates (12)
 ├── animejs-*.md                 # Animation library documentation
 ├── mcp-servers/                 # MCP server for LLM Advisor data
-├── context/                     # Reference documents and design archives
+├── _archive/                    # Frozen reference documents and design archives
 ├── scripts/                     # Utility scripts
 └── .github/workflows/           # GitHub Actions (auto-deploy)
 ```
@@ -227,31 +232,29 @@ python -m http.server 8000
 # Open http://localhost:8000
 ```
 
-### Validation
+### Checks
+
+Pull requests run [Content checks](.github/workflows/content-checks.yml) on
+GitHub-hosted runners. The job runs the content/statusline and advisor attribute
+tests, then validates the advisor JSON. It uses Node.js 22, Bash, and `jq`;
+no dependency install or browser is needed.
+
+This public repository uses hosted CI. Do not run tests, builds, lint, or type
+checks on fleet machines. The hosted content job runs:
 
 ```bash
-# Current-model guidance and JSON integrity
-cd scripts
-npm install
-npm test
-cd ..
+node --test scripts/ai-content-freshness.test.js scripts/advisor-attributes.test.js
 node scripts/validate-all-json.js
-
-# Compiled Tailwind coverage
-cd resource-kit/tailwind-build
-npm install
-npm test
-
-# Atomic LLM Advisor MCP data writes
-# Requires Node.js 20 or newer
-cd ../../mcp-servers/llm-advisor-data
-npm install
-npm test
 ```
+
+The Tailwind build and MCP data-write tests are separate suites and are not part
+of Content checks. See their [build notes](resource-kit/tailwind-build/README.md)
+and [data validation notes](mcp-servers/llm-advisor-data/README.md).
 
 ### Deployment
 
-Push to master - GitHub Actions automatically deploys to Pages.
+Merge an approved PR into `master` to trigger the separate Pages deployment.
+A passing PR content check does not confirm deployment.
 
 ```bash
 # Check deployment status

@@ -90,8 +90,8 @@ Debug by adding console.log to renderApp().
 **Gotchas that burned you:**
 ```markdown
 <!-- KEEP THIS -->
-Tool names must EXACTLY match across all 6 JSON files.
-"Claude 4.5 Opus" not "Claude Opus 4.5".
+Active recommendation names must match model-info.json keys exactly.
+"Claude Opus 5.5" not "Claude 5.5 Opus". Preserve historical case studies.
 ```
 
 ## Voice
