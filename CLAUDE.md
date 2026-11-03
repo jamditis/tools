@@ -276,7 +276,9 @@ The LLM Advisor (`resource-kit/docs/llm-advisor/`) uses:
 
 ## Model naming conventions
 
-Current-facing guidance was verified August 15, 2026. Use the catalog in
+Current-facing guidance was refreshed November 2, 2026. Consult
+`resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md` for per-provider dates;
+some families retain August checks. Use the catalog in
 `resource-kit/docs/llm-advisor/data/model-info.json` as the local source of
 truth, then verify official provider documentation before changing it. Keep
 historical case studies, changelog entries, plans, and the frozen archive
@@ -292,8 +294,10 @@ Current starting points include:
 - **Kimi K3, GLM-5.3, DeepSeek V4, Qwen, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4** - tracked open-weight families
 - **MiniMax M3, ERNIE 5.1, and ByteDance Seed2.0** - tracked hosted Chinese-lab models
 
-Run `cd scripts && npm test` and `node scripts/validate-all-json.js` after
-editing active AI guidance.
+After editing active AI guidance, use the GitHub-hosted Content checks job
+(`.github/workflows/content-checks.yml`). It runs the content/statusline and
+advisor attribute tests plus JSON validation. This public repository must not
+run CI on fleet machines. Pages deployment is a separate workflow after merge.
 
 ## Template categories
 

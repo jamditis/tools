@@ -17,20 +17,23 @@ Six JSON files power the LLM Advisor. They reference each other by tool name—c
 
 ## Core concept
 
-**Tool names are foreign keys.** Every reference to a tool must exactly match a key in `model-info.json`. Case sensitivity and spacing matter: "Claude 4.5 Opus" ≠ "Claude 4.5 opus".
+**Tool names are foreign keys.** Every reference to a tool must exactly match a key in `model-info.json`. Case sensitivity and spacing matter: "Claude Opus 5.5" ≠ "Claude 5.5 Opus".
 
 ## File locations
 
 All data files: `/resource-kit/docs/llm-advisor/data/`
 
-| File | Lines | Purpose |
-|------|-------|---------|
-| `decision-tree.json` | 627 | Navigation graph |
-| `model-info.json` | 154 | Tool descriptions |
-| `tool-comparison.json` | 244 | Strengths/weaknesses |
-| `case-studies.json` | 119 | Real-world examples |
-| `best-practices.json` | 43 | Guidance content |
-| `changelog.json` | 37 | Version history |
+| File | Purpose |
+|------|---------|
+| `decision-tree.json` | Navigation graph |
+| `model-info.json` | Tool descriptions and catalog keys |
+| `tool-comparison.json` | Strengths, weaknesses, pricing |
+| `case-studies.json` | Historical real-world examples |
+| `best-practices.json` | Guidance content |
+| `changelog.json` | Version history |
+
+The shipped JSON and `mcp-servers/llm-advisor-data/README.md` are the source
+for current shapes and write validation; the examples below are abbreviated.
 
 ## Schemas
 
@@ -44,7 +47,7 @@ All data files: `/resource-kit/docs/llm-advisor/data/`
       {
         "text": "Required - Button label",
         "next": "Required - nodeId or 'recommendation'",
-        "track": "Required - research|content|data|editing|sources|multimedia",
+        "track": "Optional - workflow track string",
         "tools": "Conditional - Required if next='recommendation'"
       }
     ]
@@ -54,7 +57,9 @@ All data files: `/resource-kit/docs/llm-advisor/data/`
 
 **Validation rules:**
 - Every `next` value must be a valid nodeId or "recommendation"
-- When `next` = "recommendation", `tools` array is required
+- When `next` = "recommendation", a nonempty `tools` array is required
+- Any present `tools` array must be nonempty, including on intermediate options
+- Each recommendation needs nonblank `name`, `description`, and `prompt`, plus a nonempty array of model-name strings in `tools`; `tips` is optional
 - All paths must eventually reach "recommendation"
 
 ### model-info.json
@@ -89,7 +94,7 @@ All data files: `/resource-kit/docs/llm-advisor/data/`
 ```json
 [{
   "title": "Required",
-  "tool": "Required - Must match model-info.json key",
+  "tool": "Required - Historical model or tool name",
   "journalist": "Required - Name, Publication",
   "challenge": "Required",
   "solution": "Required",
@@ -123,25 +128,13 @@ All data files: `/resource-kit/docs/llm-advisor/data/`
 }]
 ```
 
-## Valid tool names (December 2025)
+## Valid tool names
 
-Copy-paste these exactly:
-
-```
-Claude 4.5 Opus
-Claude 4.5 Sonnet
-Gemini 3.0 Pro
-Gemini 3.0 Flash
-Codex (GPT 5.1)
-GPT 5.1
-Perplexity
-ElevenLabs
-Midjourney
-NotebookLM
-Grok
-DeepSeek
-Mistral
-```
+Read the exact keys from `resource-kit/docs/llm-advisor/data/model-info.json`
+rather than copying a versioned list from this document. Provider sources and
+verification dates are in `resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md`.
+Active guidance was refreshed November 2, 2026; historical case studies and
+changelog entries retain their original names.
 
 ## Cross-file validation
 
@@ -156,12 +149,7 @@ Object.keys(toolComparison).forEach(key => {
     }
 });
 
-// Check case-studies.json
-caseStudies.forEach((study, i) => {
-    if (!modelKeys.includes(study.tool)) {
-        console.error(`case-studies[${i}]: Unknown tool: ${study.tool}`);
-    }
-});
+// Historical case study names are preserved.
 
 // Check decision-tree.json
 Object.entries(decisionTree).forEach(([nodeId, node]) => {
@@ -224,4 +212,4 @@ cat data/decision-tree.json | jq .
 - `model-name-validator` - Current model naming conventions
 
 ---
-*Skill version: 1.1 | Updated: December 2025*
+*Documentation refreshed November 2, 2026.*

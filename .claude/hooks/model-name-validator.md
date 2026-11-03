@@ -16,12 +16,9 @@ hooks:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "$OUTDATED"
           echo ""
-          echo "📋 Current names to use:"
-          echo "   • Claude Opus 4.8"
-          echo "   • Claude Sonnet 4.6"
-          echo "   • Gemini 3.1 Pro"
-          echo "   • Gemini 3.1 Flash"
-          echo "   • GPT 5.5 / Codex (GPT 5.5)"
+          echo "Check current catalog keys and provider verification dates:"
+          echo "resource-kit/docs/llm-advisor/data/model-info.json"
+          echo "resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md"
           echo ""
         fi
       fi
@@ -31,16 +28,17 @@ hooks:
 
 Automatically checks edited files for outdated AI model names.
 
-## Correct Model Names
+## Current model names
 
-| Model | Correct Name |
-|-------|-------------|
-| Claude best | Claude Opus 4.8 |
-| Claude fast | Claude Sonnet 4.6 |
-| Gemini best | Gemini 3.1 Pro |
-| Gemini fast | Gemini 3.1 Flash |
-| OpenAI code | Codex (GPT 5.5) |
-| OpenAI chat | GPT 5.5 |
+Read the exact keys in `resource-kit/docs/llm-advisor/data/model-info.json`.
+Use `resource-kit/docs/downloads/AI-MODEL-SOURCE-REGISTER.md` for provider
+sources and verification dates. The November 2, 2026 refresh supersedes the
+June model list previously printed by this hook.
+
+This hook uses legacy patterns and warns only; it is not a complete freshness
+check. It may flag valid historical examples. Preserve case studies, old
+changelog entries, plans, and archives. The hosted Content checks workflow
+runs the maintained content and JSON checks.
 
 ## Outdated Names (flagged)
 

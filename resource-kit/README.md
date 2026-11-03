@@ -4,8 +4,10 @@ A resource kit for journalists learning to build tools with AI assistance. Creat
 
 **[View the live site →](https://tools.amditis.tech/)**
 
-Current-facing model, agent, harness, and router guidance was verified July 24,
-2026. Re-check the linked provider documentation before production use.
+Kit version 2.8 includes the November 2, 2026 model, pricing, setup, and
+download refresh. The [AI model source register](docs/downloads/AI-MODEL-SOURCE-REGISTER.md)
+records sources and families last checked in August. Re-check provider
+documentation before production use.
 
 ---
 
@@ -15,13 +17,19 @@ Current-facing model, agent, harness, and router guidance was verified July 24,
 
 | Resource | Description |
 |----------|-------------|
-| [Vibe coding guide](https://tools.amditis.tech/llm-advisor/vibe-coding/) | Practical intro to building software with AI. Learn to manage projects, not memorize syntax. |
+| [Vibe coding guide](https://tools.amditis.tech/vibe-coding/) | Practical intro to building software with AI. Learn to manage projects, not memorize syntax. |
 | [LLM advisor tool](https://tools.amditis.tech/llm-advisor/) | Interactive decision tree for choosing the right AI model for your project. |
 | [Quick reference card](https://tools.amditis.tech/quick-reference-card/) | Printable one-page cheat sheet with essential info and common pitfalls. |
 | [Language guide](https://tools.amditis.tech/language-guide/) | When to use Python vs JavaScript vs R for common journalism tasks. |
+| [Terminal setup](https://tools.amditis.tech/terminal-setup/) | Install and configure AI CLI tools. |
+| [Next level guide](https://tools.amditis.tech/next-level/) | Agent workflows and techniques beyond the basics. |
+| [Claude plan savings calculator](https://tools.amditis.tech/cost-calculator/) | Estimate API costs and display cumulative session cost in a statusline. |
 | [Technical glossary](https://tools.amditis.tech/glossary/) | Plain-language definitions of 40+ technical terms. |
 
 ### Downloadable templates
+
+Downloads live in `docs/downloads/`. The specialized LESSONS templates below
+are in the repository root.
 
 **Core templates:**
 - `CHANGELOG-TEMPLATE.md` — Document each vibe coding session
@@ -79,25 +87,16 @@ resource-kit/
 └── markdown/           # Source markdown files
 ```
 
-## Validation
+## Checks and deployment
 
-Run the model freshness test and JSON validator from the repository root:
+[Content checks](../.github/workflows/content-checks.yml) runs content/statusline
+and advisor attribute tests plus JSON validation on GitHub-hosted runners.
+This public repository does not run CI on fleet machines. The Tailwind and MCP
+data-write suites are separate from the hosted content job.
 
-```bash
-cd scripts
-npm install
-npm test
-cd ..
-node scripts/validate-all-json.js
-```
-
-Rebuild and verify shared CSS whenever a migrated page changes:
-
-```bash
-cd resource-kit/tailwind-build
-npm install
-npm test
-```
+The static site deploys from `docs/` after an approved PR merges into `master`.
+A PR check passing does not confirm the Pages deployment. See the
+[root README](../README.md#checks) for commands and workflow links.
 
 ---
 
