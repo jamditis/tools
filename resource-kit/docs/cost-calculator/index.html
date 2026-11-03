@@ -324,39 +324,10 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                     </button>
                     <pre class="text-green-400 overflow-x-auto text-xs leading-relaxed" id="snippet-code" tabindex="0"># In your statusline command (receives JSON via stdin):
-input=$(cat)
-model_id=$(echo "$input" | jq -r '.model.id // empty')
-total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
-total_output=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
-cache_write=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
-cache_read=$(echo "$input"  | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
-current_input=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
-
-# Pricing lookup (per million tokens: input / output / cache-write / cache-read)
-case "$model_id" in
-  *fable-5-1*)                                          ip=10; op=50; cwp="12.50"; crp="0.25" ;;
-  *fable-5*)                                            ip=10; op=50; cwp="12.50"; crp="1.0" ;;
-  *opus-5-5*)                                           ip=4; op=20; cwp="5.00"; crp="0.2" ;;
-  *opus-5*|*opus-4-8*|*opus-4-7*|*opus-4-6*|*opus-4-5*) ip=5; op=25; cwp="6.25"; crp="0.5" ;;
-  *sonnet-5-5*)                                         ip=2; op=10; cwp="2.50"; crp="0.1" ;;
-  *sonnet-5*)                                           ip=2; op=10; cwp="2.50"; crp="0.2" ;;
-  *sonnet-4-6*|*sonnet-4-5*)                            ip=3; op=15; cwp="3.75"; crp="0.3" ;;
-  *haiku-5-5*)                                          ip=0.1; op=0.5; cwp="0.125"; crp="0.01" ;;
-  *haiku-4-5*)                                          ip=1; op=5;  cwp="1.25"; crp="0.1" ;;
-  *)                                                    ip=2; op=10; cwp="2.50"; crp="0.1" ;;
-esac
-
-# Haiku 5.5 costs five times more when the current prompt is over 100K tokens.
-prompt=$((current_input + cache_write + cache_read))
-case "$model_id" in
-  *haiku-5-5*) if [ "$prompt" -gt 100000 ]; then ip=0.5; op=2.5; cwp="0.625"; crp="0.05"; fi ;;
-esac
-
-cost=$(awk "BEGIN {printf \"%.2f\", ($total_input*$ip + $total_output*$op + \
-  $cache_write*$cwp + $cache_read*$crp)/1000000}")
-echo "~\$$cost"</pre>
+cost=$(jq -r '.cost.total_cost_usd // 0')
+printf '~$%.2f\n' "$cost"</pre>
                 </div>
-                <p class="text-xs text-mist mt-3">Paste this into your <code class="text-accent">~/.claude/statusline-command.sh</code>. Claude Code pipes JSON with cumulative token counts to the statusline command on every render.</p>
+                <p class="text-xs text-mist mt-3">Paste this into your <code class="text-accent">~/.claude/statusline-command.sh</code>. Claude Code pipes JSON to the statusline command on every render. This uses its cumulative session cost, so earlier requests keep their original rates when the prompt size or model changes. See the <a href="https://code.claude.com/docs/en/statusline#cost-and-duration-tracking" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-ink">statusline documentation</a>.</p>
             </div>
 
         </main>

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -277,66 +278,50 @@ test("best-practice agent workflow guidance is reachable in the UI", async () =>
   assert.match(app, /['"]Agent workflows['"]:\s*data\.agentWorkflows/);
 });
 
-test("the copyable Claude cost estimator matches the displayed prices", async () => {
+test("the copyable statusline preserves cumulative cost across pricing changes", async () => {
   const calculator = await readFile(
     resolve(root, "resource-kit/docs/cost-calculator/index.html"),
     "utf8"
   );
+  const snippet = calculator.match(/<pre[^>]*id="snippet-code"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
+  assert.ok(snippet, "copyable statusline snippet exists");
 
-  // Each arm lists every current model id at that price tier. A session on an id
-  // no arm names falls through to the Sonnet default and understates its cost,
-  // so a new model has to be added here rather than left to the fallback.
-  assert.match(
-    calculator,
-    /\*fable-5-1\*\)\s+ip=10;\s*op=50;\s*cwp="12\.50";\s*crp="0\.25"/
+  // The documented cumulative cost is the oracle. Identical historical usage
+  // must not be repriced when the latest prompt crosses 100K or compacts.
+  for (const [model, prompt, cost, expected] of [
+    ["claude-haiku-5-5", 99999, 0.15, "~$0.15"],
+    ["claude-haiku-5-5", 100001, 0.15, "~$0.15"],
+    ["claude-haiku-5-5", 100001, 0.75, "~$0.75"],
+    ["claude-haiku-5-5", 99999, 0.75, "~$0.75"],
+    ["claude-opus-5-5", 99999, 0.75, "~$0.75"],
+  ]) {
+    const result = spawnSync("bash", ["-c", snippet], {
+      input: JSON.stringify({
+        model: { id: model },
+        cost: { total_cost_usd: cost },
+        context_window: {
+          total_input_tokens: 1000000,
+          total_output_tokens: 100000,
+          current_usage: { input_tokens: prompt },
+        },
+      }),
+      encoding: "utf8",
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout.trim(), expected, `${model}, prompt ${prompt}`);
+  }
+  const empty = spawnSync("bash", ["-c", snippet], { input: "{}", encoding: "utf8" });
+  assert.equal(empty.status, 0, empty.stderr);
+  assert.equal(empty.stdout.trim(), "~$0.00");
+});
+
+test("the calculator retains its displayed model and long-prompt prices", async () => {
+  const calculator = await readFile(
+    resolve(root, "resource-kit/docs/cost-calculator/index.html"),
+    "utf8"
   );
-  assert.match(
-    calculator,
-    /\*opus-5-5\*\)\s+ip=4;\s*op=20;\s*cwp="5\.00";\s*crp="0\.2"/
-  );
-  assert.match(
-    calculator,
-    /\*sonnet-5-5\*\)\s+ip=2;\s*op=10;\s*cwp="2\.50";\s*crp="0\.1"/
-  );
-  assert.match(
-    calculator,
-    /\*haiku-5-5\*\)\s+ip=0\.1;\s*op=0\.5;\s*cwp="0\.125";\s*crp="0\.01"/
-  );
-  // Older ids stay in the snippet because saved transcripts still name them.
-  // Without an arm they fall through to the default and show the wrong cost.
-  // Rates come from the legacy table on claude.com/pricing.
-  assert.match(
-    calculator,
-    /\*fable-5\*\)\s+ip=10;\s*op=50;\s*cwp="12\.50";\s*crp="1\.0"/
-  );
-  assert.match(
-    calculator,
-    /\*opus-5\*\|\*opus-4-8\*\|\*opus-4-7\*\|\*opus-4-6\*\|\*opus-4-5\*\)\s+ip=5;\s*op=25;\s*cwp="6\.25";\s*crp="0\.5"/
-  );
-  assert.match(
-    calculator,
-    /\*sonnet-5\*\)\s+ip=2;\s*op=10;\s*cwp="2\.50";\s*crp="0\.2"/
-  );
-  assert.match(
-    calculator,
-    /\*sonnet-4-6\*\|\*sonnet-4-5\*\)\s+ip=3;\s*op=15;\s*cwp="3\.75";\s*crp="0\.3"/
-  );
-  assert.match(
-    calculator,
-    /\*haiku-4-5\*\)\s+ip=1;\s*op=5;\s*cwp="1\.25";\s*crp="0\.1"/
-  );
-  // The snippet is only correct if the page offers the same tiers, so the
-  // Fable arm has to be reachable from the UI and the in-page pricing table.
   assert.match(calculator, /Claude Fable 5\.1/);
   assert.match(calculator, /\$10 \/ \$50 per M tokens/);
   assert.match(calculator, /fable:\s*\{\s*ip:\s*10,\s*op:\s*50,/);
-  assert.doesNotMatch(calculator, /\bip=15;\s*op=75\b/);
-  assert.doesNotMatch(calculator, /\bip=0\.8;\s*op=4\b/);
-  // A newer id must hit its own arm: *opus-5* also matches claude-opus-5-5.
-  assert.ok(calculator.indexOf("*opus-5-5*") < calculator.indexOf("*opus-5*"));
-  assert.ok(calculator.indexOf("*sonnet-5-5*") < calculator.indexOf("*sonnet-5*"));
-  assert.ok(calculator.indexOf("*fable-5-1*") < calculator.indexOf("*fable-5*"));
-  // Haiku 5.5 charges all token types more once a prompt passes 100K tokens.
   assert.match(calculator, /longPrompt:\s*\{\s*over:\s*100,\s*ip:\s*0\.5,\s*op:\s*2\.5,\s*cwp:\s*0\.625,\s*crp:\s*0\.05/);
-  assert.match(calculator, /\*haiku-5-5\*\) if \[ "\$prompt" -gt 100000 \]; then ip=0\.5; op=2\.5; cwp="0\.625"; crp="0\.05"/);
 });

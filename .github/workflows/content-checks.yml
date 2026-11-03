@@ -1,0 +1,31 @@
+name: Content checks
+
+on:
+  pull_request:
+    paths:
+      - 'resource-kit/**'
+      - 'scripts/**'
+      - 'mcp-servers/llm-advisor-data/**'
+      - '*.md'
+      - '.github/workflows/content-checks.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: content-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  content:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check content and statusline behavior
+        run: node --test scripts/ai-content-freshness.test.js scripts/advisor-attributes.test.js
+      - name: Validate advisor JSON
+        run: node scripts/validate-all-json.js
