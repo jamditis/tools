@@ -9,8 +9,8 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 - [ ] **Define a specific goal** — Write down exactly what "done" looks like in one sentence
 - [ ] **Gather your data** — Have sample files ready, know your data format
 - [ ] **Choose your LLM** — Pick one and stick with it for this session
-- [ ] **Install a CLI tool (if batch/file work)** — `npm install -g @anthropic-ai/claude-code` or `npm install -g @google/gemini-cli`
-- [ ] **Create a context file** — Add a CLAUDE.md or GEMINI.md with your beat basics
+- [ ] **Install a CLI tool (if batch/file work)** — On macOS, Linux, or WSL: `curl -fsSL https://claude.ai/install.sh | bash` for Claude Code, or `curl -fsSL https://chatgpt.com/codex/install.sh | sh` for Codex. On Windows PowerShell: `irm https://claude.ai/install.ps1 | iex` for Claude Code, or `npm install -g @openai/codex` for Codex
+- [ ] **Create a context file** — Add a CLAUDE.md or AGENTS.md with your beat basics
 - [ ] **Create project folder** — Clear name, organized structure
 - [ ] **Start a changelog** — Use the CHANGELOG-TEMPLATE.md file
 - [ ] **Test your environment** — Can you run "Hello World" in your language of choice?
@@ -68,20 +68,22 @@ Pre-flight checklist for AI-assisted coding sessions. Print this out or keep it 
 
 ### Current agent model starting points
 
-> Verified August 15, 2026. Check vendor model, lifecycle, plan, and pricing pages before production use.
+> Verified November 2, 2026. Check vendor model, lifecycle, plan, and pricing pages before production use.
 
 | Need | Recommendation |
 |------|----------------|
-| Maximum-capability Anthropic work | Claude Fable 5 |
-| Advanced Anthropic coding and reasoning | Claude Opus 5 |
-| Balanced daily agents | Claude Sonnet 5 |
-| Current Google coding and agents | Gemini 3.7 Flash |
-| OpenAI coding tasks | Codex (GPT-5.6 Sol) |
-| Balanced OpenAI agents | GPT-5.6 Terra |
-| High-throughput OpenAI tasks | GPT-5.6 Luna |
-| Highest hosted Qwen evaluation | Qwen 3.8 Max preview |
+| Maximum-capability Anthropic work | Claude Fable 5.1 |
+| Most Anthropic coding and knowledge work | Claude Opus 5.5 |
+| Balanced daily agents | Claude Sonnet 5.5 |
+| Current Google coding and agents | Gemini 3.8 Flash |
+| Hardest Google reasoning | Gemini 4 Argon |
+| OpenAI coding tasks | Codex (GPT-6.1 Sol) |
+| Hardest OpenAI reasoning | GPT-6 Astra |
+| Balanced OpenAI agents | GPT-6.1 Terra |
+| High-throughput OpenAI tasks | GPT-6 Luna |
+| Highest hosted Qwen tier | Qwen 3.8 Max |
 | Stable hosted Qwen agents | Qwen 3.7 Plus |
-| Open-weight long-horizon agents | GLM-5.2 |
+| Open-weight long-horizon agents | GLM-5.3 |
 
 ---
 

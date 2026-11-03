@@ -85,7 +85,7 @@
           {
             "name": "Claude Code for rapid development",
             "description": "Use Claude Code's terminal-based workflow for quick iteration on scripts and single-file tools. It can read files, run code, and fix errors autonomously.",
-            "tools": ["Claude Sonnet 5"],
+            "tools": ["Claude Sonnet 5.5"],
             "prompt": "I need to build a Python script that [DESCRIBE TASK]. The script should: 1. [REQUIREMENT 1] 2. [REQUIREMENT 2] 3. [REQUIREMENT 3]. Please create the script, test it with sample data, and fix any errors that occur.",
             "tips": "Claude Code excels at rapid iteration. Let it run your code, see errors, and fix them automatically. Use the /plan command first if you're unsure about the approach."
           }
@@ -98,7 +98,7 @@
           {
             "name": "Codex cloud tasks for big builds",
             "description": "Codex runs long multi-file builds in isolated cloud containers. It reads the repo, plans the work, edits the files, runs the tests, and opens a pull request for you to review.",
-            "tools": ["Codex (GPT-5.6 Sol)", "Claude Opus 5"],
+            "tools": ["Codex (GPT-6.1 Sol)", "Claude Opus 5.5"],
             "prompt": "I'm building a [PROJECT TYPE] that needs to [MAIN GOAL]. Before writing code, explore the repository, summarize the patterns already in use, and write an implementation plan for me to approve. Then build it in phases: 1. [PHASE 1] 2. [PHASE 2] 3. [PHASE 3]. Run the test suite after each phase and open a pull request with the passing output included.",
             "tips": "Claude Code with plan mode is still the stronger pick for architecture-heavy, repo-wide refactors, for very large context, and for anything wired into your MCP servers—reach for it when the shape of the codebase is the hard part. Whichever tool writes the code, have a different model review the diff. Never let a model grade its own homework, and keep a human approval step before anything merges."
           }
@@ -116,7 +116,7 @@
           {
             "name": "Codex background jobs for batch processing",
             "description": "Hand repetitive file processing to a Codex cloud task. It writes the script, runs it against your files in a sandbox, works through the errors it hits, and reports back with a diff and logs while you keep working.",
-            "tools": ["Codex (GPT-5.6 Sol)", "Claude Opus 5"],
+            "tools": ["Codex (GPT-6.1 Sol)", "Claude Opus 5.5"],
             "prompt": "I need to process [NUMBER] files in [FOLDER]. For each file: 1. [OPERATION 1] 2. [OPERATION 2]. Write a script that handles errors gracefully, logs progress, and can resume if it stops partway. Run it on a sample of 10 files first and show me the output before processing the rest.",
             "tips": "Claude Code still wins when the job needs your MCP servers, your committed skills, or hooks that validate each step—its background tasks (Ctrl+B) keep all of that local context. Either way, have a second model review the transformation script before it runs on the full set, then spot-check a random sample of the output against the original files."
           }
@@ -129,7 +129,7 @@
           {
             "name": "Codex cloud for unattended jobs",
             "description": "Codex cloud tasks run for hours in a sandbox, can fan out to parallel subagents, and can be started by tagging @codex on a GitHub pull request. Flat ChatGPT-plan pricing keeps the cost of a long job predictable.",
-            "tools": ["Codex (GPT-5.6 Sol)"],
+            "tools": ["Codex (GPT-6.1 Sol)"],
             "prompt": "Work through this task without me at the keyboard: [DESCRIBE JOB]. Definition of done: [SPECIFIC, CHECKABLE OUTCOME—for example, 'every test in tests/ passes' or 'output.csv has one row per input file']. Before you finish, run those checks yourself and paste the actual output. If you cannot meet the definition of done, stop and explain what blocked you instead of working around it.",
             "tips": "Joe Amditis's published finding is that routing heavy work to Codex on a flat plan \"gets far more done per dollar\" than running it against metered limits. On the Anthropic side, Claude Code's Auto mode and Routines cover the same ground when the job needs your MCP servers, hooks, or committed skills. Either way, define what \"done\" means before you walk away, and require the run to prove it with passing tests or real output rather than claim it."
           }
@@ -142,7 +142,7 @@
           {
             "name": "Claude Code hooks for automation",
             "description": "Set up automated quality checks using Claude Code hooks. Hooks can run validation, tests, or notifications at key moments in your development process.",
-            "tools": ["Claude Opus 5"],
+            "tools": ["Claude Opus 5.5"],
             "prompt": "I want to set up automation that [DESCRIBES TRIGGER AND ACTION]. Configure a Claude Code hook in .claude/settings.json that runs [WHEN] and performs [WHAT]. If it calls a script, place the script under .claude/hooks/ and include proper JSON input parsing, exit codes, and error handling.",
             "tips": "Use PreToolUse hooks for deterministic policy checks, PostToolUse hooks for validation after a successful tool call, and SessionStart hooks for per-session context. Hook scripts receive JSON on stdin; only exit code 2 blocks a blockable event."
           }
@@ -160,9 +160,9 @@
           {
             "name": "Claude Code for front-end development",
             "description": "Build interactive web tools with Claude Code. It can create HTML/CSS/JavaScript, run a local server, and let you preview changes in real-time.",
-            "tools": ["Claude Opus 5", "Gemini 3.1 Pro"],
+            "tools": ["Claude Opus 5.5", "Gemini 4 Argon"],
             "prompt": "I need to build an interactive [TOOL TYPE] for [AUDIENCE]. It should: 1. [FEATURE 1] 2. [FEATURE 2]. Create the HTML, CSS, and JavaScript. Start a local development server so I can preview it.",
-            "tips": "Claude Code can start a local server automatically. Ask it to iterate on the design based on your feedback. Use Gemini 3.1 Pro's Canvas feature for visual layout work."
+            "tips": "Claude Code can start a local server automatically. Ask it to iterate on the design based on your feedback. Use Canvas in the Gemini app for visual layout work."
           }
         ]
       },
@@ -173,7 +173,7 @@
           {
             "name": "Claude Code CLI development",
             "description": "Build command-line tools with Claude Code. It understands argument parsing, stdin/stdout, and can test your CLI tool as it builds it.",
-            "tools": ["Claude Opus 5"],
+            "tools": ["Claude Opus 5.5"],
             "prompt": "I need a command-line tool that [DESCRIBES FUNCTION]. It should accept these arguments: [LIST ARGS]. Include --help documentation and handle errors gracefully. Test it with sample inputs.",
             "tips": "Claude Code is ideal for CLI tools because it can test them directly in the terminal. Ask it to create thorough --help documentation."
           }
@@ -186,7 +186,7 @@
           {
             "name": "Vibe-coded calculators and widgets",
             "description": "Small single-purpose tools—calculators, lookups, converters—are the sweet spot for vibe coding. Most minimum viable versions take one to two hours.",
-            "tools": ["Claude Sonnet 5", "Gemini 3.7 Flash"],
+            "tools": ["Claude Sonnet 5.5", "Gemini 3.8 Flash"],
             "prompt": "Write a PRD for a small web tool that [DESCRIBES WHAT IT CALCULATES OR LOOKS UP] for [AUDIENCE]. Cover: 1. What the user enters 2. What the tool returns 3. The exact formula or data source behind it 4. Edge cases and error states 5. What is explicitly out of scope. Wait for my approval on the PRD, then build it as a single self-contained HTML file.",
             "tips": "The differentiator is project-management skill, not prompt tricks. Write a short requirements document before any code, and ask for a \"PRD\" rather than a \"plan\"—it gets you more structured output. Test across browsers and on a phone before you publish. Keep user data out of it until you understand the security implications of collecting any."
           }
@@ -204,7 +204,7 @@
           {
             "name": "CLAUDE.md project configuration",
             "description": "Create a CLAUDE.md memory file that teaches Claude Code about your project's architecture, conventions, and workflows. This persists across sessions.",
-            "tools": ["Claude Opus 5"],
+            "tools": ["Claude Opus 5.5"],
             "prompt": "Help me create a CLAUDE.md file for this project. Explore the codebase and document: 1. Project architecture and structure 2. Coding conventions and patterns 3. Common commands and workflows 4. Things to avoid 5. Important file locations",
             "tips": "A well-written CLAUDE.md dramatically improves Claude Code's effectiveness. Include specific examples of good patterns from your codebase."
           }
@@ -217,7 +217,7 @@
           {
             "name": "Claude Code skills",
             "description": "Create custom skills that teach Claude Code specialized knowledge for your newsroom's specific needs. Skills are reusable prompt templates.",
-            "tools": ["Claude Opus 5"],
+            "tools": ["Claude Opus 5.5"],
             "prompt": "I frequently need to [DESCRIBE REPEATED TASK]. Create a skill in .claude/skills/ that I can invoke to handle this. The skill should include: 1. Clear instructions 2. Examples 3. Validation steps",
             "tips": "Skills hot-reload in Claude Code v2.1—just save the file and it's available immediately. Use forked context (context: fork) for skills that spawn parallel sub-agents."
           }
@@ -230,7 +230,7 @@
           {
             "name": "Claude Code hooks",
             "description": "Set up hooks that run automatically during your Claude Code sessions—validating changes, running tests, or checking conventions.",
-            "tools": ["Claude Opus 5"],
+            "tools": ["Claude Opus 5.5"],
             "prompt": "Help me configure Claude Code hooks in .claude/settings.json for this project. I need: 1. A SessionStart hook to check my environment 2. PostToolUse hooks to validate edits 3. A Stop hook for an objective completion check. Put any called scripts in .claude/hooks/.",
             "tips": "Use the three-level settings format: event, matcher group, then handler. PreToolUse can block with exit code 2 or structured JSON. Run /hooks to inspect the active configuration."
           }
@@ -270,8 +270,8 @@
             "name": "General purpose LLM interaction",
             "description": "For broad research and brainstorming, the fast 'chat' models are your best bet. They are quick and conversational.",
             "tools": [
-              "Claude Sonnet 5",
-              "Gemini 3.7 Flash"
+              "Claude Sonnet 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "Act as a research assistant. Create a concise briefing document on [TOPIC] in 5 short sections, with 2 to 4 bullet points per section. Use the following sections: 1. Executive summary, 2. Historical context, 3. Key stakeholders, 4. Current state of affairs, 5. Major debates and controversies. The target audience is a journalist needing to get up to speed quickly.",
             "tips": "The faster models are great starting points. After the initial summary, ask follow-up questions to drill down into specific areas of interest. Always verify the information."
@@ -286,13 +286,13 @@
             "name": "Deep research models",
             "description": "For complex or specialized topics that require careful reasoning, you must switch to a powerful 'work' model.",
             "tools": [
-              "Claude Fable 5",
-              "Claude Opus 5",
-              "GPT-5.6 Sol",
-              "Gemini 3.1 Pro"
+              "Claude Fable 5.1",
+              "Claude Opus 5.5",
+              "GPT-6.1 Sol",
+              "Gemini 4 Argon"
             ],
             "prompt": "You are a subject matter expert in [NICHE FIELD]. I am a journalist writing an investigative piece on [SPECIFIC NICHE TOPIC]. Explain it to me as you would a colleague. Please detail key terminology, a timeline of major developments, the most influential figures or organizations, and three potential, non-obvious story angles worth exploring. I need you to think critically and not just summarize.",
-            "tips": "Switching to the 'work' tier of models (Opus, GPT-5.6 Sol, Pro) is crucial for high-stakes, complex topics. Always fact-check specialized information with a human expert."
+            "tips": "Switching to the 'work' tier of models (Opus, GPT-6.1 Sol, Pro) is crucial for high-stakes, complex topics. Always fact-check specialized information with a human expert."
           }
         ]
       }
@@ -309,11 +309,11 @@
             "name": "Large context document analysis",
             "description": "Use powerful models with large context windows to process and synthesize entire document collections.",
             "tools": [
-              "Gemini 3.1 Pro",
-              "Claude Opus 5"
+              "Gemini 4 Argon",
+              "Claude Opus 5.5"
             ],
             "prompt": "Act as an investigative data analyst. I have uploaded a collection of [NUMBER] documents related to [TOPIC]. Your task is to: 1. Cross-reference all documents to create a master timeline. 2. Identify any conflicting information or inconsistencies between the documents. 3. Extract all names of people and corporations mentioned. 4. Provide a summary of the most critical finding supported by evidence from the provided files, citing which document the evidence comes from.",
-            "tips": "This is the ideal use case for the large context windows of Gemini 3.1 Pro and Claude Opus 5. Ensure you are using the powerful 'work' tier models for this task."
+            "tips": "This is the ideal use case for the large context windows of Gemini 4 Argon and Claude Opus 5.5. Ensure you are using the powerful 'work' tier models for this task."
           }
         ]
       },
@@ -325,8 +325,8 @@
             "name": "Investigative research tools",
             "description": "Use specialized research modes to find and synthesize information from the web.",
             "tools": [
-              "GPT-5.6 Sol",
-              "Grok 4.5"
+              "GPT-6.1 Sol",
+              "Grok 4.7"
             ],
             "prompt": "I am beginning an investigative report on [COMPLEX TOPIC]. I need a full research plan. First, think step-by-step to create a rubric for what a world-class research plan would contain. Then, use that rubric to provide: 1. A list of 10 keywords and search phrases. 2. A list of potential source types (e.g., academic journals, government reports). 3. Three potential narrative arcs for the story. 4. A list of key ethical considerations.",
             "tips": "Use a research mode or explicit web-search tool rather than assuming the base model is current. In Grok, enable Web Search or X Search. This is lead generation: open every material citation and independently verify the finding."
@@ -346,7 +346,7 @@
             "name": "Real-time news monitoring",
             "description": "Use a model with an explicitly enabled, source-returning live-data tool for up-to-the-minute leads.",
             "tools": [
-              "Grok 4.5"
+              "Grok 4.7"
             ],
             "prompt": "Monitor X/Twitter for the topic [EVENT/TOPIC]. Provide a summary of developments over the last 30 minutes. Identify the 5 most influential accounts (by engagement) discussing this topic. What is the prevailing sentiment? Is there any emerging misinformation?",
             "tips": "Enable Grok's X Search tool; the base model is not automatically real-time. Use results to find leads or observe a narrative, then verify identities, timestamps, media, and claims outside the model."
@@ -361,7 +361,7 @@
             "name": "Web-connected LLMs",
             "description": "Use search-enabled LLMs to find information from the recent past.",
             "tools": [
-              "Gemini 3.7 Flash",
+              "Gemini 3.8 Flash",
               "Perplexity"
             ],
             "prompt": "Provide a chronological summary of news coverage about [TOPIC] from the last 7 days. For each key development, cite the primary news source with a URL. Distinguish between official statements and pundit commentary. Conclude with a list of unanswered questions based on the current reporting.",
@@ -382,12 +382,12 @@
             "name": "Document analysis & summarization",
             "description": "Analyze text-based documents (PDFs, reports) to extract key information.",
             "tools": [
-              "Claude Opus 5",
-              "Gemini 3.1 Pro",
-              "GPT-5.6 Sol"
+              "Claude Opus 5.5",
+              "Gemini 4 Argon",
+              "GPT-6.1 Sol"
             ],
             "prompt": "I have uploaded a [DOCUMENT TYPE]. Act as a policy analyst. Provide the following: 1. A one-paragraph executive summary. 2. A bulleted list of the top 5 most impactful conclusions. 3. A table extracting all statistics, data points, and their corresponding sources mentioned in the document. 4. A list of any jargon or acronyms and their definitions.",
-            "tips": "Use a powerful 'work' tier model (Opus, Pro, or GPT-5.6 Sol) if you have a very large document or a whole folder of them for the best summarization and analysis."
+            "tips": "Use a powerful 'work' tier model (Opus, Pro, or GPT-6.1 Sol) if you have a very large document or a whole folder of them for the best summarization and analysis."
           }
         ]
       },
@@ -414,12 +414,12 @@
             "name": "Data file analysis",
             "description": "Analyze structured data from files like CSVs or spreadsheets to find trends and create charts.",
             "tools": [
-              "GPT-5.6 Sol",
-              "Gemini 3.1 Pro",
-              "Claude Opus 5"
+              "GPT-6.1 Sol",
+              "Gemini 4 Argon",
+              "Claude Opus 5.5"
             ],
             "prompt": "I have uploaded a CSV file containing [DATASET DESCRIPTION]. Act as a data journalist. Analyze this data to find the three most newsworthy insights. For each insight, explain why it is significant, generate a corresponding data visualization (e.g., bar chart), and provide the Python code you used for the analysis.",
-            "tips": "Use Gemini 3.1 Pro's 'Canvas' or GPT-5.6 Sol's code interpreter to perform the analysis and create the chart directly. Use Claude Opus 5 for its top-tier ability to generate clean code for you to run yourself."
+            "tips": "Use Canvas in the Gemini app or GPT-6.1 Sol's code interpreter to perform the analysis and create the chart directly. Use Claude Opus 5.5 for its top-tier ability to generate clean code for you to run yourself."
           }
         ]
       }
@@ -453,8 +453,8 @@
             "name": "Story angle explorer",
             "description": "Use an LLM to brainstorm different angles and structures for a story.",
             "tools": [
-              "Claude Sonnet 5",
-              "Gemini 3.7 Flash"
+              "Claude Sonnet 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "I'm developing a story about [TOPIC]. My target audience is [AUDIENCE DESCRIPTION]. Generate three distinct narrative structures for this story: 1. Inverted Pyramid (for a hard news approach). 2. Narrative Arc (for a feature story). 3. Explainer (for a deep dive). For each, provide a brief outline and a compelling lede.",
             "tips": "The fast 'chat' models are great for brainstorming. Claude's conversational style often leads to more unique and nuanced story angles. It's like having a very creative editor to bounce ideas off of."
@@ -469,7 +469,7 @@
             "name": "Long-form writing assistant",
             "description": "Generate a first draft of an article based on your notes and research.",
             "tools": [
-              "Claude Opus 5"
+              "Claude Opus 5.5"
             ],
             "prompt": "You are a feature writer for [PUBLICATION-STYLE, e.g., The New Yorker]. Using only the provided notes, quotes, and data below, write a compelling 800-word narrative article. Weave the quotes in naturally and use the data to support the story. Do not add any information not present in the notes. NOTES: [PASTE YOUR DETAILED NOTES, QUOTES, and DATA]",
             "tips": "Output quality depends on the detail and quality of your notes. Use the model to assemble reporting, not replace it; the draft still requires rigorous fact-checking and editing."
@@ -489,8 +489,8 @@
             "name": "Headline generator",
             "description": "Generate multiple headline options for an article, optimized for SEO or engagement.",
             "tools": [
-              "Claude Sonnet 5",
-              "Gemini 3.7 Flash"
+              "Claude Sonnet 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "I've written an article about [TOPIC]. The main takeaway is [MAIN TAKEAWAY]. The target keyword is '[KEYWORD]'. Generate 10 headline options: 5 optimized for Google search results (under 60 characters, including the keyword), and 5 optimized for high engagement on social media (e.g., posing a question). Ensure all headlines are accurate and not clickbait.",
             "tips": "For best results, paste the full text of your article into the LLM first and ask it to summarize the key points. Use that summary to inform your headline generation prompt for more accurate and compelling options."
@@ -505,8 +505,8 @@
             "name": "Social media package creator",
             "description": "Create tailored posts for different social media platforms from a single article.",
             "tools": [
-              "Claude Opus 5",
-              "Gemini 3.1 Pro"
+              "Claude Opus 5.5",
+              "Gemini 4 Argon"
             ],
             "prompt": "Here is my article: [PASTE ARTICLE TEXT]. Create a promotional social media package. The package should include: 1. Two posts for X/Twitter (one with a key quote, one with a surprising stat), including relevant hashtags and tagging [@RELEVANT_ACCOUNTS]. 2. One professional post for LinkedIn, aimed at industry experts. 3. One engaging post for Facebook that asks a question to drive comments.",
             "tips": "After generating the text, ask the model to suggest a specific type of visual for each post (e.g., 'For the Facebook post, an infographic showing the key statistic would work well.')."
@@ -526,11 +526,11 @@
             "name": "Expert interview preparation",
             "description": "Generate insightful questions for subject matter experts.",
             "tools": [
-              "GPT-5.6 Sol",
-              "Claude Opus 5"
+              "GPT-6.1 Sol",
+              "Claude Opus 5.5"
             ],
             "prompt": "I am interviewing [PERSON], an expert in [FIELD]. I have pasted their biography and three of their recent articles below. First, summarize their main arguments and known positions on [TOPIC]. Second, based on this research, generate 15 critical, open-ended questions that go beyond simple clarification and challenge them to elaborate on their views. Avoid questions they have likely been asked before. RESEARCH MATERIAL: [PASTE BIO AND ARTICLES]",
-            "tips": "Pro-tip workflow: Use a web-connected model like Gemini 3.7 Flash to compile a dossier on your subject. Then, paste that complete dossier into a reasoning model like GPT-5.6 Sol or Claude Opus 5 to craft truly unique and effective questions."
+            "tips": "Pro-tip workflow: Use a web-connected model like Gemini 3.8 Flash to compile a dossier on your subject. Then, paste that complete dossier into a reasoning model like GPT-6.1 Sol or Claude Opus 5.5 to craft truly unique and effective questions."
           }
         ]
       },
@@ -542,7 +542,7 @@
             "name": "Human interest interview guide",
             "description": "Generate sensitive and narrative-focused questions for personal stories.",
             "tools": [
-              "Claude Opus 5"
+              "Claude Opus 5.5"
             ],
             "prompt": "You are a trauma-informed journalist. I am interviewing someone about their personal experience with [SENSITIVE TOPIC]. My goal is to empower them to tell their story in their own words. Generate 12 questions that are empathetic, open-ended, and non-judgmental. Order the questions to build rapport first before moving to more difficult topics. Conclude with questions about their hopes for the future.",
             "tips": "A model can suggest gentle, respectful wording, but it cannot judge the source's needs or the interview context. Read every question carefully and use your own judgment during the interview."
@@ -579,11 +579,11 @@
             "name": "Advanced data analysis & visualization",
             "description": "Analyze structured data files to find trends and create charts directly within the chat interface.",
             "tools": [
-              "Gemini 3.1 Pro (Canvas)",
-              "GPT-5.6 Sol"
+              "Gemini 4 Argon",
+              "GPT-6.1 Sol"
             ],
             "prompt": "I've uploaded a dataset about [TOPIC]. Act as a data journalist. Your task is to: 1. Perform an exploratory data analysis to understand the dataset. 2. Identify the three most statistically significant and newsworthy insights. 3. For each insight, explain it in a single paragraph. 4. Generate a clean, well-labeled data visualization for each of the three insights.",
-            "tips": "Gemini 3.1 Pro or GPT-5.6 Sol are the best tools for this because they have powerful, built-in data analysis and visualization capabilities (sometimes called 'code interpreter' functionality). You can upload a file and have it work directly on the data."
+            "tips": "Gemini 4 Argon or GPT-6.1 Sol are the best tools for this because they have powerful, built-in data analysis and visualization capabilities (sometimes called 'code interpreter' functionality). You can upload a file and have it work directly on the data."
           }
         ]
       },
@@ -615,8 +615,8 @@
             "name": "Coding assistant for journalists",
             "description": "Generate and debug code for data analysis, visualization, or web scraping. For a long-running scrape or a batch job, hand it to a Codex cloud task; for interactive iteration, stay in Claude Code.",
             "tools": [
-              "GPT-5.6 Sol",
-              "Claude Opus 5"
+              "GPT-6.1 Sol",
+              "Claude Opus 5.5"
             ],
             "prompt": "You are an expert Python developer specializing in data journalism. Write a well-commented Python script that uses the 'pandas' and 'matplotlib' libraries. The script should: 1. Load the dataset from 'data.csv'. 2. Clean the data by removing rows with missing values in the '[COLUMN_NAME]' column. 3. Calculate the average of '[COLUMN_A]' grouped by '[COLUMN_B]'. 4. Create and save a bar chart of the result, titled 'Average [A] by [B]'.",
             "tips": "For a scrape that runs for hours or a batch job across thousands of files, hand it to a Codex cloud task and let it work unattended. For interactive iteration—reshaping a dataframe or fixing a chart while you watch—Claude Code is faster. Whichever you use, reproduce bugs with tests, review the diff, and run the relevant suite instead of accepting a model's success report."
@@ -652,11 +652,11 @@
             "name": "Document data extractor",
             "description": "Extract structured data (like names, dates, numbers) from unstructured text documents.",
             "tools": [
-              "Gemini 3.1 Pro",
-              "Claude Opus 5"
+              "Gemini 4 Argon",
+              "Claude Opus 5.5"
             ],
             "prompt": "I have uploaded a 100-page PDF report. Scan the entire document and extract every instance of a person's name, their stated job title, and the organization they work for. Your output must be a valid CSV-formatted table with three columns: 'Name', 'Title', 'Organization'. Do not include any other text or explanation.",
-            "tips": "For this kind of structured data extraction from large files, Gemini 3.1 Pro is the most reliable tool due to its large context window. For smaller files, Claude is also excellent. The key to success is being extremely specific about the desired output format, as in the prompt above."
+            "tips": "For this kind of structured data extraction from large files, Gemini 4 Argon is a good choice because of its large context window. For smaller files, Claude is also excellent. The key to success is being extremely specific about the desired output format, as in the prompt above."
           }
         ]
       },
@@ -668,7 +668,7 @@
             "name": "Web scraping code generator",
             "description": "Generate a script to extract information from websites.",
             "tools": [
-              "Claude Opus 5"
+              "Claude Opus 5.5"
             ],
             "prompt": "I need to extract the headline, author, and publication date for every article listed on this news hub page: [URL]. Please provide a complete, runnable Python script using the 'requests' and 'Beautiful Soup' libraries. The script should save the extracted data into a CSV file named 'articles.csv'. Include comments explaining each part of the script.",
             "tips": "Ask for clean, well-commented code, then test it against representative pages. Always check robots.txt, terms of service, rate limits, copyright, and applicable law before scraping."
@@ -688,10 +688,10 @@
             "name": "AI copy editor",
             "description": "Review text for grammar, spelling, punctuation, and adherence to a style guide.",
             "tools": [
-              "Claude Opus 5"
+              "Claude Opus 5.5"
             ],
             "prompt": "Act as the lead copy editor for the Associated Press. Review the following text for any grammatical errors, spelling mistakes, and punctuation issues. Ensure every part of it strictly follows the latest AP style guide. For each correction you make, briefly explain the rule that justifies the change. TEXT: [PASTE TEXT]",
-            "tips": "Claude Opus 5 is the most nuanced and 'human-like' AI editor. For even better results, you can create a custom project where you upload your newsroom's specific style guide, and it will learn to edit according to your rules, not just general ones."
+            "tips": "Claude Opus 5.5 is the most nuanced and 'human-like' AI editor. For even better results, you can create a custom project where you upload your newsroom's specific style guide, and it will learn to edit according to your rules, not just general ones."
           }
         ]
       },
@@ -703,7 +703,7 @@
             "name": "AI developmental editor",
             "description": "Get feedback on the structure, flow, and narrative of your draft.",
             "tools": [
-              "Claude Opus 5"
+              "Claude Opus 5.5"
             ],
             "prompt": "You are a seasoned developmental editor known for candid, constructive feedback. I am providing my draft article below. I want you to read it and provide feedback in the following format: 1. Overall Thesis: Is it clear and well-supported? 2. Structure and Flow: Where does the narrative drag or lose focus? 3. Lede/Introduction: Does it successfully hook the reader? 4. Strongest & Weakest Sections: Identify them and explain why. 5. A Final Provocative Question: What is the one thing I'm not thinking about that would make this piece better? DRAFT: [PASTE DRAFT]",
             "tips": "Do not simply accept feedback. Ask what evidence supports it, compare alternative edits, and use the model as a Socratic partner rather than an authority."
@@ -723,7 +723,7 @@
             "name": "Expert source finder",
             "description": "Identify potential experts, organizations, and individuals to interview for a story.",
             "tools": [
-              "GPT-5.6 Sol",
+              "GPT-6.1 Sol",
               "Perplexity"
             ],
             "prompt": "I am writing an article on [TOPIC] and need to find diverse, expert sources. Please identify five potential experts, ensuring they represent a range of perspectives (e.g., academic, industry, activist). For each expert, provide: their name, current affiliation, a brief summary of their known stance on the topic, and a link to their professional profile or contact page.",
@@ -739,11 +739,11 @@
             "name": "Interview preparation assistant",
             "description": "Create a dossier on an interview subject and generate questions.",
             "tools": [
-              "Gemini 3.7 Flash",
-              "Claude Opus 5"
+              "Gemini 3.8 Flash",
+              "Claude Opus 5.5"
             ],
             "prompt": "I am interviewing [PERSON] tomorrow about their new book, '[BOOK TITLE]'. First, act as a research assistant and compile a dossier on this person including their career history, major achievements, past controversies, and common themes in their work. Second, act as an expert journalist and, based on that dossier, generate 10 insightful questions that have not been asked in other recent interviews.",
-            "tips": "This two-step process is key. Use a web-connected tool like Gemini 3.7 Flash to do the background research. Then, feed that research into a more conversationally nuanced tool like Claude Opus 5 to craft truly unique and effective questions."
+            "tips": "This two-step process is key. Use a web-connected tool like Gemini 3.8 Flash to do the background research. Then, feed that research into a more conversationally nuanced tool like Claude Opus 5.5 to craft truly unique and effective questions."
           }
         ]
       }
@@ -765,7 +765,7 @@
             "description": "Create conceptual images or illustrations for articles when photography isn't an option.",
             "tools": [
               "GPT Image (in ChatGPT)",
-              "Nano Banana 2"
+              "Nano Banana 2.1"
             ],
             "prompt": "A photorealistic close-up portrait of an elderly journalist, with deep, thoughtful wrinkles and a curious expression. They are reviewing notes in a rustic, sun-drenched office. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the texture of the paper. Captured with an 85mm portrait lens, resulting in a soft, blurred background. The overall mood is serene and wise.",
             "tips": "The key to great images is describing the scene, not just listing keywords. A narrative paragraph works best. For tools like Gemini's Nano Banana, you can also have a conversation to edit and refine the image iteratively. Always disclose AI-generated images according to your publication's policy."
@@ -780,10 +780,10 @@
             "name": "AI video generation",
             "description": "Create short, conceptual video clips for social media or articles.",
             "tools": [
-              "Veo 3.1"
+              "Gemini Omni Flash"
             ],
             "prompt": "Create a 5-second, photorealistic video clip of a single drop of water falling into a still pond, but the ripples expand outwards as glowing lines of data code.",
-            "tips": "Veo 3.1 access and supported controls vary across Gemini, Flow, and API products. Check the current product and plan before production use, and treat generated footage according to your newsroom's disclosure policy."
+            "tips": "Gemini Omni Flash access and supported controls vary across Gemini, Flow, and API products. Check the current product and plan before production use, and treat generated footage according to your newsroom's disclosure policy."
           }
         ]
       }
@@ -801,7 +801,7 @@
             "description": "Generate high-quality, realistic voiceovers from a script.",
             "tools": [
               "ElevenLabs",
-              "Gemini 3.7 Flash"
+              "Gemini 3.8 Flash"
             ],
             "prompt": "For ElevenLabs: 'Convert the following article text into a realistic, professional audio voiceover using a standard American English male voice. Ensure the pacing is appropriate for a news report. TEXT: [TEXT]'.",
             "tips": "For professional, high-quality voice work, a specialized tool like ElevenLabs is often the best choice. For quick audio previews or more conversational chat, the built-in voice modes in ChatGPT and Gemini are excellent."
@@ -816,8 +816,8 @@
             "name": "AI voice chat",
             "description": "Use voice mode for brainstorming, practicing interviews, or working while away from your keyboard.",
             "tools": [
-              "Gemini 3.7 Flash",
-              "GPT-5.6 Sol"
+              "Gemini 3.8 Flash",
+              "GPT-6.1 Sol"
             ],
             "prompt": "Activate voice mode and have a natural conversation. For example: 'Let's brainstorm some ideas for a podcast about the local food scene.' or 'Pretend you are [PERSON], I'm going to ask you some practice interview questions.'",
             "tips": "ChatGPT and Gemini have the best voice modes. Their killer feature is multimodality: you can point your phone's camera at something (a document, a broken appliance) and the AI will see it and talk about it with you."
@@ -837,8 +837,8 @@
             "name": "Community translation with human review",
             "description": "Translate reporting between languages so a story reaches the community it is about, with a bilingual editor checking every word before it publishes.",
             "tools": [
-              "GPT-5.6 Terra",
-              "Claude Sonnet 5"
+              "GPT-6.1 Terra",
+              "Claude Sonnet 5.5"
             ],
             "prompt": "Translate the article below from [SOURCE LANGUAGE] into [TARGET LANGUAGE] for a [COMMUNITY] audience. Keep the meaning exact and the register conversational. Translate quotes literally and flag any that lose meaning in translation. Then list every name, place, title, and number in a separate table so an editor can check them against the original. ARTICLE: [PASTE ARTICLE]",
             "tips": "Spanish-language newsrooms including Enlace Latino NC and Boyle Heights Beat, following the shared prompt workflow developed at the Centro de Periodismo Investigativo, run AI translation with mandatory human editorial review before anything publishes. Enlace Latino NC's AI-translated English newsletter saved roughly $2,500 a month and 150 hours across its first five issues, with zero translation complaints. Never publish machine translation unreviewed."
@@ -853,8 +853,8 @@
             "name": "Audience chatbots and callout forms",
             "description": "Build a chatbot or callout that answers audience questions from your own reporting and routes everything it cannot answer to a person.",
             "tools": [
-              "Claude Sonnet 5",
-              "Gemini 3.7 Flash"
+              "Claude Sonnet 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "I want to build a chatbot for [AUDIENCE] that answers questions about [NARROW TOPIC] using only [SOURCE CORPUS]. Draft: 1. The single use case it serves 2. A system prompt that instructs it to say it does not know rather than guess 3. How the underlying content stays up to date 4. The disclosure text users see 5. How user feedback reaches an editor.",
             "tips": "Small newsrooms have built audience-facing chatbots in about a month, but Nieman Lab's August 2025 reporting found long-term viability depends on four things: a defined use case, a content pipeline that updates itself, transparency about what the bot can and cannot do, and a structured feedback loop. Without those it becomes a maintenance burden nobody owns."
@@ -869,8 +869,8 @@
             "name": "Comment and inbox triage",
             "description": "High-volume, low-stakes sorting—tips, comments, reader email—suits cheap, fast models you can run over everything without a budget conversation.",
             "tools": [
-              "Claude Haiku 4.5",
-              "Gemini 3.7 Flash"
+              "Claude Haiku 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "Sort the messages below into these buckets: [BUCKET 1], [BUCKET 2], [BUCKET 3], and 'needs a human'. For each message give the bucket, a one-line summary, and a confidence rating. Put anything involving a legal threat, a safety concern, or a named source into 'needs a human' regardless of confidence. MESSAGES: [PASTE MESSAGES]",
             "tips": "Triage output routes to a person. Nothing auto-publishes or auto-replies to a community member without review. Sample the low-priority pile every week—the failure mode here is a real tip getting sorted into the noise."
@@ -890,8 +890,8 @@
             "name": "Public meeting monitoring at scale",
             "description": "Transcribe and summarize public meetings so a small staff can keep watch on far more government bodies than it could ever attend in person.",
             "tools": [
-              "Gemini 3.7 Flash",
-              "Claude Sonnet 5"
+              "Gemini 3.8 Flash",
+              "Claude Sonnet 5.5"
             ],
             "prompt": "Here is the transcript of a [BODY] meeting held on [DATE]. Produce: 1. A five-bullet summary of what was decided 2. Every mention of [KEYWORD LIST], with the surrounding quote and its timestamp 3. Any vote, including who voted which way 4. Three things a reporter should follow up on. Where the transcript is unclear, say so instead of guessing. TRANSCRIPT: [PASTE TRANSCRIPT]",
             "tips": "Civic News Company's Local Lens transcribes and summarizes public meetings so a handful of reporters can track more than 40 school-board meetings a month, and it has already produced published stories. RJI and Big Local News are building PSST, a scanner-monitoring tool that alerts newsrooms with a transcript. Treat AI meeting summaries as leads, not stories—verify against the recording before you publish."
@@ -906,8 +906,8 @@
             "name": "Build a verified results dashboard",
             "description": "Election night means scraping results from county sites that each publish differently, then getting the numbers onto a page fast. This is a build task with a hard deadline.",
             "tools": [
-              "Codex (GPT-5.6 Sol)",
-              "Claude Opus 5"
+              "Codex (GPT-6.1 Sol)",
+              "Claude Opus 5.5"
             ],
             "prompt": "I need an election-night results dashboard that scrapes [NUMBER] county registrar sites: [LIST SITES]. Requirements: 1. One scraper per site, isolated so a failure in one does not take down the others 2. Results land in a staging table that a human approves before anything appears publicly 3. The public page shows the last-verified timestamp 4. A dry-run mode I can rehearse with. Build the scrapers first and show me the parsed output for each site.",
             "tips": "Bay City News' two-person team vibe-coded an election-night dashboard scraping six California county registrars, with a human-verification layer between the scrapers and the published page, and it held up on election night 2025. The verification layer is the design requirement, not an afterthought—build it before the front end and rehearse the whole pipeline days ahead."
@@ -922,8 +922,8 @@
             "name": "Structured event listings",
             "description": "Pull structured event data—what, when, where, who—out of school sites, Facebook pages, and local outlets, and turn it into listings your audience can actually use.",
             "tools": [
-              "Gemini 3.7 Flash",
-              "GPT-5.6 Terra"
+              "Gemini 3.8 Flash",
+              "GPT-6.1 Terra"
             ],
             "prompt": "Extract every event from the text below into a table with these columns: name, date, start time, end time, venue, address, cost, organizer, source URL. Use ISO dates. If a field is not stated, leave it blank rather than inferring it. Flag any listing where the date or venue is ambiguous. TEXT: [PASTE SOURCE TEXT]",
             "tips": "The Jersey Bee's \"Harvest\" system maps and distributes local information at scale on 1.5 full-time staff. The win is structured extraction plus human curation, not auto-publishing—a person still decides what runs and fixes what the extraction got wrong."
@@ -943,8 +943,8 @@
             "name": "Large document dump analysis",
             "description": "Work through a large set of records to find the pattern, the outlier, or the name that turns up where it should not.",
             "tools": [
-              "Claude Opus 5",
-              "Gemini 3.1 Pro"
+              "Claude Opus 5.5",
+              "Gemini 4 Argon"
             ],
             "prompt": "Before analyzing anything, write down the rules for this dataset: [DESCRIBE THE RECORDS]. Define what counts as a match for [WHAT YOU ARE LOOKING FOR], what to do with ambiguous records, and which fields to leave blank when the source does not say. Show me those rules for approval. Then apply them to the documents, and cite the specific document and page for every finding.",
             "tips": "Encode your domain rules before the analysis starts. Researcher Nick Hagar replicated a MuckRock and WHRO police-decertification investigation using Claude Code skills that encoded the data-handling rules, matching the original findings in under an hour with about 20 minutes of human spot-checking. The same run without those skills made silent errors that would have survived review. ProPublica's guardrail on its NSF-grants analysis was instructing the model to leave fields blank when unsure. For big shared corpora, look at DocumentCloud (MuckRock) and Datashare (ICIJ)."
@@ -959,8 +959,8 @@
             "name": "Public records request drafting",
             "description": "Draft and sharpen records requests, work out which agency holds what, and decode the denial letter that comes back.",
             "tools": [
-              "Claude Sonnet 5",
-              "GPT-5.6 Terra"
+              "Claude Sonnet 5.5",
+              "GPT-6.1 Terra"
             ],
             "prompt": "I want records about [SUBJECT] in [JURISDICTION]. Help me: 1. List which agencies are likely to hold them and what each record series is called 2. Draft a request citing [STATUTE] that describes the records narrowly enough to be processed 3. List the exemptions the agency is most likely to claim, and how I would narrow the request to avoid each 4. Suggest a fee-waiver argument.",
             "tips": "Be honest about what this does: AI helps you draft, narrow, and summarize, but there is no documented end-to-end AI records-request success story yet. MuckRock's 2026 guidance keeps it to brainstorming which agencies to ask, identifying what records exist, and understanding denials. Ready-made FOIA and records-request skills for Claude Code are at skills.amditis.tech."
@@ -975,8 +975,8 @@
             "name": "Structured extraction from scanned records",
             "description": "Turn scanned pages, forms, and image PDFs into a table you can sort, filter, and search.",
             "tools": [
-              "Gemini 3.7 Flash",
-              "Claude Sonnet 5"
+              "Gemini 3.8 Flash",
+              "Claude Sonnet 5.5"
             ],
             "prompt": "Extract these fields from each page of the scanned document into CSV: [FIELD 1], [FIELD 2], [FIELD 3], plus the page number. If a field is illegible or absent, leave it blank and note why in a 'flags' column—do not guess. Output only the CSV.",
             "tips": "Run the OCR, then verify against the originals. Spot-check a random sample of pages rather than just the first few: the first page is usually the cleanest scan in the file. Leave-blank-when-unsure beats a confident guess, because a blank gets checked and a wrong value does not."
@@ -991,8 +991,8 @@
             "name": "Archive metadata and transcription",
             "description": "Make an archive findable: generate metadata, correct OCR, and transcribe audio and handwriting at a scale nobody can match by hand.",
             "tools": [
-              "Claude Haiku 4.5",
-              "Gemini 3.7 Flash"
+              "Claude Haiku 5.5",
+              "Gemini 3.8 Flash"
             ],
             "prompt": "For each item below, generate archival metadata: a one-sentence description, subject keywords, the people and organizations named, an estimated date with the evidence behind that estimate, and a confidence rating. Mark anything you are unsure about for human review instead of guessing. ITEMS: [PASTE ITEM DESCRIPTIONS OR TRANSCRIPTS]",
             "tips": "Metadata generation, OCR correction, and transcription are the proven wins. Northeastern researchers used machine learning to organize and search the Boston Globe's 1.65 million-photo morgue, dating images and transcribing the handwriting on the backs of photos, and StoryCorps used speech-to-text to make the largest oral-history archive searchable. Archive to multiple services for redundancy—a web-archiving skill at skills.amditis.tech automates Wayback plus Archive.today."

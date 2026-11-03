@@ -3,7 +3,7 @@
 > A practical guide for journalists and non-developers. Learn to code with AI by managing projects, not memorizing syntax.
 
 **Author:** Joe Amditis
-**Verified:** August 15, 2026
+**Verified:** November 2, 2026
 
 ---
 
@@ -11,7 +11,7 @@
 
 Vibe coding is an approach to software development where you describe what you want in plain language and let an AI agent write and run the code. You direct the project; the agent handles the syntax, execution, and debugging.
 
-This works because modern AI tools — Claude Code, Gemini CLI, and Codex CLI — run directly on your computer. They read your files, write code, execute it, and report back, all inside a single conversation. You describe the task; the agent does it.
+This works because modern AI tools — Claude Code, Codex CLI, and Antigravity CLI — run directly on your computer. They read your files, write code, execute it, and report back, all inside a single conversation. You describe the task; the agent does it.
 
 For journalists, the benefit is direct: instead of pasting a city council transcript into a chat window and copying the summary by hand, you can describe a workflow to a CLI agent, and it builds the script, runs it against your files, and returns results — without you touching a browser.
 
@@ -57,7 +57,7 @@ Start here if you have no terminal experience:
 Once you have a terminal and one CLI tool installed:
 
 1. **Define the scope** — Same as above. Clarity matters more here, not less.
-2. **Launch your agent** — Open a terminal in your project folder. Type `claude` or `gemini` and press Enter.
+2. **Launch your agent** — Open a terminal in your project folder. Type `claude`, `codex`, or `agy` and press Enter.
 3. **Describe the task** — The agent reads your files, writes code, runs it, and reports back. You don't type shell commands; you describe what you want.
 4. **Review and course-correct** — Check the output. If it's wrong, say so in plain language. Stay in the session.
 5. **Document** — Ask the agent to update your changelog before you end the session.
@@ -74,13 +74,14 @@ CLI tools are harnesses: they give AI direct access to your files, terminal, and
 
 | Tool | Install | Best for |
 |------|---------|----------|
-| **Claude Code** | `npm install -g @anthropic-ai/claude-code` | All coding tasks, large projects, debugging |
-| **Gemini CLI** | `npm install -g @google/gemini-cli` | Enterprise, API, Cloud, and open-source Google workflows |
-| **Codex CLI** | `npm install -g @openai/codex` | OpenAI users |
+| **Claude Code** | `curl -fsSL https://claude.ai/install.sh \| bash` | All coding tasks, large projects, debugging |
+| **Antigravity CLI** | `curl -fsSL https://antigravity.google/cli/install.sh \| bash` | Free and Google AI plan accounts |
+| **Gemini CLI** | `npm install -g @google/gemini-cli` | Gemini Code Assist Standard and Enterprise accounts |
+| **Codex CLI** | `curl -fsSL https://chatgpt.com/codex/install.sh \| sh` | OpenAI users and independent review |
 
-You only need Node.js (v20 or higher) installed first. Get it at nodejs.org.
+These commands are for macOS, Linux, and WSL. On Windows PowerShell, use `irm https://claude.ai/install.ps1 | iex` for Claude Code, `irm https://antigravity.google/cli/install.ps1 | iex` for Antigravity CLI, and `npm install -g @openai/codex` for Codex. Only the npm commands need Node.js (v20 or higher). Get it at nodejs.org.
 
-Google transitioned consumer Gemini CLI users to Antigravity CLI on June 18, 2026. Gemini CLI remains available for enterprise, API, Cloud, and open-source use. Defaults and account access change; check the current product documentation.
+Antigravity CLI is for free accounts and Google AI plans. Gemini CLI is for Gemini Code Assist Standard and Enterprise accounts, and it has no free tier. Defaults and account access change; check the current product documentation.
 
 ### When to use web vs. CLI
 
@@ -104,7 +105,7 @@ Web chat forgets everything between sessions. Every time you open a new chat, yo
 
 - `CLAUDE.md` — read by Claude Code
 - `GEMINI.md` — read by Gemini CLI
-- `AGENTS.md` — read by multiple tools
+- `AGENTS.md` — read by Codex and other tools. Claude Code reads it only when no `CLAUDE.md` is present, or through an `@AGENTS.md` import
 
 Create the file in your project folder. The agent picks it up automatically.
 
@@ -185,12 +186,12 @@ Before adding a line to your context file, ask: "If I deleted this, would the AI
 
 | Model | Strengths | Best for | CLI tool |
 |-------|-----------|----------|----------|
-| Claude Fable 5 | Maximum capability for long-running agents | Difficult agentic work | Claude Code |
-| Claude Opus 5 | Complex coding and writing | Large projects, debugging | Claude Code |
-| Claude Sonnet 5 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
-| Gemini 3.7 Flash | Stable, fast, multimodal | Tool-using agents and large documents | Gemini/Antigravity CLI |
-| Codex (GPT-5.6 Sol) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
-| GLM-5.2 | Open weights, long context | Self-hosted long-horizon agents | Multiple harnesses |
+| Claude Fable 5.1 | Maximum capability for long-running agents | Difficult agentic work | Claude Code |
+| Claude Opus 5.5 | Complex coding and writing | Large projects, debugging | Claude Code |
+| Claude Sonnet 5.5 | Fast, follows instructions precisely | Daily tasks, iteration, brainstorming | Claude Code |
+| Gemini 3.8 Flash | Stable, fast, multimodal | Tool-using agents and large documents | Gemini/Antigravity CLI |
+| Codex (GPT-6.1 Sol) | Multi-file projects, OpenAI integration | OpenAI coding tasks | Codex CLI |
+| GLM-5.3 | Open weights, long context | Self-hosted long-horizon agents | Multiple harnesses |
 
 ---
 
@@ -223,8 +224,8 @@ Before your first vibe coding session:
 ### If using a CLI agent (recommended)
 
 - [ ] Install Node.js (v20 or higher) — nodejs.org
-- [ ] Install one CLI tool: `npm install -g @anthropic-ai/claude-code` or `npm install -g @google/gemini-cli`
-- [ ] Launch it from your project folder: type `claude` or `gemini` and press Enter
+- [ ] Install one CLI tool: on macOS, Linux, or WSL, use `curl -fsSL https://claude.ai/install.sh | bash`. On Windows PowerShell, use `irm https://claude.ai/install.ps1 | iex`
+- [ ] Launch it from your project folder: type `claude` or `codex` and press Enter
 - [ ] Create a context file (`CLAUDE.md`) with your beat basics before your first session
 
 ---

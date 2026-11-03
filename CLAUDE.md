@@ -283,13 +283,13 @@ historical case studies, changelog entries, plans, and the frozen archive
 unchanged.
 
 Current starting points include:
-- **Claude Fable 5 / Claude Opus 5 / Claude Sonnet 5 / Claude Haiku 4.5** - maximum, advanced, balance, and throughput tiers
-- **GPT-5.6 Sol / Terra / Luna** - OpenAI capability, balance, and throughput tiers; Codex uses Sol for complex repository work
-- **Gemini 3.7 Flash** - current coding and agent workhorse
+- **Claude Fable 5.1 / Claude Opus 5.5 / Claude Sonnet 5.5 / Claude Haiku 5.5** - maximum, advanced, balance, and throughput tiers
+- **GPT-6 Astra / GPT-6.1 Sol / GPT-6.1 Terra / GPT-6 Luna** - OpenAI maximum, capability, balance, and throughput tiers; Codex defaults to Sol
+- **Gemini 3.8 Flash** - current coding and agent workhorse
 - **Gemini 3.6 Flash and 3.5 Flash / Flash-Lite** - previous stable and low-cost tiers
-- **Gemini 3.1 Pro** - preview reasoning model
-- **Qwen 3.8 Max preview / Qwen 3.7 Plus** - newest preview and stable hosted Qwen tiers
-- **Kimi K3, GLM-5.2, DeepSeek V4, Qwen, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4** - tracked open-weight families
+- **Gemini 4 Argon** - highest-capability generally available Gemini model
+- **Qwen 3.8 Max / Qwen 3.7 Plus** - top and balanced hosted Qwen tiers
+- **Kimi K3, GLM-5.3, DeepSeek V4, Qwen, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4** - tracked open-weight families
 - **MiniMax M3, ERNIE 5.1, and ByteDance Seed2.0** - tracked hosted Chinese-lab models
 
 Run `cd scripts && npm test` and `node scripts/validate-all-json.js` after

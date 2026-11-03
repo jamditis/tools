@@ -1,126 +1,115 @@
 {
-  "Claude Opus 5": {
+  "Claude Fable 5.1": {
     "strengths": [
-      "Deep reasoning and long-horizon agentic coding",
-      "One-million-token context window",
-      "Thinking enabled by default"
+      "Most demanding reasoning",
+      "Long-horizon agent work",
+      "Directing other agents"
     ],
     "weaknesses": [
-      "Higher cost and latency than Sonnet or Haiku",
-      "Overkill for routine work"
+      "Highest Claude price and latency",
+      "More than most daily tasks need"
+    ],
+    "bestFor": [
+      "The hardest unattended problems",
+      "Overseeing multi-agent runs"
+    ],
+    "pricing": "$10 input and $50 output per million tokens; verify current pricing"
+  },
+  "Claude Opus 5.5": {
+    "strengths": [
+      "Long-running agentic coding",
+      "Knowledge work and deep analysis",
+      "Adaptive thinking always on"
+    ],
+    "weaknesses": [
+      "Costs more than Sonnet or Haiku",
+      "More than routine work needs"
     ],
     "bestFor": [
       "Complex repository work",
       "Deep analysis",
-      "Long-running enterprise agents"
+      "Daily Claude Code use"
+    ],
+    "pricing": "$4 input and $20 output per million tokens; verify current pricing"
+  },
+  "Claude Opus 5": {
+    "strengths": [
+      "Existing integrations"
+    ],
+    "weaknesses": [
+      "Costs more than Claude Opus 5.5"
+    ],
+    "bestFor": [
+      "Integrations that have not migrated"
     ],
     "pricing": "$5 input and $25 output per million tokens; verify current pricing"
   },
-  "Claude Opus 4.8": {
-    "strengths": [
-      "Strong complex reasoning and agentic coding",
-      "Well suited to long-running, high-stakes workflows",
-      "Detailed writing and editing"
-    ],
-    "weaknesses": [
-      "Slower than 'chat' models",
-      "Cannot create images or video"
-    ],
-    "bestFor": [
-      "All coding tasks",
-      "Long-form writing",
-      "Developmental editing"
-    ],
-    "pricing": "Check current Anthropic plan or API pricing"
-  },
-  "Claude Sonnet 5": {
+  "Claude Sonnet 5.5": {
     "strengths": [
       "Very fast and conversational",
-      "Best for expressive writing and brainstorming",
-      "Strong latency-to-quality balance for agentic coding"
+      "Expressive writing and brainstorming",
+      "Follows instructions closely"
     ],
     "weaknesses": [
-      "Not as powerful or accurate as Opus on the hardest problems",
-      "Cannot create images or video"
+      "Less capable than Opus on the hardest tasks"
     ],
     "bestFor": [
-      "Quick brainstorming",
-      "Summarizing text",
-      "Creative writing",
-      "Day-to-day coding"
+      "Daily tasks",
+      "Interactive work",
+      "Fast iteration"
     ],
-    "pricing": "Check current Anthropic plan or API pricing"
+    "pricing": "$2 input and $10 output per million tokens; verify current pricing"
   },
-  "Claude Haiku 4.5": {
+  "Claude Haiku 5.5": {
     "strengths": [
       "Fastest Claude model",
-      "Near-frontier performance for high-volume, cheap tasks",
-      "Great for batch processing and quick edits"
+      "Lowest cost",
+      "High-volume work"
     ],
     "weaknesses": [
-      "Less capable than Sonnet or Opus on complex reasoning"
+      "Less capable on complex reasoning",
+      "Prompts over 100K tokens cost five times more"
     ],
     "bestFor": [
-      "Bulk classification and extraction",
-      "Quick Q&A",
-      "High-volume automations"
+      "Classification",
+      "Extraction",
+      "Quick answers"
     ],
-    "pricing": "Lowest-cost Claude API tier; check current pricing"
+    "pricing": "$0.10 input and $0.50 output per million tokens up to 100K-token prompts; $0.50 and $2.50 above that"
   },
-  "Claude Fable 5": {
+  "Gemini 4 Argon": {
     "strengths": [
-      "Anthropic's highest-capability broadly released model",
-      "Designed for long-running agentic workflows",
-      "Strong on difficult research, coding, and synthesis"
+      "Difficult multimodal reasoning",
+      "Long-context documents and code",
+      "Front-end design work"
     ],
     "weaknesses": [
-      "Higher latency and cost than Sonnet or Haiku",
-      "Overkill for routine work"
+      "No free API tier",
+      "Price doubles on December 1, 2026"
     ],
     "bestFor": [
-      "Maximum-capability agentic work",
-      "Difficult repository changes",
-      "Complex research and synthesis"
-    ],
-    "pricing": "Check current Anthropic API pricing"
-  },
-  "Gemini 3.1 Pro": {
-    "strengths": [
-      "Excellent for serious work & data analysis",
-      "Industry-leading context window for large documents",
-      "Improved reasoning and directness over 3.0",
-      "Strong multimodal synthesis",
-      "Can integrate with current Veo video-generation products"
-    ],
-    "weaknesses": [
-      "Slower than 'chat' models",
-      "Preview lifecycle and availability can change"
-    ],
-    "bestFor": [
-      "Investigative research",
-      "Analyzing large datasets",
-      "Summarizing document collections",
-      "Complex multimodal tasks",
+      "Large document analysis",
+      "Multimodal projects",
       "Front-end design"
     ],
-    "pricing": "Check current Google model and plan pricing"
+    "pricing": "$2 input and $10 output per million tokens through November 30, 2026; then $4 and $20"
   },
-  "Gemini 3.7 Flash": {
+  "Gemini 3.8 Flash": {
     "strengths": [
-      "Google's current Flash workhorse",
-      "Strong coding and agent performance",
-      "Fast multimodal input and tool use"
+      "Fast tool-using agents",
+      "Multimodal input",
+      "Low cost at volume"
     ],
     "weaknesses": [
-      "New release with limited production history",
-      "Rollout and regional availability can vary"
+      "Less capable than Gemini 4 Argon on the hardest reasoning",
+      "Free-tier data terms differ from paid terms"
     ],
     "bestFor": [
-      "Interactive coding agents",
-      "High-throughput multimodal workflows",
-      "Google platform integrations"
+      "Daily coding",
+      "Agents",
+      "Large document summaries"
     ],
-    "pricing": "Introductory pricing applies through 2026; verify current Google API pricing"
+    "pricing": "$0.75 input and $3.75 output per million tokens through December 31, 2026; then $1.50 and $7.50"
   },
   "Gemini 3.6 Flash": {
     "strengths": [
@@ -141,23 +130,6 @@
     ],
     "pricing": "Check current Google API or consumer-plan pricing"
   },
-  "Gemini 3.5 Flash": {
-    "strengths": [
-      "Earlier stable Gemini Flash tier",
-      "Strong sustained agentic and coding performance",
-      "Advanced multimodal reasoning"
-    ],
-    "weaknesses": [
-      "Older than Gemini 3.7 Flash",
-      "Gemini 3.1 Pro can still be stronger for some preview-only reasoning work"
-    ],
-    "bestFor": [
-      "Sustained agentic work",
-      "Complex coding",
-      "Production multimodal reasoning"
-    ],
-    "pricing": "Check current Google API pricing"
-  },
   "Gemini 3.5 Flash-Lite": {
     "strengths": [
       "Cheapest tier in the Gemini family",
@@ -175,22 +147,20 @@
     ],
     "pricing": "Check current Google API pricing"
   },
-  "Veo 3.1": {
+  "Gemini Omni Flash": {
     "strengths": [
-      "Text-to-video generation",
-      "Photorealistic short clips",
-      "Native video generation inside the Gemini family"
+      "Video generation and editing",
+      "Native audio",
+      "Keyframe interpolation"
     ],
     "weaknesses": [
-      "Best for abstract/conceptual content",
-      "Cannot create long-form video"
+      "Access varies by product and plan"
     ],
     "bestFor": [
-      "Short conceptual clips",
-      "Social media video content",
-      "Abstract visual storytelling"
+      "Short video generation",
+      "Video editing"
     ],
-    "pricing": "Check current Google product and API availability"
+    "pricing": "Check current Google product and API pricing"
   },
   "Gemini 2.5 Pro (legacy)": {
     "strengths": [
@@ -200,14 +170,14 @@
     "weaknesses": [
       "Slower than 'chat' models",
       "May train on data unless opted out",
-      "Superseded by Gemini 3.1 Pro"
+      "Superseded by Gemini 4 Argon"
     ],
     "bestFor": [
       "Investigative research",
       "Analyzing large datasets",
       "Summarizing document collections"
     ],
-    "pricing": "Legacy model; check current availability"
+    "pricing": "Deprecated; Google routes this model to a current tier on December 1, 2026"
   },
   "Gemini 2.5 Flash (legacy)": {
     "strengths": [
@@ -217,104 +187,97 @@
     "weaknesses": [
       "Not as powerful as Pro",
       "More likely to hallucinate than Pro",
-      "Superseded by Gemini 3.7 Flash"
+      "Superseded by Gemini 3.8 Flash"
     ],
     "bestFor": [
       "Voice conversations",
       "Quick questions",
       "Using camera input"
     ],
-    "pricing": "Legacy model; check current availability"
+    "pricing": "Deprecated; Google routes this model to a current tier on December 1, 2026"
   },
-  "GPT-5.6 Sol": {
+  "GPT-6 Astra": {
     "strengths": [
-      "Top-tier reasoning for complex problems",
-      "Highly steerable for specific tasks",
-      "Excellent for multi-step projects and deep research"
+      "Highest OpenAI capability",
+      "Deep reasoning",
+      "Difficult review work"
     ],
     "weaknesses": [
-      "Higher cost model",
-      "Can be overly thorough on simple tasks without careful prompting"
+      "Five times the price of GPT-6.1 Sol",
+      "More than most tasks need"
     ],
     "bestFor": [
-      "Advanced data analysis",
-      "Investigative deep research",
-      "Complex reasoning tasks"
+      "Hardest reasoning tasks",
+      "High-stakes review"
     ],
-    "pricing": "Check current OpenAI plan or API pricing"
+    "pricing": "$10 input and $50 output per million tokens; prompts over 272K tokens cost 2x input and 1.5x output; verify current pricing"
   },
-  "GPT-5.6 Terra": {
+  "GPT-6.1 Sol": {
     "strengths": [
-      "Balanced GPT-5.6 capability, latency, and cost",
-      "Strong for everyday agents and coding",
-      "Faster and less costly than Sol"
+      "Complex reasoning and agent work",
+      "Repository work in Codex",
+      "Strong price and capability balance"
     ],
     "weaknesses": [
-      "Less capable than Sol on the hardest work"
+      "Costs more than Terra or Luna",
+      "More than routine tasks need"
     ],
     "bestFor": [
-      "Daily agent workflows",
-      "Routine coding and analysis",
-      "Interactive knowledge work"
+      "Complex agents",
+      "Coding",
+      "Deep research"
     ],
-    "pricing": "Check current OpenAI API pricing"
+    "pricing": "$2 input and $10 output per million tokens; prompts over 272K tokens cost 2x input and 1.5x output; verify current pricing"
   },
-  "GPT-5.6 Luna": {
+  "GPT-6.1 Terra": {
     "strengths": [
-      "Fastest and most economical GPT-5.6 tier",
-      "Responsive for routine work",
-      "Good fit for high-throughput applications"
+      "Balanced capability, latency, and cost",
+      "Visual reasoning",
+      "Computer use"
     ],
     "weaknesses": [
-      "Lower capability than Terra or Sol on complex reasoning"
+      "Less capable than Sol on the hardest reasoning"
     ],
     "bestFor": [
-      "Classification and extraction",
-      "High-volume routine tasks",
-      "Low-latency applications"
+      "Everyday agents",
+      "Writing",
+      "Computer use"
     ],
-    "pricing": "Check current OpenAI API pricing"
+    "pricing": "$1 input and $5 output per million tokens; prompts over 272K tokens cost 2x input and 1.5x output; verify current pricing"
   },
-  "Codex (GPT-5.6 Sol)": {
+  "GPT-6 Luna": {
     "strengths": [
-      "Cloud tasks run in isolated containers, so long jobs finish unattended",
-      "Parallel subagents in Ultra mode fan work out across a repository",
-      "Tag @codex on a GitHub pull request to start a task or a review",
-      "Strong debugging and multi-file reasoning",
-      "Works well in Windows environments and with vision-to-code"
+      "Fastest and most economical OpenAI tier",
+      "High-volume work"
     ],
     "weaknesses": [
-      "Less versatile for non-coding tasks",
-      "Requires OpenAI subscription",
-      "Should never review or approve its own output"
+      "Not for the hardest reasoning"
     ],
     "bestFor": [
-      "All OpenAI coding tasks",
-      "Long-running unattended coding jobs",
-      "Independent second-model code review",
-      "Multi-file projects",
+      "Bulk processing",
+      "Routine agent steps",
+      "Responsive applications"
+    ],
+    "pricing": "$0.10 input and $0.50 output per million tokens; prompts over 272K tokens cost 2x input and 1.5x output; verify current pricing"
+  },
+  "Codex (GPT-6.1 Sol)": {
+    "strengths": [
+      "Long-running repository work",
+      "Cloud tasks that run in parallel",
+      "Code review of a diff or pull request"
+    ],
+    "weaknesses": [
+      "Less versatile for non-coding work",
+      "Shares usage limits with ChatGPT Work"
+    ],
+    "bestFor": [
+      "All OpenAI coding work",
       "Long-horizon refactors",
-      "Code debugging"
+      "Independent code review"
     ],
-    "pricing": "Flat ChatGPT-plan pricing, metered per five-hour window; check current Codex plan or API pricing"
+    "pricing": "Flat ChatGPT plans: Plus at $20, Pro from $100, and Business, Enterprise, and Edu for the CLI and cloud; Free and Go use GPT-6 Luna in the desktop app only. Usage limits apply. API pricing also available"
   },
-  "GPT 5.4": {
-    "strengths": [
-      "Previous OpenAI flagship, still current and fully supported",
-      "Earlier supported GPT-5 generation",
-      "Useful for already-qualified integrations"
-    ],
-    "weaknesses": [
-      "Superseded by GPT-5.6 for new complex agent work"
-    ],
-    "bestFor": [
-      "Cost-sensitive reasoning tasks",
-      "Existing integrations that already target GPT-5.4",
-      "Drop-in replacement for older 5.x code"
-    ],
-    "pricing": "Check current OpenAI API pricing"
-  },
-  "Nano Banana 2": {
+  "Nano Banana 2.1": {
     "strengths": [
       "Fast and efficient image generation",
       "Conversational editing and refinement",
@@ -331,7 +294,7 @@
     ],
     "pricing": "Check current Google API or consumer-plan pricing"
   },
-  "Grok 4.5": {
+  "Grok 4.7": {
     "strengths": [
       "Optional Web Search and X Search tools",
       "Useful for source-finding when claims are independently verified"
@@ -345,7 +308,7 @@
       "Social media analysis",
       "Finding sources during breaking news"
     ],
-    "pricing": "Check current SpaceXAI API or Grok plan pricing"
+    "pricing": "$2 input and $6 output per million tokens; higher rates for requests over 200K tokens; verify current pricing"
   },
   "NotebookLM": {
     "strengths": [
@@ -381,13 +344,14 @@
     ],
     "pricing": "Free tier, with paid Pro plan"
   },
-  "GLM-5.2 (open weights)": {
+  "GLM-5.3 (open weights)": {
     "strengths": [
-      "Current MIT-licensed option for long-horizon agents",
-      "MIT licensed — self-hostable with no usage restrictions",
+      "Open-weight option for long-horizon agents",
+      "Self-hostable under the GLM-5.3 License",
       "Pitched for long-horizon autonomous engineering sessions"
     ],
     "weaknesses": [
+      "GLM-5.3 License needs review",
       "Requires serious hardware to run the full model locally",
       "Ecosystem less mature than frontier providers"
     ],
@@ -396,7 +360,7 @@
       "Local or air-gapped agentic coding",
       "Newsrooms that need to keep source material off third-party servers"
     ],
-    "pricing": "Open weights; hosting and inference still cost money"
+    "pricing": "Open weights; hosting and inference still cost money. Hosted pricing is on the Z.ai site"
   },
   "Qwen 3.7 Plus": {
     "strengths": [
@@ -415,22 +379,21 @@
     ],
     "pricing": "Check current Alibaba Cloud Model Studio pricing"
   },
-  "Qwen 3.8 Max (preview)": {
+  "Qwen 3.8 Max": {
     "strengths": [
-      "Newest high-capability hosted Qwen tier",
+      "Top hosted Qwen tier",
       "Reasoning and agent workflows",
       "Available through Alibaba Cloud Model Studio"
     ],
     "weaknesses": [
-      "Preview lifecycle can change",
       "Token Plan and regional availability vary"
     ],
     "bestFor": [
-      "Qwen capability evaluations",
+      "Complex hosted Qwen work",
       "Difficult hosted reasoning tasks",
       "Alibaba Cloud agent prototypes"
     ],
-    "pricing": "Preview model; check current Alibaba Cloud plan and regional availability"
+    "pricing": "Check current Alibaba Cloud Model Studio pricing"
   },
   "Qwen3.6-35B-A3B (open weights)": {
     "strengths": [
@@ -451,9 +414,9 @@
   },
   "DeepSeek V4 (open weights)": {
     "strengths": [
-      "Pro and Flash variants",
+      "V4 Pro and V4.1 Flash variants",
       "One-million-token context",
-      "MIT-licensed open weights"
+      "MIT-licensed open weights for V4 Pro"
     ],
     "weaknesses": [
       "Chinese data practices are a concern for some newsrooms",
@@ -484,69 +447,201 @@
     "pricing": "Open weights under the custom Kimi K3 License; hosting and inference still cost money"
   },
   "MiniMax M3": {
-    "strengths": ["Frontier coding and agent focus", "Native multimodal input", "Up to one-million-token context"],
-    "weaknesses": ["MiniMax Community License needs review", "Full deployment needs substantial hardware"],
-    "bestFor": ["Long-running coding agents", "Long video or repository analysis", "Private deployment evaluation"],
+    "strengths": [
+      "Frontier coding and agent focus",
+      "Native multimodal input",
+      "Up to one-million-token context"
+    ],
+    "weaknesses": [
+      "MiniMax Community License needs review",
+      "Full deployment needs substantial hardware"
+    ],
+    "bestFor": [
+      "Long-running coding agents",
+      "Long video or repository analysis",
+      "Private deployment evaluation"
+    ],
     "pricing": "Published open weights; check the MiniMax Community License and current hosted pricing"
   },
   "NVIDIA Nemotron 3 Ultra (open weights)": {
-    "strengths": ["Long-running agent orchestration", "One-million-token context", "Open recipes and weights"],
-    "weaknesses": ["The full 550B model needs substantial NVIDIA hardware", "NVIDIA-optimized deployment stack"],
-    "bestFor": ["Agent orchestration", "Long-context research systems", "Private enterprise inference"],
+    "strengths": [
+      "Long-running agent orchestration",
+      "One-million-token context",
+      "Open recipes and weights"
+    ],
+    "weaknesses": [
+      "The full 550B model needs substantial NVIDIA hardware",
+      "NVIDIA-optimized deployment stack"
+    ],
+    "bestFor": [
+      "Agent orchestration",
+      "Long-context research systems",
+      "Private enterprise inference"
+    ],
     "pricing": "Open weights; hosting and inference still cost money"
   },
-  "Mistral Medium 3.5 (open weights)": {
-    "strengths": ["Frontier-class agentic coding", "Multimodal input", "256K context"],
-    "weaknesses": ["Modified MIT license needs review", "Dense 128B deployment is hardware intensive"],
-    "bestFor": ["Private enterprise agents", "Multimodal coding", "European deployment options"],
-    "pricing": "Open weights under Modified MIT; check current hosted pricing"
+  "Mistral Large 4 (open weights)": {
+    "strengths": [
+      "Frontier agentic coding",
+      "Multimodal input",
+      "Open weights for private deployment"
+    ],
+    "weaknesses": [
+      "Mistral Ecosystem Open Weight License needs review",
+      "Full deployment needs substantial hardware"
+    ],
+    "bestFor": [
+      "Private enterprise agents",
+      "Multimodal coding",
+      "European deployment options"
+    ],
+    "pricing": "Open weights under the Mistral Ecosystem Open Weight License; check current hosted pricing"
   },
   "Mistral Small 4 (open weights)": {
-    "strengths": ["Efficient hybrid reasoning and coding", "256K context", "Apache 2.0 license"],
-    "weaknesses": ["Less capable than frontier models on the hardest tasks"],
-    "bestFor": ["Self-hosted daily agents", "Cost-sensitive coding", "Private document workflows"],
+    "strengths": [
+      "Efficient hybrid reasoning and coding",
+      "256K context",
+      "Apache 2.0 license"
+    ],
+    "weaknesses": [
+      "Less capable than frontier models on the hardest tasks"
+    ],
+    "bestFor": [
+      "Self-hosted daily agents",
+      "Cost-sensitive coding",
+      "Private document workflows"
+    ],
     "pricing": "Apache 2.0 weights; hosting and inference still cost money"
   },
   "Step-3.7-Flash (open weights)": {
-    "strengths": ["Fast agentic reasoning", "Coding and research workflows", "Apache 2.0 license"],
-    "weaknesses": ["Fewer third-party integrations than major providers", "Benchmark on the target language and harness"],
-    "bestFor": ["Fast local agents", "Research automation", "Cost-sensitive tool use"],
+    "strengths": [
+      "Fast agentic reasoning",
+      "Coding and research workflows",
+      "Apache 2.0 license"
+    ],
+    "weaknesses": [
+      "Fewer third-party integrations than major providers",
+      "Benchmark on the target language and harness"
+    ],
+    "bestFor": [
+      "Fast local agents",
+      "Research automation",
+      "Cost-sensitive tool use"
+    ],
     "pricing": "Apache 2.0 weights; check current hosted pricing"
   },
   "MiMo-V2-Flash (open weights)": {
-    "strengths": ["Efficient reasoning and coding", "256K context", "Apache 2.0 license"],
-    "weaknesses": ["Requires careful multi-turn reasoning-content handling", "Best deployment still needs serious hardware"],
-    "bestFor": ["Fast agentic coding", "Self-hosted experimentation", "Tool-use pipelines"],
+    "strengths": [
+      "Efficient reasoning and coding",
+      "256K context",
+      "Apache 2.0 license"
+    ],
+    "weaknesses": [
+      "Requires careful multi-turn reasoning-content handling",
+      "Best deployment still needs serious hardware"
+    ],
+    "bestFor": [
+      "Fast agentic coding",
+      "Self-hosted experimentation",
+      "Tool-use pipelines"
+    ],
     "pricing": "Apache 2.0 weights; hosting and inference still cost money"
   },
   "Tencent Hy3 (open weights)": {
-    "strengths": ["Efficient reasoning and agent focus", "21B active parameters", "Private deployment option"],
-    "weaknesses": ["New model with fewer third-party integrations", "Verify license and inference support"],
-    "bestFor": ["Chinese and bilingual agent evaluation", "Reasoning agents", "Private inference research"],
+    "strengths": [
+      "Efficient reasoning and agent focus",
+      "21B active parameters",
+      "Private deployment option"
+    ],
+    "weaknesses": [
+      "New model with fewer third-party integrations",
+      "Verify license and inference support"
+    ],
+    "bestFor": [
+      "Chinese and bilingual agent evaluation",
+      "Reasoning agents",
+      "Private inference research"
+    ],
     "pricing": "Open weights; verify license and hosted pricing"
   },
   "Cohere Command A+ (open weights)": {
-    "strengths": ["Multimodal enterprise agents", "48-language support", "Apache 2.0 license"],
-    "weaknesses": ["128K context is shorter than million-token alternatives", "Optimized mainly for enterprise workloads"],
-    "bestFor": ["Private enterprise RAG", "Multilingual agents", "Regulated deployments"],
+    "strengths": [
+      "Multimodal enterprise agents",
+      "48-language support",
+      "Apache 2.0 license"
+    ],
+    "weaknesses": [
+      "128K context is shorter than million-token alternatives",
+      "Optimized mainly for enterprise workloads"
+    ],
+    "bestFor": [
+      "Private enterprise RAG",
+      "Multilingual agents",
+      "Regulated deployments"
+    ],
     "pricing": "Apache 2.0 weights; check current Cohere service pricing"
   },
   "Llama 4 Scout / Maverick (open weights)": {
-    "strengths": ["Broad deployment support", "Native multimodal input", "Scout supports very long input context"],
-    "weaknesses": ["Custom Llama license", "Older than several 2026 open-weight frontier releases"],
-    "bestFor": ["Established Llama deployments", "Multimodal applications", "Long-context experiments"],
+    "strengths": [
+      "Broad deployment support",
+      "Native multimodal input",
+      "Scout supports very long input context"
+    ],
+    "weaknesses": [
+      "Custom Llama license",
+      "Older than several 2026 open-weight frontier releases"
+    ],
+    "bestFor": [
+      "Established Llama deployments",
+      "Multimodal applications",
+      "Long-context experiments"
+    ],
     "pricing": "Open weights under the Llama license; hosting and inference still cost money"
   },
   "ERNIE 5.1": {
-    "strengths": ["Current Baidu general model", "Strong Chinese writing and understanding", "Agent-focused post-training"],
-    "weaknesses": ["Hosted product access and regional terms vary", "No general open-weight release documented"],
-    "bestFor": ["Chinese-language knowledge work", "Baidu platform agents", "Writing and instruction following"],
+    "strengths": [
+      "Current Baidu general model",
+      "Strong Chinese writing and understanding",
+      "Agent-focused post-training"
+    ],
+    "weaknesses": [
+      "Hosted product access and regional terms vary",
+      "No general open-weight release documented"
+    ],
+    "bestFor": [
+      "Chinese-language knowledge work",
+      "Baidu platform agents",
+      "Writing and instruction following"
+    ],
     "pricing": "Check current Baidu product and API pricing"
   },
   "ByteDance Seed2.0": {
-    "strengths": ["Multimodal document understanding", "Dedicated Pro and Code variants", "Production use through Doubao, TRAE, and Volcano Engine"],
-    "weaknesses": ["Regional availability and product names vary", "No general open-weight release documented"],
-    "bestFor": ["Chinese-language agents", "Document and chart analysis", "TRAE coding workflows"],
+    "strengths": [
+      "Multimodal document understanding",
+      "Dedicated Pro and Code variants",
+      "Production use through Doubao, TRAE, and Volcano Engine"
+    ],
+    "weaknesses": [
+      "Regional availability and product names vary",
+      "No general open-weight release documented"
+    ],
+    "bestFor": [
+      "Chinese-language agents",
+      "Document and chart analysis",
+      "TRAE coding workflows"
+    ],
     "pricing": "Check current Volcano Engine pricing"
+  },
+  "Qwen 3.8 Flash": {
+    "strengths": [
+      "Fast hosted Qwen tier"
+    ],
+    "weaknesses": [
+      "Less capable than Qwen 3.8 Max on complex work"
+    ],
+    "bestFor": [
+      "High-volume work"
+    ],
+    "pricing": "Check current Alibaba Cloud Model Studio pricing"
   }
 }

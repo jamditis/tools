@@ -26,12 +26,16 @@ const DATA_DIR = path.join(
 // Known stale claims in active guidance. Historical case studies and changelog
 // entries are intentionally excluded from this check.
 const OUTDATED_PATTERNS = [
-  { pattern: /\bGPT[ -]?5\.5\b/gi, replacement: "GPT-5.6 Sol" },
-  { pattern: /\b(?:Claude )?Sonnet 4\.6\b/gi, replacement: "Claude Sonnet 5" },
-  { pattern: /\bGLM-5\.1\b/gi, replacement: "GLM-5.2" },
-  { pattern: /\bGrok 3\b/gi, replacement: "Grok 4.5" },
-  { pattern: /\bDeepSeek R2\b/gi, replacement: "DeepSeek V4 Pro or Flash" },
+  { pattern: /\bGPT[ -]?5\.[456]\b/gi, replacement: "GPT-6.1 Sol" },
+  { pattern: /\b(?:Claude )?Sonnet 4\.6\b/gi, replacement: "Claude Sonnet 5.5" },
+  { pattern: /\bGLM-5\.[12]\b/gi, replacement: "GLM-5.3" },
+  { pattern: /\bGrok (?:3|4\.5)\b/gi, replacement: "Grok 4.7" },
+  { pattern: /\bDeepSeek R2\b/gi, replacement: "DeepSeek V4 Pro or V4.1 Flash" },
   { pattern: /\bKimi K2\.5\b/gi, replacement: "Kimi K3" },
+  { pattern: /\bGemini 3\.7 Flash\b/gi, replacement: "Gemini 3.8 Flash" },
+  { pattern: /\bGemini 3\.1 Pro\b/gi, replacement: "Gemini 4 Argon" },
+  { pattern: /\bMistral Medium 3\.5\b/gi, replacement: "Mistral Large 4" },
+  { pattern: /\bVeo 3\.1\b/gi, replacement: "Gemini Omni Flash" },
 ];
 
 // File schemas

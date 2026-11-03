@@ -1,83 +1,74 @@
 {
-  "Claude Opus 5": {
-    "description": "Anthropic's advanced model for complex agentic coding, deep reasoning, and enterprise work. It has a one-million-token context window, up to 128K output tokens, and thinking enabled by default.",
+  "Claude Fable 5.1": {
+    "description": "Anthropic's most capable model for demanding reasoning and long-horizon agent work. It has a one-million-token context window, up to 128K output tokens, and adaptive thinking that is always on.",
     "features": [
-      "Strong long-horizon coding and deep reasoning",
+      "Highest Claude capability",
       "One-million-token context window",
-      "Adaptive thinking enabled by default",
-      "Current advanced Claude tier below Fable 5"
+      "Default effort is high",
+      "Adaptive thinking always on"
     ],
-    "link": "https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/overview"
   },
-  "Claude Opus 4.8": {
-    "description": "Anthropic's previous Opus model. It remains available, but use Claude Opus 5 for new complex agentic coding and enterprise work.",
+  "Claude Opus 5.5": {
+    "description": "Anthropic's recommended starting point for most workloads, including long-running agentic coding and knowledge work. It is the Claude Code default. It has a one-million-token context window, up to 128K output tokens, and adaptive thinking that is always on.",
     "features": [
-      "Strong complex reasoning and agentic coding",
-      "Suited to long-running, high-stakes workflows",
-      "Good for detailed writing and editing"
+      "Anthropic's starting point for most workloads",
+      "Claude Code default model",
+      "One-million-token context window",
+      "Fast mode available at $8 and $40 per million tokens"
     ],
-    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/overview"
   },
-  "Claude Sonnet 5": {
-    "description": "Anthropic's speed-and-intelligence option for day-to-day agents, coding, writing, and interactive work. Product defaults vary, so select a model alias or exact ID when reproducibility matters.",
+  "Claude Opus 5": {
+    "description": "Anthropic's previous Opus model. It remains active, but Claude Opus 5.5 costs less and is the better choice for new work.",
     "features": [
-      "Very fast and conversational",
-      "Best for expressive writing and brainstorming",
-      "Strong for day-to-day coding",
-      "Strong latency-to-quality balance"
+      "Still active on the API",
+      "Migrate to Claude Opus 5.5 for new work"
     ],
-    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/overview"
   },
-  "Claude Haiku 4.5": {
-    "description": "Anthropic's fastest and cheapest model. Haiku 4.5 delivers near-frontier performance for high-volume, cost-sensitive tasks like classification, extraction, and quick Q&A.",
+  "Claude Sonnet 5.5": {
+    "description": "Anthropic's best combination of speed and intelligence for day-to-day agents, coding, writing, and interactive work. Select a model alias or exact ID when reproducibility matters.",
     "features": [
-      "Fastest Claude model",
-      "Lowest per-token cost in the Claude family",
-      "Great for batch processing and high-volume workflows"
+      "Fast and capable for daily work",
+      "One-million-token context window",
+      "Default effort varies by product",
+      "Good for expressive writing and iteration"
     ],
-    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/overview"
   },
-  "Claude Fable 5": {
-    "description": "Anthropic's most capable broadly released model for long-running agents and difficult work. Use it when you need maximum capability and can accept higher latency and cost.",
+  "Claude Haiku 5.5": {
+    "description": "Anthropic's fastest and cheapest model for high-volume, cost-sensitive tasks like classification, extraction, and quick questions. The price rises for prompts over 100K tokens.",
     "features": [
-      "Designed for long-running agentic workflows",
-      "Highest-capability Claude option in the current catalog",
-      "Useful for difficult research, coding, and synthesis"
+      "Lowest Claude price",
+      "One-million-token context window",
+      "Good for classification and extraction",
+      "Good for subagents and bulk steps"
     ],
-    "link": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+    "link": "https://platform.claude.com/docs/en/about-claude/models/overview"
   },
-  "Gemini 3.1 Pro": {
-    "description": "Google's preview reasoning model for difficult multimodal and long-context work. Preview status can change, so check the model lifecycle page before production use.",
+  "Gemini 4 Argon": {
+    "description": "Google's highest-capability generally available Gemini model, for difficult multimodal and long-context work. It has a one-million-token context window and no free tier. The introductory price ends on November 30, 2026.",
     "features": [
-      "Industry-leading 1M+ token context window",
-      "Improved reasoning and directness over 2.5",
-      "Better multimodal synthesis (text, images, audio, video)",
-      "Strong multimodal synthesis",
-      "Preview model: verify availability before deployment"
+      "General availability since October 13, 2026",
+      "One-million-token context window",
+      "No free API tier",
+      "Custom temperature values are ignored"
     ],
     "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Gemini 3.5 Flash-Lite": {
-    "description": "Google's cheapest Gemini tier. Flash-Lite retains a long context window and runs even faster than Flash, making it a natural fit for high-volume agentic calls and cost-sensitive background automations.",
+  "Gemini 3.8 Flash": {
+    "description": "Google's current Flash workhorse for coding and agents. It has a free tier on the Gemini API. The introductory price ends on December 31, 2026.",
     "features": [
-      "Lowest-cost Gemini tier",
-      "Very fast for high-volume automations",
-      "Long context window retained"
+      "General availability since September 2, 2026",
+      "Free API tier available",
+      "Low latency for tool-using agents",
+      "Custom temperature values are ignored"
     ],
     "link": "https://ai.google.dev/gemini-api/docs/models"
-  },
-  "Gemini 3.7 Flash": {
-    "description": "Google's newest and most intelligent Flash workhorse for coding and agents. It is available through the Gemini API and current Google agent products; verify rollout and regional availability before production deployment.",
-    "features": [
-      "Current Google Flash recommendation",
-      "Optimized for coding and agent workflows",
-      "Multimodal input and built-in tool support",
-      "Released August 13, 2026"
-    ],
-    "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/"
   },
   "Gemini 3.6 Flash": {
-    "description": "Google's previous stable Flash workhorse. It remains useful for qualified production integrations, but Gemini 3.7 Flash is the current recommendation for new coding and agent work.",
+    "description": "Google's previous stable Flash model. It remains useful for qualified production integrations, but Gemini 3.8 Flash is the recommendation for new coding and agent work.",
     "features": [
       "Very fast for conversational tasks",
       "Improved directness and efficiency over 2.5",
@@ -86,27 +77,26 @@
     ],
     "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Gemini 3.5 Flash": {
-    "description": "An earlier stable Gemini Flash tier for sustained agentic, coding, and multimodal work. Prefer Gemini 3.7 Flash for new work unless an existing integration requires this version.",
+  "Gemini 3.5 Flash-Lite": {
+    "description": "Google's cheapest stable Gemini tier. Flash-Lite keeps a long context window, which fits high-volume agent calls and cost-sensitive background automation.",
     "features": [
-      "Earlier stable tier for sustained agentic work",
-      "Advanced coding and multimodal reasoning",
-      "Production-ready stable model"
+      "Lowest-cost Gemini tier",
+      "Very fast for high-volume automations",
+      "Long context window retained"
     ],
     "link": "https://ai.google.dev/gemini-api/docs/models"
   },
-  "Veo 3.1": {
-    "description": "Google's current Veo video-generation family. Availability and supported controls vary by product and API, so confirm the exact model and terms before production use.",
+  "Gemini Omni Flash": {
+    "description": "Google's video model for generation, editing, keyframe interpolation, and extension with native audio. The API ID is gemini-omni-1.1-flash. Google's Veo preview models shut down on October 22, 2026, and point to this model.",
     "features": [
-      "Text-to-video generation",
-      "Photorealistic short clips",
-      "Native video and audio generation options",
-      "Best for conceptual/abstract visuals"
+      "General availability since August 27, 2026",
+      "Video generation and editing",
+      "Native audio"
     ],
-    "link": "https://ai.google.dev/gemini-api/docs/video"
+    "link": "https://ai.google.dev/gemini-api/docs/models"
   },
   "Gemini 2.5 Pro (legacy)": {
-    "description": "Google's previous-generation 'work' model. While still capable, Gemini 3.1 Pro is recommended for new work due to its improved reasoning and efficiency.",
+    "description": "Google's deprecated Gemini 2.5 Pro model. Google routes it to Gemini 3.8 Flash on December 1, 2026. Move new and existing work to Gemini 3.8 Flash or Gemini 4 Argon.",
     "features": [
       "Industry-leading 1M+ token context window",
       "Built-in 'Canvas' for data analysis & visualization"
@@ -114,7 +104,7 @@
     "link": "https://gemini.google.com/"
   },
   "Gemini 2.5 Flash (legacy)": {
-    "description": "Google's previous-generation fast model. Gemini 3.7 Flash is recommended for new work due to newer coding and agent capabilities.",
+    "description": "Google's deprecated Gemini 2.5 Flash model. Google routes it to a current Flash tier on December 1, 2026. Move new and existing work to Gemini 3.8 Flash or Gemini 3.5 Flash-Lite.",
     "features": [
       "Very fast for conversational tasks",
       "Excellent multimodal voice mode",
@@ -122,60 +112,62 @@
     ],
     "link": "https://gemini.google.com/"
   },
-  "GPT-5.6 Sol": {
-    "description": "OpenAI's recommended flagship for complex reasoning and agentic work. The GPT-5.6 alias resolves to Sol; pin an exact snapshot only when reproducibility is more important than automatic upgrades.",
+  "GPT-6 Astra": {
+    "description": "OpenAI's highest-intelligence model, for the most difficult reasoning and agent work. Use it when GPT-6.1 Sol does not meet the bar and the higher price is justified.",
     "features": [
-      "Top-tier reasoning for complex problems",
-      "Highly steerable for specific tasks",
-      "1.05M-token context and up to 128K output tokens"
+      "Highest OpenAI intelligence",
+      "Available in the API and supported Codex plans",
+      "Best kept for the hardest work and independent review"
     ],
     "link": "https://developers.openai.com/api/docs/guides/latest-model"
   },
-  "GPT-5.6 Terra": {
-    "description": "OpenAI's balanced GPT-5.6 tier for capable everyday agents, coding, and knowledge work at lower latency and cost than Sol.",
+  "GPT-6.1 Sol": {
+    "description": "OpenAI's recommended model for most complex work, with near-Astra capability at a lower price. It is the Codex default. Effort runs from low to max, and the default is medium.",
     "features": [
-      "Balanced capability, latency, and cost",
-      "Suitable for daily agent and coding work",
-      "Part of the current GPT-5.6 family"
+      "Default Codex model",
+      "Near-Astra capability at lower cost",
+      "Effort from low to max",
+      "Responses API recommended"
+    ],
+    "link": "https://developers.openai.com/api/docs/guides/latest-model"
+  },
+  "GPT-6.1 Terra": {
+    "description": "OpenAI's fast tier for capable everyday work, with strong visual reasoning, computer use, and writing. Effort runs from none to max.",
+    "features": [
+      "Fast and capable",
+      "Visual reasoning and computer use",
+      "Good for writing",
+      "Works in Codex CLI 0.159.0 or later"
     ],
     "link": "https://developers.openai.com/api/docs/models/all"
   },
-  "GPT-5.6 Luna": {
-    "description": "OpenAI's fastest and most economical GPT-5.6 tier for routine work, high-throughput tasks, and responsive applications.",
+  "GPT-6 Luna": {
+    "description": "OpenAI's fastest and most economical tier for routine work, high-volume tasks, and responsive applications. It is the Codex model on ChatGPT Free and Go, in the desktop app only.",
     "features": [
-      "Lowest-latency GPT-5.6 tier",
-      "Designed for high-throughput routine work",
-      "Part of the current GPT-5.6 family"
+      "Lowest OpenAI price",
+      "Lowest latency",
+      "Good for bulk and routine steps"
     ],
     "link": "https://developers.openai.com/api/docs/models/all"
   },
-  "GPT 5.4": {
-    "description": "An older supported OpenAI flagship. Prefer GPT-5.6 Sol for new complex agent work, or GPT-5.6 Terra/Luna when latency and cost matter more.",
+  "Codex (GPT-6.1 Sol)": {
+    "description": "OpenAI's coding agent, in the ChatGPT desktop app, mobile, web, CLI, IDE extension, and cloud. It uses GPT-6.1 Sol at medium effort by default. Cloud tasks run in isolated containers, so a long job keeps working after you close the laptop. Use a short AGENTS.md, a clear done-when check, and the smallest permissions that work.",
     "features": [
-      "Strong general reasoning",
-      "Earlier GPT-5 generation",
-      "Useful where an existing integration is already qualified"
-    ],
-    "link": "https://developers.openai.com/api/docs/models"
-  },
-  "Codex (GPT-5.6 Sol)": {
-    "description": "OpenAI's coding-agent experience using GPT-5.6 Sol for complex repository work. Cloud tasks run in isolated containers, so a long job keeps working after you close the laptop. Use explicit approval boundaries, relevant tool subsets, bounded concurrency, tests, and exact-head review gates.",
-    "features": [
-      "Cloud tasks run in isolated containers, unattended for hours",
-      "Parallel subagents in Ultra mode for fan-out work",
-      "Start a task by tagging @codex on a GitHub pull request",
-      "Flat-plan pricing measured per five-hour window",
-      "Strong debugging, multi-file reasoning, and long-horizon refactors"
+      "Default model is GPT-6.1 Sol at medium effort",
+      "Also runs GPT-6 Astra, GPT-6.1 Terra, and GPT-6 Luna, depending on your plan",
+      "Local CLI and IDE work plus cloud tasks",
+      "codex exec for scripts, read-only by default",
+      "Automatic GitHub code review on supported plans",
+      "AGENTS.md for durable project rules"
     ],
     "link": "https://developers.openai.com/codex/"
   },
-  "Nano Banana 2": {
-    "description": "Google's current all-around image model, exposed as Gemini 3.1 Flash Image. Use Nano Banana 2 Lite for lower latency and cost, or Nano Banana Pro for the most complex image work.",
+  "Nano Banana 2.1": {
+    "description": "Google's current all-around image model. The API ID is gemini-nano-banana-2.1. It improves visual quality, typography, and multi-turn consistency.",
     "features": [
-      "Text-to-image from narrative descriptions",
-      "Image editing with text prompts",
-      "Iterative, conversational refinement",
-      "Renders text clearly in images"
+      "Image generation and editing",
+      "Improved typography",
+      "Multi-turn consistency"
     ],
     "link": "https://ai.google.dev/gemini-api/docs/image-generation"
   },
@@ -188,44 +180,44 @@
     ],
     "link": "https://notebooklm.google.com/"
   },
-  "Grok 4.5": {
-    "description": "SpaceXAI's current frontier model, published through the x.ai developer domain. Current web or X information requires enabling the Web Search or X Search tool; the base model is not automatically real-time.",
+  "Grok 4.7": {
+    "description": "SpaceXAI's current frontier model, with a 500K-token context window. Current web or X information requires the Web Search or X Search tool. The base model is not real-time.",
     "features": [
-      "Optional Web Search and X Search tools",
-      "Useful for research when sources are independently verified",
-      "Useful for tracking online narratives"
+      "500K-token context window",
+      "Web Search and X Search tools",
+      "Live data only with search tools on"
     ],
-    "link": "https://docs.x.ai/developers/models"
+    "link": "https://docs.x.ai/developers/models/grok-4.7"
   },
   "Perplexity": {
-    "description": "Perplexity's current Sonar family combines web search with generated answers. Use Sonar for quick grounded queries, Sonar Pro for more complex follow-ups, Sonar Reasoning Pro for multi-step analysis, and Sonar Deep Research for long reports.",
+    "description": "Perplexity's search-grounded answer service. Perplexity ended Sonar Chat Completions support on September 27, 2026 and points new projects to its Agent API. Check the current Agent API models before you build on it.",
     "features": [
       "Provides answers with inline source citations",
-      "Separate search, reasoning, and deep-research tiers",
+      "Agent API for search-grounded applications",
       "Useful for source discovery and initial research",
       "Verify cited primary sources before publication"
     ],
-    "link": "https://docs.perplexity.ai/docs/sonar/models"
+    "link": "https://docs.perplexity.ai/docs/agent-api/quickstart"
   },
   "Open-weight models": {
     "description": "A category of models whose weights are available for local or private deployment. Licenses differ, and open weights do not always mean open source. Check each model's license, hardware needs, and safety controls before use.",
     "features": [
       "Self-hostable for full privacy",
       "Can run on local hardware (via Ollama, LM Studio, vLLM)",
-      "Current options include Kimi K3, GLM-5.2, DeepSeek V4, Qwen, MiniMax M3, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4",
+      "Current options include Kimi K3, GLM-5.3, DeepSeek V4, Qwen, MiniMax M3, Mistral, StepFun, MiMo, Hy3, Command A+, Nemotron 3 Ultra, and Llama 4",
       "No per-token costs once running locally"
     ],
     "link": "https://ollama.com/"
   },
-  "GLM-5.2 (open weights)": {
-    "description": "Z.ai's MIT-licensed open-weight model for long-horizon agentic work, with a one-million-token context option. Hardware and provider behavior vary, so benchmark it on your own workload.",
+  "GLM-5.3 (open weights)": {
+    "description": "Z.ai's model for long-horizon agent work, with a one-million-token context window and open weights under the GLM-5.3 License. That license adds a security-review term for large model-service businesses. GLM-5.3-Flash and FlashX are the cheaper hosted tiers. Benchmark it on your own workload.",
     "features": [
-      "Current open-weight option for long-horizon agents",
-      "MIT licensed — no usage restrictions",
-      "Self-hostable or available via Z.ai",
+      "Open-weight option for long-horizon agents",
+      "GLM-5.3 License: read it before you self-host",
+      "Self-hostable or available through Z.ai",
       "Designed for long-horizon autonomous tasks"
     ],
-    "link": "https://huggingface.co/zai-org/GLM-5.2"
+    "link": "https://huggingface.co/zai-org/GLM-5.3"
   },
   "Qwen 3.7 Plus": {
     "description": "Alibaba Cloud's current hosted Qwen Plus tier for long-context agents and multimodal knowledge work. The moving alias currently provides a one-million-token context window.",
@@ -236,13 +228,13 @@
     ],
     "link": "https://help.aliyun.com/en/model-studio/model-pricing"
   },
-  "Qwen 3.8 Max (preview)": {
-    "description": "Alibaba Cloud's newest preview Qwen reasoning tier. Use it for evaluations that need the highest hosted Qwen capability, but keep production work on a stable model until its lifecycle and terms are suitable.",
+  "Qwen 3.8 Max": {
+    "description": "Alibaba Cloud's top hosted Qwen tier for complex reasoning work. Check the Model Studio catalog for regional availability before production use.",
     "features": [
-      "Newest hosted Qwen preview tier",
+      "Top hosted Qwen tier",
       "Reasoning, text generation, and agent workflows",
       "Token Plan availability can vary",
-      "Preview lifecycle requires production checks"
+      "Check regional availability"
     ],
     "link": "https://help.aliyun.com/en/model-studio/models"
   },
@@ -257,17 +249,17 @@
     "link": "https://qwen.ai/blog?id=qwen3.6-35b-a3b"
   },
   "DeepSeek V4 (open weights)": {
-    "description": "DeepSeek V4 Pro and Flash are MIT-licensed open-weight models with one-million-token context. Choose Pro for maximum capability or Flash for lower latency, and migrate away from deprecated deepseek-chat and deepseek-reasoner aliases.",
+    "description": "DeepSeek V4 Pro is an MIT-licensed open-weight model with one-million-token context. The API also offers V4.1 Flash as deepseek-flash, with text and image input. V4 Flash is retired on the API. Confirm the V4.1 Flash license before you self-host.",
     "features": [
-      "Pro and Flash variants",
+      "V4 Pro and V4.1 Flash variants",
       "One-million-token context",
       "Open weights and hosted API options",
       "Strong coding and tool-use capabilities"
     ],
-    "link": "https://api-docs.deepseek.com/news/news260424/"
+    "link": "https://api-docs.deepseek.com/updates"
   },
   "Kimi K3 (open weights)": {
-    "description": "Moonshot AI's current open-weight flagship for long-horizon coding, visual understanding, and end-to-end knowledge work. The hosted model and released weights support a one-million-token context window.",
+    "description": "Moonshot AI's open-weight flagship for long-horizon coding, visual understanding, and knowledge work, released under the Kimi K3 License. The hosted Kimi K3.1 Pro and Highspeed tiers have a one-million-token context window.",
     "features": [
       "Long-horizon agentic coding",
       "Native visual understanding",
@@ -277,7 +269,7 @@
     "link": "https://github.com/MoonshotAI/Kimi-K3"
   },
   "MiniMax M3": {
-    "description": "MiniMax's open-weight frontier coding and agent model with native multimodal input and up to one million tokens of context. The published weights use the MiniMax Community License.",
+    "description": "MiniMax's open-weight coding and agent model with multimodal input and up to one million tokens of context. The weights use the MiniMax Community License. MiniMax M3.1 Flash is the hosted fast tier.",
     "features": [
       "Coding and long-running agent workflows",
       "Native image and video understanding",
@@ -286,15 +278,14 @@
     ],
     "link": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
   },
-  "Mistral Medium 3.5 (open weights)": {
-    "description": "Mistral's frontier-class multimodal model for agentic and coding work. It supports a 256K context window and uses a Modified MIT license.",
+  "Mistral Large 4 (open weights)": {
+    "description": "Mistral's frontier multimodal model for agent and coding work, released under the Mistral Ecosystem Open Weight License. Read the license before private deployment.",
     "features": [
-      "Agentic coding and multimodal input",
-      "256K context window",
-      "Function calling and structured output",
-      "Modified MIT license"
+      "Multimodal input",
+      "Agent and coding work",
+      "Mistral Ecosystem Open Weight License"
     ],
-    "link": "https://docs.mistral.ai/models/model-cards/mistral-medium-3-5-26-04"
+    "link": "https://docs.mistral.ai/models"
   },
   "NVIDIA Nemotron 3 Ultra (open weights)": {
     "description": "NVIDIA's open model for long-running agent orchestration. It uses a 550B-parameter mixture-of-experts design with 55B active parameters and supports up to one million tokens of context.",
@@ -387,9 +378,9 @@
     "link": "https://seed.bytedance.com/en/models"
   },
   "ElevenLabs": {
-    "description": "ElevenLabs provides speech, transcription, sound, and music models. Eleven v3 is the most expressive speech model; Flash v2.5 is the low-latency choice; Multilingual v2 remains the stable long-form option; Scribe v2 handles transcription; Music v2 is the current music model.",
+    "description": "ElevenLabs provides speech, transcription, sound, and music models. Eleven v4 is the flagship creative speech model, v4 Turbo is the fast choice, Realtime v1 serves voice agents, and Scribe v2 handles transcription.",
     "features": [
-      "Eleven v3 expressive speech and multi-speaker dialogue",
+      "Eleven v4 expressive speech and multi-speaker dialogue",
       "Flash v2.5 for real-time speech",
       "Scribe v2 and Scribe v2 Realtime for transcription",
       "Music v2 for prompted music generation",
@@ -406,5 +397,13 @@
       "Review editorial disclosure and synthetic-media policy before publication"
     ],
     "link": "https://updates.midjourney.com/version-8-2/"
+  },
+  "Qwen 3.8 Flash": {
+    "description": "Alibaba Cloud's fast hosted Qwen tier for high-volume and responsive work.",
+    "features": [
+      "Fast hosted Qwen tier",
+      "Good for high-volume work"
+    ],
+    "link": "https://help.aliyun.com/en/model-studio/models"
   }
 }

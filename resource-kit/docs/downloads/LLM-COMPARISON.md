@@ -1,6 +1,6 @@
 # LLM comparison chart for journalism projects
 
-> Verified August 15, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
+> Verified November 2, 2026. The AI landscape changes fast, so verify current pricing, availability, privacy terms, and capabilities with the provider before production use.
 
 ---
 
@@ -8,24 +8,23 @@
 
 | Model | Best for | Speed | Cost | Free tier? |
 |-------|----------|-------|------|------------|
-| Claude Fable 5 | Maximum-capability long-running agents | Slower | Higher | Check plan |
-| Claude Opus 5 | Complex agentic coding and writing | Slower | Higher | Check plan |
-| Claude Sonnet 5 | Balanced day-to-day agents | Fast | Medium | Check plan |
-| Gemini 3.7 Flash | Current coding and agent workhorse | Fast | Lower | Check plan |
+| Claude Fable 5.1 | Maximum-capability long-running agents | Slower | Higher | Check plan |
+| Claude Opus 5.5 | Complex agentic coding and writing | Slower | Higher | Check plan |
+| Claude Sonnet 5.5 | Balanced day-to-day agents | Fast | Medium | Check plan |
+| Gemini 3.8 Flash | Current coding and agent workhorse | Fast | Lower | Check plan |
 | Gemini 3.6 Flash | Previous stable Flash tier | Fast | Lower | Check plan |
-| Gemini 3.5 Flash | Earlier stable Flash tier | Fast | Medium | Check plan |
-| Gemini 3.1 Pro (preview) | Difficult multimodal reasoning | Slower | Medium | Check plan |
-| Codex (GPT-5.6 Sol) | OpenAI repository work | Varies | Check plan | Check plan |
-| GPT-5.6 Terra | Balanced OpenAI agents and coding | Fast | Medium | Check plan |
-| GPT-5.6 Luna | High-throughput routine work | Fastest | Lower | Check plan |
-| Qwen 3.8 Max (preview) | Highest hosted Qwen evaluation tier | Varies | Check plan | Check plan |
+| Gemini 4 Argon | Difficult multimodal reasoning | Slower | Medium | Check plan |
+| Codex (GPT-6.1 Sol) | OpenAI repository work | Varies | Check plan | Check plan |
+| GPT-6.1 Terra | Balanced OpenAI agents and coding | Fast | Medium | Check plan |
+| GPT-6 Luna | High-throughput routine work | Fastest | Lower | Check plan |
+| Qwen 3.8 Max | Top hosted Qwen tier | Varies | Check plan | Check plan |
 | Qwen 3.7 Plus | Stable hosted long-context agents | Varies | Check plan | Check plan |
-| GLM-5.2 (open) | Long-horizon open-weight agents | Varies | Hosting | Self-host |
+| GLM-5.3 (open) | Long-horizon open-weight agents | Varies | Hosting | Self-host |
 | DeepSeek V4 Pro/Flash (open) | Long-context coding and tools | Varies | Hosting/API | Self-host |
 | Qwen3.6-35B-A3B (open) | Efficient local agentic coding | Varies | Hosting | Self-host |
 | Kimi K3 (open) | Long-horizon coding and multimodal knowledge work | Varies | Hosting | Self-host |
 | MiniMax M3 | Open-weight multimodal coding and agents | Varies | Hosting | Self-host or API |
-| Mistral Medium 3.5 / Small 4 (open) | Private multimodal and efficient agents | Varies | Hosting/API | Self-host |
+| Mistral Large 4 / Small 4 (open) | Private multimodal and efficient agents | Varies | Hosting/API | Self-host |
 | Step-3.7-Flash / MiMo-V2-Flash / Hy3 (open) | Efficient agent and coding evaluations | Varies | Hosting | Self-host |
 | Command A+ / Nemotron 3 Ultra / Llama 4 (open) | Enterprise orchestration and deployment options | Varies | Hosting | Self-host |
 
@@ -33,7 +32,7 @@
 
 ## Detailed breakdown
 
-### Claude Opus 5
+### Claude Opus 5.5
 
 **Strengths:**
 - Strong complex reasoning and agentic coding
@@ -50,7 +49,7 @@
 
 ---
 
-### Claude Sonnet 5
+### Claude Sonnet 5.5
 
 **Strengths:**
 - Great balance of speed and capability
@@ -59,45 +58,45 @@
 - Good at iterating on feedback
 
 **Weaknesses:**
-- Less capable on very complex tasks than Claude Opus 5
+- Less capable on very complex tasks than Claude Opus 5.5
 - Better for brainstorming than production code
 
 **Best for:** Daily tasks, brainstorming, quick iterations
 
 ---
 
-### Gemini 3.1 Pro
+### Gemini 4 Argon
 
 **Strengths:**
-- Best for front-end design work
-- Industry-leading context window for large documents
+- Good for front-end design work
+- One-million-token context window for large documents
 - Excellent multimodal capabilities
 - Good integration with Google products
 
 **Weaknesses:**
-- Not as strong for pure coding as Claude Opus 5
+- Not as strong for pure coding as Claude Opus 5.5
 - May train on data unless opted out
 
 **Best for:** Front-end design, large document analysis, multimodal projects
 
 ---
 
-### Codex (GPT-5.6 Sol)
+### Codex (GPT-6.1 Sol)
 
 **Strengths:**
-- Specialized for coding tasks
-- Excellent at multi-file projects
-- Strong debugging capabilities
+- Coding agent that defaults to GPT-6.1 Sol
+- Also runs GPT-6 Astra, GPT-6.1 Terra, and GPT-6 Luna, depending on your plan
+- Excellent at multi-file projects and debugging
 
 **Weaknesses:**
 - Less versatile for non-coding tasks
-- Requires OpenAI subscription
+- Free and Go plans use GPT-6 Luna in the desktop app only, subject to rollout
 
 **Best for:** All OpenAI coding work, multi-file projects
 
 ---
 
-### GPT-5.6 Sol
+### GPT-6.1 Sol
 
 **Strengths:**
 - Top-tier reasoning for complex problems
@@ -144,13 +143,13 @@ Pricing and plan access change too quickly for a durable static table. Check eac
 → **Claude Pro** (best for coding and writing)
 
 ### Regular coding work
-→ **Claude Opus 5** + **GitHub Copilot** for in-editor
+→ **Claude Opus 5.5** + **GitHub Copilot** for in-editor
 
 ### Front-end design or large documents
-→ **Gemini 3.1 Pro** (best context window and multimodal)
+→ **Gemini 4 Argon** (long context and multimodal)
 
 ### Building production tools for newsroom
-→ **Claude Opus 5** for all coding tasks
+→ **Claude Opus 5.5** for all coding tasks
 
 ---
 
