@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Max savings calculator // Amditis Kit</title>
-    <meta name="description" content="Calculate how much you'd pay for Claude API access vs the Max subscription plan. See your break-even point and monthly savings.">
+    <title>Claude plan savings calculator // Amditis Kit</title>
+    <meta name="description" content="Calculate how much you'd pay for Claude API access vs a Max or Ultra subscription. See your break-even point and monthly savings.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <meta property="og:title" content="Claude Max savings calculator">
-    <meta property="og:description" content="See how much you're saving by using Claude Max instead of the API.">
+    <meta property="og:title" content="Claude plan savings calculator">
+    <meta property="og:description" content="See how much you're saving by using a Claude Max or Ultra plan instead of the API.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tools.amditis.tech/cost-calculator/">
     <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Claude Max savings calculator">
-    <meta name="twitter:description" content="See how much you're saving by using Claude Max instead of the API.">
+    <meta name="twitter:title" content="Claude plan savings calculator">
+    <meta name="twitter:description" content="See how much you're saving by using a Claude Max or Ultra plan instead of the API.">
     <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png">
 
     <link rel="stylesheet" href="/assets/amditis-main.css">
@@ -105,7 +105,7 @@
                     <div class="w-8 h-8 bg-ink text-canvas flex items-center justify-center font-bold font-display text-xl">A</div>
                     <div>
                         <div class="font-display font-bold text-sm tracking-wider text-ink">CCM // RESOURCES</div>
-                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.7</div>
+                        <div class="text-[10px] text-mist tracking-[0.2em] uppercase">AI Tools Kit v2.8</div>
                     </div>
                 </a>
                 <div class="flex items-center gap-4">
@@ -125,10 +125,10 @@
                     Decision tool
                 </div>
                 <h1 class="font-display text-5xl md:text-6xl font-light leading-tight tracking-tight mb-4 text-ink">
-                    Claude Max<br><span class="italic font-black">savings calculator</span>
+                    Claude plan<br><span class="italic font-black">savings calculator</span>
                 </h1>
                 <p class="text-ink/70 text-lg font-light measure leading-relaxed">
-                    Claude Max gives unlimited usage for a flat monthly rate. This calculator shows what the same usage would cost at API rates — and how much you save.
+                    Claude Max and Ultra give you higher usage limits and monthly API credits for a flat rate. Usage limits still apply. This calculator shows what the same usage would cost at API rates, and what you could save.
                 </p>
             </div>
         </section>
@@ -148,44 +148,44 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <button onclick="setModel('fable')" id="btn-fable"
                             class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
-                            <div class="font-display font-bold text-sm text-ink">Claude Fable 5</div>
-                            <div class="text-xs text-mist mt-1">Long-running agents</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Fable 5.1</div>
+                            <div class="text-xs text-mist mt-1">Hardest reasoning and agents</div>
                             <div class="text-xs text-mist font-bold mt-2">$10 / $50 per M tokens</div>
                         </button>
                         <button onclick="setModel('opus')" id="btn-opus"
                             class="model-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
-                            <div class="font-display font-bold text-sm text-ink">Claude Opus 5</div>
-                            <div class="text-xs text-mist mt-1">Best for complex coding</div>
-                            <div class="text-xs text-accent font-bold mt-2">$5 / $25 per M tokens</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Opus 5.5</div>
+                            <div class="text-xs text-mist mt-1">Start here for most work</div>
+                            <div class="text-xs text-accent font-bold mt-2">$4 / $20 per M tokens</div>
                         </button>
                         <button onclick="setModel('sonnet')" id="btn-sonnet"
                             class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
-                            <div class="font-display font-bold text-sm text-ink">Claude Sonnet 5</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Sonnet 5.5</div>
                             <div class="text-xs text-mist mt-1">Fast, balanced</div>
-                            <div class="text-xs text-mist font-bold mt-2">$3 / $15 per M tokens</div>
+                            <div class="text-xs text-mist font-bold mt-2">$2 / $10 per M tokens</div>
                         </button>
                         <button onclick="setModel('haiku')" id="btn-haiku"
                             class="model-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
-                            <div class="font-display font-bold text-sm text-ink">Claude Haiku 4.5</div>
+                            <div class="font-display font-bold text-sm text-ink">Claude Haiku 5.5</div>
                             <div class="text-xs text-mist mt-1">Fastest, cheapest</div>
-                            <div class="text-xs text-mist font-bold mt-2">$1 / $5 per M tokens</div>
+                            <div class="text-xs text-mist font-bold mt-2">$0.10 / $0.50 per M tokens</div>
                         </button>
                     </div>
                 </div>
 
-                <!-- Max plan -->
+                <!-- Plan -->
                 <div class="space-y-3">
-                    <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Your Max plan</label>
+                    <label class="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">Your plan</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <button onclick="setPlan(100)" id="btn-plan-100"
                             class="plan-btn border-2 border-accent bg-accent/10 p-4 text-left transition">
-                            <div class="font-display font-bold text-sm text-ink">Max 5x — $100/month</div>
-                            <div class="text-xs text-mist mt-1">5× more usage than Claude.ai Pro</div>
+                            <div class="font-display font-bold text-sm text-ink">Max: $100/month</div>
+                            <div class="text-xs text-mist mt-1">5× Pro usage, plus $100 in monthly API credits</div>
                         </button>
                         <button onclick="setPlan(200)" id="btn-plan-200"
                             class="plan-btn border border-ink/10 bg-white/30 p-4 text-left transition hover:border-accent/50">
-                            <div class="font-display font-bold text-sm text-ink">Max 20x — $200/month</div>
-                            <div class="text-xs text-mist mt-1">20× more usage than Claude.ai Pro</div>
+                            <div class="font-display font-bold text-sm text-ink">Ultra: $200/month</div>
+                            <div class="text-xs text-mist mt-1">10× Pro weekly usage, no 5-hour limit for verified accounts, plus $200 in monthly API credits</div>
                         </button>
                     </div>
                 </div>
@@ -245,9 +245,9 @@
                     <div class="mt-4 space-y-1 text-left" id="cost-breakdown"></div>
                 </div>
 
-                <!-- Max plan cost -->
+                <!-- Plan cost -->
                 <div class="deckle-card p-6 text-center">
-                    <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Max plan</div>
+                    <div class="text-[10px] text-accent font-bold tracking-[0.3em] uppercase mb-3">Your plan</div>
                     <div class="font-display font-black text-4xl text-accent mb-1" id="result-plan-cost">$100</div>
                     <div class="text-xs text-mist">flat monthly rate</div>
                     <div class="mt-4 pt-4 border-t border-ink/5">
@@ -278,7 +278,7 @@
                 <!-- Bar breakdown -->
                 <div class="mt-6 space-y-2">
                     <div class="flex justify-between text-[10px] text-mist font-bold uppercase tracking-widest">
-                        <span>API cost vs Max plan</span>
+                        <span>API cost vs plan</span>
                         <span id="bar-pct">0%</span>
                     </div>
                     <div class="h-2 bg-ink/10 rounded-full overflow-hidden">
@@ -324,27 +324,10 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                     </button>
                     <pre class="text-green-400 overflow-x-auto text-xs leading-relaxed" id="snippet-code" tabindex="0"># In your statusline command (receives JSON via stdin):
-input=$(cat)
-model_id=$(echo "$input" | jq -r '.model.id // empty')
-total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
-total_output=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
-cache_write=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
-cache_read=$(echo "$input"  | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
-
-# Pricing lookup (per million tokens: input / output / cache-write / cache-read)
-case "$model_id" in
-  *fable-5*)                                 ip=10; op=50; cwp="12.50"; crp="1.0" ;;
-  *opus-5*|*opus-4-8*|*opus-4-7*|*opus-4-6*) ip=5; op=25; cwp="6.25"; crp="0.5" ;;
-  *sonnet-5*|*sonnet-4-6*)                   ip=3; op=15; cwp="3.75"; crp="0.3" ;;
-  *haiku-4-5*)                               ip=1; op=5;  cwp="1.25"; crp="0.1" ;;
-  *)                                         ip=3; op=15; cwp="3.75"; crp="0.3" ;;
-esac
-
-cost=$(awk "BEGIN {printf \"%.2f\", ($total_input*$ip + $total_output*$op + \
-  $cache_write*$cwp + $cache_read*$crp)/1000000}")
-echo "~\$$cost"</pre>
+cost=$(jq -r '.cost.total_cost_usd // 0')
+printf '~$%.2f\n' "$cost"</pre>
                 </div>
-                <p class="text-xs text-mist mt-3">Paste this into your <code class="text-accent">~/.claude/statusline-command.sh</code>. Claude Code pipes JSON with cumulative token counts to the statusline command on every render.</p>
+                <p class="text-xs text-mist mt-3">Paste this into your <code class="text-accent">~/.claude/statusline-command.sh</code>. Claude Code pipes JSON to the statusline command on every render. This uses its cumulative session cost, so earlier requests keep their original rates when the prompt size or model changes. See the <a href="https://code.claude.com/docs/en/statusline#cost-and-duration-tracking" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-ink">statusline documentation</a>.</p>
             </div>
 
         </main>
@@ -352,18 +335,20 @@ echo "~\$$cost"</pre>
         <!-- Footer -->
         <footer class="border-t border-ink/10 py-8 px-6 mt-auto">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs text-mist">Claude Max savings calculator · <a href="/" class="hover:text-ink transition-colors">tools.amditis.tech</a></p>
-                <p class="text-xs text-mist">Verified August 15, 2026 from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Anthropic pricing</a>. Sonnet 5 has introductory $2/$10 rates through August 31, 2026; this calculator uses the ongoing $3/$15 rates so long-term estimates do not understate cost.</p>
+                <p class="text-xs text-mist">Claude plan savings calculator · <a href="/" class="hover:text-ink transition-colors">tools.amditis.tech</a></p>
+                <p class="text-xs text-mist">Verified November 2, 2026 from <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Anthropic pricing</a> and the <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">API pricing page</a>. Haiku 5.5 costs five times more for prompts over 100K tokens. This calculator applies that rate above 100K tokens.</p>
             </div>
         </footer>
     </div>
 
     <script>
         const PRICING = {
-            fable:  { ip: 10,   op: 50,  cwp: 12.5,  crp: 1.0,  label: 'Fable 5' },
-            opus:   { ip: 5,    op: 25,  cwp: 6.25,  crp: 0.5,  label: 'Claude Opus 5' },
-            sonnet: { ip: 3,    op: 15,  cwp: 3.75,  crp: 0.3,  label: 'Sonnet 5' },
-            haiku:  { ip: 1,    op: 5,   cwp: 1.25,  crp: 0.1,  label: 'Haiku 4.5' },
+            fable:  { ip: 10,   op: 50,  cwp: 12.5,  crp: 0.25, label: 'Fable 5.1' },
+            opus:   { ip: 4,    op: 20,  cwp: 5,     crp: 0.2,  label: 'Claude Opus 5.5' },
+            sonnet: { ip: 2,    op: 10,  cwp: 2.5,   crp: 0.1,  label: 'Sonnet 5.5' },
+            haiku:  { ip: 0.1,  op: 0.5, cwp: 0.125, crp: 0.01, label: 'Haiku 5.5',
+                  // Every token in a request costs more when its prompt is over 100K tokens.
+                  longPrompt: { over: 100, ip: 0.5, op: 2.5, cwp: 0.625, crp: 0.05 } },
         };
 
         let model = 'opus';
@@ -395,7 +380,7 @@ echo "~\$$cost"</pre>
             active.classList.add('border-2', 'border-accent', 'bg-accent/10');
             active.classList.remove('border', 'border-ink/10', 'bg-white/30');
             document.getElementById('result-plan-cost').textContent = '$' + cost;
-            document.getElementById('bar-max-label').textContent = '$' + cost + ' (Max)';
+            document.getElementById('bar-max-label').textContent = '$' + cost + ' (' + planName() + ')';
             update();
         }
 
@@ -422,11 +407,18 @@ echo "~\$$cost"</pre>
             return row;
         }
 
+        function planName() {
+            return planCost === 200 ? 'Ultra' : 'Max';
+        }
+
         function update() {
             const sessionsPerDay = parseInt(document.getElementById('slider-sessions').value, 10);
             const tokensK = parseInt(document.getElementById('slider-tokens').value, 10);
             const cacheRate = parseInt(document.getElementById('slider-cache').value, 10) / 100;
-            const p = PRICING[model];
+            const base = PRICING[model];
+            const p = base.longPrompt && tokensK > base.longPrompt.over
+                ? { ...base, ...base.longPrompt }
+                : base;
 
             document.getElementById('label-sessions').textContent = String(sessionsPerDay);
             document.getElementById('label-tokens').textContent = tokensK + 'K tokens';
@@ -455,7 +447,7 @@ echo "~\$$cost"</pre>
             document.getElementById('result-savings').textContent = fmt(Math.abs(savings));
             document.getElementById('savings-label').textContent = isSaving ? 'Monthly savings' : 'API cheaper by';
             document.getElementById('savings-sub').textContent = isSaving
-                ? 'per month by using Max instead of API'
+                ? 'per month by using ' + planName() + ' instead of API'
                 : 'per month — API may be better value';
             document.getElementById('result-savings').className =
                 'font-display font-black text-4xl mb-1 ' + (isSaving ? 'text-accent' : 'text-ink');
@@ -485,16 +477,16 @@ echo "~\$$cost"</pre>
             let title, text;
             if (monthlyApiCost < planCost * 0.5) {
                 title = 'API is likely more cost-effective';
-                text = 'At ' + sessionsPerDay + ' session' + (sessionsPerDay > 1 ? 's' : '') + '/day with ' + p.label + ', your API bill would be ~' + fmt(monthlyApiCost) + '/month — well below the $' + planCost + ' Max plan. You\'d need ' + breakEvenPerDay.toFixed(1) + ' sessions/day to break even. Unless your usage grows significantly, the API may be the better choice.';
+                text = 'At ' + sessionsPerDay + ' session' + (sessionsPerDay > 1 ? 's' : '') + '/day with ' + p.label + ', your API bill would be ~' + fmt(monthlyApiCost) + '/month — well below the $' + planCost + ' ' + planName() + ' plan. You\'d need ' + breakEvenPerDay.toFixed(1) + ' sessions/day to break even. Unless your usage grows significantly, the API may be the better choice.';
             } else if (monthlyApiCost < planCost) {
                 title = 'Close to break-even';
-                text = 'You\'re within striking distance of the Max plan cost. At ' + sessionsPerDay + ' sessions/day, your API bill would be ~' + fmt(monthlyApiCost) + '/month vs $' + planCost + ' for Max. The simplicity of flat-rate billing is worth considering — no surprise bills, no counting tokens.';
+                text = 'You\'re within striking distance of the ' + planName() + ' plan cost. At ' + sessionsPerDay + ' sessions/day, your API bill would be ~' + fmt(monthlyApiCost) + '/month vs $' + planCost + ' for ' + planName() + '. The simplicity of flat-rate billing is worth considering — no surprise bills, no counting tokens.';
             } else if (monthlyApiCost < planCost * 2) {
-                title = 'Max plan saves you money';
-                text = 'With ' + sessionsPerDay + ' sessions/day, you\'d spend ~' + fmt(monthlyApiCost) + '/month on the API. Max saves you ~' + fmt(savings) + '/month. That\'s ' + fmt(savings * 12) + '/year back in your pocket.';
+                title = planName() + ' saves you money';
+                text = 'With ' + sessionsPerDay + ' sessions/day, you\'d spend ~' + fmt(monthlyApiCost) + '/month on the API. ' + planName() + ' saves you ~' + fmt(savings) + '/month. That\'s ' + fmt(savings * 12) + '/year back in your pocket.';
             } else {
-                title = 'Max plan pays for itself many times over';
-                text = 'At ' + sessionsPerDay + ' sessions/day, API costs would be ~' + fmt(monthlyApiCost) + '/month — ' + (monthlyApiCost / planCost).toFixed(1) + '× the Max plan price. Max pays for itself and then some. You\'re saving ~' + fmt(savings) + '/month (' + fmt(savings * 12) + '/year).';
+                title = planName() + ' pays for itself many times over';
+                text = 'At ' + sessionsPerDay + ' sessions/day, API costs would be ~' + fmt(monthlyApiCost) + '/month — ' + (monthlyApiCost / planCost).toFixed(1) + '× the ' + planName() + ' price. ' + planName() + ' pays for itself and then some. You\'re saving ~' + fmt(savings) + '/month (' + fmt(savings * 12) + '/year).';
             }
             document.getElementById('verdict-title').textContent = title;
             document.getElementById('verdict-text').textContent = text;

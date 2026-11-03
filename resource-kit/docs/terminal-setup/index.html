@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal setup // Amditis Kit</title>
-    <meta name="description" content="Complete guide to setting up your terminal for Claude Code, Gemini CLI, Codex, and Copilot CLI. Includes status line configuration for all platforms.">
+    <meta name="description" content="Complete guide to setting up your terminal for Claude Code, Codex, Antigravity CLI, and Copilot CLI. Includes status line configuration for all platforms.">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tools.amditis.tech/terminal-setup/" />
     <meta property="og:title" content="Terminal setup | Amditis AI journalism tools" />
-    <meta property="og:description" content="How to set up your terminal and install Claude Code, Gemini CLI, Codex, and Copilot CLI." />
+    <meta property="og:description" content="How to set up your terminal and install Claude Code, Codex, Antigravity CLI, and Copilot CLI." />
     <meta property="og:image" content="https://tools.amditis.tech/assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Terminal setup | Amditis AI journalism tools" />
-    <meta name="twitter:description" content="How to set up your terminal and install Claude Code, Gemini CLI, Codex, and Copilot CLI." />
+    <meta name="twitter:description" content="How to set up your terminal and install Claude Code, Codex, Antigravity CLI, and Copilot CLI." />
     <meta name="twitter:image" content="https://tools.amditis.tech/assets/og-image.png" />
 
     <!-- CSS & Config -->
@@ -203,10 +203,10 @@
 
                 <!-- Tagline -->
                 <p class="text-ink/60 text-base md:text-lg max-w-2xl mx-auto mb-6 leading-relaxed">
-                    Configure your terminal for <span class="text-accent font-bold">Claude Code</span>, <span class="text-accent font-bold">Gemini CLI</span>, <span class="text-ink font-bold">Codex</span>, and <span class="text-ink font-bold">Copilot CLI</span>.
+                    Configure your terminal for <span class="text-accent font-bold">Claude Code</span>, <span class="text-ink font-bold">Codex</span>, <span class="text-accent font-bold">Antigravity CLI</span>, and <span class="text-ink font-bold">Copilot CLI</span>.
                     <br class="hidden sm:inline">Includes status line configuration and platform-specific setup.
                 </p>
-                <p class="text-xs text-ink/50 mb-6">Verified August 15, 2026. CLI installers, defaults, aliases, and plan access change frequently; check each vendor's current documentation.</p>
+                <p class="text-xs text-ink/50 mb-6">Verified November 2, 2026. CLI installers, defaults, aliases, and plan access change frequently; check each vendor's current documentation.</p>
 
                 <!-- Terminal-style preview -->
                 <div class="max-w-2xl mx-auto deckle-card text-left text-sm overflow-hidden">
@@ -245,7 +245,10 @@
                         <a href="#claude-code" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
                             Claude Code
                         </a>
-                        <a href="#gemini-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
+                        <a href="#antigravity-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
+                                Antigravity CLI
+                            </a>
+                            <a href="#gemini-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
                             Gemini CLI
                         </a>
                         <a href="#codex-cli" class="sidebar-link block py-2 px-3 border-l-2 border-ink/10 text-ink/60 hover:text-accent">
@@ -285,13 +288,12 @@
                                     <div class="flex-1">
                                         <h3 class="font-display text-lg text-ink font-bold mb-2">Node.js 20 LTS</h3>
                                         <p class="text-ink/60 text-sm mb-4">
-                                            All three AI CLI tools require <span class="def-trigger text-accent" data-def="nodejs">Node.js</span> version 18 or higher.
-                                            We recommend installing <strong class="text-ink">Node.js 20 LTS</strong> for maximum compatibility.
+                                            The Claude Code, Codex, and Antigravity CLI installers do not need <span class="def-trigger text-accent" data-def="nodejs">Node.js</span>. Install it if you use npm for Gemini CLI, Copilot CLI, or your own projects. We recommend <strong class="text-ink">Node.js 20 LTS</strong>.
                                         </p>
                                         <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 text-xs border badge-claude">Claude Code: 18+</span>
+                                            <span class="px-2 py-1 text-xs border badge-claude">Claude Code: not needed</span>
                                             <span class="px-2 py-1 text-xs border badge-gemini">Gemini CLI: 20+</span>
-                                            <span class="px-2 py-1 text-xs border badge-codex">Codex: 18+</span>
+                                            <span class="px-2 py-1 text-xs border badge-codex">Codex: not needed</span>
                                         </div>
                                     </div>
                                 </div>
@@ -307,7 +309,7 @@
                                         <h3 class="font-display text-lg text-ink font-bold mb-2">Git</h3>
                                         <p class="text-ink/60 text-sm">
                                             <span class="def-trigger text-accent" data-def="git">Git</span> is required for version control features.
-                                            All three tools integrate with Git for tracking changes, creating commits, and managing branches.
+                                            All of these tools integrate with Git for tracking changes, creating commits, and managing branches.
                                         </p>
                                     </div>
                                 </div>
@@ -613,7 +615,7 @@ git config --global user.email "your@email.com"</code></pre>
                                                         <div class="text-ink text-sm font-bold">PowerShell</div>
                                                         <span class="text-xs bg-ink/10 text-ink/60 px-2 py-0.5 rounded-sm">NATIVE</span>
                                                     </div>
-                                                    <p class="text-ink/60 text-xs">Modern Windows shell. Works for all three CLI tools but some commands differ from tutorials.</p>
+                                                    <p class="text-ink/60 text-xs">Modern Windows shell. Works for these CLI tools but some commands differ from tutorials.</p>
                                                 </div>
 
                                                 <div class="bg-ink/[0.02] border border-ink/10 p-4 rounded-sm">
@@ -815,21 +817,21 @@ node --version</code></pre>
                                                         <i data-lucide="copy" class="w-3 h-3"></i> Copy
                                                     </button>
                                                 </div>
-                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">npm install -g @anthropic-ai/claude-code</code></pre>
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
                                             </div>
                                         </div>
 
                                         <div id="claude-win" class="tab-content">
                                             <div class="code-block rounded-sm overflow-hidden">
                                                 <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
-                                                    <span class="text-xs text-white/50">PowerShell / WSL2</span>
+                                                    <span class="text-xs text-white/50">PowerShell</span>
                                                     <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
                                                         <i data-lucide="copy" class="w-3 h-3"></i> Copy
                                                     </button>
                                                 </div>
-                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">npm install -g @anthropic-ai/claude-code</code></pre>
+                                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">irm https://claude.ai/install.ps1 | iex</code></pre>
                                             </div>
-                                            <p class="text-ink/50 text-xs mt-2">Same command works in PowerShell, WSL2, or Git Bash.</p>
+                                            <p class="text-ink/50 text-xs mt-2">Run this in PowerShell. Inside WSL, use the Mac and Linux command. After you install on Windows, you can start Claude Code from Git Bash. You can also use <code>winget install Anthropic.ClaudeCode</code> or, on a Mac, <code>brew install --cask claude-code</code>. Those two do not update by themselves.</p>
                                         </div>
                                     </div>
 
@@ -842,13 +844,55 @@ node --version</code></pre>
                                             <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">claude</code></pre>
                                         </div>
                                         <p class="text-ink/60 text-sm mt-3">You'll be prompted to authenticate with your Anthropic account or API key.</p>
+                                <p class="text-ink/60 text-sm mt-3">The default model is Claude Opus 5.5. Use <code class="text-accent">/model fable</code> for the hardest problems, and <code class="text-accent">/effort</code> to change how hard the model works. Use <code class="text-accent">/init</code> to start a short CLAUDE.md.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <!-- Gemini CLI Section -->
+                    <!-- Antigravity CLI Section -->
+                <section id="antigravity-cli" class="mb-12 scroll-mt-24">
+                    <div class="border-b border-ink/10 pb-4 mb-6">
+                        <div class="flex items-end justify-between">
+                            <h2 class="font-display text-xl md:text-2xl font-light italic text-ink flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-sm pill-xai flex items-center justify-center font-bold text-sm">A</div>
+                                // Antigravity CLI
+                            </h2>
+                            <span class="text-xs badge-gemini px-2 py-1 border rounded-sm">Google</span>
+                        </div>
+                    </div>
+
+                    <div class="deckle-card p-6">
+                        <p class="text-ink/70 text-sm mb-6">
+                            <strong class="text-ink">Antigravity CLI</strong> (<code class="text-accent">agy</code>) is Google's agent CLI for free accounts, Google AI Pro and Ultra, and Gemini 4 Argon.
+                        </p>
+
+                        <div class="code-block rounded-sm overflow-hidden mb-4">
+                            <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                <span class="text-xs text-white/50">Installation (Mac and Linux)</span>
+                                <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                </button>
+                            </div>
+                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">curl -fsSL https://antigravity.google/cli/install.sh | bash</code></pre>
+                        </div>
+
+                        <div class="code-block rounded-sm overflow-hidden mb-4">
+                            <div class="bg-ink/80 px-4 py-2 border-b border-white/10 flex justify-between items-center">
+                                <span class="text-xs text-white/50">Installation (PowerShell)</span>
+                                <button onclick="copyCode(this)" class="text-xs text-white/50 hover:text-accent flex items-center gap-1">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                                </button>
+                            </div>
+                            <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">irm https://antigravity.google/cli/install.ps1 | iex</code></pre>
+                        </div>
+
+                        <p class="text-ink/60 text-sm">Run <code class="text-accent">agy</code> in your project folder to start.</p>
+                    </div>
+                </section>
+
+                <!-- Gemini CLI Section -->
                     <section id="gemini-cli" class="mb-12 scroll-mt-24">
                         <div class="border-b border-ink/10 pb-4 mb-6">
                             <div class="flex items-end justify-between">
@@ -862,7 +906,7 @@ node --version</code></pre>
 
                         <div class="deckle-card p-6">
                             <p class="text-ink/70 text-sm mb-6">
-                                <strong class="text-ink">Gemini CLI</strong> remains Google's open-source CLI for enterprise, API, and Cloud workflows and uses an automatic model router by default. Google transitioned consumer Gemini CLI users to Antigravity CLI on June 18, 2026; use the product that matches your account and deployment boundary.
+                                <strong class="text-ink">Gemini CLI</strong> is now for Gemini Code Assist Standard and Enterprise accounts. It has no free tier and is not tuned for Gemini 4. For other accounts, use Antigravity CLI. For scripts and agents that use the Gemini API, Google also offers the <code class="text-accent">gemini-api</code> command-line tool in beta.
                             </p>
 
                             <div class="code-block rounded-sm overflow-hidden mb-4">
@@ -893,7 +937,7 @@ node --version</code></pre>
 
                         <div class="deckle-card p-6">
                             <p class="text-ink/70 text-sm mb-6">
-                                <strong class="text-ink">Codex CLI</strong> is OpenAI's coding agent. GPT-5.6 Sol is the current flagship recommendation, while the selected default can vary with client release, configuration, and plan. Sign in with a supported ChatGPT plan or use an OpenAI API key.
+                                <strong class="text-ink">Codex CLI</strong> is OpenAI's coding agent for the terminal. It uses GPT-6.1 Sol at medium effort by default. The CLI needs a ChatGPT Plus plan ($20 a month), a Pro plan (from $100 a month), a Business, Enterprise, or Edu plan that allows it, or an OpenAI API key that bills separately. Free and Go plans use GPT-6 Luna in the desktop app only, subject to rollout.
                             </p>
 
                             <div class="code-block rounded-sm overflow-hidden mb-4">
@@ -903,10 +947,36 @@ node --version</code></pre>
                                         <i data-lucide="copy" class="w-3 h-3"></i> Copy
                                     </button>
                                 </div>
-                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">npm install -g @openai/codex</code></pre>
+                                <pre class="p-4 text-sm overflow-x-auto"><code class="text-white/80">curl -fsSL https://chatgpt.com/codex/install.sh | sh</code></pre>
                             </div>
 
                             <p class="text-ink/60 text-sm">Run <code class="text-accent">codex</code> in your project folder to start.</p>
+                        <p class="text-ink/60 text-sm mt-3">The installer is for Mac and Linux. On Windows, use <code class="text-accent">npm install -g @openai/codex</code> or follow the <a href="https://developers.openai.com/codex/cli" target="_blank" rel="noopener" class="text-accent hover-line">Codex CLI page</a>.</p>
+                        <div class="overflow-x-auto mt-4">
+                            <table class="w-full text-sm text-ink/60">
+                                <caption class="sr-only">Current Codex models</caption>
+                                <thead>
+                                    <tr class="border-b border-ink/10 text-left text-ink">
+                                        <th scope="col" class="py-2 pr-4 font-bold">Model</th>
+                                        <th scope="col" class="py-2 pr-4 font-bold">Use it for</th>
+                                        <th scope="col" class="py-2 font-bold">Command</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-ink/5"><td class="py-2 pr-4">GPT-6.1 Sol (default)</td><td class="py-2 pr-4">Repeated, long-running work across code, apps, and documents</td><td class="py-2"><code class="text-accent whitespace-nowrap">codex -m gpt-6.1-sol</code></td></tr>
+                                    <tr class="border-b border-ink/5"><td class="py-2 pr-4">GPT-6 Astra</td><td class="py-2 pr-4">The most demanding work</td><td class="py-2"><code class="text-accent whitespace-nowrap">codex -m gpt-6-astra</code></td></tr>
+                                    <tr class="border-b border-ink/5"><td class="py-2 pr-4">GPT-6.1 Terra</td><td class="py-2 pr-4">Writing, visual understanding, and computer use. Needs CLI 0.159.0 or later</td><td class="py-2"><code class="text-accent whitespace-nowrap">codex -m gpt-6.1-terra</code></td></tr>
+                                    <tr><td class="py-2 pr-4">GPT-6 Luna</td><td class="py-2 pr-4">Focused, high-volume tasks such as summaries, extraction, and focused coding</td><td class="py-2"><code class="text-accent whitespace-nowrap">codex -m gpt-6-luna</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="text-ink/60 text-sm mt-3 space-y-1.5 list-disc pl-5">
+                            <li><code class="text-accent">/init</code> writes a starter <code class="text-accent">AGENTS.md</code>. Keep it short, and update it after a repeated mistake.</li>
+                            <li><code class="text-accent">/plan</code> plans first. <code class="text-accent">/review</code> reviews uncommitted changes or a base branch. <code class="text-accent">/model</code> sets the model, and <code class="text-accent">/model --reasoning=high</code> sets effort.</li>
+                            <li>Use <code class="text-accent">/model</code> or <code class="text-accent">-m</code> to change the model. The models below depend on your plan.</li>
+                            <li><code class="text-accent">codex exec "summarize the repository"</code> runs in a script. It is read-only by default. Add <code class="text-accent">--sandbox workspace-write</code> to allow edits.</li>
+                            <li>Use low effort for scoped tasks, medium or high for complex changes and debugging, and Extra High for long agent work.</li>
+                        </ul>
                         </div>
                     </section>
 
@@ -973,7 +1043,7 @@ node --version</code></pre>
                                     <div class="bg-ink/80 px-4 py-2 border-b border-white/10">
                                         <span class="text-xs text-white/50">Preview</span>
                                     </div>
-                                    <pre class="p-4 text-sm overflow-x-auto"><code><span style="color:#6bdf6b">Opus 5</span> <span style="color:#666">|</span> <span style="color:#6bdf6b">[####------] 42%</span> <span style="color:#666">/ 200K</span> <span style="color:#666">|</span> <span style="color:#5fcfcf">my-project</span> <span style="color:#d4d46b">(main +2 [3M 1?])</span> <span style="color:#666">|</span> <span style="color:#d47fd4">my-session</span>
+                                    <pre class="p-4 text-sm overflow-x-auto"><code><span style="color:#6bdf6b">Opus 5.5</span> <span style="color:#666">|</span> <span style="color:#6bdf6b">[####------] 42%</span> <span style="color:#666">/ 1M</span> <span style="color:#666">|</span> <span style="color:#5fcfcf">my-project</span> <span style="color:#d4d46b">(main +2 [3M 1?])</span> <span style="color:#666">|</span> <span style="color:#d47fd4">my-session</span>
 <span style="color:#666">MCPs:</span> <span style="color:#e05050">browser, calendar, drive, gmail</span> <span style="color:#666">|</span> <span style="color:#5f8fbf">Explanatory</span> <span style="color:#666">|</span> <span style="color:#666">skills:</span> frontend-design</code></pre>
                                 </div>
 
@@ -1041,15 +1111,19 @@ session_id=$(echo "$input" | jq -r '.session_id // empty')
 
 # Shorten model name
 case "$model_name" in
+    "Claude Fable 5.1"*)   short_model="Fable 5.1" ;;
     "Claude Fable 5"*)     short_model="Fable 5" ;;
+    "Claude Opus 5.5"*)    short_model="Opus 5.5" ;;
     "Claude Opus 5"*)      short_model="Opus 5" ;;
     "Claude Opus 4.8"*)    short_model="Opus 4.8" ;;
     "Claude Opus 4.6"*)    short_model="Opus 4.6" ;;
     "Claude Opus 4.5"*)    short_model="Opus 4.5" ;;
     "Claude Opus 4"*)      short_model="Opus 4" ;;
-    "Claude Sonnet 5"*)  short_model="Sonnet 5" ;;
+    "Claude Sonnet 5.5"*)  short_model="Sonnet 5.5" ;;
+    "Claude Sonnet 5"*)    short_model="Sonnet 5" ;;
     "Claude Sonnet 4.5"*)  short_model="Sonnet 4.5" ;;
     "Claude Sonnet 4"*)    short_model="Sonnet 4" ;;
+    "Claude Haiku 5.5"*)   short_model="Haiku 5.5" ;;
     "Claude Haiku 4.5"*)   short_model="Haiku 4.5" ;;
     "Claude Haiku 4"*)     short_model="Haiku 4" ;;
     *)                     short_model="$model_name" ;;
@@ -1196,22 +1270,27 @@ $outputStyle = $data.output_style.name
 $sessionId = $data.session_id
 
 $shortModel = switch -Wildcard ($modelName) {
+    "Claude Fable 5.1*"  { "Fable 5.1"; break }
     "Claude Fable 5*"    { "Fable 5"; break }
+    "Claude Opus 5.5*"   { "Opus 5.5"; break }
     "Claude Opus 5*"     { "Opus 5"; break }
     "Claude Opus 4.8*"   { "Opus 4.8"; break }
     "Claude Opus 4.6*"   { "Opus 4.6"; break }
     "Claude Opus 4.5*"   { "Opus 4.5"; break }
     "Claude Opus 4*"     { "Opus 4"; break }
-    "Claude Sonnet 5*" { "Sonnet 5"; break }
+    "Claude Sonnet 5.5*" { "Sonnet 5.5"; break }
+    "Claude Sonnet 5*"   { "Sonnet 5"; break }
     "Claude Sonnet 4.5*" { "Sonnet 4.5"; break }
     "Claude Sonnet 4*"   { "Sonnet 4"; break }
+    "Claude Haiku 5.5*"  { "Haiku 5.5"; break }
     "Claude Haiku 4.5*"  { "Haiku 4.5"; break }
     "Claude Haiku 4*"    { "Haiku 4"; break }
-    "Fable 5*"           { "Fable 5"; break }
-    "Opus 5*"            { "Opus 5"; break }
+    "Fable 5.1*"         { "Fable 5.1"; break }
+    "Opus 5.5*"          { "Opus 5.5"; break }
+    "Sonnet 5.5*"        { "Sonnet 5.5"; break }
+    "Haiku 5.5*"         { "Haiku 5.5"; break }
     "Opus 4.8*"          { "Opus 4.8"; break }
     "Opus 4.6*"          { "Opus 4.6"; break }
-    "Sonnet 5*"        { "Sonnet 5"; break }
     default              { $modelName }
 }
 

@@ -6,13 +6,13 @@
 
 - URL: https://tools.amditis.tech
 - Author: Joe Amditis, Center for Cooperative Media
-- Version: AI Tools Kit v2.6
+- Version: AI Tools Kit v2.8
 - Audience: Journalists and newsroom staff learning to build with AI
 
 ## Guides
 
 - Vibe coding guide: https://tools.amditis.tech/vibe-coding/ — Core methodology for shipping AI-assisted code, from zero to deployed project
-- Terminal setup: https://tools.amditis.tech/terminal-setup/ — Configuration guide for Claude Code, Gemini CLI, and Codex
+- Terminal setup: https://tools.amditis.tech/terminal-setup/ — Configuration guide for Claude Code, Codex, and Antigravity CLI
 - Quick reference card: https://tools.amditis.tech/quick-reference-card/ — Printable one-page cheat sheet for AI coding commands
 - Language guide: https://tools.amditis.tech/language-guide/ — Python vs JavaScript vs R recommendations for journalists
 - Technical glossary: https://tools.amditis.tech/glossary/ — 40+ plain-language definitions of AI and coding terms
@@ -47,7 +47,7 @@ Chrome and Edge extensions built by Joe Amditis. Each installs from the Chrome W
 
 ## Key concepts
 
-"Vibe coding" is the practice of using AI coding assistants (like Claude Code, Gemini CLI, or Codex) to build software by describing what you want in plain language. The AI writes the code, and you guide the process through iterative prompting. This approach makes software development accessible to journalists and other non-programmers.
+"Vibe coding" is the practice of using AI coding assistants (like Claude Code, Codex, or Antigravity CLI) to build software by describing what you want in plain language. The AI writes the code, and you guide the process through iterative prompting. This approach makes software development accessible to journalists and other non-programmers.
 
 ## About the author
 

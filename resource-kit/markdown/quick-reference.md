@@ -6,20 +6,20 @@
 
 ## Current agent starting points
 
-> Verified August 15, 2026. Check vendor model and pricing pages before production use.
+> Verified November 2, 2026. Check vendor model and pricing pages before production use.
 
 | Need | Model | Notes |
 |------|-------|-------|
-| Maximum-capability Anthropic work | Claude Fable 5 | Long-running difficult agents |
-| Advanced Anthropic coding and reasoning | Claude Opus 5 | Deep, long-horizon work |
-| Balanced Anthropic coding | Claude Sonnet 5 | Daily speed-quality choice |
-| Current Google coding and agents | Gemini 3.7 Flash | New workhorse released August 13, 2026 |
-| OpenAI coding | Codex (GPT-5.6 Sol) | Specialized for code |
-| Balanced OpenAI agents | GPT-5.6 Terra | Daily capability, latency, and cost balance |
-| High-throughput OpenAI tasks | GPT-5.6 Luna | Fastest GPT-5.6 tier |
-| Highest hosted Qwen evaluation | Qwen 3.8 Max preview | Preview lifecycle can change |
+| Maximum-capability Anthropic work | Claude Fable 5.1 | Long-running difficult agents |
+| Advanced Anthropic coding and reasoning | Claude Opus 5.5 | Deep, long-horizon work |
+| Balanced Anthropic coding | Claude Sonnet 5.5 | Daily speed-quality choice |
+| Current Google coding and agents | Gemini 3.8 Flash | Generally available since September 2, 2026 |
+| OpenAI coding | Codex (GPT-6.1 Sol) | Default Codex model |
+| Balanced OpenAI agents | GPT-6.1 Terra | Daily capability, latency, and cost balance |
+| High-throughput OpenAI tasks | GPT-6 Luna | Fastest OpenAI tier |
+| Top hosted Qwen tier | Qwen 3.8 Max | Check regional availability |
 | Stable hosted Qwen agents | Qwen 3.7 Plus | One-million-token context |
-| Open-weight long-horizon agents | GLM-5.2 | Hosting and hardware required |
+| Open-weight long-horizon agents | GLM-5.3 | Hosting and hardware required |
 | Efficient local agentic coding | Qwen3.6-35B-A3B | About 3B active parameters |
 
 ---

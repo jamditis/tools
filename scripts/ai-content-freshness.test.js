@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -36,6 +37,12 @@ const activeSurfaces = [
 
 const staleClaims = [
   ["GPT 5.5", /\bGPT[ -]?5\.5\b/i],
+  ["GPT 5.6", /\bGPT[ -]?5\.6\b/i],
+  ["Gemini 3.7 Flash", /\bGemini 3\.7 Flash\b/i],
+  ["Gemini 3.1 Pro", /\bGemini 3\.1 Pro\b/i],
+  ["Grok 4.5", /\bGrok 4\.5\b/i],
+  ["GLM-5.2", /\bGLM-5\.2\b/i],
+  ["Mistral Medium 3.5", /\bMistral Medium 3\.5\b/i],
   ["Claude Sonnet 4.6", /\b(?:Claude )?Sonnet 4\.6\b/i],
   ["GLM-5.1", /\bGLM-5\.1\b/i],
   ["Grok 3", /\bGrok 3\b/i],
@@ -79,7 +86,7 @@ test("primary AI guidance records when its model catalog was verified", async ()
   const missing = [];
   for (const relativePath of required) {
     const content = await readFile(resolve(root, relativePath), "utf8");
-    if (!/Verified(?::\*\*)? August 15, 2026/.test(content)) {
+    if (!/Verified(?::\*\*)? November 2, 2026/.test(content)) {
       missing.push(relativePath);
     }
   }
@@ -94,9 +101,9 @@ test("the skills site card matches the current public catalog", async () => {
   );
 
   assert.match(home, /https:\/\/skills\.amditis\.tech\//);
-  assert.match(home, /64 agent skills, 13 plugins, and 17 hooks/);
-  assert.match(home, />64 Skills</);
-  assert.match(home, />13 Plugins</);
+  assert.match(home, /76 agent skills, 14 plugins, and 17 hooks/);
+  assert.match(home, />76 Skills</);
+  assert.match(home, />14 Plugins</);
   assert.match(home, />17 Hooks</);
   assert.doesNotMatch(home, /jamditis\.github\.io\/claude-skills-journalism/);
 });
@@ -110,19 +117,26 @@ test("the model catalog includes each current provider tier", async () => {
   );
 
   for (const model of [
-    "Claude Opus 5",
-    "GPT-5.6 Sol",
-    "GPT-5.6 Terra",
-    "GPT-5.6 Luna",
-    "Gemini 3.7 Flash",
-    "Gemini 3.5 Flash",
+    "Claude Fable 5.1",
+    "Claude Opus 5.5",
+    "Claude Sonnet 5.5",
+    "Claude Haiku 5.5",
+    "GPT-6 Astra",
+    "GPT-6.1 Sol",
+    "GPT-6.1 Terra",
+    "GPT-6 Luna",
+    "Codex (GPT-6.1 Sol)",
+    "Gemini 4 Argon",
+    "Gemini 3.8 Flash",
     "Gemini 3.6 Flash",
-    "Qwen 3.8 Max (preview)",
+    "Grok 4.7",
+    "Qwen 3.8 Max",
+    "Qwen 3.8 Flash",
     "Qwen 3.7 Plus",
     "Kimi K3 (open weights)",
     "MiniMax M3",
     "NVIDIA Nemotron 3 Ultra (open weights)",
-    "Mistral Medium 3.5 (open weights)",
+    "Mistral Large 4 (open weights)",
     "Mistral Small 4 (open weights)",
     "Step-3.7-Flash (open weights)",
     "MiMo-V2-Flash (open weights)",
@@ -148,9 +162,9 @@ test("the public advisor records the current refresh", async () => {
     "utf8"
   );
 
-  assert.equal(changelog[0].version, "August 16, 2026");
-  assert.match(changelog[0].notes, /Next level guide/);
-  assert.match(advisor, /Kit v2\.7/);
+  assert.equal(changelog[0].version, "November 2, 2026");
+  assert.match(changelog[0].notes, /Codex guidance/);
+  assert.match(advisor, /Kit v2\.8/);
 });
 
 test("current recommendation surfaces use the newest workhorse models", async () => {
@@ -165,8 +179,8 @@ test("current recommendation surfaces use the newest workhorse models", async ()
 
   for (const relativePath of recommendationSurfaces) {
     const content = await readFile(resolve(root, relativePath), "utf8");
-    assert.match(content, /Claude Opus 5/);
-    assert.match(content, /Gemini 3\.7 Flash/);
+    assert.match(content, /Claude Opus 5\.5/);
+    assert.match(content, /Gemini 3\.8 Flash/);
   }
 
   const register = await readFile(
@@ -194,26 +208,24 @@ test("current recommendation surfaces use the newest workhorse models", async ()
   }
 
   for (const currentSpecialist of [
-    "GPT Image 2",
+    "GPT Image 2.5",
     "GPT Realtime 2.1",
-    "Grok Imagine API",
-    "Sonar Deep Research",
-    "Eleven v3",
-    "Music v2",
+    "Grok Imagine Image 2.0",
+    "Agent API",
+    "Eleven v4",
+    "Music v2.5",
     "V8.2",
-    "Nano Banana 2",
-    "Veo 3.1",
+    "Nano Banana 2.1",
+    "Gemini Omni Flash",
     "Muse Image",
     "Seedream 5.0 Lite",
-    "Voxtral TTS",
-    "OCR 4",
+    "Voxtral TTS 3",
+    "OCR 4.1",
   ]) {
     assert.match(register, new RegExp(currentSpecialist.replaceAll(".", "\\.")));
   }
 
   assert.match(register, /MiniMax Community License/);
-  assert.match(register, /Imagen API models on August 17, 2026/);
-  assert.match(register, /Sora 2 and Sora 2 Pro as legacy models/);
 });
 
 test("Claude Code guidance uses current hook and subagent locations", async () => {
@@ -266,36 +278,50 @@ test("best-practice agent workflow guidance is reachable in the UI", async () =>
   assert.match(app, /['"]Agent workflows['"]:\s*data\.agentWorkflows/);
 });
 
-test("the copyable Claude cost estimator matches the displayed prices", async () => {
+test("the copyable statusline preserves cumulative cost across pricing changes", async () => {
   const calculator = await readFile(
     resolve(root, "resource-kit/docs/cost-calculator/index.html"),
     "utf8"
   );
+  const snippet = calculator.match(/<pre[^>]*id="snippet-code"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
+  assert.ok(snippet, "copyable statusline snippet exists");
 
-  // Each arm lists every current model id at that price tier. A session on an id
-  // no arm names falls through to the Sonnet default and understates its cost,
-  // so a new model has to be added here rather than left to the fallback.
-  assert.match(
-    calculator,
-    /\*fable-5\*\)\s+ip=10;\s*op=50;\s*cwp="12\.50";\s*crp="1\.0"/
+  // The documented cumulative cost is the oracle. Identical historical usage
+  // must not be repriced when the latest prompt crosses 100K or compacts.
+  for (const [model, prompt, cost, expected] of [
+    ["claude-haiku-5-5", 99999, 0.15, "~$0.15"],
+    ["claude-haiku-5-5", 100001, 0.15, "~$0.15"],
+    ["claude-haiku-5-5", 100001, 0.75, "~$0.75"],
+    ["claude-haiku-5-5", 99999, 0.75, "~$0.75"],
+    ["claude-opus-5-5", 99999, 0.75, "~$0.75"],
+  ]) {
+    const result = spawnSync("bash", ["-c", snippet], {
+      input: JSON.stringify({
+        model: { id: model },
+        cost: { total_cost_usd: cost },
+        context_window: {
+          total_input_tokens: 1000000,
+          total_output_tokens: 100000,
+          current_usage: { input_tokens: prompt },
+        },
+      }),
+      encoding: "utf8",
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout.trim(), expected, `${model}, prompt ${prompt}`);
+  }
+  const empty = spawnSync("bash", ["-c", snippet], { input: "{}", encoding: "utf8" });
+  assert.equal(empty.status, 0, empty.stderr);
+  assert.equal(empty.stdout.trim(), "~$0.00");
+});
+
+test("the calculator retains its displayed model and long-prompt prices", async () => {
+  const calculator = await readFile(
+    resolve(root, "resource-kit/docs/cost-calculator/index.html"),
+    "utf8"
   );
-  assert.match(
-    calculator,
-    /\*opus-5\*\|\*opus-4-8\*\|\*opus-4-7\*\|\*opus-4-6\*\)\s+ip=5;\s*op=25;\s*cwp="6\.25";\s*crp="0\.5"/
-  );
-  assert.match(
-    calculator,
-    /\*sonnet-5\*\|\*sonnet-4-6\*\)\s+ip=3;\s*op=15;\s*cwp="3\.75";\s*crp="0\.3"/
-  );
-  assert.match(
-    calculator,
-    /\*haiku-4-5\*\)\s+ip=1;\s*op=5;\s*cwp="1\.25";\s*crp="0\.1"/
-  );
-  // The snippet is only correct if the page offers the same tiers, so the
-  // Fable arm has to be reachable from the UI and the in-page pricing table.
-  assert.match(calculator, /Claude Fable 5/);
+  assert.match(calculator, /Claude Fable 5\.1/);
   assert.match(calculator, /\$10 \/ \$50 per M tokens/);
   assert.match(calculator, /fable:\s*\{\s*ip:\s*10,\s*op:\s*50,/);
-  assert.doesNotMatch(calculator, /\bip=15;\s*op=75\b/);
-  assert.doesNotMatch(calculator, /\bip=0\.8;\s*op=4\b/);
+  assert.match(calculator, /longPrompt:\s*\{\s*over:\s*100,\s*ip:\s*0\.5,\s*op:\s*2\.5,\s*cwp:\s*0\.625,\s*crp:\s*0\.05/);
 });

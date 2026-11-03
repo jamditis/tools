@@ -3,7 +3,7 @@
 > Choose the right AI coding assistant for your journalism project.
 
 **Author:** Joe Amditis
-**Verified:** August 15, 2026
+**Verified:** November 2, 2026
 
 Model names, access, prices, and privacy terms change quickly. Verify the current provider documentation before production use.
 
@@ -21,31 +21,31 @@ Answer the questions below to find the best LLM for your project. Each recommend
 *Cleaning spreadsheets, merging datasets, statistical analysis*
 
 → Best for: **Python scripts**
-→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.7 Flash**
+→ Recommended LLM: **Claude Sonnet 5.5** or **Gemini 3.8 Flash**
 
 ### Web scraping
 *Extracting data from websites, automating downloads*
 
 → Best for: **Python with BeautifulSoup or Playwright**
-→ Recommended LLM: **Claude Sonnet 5** (handles complex DOM structures well)
+→ Recommended LLM: **Claude Sonnet 5.5** (handles complex DOM structures well)
 
 ### Interactive visualization
 *Charts, maps, interactive graphics for stories*
 
 → Best for: **JavaScript with D3.js or Observable**
-→ Recommended LLM: **Claude Sonnet 5** or **Gemini 3.7 Flash**
+→ Recommended LLM: **Claude Sonnet 5.5** or **Gemini 3.8 Flash**
 
 ### File automation
 *Batch renaming, format conversion, organization*
 
 → Best for: **Bash or Python**
-→ Recommended LLM: **Gemini 3.7 Flash** (fast iterations for simple scripts)
+→ Recommended LLM: **Gemini 3.8 Flash** (fast iterations for simple scripts)
 
 ### Database work
 *SQL queries, data extraction, reporting*
 
 → Best for: **SQL**
-→ Recommended LLM: **Claude Sonnet 5** (excellent at complex queries)
+→ Recommended LLM: **Claude Sonnet 5.5** (excellent at complex queries)
 
 ---
 
@@ -56,13 +56,13 @@ Answer the questions below to find the best LLM for your project. Each recommend
 - Fast iteration more important than depth
 
 ### Medium (multiple files, some logic)
-- Use: **Claude Sonnet 5** or **Gemini 3.7 Flash**
+- Use: **Claude Sonnet 5.5** or **Gemini 3.8 Flash**
 - Balance of speed and capability
 
 ### Complex (multi-step, debugging intensive)
-- Use: **Claude Fable 5** or **Claude Opus 5** for difficult Anthropic workflows
-- Use: **GPT-5.6 Sol** for complex OpenAI agent work
-- Use: **Gemini 3.1 Pro** for preview multimodal reasoning, or **Gemini 3.7 Flash** for a stable option
+- Use: **Claude Fable 5.1** or **Claude Opus 5.5** for difficult Anthropic workflows
+- Use: **GPT-6.1 Sol** for complex OpenAI agent work
+- Use: **Gemini 4 Argon** for difficult multimodal reasoning, or **Gemini 3.8 Flash** for a lower-cost option
 
 ---
 
@@ -76,40 +76,40 @@ Free tiers, subscriptions, and API rates change frequently and differ by region.
 
 | If you need... | Use this |
 |----------------|----------|
-| Maximum-capability Anthropic work | Claude Fable 5 |
-| Advanced Anthropic coding and reasoning | Claude Opus 5 |
-| Balanced Anthropic coding | Claude Sonnet 5 |
-| Current Google coding and agents | Gemini 3.7 Flash |
-| OpenAI coding | Codex (GPT-5.6 Sol) |
-| Open-weight long-horizon agents | GLM-5.2 |
+| Maximum-capability Anthropic work | Claude Fable 5.1 |
+| Advanced Anthropic coding and reasoning | Claude Opus 5.5 |
+| Balanced Anthropic coding | Claude Sonnet 5.5 |
+| Current Google coding and agents | Gemini 3.8 Flash |
+| OpenAI coding | Codex (GPT-6.1 Sol) |
+| Open-weight long-horizon agents | GLM-5.3 |
 | Efficient local coding | Qwen3.6-35B-A3B |
-| Highest hosted Qwen evaluation | Qwen 3.8 Max preview |
+| Top hosted Qwen tier | Qwen 3.8 Max |
 | Stable hosted Qwen agents | Qwen 3.7 Plus |
 
 ---
 
 ## Model comparison
 
-### Claude Fable 5 and Claude Opus 5
+### Claude Fable 5.1 and Claude Opus 5.5
 - **Strengths:** High-capability long-running agents, coding, writing, and complex reasoning
 - **Weaknesses:** Slower response times
 - **Best for:** Difficult repository work, complex research, long-form writing
 - **Access:** Check the current Anthropic plan and model matrix
 
-### Gemini 3.7 Flash and Gemini 3.1 Pro
+### Gemini 3.8 Flash and Gemini 4 Argon
 - **Strengths:** Strong multimodal input, long context, and tool use
-- **Weaknesses:** Gemini 3.1 Pro is a preview model whose lifecycle can change
+- **Weaknesses:** Gemini 4 Argon has no free API tier, and its price doubles on December 1, 2026
 - **Best for:** Agentic multimodal work and large-document analysis
 - **Access:** Check the current Google model page
 
-### Codex (GPT-5.6 Sol)
-- **Strengths:** OpenAI's specialized coding model, excellent multi-file projects
+### Codex (GPT-6.1 Sol)
+- **Strengths:** OpenAI's coding agent, excellent multi-file projects. It defaults to GPT-6.1 Sol and also runs GPT-6 Astra, GPT-6.1 Terra, and GPT-6 Luna, depending on your plan
 - **Weaknesses:** Less versatile for non-coding tasks
 - **Best for:** All OpenAI coding work, multi-file projects
 - **Access:** Check current Codex and OpenAI plan support
 
 ### Open-weight options
-- **GLM-5.2:** Long-horizon, one-million-token agent workflows
+- **GLM-5.3:** Long-horizon, one-million-token agent workflows
 - **DeepSeek V4 Pro/Flash:** Long-context coding and tools
 - **Qwen3.6-35B-A3B:** Efficient local agentic coding
 - **Kimi K3:** Long-horizon coding, visual understanding, and end-to-end knowledge work
@@ -152,7 +152,7 @@ LLMs make mistakes. Always:
 Try a different model. Each has different training data and approaches.
 
 **Too slow?**
-Drop from Opus to Sonnet, or use Gemini 3.7 Flash for quick tasks.
+Drop from Opus to Sonnet, or use Gemini 3.8 Flash for quick tasks.
 
 **Too expensive?**
 Use free tiers for exploration, paid for production code.

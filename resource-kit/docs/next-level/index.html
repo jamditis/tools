@@ -279,9 +279,9 @@
                 </div>
             </section>
 
-            <!-- 4. Opus 5 and Fable 5 -->
+            <!-- 4. Current Claude models -->
             <section class="mb-16 reveal-section">
-                <h2 class="font-display text-2xl md:text-3xl font-light italic text-ink border-b border-ink/10 pb-4 mb-6">03 / Working with Opus 5 and Fable 5</h2>
+                <h2 class="font-display text-2xl md:text-3xl font-light italic text-ink border-b border-ink/10 pb-4 mb-6">03 / Working with Opus 5.5 and Fable 5.1</h2>
                 <div class="prose-body text-ink/75 leading-relaxed">
                     <p>
                         Prompting the current Claude models is largely a subtraction exercise. Habits that helped older models now cost you.
@@ -290,13 +290,27 @@
                         <strong class="font-semibold text-ink">Delete "double-check your work."</strong> These models self-verify. The instruction buys you nothing and spends tokens on redundant re-verification. Replace it with something the model cannot infer: explicit scope constraints. Which files it may touch, what it must not change, where to stop.
                     </p>
                     <p>
-                        <strong class="font-semibold text-ink">Start Opus 5 at default effort.</strong> Anthropic's prompting guidance is to reach for maximum effort when the task earns it, not as an opening move.
+                        <strong class="font-semibold text-ink">Start Opus 5.5 at default effort, and treat effort as the main control.</strong> In Claude Code, use <code>/effort high</code> or <code>xhigh</code> when a task has overlooked cases, <code>low</code> for quick iteration, and <code>max</code> only for hard unattended problems. Type <code>ultrathink</code> for one turn. Codex has the same idea: use low for scoped tasks, medium or high for complex changes, and Extra High for long agent work.
+                            </p>
+                            <p>
+                                <strong class="font-semibold text-ink">Stop doing what the tools now do.</strong> Anthropic's current best-practices guide lists habits you can drop:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-1.5">
+                                <li>Aggressive context management. The window is one million tokens and compaction is automatic. Using <code>/clear</code> between tasks is still worthwhile.</li>
+                                <li>Capital letters and the word IMPORTANT. Use a hook or a deny rule when a rule must hold.</li>
+                                <li>Subagents only to protect context. They are still good for parallel work and independent review.</li>
+                                <li>"Think hard" phrases. Set effort.</li>
+                                <li>"Keep going, don't be lazy." Give the agent a check to pass, or use <code>/goal</code>.</li>
+                                <li>Describing the architecture in CLAUDE.md. Keep that file under 200 lines, with only what the agent cannot infer.</li>
+                            </ul>
+                            <p>
+                                <strong class="font-semibold text-ink">Codex rules are close to the same.</strong> OpenAI's guide says to prompt with the goal, context, constraints, and a "done when" check, keep a short AGENTS.md, use one chat per outcome and a worktree per parallel task, and hold back full permissions until a task is reliable.
                     </p>
                     <p>
                         <strong class="font-semibold text-ink">For unattended runs, state the autonomy explicitly</strong> — how far the agent may go before checking in — and require that any claim of progress be audited against the actual tool results rather than taken at face value. A model reporting success is not evidence of success.
                     </p>
                     <p>
-                        On economics, Amditis's own testing points to a split. Fable 5 is excellent as a multi-agent overseer: an overnight coordinating run cost him about 2% of his weekly quota. As a daily driver it is too expensive. His arrangement is Opus as the daily standard, with Fable reserved for directing other agents rather than doing the work itself.
+                        On economics, Amditis's own testing of the earlier Fable 5 points to a split. Fable 5 was excellent as a multi-agent overseer: an overnight coordinating run cost him about 2% of his weekly quota. As a daily driver it was too expensive. His arrangement is Opus as the daily standard, with Fable reserved for directing other agents rather than doing the work itself.
                     </p>
                 </div>
             </section>
@@ -529,7 +543,7 @@
                 </div>
                 <div class="mt-6 pt-6 border-t border-canvas/10 text-center">
                     <p class="text-xs text-canvas/50">
-                        Amditis Kit v2.7 | Part of the <a href="/" class="text-canvas/60 hover:text-accent transition-colors hover-line">CCM Resource Collection</a>
+                        Amditis Kit v2.8 | Part of the <a href="/" class="text-canvas/60 hover:text-accent transition-colors hover-line">CCM Resource Collection</a>
                     </p>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 # CLAUDE.md - [Project Name]
 
-> Template for: General projects (Updated for Claude Code v2.1)
+> Template for: General projects (Updated for Claude Code 2.1.316)
 > Copy to: `./CLAUDE.md` or `./.claude/CLAUDE.md` in your project root
 >
 > **What is this?** CLAUDE.md is a memory file that gives Claude Code persistent context about your project. It's automatically read at the start of every conversation, so Claude understands your codebase, conventions, and preferences without you having to re-explain them.
@@ -37,11 +37,11 @@
 - [File naming: kebab-case.ts, PascalCase.tsx, etc.]
 - [Import organization: external first, then internal]
 
-## Architecture notes
+## Decisions and traps
 
-- [Key architectural decisions]
-- [Where business logic lives]
-- [How data flows through the system]
+- [Decisions that are not in the repository]
+- [Code that looks wrong but is correct]
+- [Anything you corrected twice]
 
 ## File structure
 
@@ -167,4 +167,4 @@ Review the requested change and report concrete findings with file references.
 ---
 
 *Be specific. "Use 2-space indentation" beats "Format code properly."*
-*Verified August 15, 2026 against Claude Code v2.1 documentation and CLI 2.1.233.*
+*Verified November 2, 2026 against Claude Code documentation and CLI 2.1.316.*

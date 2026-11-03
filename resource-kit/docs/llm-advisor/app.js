@@ -287,7 +287,7 @@ async function loadAllData() {
          * still opens with something sensible if the catalog is renamed.
          * @type {string[]}
          */
-        const COMPARE_DEFAULTS = ['Claude Opus 5', 'GPT-5.6 Sol', 'Gemini 3.7 Flash'];
+        const COMPARE_DEFAULTS = ['Claude Opus 5.5', 'GPT-6.1 Sol', 'Gemini 3.8 Flash'];
 
         /**
          * Builds the default three-column comparison selection.
@@ -388,11 +388,11 @@ async function loadAllData() {
          * appropriate brand colors. Falls back to neutral gray for unknown tools.
          *
          * @function getPillClasses
-         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 5")
+         * @param {string} tool - The tool name (may include version, e.g., "Claude Opus 5.5")
          * @returns {string} A provider pill class defined in amditis-v3.css
          *
          * @example
-         * getPillClasses('Claude Opus 5')  // Returns 'pill-anthropic'
+         * getPillClasses('Claude Opus 5.5')  // Returns 'pill-anthropic'
          * getPillClasses('Unknown Tool')     // Returns 'pill-neutral'
          */
         const getPillClasses = (tool) => {
@@ -410,7 +410,7 @@ async function loadAllData() {
                  'Gemini': 'pill-google',          // Google teal
                  'Nano Banana': 'pill-google',     // Alias for Gemini
                  'Codex': 'pill-openai',           // OpenAI neutral
-                 'GPT-5.6 Sol': 'pill-openai',     // OpenAI neutral
+                 'GPT-': 'pill-openai',                // OpenAI neutral
                  'GLM': 'pill-open-weight',        // Open-weight GLM family
                  'Qwen': 'pill-open-weight',       // Open-weight Qwen family
                  'Kimi': 'pill-open-weight',       // Open-weight Kimi family
@@ -1206,7 +1206,7 @@ async function loadAllData() {
          *
          * @example
          * showModal('Tool comparison', renderComparisonModal);
-         * showModal('Model information', renderModelInfoModal, 'Claude Opus 5');
+         * showModal('Model information', renderModelInfoModal, 'Claude Opus 5.5');
          */
         function showModal(title, renderFunction, ...args) {
             modalTitle.textContent = title;

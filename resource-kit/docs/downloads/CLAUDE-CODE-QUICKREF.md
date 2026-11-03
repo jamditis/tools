@@ -7,14 +7,17 @@ Essential commands, keyboard shortcuts, and features for Claude Code.
 ## Getting Started
 
 ```bash
-# Install
-npm install -g @anthropic-ai/claude-code
+# Install (Mac, Linux, WSL)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Install (Windows PowerShell)
+irm https://claude.ai/install.ps1 | iex
 
 # Start session
 claude
 
 # Start with specific model
-claude --model opus
+claude --model fable
 
 # Resume a named session
 claude --resume my-project
@@ -29,7 +32,15 @@ claude --agent json-editor
 
 | Command | Description |
 |---------|-------------|
+| `/init` | Start a short CLAUDE.md |
 | `/plan` | Enter plan mode for complex features |
+| `/effort` | Set how hard the model works |
+| `/goal` | Work until a stated check passes |
+| `/code-review` | Review the current diff (`/review` also works) |
+| `/rewind` | Go back to an earlier point |
+| `/loop` | Repeat a prompt on an interval |
+| `/schedule` | Create a scheduled cloud task |
+| `/compact` | Compact the context by hand |
 | `/rename <name>` | Name current session for later |
 | `/stats` | View usage statistics |
 | `/help` | Show all available commands |
@@ -41,11 +52,13 @@ claude --agent json-editor
 
 | Shortcut | Action |
 |----------|--------|
-| `Alt+T` | Toggle thinking mode |
-| `Alt+P` | Switch models mid-prompt |
-| `Shift+Tab` | Auto-accept edits (plan mode) |
-| `Ctrl+B` | Background all foreground tasks |
-| `;` / `,` | Repeat f/F/t/T vim motions |
+| `Alt+T` | Toggle thinking |
+| `Alt+P` | Switch models |
+| `Alt+O` | Toggle fast mode |
+| `Shift+Tab` | Cycle permission modes |
+| `Ctrl+B` | Send a task to the background (press twice in tmux) |
+| `Ctrl+O` | Open the transcript |
+| `Esc` `Esc` | Rewind |
 
 ---
 
@@ -58,24 +71,30 @@ Place in project root. Claude reads this at session start.
 ```markdown
 # CLAUDE.md
 
-## Project Overview
-[What this project does]
-
-## Architecture
-[Key files and their purposes]
-
-## Conventions
-- [Naming conventions]
-- [Code patterns to follow]
-
-## Common Commands
+## Commands
 - `npm run dev` - Start development server
 - `npm test` - Run tests
 
-## Things to Avoid
-- [Anti-patterns]
-- [Outdated approaches]
+## Conventions the code does not show
+- [Rules that Claude cannot infer]
+
+## Decisions and traps
+- [Decisions that are not in the repository]
+- [Code that looks wrong but is correct]
+- [Anything you corrected twice]
 ```
+
+Keep this file under 200 lines. Do not describe the architecture, because Claude can read the code. Claude Code reads `AGENTS.md` only when no `CLAUDE.md` or `CLAUDE.local.md` is present. To share one file with Codex and keep a `CLAUDE.md`, put `@AGENTS.md` in `CLAUDE.md`. When a rule must always hold, use a hook or a deny rule. Instructions in this file are advice.
+
+## Effort
+
+| Setting | When to use it |
+|---------|----------------|
+| Default | Start here |
+| `/effort low` | Quick iteration |
+| `/effort high` or `xhigh` | Tasks with overlooked cases |
+| `/effort max` | Hard unattended problems only |
+| `ultrathink` in a prompt | One turn of deeper thinking |
 
 ### Skills (.claude/skills/)
 
@@ -280,4 +299,4 @@ Each reports back independently.
 
 ---
 
-*Verified August 15, 2026 against Claude Code v2.1 documentation and CLI 2.1.233.*
+*Verified November 2, 2026 against Claude Code documentation and CLI 2.1.316.*
