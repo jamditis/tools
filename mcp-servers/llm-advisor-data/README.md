@@ -6,7 +6,7 @@ Every present `tools` array must be nonempty, including on intermediate options:
 
 Graph validation runs on the proposed result, so adding a missing destination can still repair a dangling edge. Existing malformed nested shapes must be corrected before a write can proceed.
 
-The data-write suite uses `npm test` in this directory (Node.js 20 or newer).
+The data-write suite uses `npm test` in this directory with Node.js 22.23.5 or later in 22.x, 24.22.3 or later in 24.x, or 26.13.1 and later.
 It is separate from the GitHub-hosted Content checks job, which validates
 the shipped JSON and content. This public repository runs CI on GitHub-hosted
 runners, not fleet machines. Tests use temporary copies and synthetic malformed nodes; they do not edit the shipped catalog.

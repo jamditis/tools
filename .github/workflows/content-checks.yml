@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.23.5'
       - name: Check content and statusline behavior
         run: node --test scripts/ai-content-freshness.test.js scripts/advisor-attributes.test.js
       - name: Validate advisor JSON
